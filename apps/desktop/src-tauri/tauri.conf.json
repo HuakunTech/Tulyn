@@ -64,6 +64,9 @@
         ],
         "writeFile": false
       },
+      "notification": {
+        "all": true
+      },
       "dialog": {
         "all": true,
         "ask": true,
@@ -71,6 +74,13 @@
         "message": true,
         "open": true,
         "save": true
+      },
+      "shell": {
+        "all": true,
+        "execute": true,
+        "open": true,
+        "scope": [],
+        "sidecar": true
       }
     },
     "bundle": {
