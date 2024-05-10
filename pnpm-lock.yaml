@@ -182,6 +182,9 @@ importers:
       '@tauri-apps/api':
         specifier: ^1.0.0
         version: 1.5.4
+      tauri-plugin-clipboard-api:
+        specifier: ^0.6.9
+        version: 0.6.9
       tslib:
         specifier: ^2.1.0
         version: 2.6.2
@@ -9928,6 +9931,14 @@ packages:
       minizlib: 2.1.2
       mkdirp: 1.0.4
       yallist: 4.0.0
+
+  /tauri-plugin-clipboard-api@0.6.9:
+    resolution: {integrity: sha512-sfAVC15TENLOhklAlFXJd0IBI887H6ifTpAoGwTqq/+s+iWswKsY5YaIdsbheWiw9SPBObqiKPDUmbo9LooyIA==}
+    dependencies:
+      '@tauri-apps/api': 1.5.4
+      tslib: 2.6.2
+      zod: 3.23.8
+    dev: false
 
   /terser@5.31.0:
     resolution: {integrity: sha512-Q1JFAoUKE5IMfI4Z/lkE/E6+SwgzO+x4tq4v1AyBLRj8VSYvRO6A/rQrPg1yud4g0En9EKI1TvFRF2tQFcoUkg==}
