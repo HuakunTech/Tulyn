@@ -37,6 +37,7 @@ fn get_extensions_info() -> Result<Vec<ExtInfo>, String> {
 
 fn main() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_clipboard::init())
         .invoke_handler(tauri::generate_handler![get_extensions_info])
         .setup(|app| {
             setup::setup(app);
