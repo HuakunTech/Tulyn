@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "jarvis-ext-nuxt",
   "private": true,
   "type": "module",
   "scripts": {
