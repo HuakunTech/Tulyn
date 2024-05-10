@@ -1,0 +1,17 @@
+{
+  "name": "@jarvis/common",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "scripts": {
+    "test": "bun test"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "valibot": "^0.30.0"
+  }
+}
