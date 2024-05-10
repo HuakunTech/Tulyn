@@ -1,3 +1,8 @@
+---
+title: Inputs
+description: A guide in my new Starlight docs site.
+---
+
 # Input Components design
 
 ## Keyword Trigger

@@ -1,3 +1,8 @@
+---
+title: Extension Proxy
+description: A guide in my new Starlight docs site.
+---
+
 # Extension Proxy
 
 Each extension has a package name. When stored on disk, they have a uuid folder name.

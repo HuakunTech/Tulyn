@@ -1,3 +1,8 @@
+---
+title: Design
+description: A guide in my new Starlight docs site.
+---
+
 # Design
 
 > I want this app to work like Alfred on MacOS, which let users add custom workflow with easy-to-use UI.

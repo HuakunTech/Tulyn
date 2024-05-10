@@ -1,3 +1,8 @@
+---
+title: Action
+description: A guide in my new Starlight docs site.
+---
+
 # Actions
 
 ## Open File

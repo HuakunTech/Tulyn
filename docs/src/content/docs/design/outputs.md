@@ -1,3 +1,8 @@
+---
+title: Outputs Components
+description: A guide in my new Starlight docs site.
+---
+
 # Outputs Components
 
 ## Large Type
