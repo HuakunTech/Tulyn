@@ -20,6 +20,9 @@ importers:
 
   apps/desktop:
     dependencies:
+      '@jarvis/api':
+        specifier: '*'
+        version: link:../../packages/jarvis-api
       '@radix-icons/vue':
         specifier: ^1.0.0
         version: 1.0.0(vue@3.4.27)
@@ -50,9 +53,6 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.3)
-      tauri-plugin-jarvis-api:
-        specifier: link:../../packages/tauri-plugin-jarvis
-        version: link:../../packages/tauri-plugin-jarvis
       vue:
         specifier: ^3.4.21
         version: 3.4.27(typescript@5.4.5)
@@ -177,29 +177,7 @@ importers:
         specifier: ^2.0.11
         version: 2.0.16(typescript@5.4.5)
 
-  packages/model:
-    dependencies:
-      '@tauri-apps/api':
-        specifier: ^1.5.4
-        version: 1.5.4
-      typescript:
-        specifier: ^5.0.0
-        version: 5.4.5
-      uuid:
-        specifier: ^9.0.1
-        version: 9.0.1
-      zod:
-        specifier: ^3.23.8
-        version: 3.23.8
-    devDependencies:
-      '@types/uuid':
-        specifier: ^9.0.7
-        version: 9.0.8
-      bun-types:
-        specifier: latest
-        version: 1.1.7
-
-  packages/tauri-plugin-jarvis:
+  packages/jarvis-api:
     dependencies:
       '@tauri-apps/api':
         specifier: ^1.0.0
@@ -226,6 +204,28 @@ importers:
       typescript:
         specifier: 4.7.3
         version: 4.7.3
+
+  packages/model:
+    dependencies:
+      '@tauri-apps/api':
+        specifier: ^1.5.4
+        version: 1.5.4
+      typescript:
+        specifier: ^5.0.0
+        version: 5.4.5
+      uuid:
+        specifier: ^9.0.1
+        version: 9.0.1
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
+    devDependencies:
+      '@types/uuid':
+        specifier: ^9.0.7
+        version: 9.0.8
+      bun-types:
+        specifier: latest
+        version: 1.1.7
 
 packages:
 

@@ -1,6 +1,6 @@
 <script>
   import Greet from './lib/Greet.svelte'
-  import { execute } from 'tauri-plugin-jarvis-api'
+  import { execute } from '@jarvis/api'
 
 	let response = ''
 
