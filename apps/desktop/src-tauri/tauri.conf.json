@@ -148,7 +148,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "jarvis",
+        "title": "",
         "width": 800,
         "titleBarStyle": "Overlay"
       }
