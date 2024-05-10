@@ -6,13 +6,12 @@ name: CI Build & Test
 # - apps/desktop
 on:
   push:
-    branches: [ "main", "dev", "ci" ]
+    branches: ["main", "dev", "ci"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -21,15 +20,15 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v4
-    - uses: pnpm/action-setup@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'pnpm'
-    - uses: oven-sh/setup-bun@v1
-      with:
-        bun-version: 1.1.7
-    - run: pnpm i
-    - run: pnpm build
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: 1.1.7
+      - run: pnpm i
+      - run: pnpm build

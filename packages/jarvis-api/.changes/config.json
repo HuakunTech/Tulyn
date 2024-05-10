@@ -82,9 +82,7 @@
     "tauri-plugin-jarvis-api": {
       "path": ".",
       "manager": "javascript",
-      "dependencies": [
-        "tauri-plugin-jarvis"
-      ],
+      "dependencies": ["tauri-plugin-jarvis"],
       "releaseTag": "npm-v${ pkgFile.version }"
     }
   }

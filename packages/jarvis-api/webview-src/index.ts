@@ -1,5 +1,5 @@
-import { invoke } from '@tauri-apps/api/tauri'
+import { invoke } from "@tauri-apps/api/tauri";
 
 export async function execute() {
-  await invoke('plugin:jarvis|execute')
+  await invoke("plugin:jarvis|execute");
 }

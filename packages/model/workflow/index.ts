@@ -10,7 +10,8 @@ export const NodeType = z.enum([
   OpenFileName.value,
   ScriptFilterName.value,
 ]);
-export const InputsNodes = ScriptFilterNode.or(FileFilterNode).or(KeywordTriggerNode);
+export const InputsNodes =
+  ScriptFilterNode.or(FileFilterNode).or(KeywordTriggerNode);
 export const ActionNodes = OpenFileNode;
 export const AllNodes = ActionNodes.or(InputsNodes);
 export const Edge = z.object({
@@ -20,7 +21,7 @@ export const Edge = z.object({
 
 /**
  * With nodes and edges, we can construct a adjacency list to represent a graph.
- * The graph will be constructed in the frontend in runtime. 
+ * The graph will be constructed in the frontend in runtime.
  * Storing workflow is simply saving this Workflow object as json.
  */
 export const Workflow = z.object({

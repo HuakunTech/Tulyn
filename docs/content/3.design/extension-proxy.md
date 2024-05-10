@@ -20,7 +20,7 @@ Base URL for extensions must be configured.`baseUrl = /extensions/{extension nam
 
 ## Is there other way to prevent one extension from loading page of another extension?
 
-When an extension is active, store the extension name in state. Every time a request is sent to proxy server, check if the requested page belongs to the active extension. 
+When an extension is active, store the extension name in state. Every time a request is sent to proxy server, check if the requested page belongs to the active extension.
 
 ## Allow Extension to Access Other Extension may be a good feature
 
@@ -28,8 +28,6 @@ Similar to deep link. Browser can open web page in another native phone app for 
 
 Suppose I have a job 1 in ext 1. When job 1 is processed, ext 1 can suggest to open ext 2 to view the result or further process the result. Just use a get request with query parameters to transfer the data.
 
-However, this could be dangerous. If ext 2 does some sensitive operation, it could be triggered by ext 1. 
+However, this could be dangerous. If ext 2 does some sensitive operation, it could be triggered by ext 1.
 
 This shouldn't be allowed. Extension isolation is still more important.
-
-

@@ -11,7 +11,6 @@
 - Input
   - list of apps
 
-
 ## Reveal File In Finder
 
 Open parent folder of passed in file path
@@ -43,7 +42,6 @@ If passed is file, open the parent folder.
       - External Script
         - Script File
 
-
 ## Web Search
 
 Search the web with the passed in query.
@@ -74,6 +72,3 @@ Search the web with the passed in query.
       - `https://domain.com/?q={query}`
   - Open With
     - Browsers Registered
-
-
-

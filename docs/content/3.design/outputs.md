@@ -39,6 +39,3 @@ Save `{query}` to clipboard.
 - Input
   - Key Combo
   - Count
-
-
-

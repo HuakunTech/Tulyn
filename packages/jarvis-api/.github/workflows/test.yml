@@ -9,9 +9,9 @@ on:
       - main
       - dev
     paths-ignore:
-      - 'webview-src/**'
-      - 'webview-dist/**'
-      - 'examples/**'
+      - "webview-src/**"
+      - "webview-dist/**"
+      - "examples/**"
 
 jobs:
   build-and-test:

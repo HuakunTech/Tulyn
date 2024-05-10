@@ -3,7 +3,7 @@ import { z } from "zod";
 export const BaseNode = z.object({ name: z.any(), uuid: z.string().uuid() });
 export const Position = z.object({ x: z.number(), y: z.number() });
 // This GeneralDefault can be used anywhere to indicate: a default value or behavior will be used
-export const GeneralDefault = z.literal("default")
+export const GeneralDefault = z.literal("default");
 export const uuid = z.string().uuid();
 export const FileType = z.enum(["file", "dir", "both"]);
 export const SortBy = z.enum(["creation_time", "modified_time", "default"]);
