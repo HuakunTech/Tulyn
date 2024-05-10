@@ -22,7 +22,7 @@ importers:
     dependencies:
       '@jarvis/api':
         specifier: '*'
-        version: link:../../packages/jarvis-api
+        version: link:../../packages/tauri_plugin_jarvis
       '@pinia/nuxt':
         specifier: ^0.5.1
         version: 0.5.1(typescript@5.4.5)(vue@3.4.27)
@@ -123,7 +123,7 @@ importers:
     dependencies:
       '@jarvis/api':
         specifier: '*'
-        version: link:../../jarvis-api
+        version: link:../../tauri_plugin_jarvis
       '@radix-icons/vue':
         specifier: ^1.0.0
         version: 1.0.0(vue@3.4.27)
@@ -175,7 +175,7 @@ importers:
     dependencies:
       '@jarvis/api':
         specifier: '*'
-        version: link:../../jarvis-api
+        version: link:../../tauri_plugin_jarvis
       '@radix-ui/react-dropdown-menu':
         specifier: ^2.0.6
         version: 2.0.6(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@18.3.1)(react@18.3.1)
@@ -254,7 +254,7 @@ importers:
     dependencies:
       '@jarvis/api':
         specifier: '*'
-        version: link:../../jarvis-api
+        version: link:../../tauri_plugin_jarvis
       bits-ui:
         specifier: ^0.21.7
         version: 0.21.7(svelte@4.2.16)
@@ -322,7 +322,7 @@ importers:
     devDependencies:
       '@jarvis/api':
         specifier: '*'
-        version: link:../../jarvis-api
+        version: link:../../tauri_plugin_jarvis
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
         version: 3.2.0(@sveltejs/kit@2.5.7)
@@ -364,7 +364,7 @@ importers:
     dependencies:
       '@jarvis/api':
         specifier: '*'
-        version: link:../../jarvis-api
+        version: link:../../tauri_plugin_jarvis
       '@radix-icons/vue':
         specifier: ^1.0.0
         version: 1.0.0(vue@3.4.27)
@@ -422,7 +422,7 @@ importers:
     dependencies:
       '@jarvis/api':
         specifier: '*'
-        version: link:../../jarvis-api
+        version: link:../../tauri_plugin_jarvis
       '@radix-icons/vue':
         specifier: ^1.0.0
         version: 1.0.0(vue@3.4.27)
@@ -557,7 +557,7 @@ importers:
     devDependencies:
       '@jarvis/api':
         specifier: '*'
-        version: link:../../jarvis-api
+        version: link:../../tauri_plugin_jarvis
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
         version: 3.2.0(@sveltejs/kit@2.5.7)
@@ -598,11 +598,33 @@ importers:
         specifier: ^5.0.3
         version: 5.2.11(@types/node@20.12.11)
 
-  packages/jarvis-api:
+  packages/model:
+    dependencies:
+      '@tauri-apps/api':
+        specifier: ^1.5.4
+        version: 1.5.4
+      typescript:
+        specifier: ^5.0.0
+        version: 5.4.5
+      uuid:
+        specifier: ^9.0.1
+        version: 9.0.1
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
+    devDependencies:
+      '@types/uuid':
+        specifier: ^9.0.7
+        version: 9.0.8
+      bun-types:
+        specifier: latest
+        version: 1.1.7
+
+  packages/tauri_plugin_jarvis:
     dependencies:
       '@tauri-apps/api':
         specifier: ^1.0.0
-        version: 1.5.4
+        version: 1.5.5
       tauri-plugin-clipboard-api:
         specifier: ^0.6.9
         version: 0.6.9
@@ -628,28 +650,6 @@ importers:
       typescript:
         specifier: 4.7.3
         version: 4.7.3
-
-  packages/model:
-    dependencies:
-      '@tauri-apps/api':
-        specifier: ^1.5.4
-        version: 1.5.4
-      typescript:
-        specifier: ^5.0.0
-        version: 5.4.5
-      uuid:
-        specifier: ^9.0.1
-        version: 9.0.1
-      zod:
-        specifier: ^3.23.8
-        version: 3.23.8
-    devDependencies:
-      '@types/uuid':
-        specifier: ^9.0.7
-        version: 9.0.8
-      bun-types:
-        specifier: latest
-        version: 1.1.7
 
 packages:
 
@@ -11912,7 +11912,7 @@ packages:
   /tauri-plugin-clipboard-api@0.6.9:
     resolution: {integrity: sha512-sfAVC15TENLOhklAlFXJd0IBI887H6ifTpAoGwTqq/+s+iWswKsY5YaIdsbheWiw9SPBObqiKPDUmbo9LooyIA==}
     dependencies:
-      '@tauri-apps/api': 1.5.4
+      '@tauri-apps/api': 1.5.5
       tslib: 2.6.2
       zod: 3.23.8
     dev: false
