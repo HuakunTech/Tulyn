@@ -118,6 +118,9 @@ importers:
 
   packages/extensions-template/jarvis-ext-nuxt:
     dependencies:
+      '@jarvis/api':
+        specifier: '*'
+        version: link:../../jarvis-api
       '@radix-icons/vue':
         specifier: ^1.0.0
         version: 1.0.0(vue@3.4.27)

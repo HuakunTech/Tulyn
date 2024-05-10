@@ -16,4 +16,11 @@ export default defineNuxtConfig({
      */
     componentDir: "./components/ui",
   },
+  ssr: false,
+  app: {
+    baseURL:
+      // process.env.NODE_ENV === "production" ? "/extensions/encode/dist/" : "/",
+      process.env.NODE_ENV === "production" ? "/extensions/jarvis-ext-nuxt/dist/" : "/",
+    // buildAssetsDir: ""
+  },
 });
