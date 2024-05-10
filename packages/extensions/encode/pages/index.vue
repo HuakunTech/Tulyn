@@ -1,4 +1,12 @@
+<script setup lang="ts">
+const count = ref(0);
+</script>
 <template>
-  <h1>Home</h1>
-  <NuxtLink to="/about">About</NuxtLink>
+  <NuxtLayout>
+    <h1 class="text-3xl">Nuxt Extension Template for Jarvis</h1>
+    <div class="flex items-center space-x-5">
+      <mode-toggle />
+      <Button @click="count++">Increment: {{ count }}</Button>
+    </div>
+  </NuxtLayout>
 </template>
