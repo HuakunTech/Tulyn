@@ -48,6 +48,29 @@
         "startDragging": true,
         "unmaximize": true,
         "unminimize": true
+      },
+      "fs": {
+        "all": true,
+        "copyFile": false,
+        "createDir": false,
+        "exists": true,
+        "readDir": true,
+        "readFile": true,
+        "removeDir": false,
+        "removeFile": false,
+        "renameFile": false,
+        "scope": [
+          "*"
+        ],
+        "writeFile": false
+      },
+      "dialog": {
+        "all": true,
+        "ask": true,
+        "confirm": true,
+        "message": true,
+        "open": true,
+        "save": true
       }
     },
     "bundle": {
@@ -87,10 +110,33 @@
       "csp": null,
       "dangerousRemoteDomainIpcAccess": [
         {
-          "domain": "localhost:1566",
+          "domain": "localhost",
           "enableTauriAPI": true,
-          "windows": [],
-          "plugins": []
+          "windows": [
+            "ext-0",
+            "ext-1",
+            "ext-2",
+            "ext-3",
+            "ext-4",
+            "ext-5",
+            "ext-6",
+            "ext-7",
+            "ext-8",
+            "ext-9",
+            "ext-10",
+            "ext-11",
+            "ext-12",
+            "ext-13",
+            "ext-14",
+            "ext-15",
+            "ext-16",
+            "ext-17",
+            "ext-18",
+            "ext-19"
+          ],
+          "plugins": [
+            "clipboard"
+          ]
         }
       ]
     },

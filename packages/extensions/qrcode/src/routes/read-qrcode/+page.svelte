@@ -1,5 +1,6 @@
 <script lang="ts">
   import jsQR from "jsqr";
+  import { clipboard } from "@jarvis/api";
   import { Button } from "$lib/components/ui/button";
   import { onMount } from "svelte";
 
@@ -7,14 +8,9 @@
   let detectedCode = "";
 
   async function readScreenshot() {
-    const clipboardContents = await navigator.clipboard.read();
-    for (const item of clipboardContents) {
-      if (!item.types.includes("image/png")) {
-        // throw new Error("Clipboard does not contain PNG image data.");
-        continue;
-      }
-      const blob = await item.getType("image/png");
-      imgSrc = URL.createObjectURL(blob);
+    try {
+      const blobImg: Blob = (await clipboard.readImageBinary("Blob")) as Blob;
+      imgSrc = URL.createObjectURL(blobImg);
       // turn blob to Uint8ClampedArray
       const img = new Image();
       img.src = imgSrc;
@@ -30,14 +26,15 @@
         }
         const code = jsQR(imageData?.data, imageData?.width, imageData?.height);
         if (code) {
-          console.log(code.data);
           detectedCode = code.data;
         } else {
-          console.log("No QR code found.");
+          console.warn("No QR code found.");
         }
         canvas.remove();
         img.remove();
       };
+    } catch (error) {
+      console.error(error);
     }
   }
 
@@ -47,8 +44,14 @@
 </script>
 
 <div class="flex flex-col justify-center items-center h-screen space-y-5">
-  <h1 class="text-3xl">Read QRCode From Clipboard Screenshot</h1>
-  <Button on:click={readScreenshot}>Read Screenshot From Clipboard</Button>
+  <div class="flex space-x-3">
+    <Button on:click={readScreenshot}
+      >Read QRCode Screenshot From Clipboard</Button
+    >
+    <a href="./">
+      <Button>Generate QRCode</Button>
+    </a>
+  </div>
   <img width="400" src={imgSrc} alt="" />
   <a href={detectedCode}>{detectedCode}</a>
 </div>

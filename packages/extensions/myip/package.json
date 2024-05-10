@@ -1,6 +1,7 @@
 {
   "name": "myip",
   "version": "0.0.0",
+  "description": "My IP Extension",
   "private": true,
   "type": "module",
   "scripts": {

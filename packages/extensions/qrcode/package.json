@@ -1,6 +1,7 @@
 {
   "name": "qrcode-ext",
   "version": "0.0.1",
+  "description": "QRCode Extension",
   "private": true,
   "scripts": {
     "dev": "vite dev",
@@ -27,12 +28,20 @@
   },
   "type": "module",
   "dependencies": {
+    "@tauri-apps/api": "^1.5.5",
     "bits-ui": "^0.21.7",
     "clsx": "^2.1.1",
     "easyqrcodejs": "^4.6.1",
     "jsqr": "^1.4.0",
+    "lucide-svelte": "^0.378.0",
     "mode-watcher": "^0.3.0",
+    "svelte-radix": "^1.1.0",
     "tailwind-merge": "^2.3.0",
-    "tailwind-variants": "^0.2.1"
+    "tailwind-variants": "^0.2.1",
+    "valibot": "^0.30.0"
+  },
+  "jarvis": {
+    "ui": "dist",
+    "identifier": "qrcode.huakun.tech"
   }
 }

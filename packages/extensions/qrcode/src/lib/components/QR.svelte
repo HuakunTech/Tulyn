@@ -8,12 +8,10 @@
   $: {
     if (url) {
       if (!qrcode) {
-        console.log("creating qrcode");
-
         qrcode = new QRCode(node, {
           text: url,
-          width: 100,
-          height: 100,
+          width: 200,
+          height: 200,
           quietZone: 10,
         });
       }

@@ -3,7 +3,12 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
   css: ["@/assets/css/index.css"],
-  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "@nuxtjs/color-mode"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "shadcn-nuxt",
+    "@nuxtjs/color-mode",
+    "@pinia/nuxt",
+  ],
   colorMode: {
     classSuffix: "",
   },
@@ -17,5 +22,12 @@ export default defineNuxtConfig({
      * @default "./components/ui"
      */
     componentDir: "./components/ui",
+  },
+  runtimeConfig: {
+    public: {
+      NODE_ENV: process.env.NODE_ENV,
+      IS_DEV: process.env.NODE_ENV === "development",
+      IS_PROD: process.env.NODE_ENV === "production",
+    },
   },
 });

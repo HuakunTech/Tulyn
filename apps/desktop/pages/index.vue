@@ -9,10 +9,12 @@ function openExt() {
 </script>
 <template>
   <NuxtLayout>
-    <Button @click="openExt()">Click me</Button>
-    <ModeToggle />
-    <Button>
-      <NuxtLink to="/extensions">Extensions</NuxtLink>
-    </Button>
+    <main class="px-5">
+      <Button @click="openExt()">Click me</Button>
+      <ModeToggle />
+      <Button>
+        <NuxtLink to="/extensions">Extensions</NuxtLink>
+      </Button>
+    </main>
   </NuxtLayout>
 </template>
