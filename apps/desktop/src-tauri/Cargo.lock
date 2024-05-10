@@ -199,6 +199,7 @@ dependencies = [
  "tauri",
  "tauri-build",
  "tauri-plugin-clipboard",
+ "tauri-plugin-jarvis",
  "tokio",
  "tower",
  "tower-http",
@@ -3802,6 +3803,15 @@ dependencies = [
  "serde",
  "tauri",
  "tempfile",
+ "thiserror",
+]
+
+[[package]]
+name = "tauri-plugin-jarvis"
+version = "0.0.0"
+dependencies = [
+ "serde",
+ "tauri",
  "thiserror",
 ]
 

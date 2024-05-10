@@ -27,6 +27,7 @@ tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
 tracing = "0.1.40"
 tokio = "1.37.0"
 tauri-plugin-clipboard = "0.6.9"
+tauri-plugin-jarvis = { path = "../../../packages/tauri-plugin-jarvis" }
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem and the built-in dev server is disabled.
