@@ -1,5 +1,5 @@
 [package]
-name = "jarvis-api"
+name = "tauri_plugin_jarvis"
 version = "0.0.0"
 authors = [ "You" ]
 description = ""
