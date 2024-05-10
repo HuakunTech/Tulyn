@@ -135,7 +135,8 @@
             "ext-19"
           ],
           "plugins": [
-            "clipboard"
+            "clipboard",
+            "jarvis"
           ]
         }
       ]

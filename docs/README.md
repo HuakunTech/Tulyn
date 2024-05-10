@@ -1,57 +1,54 @@
-# Docus Starter
+# Starlight Starter Kit: Basics
 
-Starter template for [Docus](https://docus.dev).
+[![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
 
-## Clone
-
-Clone the repository (using `nuxi`):
-
-```bash
-npx nuxi init -t themes/docus
+```
+npm create astro@latest -- --template starlight
 ```
 
-## Setup
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/starlight/tree/main/examples/basics)
+[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/starlight/tree/main/examples/basics)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fwithastro%2Fstarlight%2Ftree%2Fmain%2Fexamples%2Fbasics&project-name=my-starlight-docs&repository-name=my-starlight-docs)
 
-Install dependencies:
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-```bash
-yarn install
+## 🚀 Project Structure
+
+Inside of your Astro + Starlight project, you'll see the following folders and files:
+
+```
+.
+├── public/
+├── src/
+│   ├── assets/
+│   ├── content/
+│   │   ├── docs/
+│   │   └── config.ts
+│   └── env.d.ts
+├── astro.config.mjs
+├── package.json
+└── tsconfig.json
 ```
 
-## Development
+Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
 
-```bash
-yarn dev
-```
+Images can be added to `src/assets/` and embedded in Markdown with a relative link.
 
-## Edge Side Rendering
+Static assets, like favicons, can be placed in the `public/` directory.
 
-Can be deployed to Vercel Functions, Netlify Functions, AWS, and most Node-compatible environments.
+## 🧞 Commands
 
-Look at all the available presets [here](https://v3.nuxtjs.org/guide/deploy/presets).
+All commands are run from the root of the project, from a terminal:
 
-```bash
-yarn build
-```
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## Static Generation
+## 👀 Want to learn more?
 
-Use the `generate` command to build your application.
-
-The HTML files will be generated in the .output/public directory and ready to be deployed to any static compatible hosting.
-
-```bash
-yarn generate
-```
-
-## Preview build
-
-You might want to preview the result of your build locally, to do so, run the following command:
-
-```bash
-yarn preview
-```
-
----
-
-For a detailed explanation of how things work, check out [Docus](https://docus.dev).
+Check out [Starlight’s docs](https://starlight.astro.build/), read [the Astro documentation](https://docs.astro.build), or jump into the [Astro Discord server](https://astro.build/chat).
