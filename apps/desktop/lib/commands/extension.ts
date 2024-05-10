@@ -21,7 +21,3 @@ export function getExtensions(): Promise<ExtInfo[]> {
     });
   });
 }
-
-export function openDevTool() {
-  return invoke("open_dev_tool");
-}

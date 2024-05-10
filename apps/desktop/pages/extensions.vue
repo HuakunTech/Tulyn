@@ -3,7 +3,7 @@
 import { WebviewWindow } from "@tauri-apps/api/window";
 import { invoke } from "@tauri-apps/api/tauri";
 import type { ExtInfo } from "~/lib/model";
-import { getExtensions } from "~/lib/commands";
+import { getExtensions } from "~/lib/commands/extension";
 import { devtools } from "vue";
 
 const extensions = ref<ExtInfo[]>([]);

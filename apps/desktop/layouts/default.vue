@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { openDevTool } from "@/lib/commands";
+import { tools } from "@jarvis/api";
 import { GearIcon } from "@radix-icons/vue";
 
 // get node-env
@@ -9,7 +9,7 @@ const config = useRuntimeConfig();
   <div data-tauri-drag-region class="h-8">
     <Button
       v-if="$config.public.IS_DEV"
-      @click="openDevTool"
+      @click="tools.openDevTool"
       class="right-0 float-right"
       size="icon"
       variant="ghost"

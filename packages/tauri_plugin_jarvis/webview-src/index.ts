@@ -5,3 +5,6 @@ export * as notification from "@tauri-apps/api/notification";
 // Shell
 export { open } from "@tauri-apps/api/shell";
 export * as shell from "@tauri-apps/api/shell";
+
+// Tools
+export * as tools from "./api/tools";

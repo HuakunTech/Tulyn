@@ -10,11 +10,12 @@ fn main() {
         .plugin(tauri_plugin_clipboard::init())
         .invoke_handler(tauri::generate_handler![
             commands::load::get_extensions_info,
-            commands::dev::open_dev_tool
+            commands::server::start_server,
+            commands::server::stop_server,
+            commands::server::server_is_running
         ])
         .setup(|app| {
             setup::setup(app);
-
             Ok(())
         })
         .run(tauri::generate_context!())

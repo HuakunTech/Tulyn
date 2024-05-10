@@ -15,6 +15,9 @@ function openExt() {
       <Button>
         <NuxtLink to="/extensions">Extensions</NuxtLink>
       </Button>
+      <!-- <Button @click="startServer">Start</Button>
+      <Button @click="stopServer">Stop</Button>
+      <Button @click="serverIsRunning">Is Running</Button> -->
     </main>
   </NuxtLayout>
 </template>
