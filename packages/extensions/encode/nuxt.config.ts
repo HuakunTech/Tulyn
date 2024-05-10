@@ -21,7 +21,7 @@ export default defineNuxtConfig({
     baseURL:
       // process.env.NODE_ENV === "production" ? "/extensions/encode/dist/" : "/",
       process.env.NODE_ENV === "production"
-        ? "/extensions/jarvis-ext-nuxt/dist/"
+        ? "/extensions/encode/dist/"
         : "/",
     // buildAssetsDir: ""
   },

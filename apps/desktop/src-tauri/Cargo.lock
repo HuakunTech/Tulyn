@@ -194,12 +194,12 @@ dependencies = [
  "awc",
  "axum",
  "axum-extra",
+ "jarvis-api",
  "serde",
  "serde_json",
  "tauri",
  "tauri-build",
  "tauri-plugin-clipboard",
- "tauri-plugin-jarvis",
  "tokio",
  "tower",
  "tower-http",
@@ -2012,6 +2012,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "49f1f14873335454500d59611f1cf4a4b0f786f9ac11f4312a78e4cf2566695b"
 
 [[package]]
+name = "jarvis-api"
+version = "0.0.0"
+dependencies = [
+ "serde",
+ "tauri",
+ "thiserror",
+]
+
+[[package]]
 name = "javascriptcore-rs"
 version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3803,15 +3812,6 @@ dependencies = [
  "serde",
  "tauri",
  "tempfile",
- "thiserror",
-]
-
-[[package]]
-name = "tauri-plugin-jarvis"
-version = "0.0.0"
-dependencies = [
- "serde",
- "tauri",
  "thiserror",
 ]
 
