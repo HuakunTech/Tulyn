@@ -1,5 +1,5 @@
 {
-  "name": "tauri-plugin-jarvis-api",
+  "name": "@jarvis/api",
   "version": "0.0.0",
   "author": "You",
   "description": "",
@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@tauri-apps/api": "^1.0.0",
-    "tslib": "^2.1.0"
+    "tslib": "^2.1.0",
+    "zod": "^3.23.8"
   }
 }
