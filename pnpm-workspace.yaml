@@ -3,3 +3,4 @@ packages:
   - "packages/*"
   - "docs"
   - "packages/extensions/*"
+  - "packages/extensions-template/*"
