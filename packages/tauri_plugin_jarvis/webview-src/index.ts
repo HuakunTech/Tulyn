@@ -9,3 +9,6 @@ export * as shell from "@tauri-apps/api/shell";
 // Tools
 export * as tools from "./src/api/tools";
 export * as apps from "./src/api/apps";
+
+// Models
+export * as model from "./src/model";
