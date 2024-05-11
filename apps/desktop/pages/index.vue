@@ -1,30 +1,28 @@
 <script setup lang="ts">
 import { WebviewWindow } from "@tauri-apps/api/window";
+import { Input } from "@/components/ui/input";
 import { appDataDir } from "@tauri-apps/api/path";
 import {
   startServer,
   stopServer,
   serverIsRunning,
 } from "@/lib/commands/server";
+import { apps } from "@jarvis/api";
 
-import { Store } from "tauri-plugin-store-api";
+const userInput = ref("");
+const allApps = ref<any[]>([]);
+const foundApps = ref<any[]>([]);
+watch(userInput, (value) => {
+  console.log(value);
+  foundApps.value = allApps.value.filter((app: any) =>
+    (app.name as string).toLowerCase().includes(value.toLowerCase()),
+  );
+});
 
-const store = new Store(".settings.dat");
-
-await store.set("some-key", { value: 5 });
-
-const val = await store.get<{ value: number }>("some-key");
-
-if (val) {
-  console.log(val);
-} else {
-  console.log("val is null");
-}
-
-console.log(await appDataDir());
-
-// This manually saves the store.
-await store.save();
+onMounted(async () => {
+  allApps.value = (await apps.getAllApps()) as any[];
+  console.log(allApps.value);
+});
 </script>
 <template>
   <NuxtLayout>
@@ -34,6 +32,10 @@ await store.save();
       <Button>
         <NuxtLink to="/extensions">Extensions</NuxtLink>
       </Button>
+      <Input v-model="userInput" />
+      <pre>
+        {{ JSON.stringify(foundApps, null, 2) }}
+      </pre>
     </main>
   </NuxtLayout>
 </template>

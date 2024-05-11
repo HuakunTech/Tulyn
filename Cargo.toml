@@ -1,0 +1,7 @@
+[workspace]
+resolver = "2"
+
+members = [
+    "packages/tauri_plugin_jarvis",
+    "apps/desktop/src-tauri"
+]

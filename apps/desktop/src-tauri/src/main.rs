@@ -13,7 +13,8 @@ fn main() {
             commands::load::get_extensions_info,
             commands::server::start_server,
             commands::server::stop_server,
-            commands::server::server_is_running
+            commands::server::server_is_running,
+            commands::apps::get_applications,
         ])
         .setup(|app| {
             setup::setup(app);
