@@ -1,0 +1,29 @@
+{
+  "name": "jarvis-ext-astro",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.6.0",
+    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/vue": "^4.2.0",
+    "astro": "^4.8.2",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "lucide-vue-next": "^0.378.0",
+    "radix-vue": "^1.7.4",
+    "tailwind-merge": "^2.3.0",
+    "tailwindcss": "^3.4.3",
+    "tailwindcss-animate": "^1.0.7",
+    "vue": "^3.4.27"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}
