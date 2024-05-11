@@ -12,11 +12,11 @@ description: A guide in my new Starlight docs site.
   "description": "An extension for Jarvis",
   "jarvis": {
     "identifier": "video-processing.huakun.tech",
-    "ui": "dist"
+    "ui": "dist",
+    "platforms": ["linux", "darwin", "win32"]
   }
 }
 ```
-
 
 ## Development Mode
 
@@ -31,7 +31,8 @@ For example, set `ui` to `http://localhost:3000` in `package.json`.
   "description": "An extension for Jarvis",
   "jarvis": {
     "identifier": "video-processing.huakun.tech",
-    "ui": "http://localhost:3000"
+    "ui": "http://localhost:3000",
+    "platforms": ["linux", "darwin", "win32"]
   }
 }
 ```
