@@ -1,4 +1,4 @@
 import "../app.css";
 
-export const ssr = true;
+export const ssr = false;
 export const prerender = true;
