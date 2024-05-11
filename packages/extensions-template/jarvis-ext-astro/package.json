@@ -13,6 +13,7 @@
     "@astrojs/check": "^0.6.0",
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vue": "^4.2.0",
+    "@vueuse/core": "^10.9.0",
     "astro": "^4.8.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -24,6 +25,8 @@
     "vue": "^3.4.27"
   },
   "devDependencies": {
+    "@iconify-json/radix-icons": "^1.1.14",
+    "@iconify/vue": "^4.1.2",
     "typescript": "^5.4.5"
   }
 }
