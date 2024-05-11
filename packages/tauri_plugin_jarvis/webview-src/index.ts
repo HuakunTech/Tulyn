@@ -7,4 +7,4 @@ export { open } from "@tauri-apps/api/shell";
 export * as shell from "@tauri-apps/api/shell";
 
 // Tools
-export * as tools from "./api/tools";
+export * as tools from "./src/api/tools";

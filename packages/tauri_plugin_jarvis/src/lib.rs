@@ -41,7 +41,7 @@ async fn execute<R: Runtime>(
 /// Initializes the plugin.
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
     Builder::new("jarvis")
-        .invoke_handler(tauri::generate_handler![execute, dev::open_dev_tool])
+        .invoke_handler(tauri::generate_handler![execute, dev::open_devtools])
         .setup(|app| {
             app.manage(MyState::default());
             Ok(())

@@ -6,6 +6,7 @@ use utils::setup;
 
 fn main() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_store::Builder::default().build())
         .plugin(tauri_plugin_jarvis::init())
         .plugin(tauri_plugin_clipboard::init())
         .invoke_handler(tauri::generate_handler![

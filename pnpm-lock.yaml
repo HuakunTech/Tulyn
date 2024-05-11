@@ -21,7 +21,7 @@ importers:
   apps/desktop:
     dependencies:
       '@jarvis/api':
-        specifier: '*'
+        specifier: workspace:*
         version: link:../../packages/tauri_plugin_jarvis
       '@pinia/nuxt':
         specifier: ^0.5.1
@@ -32,6 +32,9 @@ importers:
       '@tauri-apps/api':
         specifier: ^1.5.4
         version: 1.5.4
+      '@tauri-apps/plugin-store':
+        specifier: 2.0.0-beta.3
+        version: 2.0.0-beta.3
       '@vueuse/core':
         specifier: ^10.9.0
         version: 10.9.0(vue@3.4.27)
@@ -59,6 +62,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.3)
+      tauri-plugin-store-api:
+        specifier: github:tauri-apps/tauri-plugin-store#v1
+        version: github.com/tauri-apps/tauri-plugin-store/b1ce9b38662a2990dddb30de1af88509a45e4625
       vue:
         specifier: ^3.4.21
         version: 3.4.27(typescript@5.4.5)
@@ -3989,6 +3995,11 @@ packages:
       vue: 3.4.27(typescript@5.4.5)
     dev: false
 
+  /@tauri-apps/api@1.5.3:
+    resolution: {integrity: sha512-zxnDjHHKjOsrIzZm6nO5Xapb/BxqUq1tc7cGkFXsFkGTsSWgCPH1D8mm0XS9weJY2OaR73I3k3S+b7eSzJDfqA==}
+    engines: {node: '>= 14.6.0', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
+    dev: false
+
   /@tauri-apps/api@1.5.4:
     resolution: {integrity: sha512-LKYae9URbdEdbHrOXBeXb/lZgVyWTX0E98rSFBuQlmkLr8OeG+akuE41PfLjBVyk1Q+fq7wxo4ieenLSMUAUhA==}
     engines: {node: '>= 14.6.0', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
@@ -3997,6 +4008,11 @@ packages:
   /@tauri-apps/api@1.5.5:
     resolution: {integrity: sha512-Jgwj8BK/9YXZNzcqVDk1Al7+u5V9sWrZ8MhV41A1AKgJaicHuqlkc/qdx06sNDXvc+qprTPpBAaqnt891qOUIQ==}
     engines: {node: '>= 14.6.0', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
+    dev: false
+
+  /@tauri-apps/api@2.0.0-beta.11:
+    resolution: {integrity: sha512-wJRY+fBUm3KpqZDHMIz5HRv+1vlnvRJ/dFxiyY3NlINTx2qXqDou5qWYcP1CuZXsd39InWVPV3FAZvno/kGCkA==}
+    engines: {node: '>= 18', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
     dev: false
 
   /@tauri-apps/cli-darwin-arm64@1.5.13:
@@ -4105,6 +4121,12 @@ packages:
       '@tauri-apps/cli-win32-ia32-msvc': 1.5.13
       '@tauri-apps/cli-win32-x64-msvc': 1.5.13
     dev: true
+
+  /@tauri-apps/plugin-store@2.0.0-beta.3:
+    resolution: {integrity: sha512-qTvbG2aGTME3TcBBIBizwhN0f3Iqy5tgeaEtj5gWaisAD0PJfrNAAaUnpXvO4O3PUTS8idZt933z1uAiBhY7FA==}
+    dependencies:
+      '@tauri-apps/api': 2.0.0-beta.11
+    dev: false
 
   /@trysound/sax@0.2.0:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
@@ -13463,4 +13485,12 @@ packages:
 
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
+    dev: false
+
+  github.com/tauri-apps/tauri-plugin-store/b1ce9b38662a2990dddb30de1af88509a45e4625:
+    resolution: {tarball: https://codeload.github.com/tauri-apps/tauri-plugin-store/tar.gz/b1ce9b38662a2990dddb30de1af88509a45e4625}
+    name: tauri-plugin-store-api
+    version: 0.0.0
+    dependencies:
+      '@tauri-apps/api': 1.5.3
     dev: false

@@ -199,32 +199,13 @@ dependencies = [
  "tauri",
  "tauri-build",
  "tauri-plugin-clipboard",
+ "tauri-plugin-store",
  "tauri_plugin_jarvis",
  "tokio",
  "tower",
  "tower-http",
  "tracing",
  "tracing-subscriber",
-]
-
-[[package]]
-name = "applications"
-version = "0.2.0"
-dependencies = [
- "anyhow",
- "cocoa 0.25.0",
- "core-foundation",
- "glob",
- "image 0.25.1",
- "ini",
- "objc",
- "plist",
- "serde",
- "serde_derive",
- "serde_json",
- "tauri-icns",
- "thiserror",
- "walkdir",
 ]
 
 [[package]]
@@ -924,12 +905,6 @@ checksum = "4ca0197aee26d1ae37445ee532fefce43251d24cc7c166799f4d46817f1d3973"
 dependencies = [
  "crossbeam-utils",
 ]
-
-[[package]]
-name = "configparser"
-version = "1.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fe1d7dcda7d1da79e444bdfba1465f2f849a58b07774e1df473ee77030cb47a7"
 
 [[package]]
 name = "convert_case"
@@ -2247,15 +2222,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f551f8c3a39f68f986517db0d1759de85881894fdc7db798bd2a9df9cb04b7fc"
 dependencies = [
  "cfb",
-]
-
-[[package]]
-name = "ini"
-version = "1.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0a9271a5dfd4228fa56a78d7508a35c321639cc71f783bb7a5723552add87bce"
-dependencies = [
- "configparser",
 ]
 
 [[package]]
@@ -4262,16 +4228,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "tauri-icns"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "03b7eb4d0d43724ba9ba6a6717420ee68aee377816a3edbb45db8c18862b1431"
-dependencies = [
- "byteorder",
- "png",
-]
-
-[[package]]
 name = "tauri-macros"
 version = "1.4.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4297,6 +4253,18 @@ dependencies = [
  "serde",
  "tauri",
  "tempfile",
+ "thiserror",
+]
+
+[[package]]
+name = "tauri-plugin-store"
+version = "0.0.0"
+source = "git+https://github.com/tauri-apps/plugins-workspace?branch=v1#5e3900e682e13f3759b439116ae2f77a6d389ca2"
+dependencies = [
+ "log",
+ "serde",
+ "serde_json",
+ "tauri",
  "thiserror",
 ]
 
@@ -4396,7 +4364,6 @@ dependencies = [
 name = "tauri_plugin_jarvis"
 version = "0.0.0"
 dependencies = [
- "applications",
  "serde",
  "tauri",
  "thiserror",
