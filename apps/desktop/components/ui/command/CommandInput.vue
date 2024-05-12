@@ -15,7 +15,7 @@ defineOptions({
 const props = defineProps<
   ComboboxInputProps & {
     class?: HTMLAttributes["class"];
-    modelValue: string;
+    // modelValue: string;
   }
 >();
 
@@ -25,14 +25,17 @@ const delegatedProps = computed(() => {
   return delegated;
 });
 const forwardedProps = useForwardProps(delegatedProps);
+const i = ref('')
 </script>
 
 <template>
   <div class="flex items-center border-b px-3" cmdk-input-wrapper>
     <MagnifyingGlassIcon class="mr-2 h-4 w-4 shrink-0 opacity-50" />
     <!-- <span>{{ forwardedProps }}</span> -->
+    <!-- {{ props.modelValue }} -->
     <ComboboxInput
       v-bind="{ ...forwardedProps, ...$attrs }"
+      @update:modelValue="($event) => {console.log($event)}"
       auto-focus
       :class="
         cn(

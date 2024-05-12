@@ -6,13 +6,14 @@ const config = useRuntimeConfig();
 </script>
 <template>
   <div data-tauri-drag-region class="h-8">
-    <div class="flex space-x-4 float-right pr-5">
+    <div class="flex space-x-4 float-right px-5 py-2">
+      <ModeToggle class="w-5 h-5" />
       <NuxtLink to="/">
         <Button
           v-if="$config.public.IS_DEV"
-          class="w-4"
+          class="w-5 h-5"
           size="icon"
-          variant="ghost"
+          variant="outline"
         >
           <HomeIcon />
         </Button>
@@ -20,19 +21,19 @@ const config = useRuntimeConfig();
       <NuxtLink to="./dev">
         <Button
           v-if="$config.public.IS_DEV"
-          class="w-4"
+          class="w-5 h-5"
           size="icon"
-          variant="ghost"
+          variant="outline"
         >
           <WrenchIcon />
         </Button>
       </NuxtLink>
       <Button
         v-if="$config.public.IS_DEV"
-        @click="tools.openDevTools"
-        class="w-4"
+        @click="tools.toggleDevTools"
+        class="w-5 h-5"
         size="icon"
-        variant="ghost"
+        variant="outline"
       >
         <CogIcon />
       </Button>
