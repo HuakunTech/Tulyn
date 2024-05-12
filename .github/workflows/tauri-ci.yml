@@ -20,12 +20,12 @@ jobs:
       fail-fast: false
       matrix:
         settings:
-          # - platform: 'macos-14' # for Arm based macs (M1 and above).
-          #   args: '--target aarch64-apple-darwin'
-          # - platform: 'macos-14' # for Intel based macs.
-          #   args: '--target x86_64-apple-darwin'
+          - platform: 'macos-14' # for Arm based macs (M1 and above).
+            args: '--target aarch64-apple-darwin'
           - platform: 'macos-14' # for Intel based macs.
-            args: '--target universal-apple-darwin'
+            args: '--target x86_64-apple-darwin'
+          # - platform: 'macos-14' # for Intel based macs.
+          #   args: '--target universal-apple-darwin'
           # - platform: 'ubuntu-22.04' # for Tauri v1 you could replace this with ubuntu-20.04.
           #   args: ''
           # - platform: 'windows-latest'
@@ -83,10 +83,9 @@ jobs:
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         with:
-          tagName: jarvis-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
-          releaseName: "App v__VERSION__"
-          releaseBody: "See the assets to download this version and install."
+          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
+          releaseName: 'App v__VERSION__'
+          releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
           prerelease: false
           args: ${{ matrix.settings.args }}
-          projectPath: apps/desktop
