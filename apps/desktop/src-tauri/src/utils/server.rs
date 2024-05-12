@@ -21,7 +21,6 @@ pub async fn start_server() {
 
     let route: Router =
         Router::new().nest_service("/", ServeDir::new("/Users/hacker/Dev/projects/Jarvis/dev"));
-
     let addr = SocketAddr::from(([127, 0, 0, 1], 1566));
     let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
     tracing::debug!("listening on {}", listener.local_addr().unwrap());
