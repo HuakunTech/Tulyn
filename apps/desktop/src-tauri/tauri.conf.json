@@ -81,7 +81,7 @@
       "shell": {
         "all": true,
         "execute": true,
-        "open": true,
+        "open": ".*",
         "scope": [],
         "sidecar": true
       }

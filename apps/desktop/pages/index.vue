@@ -11,26 +11,20 @@ const searchTerm = computed({
     appStore.searchTerm = val;
   },
 });
-const allApps = ref<model.apps.AppInfo[]>([]);
-
-const foundApps = computed<model.apps.AppInfo[]>(() => {
-  return allApps.value.filter((app: model.apps.AppInfo) => {
-    const appName = app.name.toLowerCase().trim();
-    const searchValue = searchTerm.value.toLowerCase().trim();
-    const match = appName.includes(searchValue);
-    // if (app.name === "iTerm2") {
-    console.log(appName, searchValue, match);
-    // }
-    return match;
-  });
-});
 
 onMounted(async () => {
-  allApps.value = await await apps.getAllApps();
+  appStore.fetchApps();
 });
 </script>
 <template>
   <NuxtLayout>
-    <SearchBar />
+    <div class="h-full">
+      <div class="h-full flex flex-col">
+        <SearchBar />
+        <div class="grow overflow-y-scroll">
+          <AppList class="overflow-y-scroll" />
+        </div>
+      </div>
+    </div>
   </NuxtLayout>
 </template>
