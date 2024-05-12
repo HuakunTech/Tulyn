@@ -155,7 +155,9 @@
       ]
     },
     "updater": {
-      "active": false
+      "active": true,
+      "endpoints": ["https://github.com/HuakunShen/Jarvis/releases/latest/download/latest.json"],
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IHJzaWduIGVuY3J5cHRlZCBzZWNyZXQga2V5ClJXUlRZMEl5WUtlZ3NYS096dm5HWWpQajRVUklXMWN1bDFiSE55YWNUUTVKWDVFSE1pTUFBQkFBQUFBQUFBQUFBQUlBQUFBQU9VYUYwRVROYTVoZ095RVFqMDNYTjFWL3V5b01xcXdLakhOWitwbDZJdEhyVjNYOWpiMGh2T1JIMDZFRkRETlVtb2JoSnBaKzNKdTZkVFNGbjdtSWprMlZtc3BvM2JTOURSYUdRVndDRGczTHVoRkcwY2dzZU9rdDlPeWdQeVdWdDhZNUk1NXlvMjQ9Cg=="
     },
     "windows": [
       {
