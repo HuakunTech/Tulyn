@@ -33,7 +33,7 @@ const searchTerm = computed({
       placeholder="Search for Apps and Commands"
       class="pl-10 border-none focus:border-transparent focus-visible:ring-0"
     />
-    <span class="absolute inset-y-7 flex items-center justify-center px-2">
+    <span class="absolute inset-y-0 flex items-center justify-center px-2">
       <Search class="size-5 text-muted-foreground" />
     </span>
   </div>

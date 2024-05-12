@@ -18,13 +18,23 @@ onMounted(async () => {
 </script>
 <template>
   <NuxtLayout>
-    <div class="h-full">
-      <div class="h-full flex flex-col">
-        <SearchBar />
-        <div class="grow overflow-y-scroll">
-          <AppList class="overflow-y-scroll" />
-        </div>
-      </div>
+    <SearchBar />
+    <div class="grow overflow-y-scroll track-gray-100">
+      <AppList class="track-gray-100" />
     </div>
   </NuxtLayout>
 </template>
+
+<style scoped>
+::-webkit-scrollbar {
+  width: 0.8rem;
+}
+
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #93949a;
+}
+</style>

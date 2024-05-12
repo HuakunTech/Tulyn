@@ -41,7 +41,7 @@ const config = useRuntimeConfig();
           </Button>
         </div>
       </div>
-      <div class="grow overflow-auto border-4">
+      <div class="grow overflow-auto flex flex-col">
         <slot />
       </div>
     </div>
