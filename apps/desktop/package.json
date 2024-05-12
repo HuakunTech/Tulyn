@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@jarvis/api": "workspace:*",
+    "@nuxt/image": "^1.7.0",
     "@pinia/nuxt": "^0.5.1",
     "@radix-icons/vue": "^1.0.0",
     "@tauri-apps/api": "^1.5.4",

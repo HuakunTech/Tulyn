@@ -2,7 +2,9 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 mod commands;
 mod utils;
+use tauri::Manager;
 use utils::setup;
+use window_vibrancy::{apply_vibrancy, NSVisualEffectMaterial};
 
 fn main() {
     tauri::Builder::default()
@@ -17,6 +19,12 @@ fn main() {
             commands::apps::get_applications,
         ])
         .setup(|app| {
+            // #[cfg(target_os = "macos")]
+            // app.set_activation_policy(tauri::ActivationPolicy::Accessory);
+            // let window = app.get_window("main").unwrap();
+            // apply_vibrancy(&window, NSVisualEffectMaterial::HudWindow, None, Some(10.0))
+            //     .expect("Unsupported platform! 'apply_vibrancy' is only supported on macOS");
+            // window.hide().unwrap();
             setup::setup(app);
             Ok(())
         })

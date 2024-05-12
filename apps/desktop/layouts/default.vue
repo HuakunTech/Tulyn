@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { tools } from "@jarvis/api";
-import { WrenchIcon, RefreshCwIcon, HomeIcon, CogIcon } from "lucide-vue-next";
+import {
+  WrenchIcon,
+  RefreshCwIcon,
+  HomeIcon,
+  CogIcon,
+  FlaskConicalIcon,
+  UserCogIcon,
+} from "lucide-vue-next";
 
 const config = useRuntimeConfig();
 </script>
@@ -15,7 +22,7 @@ const config = useRuntimeConfig();
               v-if="$config.public.IS_DEV"
               class="w-4 h-4"
               size="icon"
-              variant="outline"
+              variant="ghost"
             >
               <HomeIcon />
             </Button>
@@ -25,9 +32,20 @@ const config = useRuntimeConfig();
               v-if="$config.public.IS_DEV"
               class="w-4 h-4"
               size="icon"
-              variant="outline"
+              variant="ghost"
             >
-              <WrenchIcon />
+              <FlaskConicalIcon />
+            </Button>
+          </NuxtLink>
+          <NuxtLink to="./settings">
+            <Button
+              v-if="$config.public.IS_DEV"
+              class="w-4 h-4"
+              size="icon"
+              variant="ghost"
+            >
+              <!-- <UserCogIcon /> -->
+              <CogIcon />
             </Button>
           </NuxtLink>
           <Button
@@ -35,9 +53,9 @@ const config = useRuntimeConfig();
             @click="tools.toggleDevTools"
             class="w-4 h-4"
             size="icon"
-            variant="outline"
+            variant="ghost"
           >
-            <CogIcon />
+            <WrenchIcon />
           </Button>
         </div>
       </div>

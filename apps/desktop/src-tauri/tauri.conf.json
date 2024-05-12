@@ -13,6 +13,11 @@
   "tauri": {
     "allowlist": {
       "all": false,
+      "app": {
+        "all": true,
+        "hide": true,
+        "show": true
+      },
       "path": {
         "all": true
       },
@@ -168,6 +173,7 @@
         "width": 800,
         "titleBarStyle": "Overlay"
       }
-    ]
+    ],
+    "macOSPrivateApi": true
   }
 }
