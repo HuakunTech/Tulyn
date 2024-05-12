@@ -13,7 +13,7 @@ const props = defineProps<{
     value=""
     :class="
       cn(
-        'w-full flex items-center px-7 h-[25px] leading-none text-[13px] relative text-green9 select-none outline-none data-[highlighted]:ring-green9 data-[highlighted]:ring-1 focus:ring-green9 focus:ring-2 hover:bg-primary-foreground data-[state=checked]:bg-green9 data-[state=checked]:text-white data-[disabled]:opacity-50 rounded',
+        'w-full flex items-center px-7 h-[25px] leading-none text-[13px] relative text-green9 select-none outline-none data-[highlighted]:ring-green9 data-[highlighted]:ring-1 focus:ring-green9 focus:ring-2 focus:bg-primary-foreground hover:bg-primary-foreground data-[state=checked]:bg-green9 data-[state=checked]:text-white data-[disabled]:opacity-50 rounded',
         props.class,
       )
     "

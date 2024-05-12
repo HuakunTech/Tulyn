@@ -19,7 +19,7 @@ onMounted(async () => {
 <template>
   <NuxtLayout>
     <SearchBar />
-    <div class="grow overflow-y-scroll track-gray-100">
+    <div class="grow overflow-y-auto track-gray-100">
       <AppList class="track-gray-100" />
     </div>
   </NuxtLayout>
@@ -35,6 +35,6 @@ onMounted(async () => {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #93949a;
+  background: hsl(var(--border));
 }
 </style>

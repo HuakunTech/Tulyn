@@ -19,7 +19,7 @@ const foundApps = computedAsync<model.apps.AppInfo[]>(() => {
   <ListView :class="cn(props.class)">
     <ListGroup heading="Applications">
       <ListItem
-        @click="
+        @select="
           () => {
             open(app.app_desktop_path);
           }
