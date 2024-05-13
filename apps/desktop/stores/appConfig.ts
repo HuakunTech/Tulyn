@@ -6,9 +6,9 @@ export const LightMode = z.union([z.literal("light"), z.literal("dark"), z.liter
 export type LightMode = z.infer<typeof LightMode>;
 
 interface State {
-  searchTerm: string;
-  apps: model.apps.AppInfo[];
-  appsToDisplay: model.apps.AppInfo[];
+  // searchTerm: string;
+  // apps: model.apps.AppInfo[];
+  // appsToDisplay: model.apps.AppInfo[];
   theme: string;
   radius: number;
   lightMode: LightMode;
@@ -16,11 +16,11 @@ interface State {
   showInTray: boolean;
 }
 
-export const useAppStore = defineStore("app", {
+export const useAppConfigStore = defineStore("appConfig", {
   state: (): State => ({
-    searchTerm: "",
-    apps: [],
-    appsToDisplay: [],
+    // searchTerm: "",
+    // apps: [],
+    // appsToDisplay: [],
     theme: "zinc",
     radius: 0.5,
     lightMode: "system",
@@ -33,12 +33,6 @@ export const useAppStore = defineStore("app", {
     },
   },
   actions: {
-    async fetchApps() {
-      this.apps = await await appsAPI.getAllApps();
-    },
-    async searchApps(searchTerm: string) {
-      return this.apps.filter((app) => app.name.trim().toLowerCase().includes(searchTerm.trim().toLowerCase()));
-    },
     setTheme(theme: string) {
       this.theme = theme;
     },

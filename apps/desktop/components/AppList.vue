@@ -9,7 +9,7 @@ import type { HTMLAttributes } from "vue";
 const props = defineProps<{
   class?: HTMLAttributes["class"];
 }>();
-const appStore = useAppStore();
+const appStore = useAppsStore();
 const foundApps = computedAsync<model.apps.AppInfo[]>(() => {
   return appStore.searchApps(appStore.searchTerm);
 }, []);

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Checkbox } from "@/components/ui/checkbox";
 
-const appConfig = useAppStore();
+const appConfig = useAppConfigStore();
 const checked = ref(false);
 
 watch(checked, (value) => {

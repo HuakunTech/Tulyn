@@ -10,9 +10,9 @@ import {
   TestTubesIcon,
 } from "lucide-vue-next";
 import { allColors } from "~/lib/themes";
-import { useAppStore } from "~/stores/app";
+import { useAppConfigStore } from "~/stores/appConfig";
 
-const appConfig = useAppStore();
+const appConfig = useAppConfigStore();
 const config = useRuntimeConfig();
 const colorMode = useColorMode();
 

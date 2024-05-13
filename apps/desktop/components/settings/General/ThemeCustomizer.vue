@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import { allColors } from "~/lib/themes";
 import { colors } from "~/lib/colors";
-import { useAppStore, LightMode } from "~/stores/app";
+import { useAppConfigStore, LightMode } from "~/stores/appConfig";
 import { useDark } from "@vueuse/core";
 import { SunIcon, MoonIcon, CheckIcon } from "@radix-icons/vue";
 
 // const isDark = useDark();
 const RADII = [0, 0.25, 0.5, 0.75, 1];
-const appConfig = useAppStore();
+const appConfig = useAppConfigStore();
 const colorMode = useColorMode();
 
 function setLightMode(mode: LightMode) {

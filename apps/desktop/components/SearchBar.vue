@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-vue-next";
-import { useAppStore } from "~/stores/app";
+import { useAppConfigStore } from "~/stores/appConfig";
 
 const props = defineProps({
   autofocus: {
@@ -14,7 +14,7 @@ const props = defineProps({
   },
 });
 import { cn } from "@/lib/utils";
-const appStore = useAppStore();
+const appStore = useAppConfigStore();
 const searchTerm = computed({
   get() {
     return appStore.searchTerm;

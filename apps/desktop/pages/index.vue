@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { apps, model } from "@jarvis/api";
-import { useAppStore } from "~/stores/app";
 
-const appStore = useAppStore();
+const appStore = useAppsStore();
 const searchTerm = computed({
   get() {
     return appStore.searchTerm;

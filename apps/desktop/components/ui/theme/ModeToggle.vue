@@ -8,13 +8,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { LightMode, useAppStore } from "~/stores/app";
+import { LightMode, useAppConfigStore } from "~/stores/appConfig";
 
 const props = defineProps<{
   class?: string;
 }>();
 const colorMode = useColorMode();
-const appConfig = useAppStore();
+const appConfig = useAppConfigStore();
 
 function setLightMode(mode: LightMode) {
   colorMode.preference = mode;
