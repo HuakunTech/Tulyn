@@ -25,10 +25,6 @@ pub async fn sleep() -> Result<(), String> {
     run_apple_script("tell application \"System Events\" to sleep")
 }
 
-#[tauri::command]
-pub async fn lock() -> Result<(), String> {
-    run_apple_script("tell application \"System Events\" to sleep")
-}
 
 /// ```applescript
 /// tell application "System Events" to tell appearance preferences
@@ -56,7 +52,7 @@ pub async fn show_desktop() -> Result<(), String> {
 }
 
 #[tauri::command]
-pub async fn quit_app_apps() -> Result<(), String> {
+pub async fn quit_all_apps() -> Result<(), String> {
     todo!()
 }
 

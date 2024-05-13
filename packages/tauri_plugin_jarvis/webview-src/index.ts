@@ -6,9 +6,10 @@ export * as notification from "@tauri-apps/api/notification";
 export { open } from "@tauri-apps/api/shell";
 export * as shell from "@tauri-apps/api/shell";
 
-// Tools
+// API Commands
 export * as tools from "./src/api/tools";
 export * as apps from "./src/api/apps";
+export * as system from "./src/api/system";
 
 // Models
 export * as model from "./src/model";

@@ -16,7 +16,6 @@ const emits = defineEmits<{
 <template>
   <ListboxRoot
     :highlight-on-hover="true"
-    @highlight="e => console.log(e)"
     :model-value="props.modelValue"
     @update:model-value="(e) => emits('update:modelValue', e)"
     :class="cn('flex flex-col rounded-lg text-green9 mx-auto', props.class)"
