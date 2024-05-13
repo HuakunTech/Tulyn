@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { tools } from "@jarvis/api";
-import { WrenchIcon, RefreshCwIcon, HomeIcon, CogIcon, FlaskConicalIcon, UserCogIcon } from "lucide-vue-next";
+import {
+  WrenchIcon,
+  RefreshCwIcon,
+  HomeIcon,
+  CogIcon,
+  FlaskConicalIcon,
+  UserCogIcon,
+  TestTubesIcon,
+} from "lucide-vue-next";
 import { allColors } from "~/lib/themes";
 import { useAppStore } from "~/stores/app";
 
@@ -45,9 +53,13 @@ watch(
               <FlaskConicalIcon />
             </Button>
           </NuxtLink>
+          <NuxtLink to="./extensions">
+            <Button class="w-4 h-4" size="icon" variant="ghost">
+              <TestTubesIcon />
+            </Button>
+          </NuxtLink>
           <NuxtLink to="./settings">
             <Button v-if="$config.public.IS_DEV" class="w-4 h-4" size="icon" variant="ghost">
-              <!-- <UserCogIcon /> -->
               <CogIcon />
             </Button>
           </NuxtLink>

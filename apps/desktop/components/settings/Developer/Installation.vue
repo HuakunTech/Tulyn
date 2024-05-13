@@ -4,7 +4,14 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { FolderCogIcon, AlertCircle, InfoIcon, ExternalLinkIcon } from "lucide-vue-next";
+import {
+  FolderCogIcon,
+  AlertCircle,
+  InfoIcon,
+  ExternalLinkIcon,
+  CloudDownloadIcon,
+  FolderDownIcon,
+} from "lucide-vue-next";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -37,9 +44,10 @@ async function pickProject() {
   <div :class="cn('h-full', props.class)">
     <div class="container grid w-full max-w-2xl items-center gap-1.5">
       <Alert variant="destructive" class="dark:text-red-600 dark:border-red-600">
-        <AlertCircle class="w-4 h-4" />
-        <AlertTitle>Warning: Powerful Extensions, Potential Security Risks</AlertTitle>
-        <AlertDescription>
+        <AlertCircle class="w-4 h-4 dark:text-red-600" />
+        <AlertTitle>
+          <span>Warning: Powerful Extensions, Potential Security Risks</span>
+
           <AlertDialog>
             <AlertDialogTrigger as-child>
               <button class="float-right">
@@ -48,9 +56,9 @@ async function pickProject() {
             </AlertDialogTrigger>
             <AlertDialogContent class="sm:max-w-[40em] overflow-auto max-h-[30em]">
               <AlertDialogHeader>
-                <AlertDialogTitle class="text-red-600"
-                  >Warning: Powerful Extensions, Potential Security Risks</AlertDialogTitle
-                >
+                <AlertDialogTitle class="prose dark:prose-invert">
+                  <h2 class="text-red-600/90">Warning: Powerful Extensions, Potential Security Risks</h2>
+                </AlertDialogTitle>
                 <AlertDialogDescription>Be Careful Installing Any Extension Here</AlertDialogDescription>
               </AlertDialogHeader>
               <article class="prose dark:prose-invert">
@@ -99,7 +107,7 @@ async function pickProject() {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-        </AlertDescription>
+        </AlertTitle>
       </Alert>
 
       <p class="text-xs">
@@ -143,7 +151,7 @@ async function pickProject() {
       </Label>
       <div class="flex w-full items-center gap-1.5">
         <Input id="url" type="text" placeholder="Download URL" />
-        <Button type="submit">Download</Button>
+        <Button type="submit">Download<FolderDownIcon class="ml-2 h-4 w-4" /></Button>
       </div>
 
       <Label for="url" class="text-xl">
@@ -171,7 +179,7 @@ async function pickProject() {
       </Label>
       <div class="flex w-full items-center gap-1.5">
         <Input id="url" type="text" placeholder="Remote URL" />
-        <Button type="submit">Install</Button>
+        <Button type="submit">Install<CloudDownloadIcon class="ml-2 h-4 w-4" /></Button>
       </div>
     </div>
   </div>

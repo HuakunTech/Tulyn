@@ -8,17 +8,9 @@ import { devtools } from "vue";
 
 const extensions = ref<ExtInfo[]>([]);
 
-const devExts = computed(() =>
-  extensions.value.filter((ext) =>
-    ext.package_json.jarvis.ui?.startsWith("http"),
-  ),
-);
+const devExts = computed(() => extensions.value.filter((ext) => ext.package_json.jarvis.ui?.startsWith("http")));
 
-const prodExts = computed(() =>
-  extensions.value.filter(
-    (ext) => !ext.package_json.jarvis.ui?.startsWith("http"),
-  ),
-);
+const prodExts = computed(() => extensions.value.filter((ext) => !ext.package_json.jarvis.ui?.startsWith("http")));
 
 onMounted(() => {
   getExtensions().then((exts) => {
@@ -32,6 +24,7 @@ function openExt(ext: ExtInfo) {
     new WebviewWindow("ext-1", { url: ui });
   } else {
     new WebviewWindow("ext-1", {
+      title: ext.name,
       url: `http://localhost:1566/extensions/${ext.name}/dist/`,
     });
   }

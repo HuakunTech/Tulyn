@@ -1,4 +1,6 @@
 pub mod dev;
+pub mod system;
+pub mod utils;
 use serde::{ser::Serializer, Serialize};
 use tauri::{
     command,
@@ -47,6 +49,28 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             dev::close_devtools,
             dev::is_devtools_open,
             dev::toggle_devtools,
+            system::open_trash,
+            system::empty_trash,
+            system::shutdown,
+            system::reboot,
+            system::sleep,
+            system::lock,
+            system::toggle_system_appearance,
+            system::show_desktop,
+            system::quit_app_apps,
+            system::sleep_displays,
+            system::set_volume,
+            system::turn_volume_up,
+            system::turn_volume_down,
+            system::toggle_stage_manager,
+            system::toggle_bluetooth,
+            system::toggle_hidden_files,
+            system::eject_all_disks,
+            system::logout_user,
+            system::toggle_mute,
+            system::mute,
+            system::unmute,
+            system::hide_all_apps_except_frontmost,
         ])
         .setup(|app| {
             app.manage(MyState::default());
