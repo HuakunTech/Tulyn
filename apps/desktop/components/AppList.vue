@@ -13,15 +13,16 @@ const props = defineProps<{
 const appStore = useAppsStore();
 const foundApps = computedAsync<model.apps.AppInfo[]>(() => {
   return appStore.searchApps(appStore.searchTerm);
+  return [];
 }, []);
 
-GlobalEventBus.on("searchbar:keydown", (key) => {
-  console.log("searchbar:keydown", key);
+GlobalEventBus.onSearchBarKeyDown((e) => {
+  // console.log("pressed", e.key);
 });
 const selected = ref("");
-watch(foundApps, () => {
-  selected.value = foundApps.value[0]?.app_desktop_path ?? "";
-});
+// watch(foundApps, () => {
+//   selected.value = foundApps.value[0]?.app_desktop_path ?? "";
+// });
 </script>
 
 <template>
@@ -30,7 +31,7 @@ watch(foundApps, () => {
       <ListItem
         @select="
           () => {
-            open(app.app_desktop_path);
+            // open(app.app_desktop_path);
           }
         "
         v-for="app in foundApps"

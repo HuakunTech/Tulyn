@@ -32,7 +32,7 @@ function handleKeydown(e: KeyboardEvent) {
   } else if (e.key === "ArrowDown") {
     emits("downpressed");
   }
-  GlobalEventBus.emit("searchbar:keydown", e.key);
+  GlobalEventBus.emitSearchBarKeyDown(e);
 }
 
 onMounted(() => {});

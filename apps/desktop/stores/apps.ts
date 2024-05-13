@@ -19,6 +19,7 @@ export const useAppsStore = defineStore("apps", {
     },
     async searchApps(searchTerm: string) {
       return this.apps.filter((app) => app.name.trim().toLowerCase().includes(searchTerm.trim().toLowerCase()));
+      return []
     },
   },
 });

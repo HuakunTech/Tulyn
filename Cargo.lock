@@ -197,6 +197,7 @@ dependencies = [
  "axum-extra",
  "serde",
  "serde_json",
+ "sublime_fuzzy",
  "tauri",
  "tauri-build",
  "tauri-plugin-clipboard",
@@ -843,8 +844,10 @@ name = "cli"
 version = "0.1.0"
 dependencies = [
  "axum",
+ "fuzzy-matcher",
  "hyper-util",
  "rust_search",
+ "sublime_fuzzy",
  "tokio",
  "tower",
  "tower-http",
@@ -1610,6 +1613,15 @@ dependencies = [
  "pin-project-lite",
  "pin-utils",
  "slab",
+]
+
+[[package]]
+name = "fuzzy-matcher"
+version = "0.3.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "54614a3312934d066701a80f20f15fa3b56d67ac7722b39eea5b4c9dd1d66c94"
+dependencies = [
+ "thread_local",
 ]
 
 [[package]]
@@ -4290,6 +4302,12 @@ name = "strsim"
 version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "73473c0e59e6d5812c5dfe2a064a6444949f089e20eec9a2e5506596494e4623"
+
+[[package]]
+name = "sublime_fuzzy"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fa7986063f7c0ab374407e586d7048a3d5aac94f103f751088bf398e07cd5400"
 
 [[package]]
 name = "syn"

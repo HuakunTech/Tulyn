@@ -38,6 +38,7 @@ tauri-plugin-clipboard = "0.6.9"
 tauri_plugin_jarvis = { path = "../../../packages/tauri_plugin_jarvis" }
 tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
 window-vibrancy = "0.3.2"
+sublime_fuzzy = "0.7.0"
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem and the built-in dev server is disabled.

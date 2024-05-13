@@ -236,7 +236,7 @@ export const rawSystemCommands = [
 
 export const systemCommands: TCommand[] = rawSystemCommands.map((cmd) => ({
   name: cmd.name,
-  value: cmd.name.split(" ").join("-").toLowerCase(),
+  value: "system-cmd" + cmd.name.split(" ").join("-").toLowerCase(),
   icon: cmd.icon,
   keywords: cmd.name.split(" "),
   commandType: CommandType.Enum.system,

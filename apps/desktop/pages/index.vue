@@ -12,7 +12,10 @@ onMounted(async () => {
   <NuxtLayout>
     <SearchBar @downpressed="() => console.log('pressed')" />
     <div class="grow overflow-y-auto track-gray-100">
-      <AppList class="track-gray-100" />
+      <!-- <AppList class="track-gray-100" /> -->
+      <SearchResultList />
+      <!-- <DraftList class="w-full" /> -->
+      <!-- <VForRef /> -->
     </div>
   </NuxtLayout>
 </template>
