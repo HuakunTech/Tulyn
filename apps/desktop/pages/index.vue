@@ -2,14 +2,6 @@
 import { apps, model } from "@jarvis/api";
 
 const appStore = useAppsStore();
-const searchTerm = computed({
-  get() {
-    return appStore.searchTerm;
-  },
-  set(val) {
-    appStore.searchTerm = val;
-  },
-});
 
 onMounted(async () => {
   await apps.refreshApplicationsList();
@@ -18,7 +10,7 @@ onMounted(async () => {
 </script>
 <template>
   <NuxtLayout>
-    <SearchBar />
+    <SearchBar @downpressed="() => console.log('pressed')" />
     <div class="grow overflow-y-auto track-gray-100">
       <AppList class="track-gray-100" />
     </div>

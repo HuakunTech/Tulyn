@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-vue-next";
-import { useAppConfigStore } from "~/stores/appConfig";
+import { cn } from "@/lib/utils";
+import { GlobalEventBus } from "~/lib/globalEvents";
 
 const props = defineProps({
   autofocus: {
@@ -13,8 +14,10 @@ const props = defineProps({
     default: "",
   },
 });
-import { cn } from "@/lib/utils";
-const appStore = useAppConfigStore();
+const emits = defineEmits<{
+  (e: "downpressed"): void;
+}>();
+const appStore = useAppsStore();
 const searchTerm = computed({
   get() {
     return appStore.searchTerm;
@@ -23,10 +26,22 @@ const searchTerm = computed({
     appStore.searchTerm = val;
   },
 });
+function handleKeydown(e: KeyboardEvent) {
+  if (e.key === "Escape") {
+    appStore.searchTerm = "";
+  } else if (e.key === "ArrowDown") {
+    emits("downpressed");
+  }
+  // console.log(e.key);
+  GlobalEventBus.emit("searchbar:keydown", e.key);
+}
+
+onMounted(() => {});
 </script>
 <template>
   <div :class="cn('relative w-full items-center border-b-2', props.class)">
     <Input
+      @keydown="handleKeydown"
       :autofocus="props.autofocus"
       type="text"
       v-model="searchTerm"

@@ -22,6 +22,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "lucide-vue-next": "^0.378.0",
+    "mitt": "^3.0.1",
     "nuxt": "^3.11.2",
     "pinia": "^2.1.7",
     "radix-vue": "^1.7.4",

@@ -5,6 +5,7 @@ import { computedAsync } from "@vueuse/core";
 import { open } from "@tauri-apps/api/shell";
 import { cn } from "@/lib/utils";
 import type { HTMLAttributes } from "vue";
+import { GlobalEventBus } from "~/lib/globalEvents";
 
 const props = defineProps<{
   class?: HTMLAttributes["class"];
@@ -13,10 +14,18 @@ const appStore = useAppsStore();
 const foundApps = computedAsync<model.apps.AppInfo[]>(() => {
   return appStore.searchApps(appStore.searchTerm);
 }, []);
+
+GlobalEventBus.on("searchbar:keydown", (key) => {
+  console.log("searchbar:keydown", key);
+});
+const selected = ref("");
+watch(foundApps, () => {
+  selected.value = foundApps.value[0]?.app_desktop_path ?? "";
+});
 </script>
 
 <template>
-  <ListView :class="cn(props.class)">
+  <ListView :class="cn(props.class)" v-model="selected">
     <ListGroup heading="Applications">
       <ListItem
         @select="
