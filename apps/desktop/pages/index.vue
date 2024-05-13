@@ -13,6 +13,7 @@ const searchTerm = computed({
 });
 
 onMounted(async () => {
+  await apps.refreshApplicationsList();
   appStore.fetchApps();
 });
 </script>

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { model, apps } from "@jarvis/api";
+import { model, apps as appsAPI } from "@jarvis/api";
 import { z } from "zod";
 
 export const LightMode = z.union([z.literal("light"), z.literal("dark"), z.literal("system")]);
@@ -34,7 +34,7 @@ export const useAppStore = defineStore("app", {
   },
   actions: {
     async fetchApps() {
-      this.apps = await await apps.getAllApps();
+      this.apps = await await appsAPI.getAllApps();
     },
     async searchApps(searchTerm: string) {
       return this.apps.filter((app) => app.name.trim().toLowerCase().includes(searchTerm.trim().toLowerCase()));

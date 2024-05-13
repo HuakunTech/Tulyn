@@ -2,9 +2,9 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 mod commands;
 mod utils;
-use tauri::Manager;
 use utils::setup;
-use window_vibrancy::{apply_vibrancy, NSVisualEffectMaterial};
+// use tauri::Manager;
+// use window_vibrancy::{apply_vibrancy, NSVisualEffectMaterial};
 
 fn main() {
     tauri::Builder::default()
@@ -16,7 +16,6 @@ fn main() {
             commands::server::start_server,
             commands::server::stop_server,
             commands::server::server_is_running,
-            commands::apps::get_applications,
         ])
         .setup(|app| {
             // #[cfg(target_os = "macos")]

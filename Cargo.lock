@@ -4699,6 +4699,7 @@ dependencies = [
 name = "tauri_plugin_jarvis"
 version = "0.0.0"
 dependencies = [
+ "applications",
  "serde",
  "tauri",
  "thiserror",

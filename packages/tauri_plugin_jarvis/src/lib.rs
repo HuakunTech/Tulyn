@@ -1,6 +1,8 @@
+pub mod apps;
 pub mod dev;
 pub mod system;
 pub mod utils;
+use apps::ApplicationsState;
 use serde::{ser::Serializer, Serialize};
 use tauri::{
     command,
@@ -8,43 +10,10 @@ use tauri::{
     AppHandle, Manager, Runtime, State, Window,
 };
 
-use std::{collections::HashMap, sync::Mutex};
-
-type Result<T> = std::result::Result<T, Error>;
-
-#[derive(Debug, thiserror::Error)]
-pub enum Error {
-    #[error(transparent)]
-    Io(#[from] std::io::Error),
-}
-
-impl Serialize for Error {
-    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-    where
-        S: Serializer,
-    {
-        serializer.serialize_str(self.to_string().as_ref())
-    }
-}
-
-#[derive(Default)]
-struct MyState(Mutex<HashMap<String, String>>);
-
-#[command]
-async fn execute<R: Runtime>(
-    _app: AppHandle<R>,
-    _window: Window<R>,
-    state: State<'_, MyState>,
-) -> Result<String> {
-    state.0.lock().unwrap().insert("key".into(), "value".into());
-    Ok("success".to_string())
-}
-
 /// Initializes the plugin.
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
     Builder::new("jarvis")
         .invoke_handler(tauri::generate_handler![
-            execute,
             dev::open_devtools,
             dev::close_devtools,
             dev::is_devtools_open,
@@ -71,9 +40,12 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             system::mute,
             system::unmute,
             system::hide_all_apps_except_frontmost,
+            apps::get_applications,
+            apps::refresh_applications_list,
+            apps::refresh_applications_list_in_bg
         ])
         .setup(|app| {
-            app.manage(MyState::default());
+            app.manage(ApplicationsState::default());
             Ok(())
         })
         .build()
