@@ -1,15 +1,33 @@
 <script setup lang="ts">
 import { tools } from "@jarvis/api";
-import {
-  WrenchIcon,
-  RefreshCwIcon,
-  HomeIcon,
-  CogIcon,
-  FlaskConicalIcon,
-  UserCogIcon,
-} from "lucide-vue-next";
+import { WrenchIcon, RefreshCwIcon, HomeIcon, CogIcon, FlaskConicalIcon, UserCogIcon } from "lucide-vue-next";
+import { allColors } from "~/lib/themes";
+import { useAppStore } from "~/stores/app";
 
+const appConfig = useAppStore();
 const config = useRuntimeConfig();
+const colorMode = useColorMode();
+
+onMounted(() => {
+  document.documentElement.style.setProperty("--radius", `${appConfig.radius}rem`);
+  document.documentElement.classList.add(`theme-${appConfig.theme}`);
+  colorMode.preference = appConfig.lightMode ?? "system";
+});
+
+watch(
+  () => appConfig.theme,
+  (theme) => {
+    document.documentElement.classList.remove(...allColors.map((color) => `theme-${color}`));
+    document.documentElement.classList.add(`theme-${theme}`);
+  },
+);
+
+watch(
+  () => appConfig.radius,
+  (radius) => {
+    document.documentElement.style.setProperty("--radius", `${radius}rem`);
+  },
+);
 </script>
 <template>
   <main class="h-screen">
@@ -18,32 +36,17 @@ const config = useRuntimeConfig();
         <div class="flex space-x-4 float-right px-5 py-2">
           <ModeToggle class="w-4 h-4" />
           <NuxtLink to="/">
-            <Button
-              v-if="$config.public.IS_DEV"
-              class="w-4 h-4"
-              size="icon"
-              variant="ghost"
-            >
+            <Button v-if="$config.public.IS_DEV" class="w-4 h-4" size="icon" variant="ghost">
               <HomeIcon />
             </Button>
           </NuxtLink>
           <NuxtLink to="./dev">
-            <Button
-              v-if="$config.public.IS_DEV"
-              class="w-4 h-4"
-              size="icon"
-              variant="ghost"
-            >
+            <Button v-if="$config.public.IS_DEV" class="w-4 h-4" size="icon" variant="ghost">
               <FlaskConicalIcon />
             </Button>
           </NuxtLink>
           <NuxtLink to="./settings">
-            <Button
-              v-if="$config.public.IS_DEV"
-              class="w-4 h-4"
-              size="icon"
-              variant="ghost"
-            >
+            <Button v-if="$config.public.IS_DEV" class="w-4 h-4" size="icon" variant="ghost">
               <!-- <UserCogIcon /> -->
               <CogIcon />
             </Button>

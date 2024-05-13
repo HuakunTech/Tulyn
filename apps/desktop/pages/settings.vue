@@ -37,7 +37,7 @@ import { Icon } from "@iconify/vue";
           About
         </TabsTrigger>
       </TabsList>
-      <TabsContent value="general"><SettingsGeneralTab /></TabsContent>
+      <TabsContent value="general" class="grow"><SettingsGeneralTab /></TabsContent>
       <TabsContent value="extensions"><SettingsExtensionsTab /></TabsContent>
       <TabsContent value="developer"><SettingsDeveloperTab /></TabsContent>
       <TabsContent value="account"></TabsContent>

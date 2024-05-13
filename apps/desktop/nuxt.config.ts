@@ -2,13 +2,14 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: false,
-  css: ["@/assets/css/index.css"],
+  css: ["@/assets/css/index.css", "@/assets/css/themes.css"],
   modules: [
     "@nuxtjs/tailwindcss",
     "shadcn-nuxt",
     "@nuxtjs/color-mode",
     "@pinia/nuxt",
-    "@nuxt/image"
+    "@pinia-plugin-persistedstate/nuxt",
+    "@nuxt/image",
   ],
   colorMode: {
     classSuffix: "",
