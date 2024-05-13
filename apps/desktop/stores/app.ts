@@ -1,11 +1,6 @@
 import { defineStore } from "pinia";
 import { model, apps } from "@jarvis/api";
-import { useLocalStorage, useMouse, usePreferredDark, useDark, useToggle } from "@vueuse/core";
 import { z } from "zod";
-
-// const isDark = useDark();
-// const toggleDark = useToggle(isDark);
-// const colorMode = useColorMode();
 
 export const LightMode = z.union([z.literal("light"), z.literal("dark"), z.literal("system")]);
 export type LightMode = z.infer<typeof LightMode>;
@@ -17,6 +12,8 @@ interface State {
   theme: string;
   radius: number;
   lightMode: LightMode;
+  launchAtLogin: boolean;
+  showInTray: boolean;
 }
 
 export const useAppStore = defineStore("app", {
@@ -27,12 +24,13 @@ export const useAppStore = defineStore("app", {
     theme: "zinc",
     radius: 0.5,
     lightMode: "system",
+    launchAtLogin: true,
+    showInTray: true,
   }),
   getters: {
     themeClass(state) {
       return `theme-${state.theme}`;
     },
-    
   },
   actions: {
     async fetchApps() {
@@ -50,12 +48,14 @@ export const useAppStore = defineStore("app", {
     setLightMode(mode: LightMode) {
       const parsedMode = LightMode.parse(mode);
       this.lightMode = parsedMode; // update storage
-      // colorMode.preference = parsedMode; // update UI
-      // console.log(colorMode.preference);
-      
-      // this.isDark = dark; // update storage
-      // if (dark)
-      // isDark.value = dark; // update UI
+    },
+    setLaunchAtLogin(launchAtLogin: boolean) {
+      this.launchAtLogin = launchAtLogin;
+      // TODO
+    },
+    setShowInTray(showInTray: boolean) {
+      this.showInTray = showInTray;
+      // TODO
     },
   },
   persist: {

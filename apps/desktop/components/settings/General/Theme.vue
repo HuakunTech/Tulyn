@@ -4,7 +4,9 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 </script>
 <template>
   <div class="grid grid-cols-2 gap-4">
-    <span class="justify-self-end">Theme</span>
+    <div class="flex items-center justify-end">
+      <span class="justify-self-end">Theme</span>
+    </div>
     <Dialog>
       <DialogTrigger as-child>
         <Button variant="outline" class="w-36">Edit Styles</Button>
