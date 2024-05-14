@@ -10,5 +10,6 @@ export const TCommand = z.object({
   keywords: z.array(z.string()).nullable(),
   commandType: CommandType,
   function: z.function(),
+  confirmRequired: z.boolean(),
 });
 export type TCommand = z.infer<typeof TCommand>;

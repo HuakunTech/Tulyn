@@ -1,6 +1,7 @@
 import { invoke } from "@tauri-apps/api";
 import { TCommand, CommandType } from "src/model/command";
 import { IconType, TListItem } from "src/model/list";
+import { confirm } from "@tauri-apps/api/dialog";
 
 export function openTrash(): Promise<void> {
   return invoke("plugin:jarvis|open_trash");
@@ -110,126 +111,151 @@ export const rawSystemCommands = [
   {
     name: "Open Trash",
     icon: "uil:trash",
+    confirmRequired: false,
     function: openTrash,
   },
   {
     name: "Empty Trash",
     icon: "uil:trash",
+    confirmRequired: true,
     function: emptyTrash,
   },
   {
     name: "Shutdown",
     icon: "mdi:shutdown",
+    confirmRequired: true,
     function: shutdown,
   },
   {
     name: "Reboot",
     icon: "mdi:restart",
+    confirmRequired: true,
     function: reboot,
   },
   {
     name: "Sleep",
     icon: "carbon:asleep",
+    confirmRequired: false,
     function: sleep,
   },
   {
     name: "Toggle System Appearance",
     icon: "line-md:light-dark",
+    confirmRequired: false,
     function: toggleSystemAppearance,
   },
   {
     name: "Show Desktop",
     icon: "bi:window-desktop",
+    confirmRequired: false,
     function: showDesktop,
   },
   {
     name: "Quit App",
     icon: "charm:cross",
+    confirmRequired: false,
     function: quitAllApps,
   },
   {
     name: "Sleep Displays",
     icon: "solar:display-broken",
+    confirmRequired: false,
     function: sleepDisplays,
   },
   {
     name: "Set Volume to 0%",
     icon: "flowbite:volume-mute-outline",
+    confirmRequired: false,
     function: setVolumeTo0,
   },
   {
     name: "Set Volume to 25%",
     icon: "flowbite:volume-down-solid",
+    confirmRequired: false,
     function: setVolumeTo25,
   },
   {
     name: "Set Volume to 50%",
     icon: "flowbite:volume-down-solid",
+    confirmRequired: false,
     function: setVolumeTo50,
   },
   {
     name: "Set Volume to 75%",
     icon: "flowbite:volume-down-solid",
+    confirmRequired: false,
     function: setVolumeTo75,
   },
   {
     name: "Set Volume to 100%",
     icon: "flowbite:volume-up-solid",
+    confirmRequired: false,
     function: setVolumeTo100,
   },
   {
     name: "Turn Volume Up",
     icon: "flowbite:volume-down-solid",
+    confirmRequired: false,
     function: turnVolumeUp,
   },
   {
     name: "Turn Volume Down",
     icon: "flowbite:volume-down-outline",
+    confirmRequired: false,
     function: turnVolumeDown,
   },
   {
     name: "Toggle Mute",
     icon: "flowbite:volume-mute-outline",
+    confirmRequired: false,
     function: toggleMute,
   },
   {
     name: "Mute",
     icon: "flowbite:volume-mute-solid",
+    confirmRequired: false,
     function: mute,
   },
   {
     name: "Unmute",
     icon: "flowbite:volume-mute-solid",
+    confirmRequired: false,
     function: unmute,
   },
   {
     name: "Toggle Stage Manager",
     icon: "material-symbols:dashboard",
+    confirmRequired: false,
     function: toggleStageManager,
   },
   {
     name: "Toggle Bluetooth",
     icon: "material-symbols:bluetooth",
+    confirmRequired: false,
     function: toggleBluetooth,
   },
   {
     name: "Toggle Hidden Files",
     icon: "mdi:hide",
+    confirmRequired: false,
     function: toggleHiddenFiles,
   },
   {
     name: "Eject All Disks",
     icon: "ph:eject-fill",
+    confirmRequired: true,
     function: ejectAllDisks,
   },
   {
     name: "Log Out User",
     icon: "ic:baseline-logout",
+    confirmRequired: false,
     function: logoutUser,
   },
   {
     name: "Hide All Apps Except Frontmost",
     icon: "mdi:hide",
+    confirmRequired: false,
     function: hideAllAppsExceptFrontmost,
   },
 ];
@@ -240,7 +266,17 @@ export const systemCommands: TCommand[] = rawSystemCommands.map((cmd) => ({
   icon: cmd.icon,
   keywords: cmd.name.split(" "),
   commandType: CommandType.Enum.system,
-  function: cmd.function,
+  function: async () => {
+    if (cmd.confirmRequired) {
+      const confirmed = await confirm("Are you sure?");
+      if (confirmed) {
+        cmd.function();
+      }
+    } else {
+      cmd.function();
+    }
+  },
+  confirmRequired: cmd.confirmRequired,
 }));
 
 export const systemCommandListItems: TListItem[] = systemCommands.map((cmd) =>

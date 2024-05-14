@@ -25,12 +25,10 @@ onMounted(async () => {
       allApps.value = apps;
     });
 });
-
-
 </script>
 <template>
   <Command class="">
-    <CommandInput placeholder="Search for apps or commands..." />
+    <CommandInput placeholder="Search for apps or commands..." :always-focus="true" />
     <CommandList class="px-2">
       <CommandEmpty>No results found.</CommandEmpty>
       <CommandGroup heading="System Commands">
@@ -44,7 +42,7 @@ onMounted(async () => {
           <span class="">{{ cmd.name }}</span>
           <span class="mx-3">-</span>
           <span class="text-muted-foreground">System</span>
-          <CommandShortcut class="capitalize">{{ cmd.commandType }}</CommandShortcut>
+          <CommandShortcut class="capitalize">Command</CommandShortcut>
         </CommandItem>
       </CommandGroup>
       <CommandSeparator />
