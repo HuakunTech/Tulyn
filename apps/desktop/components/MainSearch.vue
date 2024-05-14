@@ -25,11 +25,12 @@ onMounted(async () => {
       allApps.value = apps;
     });
 });
-</script>
 
+
+</script>
 <template>
   <Command class="">
-    <CommandInput placeholder="Type a command or search..." />
+    <CommandInput placeholder="Search for apps or commands..." />
     <CommandList class="px-2">
       <CommandEmpty>No results found.</CommandEmpty>
       <CommandGroup heading="System Commands">
