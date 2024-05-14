@@ -57,49 +57,55 @@ async function pickProject() {
             <AlertDialogContent class="sm:max-w-[40em] overflow-auto max-h-[30em]">
               <AlertDialogHeader>
                 <AlertDialogTitle class="prose dark:prose-invert">
-                  <h2 class="text-red-600/90">Warning: Powerful Extensions, Potential Security Risks</h2>
+                  <h2 class="text-red-600/90">
+                    Warning: Powerful Extensions, Potential Security Risks
+                  </h2>
                 </AlertDialogTitle>
-                <AlertDialogDescription>Be Careful Installing Any Extension Here</AlertDialogDescription>
+                <AlertDialogDescription
+                  >Be Careful Installing Any Extension Here</AlertDialogDescription
+                >
               </AlertDialogHeader>
               <article class="prose dark:prose-invert">
                 <p>
-                  This app allows you to install extensions from external sources. While these extensions can provide
-                  advanced features and improve your experience (UX) and developer experience (DX), they also carry
-                  significant security risks.
+                  This app allows you to install extensions from external sources. While these
+                  extensions can provide advanced features and improve your experience (UX) and
+                  developer experience (DX), they also carry significant security risks.
                 </p>
 
                 <h3>Understanding the Risks:</h3>
                 <ul>
                   <li>
-                    <strong>File System and System API Access:</strong> Extensions can access your files and system
-                    APIs, making them powerful but potentially dangerous.
+                    <strong>File System and System API Access:</strong> Extensions can access your
+                    files and system APIs, making them powerful but potentially dangerous.
                   </li>
                   <li>
-                    <strong>Limited Review Process:</strong> Extensions from the app store can be reviewed by public,
-                    but there's still a chance of encountering security vulnerabilities.
+                    <strong>Limited Review Process:</strong> Extensions from the app store can be
+                    reviewed by public, but there's still a chance of encountering security
+                    vulnerabilities.
                   </li>
                 </ul>
 
                 <h3>Developer Settings and Untrusted Sources:</h3>
                 <ul>
                   <li>
-                    <strong>Developer settings</strong> allow installing extensions from anywhere, like your local
-                    machine or remote URLs. This is intended only for development purposes or when you absolutely trust
-                    the source.
+                    <strong>Developer settings</strong> allow installing extensions from anywhere,
+                    like your local machine or remote URLs. This is intended only for development
+                    purposes or when you absolutely trust the source.
                   </li>
                   <li>
-                    <strong>Loading extensions from remote URLs</strong> grants them access to your system, similar to
-                    giving a website that level of control. Since the author can update the code at any time, malicious
-                    extensions could steal information or take control of your system.
+                    <strong>Loading extensions from remote URLs</strong> grants them access to your
+                    system, similar to giving a website that level of control. Since the author can
+                    update the code at any time, malicious extensions could steal information or
+                    take control of your system.
                     <strong>Remote URLs should only be used for development.</strong>
                   </li>
                 </ul>
 
                 <h3>Stay Safe: Trust Matters</h3>
                 <p>
-                  Only install extensions from reputable sources that you trust (e.g. extensions written by yourself or
-                  your organization). By being cautious, you can maximize the benefits and minimize the risks associated
-                  with external extensions.
+                  Only install extensions from reputable sources that you trust (e.g. extensions
+                  written by yourself or your organization). By being cautious, you can maximize the
+                  benefits and minimize the risks associated with external extensions.
                 </p>
               </article>
               <AlertDialogFooter>
@@ -111,8 +117,8 @@ async function pickProject() {
       </Alert>
 
       <p class="text-xs">
-        There are 3 options to install an extension in developer mode. Either load it from your local folder, download
-        from URL or load from a remote URL directly.
+        There are 3 options to install an extension in developer mode. Either load it from your
+        local folder, download from URL or load from a remote URL directly.
       </p>
       <Label class="text-xl" for="pick">Pick Project Folder to Install</Label>
       <div class="flex justify-center">
@@ -133,7 +139,10 @@ async function pickProject() {
             <button class="-translate-y-0.5"><InfoIcon class="inline w-4 cursor-pointer" /></button>
           </PopoverTrigger>
           <PopoverContent class="w-96">
-            <TauriLink class="block" href="https://jarvis.huakun.tech/design/extensions/installation/">
+            <TauriLink
+              class="block"
+              href="https://jarvis.huakun.tech/design/extensions/installation/"
+            >
               Read Docs For More Details <ExternalLinkIcon class="inline w-4 -translate-y-0.5" />
             </TauriLink>
             <div class="text-xs">
@@ -142,7 +151,9 @@ async function pickProject() {
                 >https://registry.npmjs.org/nest-neo4j/latest</TauriLink
               >
               or a tarball url like
-              <TauriLink class="block" href="https://registry.npmjs.org/nest-neo4j/-/nest-neo4j-0.3.1.tgz"
+              <TauriLink
+                class="block"
+                href="https://registry.npmjs.org/nest-neo4j/-/nest-neo4j-0.3.1.tgz"
                 >https://registry.npmjs.org/nest-neo4j/-/nest-neo4j-0.3.1.tgz</TauriLink
               >
             </div>
@@ -161,7 +172,10 @@ async function pickProject() {
             <button class="-translate-y-0.5"><InfoIcon class="inline w-4 cursor-pointer" /></button>
           </PopoverTrigger>
           <PopoverContent class="w-96">
-            <TauriLink class="block" href="https://jarvis.huakun.tech/design/extensions/installation/">
+            <TauriLink
+              class="block"
+              href="https://jarvis.huakun.tech/design/extensions/installation/"
+            >
               Read Docs For More Details <ExternalLinkIcon class="inline w-4 -translate-y-0.5" />
             </TauriLink>
             <div class="text-xs">
@@ -170,7 +184,9 @@ async function pickProject() {
                 >https://registry.npmjs.org/nest-neo4j/latest</TauriLink
               >
               or a tarball url like
-              <TauriLink class="block" href="https://registry.npmjs.org/nest-neo4j/-/nest-neo4j-0.3.1.tgz"
+              <TauriLink
+                class="block"
+                href="https://registry.npmjs.org/nest-neo4j/-/nest-neo4j-0.3.1.tgz"
                 >https://registry.npmjs.org/nest-neo4j/-/nest-neo4j-0.3.1.tgz</TauriLink
               >
             </div>

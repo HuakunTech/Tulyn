@@ -24,9 +24,19 @@ function setLightMode(mode: LightMode) {
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
-      <Button variant="ghost" size="icon" :class="cn('border-none focus:border-none outline-none', props.class)">
-        <Icon icon="fxemoji:sunrays" class="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 h-4 w-4" />
-        <Icon icon="fluent-emoji-flat:crescent-moon" class="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 h-4 w-4" />
+      <Button
+        variant="ghost"
+        size="icon"
+        :class="cn('border-none focus:border-none outline-none', props.class)"
+      >
+        <Icon
+          icon="fxemoji:sunrays"
+          class="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 h-4 w-4"
+        />
+        <Icon
+          icon="fluent-emoji-flat:crescent-moon"
+          class="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 h-4 w-4"
+        />
       </Button>
     </DropdownMenuTrigger>
     <DropdownMenuContent align="end">

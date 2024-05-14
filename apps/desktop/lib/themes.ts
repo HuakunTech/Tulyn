@@ -634,4 +634,4 @@ export const themes = [
 ] as const;
 
 export type Theme = (typeof themes)[number];
-export const allColors = themes.map(t => t.name);
+export const allColors = themes.map((t) => t.name);

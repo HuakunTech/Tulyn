@@ -33,7 +33,7 @@ import { Icon } from "@iconify/vue";
       <TabsContent value="extensions"><SettingsExtensionsTab /></TabsContent>
       <TabsContent value="developer" class="grow min-h-0">
         <!-- <div class="overflow-auto flex"> -->
-          <SettingsDeveloperTab />
+        <SettingsDeveloperTab />
         <!-- </div> -->
       </TabsContent>
       <TabsContent value="account"></TabsContent>

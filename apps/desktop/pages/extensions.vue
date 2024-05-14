@@ -8,9 +8,13 @@ import { devtools } from "vue";
 
 const extensions = ref<ExtInfo[]>([]);
 
-const devExts = computed(() => extensions.value.filter((ext) => ext.package_json.jarvis.ui?.startsWith("http")));
+const devExts = computed(() =>
+  extensions.value.filter((ext) => ext.package_json.jarvis.ui?.startsWith("http")),
+);
 
-const prodExts = computed(() => extensions.value.filter((ext) => !ext.package_json.jarvis.ui?.startsWith("http")));
+const prodExts = computed(() =>
+  extensions.value.filter((ext) => !ext.package_json.jarvis.ui?.startsWith("http")),
+);
 
 onMounted(() => {
   getExtensions().then((exts) => {

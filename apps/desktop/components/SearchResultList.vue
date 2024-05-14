@@ -53,7 +53,11 @@ const selected = ref("");
     >
       <span class="flex items-center">
         <Button size="sm" variant="ghost" class="pointer-events-none">
-          <Icon v-if="cmd.icon?.type === model.list.IconType.Enum.iconify" :icon="cmd.icon.value" class="w-5 h-5" />
+          <Icon
+            v-if="cmd.icon?.type === model.list.IconType.Enum.iconify"
+            :icon="cmd.icon.value"
+            class="w-5 h-5"
+          />
         </Button>
         <span class="font-semibold text-sm">{{ cmd.title }}</span>
         <pre class="p-0 m-0 ml-4 text-sm">{{ cmd.description }}</pre>
@@ -76,7 +80,11 @@ const selected = ref("");
         <!-- <span>{{ app.name }}</span> -->
         <span class="flex items-center">
           <Button size="sm" variant="ghost" class="pointer-events-none">
-            <Icon v-if="app.icon?.type === model.list.IconType.Enum.iconify" :icon="app.icon.value" class="w-5 h-5" />
+            <Icon
+              v-if="app.icon?.type === model.list.IconType.Enum.iconify"
+              :icon="app.icon.value"
+              class="w-5 h-5"
+            />
           </Button>
           <span class="font-semibold text-sm">{{ app.title }}</span>
           <pre v-if="app.description" class="p-0 m-0 ml-4 text-sm">{{ app.description }}</pre>

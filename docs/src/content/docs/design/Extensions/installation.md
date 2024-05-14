@@ -108,5 +108,4 @@ For example, the request could have this format
 }
 ```
 
-
 If `dist` is a single URL, Jarvis assumes there is no platform-specific code in the extension.

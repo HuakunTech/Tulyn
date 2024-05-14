@@ -16,9 +16,7 @@ onMounted(() => {
     .catch((err) => {
       console.error(err);
       return axios.get("https://ifconfig.me/all.json").then((response) => {
-        ip.value = z
-          .object({ ip_addr: z.string() })
-          .parse(response.data).ip_addr;
+        ip.value = z.object({ ip_addr: z.string() }).parse(response.data).ip_addr;
       });
     });
 });

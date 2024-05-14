@@ -70,7 +70,7 @@ class OpenEditorExt extends ExtensionTemplate {
 }
 
 const ext = OpenEditorExt();
-ext.start(); // 
+ext.start(); //
 ```
 
 ## Option 2: Provide a Extension Runtime
@@ -80,7 +80,6 @@ The runtime is a bun process that import extensions code as library and run it.
 In Jarvis runtime, run with bun
 
 ```ts
-
 // connect to server, e.g. socketio or bidirectinal grpc stream
 runtime.connect("http://localhost:1566");
 runtime.getExtensionInfo(); // get extension info from server, such as command keywords, etc.
@@ -88,10 +87,10 @@ runtime.getExtensionInfo(); // get extension info from server, such as command k
 // it's possible to include this code in @jarvis/api and let extension run this client to connect with server
 // but if there are many extensions, the client code will be duplicated in each extension (e.g. socketio client lib duplicated many times)
 runtime.on("user-input", (data) => {
-    const userInput: string = data; 
-    const {command, query} = userInput; // in real code, split the command and query, command is the first word (trigger word), query is the rest
-    const ext = runtime.findExtension(command); // find the extension that has the command
-    const lib = await import(ext.libpath);
-    lib.onPluginCalled(query);
-})
+  const userInput: string = data;
+  const { command, query } = userInput; // in real code, split the command and query, command is the first word (trigger word), query is the rest
+  const ext = runtime.findExtension(command); // find the extension that has the command
+  const lib = await import(ext.libpath);
+  lib.onPluginCalled(query);
+});
 ```

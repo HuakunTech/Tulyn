@@ -10,9 +10,7 @@ import {
 import { CheckIcon } from "@radix-icons/vue";
 import { cn } from "@/lib/utils";
 
-const props = defineProps<
-  DropdownMenuCheckboxItemProps & { class?: HTMLAttributes["class"] }
->();
+const props = defineProps<DropdownMenuCheckboxItemProps & { class?: HTMLAttributes["class"] }>();
 const emits = defineEmits<DropdownMenuCheckboxItemEmits>();
 
 const delegatedProps = computed(() => {

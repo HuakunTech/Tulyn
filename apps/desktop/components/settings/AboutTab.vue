@@ -11,11 +11,7 @@ const props = defineProps<{
 }>();
 </script>
 <template>
-  <Card
-    :class="
-      cn('h-full border-none flex justify-center items-center', props.class)
-    "
-  >
+  <Card :class="cn('h-full border-none flex justify-center items-center', props.class)">
     <CardContent class="flex space-x-5 items-center">
       <NuxtImg src="/images/128x128.png" class="w-36" />
       <div class="flex flex-col space-y-1">
@@ -25,10 +21,7 @@ const props = defineProps<{
           <strong class="font-bold">Author: </strong>
           <TauriLink href="https://github.com/HuakunShen">
             @HuakunShen
-            <Icon
-              icon="mdi:github"
-              class="inline text-white -translate-y-0.5"
-            />
+            <Icon icon="mdi:github" class="inline text-white -translate-y-0.5" />
           </TauriLink>
         </p>
       </div>

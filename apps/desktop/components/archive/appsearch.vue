@@ -2,19 +2,8 @@
 import { WebviewWindow } from "@tauri-apps/api/window";
 import { Input } from "@/components/ui/input";
 import { appDataDir } from "@tauri-apps/api/path";
-import {
-  startServer,
-  stopServer,
-  serverIsRunning,
-} from "@/lib/commands/server";
-import {
-  Calculator,
-  Calendar,
-  CreditCard,
-  Settings,
-  Smile,
-  User,
-} from "lucide-vue-next";
+import { startServer, stopServer, serverIsRunning } from "@/lib/commands/server";
+import { Calculator, Calendar, CreditCard, Settings, Smile, User } from "lucide-vue-next";
 import {
   Command,
   CommandEmpty,
@@ -25,11 +14,7 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
-import {
-  ComboboxInput,
-  type ComboboxInputProps,
-  useForwardProps,
-} from "radix-vue";
+import { ComboboxInput, type ComboboxInputProps, useForwardProps } from "radix-vue";
 import { apps, model } from "@jarvis/api";
 
 const searchTerm = ref("");
@@ -83,10 +68,7 @@ onMounted(async () => {
 <template>
   <NuxtLayout>
     <div>
-      <Command
-        class="rounded-lg border shadow-md"
-        v-model:searchTerm="searchTerm"
-      >
+      <Command class="rounded-lg border shadow-md" v-model:searchTerm="searchTerm">
         <CommandInput placeholder="Type a command or search..." />
         <CommandList class="h-full max-h-[85vh]">
           <CommandEmpty>No results found.</CommandEmpty>

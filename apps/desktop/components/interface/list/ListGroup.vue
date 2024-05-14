@@ -11,9 +11,7 @@ const props = defineProps<{
 <template>
   <ListboxGroup>
     <ListboxGroupLabel
-      :class="
-        cn('px-2 py-1.5 text-xs font-medium text-muted-foreground', props.class)
-      "
+      :class="cn('px-2 py-1.5 text-xs font-medium text-muted-foreground', props.class)"
     >
       {{ props.heading }}
     </ListboxGroupLabel>

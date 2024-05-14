@@ -33,8 +33,6 @@ description: Commands to interact with the system.
 - [x] Toggle Mute
 - [x] Hide All Apps Except Frontmost
 
-
-
 ## Alfred Commands
 
 - [x] Screensaver

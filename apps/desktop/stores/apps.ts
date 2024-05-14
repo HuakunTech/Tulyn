@@ -18,7 +18,9 @@ export const useAppsStore = defineStore("apps", {
       this.apps = await appsAPI.getAllApps();
     },
     async searchApps(searchTerm: string) {
-      return this.apps.filter((app) => app.name.trim().toLowerCase().includes(searchTerm.trim().toLowerCase()));
+      return this.apps.filter((app) =>
+        app.name.trim().toLowerCase().includes(searchTerm.trim().toLowerCase()),
+      );
       return [];
     },
   },

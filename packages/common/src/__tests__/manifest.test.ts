@@ -15,8 +15,7 @@ describe("Manifest", () => {
   test("Load Valid", () => {
     const manifest1 = Manifest.parse(JSON.stringify(samplePackageJson1));
     const manifest2 = Manifest.parse(samplePackageJson1);
-    const samplePackageJson2: ManifestSchema =
-      structuredClone(samplePackageJson1);
+    const samplePackageJson2: ManifestSchema = structuredClone(samplePackageJson1);
     samplePackageJson2.jarvis.ui = null;
     const manifest3 = Manifest.parse(samplePackageJson2); // ui field can be null
     // undefined ui

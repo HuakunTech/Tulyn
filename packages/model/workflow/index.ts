@@ -5,13 +5,8 @@ import { OpenFileNode, OpenFileName } from "./actions/open-file";
 import { ScriptFilterName, ScriptFilterNode } from "./inputs/script-filter";
 import { KeywordTriggerNode } from "./inputs/keyword-trigger";
 
-export const NodeType = z.enum([
-  FileFilterName.value,
-  OpenFileName.value,
-  ScriptFilterName.value,
-]);
-export const InputsNodes =
-  ScriptFilterNode.or(FileFilterNode).or(KeywordTriggerNode);
+export const NodeType = z.enum([FileFilterName.value, OpenFileName.value, ScriptFilterName.value]);
+export const InputsNodes = ScriptFilterNode.or(FileFilterNode).or(KeywordTriggerNode);
 export const ActionNodes = OpenFileNode;
 export const AllNodes = ActionNodes.or(InputsNodes);
 export const Edge = z.object({

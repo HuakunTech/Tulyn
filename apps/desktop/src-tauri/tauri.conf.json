@@ -67,9 +67,7 @@
         "removeDir": false,
         "removeFile": false,
         "renameFile": false,
-        "scope": [
-          "*"
-        ],
+        "scope": ["*"],
         "writeFile": false
       },
       "notification": {
@@ -152,10 +150,7 @@
             "ext-18",
             "ext-19"
           ],
-          "plugins": [
-            "clipboard",
-            "jarvis"
-          ]
+          "plugins": ["clipboard", "jarvis"]
         }
       ]
     },

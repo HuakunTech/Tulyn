@@ -20,8 +20,4 @@ export const ArgumentType = z.enum([
 export const NodeTypeEvent = z.literal("event");
 export const NodeTypeInput = z.literal("input");
 export const NodeTypeAction = z.literal("action");
-export const NodeType = z.enum([
-  NodeTypeEvent.value,
-  NodeTypeInput.value,
-  NodeTypeAction.value,
-]);
+export const NodeType = z.enum([NodeTypeEvent.value, NodeTypeInput.value, NodeTypeAction.value]);
