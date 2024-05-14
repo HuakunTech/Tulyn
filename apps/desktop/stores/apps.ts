@@ -15,11 +15,11 @@ export const useAppsStore = defineStore("apps", {
   }),
   actions: {
     async fetchApps() {
-      this.apps = await await appsAPI.getAllApps();
+      this.apps = await appsAPI.getAllApps();
     },
     async searchApps(searchTerm: string) {
       return this.apps.filter((app) => app.name.trim().toLowerCase().includes(searchTerm.trim().toLowerCase()));
-      return []
+      return [];
     },
   },
 });

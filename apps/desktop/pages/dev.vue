@@ -13,9 +13,23 @@ function largeType() {
     center: true,
   });
 }
+
+const url = ref("");
 </script>
 <template>
   <NuxtLayout>
-    <Button @click="largeType">Large Type</Button>
+    <!-- <Button @click="largeType">Large Type</Button> -->
+    <div class="w-64">
+      <div class="flex">
+        <Input placeholder="URL" v-model="url" /><Button
+          @click="
+            async () => {
+              await navigateTo(url);
+            }
+          "
+          >Go</Button
+        >
+      </div>
+    </div>
   </NuxtLayout>
 </template>

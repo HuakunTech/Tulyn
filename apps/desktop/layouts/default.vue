@@ -44,7 +44,7 @@ watch(
         <div class="flex space-x-4 float-right px-5 py-2">
           <ModeToggle class="w-4 h-4" />
           <NuxtLink to="/">
-            <Button v-if="$config.public.IS_DEV" class="w-4 h-4" size="icon" variant="ghost">
+            <Button class="w-4 h-4" size="icon" variant="ghost">
               <HomeIcon />
             </Button>
           </NuxtLink>
@@ -59,7 +59,7 @@ watch(
             </Button>
           </NuxtLink>
           <NuxtLink to="./settings">
-            <Button v-if="$config.public.IS_DEV" class="w-4 h-4" size="icon" variant="ghost">
+            <Button class="w-4 h-4" size="icon" variant="ghost">
               <CogIcon />
             </Button>
           </NuxtLink>
