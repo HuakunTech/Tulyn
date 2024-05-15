@@ -1,0 +1,14 @@
+---
+import SettingsPage from "@/components/SettingsPage.vue";
+import DefaultLayout from "@/layouts/Default.astro";
+import DefaultVue from "@/components/layouts/default.vue";
+
+const links = ["/workflow-editor"];
+---
+
+<DefaultLayout title="Link List">
+  <ul class="container">
+    <li class=""><a href="./workflow-editor">Workflow Editor</a></li>
+    <li class=""><a href="./settings">Settings</a></li>
+  </ul>
+</DefaultLayout>

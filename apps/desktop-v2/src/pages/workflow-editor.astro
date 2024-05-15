@@ -2,8 +2,10 @@
 import "reactflow/dist/style.css";
 import DefaultLayout from "@/layouts/Default.astro";
 import { FlowEditor } from "@/components/workflows/editor.tsx";
+import ReteEditor from "@/components/rete/editor.vue";
 ---
 
 <DefaultLayout title="Editor">
-  <FlowEditor client:only="react" />
+  <!-- <FlowEditor client:only="react" /> -->
+  <ReteEditor client:only="vue" />
 </DefaultLayout>
