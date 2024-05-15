@@ -266,16 +266,7 @@ export const systemCommands: TCommand[] = rawSystemCommands.map((cmd) => ({
   icon: cmd.icon,
   keywords: cmd.name.split(" "),
   commandType: CommandType.Enum.system,
-  function: async () => {
-    if (cmd.confirmRequired) {
-      const confirmed = await confirm("Are you sure?");
-      if (confirmed) {
-        cmd.function();
-      }
-    } else {
-      cmd.function();
-    }
-  },
+  function: cmd.function,
   confirmRequired: cmd.confirmRequired,
 }));
 
