@@ -9,5 +9,6 @@
       ]
     },
     "jsxImportSource": "react"
-  }
+  },
+  "exclude": ["src-tauri"]
 }

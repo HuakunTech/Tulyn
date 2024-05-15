@@ -147,6 +147,21 @@ importers:
       '@tauri-apps/plugin-dialog':
         specifier: 2.0.0-beta.3
         version: 2.0.0-beta.3
+      '@tauri-apps/plugin-fs':
+        specifier: 2.0.0-beta.3
+        version: 2.0.0-beta.3
+      '@tauri-apps/plugin-global-shortcut':
+        specifier: 2.0.0-beta.3
+        version: 2.0.0-beta.3
+      '@tauri-apps/plugin-log':
+        specifier: 2.0.0-beta.4
+        version: 2.0.0-beta.4
+      '@tauri-apps/plugin-notification':
+        specifier: 2.0.0-beta.3
+        version: 2.0.0-beta.3
+      '@tauri-apps/plugin-os':
+        specifier: 2.0.0-beta.3
+        version: 2.0.0-beta.3
       '@tauri-apps/plugin-shell':
         specifier: 2.0.0-beta.4
         version: 2.0.0-beta.4
@@ -4621,6 +4636,36 @@ packages:
 
   /@tauri-apps/plugin-dialog@2.0.0-beta.3:
     resolution: {integrity: sha512-B3KxLjFxCVB3AIYWN/xY9HM6tO7m4u6aQk1t0ZrBToXThowRU9f62527EO0oj0uNlyKlXx20up68NkpdlER0yg==}
+    dependencies:
+      '@tauri-apps/api': 2.0.0-beta.11
+    dev: false
+
+  /@tauri-apps/plugin-fs@2.0.0-beta.3:
+    resolution: {integrity: sha512-LBgA7S10NwcitHaugIfmCSkewz45vSz1VOpMHhzvE38i1r1KpuTSHlr3MZ0LLq93tH/lvhYZ+3LAml4Sriwthw==}
+    dependencies:
+      '@tauri-apps/api': 2.0.0-beta.11
+    dev: false
+
+  /@tauri-apps/plugin-global-shortcut@2.0.0-beta.3:
+    resolution: {integrity: sha512-oPb5Ey0OcVjRbfE6l7GiUxSgHDNcGbOLWfk3N/ASGGWiCCvLqCzVsUrCQD+npmbS7Aey94pIXEEvbx4UgmwZKA==}
+    dependencies:
+      '@tauri-apps/api': 2.0.0-beta.11
+    dev: false
+
+  /@tauri-apps/plugin-log@2.0.0-beta.4:
+    resolution: {integrity: sha512-QE5oZO6S3LU+VkhhZzvTIjEVC9J1I8R70DqYEC2UUF4zSEblOM0rxkGXfD4oUIG5OW6/xoks3zmFL18vWbsK3w==}
+    dependencies:
+      '@tauri-apps/api': 2.0.0-beta.11
+    dev: false
+
+  /@tauri-apps/plugin-notification@2.0.0-beta.3:
+    resolution: {integrity: sha512-OCwvX10JrOgJh50HXIGD9EHgGUMtdYAZ+Q5peGCSS3/aA8XWL1GOENtC7CNb0P+W7HjRAj2N8jtEApgV0kD6Gg==}
+    dependencies:
+      '@tauri-apps/api': 2.0.0-beta.11
+    dev: false
+
+  /@tauri-apps/plugin-os@2.0.0-beta.3:
+    resolution: {integrity: sha512-kuTfns6z7z/RKAqij3293fnSsgRHlogO/SzNWziFDGHpijGUm/peH70Cv45LKvHw+7kEMX+nfHFWOZm8UEVy/w==}
     dependencies:
       '@tauri-apps/api': 2.0.0-beta.11
     dev: false

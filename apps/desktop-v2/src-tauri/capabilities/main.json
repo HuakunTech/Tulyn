@@ -23,6 +23,15 @@
         "store:allow-save",
         "store:allow-set",
         "store:allow-values",
-        "upload:allow-download"
+        "upload:allow-download",
+        "notification:allow-is-permission-granted",
+        "notification:allow-notify",
+        "notification:allow-request-permission",
+        "log:allow-log",
+        "global-shortcut:allow-is-registered",
+        "global-shortcut:allow-register",
+        "global-shortcut:allow-unregister",
+        "global-shortcut:allow-register-all",
+        "global-shortcut:allow-unregister-all"
     ]
 }

@@ -1,11 +1,26 @@
 use commands::apps::ApplicationsState;
 use tauri::Manager;
+use tauri_plugin_log::{Target, TargetKind};
 
 pub mod commands;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_os::init())
+        .plugin(tauri_plugin_fs::init())
+        .plugin(tauri_plugin_global_shortcut::Builder::new().build())
+        // .plugin(tauri_plugin_log::Builder::new().build())
+        .plugin(
+            tauri_plugin_log::Builder::new()
+                .targets([
+                    Target::new(TargetKind::Stdout),
+                    Target::new(TargetKind::LogDir { file_name: None }),
+                    Target::new(TargetKind::Webview),
+                ])
+                .build(),
+        )
+        .plugin(tauri_plugin_notification::init())
         .plugin(tauri_plugin_upload::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_dialog::init())
@@ -43,11 +58,9 @@ pub fn run() {
         ])
         .setup(|app| {
             app.manage(ApplicationsState::default());
-
             #[cfg(debug_assertions)] // only include this code on debug builds
             {
                 let window = app.get_webview_window("main").unwrap();
-
                 window.open_devtools();
                 // window.close_devtools();
             }
