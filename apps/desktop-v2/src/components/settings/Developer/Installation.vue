@@ -22,10 +22,11 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import DragNDrop from "@/components/DragNDrop.vue";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { default as TauriLink } from "@/components/tauri/link.vue";
 import { open } from "@tauri-apps/plugin-dialog";
-import type { HTMLAttributes } from "vue";
+import { type HTMLAttributes } from "vue";
 import { cn } from "@/lib/utils";
 
 const props = defineProps<{
@@ -123,14 +124,25 @@ async function pickProject() {
       </p>
       <Label class="text-xl" for="pick">Pick Project Folder to Install</Label>
       <div class="flex justify-center">
-        <Card class="w-96 h-36">
-          <div class="flex justify-center items-center h-full cursor-pointer" @click="pickProject">
-            <div class="flex flex-col items-center">
-              <FolderCogIcon class="w-10 h-10" />
-              <small class="text-xs select-none">Click or Drag and Drop</small>
+        <DragNDrop
+          @drop="
+            (paths) => {
+              console.log(paths);
+            }
+          "
+        >
+          <Card class="w-96 h-36">
+            <div
+              class="flex justify-center items-center h-full cursor-pointer"
+              @click="pickProject"
+            >
+              <div class="flex flex-col items-center">
+                <FolderCogIcon class="w-10 h-10" />
+                <small class="text-xs select-none">Click or Drag and Drop</small>
+              </div>
             </div>
-          </div>
-        </Card>
+          </Card>
+        </DragNDrop>
       </div>
 
       <Label for="url" class="text-xl">

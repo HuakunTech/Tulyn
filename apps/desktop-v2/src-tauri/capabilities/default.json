@@ -17,6 +17,7 @@
     "tray:default",
     "store:default",
     "dialog:default",
-    "shell:default"
+    "shell:default",
+    "upload:default"
   ]
 }
