@@ -18,6 +18,14 @@ const delegatedProps = computed(() => {
 });
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
+
+// function filterFunc(
+//   val: string[] | number[] | false[] | true[] | Record<string, any>[],
+//   term: string,
+// ): string[] | number[] | false[] | true[] | Record<string, any>[] {
+//   console.log(val, term);
+//   return val;
+// }
 </script>
 
 <template>
@@ -30,6 +38,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
       )
     "
   >
+    <!-- :filter-function="filterFunc" -->
     <slot />
   </ComboboxRoot>
 </template>

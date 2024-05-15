@@ -36,3 +36,9 @@ Suppose I have a job 1 in ext 1. When job 1 is processed, ext 1 can suggest to o
 However, this could be dangerous. If ext 2 does some sensitive operation, it could be triggered by ext 1.
 
 This shouldn't be allowed. Extension isolation is still more important.
+
+## Tauri Custom URI Scheme
+
+Tauri provides a way to register custom URI scheme. This could useful for loading extension pages without an http server.
+
+Doc: https://docs.rs/tauri/1.6.5/tauri/struct.Builder.html#method.register_uri_scheme_protocol

@@ -13,6 +13,13 @@
   "tauri": {
     "allowlist": {
       "all": false,
+      "protocol": {
+        "all": true,
+        "asset": true,
+        "assetScope": [
+          "**"
+        ]
+      },
       "app": {
         "all": true,
         "hide": true,
@@ -67,7 +74,9 @@
         "removeDir": false,
         "removeFile": false,
         "renameFile": false,
-        "scope": ["*"],
+        "scope": [
+          "*"
+        ],
         "writeFile": false
       },
       "notification": {
@@ -123,7 +132,7 @@
       }
     },
     "security": {
-      "csp": null,
+      "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost",
       "dangerousRemoteDomainIpcAccess": [
         {
           "domain": "localhost",
@@ -150,13 +159,18 @@
             "ext-18",
             "ext-19"
           ],
-          "plugins": ["clipboard", "jarvis"]
+          "plugins": [
+            "clipboard",
+            "jarvis"
+          ]
         }
       ]
     },
     "updater": {
       "active": true,
-      "endpoints": ["https://github.com/HuakunShen/Jarvis/releases/latest/download/latest.json"],
+      "endpoints": [
+        "https://github.com/HuakunShen/Jarvis/releases/latest/download/latest.json"
+      ],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDc1NENCRjZFM0JBOEQ0ODMKUldTRDFLZzdicjlNZFhHS0ZKYk13WkdZUTFUM01LNjkvVW5Bb2x1SnB1R0crbFRuMnlRSlJ0STgK"
     },
     "windows": [
