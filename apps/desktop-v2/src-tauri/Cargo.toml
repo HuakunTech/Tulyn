@@ -26,3 +26,4 @@ tauri-plugin-clipboard = { path = "../../../vendors/tauri-plugin-clipboard" }
 tauri-plugin-store = "2.0.0-beta.6"
 applications = { path = "../../../vendors/applications-rs" }
 tauri-plugin-dialog = "2.0.0-beta.7"
+tauri-plugin-shell = "2.0.0-beta.5"

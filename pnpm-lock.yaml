@@ -129,12 +129,24 @@ importers:
       '@internationalized/date':
         specifier: ^3.5.3
         version: 3.5.3
+      '@nanostores/persistent':
+        specifier: ^0.10.1
+        version: 0.10.1(nanostores@0.10.3)
+      '@nanostores/vue':
+        specifier: ^0.10.0
+        version: 0.10.0(nanostores@0.10.3)(vue@3.4.27)
+      '@radix-icons/vue':
+        specifier: ^1.0.0
+        version: 1.0.0(vue@3.4.27)
       '@tauri-apps/api':
         specifier: 2.0.0-beta.11
         version: 2.0.0-beta.11
       '@tauri-apps/plugin-dialog':
         specifier: 2.0.0-beta.3
         version: 2.0.0-beta.3
+      '@tauri-apps/plugin-shell':
+        specifier: 2.0.0-beta.4
+        version: 2.0.0-beta.4
       '@tauri-apps/plugin-store':
         specifier: 2.0.0-beta.3
         version: 2.0.0-beta.3
@@ -156,6 +168,12 @@ importers:
       lucide-vue-next:
         specifier: ^0.378.0
         version: 0.378.0(vue@3.4.27)
+      mitt:
+        specifier: ^3.0.1
+        version: 3.0.1
+      nanostores:
+        specifier: ^0.10.3
+        version: 0.10.3
       radix-vue:
         specifier: ^1.7.4
         version: 1.7.4(vue@3.4.27)
@@ -181,6 +199,12 @@ importers:
         specifier: ^3.23.8
         version: 3.23.8
     devDependencies:
+      '@iconify-json/radix-icons':
+        specifier: ^1.1.14
+        version: 1.1.14
+      '@iconify/vue':
+        specifier: ^4.1.2
+        version: 4.1.2(vue@3.4.27)
       '@tauri-apps/cli':
         specifier: 2.0.0-beta.17
         version: 2.0.0-beta.17
@@ -2405,6 +2429,33 @@ packages:
       strict-event-emitter: 0.5.1
     dev: false
 
+  /@nanostores/persistent@0.10.1(nanostores@0.10.3):
+    resolution: {integrity: sha512-BMYj47ONmkrPkHfomimtBAwtDNNjO57lw0uk7jB35GHVwixmqWtlK6DVAAbioqwJn9WEaWSB/9Ss5ukBG0NHlQ==}
+    engines: {node: ^18.0.0 || >=20.0.0}
+    peerDependencies:
+      nanostores: ^0.9.0 || ^0.10.0
+    dependencies:
+      nanostores: 0.10.3
+    dev: false
+
+  /@nanostores/vue@0.10.0(nanostores@0.10.3)(vue@3.4.27):
+    resolution: {integrity: sha512-832RAUbzRfHPs1CdqVEwfvgB2+RD/INji4Zo8bUSEfRO2pQRMMeq479gydnohGpRaa0oNwlfKo7TGFXCghq/1g==}
+    engines: {node: ^18.0.0 || >=20.0.0}
+    peerDependencies:
+      '@nanostores/logger': '>=0.2.3'
+      '@vue/devtools-api': '>=6.5.0'
+      nanostores: '>=0.9.2'
+      vue: '>=3.3.1'
+    peerDependenciesMeta:
+      '@nanostores/logger':
+        optional: true
+      '@vue/devtools-api':
+        optional: true
+    dependencies:
+      nanostores: 0.10.3
+      vue: 3.4.27(typescript@5.4.5)
+    dev: false
+
   /@netlify/functions@2.6.3(@opentelemetry/api@1.8.0):
     resolution: {integrity: sha512-7Z9gWyAuPI2NnBOvpYPD66KIWOgNznLz9BkyZ0c7qeRE6p23UCMVZ2VsrJpjPDgoJtKplGSBzASl6fQD7iEeWw==}
     engines: {node: '>=14.0.0'}
@@ -4423,6 +4474,12 @@ packages:
 
   /@tauri-apps/plugin-dialog@2.0.0-beta.3:
     resolution: {integrity: sha512-B3KxLjFxCVB3AIYWN/xY9HM6tO7m4u6aQk1t0ZrBToXThowRU9f62527EO0oj0uNlyKlXx20up68NkpdlER0yg==}
+    dependencies:
+      '@tauri-apps/api': 2.0.0-beta.11
+    dev: false
+
+  /@tauri-apps/plugin-shell@2.0.0-beta.4:
+    resolution: {integrity: sha512-y9APB3ZLtkY4IM6syE+dn/R4XR2UTHBcAI/n9L5PgnvOjJAuuEzVYURn10G51nKnLw+sFbxO7LW4VW66Uoaa9g==}
     dependencies:
       '@tauri-apps/api': 2.0.0-beta.11
     dev: false
@@ -9701,6 +9758,11 @@ packages:
     resolution: {integrity: sha512-oLxFY2gd2IqnjcYyOXD8XGCftpGtZP2AbHbOkthDkvRywH5ayNtPVy9YlOPcHckXzbLTCHpkb7FB+yuxKV13pQ==}
     engines: {node: ^18 || >=20}
     hasBin: true
+    dev: false
+
+  /nanostores@0.10.3:
+    resolution: {integrity: sha512-Nii8O1XqmawqSCf9o2aWqVxhKRN01+iue9/VEd1TiJCr9VT5XxgPFbF1Edl1XN6pwJcZRsl8Ki+z01yb/T/C2g==}
+    engines: {node: ^18.0.0 || >=20.0.0}
     dev: false
 
   /napi-build-utils@1.0.2:

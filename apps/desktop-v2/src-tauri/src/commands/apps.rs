@@ -9,6 +9,9 @@ pub struct ApplicationsState {
 pub async fn get_applications(
     state: tauri::State<'_, ApplicationsState>,
 ) -> Result<Vec<App>, String> {
+    println!("Getting applications");
+    let apps = state.ctx.lock().unwrap().get_all_apps();
+    println!("{:?}", apps);
     Ok(state.ctx.lock().unwrap().get_all_apps())
 }
 

@@ -11,7 +11,7 @@
   "app": {
     "windows": [
       {
-        "title": "tauri-astro-template",
+        "title": "",
         "width": 800,
         "height": 1000,
         "resizable": true,

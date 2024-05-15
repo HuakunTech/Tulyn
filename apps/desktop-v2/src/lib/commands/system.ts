@@ -4,43 +4,43 @@ import { IconType, TListItem } from "@/lib/model/list";
 import { confirm } from "@tauri-apps/plugin-dialog";
 
 export function openTrash(): Promise<void> {
-  return invoke("plugin:jarvis|open_trash");
+  return invoke("open_trash");
 }
 
 export function emptyTrash(): Promise<void> {
-  return invoke("plugin:jarvis|empty_trash");
+  return invoke("empty_trash");
 }
 
 export function shutdown(): Promise<void> {
-  return invoke("plugin:jarvis|shutdown");
+  return invoke("shutdown");
 }
 
 export function reboot(): Promise<void> {
-  return invoke("plugin:jarvis|reboot");
+  return invoke("reboot");
 }
 
 export function sleep(): Promise<void> {
-  return invoke("plugin:jarvis|sleep");
+  return invoke("sleep");
 }
 
 export function toggleSystemAppearance(): Promise<void> {
-  return invoke("plugin:jarvis|toggle_system_appearance");
+  return invoke("toggle_system_appearance");
 }
 
 export function showDesktop(): Promise<void> {
-  return invoke("plugin:jarvis|show_desktop");
+  return invoke("show_desktop");
 }
 
 export function quitAllApps(): Promise<void> {
-  return invoke("plugin:jarvis|quit_app_apps");
+  return invoke("quit_app_apps");
 }
 
 export function sleepDisplays(): Promise<void> {
-  return invoke("plugin:jarvis|sleep_displays");
+  return invoke("sleep_displays");
 }
 
 export function setVolume(percentage: number): Promise<void> {
-  return invoke("plugin:jarvis|set_volume", { percentage });
+  return invoke("set_volume", { percentage });
 }
 
 export function setVolumeTo0(): Promise<void> {
@@ -64,47 +64,47 @@ export function setVolumeTo100(): Promise<void> {
 }
 
 export function turnVolumeUp(): Promise<void> {
-  return invoke("plugin:jarvis|turn_volume_up");
+  return invoke("turn_volume_up");
 }
 
 export function turnVolumeDown(): Promise<void> {
-  return invoke("plugin:jarvis|turn_volume_down");
+  return invoke("turn_volume_down");
 }
 
 export function toggleStageManager(): Promise<void> {
-  return invoke("plugin:jarvis|toggle_stage_manager");
+  return invoke("toggle_stage_manager");
 }
 
 export function toggleBluetooth(): Promise<void> {
-  return invoke("plugin:jarvis|toggle_bluetooth");
+  return invoke("toggle_bluetooth");
 }
 
 export function toggleHiddenFiles(): Promise<void> {
-  return invoke("plugin:jarvis|toggle_hidden_files");
+  return invoke("toggle_hidden_files");
 }
 
 export function ejectAllDisks(): Promise<void> {
-  return invoke("plugin:jarvis|eject_all_disks");
+  return invoke("eject_all_disks");
 }
 
 export function logoutUser(): Promise<void> {
-  return invoke("plugin:jarvis|logout_user");
+  return invoke("logout_user");
 }
 
 export function toggleMute(): Promise<void> {
-  return invoke("plugin:jarvis|toggle_mute");
+  return invoke("toggle_mute");
 }
 
 export function mute(): Promise<void> {
-  return invoke("plugin:jarvis|mute");
+  return invoke("mute");
 }
 
 export function unmute(): Promise<void> {
-  return invoke("plugin:jarvis|unmute");
+  return invoke("unmute");
 }
 
 export function hideAllAppsExceptFrontmost(): Promise<void> {
-  return invoke("plugin:jarvis|hide_all_apps_except_frontmost");
+  return invoke("hide_all_apps_except_frontmost");
 }
 
 export const rawSystemCommands = [

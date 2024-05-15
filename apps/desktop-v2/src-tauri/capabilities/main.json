@@ -7,6 +7,20 @@
     ],
     "permissions": [
         "window:default",
-        "window:allow-start-dragging"
+        "window:allow-start-dragging",
+        "shell:allow-open",
+        "dialog:allow-confirm",
+        "store:allow-clear",
+        "store:allow-delete",
+        "store:allow-entries",
+        "store:allow-get",
+        "store:allow-has",
+        "store:allow-keys",
+        "store:allow-length",
+        "store:allow-load",
+        "store:allow-reset",
+        "store:allow-save",
+        "store:allow-set",
+        "store:allow-values"
     ]
 }

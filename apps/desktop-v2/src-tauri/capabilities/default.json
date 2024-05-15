@@ -16,6 +16,7 @@
     "menu:default",
     "tray:default",
     "store:default",
-    "dialog:default"
+    "dialog:default",
+    "shell:default"
   ]
 }

@@ -3,11 +3,9 @@ import DefaultLayout from "@/layouts/Default.astro";
 import { Button } from "@/components/ui/button";
 // import ModeToggle from "@/components/ModeToggle.vue";
 import VueDev from "@/components/VueDev.vue";
+import MainSearch from "@/components/MainSearch.vue";
 ---
 
 <DefaultLayout title="Tauri Astro Templte">
-  <div class="flex flex-col justify-center items-center h-screen">
-    <h1 class="text-5xl">Tauri Astro Template</h1>
-    <VueDev client:load />
-  </div>
+  <MainSearch client:only="vue" class="" />
 </DefaultLayout>

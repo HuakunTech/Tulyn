@@ -1,3 +1,4 @@
+use commands::apps::ApplicationsState;
 use tauri::Manager;
 
 pub mod commands;
@@ -5,6 +6,7 @@ pub mod commands;
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_store::Builder::new().build())
         .plugin(tauri_plugin_clipboard::init())
@@ -39,9 +41,12 @@ pub fn run() {
             commands::apps::refresh_applications_list_in_bg
         ])
         .setup(|app| {
+            app.manage(ApplicationsState::default());
+
             #[cfg(debug_assertions)] // only include this code on debug builds
             {
                 let window = app.get_webview_window("main").unwrap();
+
                 window.open_devtools();
                 // window.close_devtools();
             }
