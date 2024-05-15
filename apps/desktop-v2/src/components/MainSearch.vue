@@ -45,6 +45,7 @@ function executePendingCmd() {
   if (currentPendingcmd.value) {
     currentPendingcmd.value.function();
     currentPendingcmd.value = null;
+    alertdialogOpen.value = false;
   }
 }
 
