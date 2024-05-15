@@ -1,17 +1,20 @@
 <script setup lang="ts">
 import { Button } from "@/components/ui/button";
 import { Window } from "@tauri-apps/api/window";
-import { Webview } from "@tauri-apps/api/webview";
+import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
+import {readText} from 'tauri-plugin-clipboard-api';
 
 function loadWebView() {
-  const appWindow = new Window("astro");
-  console.log("window");
-  const webview = new Webview(appWindow, "astro-label", {
-    url: "/about",
-    // url: 'https://github.com/tauri-apps/tauri',
+  const webview = new WebviewWindow("my-label", {
+    url: "http://localhost:3000/extensions/qrcode/dist/",
   });
 }
 </script>
 <template>
   <Button @click="loadWebView">Load WebView</Button>
+  <Button @click="() => {
+    readText().then((text) => {
+      console.log(text);
+    });
+  }">Read Clipboard</Button>
 </template>

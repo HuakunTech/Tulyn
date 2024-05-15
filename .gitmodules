@@ -1,3 +1,6 @@
 [submodule "vendors/applications-rs"]
 	path = vendors/applications-rs
 	url = https://github.com/HuakunShen/applications-rs.git
+[submodule "vendors/tauri-plugin-clipboard"]
+	path = vendors/tauri-plugin-clipboard
+	url = https://github.com/CrossCopy/tauri-plugin-clipboard.git

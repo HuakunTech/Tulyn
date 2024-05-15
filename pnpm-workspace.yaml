@@ -4,3 +4,4 @@ packages:
   - "docs"
   - "packages/extensions/*"
   - "packages/extensions-template/*"
+  - "vendors/*"
