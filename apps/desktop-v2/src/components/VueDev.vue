@@ -2,7 +2,8 @@
 import { Button } from "@/components/ui/button";
 import { Window } from "@tauri-apps/api/window";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
-import {readText} from 'tauri-plugin-clipboard-api';
+import { readText } from "tauri-plugin-clipboard-api";
+import { invoke } from "@tauri-apps/api/core";
 
 function loadWebView() {
   const webview = new WebviewWindow("my-label", {
@@ -12,9 +13,15 @@ function loadWebView() {
 </script>
 <template>
   <Button @click="loadWebView">Load WebView</Button>
-  <Button @click="() => {
-    readText().then((text) => {
-      console.log(text);
-    });
-  }">Read Clipboard</Button>
+  <Button
+    @click="
+      () => {
+        readText().then((text) => {
+          console.log(text);
+        });
+      }
+    "
+    >Read Clipboard</Button
+  >
+  <Button @click="invoke('toggle_devtools')">Toggle Dev Tool</Button>
 </template>

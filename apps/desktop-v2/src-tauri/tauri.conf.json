@@ -13,9 +13,10 @@
       {
         "title": "tauri-astro-template",
         "width": 800,
-        "height": 600,
+        "height": 1000,
         "resizable": true,
-        "fullscreen": false
+        "fullscreen": false,
+        "titleBarStyle": "Overlay"
       }
     ],
     "security": {

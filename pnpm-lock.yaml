@@ -132,6 +132,12 @@ importers:
       '@tauri-apps/api':
         specifier: 2.0.0-beta.11
         version: 2.0.0-beta.11
+      '@tauri-apps/plugin-dialog':
+        specifier: 2.0.0-beta.3
+        version: 2.0.0-beta.3
+      '@tauri-apps/plugin-store':
+        specifier: 2.0.0-beta.3
+        version: 2.0.0-beta.3
       '@vee-validate/zod':
         specifier: ^4.12.8
         version: 4.12.8(vue@3.4.27)
@@ -4414,6 +4420,12 @@ packages:
       '@tauri-apps/cli-win32-ia32-msvc': 2.0.0-beta.17
       '@tauri-apps/cli-win32-x64-msvc': 2.0.0-beta.17
     dev: true
+
+  /@tauri-apps/plugin-dialog@2.0.0-beta.3:
+    resolution: {integrity: sha512-B3KxLjFxCVB3AIYWN/xY9HM6tO7m4u6aQk1t0ZrBToXThowRU9f62527EO0oj0uNlyKlXx20up68NkpdlER0yg==}
+    dependencies:
+      '@tauri-apps/api': 2.0.0-beta.11
+    dev: false
 
   /@tauri-apps/plugin-store@2.0.0-beta.3:
     resolution: {integrity: sha512-qTvbG2aGTME3TcBBIBizwhN0f3Iqy5tgeaEtj5gWaisAD0PJfrNAAaUnpXvO4O3PUTS8idZt933z1uAiBhY7FA==}

@@ -23,3 +23,6 @@ serde = { version = "1.0", features = ["derive"] }
 tauri = { version = "2.0.0-beta.19", features = [] }
 # tauri_plugin_jarvis = { path = "../../../packages/tauri_plugin_jarvis" }
 tauri-plugin-clipboard = { path = "../../../vendors/tauri-plugin-clipboard" }
+tauri-plugin-store = "2.0.0-beta.6"
+applications = { path = "../../../vendors/applications-rs" }
+tauri-plugin-dialog = "2.0.0-beta.7"
