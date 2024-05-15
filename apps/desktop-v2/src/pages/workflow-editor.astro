@@ -1,0 +1,9 @@
+---
+import "reactflow/dist/style.css";
+import DefaultLayout from "@/layouts/Default.astro";
+import { FlowEditor } from "@/components/workflows/editor.tsx";
+---
+
+<DefaultLayout title="Editor">
+  <FlowEditor client:only="react" />
+</DefaultLayout>

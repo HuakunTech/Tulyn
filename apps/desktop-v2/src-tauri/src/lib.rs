@@ -1,11 +1,15 @@
-use commands::apps::ApplicationsState;
+use commands::{apps::ApplicationsState, server::Server};
 use tauri::Manager;
 use tauri_plugin_log::{Target, TargetKind};
-
 pub mod commands;
+pub mod server;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
+    // get cwd
+    let mut log_path = std::env::current_dir().unwrap();
+    log_path.push("jarvis-logs");
+
     tauri::Builder::default()
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_fs::init())
@@ -15,7 +19,9 @@ pub fn run() {
             tauri_plugin_log::Builder::new()
                 .targets([
                     Target::new(TargetKind::Stdout),
-                    Target::new(TargetKind::LogDir { file_name: None }),
+                    Target::new(TargetKind::LogDir {
+                        file_name: Some(log_path.to_str().unwrap().to_string()),
+                    }),
                     Target::new(TargetKind::Webview),
                 ])
                 .build(),
@@ -58,6 +64,11 @@ pub fn run() {
         ])
         .setup(|app| {
             app.manage(ApplicationsState::default());
+            app.manage(Server::default());
+            // app.manage(ApplicationsState::default());
+            let handle = app.handle();
+            let server = handle.state::<Server>();
+            server.start().expect("Failed to start local server");
             #[cfg(debug_assertions)] // only include this code on debug builds
             {
                 let window = app.get_webview_window("main").unwrap();

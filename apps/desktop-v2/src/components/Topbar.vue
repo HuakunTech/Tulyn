@@ -26,7 +26,7 @@ import { toggleDevTools } from "@/lib/commands/tools";
           <FlaskConicalIcon />
         </Button>
       </a>
-      <a href="./extensions">
+      <a href="./workflow-editor">
         <Button class="w-4 h-4" size="icon" variant="ghost">
           <TestTubesIcon />
         </Button>
