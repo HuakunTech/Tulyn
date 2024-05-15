@@ -2,6 +2,7 @@ use commands::{apps::ApplicationsState, server::Server};
 use tauri::Manager;
 use tauri_plugin_log::{Target, TargetKind};
 pub mod commands;
+pub mod model;
 pub mod server;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
