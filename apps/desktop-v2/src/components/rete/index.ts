@@ -11,10 +11,14 @@ import {
 } from "rete-context-menu-plugin";
 import { type MinimapExtra, MinimapPlugin } from "rete-minimap-plugin";
 import {
-  ReroutePlugin,
   type RerouteExtra,
+  ReroutePlugin,
   RerouteExtensions,
 } from "rete-connection-reroute-plugin";
+import { ConnectionPlugin, Presets as ConnectionPresets } from "rete-connection-plugin";
+import CustomNode from "./nodes/CustomNode.vue";
+import CustomSocket from "./sockets/CustomSocket.vue";
+import CustomConnection from "./connections/CustomConnection.vue";
 
 type Node = NumberNode | AddNode;
 type Conn =
@@ -22,15 +26,6 @@ type Conn =
   | Connection<AddNode, AddNode>
   | Connection<AddNode, NumberNode>;
 type Schemes = GetSchemes<Node, Conn>;
-
-type AreaExtra =
-  | Area2D<Schemes>
-  | VueArea2D<Schemes>
-  | ContextMenuExtra
-  | MinimapExtra
-  | RerouteExtra;
-
-const socket = new Classic.Socket("socket");
 
 class Connection<A extends Node, B extends Node> extends Classic.Connection<A, B> {}
 
@@ -77,14 +72,23 @@ class AddNode extends Classic.Node implements DataflowNode {
   }
 }
 
+type AreaExtra =
+  | Area2D<Schemes>
+  | VueArea2D<Schemes>
+  | ContextMenuExtra
+  | MinimapExtra
+  | RerouteExtra;
+
+const socket = new Classic.Socket("socket");
+
 export async function createEditor(container: HTMLElement) {
-  const editor = new NodeEditor<Schemes>();
-  const area = new AreaPlugin<Schemes, AreaExtra>(container);
-
-  const vueRender = new VuePlugin<Schemes, AreaExtra>();
-
+  const editor = new NodeEditor<Schemes>(); // manage nodes and connections
+  const area = new AreaPlugin<Schemes, AreaExtra>(container); // display viewport for drag, zoom, doesn't render nodes and connections
+  const connection = new ConnectionPlugin<Schemes, AreaExtra>(); // user interactions with connections (not required if readonly)
+  const vueRender = new VuePlugin<Schemes, AreaExtra>(); // render in vue
   const readonly = new ReadonlyPlugin<Schemes>();
   const contextMenu = new ContextMenuPlugin<Schemes>({
+    // add and remove nodes with mouse
     items: ContextMenuPresets.classic.setup([
       ["Number", () => new NumberNode(1, process)],
       ["Add", () => new AddNode()],
@@ -96,15 +100,33 @@ export async function createEditor(container: HTMLElement) {
   editor.use(readonly.root);
   editor.use(area);
   area.use(readonly.area);
-
   area.use(vueRender);
-
+  // area.use(connection);
   area.use(contextMenu);
   area.use(minimap);
 
   vueRender.use(reroutePlugin);
-
-  vueRender.addPreset(VuePresets.classic.setup());
+  connection.addPreset(ConnectionPresets.classic.setup());
+  vueRender.addPreset(
+    VuePresets.classic.setup({
+      customize: {
+        node(context) {
+          if (context.payload.label === "Add") {
+            return CustomNode;
+          }
+          return VuePresets.classic.Node;
+        },
+        socket(context) {
+          // return VuePresets.classic.Socket;
+          return CustomSocket;
+        },
+        connection(context) {
+          return VuePresets.classic.Connection;
+          return CustomConnection;
+        },
+      },
+    }),
+  );
   vueRender.addPreset(VuePresets.contextMenu.setup());
   vueRender.addPreset(VuePresets.minimap.setup());
   vueRender.addPreset(
@@ -121,8 +143,7 @@ export async function createEditor(container: HTMLElement) {
       },
     }),
   );
-
-  const dataflow = new DataflowEngine<Schemes>();
+  const dataflow = new DataflowEngine<Schemes>(); // handle data processing between nodes
 
   editor.use(dataflow);
 
@@ -137,7 +158,7 @@ export async function createEditor(container: HTMLElement) {
   await editor.addConnection(new Connection(a, "value", add, "a"));
   await editor.addConnection(new Connection(b, "value", add, "b"));
 
-  const arrange = new AutoArrangePlugin<Schemes>();
+  const arrange = new AutoArrangePlugin<Schemes>(); // handle node positions
 
   arrange.addPreset(ArrangePresets.classic.setup());
 
