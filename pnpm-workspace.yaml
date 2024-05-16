@@ -5,3 +5,4 @@ packages:
   - "packages/extensions/*"
   - "packages/extensions-template/*"
   - "vendors/*"
+  - "dev/docs"
