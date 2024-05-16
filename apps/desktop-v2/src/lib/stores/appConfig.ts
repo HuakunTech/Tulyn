@@ -9,12 +9,13 @@ const persistAppConfig = new Store("appConfig.bin");
 export const LightMode = z.union([z.literal("light"), z.literal("dark"), z.literal("auto")]);
 export type LightMode = z.infer<typeof LightMode>;
 
-const appConfigSchema = z.object({
+export const appConfigSchema = z.object({
   theme: z.string(),
   radius: z.number(),
   lightMode: LightMode,
   launchAtLogin: z.boolean(),
   showInTray: z.boolean(),
+  devExtentionPath: z.string().optional(),
 });
 
 export type State = z.infer<typeof appConfigSchema>;
@@ -25,6 +26,7 @@ const defaultState: State = {
   lightMode: "auto",
   launchAtLogin: true,
   showInTray: true,
+  devExtentionPath: undefined,
 };
 
 const loadedConfig = await persistAppConfig.get("config");
@@ -35,9 +37,8 @@ if (parsedConfig.success) {
   defaultState.lightMode = parsedConfig.data.lightMode;
   defaultState.launchAtLogin = parsedConfig.data.launchAtLogin;
   defaultState.showInTray = parsedConfig.data.showInTray;
+  defaultState.devExtentionPath = parsedConfig.data.devExtentionPath;
 }
-
-console.log("Loaded config", defaultState);
 
 export const $appConfig = map<State>(defaultState);
 
@@ -59,6 +60,10 @@ export function setLaunchAtLogin(launchAtLogin: boolean) {
 
 export function setShowInTray(showInTray: boolean) {
   $appConfig.setKey("showInTray", showInTray);
+}
+
+export function setDevExtentionPath(devExtentionPath: string | undefined) {
+  $appConfig.setKey("devExtentionPath", devExtentionPath);
 }
 
 export function themeClass() {

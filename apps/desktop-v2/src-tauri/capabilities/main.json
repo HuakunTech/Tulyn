@@ -32,6 +32,11 @@
         "global-shortcut:allow-register",
         "global-shortcut:allow-unregister",
         "global-shortcut:allow-register-all",
-        "global-shortcut:allow-unregister-all"
+        "global-shortcut:allow-unregister-all",
+        "fs:allow-exists",
+        "fs:allow-stat",
+        "fs:read-all",
+        "webview:allow-create-webview",
+        "webview:allow-create-webview-window"
     ]
 }

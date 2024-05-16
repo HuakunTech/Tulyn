@@ -22,6 +22,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import DevExtPathForm from "@/components/settings/Developer/DevExtPathForm.vue";
 import DragNDrop from "@/components/DragNDrop.vue";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { default as TauriLink } from "@/components/tauri/link.vue";
@@ -137,6 +138,8 @@ async function onDownloadSubmit(e: Event) {
         There are 3 options to install an extension in developer mode. Either load it from your
         local folder, download from URL or load from a remote URL directly.
       </p>
+
+      <DevExtPathForm />
       <Label class="text-xl" for="pick">Pick Project Folder to Install</Label>
       <div class="flex justify-center">
         <DragNDrop

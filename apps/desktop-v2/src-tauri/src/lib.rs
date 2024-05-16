@@ -61,7 +61,8 @@ pub fn run() {
             commands::system::hide_all_apps_except_frontmost,
             commands::apps::get_applications,
             commands::apps::refresh_applications_list,
-            commands::apps::refresh_applications_list_in_bg
+            commands::apps::refresh_applications_list_in_bg,
+            commands::fs::path_exists,
         ])
         .setup(|app| {
             app.manage(ApplicationsState::default());

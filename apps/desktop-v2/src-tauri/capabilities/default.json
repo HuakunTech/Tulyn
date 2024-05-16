@@ -1,6 +1,6 @@
 {
   "$schema": "../gen/schemas/desktop-schema.json",
-  "identifier": "default",
+  "identifier": "default-capability",
   "description": "enables the default permissions",
   "windows": [
     "main"

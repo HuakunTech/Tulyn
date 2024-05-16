@@ -34,5 +34,10 @@
       "icons/icon.ico"
     ]
   },
+  "plugins": {
+    "fs": {
+      "scope": ["**"]
+    }
+  },
   "$schema": "../node_modules/@tauri-apps/cli/schema.json"
 }
