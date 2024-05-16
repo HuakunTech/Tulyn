@@ -26,6 +26,9 @@ description: Jarvis Development Plan
   - From local folder
   - Dev server mode should be supported
   - Extension validator should be implemented
+- Search Engine
+  - Implement a robust searching engine for Jarvis to find commands and extensions
+  - Implement a global file searcher
 
 ## Stage 2
 
