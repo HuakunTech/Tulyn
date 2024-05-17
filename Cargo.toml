@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+    "apps/cli",
+    "apps/desktop/src-tauri"
+]
