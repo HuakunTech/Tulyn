@@ -1,20 +1,31 @@
+use axum::ServiceExt;
 // use axum::{handler::HandlerWithoutStateExt, http::StatusCode, routing::get, Router};
-use axum::{handler::HandlerWithoutStateExt, http::StatusCode, routing::get, Router};
 use helloworld::greeter_server::{Greeter, GreeterServer};
 use helloworld::{HelloReply, HelloRequest};
-use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
+use std::path::PathBuf;
 use tonic::{
     transport::Server as tonic_server, Request as GRPC_Request, Response as GRPC_Response, Status,
 };
-use tower_http::{
-    services::{ServeDir, ServeFile},
-    trace::TraceLayer,
-};
+use tower::MakeService;
+use tower_http::{services::ServeDir, trace::TraceLayer};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
+
 pub mod helloworld {
+
     tonic::include_proto!("helloworld"); // The string specified here must match the proto package name
+                                         // let descriptor_path = PathBuf::from("/Users/hacker/Dev/projects/Jarvis/apps/desktop/src-tauri/proto");
+                                         // let descriptor_path = PathBuf::from(PathBuf::from(format!("/Users/hacker/Dev/projects/Jarvis/apps/desktop/src-tauri/proto")).join("my_descriptor.bin"));
+    pub(crate) const FILE_DESCRIPTOR_SET: &[u8] =
+        tonic::include_file_descriptor_set!("helloworld_descriptor");
 }
+
+// mod proto {
+//     tonic::include_proto!("helloworld");
+
+//     pub(crate) const FILE_DESCRIPTOR_SET: &[u8] =
+//         tonic::include_file_descriptor_set!("helloworld_descriptor");
+// }
 
 #[derive(Debug, Default)]
 pub struct MyGreeter {}
@@ -44,44 +55,27 @@ pub async fn start_server() {
     //     )
     //     .with(tracing_subscriber::fmt::layer())
     //     .init();
-    // let grpc = Server::builder()
-    //     .add_service(GreeterServer::new(MyGreeter))
-    //     .into_service()
-    //     .map_response(|r| r.map(axum::body::boxed))
-    //     .boxed_clone();
-
-    // let static_router: Router =
-    //     Router::new().nest_service("/", ServeDir::new("/Users/hacker/Dev/projects/Jarvis/dev"));
-    // let http_grpc = Steer::new(vec![http, grpc], |req: &GRPC_Request<Body>, _svcs: &[_]| {
-    //     if req.headers().get(CONTENT_TYPE).map(|v| v.as_bytes()) != Some(b"application/grpc") {
-    //         0
-    //     } else {
-    //         1
-    //     }
-    // });
+    // let p = PathBuf::from(
+    //     "/Users/hacker/Dev/projects/Jarvis/apps/desktop/src-tauri/proto/helloworld_descriptor.bin",
+    // );
+    // let bytes: &[u8] = &std::fs::read(p).unwrap();
+    println!("bytes: {:?}", helloworld::FILE_DESCRIPTOR_SET.len());
+    let reflection_service = tonic_reflection::server::Builder::configure()
+        // .register_encoded_file_descriptor_set(bytes)
+        .register_encoded_file_descriptor_set(helloworld::FILE_DESCRIPTOR_SET)
+        .build()
+        .unwrap();
+    //     .into_make_service()
+    // .into_service();
     let grpc_router = tonic_server::builder()
+        .add_service(reflection_service)
         .add_service(GreeterServer::new(MyGreeter::default()))
         .into_router()
         .nest_service("/", ServeDir::new("/Users/hacker/Dev/projects/Jarvis/dev"));
-    // .route("/", get(web_root));
-    // println!("1566");
-    // let handle = Handle::new();
     let addr = SocketAddr::from(([127, 0, 0, 1], 1566));
     axum::Server::bind(&addr)
         // .serve(web_app.into_make_service())
         .serve(grpc_router.into_make_service())
-        .await.expect("server failed");
-    // axum::Server::bind(&addr)
-    //     .serve(grpc_router.into_make_service())
-    //     .await.unwrap();
-    // let server = axum_server::bind(addr)
-    //     .handle(handle.clone())
-    //     .serve(Shared::new(http_grpc));
-    // tokio::spawn(server);
-
-    // let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
-    // // tracing::debug!("listening on {}", listener.local_addr().unwrap());
-    // axum::serve(listener, http.layer(TraceLayer::new_for_http()))
-    //     .await
-    //     .unwrap();
+        .await
+        .expect("server failed");
 }
