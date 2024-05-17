@@ -1,11 +1,16 @@
+// use axum::{handler::HandlerWithoutStateExt, http::StatusCode, routing::get, Router};
 use axum::{handler::HandlerWithoutStateExt, http::StatusCode, routing::get, Router};
 use helloworld::greeter_server::{Greeter, GreeterServer};
 use helloworld::{HelloReply, HelloRequest};
+use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
 use tonic::{
     transport::Server as tonic_server, Request as GRPC_Request, Response as GRPC_Response, Status,
 };
-use tower_http::services::ServeDir;
+use tower_http::{
+    services::{ServeDir, ServeFile},
+    trace::TraceLayer,
+};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 pub mod helloworld {
     tonic::include_proto!("helloworld"); // The string specified here must match the proto package name
@@ -65,8 +70,7 @@ pub async fn start_server() {
     axum::Server::bind(&addr)
         // .serve(web_app.into_make_service())
         .serve(grpc_router.into_make_service())
-        .await
-        .expect("server failed");
+        .await.expect("server failed");
     // axum::Server::bind(&addr)
     //     .serve(grpc_router.into_make_service())
     //     .await.unwrap();
