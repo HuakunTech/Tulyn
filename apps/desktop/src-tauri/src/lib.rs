@@ -4,7 +4,8 @@ use tauri_plugin_log::{Target, TargetKind};
 pub mod commands;
 pub mod model;
 pub mod server;
-use rdev::{listen, Event};
+pub mod utils;
+// use rdev::{listen, Event};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -36,10 +37,12 @@ pub fn run() {
         .plugin(tauri_plugin_store::Builder::new().build())
         .plugin(tauri_plugin_clipboard::init())
         .invoke_handler(tauri::generate_handler![
+            // dev commands
             commands::dev::open_devtools,
             commands::dev::close_devtools,
             commands::dev::is_devtools_open,
             commands::dev::toggle_devtools,
+            // system commands
             commands::system::open_trash,
             commands::system::empty_trash,
             commands::system::shutdown,
@@ -61,9 +64,14 @@ pub fn run() {
             commands::system::mute,
             commands::system::unmute,
             commands::system::hide_all_apps_except_frontmost,
+            // applications
             commands::apps::get_applications,
             commands::apps::refresh_applications_list,
             commands::apps::refresh_applications_list_in_bg,
+            // extensions
+            commands::extension::load_manifest,
+            commands::extension::load_all_extensions,
+            // utils
             commands::fs::path_exists,
         ])
         .setup(|app| {
@@ -83,7 +91,7 @@ pub fn run() {
             // if let Err(error) = listen(callback) {
             //     println!("Error: {:?}", error)
             // }
-            
+
             // fn callback(event: Event) {
             //     println!("My callback {:?}", event);
             //     match event.name {

@@ -35,6 +35,9 @@ importers:
       '@internationalized/date':
         specifier: ^3.5.3
         version: 3.5.3
+      '@jarvis/api':
+        specifier: workspace:*
+        version: link:../../packages/api
       '@nanostores/persistent':
         specifier: ^0.10.1
         version: 0.10.1(nanostores@0.10.3)

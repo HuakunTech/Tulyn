@@ -1,6 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import { AppInfo } from "@/lib/model/apps";
-import { IconType, TListItem } from "@/lib/model/list";
+import { AppInfo, IconType, TListItem } from "@jarvis/api";
 
 export function getAllApps(): Promise<AppInfo[]> {
   return invoke("get_applications");

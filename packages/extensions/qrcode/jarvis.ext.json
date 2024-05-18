@@ -7,11 +7,12 @@
     "uiCmds": [
         {
             "main": "ui/dist",
+            "name": "QRCode",
             "devMain": "http://localhost:5173",
             "cmds": [
                 {
                     "type": "text",
-                    "label": "QRCode"
+                    "value": "qrcode"
                 }
             ]
         }

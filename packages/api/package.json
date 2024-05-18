@@ -2,6 +2,9 @@
   "name": "@jarvis/api",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "test": "bun test --coverage"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },

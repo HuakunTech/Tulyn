@@ -15,8 +15,8 @@ import {
 import { getAllApps, refreshApplicationsList } from "@/lib/commands/apps";
 import { systemCommands } from "@/lib/commands/system";
 import { onMounted, onUnmounted, ref } from "vue";
-import type { AppInfo } from "@/lib/model/apps";
-import type { TCommand } from "@/lib/model/command";
+import type { AppInfo } from "@jarvis/api";
+import type { TCommand } from "@jarvis/api";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -28,6 +28,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { loadAllExtensions } from "@/lib/commands/manifest";
 import { Button } from "@/components/ui/button";
 
 const currentPendingcmd = ref<TCommand | null>(null);
@@ -68,8 +69,10 @@ function onKeydown(e: KeyboardEvent) {
     alertdialogOpen.value = false;
   }
 }
-
-onMounted(() => {
+const extensionsManifests = await loadAllExtensions(
+  "/Users/hacker/Dev/projects/Jarvis/packages/extensions",
+);
+onMounted(async () => {
   document.addEventListener("keydown", onKeydown);
 });
 
@@ -78,6 +81,7 @@ onUnmounted(() => {
 });
 </script>
 <template>
+  <pre>{{ JSON.stringify(extensionsManifests, null, 2) }}</pre>
   <Command class="">
     <CommandInput placeholder="Search for apps or commands..." :always-focus="true" />
     <div>

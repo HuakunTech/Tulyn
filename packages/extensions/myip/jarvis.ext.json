@@ -1,3 +1,21 @@
 {
-    
+    "name": "myip",
+    "version": "0.0.1",
+    "description": "Jarvis IP Extension",
+    "identifier": "tech.huakun.jarvis-qrcode-ext",
+    "demoImages": [],
+    "uiCmds": [
+        {
+            "main": "ui/dist",
+            "name": "My IP",
+            "devMain": "http://localhost:5173",
+            "cmds": [
+                {
+                    "type": "text",
+                    "value": "ip"
+                }
+            ]
+        }
+    ],
+    "inlineCmds": []
 }

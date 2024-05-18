@@ -1,5 +1,5 @@
 import type { TListItem } from "./src/model";
-export { TListItem } from "./src/model";
+export * from "./src/model";
 
 export interface IClipboardAPI {
   writeText(text: string): void;

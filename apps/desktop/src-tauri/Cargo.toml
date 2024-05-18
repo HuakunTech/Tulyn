@@ -44,6 +44,8 @@ tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 tonic-reflection = "0.11.0"
 rdev = "0.5.3"
+serde_derive = "1.0.202"
+anyhow = "1.0.86"
 
 
 [target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
