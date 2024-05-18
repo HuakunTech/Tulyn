@@ -285,7 +285,7 @@ export const rawSystemCommands = [
 ];
 
 export const systemCommands: TCommand[] = rawSystemCommands
-  .filter((cmd) => cmd.platform.includes(process.platform)) // Filter out system commands that are not supported on the current platform
+  // .filter((cmd) => cmd.platform.includes(process.platform)) // Filter out system commands that are not supported on the current platform
   .map((cmd) => ({
     name: cmd.name,
     value: "system-cmd" + cmd.name.split(" ").join("-").toLowerCase(),
