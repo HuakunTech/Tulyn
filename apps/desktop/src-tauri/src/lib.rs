@@ -4,6 +4,7 @@ use tauri_plugin_log::{Target, TargetKind};
 pub mod commands;
 pub mod model;
 pub mod server;
+use rdev::{listen, Event};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -77,6 +78,18 @@ pub fn run() {
                 let window = app.get_webview_window("main").unwrap();
                 window.open_devtools();
                 // window.close_devtools();
+            }
+
+            if let Err(error) = listen(callback) {
+                println!("Error: {:?}", error)
+            }
+            
+            fn callback(event: Event) {
+                println!("My callback {:?}", event);
+                match event.name {
+                    Some(string) => println!("User wrote {:?}", string),
+                    None => (),
+                }
             }
             Ok(())
         })

@@ -190,6 +190,19 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
 
+  packages/api:
+    dependencies:
+      typescript:
+        specifier: ^5.0.0
+        version: 5.4.5
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
+    devDependencies:
+      '@types/bun':
+        specifier: latest
+        version: 1.1.2
+
   packages/common:
     dependencies:
       typescript:
@@ -734,6 +747,35 @@ importers:
         specifier: ^5.0.3
         version: 5.2.11(@types/node@20.12.11)
 
+  packages/extensions/vscode-project-manager:
+    dependencies:
+      '@jarvis/api-inline':
+        specifier: workspace:*
+        version: link:../../api
+      typescript:
+        specifier: ^5.0.0
+        version: 5.4.5
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
+    devDependencies:
+      '@types/bun':
+        specifier: latest
+        version: 1.1.2
+
+  packages/jsonrpc-js:
+    dependencies:
+      typescript:
+        specifier: ^5.0.0
+        version: 5.4.5
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
+    devDependencies:
+      '@types/bun':
+        specifier: latest
+        version: 1.1.2
+
   packages/model:
     dependencies:
       '@tauri-apps/api':
@@ -755,6 +797,19 @@ importers:
       bun-types:
         specifier: latest
         version: 1.1.7
+
+  packages/runtime:
+    dependencies:
+      '@jarvis/api-inline':
+        specifier: workspace:*
+        version: link:../api
+      typescript:
+        specifier: ^5.0.0
+        version: 5.4.5
+    devDependencies:
+      '@types/bun':
+        specifier: latest
+        version: 1.1.2
 
   packages/tauri_plugin_jarvis:
     dependencies:
@@ -4500,6 +4555,12 @@ packages:
       bun-types: 1.1.6
     dev: true
 
+  /@types/bun@1.1.2:
+    resolution: {integrity: sha512-pRBDD3EDqPf83qe95i3EpYu5G2J8bbb78a3736vnCm2K8YWtEE5cvJUq2jkKvJhW07YTfQtbImywIwRhWL8z3Q==}
+    dependencies:
+      bun-types: 1.1.8
+    dev: true
+
   /@types/cookie@0.6.0:
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
 
@@ -6290,6 +6351,13 @@ packages:
 
   /bun-types@1.1.7:
     resolution: {integrity: sha512-9L1w3dxXrJ5dg9ERd8cc8IJTHZ+0WpSDB9kIo6tVl1s3msNsotsTeh02Wwy8cvd3a4XWEz9+TrJsqhT0dJ6XCQ==}
+    dependencies:
+      '@types/node': 20.12.11
+      '@types/ws': 8.5.10
+    dev: true
+
+  /bun-types@1.1.8:
+    resolution: {integrity: sha512-dwhfuUKSGK8hm5Llcvb5+ejRh+4mIt8ibObJVKhZBsi0ScpXmt+AlaS1eDW6uRXCHj084Qt0kIqAJ08/7ZGC9Q==}
     dependencies:
       '@types/node': 20.12.11
       '@types/ws': 8.5.10

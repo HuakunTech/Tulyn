@@ -15,6 +15,11 @@
   "packageManager": "pnpm@8.9.0",
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "docs",
+    "packages/extensions/*",
+    "packages/extensions-template/*",
+    "vendors/*",
+    "dev/docs"
   ]
 }
