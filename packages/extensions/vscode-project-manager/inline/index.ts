@@ -1,5 +1,5 @@
 import fs from "fs";
-import { BaseJarvisExtension, TListItem, type IJarvisAPIContext } from "@jarvis/api-inline";
+import { BaseJarvisExtension, TListItem, type IJarvisAPIContext } from "@jarvis/api";
 import { z } from "zod";
 
 export const Project = z.object({

@@ -6,7 +6,7 @@
     "@types/bun": "latest"
   },
   "dependencies": {
-    "@jarvis/api-inline": "workspace:*"
+    "@jarvis/api": "workspace:*"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"

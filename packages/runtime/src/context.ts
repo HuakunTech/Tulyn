@@ -4,7 +4,7 @@ import {
   type IJarvisAPIContext,
   BaseJarvisExtension,
   TListItem,
-} from "@jarvis/api-inline";
+} from "@jarvis/api";
 
 export class ClipboardAPI implements IClipboardAPI {
   writeText(text: string): void {

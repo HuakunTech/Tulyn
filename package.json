@@ -17,7 +17,7 @@
     "apps/*",
     "packages/*",
     "docs",
-    "packages/extensions/*",
+    "packages/extensions/**",
     "packages/extensions-template/*",
     "vendors/*",
     "dev/docs"

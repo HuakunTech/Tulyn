@@ -1,0 +1,20 @@
+{
+    "name": "qrcode",
+    "version": "0.0.1",
+    "description": "Jarvis QRCode Extension",
+    "identifier": "tech.huakun.jarvis-qrcode-ext",
+    "demoImages": [],
+    "uiCmds": [
+        {
+            "main": "ui/dist",
+            "devMain": "http://localhost:5173",
+            "cmds": [
+                {
+                    "type": "text",
+                    "label": "QRCode"
+                }
+            ]
+        }
+    ],
+    "inlineCmds": []
+}

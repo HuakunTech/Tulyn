@@ -272,7 +272,7 @@ importers:
     dependencies:
       '@jarvis/api':
         specifier: '*'
-        version: link:../../tauri_plugin_jarvis
+        version: link:../../api
       '@radix-icons/vue':
         specifier: ^1.0.0
         version: 1.0.0(vue@3.4.27)
@@ -324,7 +324,7 @@ importers:
     dependencies:
       '@jarvis/api':
         specifier: '*'
-        version: link:../../tauri_plugin_jarvis
+        version: link:../../api
       '@radix-ui/react-dropdown-menu':
         specifier: ^2.0.6
         version: 2.0.6(@types/react-dom@18.3.0)(@types/react@18.3.1)(react-dom@18.3.1)(react@18.3.1)
@@ -403,7 +403,7 @@ importers:
     dependencies:
       '@jarvis/api':
         specifier: '*'
-        version: link:../../tauri_plugin_jarvis
+        version: link:../../api
       bits-ui:
         specifier: ^0.21.7
         version: 0.21.7(svelte@4.2.16)
@@ -471,7 +471,7 @@ importers:
     devDependencies:
       '@jarvis/api':
         specifier: '*'
-        version: link:../../tauri_plugin_jarvis
+        version: link:../../api
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
         version: 3.2.0(@sveltejs/kit@2.5.7)
@@ -513,7 +513,7 @@ importers:
     dependencies:
       '@jarvis/api':
         specifier: '*'
-        version: link:../../tauri_plugin_jarvis
+        version: link:../../api
       '@radix-icons/vue':
         specifier: ^1.0.0
         version: 1.0.0(vue@3.4.27)
@@ -571,7 +571,7 @@ importers:
     dependencies:
       '@jarvis/api':
         specifier: '*'
-        version: link:../../tauri_plugin_jarvis
+        version: link:../../api
       '@radix-icons/vue':
         specifier: ^1.0.0
         version: 1.0.0(vue@3.4.27)
@@ -619,7 +619,7 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
 
-  packages/extensions/myip:
+  packages/extensions/myip/ui:
     dependencies:
       axios:
         specifier: ^1.6.8
@@ -668,7 +668,7 @@ importers:
         specifier: ^2.0.11
         version: 2.0.16(typescript@5.4.5)
 
-  packages/extensions/qrcode:
+  packages/extensions/qrcode/ui:
     dependencies:
       '@tauri-apps/api':
         specifier: ^1.5.5
@@ -706,7 +706,7 @@ importers:
     devDependencies:
       '@jarvis/api':
         specifier: '*'
-        version: link:../../tauri_plugin_jarvis
+        version: link:../../../api
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
         version: 3.2.0(@sveltejs/kit@2.5.7)
@@ -747,11 +747,11 @@ importers:
         specifier: ^5.0.3
         version: 5.2.11(@types/node@20.12.11)
 
-  packages/extensions/vscode-project-manager:
+  packages/extensions/vscode-project-manager/inline:
     dependencies:
-      '@jarvis/api-inline':
+      '@jarvis/api':
         specifier: workspace:*
-        version: link:../../api
+        version: link:../../../api
       typescript:
         specifier: ^5.0.0
         version: 5.4.5
@@ -800,7 +800,7 @@ importers:
 
   packages/runtime:
     dependencies:
-      '@jarvis/api-inline':
+      '@jarvis/api':
         specifier: workspace:*
         version: link:../api
       typescript:
@@ -5357,17 +5357,10 @@ packages:
       vscode-uri: 3.0.8
     dev: false
 
-  /@volar/language-core@2.2.1:
-    resolution: {integrity: sha512-iHJAZKcYldZgyS8gx6DfIZApViVBeqbf6iPhqoZpG5A6F4zsZiFldKfwaKaBA3/wnOTWE2i8VUbXywI1WywCPg==}
-    dependencies:
-      '@volar/source-map': 2.2.1
-    dev: true
-
   /@volar/language-core@2.2.2:
     resolution: {integrity: sha512-GuvEL4JdxbnLVhPLICncCGT+tVW4cIz9GxXNeDofNnJ4iNTKhr5suGVsA1GLOne9PbraSjn8PlLt+pvLxuRVeQ==}
     dependencies:
       '@volar/source-map': 2.2.2
-    dev: false
 
   /@volar/language-server@2.2.2:
     resolution: {integrity: sha512-9KwlCDNeFCoxTIhYOJNtpQA7M0JP0DHvvwXrqN8qNNEMJT1Oe0cic0C2tUCa/poCgkiXDbUxRldwamyuTZ6ZQg==}
@@ -5401,31 +5394,16 @@ packages:
       vscode-languageserver-textdocument: 1.0.11
     dev: false
 
-  /@volar/source-map@2.2.1:
-    resolution: {integrity: sha512-w1Bgpguhbp7YTr7VUFu6gb4iAZjeEPsOX4zpgiuvlldbzvIWDWy4t0jVifsIsxZ99HAu+c3swiME7wt+GeNqhA==}
-    dependencies:
-      muggle-string: 0.4.1
-    dev: true
-
   /@volar/source-map@2.2.2:
     resolution: {integrity: sha512-vUwvZuSW6iN4JI9QRinh9EjFasx1TUtnaWMKwgWx08xz1PyYuNkLlWlrZXBZ5GGBhML0u230M/7X+AHY2h9yKg==}
     dependencies:
       muggle-string: 0.4.1
-    dev: false
-
-  /@volar/typescript@2.2.1:
-    resolution: {integrity: sha512-Z/tqluR7Hz5/5dCqQp7wo9C/6tSv/IYl+tTzgzUt2NjTq95bKSsuO4E+V06D0c+3aP9x5S9jggLqw451hpnc6Q==}
-    dependencies:
-      '@volar/language-core': 2.2.1
-      path-browserify: 1.0.1
-    dev: true
 
   /@volar/typescript@2.2.2:
     resolution: {integrity: sha512-WcwOREz7+uOrpjUrKhOMaOKKmyPdtqF95HWX7SE0d9hhBB1KkfahxhaAex5U9Bn43LfINHlycLoYCNEtfeKm0g==}
     dependencies:
       '@volar/language-core': 2.2.2
       path-browserify: 1.0.1
-    dev: false
 
   /@vscode/emmet-helper@2.9.3:
     resolution: {integrity: sha512-rB39LHWWPQYYlYfpv9qCoZOVioPCftKXXqrsyqN1mTWZM6dTnONT63Db+03vgrBbHzJN45IrgS/AGxw9iiqfEw==}
@@ -5652,7 +5630,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@volar/language-core': 2.2.1
+      '@volar/language-core': 2.2.2
       '@vue/compiler-dom': 3.4.27
       '@vue/shared': 3.4.27
       computeds: 0.0.1
@@ -13941,7 +13919,7 @@ packages:
     peerDependencies:
       typescript: '*'
     dependencies:
-      '@volar/typescript': 2.2.1
+      '@volar/typescript': 2.2.2
       '@vue/language-core': 2.0.16(typescript@5.4.5)
       semver: 7.6.2
       typescript: 5.4.5

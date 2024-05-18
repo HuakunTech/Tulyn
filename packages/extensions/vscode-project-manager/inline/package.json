@@ -3,7 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "dependencies": {
-    "@jarvis/api-inline": "workspace:*",
+    "@jarvis/api": "workspace:*",
     "zod": "^3.23.8"
   },
   "devDependencies": {
