@@ -24,6 +24,7 @@
     "global-shortcut:default",
     "fs:default",
     "os:default",
-    "updater:default"
+    "updater:default",
+    "os:default"
   ]
 }

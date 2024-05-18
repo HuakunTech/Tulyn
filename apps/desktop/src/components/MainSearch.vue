@@ -120,7 +120,7 @@ onUnmounted(() => {
         </CommandItem>
       </CommandGroup>
       <CommandSeparator />
-      <CommandGroup heading="Settings">
+      <CommandGroup heading="Applications">
         <CommandItem
           v-for="(app, idx) in allApps"
           :key="app.app_desktop_path"

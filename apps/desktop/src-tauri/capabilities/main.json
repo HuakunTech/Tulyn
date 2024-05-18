@@ -37,6 +37,7 @@
         "fs:allow-stat",
         "fs:read-all",
         "webview:allow-create-webview",
-        "webview:allow-create-webview-window"
+        "webview:allow-create-webview-window",
+        "os:allow-platform"
     ]
 }
