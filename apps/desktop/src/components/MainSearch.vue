@@ -16,9 +16,8 @@ import { getAllApps, refreshApplicationsList } from "@/lib/commands/apps";
 import { systemCommands } from "@/lib/commands/system";
 import { onMounted, onUnmounted, ref } from "vue";
 import type { AppInfo, TCommand } from "@jarvis/api";
-import { readText } from "tauri-plugin-clipboard-api";
 import {
-  AlertDialog,
+  AlertDialogControlled,
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
@@ -26,7 +25,6 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { loadAllExtensions } from "@/lib/commands/manifest";
 import { Button } from "@/components/ui/button";
@@ -60,32 +58,12 @@ function systemCmdOnSelect(cmd: TCommand) {
     cmd.function();
   }
 }
-
-function onKeydown(e: KeyboardEvent) {
-  if (e.key === "Enter" && alertdialogOpen.value) {
-    // execute pending command
-    executePendingCmd();
-  } else if (e.key === "Escape") {
-    alertdialogOpen.value = false;
-  }
-}
-// const extensionsManifests = await loadAllExtensions(
-//   "/Users/hacker/Dev/projects/Jarvis/packages/extensions",
-// );
-onMounted(async () => {
-  document.addEventListener("keydown", onKeydown);
-  console.log(await readText());
-});
-
-onUnmounted(() => {
-  document.removeEventListener("keydown", onKeydown);
-});
 </script>
 <template>
   <Command class="">
     <CommandInput placeholder="Search for apps or commands..." :always-focus="true" />
     <div>
-      <AlertDialog v-model:open="alertdialogOpen">
+      <AlertDialogControlled v-model:open="alertdialogOpen">
         <!-- <AlertDialogTrigger as-child>
         <Button variant="outline"> Show Dialog </Button>
       </AlertDialogTrigger> -->
@@ -100,12 +78,12 @@ onUnmounted(() => {
             <AlertDialogCancel
               >Cancel<Icon class="ml-2 h-4 w-4" icon="f7:escape"
             /></AlertDialogCancel>
-            <AlertDialogAction @click="executePendingCmd"
-              >Continue <Icon class="ml-2 h-4 w-4" icon="icon-park-solid:enter-key"
+            <AlertDialogAction @click="executePendingCmd">
+              Continue <Icon class="ml-2 h-4 w-4" icon="icon-park-solid:enter-key"
             /></AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
-      </AlertDialog>
+      </AlertDialogControlled>
     </div>
     <CommandList class="px-2">
       <CommandEmpty>No results found.</CommandEmpty>
