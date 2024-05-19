@@ -4,7 +4,7 @@
   import QR from "$lib/components/QR.svelte";
   import QRCode from "easyqrcodejs";
   import { onMount } from "svelte";
-  import { clipboard, fs, dialog } from "@jarvis/api";
+  import { clipboard, fs, dialog } from "@jarvis/api-ui";
   import * as v from "valibot";
   import { ClipboardCopyIcon, DownloadIcon } from "lucide-svelte/icons";
 

@@ -8,7 +8,7 @@ import ExtensionsTab from "src/components/settings/ExtensionsTab.vue";
 import DeveloperTab from "src/components/settings/DeveloperTab.vue";
 </script>
 <template>
-  <Tabs default-value="general" class="w-full h-full flex flex-col px-4">
+  <Tabs default-value="extensions" class="w-full h-full flex flex-col px-4">
     <TabsList class="grid w-full grid-cols-5 select-none">
       <TabsTrigger value="general">
         <CogIcon class="mr-2 h-5 w-5" />
@@ -31,17 +31,17 @@ import DeveloperTab from "src/components/settings/DeveloperTab.vue";
         About
       </TabsTrigger>
     </TabsList>
-    <TabsContent value="general" class="grow">
+    <TabsContent value="general" class="grow min-h-0">
       <GeneralTab />
     </TabsContent>
-    <TabsContent value="extensions">
+    <TabsContent value="extensions" class="grow min-h-0">
       <ExtensionsTab />
     </TabsContent>
     <TabsContent value="developer" class="grow min-h-0">
       <DeveloperTab />
     </TabsContent>
     <TabsContent value="account"></TabsContent>
-    <TabsContent value="about" class="grow">
+    <TabsContent value="about" class="grow min-h-0">
       <AboutTab class="" />
     </TabsContent>
   </Tabs>

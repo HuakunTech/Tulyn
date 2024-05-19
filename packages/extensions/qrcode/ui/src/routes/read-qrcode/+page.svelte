@@ -1,6 +1,6 @@
 <script lang="ts">
   import jsQR from "jsqr";
-  import { clipboard } from "@jarvis/api";
+  import { clipboard } from "@jarvis/api-ui";
   import { Button } from "$lib/components/ui/button";
   import { onMount } from "svelte";
 

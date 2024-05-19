@@ -15,8 +15,8 @@ import {
 import { getAllApps, refreshApplicationsList } from "@/lib/commands/apps";
 import { systemCommands } from "@/lib/commands/system";
 import { onMounted, onUnmounted, ref } from "vue";
-import type { AppInfo } from "@jarvis/api";
-import type { TCommand } from "@jarvis/api";
+import type { AppInfo, TCommand } from "@jarvis/api";
+import { readText } from "tauri-plugin-clipboard-api";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -69,11 +69,12 @@ function onKeydown(e: KeyboardEvent) {
     alertdialogOpen.value = false;
   }
 }
-const extensionsManifests = await loadAllExtensions(
-  "/Users/hacker/Dev/projects/Jarvis/packages/extensions",
-);
+// const extensionsManifests = await loadAllExtensions(
+//   "/Users/hacker/Dev/projects/Jarvis/packages/extensions",
+// );
 onMounted(async () => {
   document.addEventListener("keydown", onKeydown);
+  console.log(await readText());
 });
 
 onUnmounted(() => {
@@ -81,7 +82,6 @@ onUnmounted(() => {
 });
 </script>
 <template>
-  <pre>{{ JSON.stringify(extensionsManifests, null, 2) }}</pre>
   <Command class="">
     <CommandInput placeholder="Search for apps or commands..." :always-focus="true" />
     <div>

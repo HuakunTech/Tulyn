@@ -71,7 +71,7 @@ pub async fn start_server() {
         .add_service(reflection_service)
         .add_service(GreeterServer::new(MyGreeter::default()))
         .into_router()
-        .nest_service("/", ServeDir::new("/Users/hacker/Dev/projects/Jarvis/dev"));
+        .nest_service("/", ServeDir::new("/Users/hacker/Dev/projects/Jarvis/packages/"));
     let addr = SocketAddr::from(([127, 0, 0, 1], 1566));
     axum::Server::bind(&addr)
         // .serve(web_app.into_make_service())

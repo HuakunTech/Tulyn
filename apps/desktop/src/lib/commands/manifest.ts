@@ -5,7 +5,7 @@ export function loadManifest(manifestPath: string): Promise<JarvisExtJson> {
   return invoke("load_manifest", { manifest_path: manifestPath });
 }
 
-export function loadAllExtensions(extensionsFolder: string): Promise<JarvisExtJson> {
+export function loadAllExtensions(extensionsFolder: string): Promise<JarvisExtJson[]> {
   return invoke("load_all_extensions", { extensionsFolder }).then((res: any) =>
     res.map((x: unknown) => JarvisExtJson.parse(x)),
   );

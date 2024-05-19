@@ -6,6 +6,7 @@ import { useColorMode } from "@vueuse/core";
 import { Store } from "@tauri-apps/plugin-store";
 
 const persistAppConfig = new Store("appConfig.bin");
+
 export const LightMode = z.union([z.literal("light"), z.literal("dark"), z.literal("auto")]);
 export type LightMode = z.infer<typeof LightMode>;
 
@@ -30,6 +31,7 @@ const defaultState: State = {
 };
 
 const loadedConfig = await persistAppConfig.get("config");
+
 const parsedConfig = appConfigSchema.safeParse(loadedConfig);
 if (parsedConfig.success) {
   defaultState.theme = parsedConfig.data.theme;
@@ -87,4 +89,5 @@ $appConfig.subscribe((state, oldState) => {
 
   // update storage
   persistAppConfig.set("config", state);
+  persistAppConfig.save();
 });
