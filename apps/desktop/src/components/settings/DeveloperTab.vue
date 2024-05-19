@@ -7,7 +7,7 @@ const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length
 </script>
 <template>
   <div class="py-2 max-h-full overflow-auto flex">
-    <ScrollArea class="max-h-full w-48 rounded-md border">
+    <!-- <ScrollArea class="max-h-full w-48 rounded-md border">
       <div class="p-4">
         <h4 class="mb-4 text-sm font-medium leading-none">Tags</h4>
 
@@ -18,7 +18,7 @@ const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length
           <Separator class="my-2" />
         </div>
       </div>
-    </ScrollArea>
+    </ScrollArea> -->
     <Installation class="grow" />
   </div>
 </template>

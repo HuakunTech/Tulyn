@@ -4,11 +4,11 @@
     "description": "Capability for the main window",
     "windows": [
         "main",
-        "*"
+        "ext*"
     ],
     "remote": {
         "urls": [
-            "http://localhost*"
+            "http://localhost:1566/*"
         ]
     },
     "local": true,
@@ -16,7 +16,11 @@
         "path:default",
         "event:default",
         "window:default",
+        "window:allow-create",
+        "window:allow-start-dragging",
         "webview:default",
+        "webview:allow-create-webview",
+        "webview:allow-create-webview-window",
         "app:default",
         "resources:default",
         "image:default",
@@ -33,7 +37,6 @@
         "os:default",
         "updater:default",
         "os:default",
-        "window:allow-start-dragging",
         "shell:allow-open",
         "dialog:allow-confirm",
         "dialog:allow-open",
@@ -68,8 +71,6 @@
         "fs:allow-appcache-write",
         "fs:allow-appcache-write-recursive",
         "fs:allow-appconfig-write",
-        "webview:allow-create-webview",
-        "webview:allow-create-webview-window",
         "os:allow-platform",
         "clipboard:allow-clear",
         "clipboard:allow-execute",
