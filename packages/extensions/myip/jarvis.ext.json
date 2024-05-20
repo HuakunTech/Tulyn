@@ -10,7 +10,7 @@
     },
     "uiCmds": [
         {
-            "main": "ui/dist",
+            "main": "ui/dist/",
             "name": "My IP",
             "devMain": "http://localhost:5173",
             "cmds": [

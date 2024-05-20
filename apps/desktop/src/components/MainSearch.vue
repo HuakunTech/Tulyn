@@ -130,8 +130,10 @@ function openExtention(item: TListItem) {
             url: uiCmd.main,
           });
         } else {
+          const postfix = !uiCmd.main.endsWith(".html") && !uiCmd.main.endsWith("/") ? "/" : "";
+          const url = `http://localhost:1566/extensions/${cmd.manifest.extFolderName}/${uiCmd.main}${postfix}`;
           new WebviewWindow("ext", {
-            url: `http://localhost:1566/extensions/${cmd.manifest.extFolderName}/${uiCmd.main}`,
+            url,
           });
         }
       }
