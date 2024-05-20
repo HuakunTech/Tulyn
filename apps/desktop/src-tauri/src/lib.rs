@@ -46,17 +46,17 @@ pub fn run() {
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
         // .plugin(tauri_plugin_log::Builder::new().build())
-        .plugin(
-            tauri_plugin_log::Builder::new()
-                .targets([
-                    Target::new(TargetKind::Stdout),
-                    Target::new(TargetKind::LogDir {
-                        file_name: Some(log_path.to_str().unwrap().to_string()),
-                    }),
-                    Target::new(TargetKind::Webview),
-                ])
-                .build(),
-        )
+        // .plugin(
+        //     tauri_plugin_log::Builder::new()
+        //         .targets([
+        //             Target::new(TargetKind::Stdout),
+        //             Target::new(TargetKind::LogDir {
+        //                 file_name: Some(log_path.to_str().unwrap().to_string()),
+        //             }),
+        //             Target::new(TargetKind::Webview),
+        //         ])
+        //         .build(),
+        // )
         .plugin(tauri_plugin_notification::init())
         .plugin(tauri_plugin_upload::init())
         .plugin(tauri_plugin_shell::init())
