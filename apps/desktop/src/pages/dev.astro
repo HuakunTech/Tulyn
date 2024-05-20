@@ -1,0 +1,13 @@
+---
+import DefaultLayout from "@/layouts/Default.astro";
+import { Button } from "@/components/ui/button";
+import VueDev from "@/components/VueDev.vue";
+import MainSearch from "@/components/MainSearch.vue";
+
+import DevComponent from "@/components/Dev.vue";
+---
+
+<DefaultLayout title="Tauri Astro Templte">
+  <!-- <img src="mac-icns://localhost/Users/hacker/Downloads/jarvis-logo.png" alt="" /> -->
+  <DevComponent client:only="vue" />
+</DefaultLayout>

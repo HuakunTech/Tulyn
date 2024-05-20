@@ -30,9 +30,9 @@ function openExtention(item: TListItem) {
 
   console.log($extensionsStore.get().devManifests.find((ext) => item.value === ext.identifier));
 
-  new WebviewWindow("ext", {
-    url: `http://localhost:1566/extensions/qrcode/ui/dist`,
-  });
+  // new WebviewWindow("ext", {
+  //   url: `http://localhost:1566/extensions/qrcode/ui/dist`,
+  // });
 
   //   const appWindow = new Window("ext");
   //   const webview = new Webview(appWindow, "ext2", {

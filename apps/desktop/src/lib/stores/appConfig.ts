@@ -1,5 +1,4 @@
 import { map } from "nanostores";
-// import { map } from "nanostores";
 import { z } from "zod";
 import { allColors } from "../themes/themes";
 import { useColorMode } from "@vueuse/core";

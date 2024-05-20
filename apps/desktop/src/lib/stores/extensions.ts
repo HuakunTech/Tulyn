@@ -53,21 +53,21 @@ function manifestToCmdItems(manifest: JarvisExtJson): TListItem[] {
   const uiItems = manifest.uiCmds.map((cmd) => {
     return {
       title: cmd.name,
-      value: cmd.name,
+      value: `${manifest.identifier}/${cmd.name}`,
       description: "TODO",
       type: "UI Command",
       icon: null,
-      keywords: cmd.name.split(" "),
+      keywords: cmd.cmds.map((c) => c.value), // TODO: handle regex as well
     };
   });
   const inlineItems = manifest.inlineCmds.map((cmd) => {
     return {
       title: cmd.name,
-      value: cmd.name,
+      value: `${manifest.identifier}/${cmd.name}`,
       description: "TODO",
       type: "Inline Command",
       icon: null,
-      keywords: cmd.name.split(" "),
+      keywords: cmd.cmds.map((c) => c.value), // TODO: handle regex as well
     };
   });
   return [...uiItems, ...inlineItems];
@@ -80,3 +80,5 @@ export const $extensionListItems = computed($extensionsStore, (state): TListItem
 export const $devExtensionListItems = computed($extensionsStore, (state): TListItem[] => {
   return state.devManifests.map((m) => manifestToCmdItems(m)).flat();
 });
+
+// create mapping value to 

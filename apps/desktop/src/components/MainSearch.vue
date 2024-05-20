@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/command";
 import { getAllApps, refreshApplicationsList } from "@/lib/commands/apps";
 import { systemCommands } from "@/lib/commands/system";
-import { onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 import type { AppInfo, TCommand } from "@jarvis/api";
 import {
   AlertDialogControlled,
@@ -28,7 +28,16 @@ import {
 } from "@/components/ui/alert-dialog";
 import { loadAllExtensions } from "@/lib/commands/manifest";
 import { Button } from "@/components/ui/button";
+import { convertFileSrc } from "@tauri-apps/api/core";
+import { $appState, setSearchTerm } from "@/lib/stores/appState";
+import { useStore } from "@nanostores/vue";
 
+const appState = useStore($appState);
+
+const searchTerm = computed({
+  get: () => $appState.get().searchTerm,
+  set: (value) => setSearchTerm(value),
+});
 const currentPendingcmd = ref<TCommand | null>(null);
 const allApps = ref<AppInfo[]>([]);
 const alertdialogOpen = ref(false);
@@ -60,8 +69,11 @@ function systemCmdOnSelect(cmd: TCommand) {
 }
 </script>
 <template>
-  <Command class="">
+  <Command class="" v-model:searchTerm="searchTerm">
+    <p>{{ appState.searchTerm }}</p>
+    <p>{{ searchTerm }}</p>
     <CommandInput placeholder="Search for apps or commands..." :always-focus="true" />
+    <!-- <img :src="imgUrl" width="100" alt="" /> -->
     <div>
       <AlertDialogControlled v-model:open="alertdialogOpen">
         <!-- <AlertDialogTrigger as-child>
@@ -109,7 +121,14 @@ function systemCmdOnSelect(cmd: TCommand) {
           :value="app.app_desktop_path"
           @select="open(app.app_desktop_path)"
         >
-          <User class="mr-2 h-4 w-4" />
+          <img
+            width="20"
+            class="mr-2"
+            v-if="app.icon_path"
+            :src="convertFileSrc(app.icon_path, 'mac-icns')"
+            alt=""
+          />
+          <User v-else class="mr-2 h-4 w-4" />
           <span>{{ app.name }}</span>
           <CommandShortcut>Application</CommandShortcut>
         </CommandItem>

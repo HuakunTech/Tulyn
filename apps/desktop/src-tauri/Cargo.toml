@@ -21,7 +21,7 @@ tonic-build = "0.11"
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-tauri = { version = "2.0.0-beta.19", features = [] }
+tauri = { version = "2.0.0-beta.19", features = ["protocol-asset"] }
 # tauri_plugin_jarvis = { path = "../../../packages/tauri_plugin_jarvis" }
 tauri-plugin-clipboard = { path = "../../../vendors/tauri-plugin-clipboard" }
 tauri-plugin-store = "2.0.0-beta.6"
@@ -46,6 +46,9 @@ tonic-reflection = "0.11.0"
 rdev = "0.5.3"
 serde_derive = "1.0.202"
 anyhow = "1.0.86"
+http = "1.1.0"
+mime = "0.3.17"
+tauri-icns = "0.1.0"
 
 
 [target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]

@@ -1,4 +1,7 @@
+use crate::utils::icns::load_icns;
+use applications::utils::image::RustImage;
 use commands::{apps::ApplicationsState, server::Server};
+use std::path::PathBuf;
 use tauri::Manager;
 use tauri_plugin_log::{Target, TargetKind};
 pub mod commands;
@@ -14,6 +17,34 @@ pub fn run() {
     log_path.push("jarvis-logs");
 
     tauri::Builder::default()
+        .register_uri_scheme_protocol("mac-icns", |_app, request| {
+            let url = &request.uri().path()[1..];
+            let url = url.replace("%2F", "/").replace("%20", " ");
+            let path = PathBuf::from(url);
+            if !path.exists() {
+                return tauri::http::Response::builder()
+                    .status(tauri::http::StatusCode::NOT_FOUND)
+                    .body("file not found".as_bytes().to_vec())
+                    .unwrap();
+            }
+            let icns = load_icns(&path);
+            match icns {
+                Ok(icns) => {
+                    let png = icns.to_png().unwrap();
+                    tauri::http::Response::builder()
+                        .body(png.get_bytes().to_vec())
+                        .unwrap()
+                }
+                Err(error) => tauri::http::Response::builder()
+                    .status(tauri::http::StatusCode::INTERNAL_SERVER_ERROR)
+                    .body(error.to_string().as_bytes().to_vec())
+                    .unwrap(),
+            }
+            // let png = load_icns(&path).unwrap().to_png().unwrap();
+            // tauri::http::Response::builder()
+            //     .body(png.get_bytes().to_vec())
+            //     .unwrap()
+        })
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_fs::init())

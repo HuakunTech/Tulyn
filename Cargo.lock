@@ -1247,6 +1247,8 @@ dependencies = [
  "applications",
  "axum",
  "axum-extra",
+ "http 1.1.0",
+ "mime",
  "prost",
  "rdev",
  "serde",
@@ -1254,6 +1256,7 @@ dependencies = [
  "serde_json",
  "tauri",
  "tauri-build",
+ "tauri-icns",
  "tauri-plugin-clipboard",
  "tauri-plugin-dialog",
  "tauri-plugin-fs",
@@ -2312,6 +2315,12 @@ dependencies = [
  "http-body 1.0.0",
  "pin-project-lite",
 ]
+
+[[package]]
+name = "http-range"
+version = "0.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "21dec9db110f5f872ed9699c3ecf50cf16f423502706ba5c72462e28d3157573"
 
 [[package]]
 name = "http-range-header"
@@ -4989,6 +4998,7 @@ dependencies = [
  "gtk",
  "heck 0.5.0",
  "http 1.1.0",
+ "http-range",
  "jni",
  "libc",
  "log",
