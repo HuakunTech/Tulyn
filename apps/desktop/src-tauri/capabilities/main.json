@@ -8,7 +8,8 @@
     ],
     "remote": {
         "urls": [
-            "http://localhost:1566/*"
+            "http://localhost:1566/*",
+            "http://localhost:*"
         ]
     },
     "local": true,
