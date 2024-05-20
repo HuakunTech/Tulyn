@@ -168,6 +168,9 @@ importers:
       astro:
         specifier: ^4.3.5
         version: 4.8.2(typescript@5.4.5)
+      astro-d2:
+        specifier: ^0.2.0
+        version: 0.2.0(astro@4.8.2)
       sharp:
         specifier: ^0.32.5
         version: 0.32.6
@@ -186,6 +189,9 @@ importers:
       astro:
         specifier: ^4.3.5
         version: 4.8.2(typescript@5.4.5)
+      astro-d2:
+        specifier: ^0.2.0
+        version: 0.2.0(astro@4.8.2)
       sharp:
         specifier: ^0.32.5
         version: 0.32.6
@@ -6082,6 +6088,16 @@ packages:
   /astring@1.8.6:
     resolution: {integrity: sha512-ISvCdHdlTDlH5IpxQJIex7BWBywFWgjJSVdwst+/iQCoEYnyOaQ95+X1JGshuBjGp6nxKUy1jMgE3zPqN7fQdg==}
     hasBin: true
+    dev: false
+
+  /astro-d2@0.2.0(astro@4.8.2):
+    resolution: {integrity: sha512-EMf2bnM7HcoMwaxea9ejaqnW3UPi4VpfqfUuYa1xiOo43AkZe+453jDAwH2tRnlauw1tYRX+WlLJBDKEcQY0xQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      astro: '>=4.0.0'
+    dependencies:
+      astro: 4.8.2(typescript@5.4.5)
+      unist-util-visit: 5.0.0
     dev: false
 
   /astro-expressive-code@0.35.3(astro@4.8.2):
