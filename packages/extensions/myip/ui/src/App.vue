@@ -16,6 +16,8 @@ import {
   CommandShortcut,
 } from "@/components/ui/command";
 import Toaster from "@/components/ui/toast/Toaster.vue";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast/use-toast";
 
 const { toast } = useToast();
@@ -46,19 +48,24 @@ const IpInfo = z.object({
 });
 
 const ip = ref<z.infer<typeof IpInfo> | undefined>();
+const ipSearchTerm = ref<string>("");
 const mode = useColorMode();
 
-onMounted(() => {
-  axios
-    .get(
-      "http://ip-api.com/json?fields=status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,offset,currency,isp,org,as,asname,reverse,proxy,hosting,query",
-    )
+function searchIp(ipv4?: string) {
+  const apiUrl = `http://ip-api.com/json${ipv4 ? "/" + ipv4 : ""}?fields=status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,offset,currency,isp,org,as,asname,reverse,proxy,hosting,query`;
+  return axios
+    .get(apiUrl)
     .then((response) => {
       ip.value = IpInfo.parse(response.data);
+      ipSearchTerm.value = ip.value.query;
     })
     .catch((error) => {
       console.error(error);
     });
+}
+
+onMounted(() => {
+  searchIp();
 });
 
 function onSelect(content: any) {
@@ -79,14 +86,27 @@ function onSelect(content: any) {
       });
     });
 }
-</script>
 
+function onIpSearch(e: Event) {
+  e.preventDefault();
+  // check regex of ipSearchTerm must be IPv4
+  if (/^([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})$/.test(ipSearchTerm.value)) {
+    return searchIp(ipSearchTerm.value);
+  }
+}
+</script>
 <template>
   <Toaster />
   <main class="h-screen bg-background text-foreground">
     <!-- <ModeToggle /> -->
     <Command class="rounded-lg border shadow-md text-xl">
-      <CommandInput placeholder="Type to search..." />
+      <div class="flex gap-1.5 px-2">
+        <span class="grow"><CommandInput placeholder="Type to search..." class="" /></span>
+        <form class="flex w-full items-center gap-1.5 max-w-xs" @submit="onIpSearch">
+          <Input id="IP Address" type="text" placeholder="IP Address" v-model="ipSearchTerm" />
+          <Button type="submit" variant="outline">Search</Button>
+        </form>
+      </div>
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup v-if="ip" heading="IP Info">

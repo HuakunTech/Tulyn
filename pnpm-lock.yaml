@@ -743,6 +743,9 @@ importers:
       tailwindcss:
         specifier: ^3.4.3
         version: 3.4.3
+      tauri-plugin-clipboard-api:
+        specifier: workspace:*
+        version: link:../../../../vendors/tauri-plugin-clipboard
       typescript:
         specifier: ~5.4.0
         version: 5.4.5

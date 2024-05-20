@@ -120,19 +120,22 @@ function openExtention(item: TListItem) {
     const uiCmdParse = UiCmd.safeParse(cmd.cmd);
     if (uiCmdParse.success) {
       const uiCmd = uiCmdParse.data;
-      if (!cmd.isDev && uiCmd.devMain) {
+      if (cmd.isDev && uiCmd.devMain) {
         new WebviewWindow("ext", {
+          title: item.title,
           url: uiCmd.devMain,
         });
       } else {
         if (uiCmd.main.startsWith("http")) {
           new WebviewWindow("ext", {
+            title: item.title,
             url: uiCmd.main,
           });
         } else {
           const postfix = !uiCmd.main.endsWith(".html") && !uiCmd.main.endsWith("/") ? "/" : "";
           const url = `http://localhost:1566/extensions/${cmd.manifest.extFolderName}/${uiCmd.main}${postfix}`;
           new WebviewWindow("ext", {
+            title: item.title,
             url,
           });
         }
