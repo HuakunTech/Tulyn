@@ -42,8 +42,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.0-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+          curl -fsSL https://d2lang.com/install.sh | sh -s --
         # webkitgtk 4.0 is for Tauri v1 - webkitgtk 4.1 is for Tauri v2.
         # You can remove the one that doesn't apply to your app to speed up the workflow a bit.
+      - name: Install D2 For Docs
+        run: brew install d2
       - uses: pnpm/action-setup@v4
       - name: setup node
         uses: actions/setup-node@v4

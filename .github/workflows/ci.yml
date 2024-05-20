@@ -30,6 +30,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
+      - name: Install D2 For Docs
+        run: curl -fsSL https://d2lang.com/install.sh | sh -s --
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: 1.1.7
