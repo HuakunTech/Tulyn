@@ -1,0 +1,25 @@
+{
+    "name": "jwt-inspector",
+    "version": "0.0.1",
+    "description": "JWT Inspector",
+    "identifier": "tech.huakun.jarvis-jwt-inspector",
+    "demoImages": [],
+    "icon": {
+        "type": "iconify",
+        "icon": "logos:jwt-icon"
+    },
+    "uiCmds": [
+        {
+            "main": "dist",
+            "name": "JWT Inspect",
+            "devMain": "http://localhost:5173",
+            "cmds": [
+                {
+                    "type": "text",
+                    "value": "jwt"
+                }
+            ]
+        }
+    ],
+    "inlineCmds": []
+}
