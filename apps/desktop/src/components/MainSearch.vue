@@ -15,7 +15,7 @@ import {
 import { getAllApps, refreshApplicationsList } from "@/lib/commands/apps";
 import { systemCommands } from "@/lib/commands/system";
 import { computed, onMounted, onUnmounted, ref } from "vue";
-import { UiCmd, type AppInfo, type TCommand, type TListItem } from "@jarvis/api";
+import { IconType, UiCmd, type AppInfo, type TCommand, type TListItem } from "@jarvis/api";
 import {
   AlertDialogControlled,
   AlertDialogAction,
@@ -149,8 +149,11 @@ function openExtention(item: TListItem) {
           :value="ext.value"
           @select="openExtention(ext as TListItem)"
         >
-          <!-- @select="systemCmdOnSelect(cmd)" -->
-          <!-- <Icon v-if="cmd.icon" :icon="cmd.icon" class="mr-2 h-5 w-5" /> -->
+          <Icon
+            v-if="ext.icon && ext.icon.type === IconType.Enum.iconify"
+            :icon="ext.icon.value"
+            class="mr-2 h-5 w-5"
+          />
           <span class="">{{ ext.title }}</span>
           <span class="mx-3">-</span>
           <span class="text-muted-foreground">{{ ext.description }}</span>

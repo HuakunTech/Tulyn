@@ -4,6 +4,10 @@
     "description": "Jarvis IP Extension",
     "identifier": "tech.huakun.jarvis-qrcode-ext",
     "demoImages": [],
+    "icon": {
+        "type": "iconify",
+        "icon": "mdi:ip-network"
+    },
     "uiCmds": [
         {
             "main": "ui/dist",

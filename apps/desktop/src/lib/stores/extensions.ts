@@ -12,7 +12,7 @@ export const extensionsStoreSchema = z.object({
   manifests: JarvisExtJsonExtra.array(),
   devManifests: JarvisExtJsonExtra.array(),
 });
-z;
+
 export type State = z.infer<typeof extensionsStoreSchema>;
 
 export const $extensionsStore = map<State>({ manifests: [], devManifests: [] });
@@ -75,7 +75,10 @@ export function manifestToCmdItems(manifest: JarvisExtJsonExtra): TListItem[] {
       value: generateExtensionValue(manifest, cmd as UiCmd),
       description: `UI Extension`,
       type: "UI Command",
-      icon: null,
+      icon: {
+        value: manifest.icon.icon,
+        type: manifest.icon.type,
+      },
       keywords: cmd.cmds.map((c) => c.value), // TODO: handle regex as well
     };
   });
@@ -85,7 +88,10 @@ export function manifestToCmdItems(manifest: JarvisExtJsonExtra): TListItem[] {
       value: generateExtensionValue(manifest, cmd as InlineCmd),
       description: "Inline Extension",
       type: "Inline Command",
-      icon: null,
+      icon: {
+        value: manifest.icon.icon,
+        type: manifest.icon.type,
+      },
       keywords: cmd.cmds.map((c) => c.value), // TODO: handle regex as well
     };
   });

@@ -4,6 +4,10 @@
     "description": "Jarvis QRCode Extension",
     "identifier": "tech.huakun.jarvis-qrcode-ext",
     "demoImages": [],
+    "icon": {
+        "type": "iconify",
+        "icon": "mingcute:qrcode-line"
+    },
     "uiCmds": [
         {
             "main": "ui/dist",

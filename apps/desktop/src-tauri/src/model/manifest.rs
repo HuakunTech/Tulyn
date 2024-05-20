@@ -5,6 +5,27 @@ use std::path::PathBuf;
 
 pub const MANIFEST_FILE_NAME: &str = "jarvis.ext.json";
 
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub enum IconType {
+    Iconify,
+    AssetPath,
+}
+
+impl Default for IconType {
+    fn default() -> Self {
+        IconType::Iconify
+    }
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Icon {
+    pub icon: String,
+    #[serde(rename = "type")]
+    pub type_field: IconType,
+}
+
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct JarvisExtManifest {
@@ -15,7 +36,7 @@ pub struct JarvisExtManifest {
     pub demo_images: Vec<Value>,
     pub ui_cmds: Vec<UiCmd>,
     pub inline_cmds: Vec<InlineCmd>,
-    pub icon: Option<String>,
+    pub icon: Icon,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -28,7 +49,7 @@ pub struct JarvisExtManifestExtra {
     pub demo_images: Vec<Value>,
     pub ui_cmds: Vec<UiCmd>,
     pub inline_cmds: Vec<InlineCmd>,
-    pub icon: Option<String>,
+    pub icon: Icon,
     // extra fields
     pub ext_path: PathBuf,
     pub ext_folder_name: String,
@@ -52,9 +73,9 @@ impl JarvisExtManifestExtra {
 }
 
 impl JarvisExtManifest {
-    pub fn load(manifest_path: PathBuf) -> Self {
+    pub fn load(manifest_path: PathBuf) -> anyhow::Result<Self> {
         let manifest_str = std::fs::read_to_string(manifest_path).unwrap();
-        serde_json::from_str(&manifest_str).unwrap()
+        Ok(serde_json::from_str(&manifest_str)?)
     }
 }
 

@@ -30,8 +30,14 @@ pub async fn load_all_extensions<R: Runtime>(
         let entry = entry.map_err(|e| e.to_string())?;
 
         if entry.path().join(MANIFEST_FILE_NAME).exists() {
-            let ext_manifest = load_jarvis_ext_manifest(entry.path()).map_err(|e| e.to_string())?;
-            extensions_with_path.push(JarvisExtManifestExtra::from(ext_manifest, entry.path()));
+            let ext_manifest = load_jarvis_ext_manifest(entry.path()).map_err(|e| e.to_string());
+            if ext_manifest.is_err() {
+                continue;
+            }
+            extensions_with_path.push(JarvisExtManifestExtra::from(
+                ext_manifest.unwrap(),
+                entry.path(),
+            ));
         }
     }
     Ok(extensions_with_path)

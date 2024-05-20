@@ -17,5 +17,5 @@ pub fn load_jarvis_ext_manifest(manifest_path: PathBuf) -> Result<JarvisExtManif
             manifest_path.to_string_lossy().to_string()
         )));
     }
-    Ok(JarvisExtManifest::load(manifest_path))
+    Ok(JarvisExtManifest::load(manifest_path)?)
 }

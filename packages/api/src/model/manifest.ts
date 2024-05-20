@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { IconType } from "./common";
 
 export const TriggerCmd = z.object({
   type: z.union([z.literal("text"), z.literal("regex")]),
@@ -21,12 +22,16 @@ export const InlineCmd = z.object({
 });
 export type InlineCmd = z.infer<typeof UiCmd>;
 
+export const Icon = z.object({
+  type: IconType,
+  icon: z.string(),
+});
 export const JarvisExtJson = z.object({
   name: z.string(),
   version: z.string(),
   description: z.string(),
   identifier: z.string(),
-  icon: z.string().nullable().optional(),
+  icon: Icon,
   demoImages: z.array(z.string()),
   uiCmds: UiCmd.array(),
   inlineCmds: InlineCmd.array(),

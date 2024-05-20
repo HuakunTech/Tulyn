@@ -4,9 +4,7 @@
     "description": "Jarvis VSCode Project Manager Extension",
     "identifier": "tech.huakun.jarvis-vscode-project-manager-ext",
     "demoImages": [],
-    "uiCmds": [
-       
-    ],
+    "uiCmds": [],
     "inlineCmds": [
         {
             "main": "inline",

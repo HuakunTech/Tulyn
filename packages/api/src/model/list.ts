@@ -1,6 +1,6 @@
 import { z } from "zod";
+import { IconType } from "./common";
 
-export const IconType = z.enum(["iconify", "asset", "remote-url", "external-asset"]);
 export const TListItem = z.object({
   title: z.string(),
   value: z.string(),
