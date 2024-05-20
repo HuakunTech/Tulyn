@@ -95,10 +95,21 @@ function openExtention(item: TListItem) {
     const uiCmdParse = UiCmd.safeParse(cmd.cmd);
     if (uiCmdParse.success) {
       const uiCmd = uiCmdParse.data;
-      console.log(uiCmd);
-      new WebviewWindow("ext", {
-        url: `http://localhost:1566/extensions/${cmd.manifest.extFolderName}/${uiCmd.main}`,
-      });
+      if (!cmd.isDev && uiCmd.devMain) {
+        new WebviewWindow("ext", {
+          url: uiCmd.devMain,
+        });
+      } else {
+        if (uiCmd.main.startsWith("http")) {
+          new WebviewWindow("ext", {
+            url: uiCmd.main,
+          });
+        } else {
+          new WebviewWindow("ext", {
+            url: `http://localhost:1566/extensions/${cmd.manifest.extFolderName}/${uiCmd.main}`,
+          });
+        }
+      }
     } else {
       console.error(uiCmdParse.error);
     }

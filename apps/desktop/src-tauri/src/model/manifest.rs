@@ -15,6 +15,7 @@ pub struct JarvisExtManifest {
     pub demo_images: Vec<Value>,
     pub ui_cmds: Vec<UiCmd>,
     pub inline_cmds: Vec<InlineCmd>,
+    pub icon: Option<String>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -27,13 +28,14 @@ pub struct JarvisExtManifestExtra {
     pub demo_images: Vec<Value>,
     pub ui_cmds: Vec<UiCmd>,
     pub inline_cmds: Vec<InlineCmd>,
+    pub icon: Option<String>,
     // extra fields
     pub ext_path: PathBuf,
     pub ext_folder_name: String,
 }
 
 impl JarvisExtManifestExtra {
-    pub fn new(manifest: JarvisExtManifest, ext_path: PathBuf) -> Self {
+    pub fn from(manifest: JarvisExtManifest, ext_path: PathBuf) -> Self {
         Self {
             name: manifest.name,
             version: manifest.version,
@@ -42,6 +44,7 @@ impl JarvisExtManifestExtra {
             demo_images: manifest.demo_images,
             ui_cmds: manifest.ui_cmds,
             inline_cmds: manifest.inline_cmds,
+            icon: manifest.icon,
             ext_folder_name: ext_path.file_name().unwrap().to_str().unwrap().to_string(),
             ext_path,
         }

@@ -1,5 +1,5 @@
 use crate::{
-    model::manifest::{JarvisExtManifest, JarvisExtManifestExtra, MANIFEST_FILE_NAME},
+    model::manifest::{JarvisExtManifestExtra, MANIFEST_FILE_NAME},
     utils::manifest::load_jarvis_ext_manifest,
 };
 use std::path::PathBuf;
@@ -13,7 +13,7 @@ pub async fn load_manifest<R: Runtime>(
     _window: tauri::Window<R>,
     manifest_path: PathBuf,
 ) -> Result<JarvisExtManifestExtra, String> {
-    Ok(JarvisExtManifestExtra::new(
+    Ok(JarvisExtManifestExtra::from(
         load_jarvis_ext_manifest(manifest_path.clone()).map_err(|e| e.to_string())?,
         manifest_path.parent().unwrap().to_path_buf(),
     ))
@@ -31,7 +31,7 @@ pub async fn load_all_extensions<R: Runtime>(
 
         if entry.path().join(MANIFEST_FILE_NAME).exists() {
             let ext_manifest = load_jarvis_ext_manifest(entry.path()).map_err(|e| e.to_string())?;
-            extensions_with_path.push(JarvisExtManifestExtra::new(ext_manifest, entry.path()));
+            extensions_with_path.push(JarvisExtManifestExtra::from(ext_manifest, entry.path()));
         }
     }
     Ok(extensions_with_path)
