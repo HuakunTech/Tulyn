@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/command";
 import { getAllApps, refreshApplicationsList } from "@/lib/commands/apps";
 import { systemCommands } from "@/lib/commands/system";
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { IconType, UiCmd, type AppInfo, type TCommand, type TListItem } from "@jarvis/api";
 import {
   AlertDialogControlled,
@@ -46,6 +46,19 @@ const allExtensionListItems = useStore($allExtensionListItems);
 const searchTerm = computed({
   get: () => appState.value.searchTerm,
   set: (value) => setSearchTerm(value),
+});
+
+/**
+ * searchTermInSync is used for debouncing the searching triggered by searchTerm
+ * This is to prevent the search term from being updated on every key press
+ */ 
+const searchTermInSync = ref("");
+let updateSearchTermTimeout: NodeJS.Timeout;
+watch(searchTermInSync, (val) => {
+  clearTimeout(updateSearchTermTimeout);
+  updateSearchTermTimeout = setTimeout(() => {
+    setSearchTerm(val);
+  }, 200);
 });
 
 // const filteredApps = useStore($filteredApps);
@@ -129,7 +142,7 @@ function openExtention(item: TListItem) {
 }
 </script>
 <template>
-  <Command class="" v-model:searchTerm="searchTerm" :identity-filter="true">
+  <Command class="" v-model:searchTerm="searchTermInSync" :identity-filter="true">
     <!-- <img width="40":src="convertFileSrc('/Applications/Google Chrome.app/Contents/Resources/app.icns', 'macicns')" alt="">
     <img width="40":src="convertFileSrc('/Applications/Visual Studio Code.app/Contents/Resources/Code.icns', 'macicns')" alt=""> -->
     <CommandInput placeholder="Search for apps or commands..." :always-focus="true" />
