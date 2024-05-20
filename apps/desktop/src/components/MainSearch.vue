@@ -51,7 +51,7 @@ const searchTerm = computed({
 /**
  * searchTermInSync is used for debouncing the searching triggered by searchTerm
  * This is to prevent the search term from being updated on every key press
- */ 
+ */
 const searchTermInSync = ref("");
 let updateSearchTermTimeout: NodeJS.Timeout;
 watch(searchTermInSync, (val) => {
@@ -222,7 +222,7 @@ function openExtention(item: TListItem) {
             :src="convertFileSrc(app.icon_path, 'macicns')"
             alt=""
           />
-          <User v-else class="mr-2 h-4 w-4" />
+          <Icon v-else icon="ri:app-store-fill" class="w-5 h-5 mr-2" />
           <span>{{ app.name }}</span>
           <CommandShortcut>Application</CommandShortcut>
         </CommandItem>
