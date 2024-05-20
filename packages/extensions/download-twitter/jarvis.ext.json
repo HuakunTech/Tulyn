@@ -11,7 +11,7 @@
     "uiCmds": [
         {
             "main": "dist",
-            "name": "Download YouTube",
+            "name": "Download Twitter",
             "devMain": "http://localhost:5173",
             "cmds": [
                 {

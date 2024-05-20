@@ -8,12 +8,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { FormEvent, useEffect, useState } from "react";
 import { ChevronRightIcon, CopyIcon } from "@radix-ui/react-icons";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   url: z.string().url(),
 });
 // https://x.com/CrabNebulaDev/status/1770145116239356352
-export default function DownloadForm() {
+export default function DownloadForm({ className }: { className: string }) {
   const { toast } = useToast();
   const [url, setUrl] = useState("");
   const [downloadUrl, setDownloadUrl] = useState("");
@@ -77,7 +78,7 @@ export default function DownloadForm() {
   }
 
   return (
-    <div className="container max-w-2xl">
+    <div className={cn("container max-w-2xl", className)}>
       <Label className="text-md">Tweet Url</Label>
       <form
         onSubmit={(e: FormEvent<HTMLFormElement>) => {

@@ -1,25 +1,18 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import DownloadForm from "@/components/download-form";
 import { Toaster } from "@/components/ui/toaster";
+import { SkillIconsTwitter } from "./components/TwitterIcon";
 
 function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <Toaster />
-      {/* <Button
-        variant="outline"
-        onClick={() => {
-          toast({
-            title: "Scheduled: Catch up ",
-            description: "Friday, February 10, 2023 at 5:57 PM",
-            action: <ToastAction altText="Goto schedule to undo">Undo</ToastAction>,
-          });
-        }}
-      >
-        Add to calendar
-      </Button> */}
-      <div className="h-screen flex justify-center items-center">
-        <DownloadForm />
+      <div className="h-screen pt-32 flex flex-col">
+        <DownloadForm className="grow" />
+        <span className="flex space-x-2 items-center p-3">
+          <SkillIconsTwitter />
+          <span className="text-muted-foreground">Download Video</span>
+        </span>
       </div>
     </ThemeProvider>
   );
