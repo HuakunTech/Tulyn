@@ -4,10 +4,14 @@ import type { ComboboxRootEmits, ComboboxRootProps } from "radix-vue";
 import { ComboboxRoot, useForwardPropsEmits } from "radix-vue";
 import { cn } from "@/lib/utils";
 
-const props = withDefaults(defineProps<ComboboxRootProps & { class?: HTMLAttributes["class"] }>(), {
-  open: true,
-  modelValue: "",
-});
+const props = withDefaults(
+  defineProps<ComboboxRootProps & { class?: HTMLAttributes["class"]; identityFilter: boolean }>(),
+  {
+    open: true,
+    modelValue: "",
+    identityFilter: false,
+  },
+);
 
 const emits = defineEmits<ComboboxRootEmits>();
 
@@ -18,17 +22,18 @@ const delegatedProps = computed(() => {
 });
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits);
-
-// function filterFunction(list: (typeof people)[number], searchTerm: string) {
-//   return list.filter((person) => {
-//     return person.name.toLowerCase().includes(searchTerm.toLowerCase());
-//   });
-// }
 </script>
-
 <template>
   <ComboboxRoot
     v-bind="forwarded"
+    :filterFunction="
+      props.identityFilter
+        ? (data) => {
+            // do not filter, filtering is done elsewhere
+            return data;
+          }
+        : undefined
+    "
     :resetSearchTermOnBlur="false"
     :class="
       cn(

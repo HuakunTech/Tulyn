@@ -29,23 +29,23 @@ import {
 import { loadAllExtensions } from "@/lib/commands/manifest";
 import { Button } from "@/components/ui/button";
 import { convertFileSrc } from "@tauri-apps/api/core";
-import { $appState, setSearchTerm } from "@/lib/stores/appState";
+import { $appState, setSearchTerm, $filteredApps, setAllApps } from "@/lib/stores/appState";
 import { useStore } from "@nanostores/vue";
 
 const appState = useStore($appState);
+const filteredApps = useStore($filteredApps);
 
 const searchTerm = computed({
   get: () => appState.value.searchTerm,
   set: (value) => setSearchTerm(value),
 });
 const currentPendingcmd = ref<TCommand | null>(null);
-const allApps = ref<AppInfo[]>([]);
 const alertdialogOpen = ref(false);
 onMounted(async () => {
   refreshApplicationsList()
     .then(() => getAllApps())
     .then((apps) => {
-      allApps.value = apps;
+      setAllApps(apps);
     });
 });
 
@@ -67,16 +67,18 @@ function systemCmdOnSelect(cmd: TCommand) {
     cmd.function();
   }
 }
+
+const filteredSysCmds = computed(() => {
+  return systemCommands.filter((cmd) => {
+    return cmd.name.toLowerCase().includes(searchTerm.value.toLowerCase());
+  });
+});
 </script>
 <template>
-  <Command class="" v-model:searchTerm="searchTerm">
+  <Command class="" v-model:searchTerm="searchTerm" :identity-filter="true">
     <CommandInput placeholder="Search for apps or commands..." :always-focus="true" />
-    <!-- <img :src="imgUrl" width="100" alt="" /> -->
     <div>
       <AlertDialogControlled v-model:open="alertdialogOpen">
-        <!-- <AlertDialogTrigger as-child>
-        <Button variant="outline"> Show Dialog </Button>
-      </AlertDialogTrigger> -->
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle
@@ -99,7 +101,7 @@ function systemCmdOnSelect(cmd: TCommand) {
       <CommandEmpty>No results found.</CommandEmpty>
       <CommandGroup heading="System Commands">
         <CommandItem
-          v-for="(cmd, idx) in systemCommands"
+          v-for="(cmd, idx) in filteredSysCmds"
           :key="cmd.name"
           :value="cmd.value"
           @select="systemCmdOnSelect(cmd)"
@@ -114,7 +116,7 @@ function systemCmdOnSelect(cmd: TCommand) {
       <CommandSeparator />
       <CommandGroup heading="Applications">
         <CommandItem
-          v-for="(app, idx) in allApps"
+          v-for="(app, idx) in filteredApps"
           :key="app.app_desktop_path"
           :value="app.app_desktop_path"
           @select="open(app.app_desktop_path)"
