@@ -1,5 +1,5 @@
 use crate::{
-    model::manifest::{JarvisExtManifest, MANIFEST_FILE_NAME},
+    model::manifest::{JarvisExtManifest, JarvisExtManifestExtra, MANIFEST_FILE_NAME},
     utils::manifest::load_jarvis_ext_manifest,
 };
 use std::path::PathBuf;
@@ -12,8 +12,11 @@ pub async fn load_manifest<R: Runtime>(
     _app: tauri::AppHandle<R>,
     _window: tauri::Window<R>,
     manifest_path: PathBuf,
-) -> Result<JarvisExtManifest, String> {
-    Ok(load_jarvis_ext_manifest(manifest_path).map_err(|e| e.to_string())?)
+) -> Result<JarvisExtManifestExtra, String> {
+    Ok(JarvisExtManifestExtra::new(
+        load_jarvis_ext_manifest(manifest_path.clone()).map_err(|e| e.to_string())?,
+        manifest_path.parent().unwrap().to_path_buf(),
+    ))
 }
 
 #[tauri::command]
@@ -21,14 +24,15 @@ pub async fn load_all_extensions<R: Runtime>(
     _app: tauri::AppHandle<R>,
     _window: tauri::Window<R>,
     extensions_folder: PathBuf,
-) -> Result<Vec<JarvisExtManifest>, String> {
-    let mut extensions = vec![];
+) -> Result<Vec<JarvisExtManifestExtra>, String> {
+    let mut extensions_with_path: Vec<JarvisExtManifestExtra> = vec![];
     for entry in std::fs::read_dir(extensions_folder).map_err(|e| e.to_string())? {
         let entry = entry.map_err(|e| e.to_string())?;
 
         if entry.path().join(MANIFEST_FILE_NAME).exists() {
-            extensions.push(load_jarvis_ext_manifest(entry.path()).map_err(|e| e.to_string())?);
+            let ext_manifest = load_jarvis_ext_manifest(entry.path()).map_err(|e| e.to_string())?;
+            extensions_with_path.push(JarvisExtManifestExtra::new(ext_manifest, entry.path()));
         }
     }
-    Ok(extensions)
+    Ok(extensions_with_path)
 }

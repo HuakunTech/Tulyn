@@ -5,34 +5,48 @@ import {
   loadDevExtManifests,
   loadExtManifests,
   $extensionsStore,
+  getCmdFromValue,
+  $extCmdMap,
+  loadAllExtensionsManifest,
+  $allExtensionListItems,
+  cmdType,
 } from "@/lib/stores/extensions";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { onMounted, ref } from "vue";
-import type { TList, TListItem } from "@jarvis/api";
+import { UiCmd, type TList, type TListItem } from "@jarvis/api";
 import { useStore } from "@nanostores/vue";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { Window } from "@tauri-apps/api/window";
 import { Webview } from "@tauri-apps/api/webview";
 
 const devExtsListItems = useStore($devExtensionListItems);
+const allExtensionListItems = useStore($allExtensionListItems);
 const extsListItems = useStore($extensionListItems);
 
 onMounted(async () => {
-  await loadDevExtManifests();
-  await loadExtManifests();
-  console.log(devExtsListItems.value);
-  console.log($devExtensionListItems.get());
+  await loadAllExtensionsManifest();
+  // console.log(devExtsListItems.value);
+  // console.log($devExtensionListItems.get());
 });
 
 function openExtention(item: TListItem) {
-  console.log(item);
+  const cmd = getCmdFromValue(item.value);
+  console.log(cmd);
+  if (cmd?.cmdType === cmdType.Enum.UI) {
+    console.log(cmd.cmd);
 
-  console.log($extensionsStore.get().devManifests.find((ext) => item.value === ext.identifier));
-
-  // new WebviewWindow("ext", {
-  //   url: `http://localhost:1566/extensions/qrcode/ui/dist`,
-  // });
+    const uiCmdParse = UiCmd.safeParse(cmd.cmd);
+    if (uiCmdParse.success) {
+      const uiCmd = uiCmdParse.data;
+      console.log(uiCmd);
+      new WebviewWindow("ext", {
+        url: `http://localhost:1566/extensions/${cmd.manifest.extFolderName}/${uiCmd.main}`,
+      });
+    } else {
+      console.error(uiCmdParse.error);
+    }
+  }
 
   //   const appWindow = new Window("ext");
   //   const webview = new Webview(appWindow, "ext2", {
@@ -60,7 +74,7 @@ function openExtention(item: TListItem) {
         <h4 class="mb-4 text-sm font-medium leading-none">Extensions</h4>
 
         <div
-          v-for="(ext, idx) in devExtsListItems"
+          v-for="(ext, idx) in allExtensionListItems"
           :key="ext.value + idx"
           @click="() => openExtention(ext as TListItem)"
         >

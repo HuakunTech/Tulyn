@@ -17,6 +17,37 @@ pub struct JarvisExtManifest {
     pub inline_cmds: Vec<InlineCmd>,
 }
 
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct JarvisExtManifestExtra {
+    pub name: String,
+    pub version: String,
+    pub description: String,
+    pub identifier: String,
+    pub demo_images: Vec<Value>,
+    pub ui_cmds: Vec<UiCmd>,
+    pub inline_cmds: Vec<InlineCmd>,
+    // extra fields
+    pub ext_path: PathBuf,
+    pub ext_folder_name: String,
+}
+
+impl JarvisExtManifestExtra {
+    pub fn new(manifest: JarvisExtManifest, ext_path: PathBuf) -> Self {
+        Self {
+            name: manifest.name,
+            version: manifest.version,
+            description: manifest.description,
+            identifier: manifest.identifier,
+            demo_images: manifest.demo_images,
+            ui_cmds: manifest.ui_cmds,
+            inline_cmds: manifest.inline_cmds,
+            ext_folder_name: ext_path.file_name().unwrap().to_str().unwrap().to_string(),
+            ext_path,
+        }
+    }
+}
+
 impl JarvisExtManifest {
     pub fn load(manifest_path: PathBuf) -> Self {
         let manifest_str = std::fs::read_to_string(manifest_path).unwrap();
