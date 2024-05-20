@@ -73,7 +73,7 @@ export function manifestToCmdItems(manifest: JarvisExtJsonExtra): TListItem[] {
     return {
       title: cmd.name,
       value: generateExtensionValue(manifest, cmd as UiCmd),
-      description: "TODO",
+      description: `UI Extension`,
       type: "UI Command",
       icon: null,
       keywords: cmd.cmds.map((c) => c.value), // TODO: handle regex as well
@@ -83,7 +83,7 @@ export function manifestToCmdItems(manifest: JarvisExtJsonExtra): TListItem[] {
     return {
       title: cmd.name,
       value: generateExtensionValue(manifest, cmd as InlineCmd),
-      description: "TODO",
+      description: "Inline Extension",
       type: "Inline Command",
       icon: null,
       keywords: cmd.cmds.map((c) => c.value), // TODO: handle regex as well

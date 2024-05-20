@@ -26,6 +26,7 @@ export const JarvisExtJson = z.object({
   version: z.string(),
   description: z.string(),
   identifier: z.string(),
+  icon: z.string().nullable().optional(),
   demoImages: z.array(z.string()),
   uiCmds: UiCmd.array(),
   inlineCmds: InlineCmd.array(),
