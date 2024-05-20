@@ -35,7 +35,7 @@ import { useStore } from "@nanostores/vue";
 const appState = useStore($appState);
 
 const searchTerm = computed({
-  get: () => $appState.get().searchTerm,
+  get: () => appState.value.searchTerm,
   set: (value) => setSearchTerm(value),
 });
 const currentPendingcmd = ref<TCommand | null>(null);
@@ -70,8 +70,6 @@ function systemCmdOnSelect(cmd: TCommand) {
 </script>
 <template>
   <Command class="" v-model:searchTerm="searchTerm">
-    <p>{{ appState.searchTerm }}</p>
-    <p>{{ searchTerm }}</p>
     <CommandInput placeholder="Search for apps or commands..." :always-focus="true" />
     <!-- <img :src="imgUrl" width="100" alt="" /> -->
     <div>
@@ -121,14 +119,15 @@ function systemCmdOnSelect(cmd: TCommand) {
           :value="app.app_desktop_path"
           @select="open(app.app_desktop_path)"
         >
-          <img
+          <!-- TODO: Loading all icons is extremely slow, Consider Lazy Loading or display only found apps rather than all apps -->
+          <!-- <img
             width="20"
             class="mr-2"
             v-if="app.icon_path"
             :src="convertFileSrc(app.icon_path, 'mac-icns')"
             alt=""
           />
-          <User v-else class="mr-2 h-4 w-4" />
+          <User v-else class="mr-2 h-4 w-4" /> -->
           <span>{{ app.name }}</span>
           <CommandShortcut>Application</CommandShortcut>
         </CommandItem>
