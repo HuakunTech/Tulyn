@@ -39,4 +39,4 @@ yarn-error.log*
 dev/extensions/*
 !dev/extensions/.gitkeep
 target/
-
+.idea/

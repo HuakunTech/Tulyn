@@ -40,10 +40,6 @@ pub fn run() {
                     .body(error.to_string().as_bytes().to_vec())
                     .unwrap(),
             }
-            // let png = load_icns(&path).unwrap().to_png().unwrap();
-            // tauri::http::Response::builder()
-            //     .body(png.get_bytes().to_vec())
-            //     .unwrap()
         })
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_os::init())

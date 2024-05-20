@@ -29,7 +29,7 @@ import {
 import { loadAllExtensions } from "@/lib/commands/manifest";
 import { Button } from "@/components/ui/button";
 import { convertFileSrc } from "@tauri-apps/api/core";
-import { $appState, setSearchTerm, $filteredApps, setAllApps } from "@/lib/stores/appState";
+import { $appState, setSearchTerm, setAllApps } from "@/lib/stores/appState";
 import { useStore } from "@nanostores/vue";
 import {
   $allExtensionListItems,
@@ -40,13 +40,25 @@ import {
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 
 const appState = useStore($appState);
-const filteredApps = useStore($filteredApps);
+
 const allExtensionListItems = useStore($allExtensionListItems);
 
 const searchTerm = computed({
   get: () => appState.value.searchTerm,
   set: (value) => setSearchTerm(value),
 });
+
+// const filteredApps = useStore($filteredApps);
+const filteredApps = computed(() => {
+  if (searchTerm.value.length > 1) {
+    return appState.value.allApps.filter((app) => {
+      return app.name.toLowerCase().includes(searchTerm.value.toLowerCase());
+    });
+  } else {
+    return [];
+  }
+});
+
 const currentPendingcmd = ref<TCommand | null>(null);
 const alertdialogOpen = ref(false);
 onMounted(async () => {
@@ -118,6 +130,8 @@ function openExtention(item: TListItem) {
 </script>
 <template>
   <Command class="" v-model:searchTerm="searchTerm" :identity-filter="true">
+    <!-- <img width="40":src="convertFileSrc('/Applications/Google Chrome.app/Contents/Resources/app.icns', 'mac-icns')" alt="">
+    <img width="40":src="convertFileSrc('/Applications/Visual Studio Code.app/Contents/Resources/Code.icns', 'mac-icns')" alt=""> -->
     <CommandInput placeholder="Search for apps or commands..." :always-focus="true" />
     <div>
       <AlertDialogControlled v-model:open="alertdialogOpen">

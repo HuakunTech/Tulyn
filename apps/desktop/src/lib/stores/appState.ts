@@ -21,9 +21,9 @@ export function setAllApps(allApps: AppInfo[]) {
   $appState.setKey("allApps", allApps);
 }
 
-export const $filteredApps = computed($appState, (state) => {
-  if (state.searchTerm.trim().length < 2) return []; // return nothing if no search term
-  return state.allApps.filter((app) => {
-    return app.name.toLowerCase().includes(state.searchTerm.toLowerCase());
-  });
-});
+// export const $filteredApps = computed($appState, (state) => {
+//   if (state.searchTerm.trim().length < 2) return []; // return nothing if no search term
+//   return state.allApps.filter((app) => {
+//     return app.name.toLowerCase().includes(state.searchTerm.toLowerCase());
+//   });
+// });
