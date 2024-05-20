@@ -22,7 +22,7 @@ export function setAllApps(allApps: AppInfo[]) {
 }
 
 export const $filteredApps = computed($appState, (state) => {
-  if (state.searchTerm.trim().length === 0) return []; // return nothing if no search term
+  if (state.searchTerm.trim().length < 2) return []; // return nothing if no search term
   return state.allApps.filter((app) => {
     return app.name.toLowerCase().includes(state.searchTerm.toLowerCase());
   });

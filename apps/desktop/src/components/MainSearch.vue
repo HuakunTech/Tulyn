@@ -188,14 +188,14 @@ function openExtention(item: TListItem) {
           @select="open(app.app_desktop_path)"
         >
           <!-- TODO: Loading all icons is extremely slow, Consider Lazy Loading or display only found apps rather than all apps -->
-          <!-- <img
+          <img
             width="20"
             class="mr-2"
             v-if="app.icon_path"
             :src="convertFileSrc(app.icon_path, 'mac-icns')"
             alt=""
           />
-          <User v-else class="mr-2 h-4 w-4" /> -->
+          <User v-else class="mr-2 h-4 w-4" />
           <span>{{ app.name }}</span>
           <CommandShortcut>Application</CommandShortcut>
         </CommandItem>
