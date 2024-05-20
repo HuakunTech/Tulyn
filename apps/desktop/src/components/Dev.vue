@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { convertFileSrc } from "@tauri-apps/api/core";
 
-const imgUrl = convertFileSrc("/Users/hacker/Downloads/jarvis-logo.png", "mac-icns");
+const imgUrl = convertFileSrc("/Users/hacker/Downloads/jarvis-logo.png", "macicns");
 console.log(imgUrl);
 
 // fetch(imgUrl)
-//   // fetch("mac-icns://localhost/Users/hacker/Downloads/jarvis-logo.png")
+//   // fetch("macicns://localhost/Users/hacker/Downloads/jarvis-logo.png")
 //   .then((res) => {
 //     console.log(res);
 //   })

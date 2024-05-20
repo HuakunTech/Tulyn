@@ -130,8 +130,8 @@ function openExtention(item: TListItem) {
 </script>
 <template>
   <Command class="" v-model:searchTerm="searchTerm" :identity-filter="true">
-    <!-- <img width="40":src="convertFileSrc('/Applications/Google Chrome.app/Contents/Resources/app.icns', 'mac-icns')" alt="">
-    <img width="40":src="convertFileSrc('/Applications/Visual Studio Code.app/Contents/Resources/Code.icns', 'mac-icns')" alt=""> -->
+    <!-- <img width="40":src="convertFileSrc('/Applications/Google Chrome.app/Contents/Resources/app.icns', 'macicns')" alt="">
+    <img width="40":src="convertFileSrc('/Applications/Visual Studio Code.app/Contents/Resources/Code.icns', 'macicns')" alt=""> -->
     <CommandInput placeholder="Search for apps or commands..." :always-focus="true" />
     <div>
       <AlertDialogControlled v-model:open="alertdialogOpen">
@@ -206,7 +206,7 @@ function openExtention(item: TListItem) {
             width="20"
             class="mr-2"
             v-if="app.icon_path"
-            :src="convertFileSrc(app.icon_path, 'mac-icns')"
+            :src="convertFileSrc(app.icon_path, 'macicns')"
             alt=""
           />
           <User v-else class="mr-2 h-4 w-4" />

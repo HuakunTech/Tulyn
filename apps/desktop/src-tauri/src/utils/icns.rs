@@ -53,7 +53,7 @@ mod tests {
     #[test]
     fn test_load_icns() {
         let icns_path =
-            PathBuf::from("/Applications/Google Chrome.app/Contents/Resources/app.icns");
+            PathBuf::from("/System/Applications/Launchpad.app/Contents/Resources/AppIcon.icns");
         let image = load_icns(&icns_path).unwrap();
         println!("image: {:?}", image.get_size());
         // assert_eq!(image.get_size(), (512, 512));
