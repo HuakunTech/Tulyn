@@ -3,7 +3,8 @@
     "identifier": "main-capability",
     "description": "Capability for the main window",
     "windows": [
-        "main"
+        "main",
+        "toast*"
     ],
     "permissions": [
         "path:default",
@@ -12,6 +13,7 @@
         "window:allow-create",
         "window:allow-start-dragging",
         "window:allow-destroy",
+        "window:allow-close",
         "webview:default",
         "webview:allow-create-webview",
         "webview:allow-create-webview-window",

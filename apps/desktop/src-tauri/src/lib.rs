@@ -8,6 +8,7 @@ pub mod commands;
 pub mod model;
 pub mod server;
 pub mod utils;
+use window_vibrancy::{apply_vibrancy, NSVisualEffectMaterial};
 // use rdev::{listen, Event};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -105,27 +106,18 @@ pub fn run() {
             app.manage(ApplicationsState::default());
             app.manage(Server::default());
             // app.manage(ApplicationsState::default());
-            let handle = app.handle();
-            let server = handle.state::<Server>();
-            server.start().expect("Failed to start local server");
+            utils::setup::setup_server(&app.handle());
+
             #[cfg(debug_assertions)] // only include this code on debug builds
             {
                 let window = app.get_webview_window("main").unwrap();
                 window.open_devtools();
-                // window.close_devtools();
             }
-
-            // if let Err(error) = listen(callback) {
-            //     println!("Error: {:?}", error)
-            // }
-
-            // fn callback(event: Event) {
-            //     println!("My callback {:?}", event);
-            //     match event.name {
-            //         Some(string) => println!("User wrote {:?}", string),
-            //         None => (),
-            //     }
-            // }
+            utils::setup::setup_app_path(&app.handle());
+            // let window = app.get_webview_window("main").unwrap();
+            // #[cfg(target_os = "macos")]
+            // apply_vibrancy(&window, NSVisualEffectMaterial::HudWindow, None, None)
+            //     .expect("Unsupported platform! 'apply_vibrancy' is only supported on macOS");
             Ok(())
         })
         .run(tauri::generate_context!())

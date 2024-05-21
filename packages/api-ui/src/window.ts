@@ -1,7 +1,11 @@
-import { getCurrent } from "@tauri-apps/api/window";
+import * as _windowApis from "@tauri-apps/api/window";
+import * as _webviewApis from "@tauri-apps/api/webviewWindow";
+
+export { getCurrent, getAll, currentMonitor } from "@tauri-apps/api/window";
+export { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 
 export function closeWindow() {
-  return getCurrent().close();
+  return _windowApis.getCurrent().close();
 }
 
 /**
@@ -9,7 +13,13 @@ export function closeWindow() {
  * @returns Promise<void>
  */
 export function destroyWindow() {
-  return getCurrent().destroy();
+  return _windowApis.getCurrent().destroy();
 }
 
-export { getCurrent } from "@tauri-apps/api/window";
+export function windowLabelExists(label: string) {
+  return _windowApis.getAll().some((w) => w.label === label);
+}
+
+export function getWindowByLabel(label: string) {
+  return _windowApis.getAll().find((w) => w.label === label);
+}

@@ -18,6 +18,7 @@
     "@astrojs/vue": "^4.2.0",
     "@internationalized/date": "^3.5.3",
     "@jarvis/api": "workspace:*",
+    "@jarvis/api-ui": "workspace:*",
     "@nanostores/persistent": "^0.10.1",
     "@nanostores/vue": "^0.10.0",
     "@radix-icons/vue": "^1.0.0",
@@ -50,6 +51,7 @@
     "tailwindcss": "^3.4.3",
     "tailwindcss-animate": "^1.0.7",
     "tauri-plugin-clipboard-api": "link:../../vendors/tauri-plugin-clipboard",
+    "uuid": "^9.0.1",
     "vee-validate": "^4.12.8",
     "vue": "^3.4.27",
     "zod": "^3.23.8"
@@ -58,6 +60,7 @@
     "@iconify-json/radix-icons": "^1.1.14",
     "@iconify/vue": "^4.1.2",
     "@tauri-apps/cli": "2.0.0-beta.17",
+    "@types/uuid": "^9.0.7",
     "typescript": "^5.4.5"
   }
 }

@@ -1276,6 +1276,7 @@ dependencies = [
  "tower-http",
  "tracing",
  "tracing-subscriber",
+ "window-vibrancy",
 ]
 
 [[package]]

@@ -1,19 +1,33 @@
 <script setup lang="ts">
-import { convertFileSrc } from "@tauri-apps/api/core";
+import { Button } from "@/components/ui/button";
+import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
+import { currentMonitor } from "@tauri-apps/api/window";
+import { onMounted } from "vue";
+import { v4 as uuidv4 } from "uuid";
+import { tauriToast } from "./tauri/toast";
 
-const imgUrl = convertFileSrc("/Users/hacker/Downloads/jarvis-logo.png", "macicns");
-console.log(imgUrl);
-
-// fetch(imgUrl)
-//   // fetch("macicns://localhost/Users/hacker/Downloads/jarvis-logo.png")
-//   .then((res) => {
-//     console.log(res);
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//   });
+async function trigger() {
+  tauriToast({
+    message: "This is a toast",
+    duration: 5000,
+    variant: "success",
+  });
+  // const mon = await currentMonitor();
+  // if (!mon?.size) {
+  //   return;
+  // }
+  // const { width, height } = mon?.size;
+  // new WebviewWindow(`toast-${uuidv4()}`, {
+  //   url: "/toast",
+  //   decorations: false,
+  //   transparent: true,
+  //   width: 300,
+  //   x: width / 2 - 150,
+  //   y: height - 100,
+  //   alwaysOnTop: true,
+  // });
+}
 </script>
 <template>
-  <h1 class="text-3xl">Dev</h1>
-  <img :src="imgUrl" alt="" />
+  <Button @click="trigger">Trigger Toast</Button>
 </template>

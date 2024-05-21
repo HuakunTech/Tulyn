@@ -38,6 +38,9 @@ importers:
       '@jarvis/api':
         specifier: workspace:*
         version: link:../../packages/api
+      '@jarvis/api-ui':
+        specifier: workspace:*
+        version: link:../../packages/api-ui
       '@nanostores/persistent':
         specifier: ^0.10.1
         version: 0.10.1(nanostores@0.10.3)
@@ -134,6 +137,9 @@ importers:
       tauri-plugin-clipboard-api:
         specifier: link:../../vendors/tauri-plugin-clipboard
         version: link:../../vendors/tauri-plugin-clipboard
+      uuid:
+        specifier: ^9.0.1
+        version: 9.0.1
       vee-validate:
         specifier: ^4.12.8
         version: 4.12.8(vue@3.4.27)
@@ -153,6 +159,9 @@ importers:
       '@tauri-apps/cli':
         specifier: 2.0.0-beta.17
         version: 2.0.0-beta.17
+      '@types/uuid':
+        specifier: ^9.0.7
+        version: 9.0.8
       typescript:
         specifier: ^5.4.5
         version: 5.4.5

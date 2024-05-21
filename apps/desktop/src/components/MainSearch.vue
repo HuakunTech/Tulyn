@@ -125,8 +125,6 @@ function openExtention(item: TListItem) {
     const uiCmdParse = UiCmd.safeParse(cmd.cmd);
     if (uiCmdParse.success) {
       const uiCmd = uiCmdParse.data;
-      console.log(uiCmd);
-
       const baseWindowOptions = {
         title: item.title,
         titleBarStyle: TitleBarStyleAllLower.parse(
