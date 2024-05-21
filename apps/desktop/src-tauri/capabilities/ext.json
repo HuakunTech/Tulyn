@@ -1,10 +1,17 @@
 {
     "$schema": "../gen/schemas/desktop-schema.json",
-    "identifier": "main-capability",
-    "description": "Capability for the main window",
+    "identifier": "ext-capability",
+    "description": "Capability for the extension window",
     "windows": [
-        "main"
+        "ext*"
     ],
+    "remote": {
+        "urls": [
+            "http://localhost:1566/*",
+            "http://localhost:*"
+        ]
+    },
+    "local": true,
     "permissions": [
         "path:default",
         "event:default",
@@ -22,6 +29,11 @@
         "tray:default",
         "store:default",
         "dialog:default",
+        "dialog:allow-ask",
+        "dialog:allow-confirm",
+        "dialog:allow-message",
+        "dialog:allow-open",
+        "dialog:allow-save",
         "shell:default",
         "upload:default",
         "notification:default",
@@ -32,8 +44,6 @@
         "updater:default",
         "os:default",
         "shell:allow-open",
-        "dialog:allow-confirm",
-        "dialog:allow-open",
         "store:allow-clear",
         "store:allow-delete",
         "store:allow-entries",

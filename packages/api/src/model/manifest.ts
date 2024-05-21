@@ -6,13 +6,21 @@ export const TriggerCmd = z.object({
   value: z.string(),
 });
 export type TriggerCmd = z.infer<typeof TriggerCmd>;
-
+export const TitleBarStyle = z.enum(["Visible", "Transparent", "Overlay"]);
+// JS new WebViewWindow only accepts lowercase, while manifest loaded from Rust is capitalized. I run toLowerCase() on the value before passing it to the WebViewWindow.
+// This lowercase title bar style schema is used to validate and set the type so TypeScript won't complaint
+export const TitleBarStyleAllLower = z.enum(["visible", "transparent", "overlay"]);
+export type TitleBarStyleAllLower = z.infer<typeof TitleBarStyleAllLower>;
+export const WindowConfig = z.object({
+  width: z.number().nullable().optional(),
+  height: z.number().nullable().optional(),
+  titleBarStyle: TitleBarStyle.nullable().optional(),
+});
 export const UiCmd = z.object({
   main: z.string(),
   devMain: z.string(),
   name: z.string(),
-  width: z.number().nullable(),
-  height: z.number().nullable(),
+  window: WindowConfig.nullable().optional(),
   cmds: TriggerCmd.array(),
 });
 export type UiCmd = z.infer<typeof UiCmd>;

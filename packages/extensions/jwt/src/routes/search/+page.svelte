@@ -1,14 +1,9 @@
 <script lang="ts">
-  import Calculator from "lucide-svelte/icons/calculator";
   import Calendar from "lucide-svelte/icons/calendar";
-  import CreditCard from "lucide-svelte/icons/credit-card";
-  import Settings from "lucide-svelte/icons/settings";
-  import Smile from "lucide-svelte/icons/smile";
-  import User from "lucide-svelte/icons/user";
   import * as jose from "jose";
   import * as Command from "$lib/components/ui/command/index.js";
   import { JwtToken, jwtIsValid, splitJwt, claimsDef } from "@/jwt";
-  import { onDestroy, onMount } from "svelte";
+  import { onMount } from "svelte";
   import { clipboard } from "@jarvis/api-ui";
   import { toast } from "svelte-sonner";
   import dayjs from "dayjs";
@@ -82,7 +77,7 @@
   }
 </script>
 
-<Command.Root class="w-full h-screen px-2">
+<Command.Root class="w-full px-2">
   <Command.Input placeholder="Type a command or search..." autofocus />
   <Command.List class="h-full">
     <Command.Empty>

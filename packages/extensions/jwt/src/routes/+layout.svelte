@@ -6,5 +6,8 @@
 <main>
   <Toaster />
   <ModeWatcher />
-  <slot />
+  <div class="data-tauri-drag-region h-screen flex flex-col">
+    <div class="h-8" data-tauri-drag-region></div>
+    <slot />
+  </div>
 </main>

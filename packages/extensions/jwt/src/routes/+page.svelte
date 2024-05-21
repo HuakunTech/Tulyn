@@ -41,7 +41,7 @@
   }
 </script>
 
-<div class="h-screen py-2 px-1">
+<div class="py-2 px-1 border grow">
   <Resizable.PaneGroup direction="horizontal" class="w-full h-full rounded-lg">
     <Resizable.Pane defaultSize={50}>
       <div class="w-full gap-1.5 h-full px-3 flex flex-col">

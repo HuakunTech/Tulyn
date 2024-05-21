@@ -1,15 +1,9 @@
-# api-ui
+# @jarvis/api-ui
 
-To install dependencies:
+This package is an API package for UI extension commands.
 
-```bash
-bun install
-```
+Helper functions for interacting with the operating system and Jarvis app itself are provided.
 
-To run:
+Many API functions are simply reexport of Tauri's APIs and plugin APIs.
 
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.1.8. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+However this package will still explicitly list all export one by one as not all APIs are permitted to be used in the UI extension.

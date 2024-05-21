@@ -13,8 +13,11 @@
             "main": "dist",
             "name": "View Decoded JWT",
             "devMain": "http://localhost:5173",
-            "width": 800,
-            "height": 500,
+            "window": {
+                "width": 800,
+                "height": 500,
+                "titleBarStyle": "overlay"
+            },
             "cmds": [
                 {
                     "type": "text",
@@ -26,8 +29,11 @@
             "main": "dist",
             "name": "Search Decoded JWT",
             "devMain": "http://localhost:5173/search",
-            "width": 800,
-            "height": 500,
+            "window": {
+                "width": 800,
+                "height": 500,
+                "titleBarStyle": "overlay"
+            },
             "cmds": [
                 {
                     "type": "text",

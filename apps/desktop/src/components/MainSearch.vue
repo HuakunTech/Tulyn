@@ -15,7 +15,14 @@ import {
 import { getAllApps, refreshApplicationsList } from "@/lib/commands/apps";
 import { systemCommands } from "@/lib/commands/system";
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
-import { IconType, UiCmd, type AppInfo, type TCommand, type TListItem } from "@jarvis/api";
+import {
+  IconType,
+  TitleBarStyleAllLower,
+  UiCmd,
+  type AppInfo,
+  type TCommand,
+  type TListItem,
+} from "@jarvis/api";
 import {
   AlertDialogControlled,
   AlertDialogAction,
@@ -26,8 +33,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { loadAllExtensions } from "@/lib/commands/manifest";
-import { Button } from "@/components/ui/button";
 import { convertFileSrc } from "@tauri-apps/api/core";
 import { $appState, setSearchTerm, setAllApps } from "@/lib/stores/appState";
 import { useStore } from "@nanostores/vue";
@@ -120,31 +125,33 @@ function openExtention(item: TListItem) {
     const uiCmdParse = UiCmd.safeParse(cmd.cmd);
     if (uiCmdParse.success) {
       const uiCmd = uiCmdParse.data;
+      console.log(uiCmd);
 
-      console.log(uiCmd.width, uiCmd.height);
+      const baseWindowOptions = {
+        title: item.title,
+        titleBarStyle: TitleBarStyleAllLower.parse(
+          uiCmd.window?.titleBarStyle?.toLowerCase() ?? "visible",
+        ),
+        width: uiCmd.window?.width ?? undefined,
+        height: uiCmd.window?.height ?? undefined,
+      };
       if (cmd.isDev && uiCmd.devMain) {
         new WebviewWindow("ext", {
-          title: item.title,
+          ...baseWindowOptions,
           url: uiCmd.devMain,
-          width: uiCmd.width ?? undefined,
-          height: uiCmd.height ?? undefined,
         });
       } else {
         if (uiCmd.main.startsWith("http")) {
           new WebviewWindow("ext", {
-            title: item.title,
+            ...baseWindowOptions,
             url: uiCmd.main,
-            width: uiCmd.width ?? undefined,
-            height: uiCmd.height ?? undefined,
           });
         } else {
           const postfix = !uiCmd.main.endsWith(".html") && !uiCmd.main.endsWith("/") ? "/" : "";
           const url = `http://localhost:1566/extensions/${cmd.manifest.extFolderName}/${uiCmd.main}${postfix}`;
           new WebviewWindow("ext", {
-            title: item.title,
+            ...baseWindowOptions,
             url,
-            width: uiCmd.width ?? undefined,
-            height: uiCmd.height ?? undefined,
           });
         }
       }

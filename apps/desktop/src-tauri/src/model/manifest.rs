@@ -2,6 +2,7 @@ use serde_derive::Deserialize;
 use serde_derive::Serialize;
 use serde_json::Value;
 use std::path::PathBuf;
+use tauri::TitleBarStyle;
 
 pub const MANIFEST_FILE_NAME: &str = "jarvis.ext.json";
 
@@ -81,12 +82,19 @@ impl JarvisExtManifest {
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
+pub struct WindowConfig {
+    pub width: Option<u32>,
+    pub height: Option<u32>,
+    pub title_bar_style: Option<TitleBarStyle>,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct UiCmd {
     pub main: String,
     pub name: String,
     pub dev_main: String,
-    pub width: Option<u32>,
-    pub height: Option<u32>,
+    pub window: Option<WindowConfig>,
     pub cmds: Vec<Cmd>,
 }
 
