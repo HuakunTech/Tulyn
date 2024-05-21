@@ -1,49 +1,81 @@
-<script>
-  import "./app.css";
-  import svelteLogo from "./assets/svelte.svg";
-  import viteLogo from "/vite.svg";
-  import Counter from "./lib/Counter.svelte";
+<script lang="ts">
+  import { Button } from "$lib/components/ui/button";
+  import { clipboard } from "@jarvis/api-ui";
+  import { onMount } from "svelte";
+  import * as jose from "jose";
+  import * as Resizable from "$lib/components/ui/resizable/index.js";
+  import { Textarea } from "$lib/components/ui/textarea/index.js";
+  import { Label } from "$lib/components/ui/label/index.js";
+  import { JwtToken, jwtIsValid, splitJwt } from "$lib/jwt";
   import { ModeWatcher } from "mode-watcher";
+  import { Toaster } from "$lib/components/ui/sonner";
+
+  let jwtToken: JwtToken = {
+    header: "",
+    payload: "",
+    signature: "",
+  };
+  let fullJwtTokenStr = "";
+  $: {
+    if (jwtToken && jwtToken.header && jwtToken.payload && jwtToken.signature) {
+      fullJwtTokenStr = `${jwtToken.header}.${jwtToken.payload}.${jwtToken.signature}`;
+    }
+  }
+  let payload = {};
+  let header = {};
+
+  $: {
+    if (jwtIsValid(fullJwtTokenStr)) {
+      payload = jose.decodeJwt(fullJwtTokenStr);
+      header = jose.decodeProtectedHeader(fullJwtTokenStr);
+    }
+  }
+  onMount(async () => {
+    pasteJwt();
+  });
+
+  function pasteJwt() {
+    clipboard.readText().then((text) => {
+      if (jwtIsValid(text)) {
+        jwtToken = JwtToken.parse(splitJwt(text));
+      }
+    });
+  }
 </script>
+<Toaster />
+<ModeWatcher />
+<div class="px-1 border h-screen flex flex-col">
+  <div class="h-8" data-tauri-drag-region />
+  <Resizable.PaneGroup direction="horizontal" class="w-full h-full rounded-lg pb-2">
+    <Resizable.Pane defaultSize={50}>
+      <div class="w-full gap-1.5 h-full px-3 flex flex-col">
+        <Label for="message" class="text-lg">JWT Token</Label>
+        <div class="grow">
+          <span class="text-red-400 whitespace-pre-wrap text-wrap break-words box-border"
+            >{jwtToken.header}</span
+          >
+          <span>.</span>
+          <span class="text-purple-400 whitespace-pre-wrap text-wrap break-words box-border"
+            >{jwtToken.payload}</span
+          >
+          <span>.</span>
+          <span class=" text-cyan-400 whitespace-pre-wrap text-wrap break-words box-border"
+            >{jwtToken.signature}</span
+          >
+        </div>
+        <Button class="" on:click={pasteJwt}>Paste JWT</Button>
 
-<main class="h-screen">
-  <div
-    class="flex flex-col space-y-5 items-center justify-center h-full"
-  >
-    <ModeWatcher />
-    <div class="flex m-10 space-x-10">
-      <a
-        href="https://vitejs.dev"
-        target="_blank"
-        rel="noreferrer"
-        class="w-40 h-40"
+        <!-- <Textarea placeholder="Type your token here." id="token" class="h-full mt-2" /> -->
+      </div>
+    </Resizable.Pane>
+    <Resizable.Handle />
+    <Resizable.Pane defaultSize={50} class="px-4">
+      <Label for="message"
+        >HEADER: <span class="text-muted-foreground">Algorithm & Token Type</span></Label
       >
-        <img src={viteLogo} class="h-full logo" alt="Vite Logo" />
-      </a>
-      <a
-        href="https://svelte.dev"
-        target="_blank"
-        rel="noreferrer"
-        class="w-40 h-40"
-      >
-        <img src={svelteLogo} class="h-full logo svelte" alt="Svelte Logo" />
-      </a>
-    </div>
-    <h1 class="text-3xl">Svelte Extension Template for Jarvis</h1>
-
-    <div class="card">
-      <Counter></Counter>
-    </div>
-    <p>
-      Check out <a
-        href="https://github.com/sveltejs/kit#readme"
-        target="_blank"
-        rel="noreferrer">SvelteKit</a
-      >, the official Svelte app framework powered by Vite!
-    </p>
-
-    <p class="read-the-docs">
-      Click on the Vite and Svelte logos to learn more
-    </p>
-  </div>
-</main>
+      <pre class="text-red-400">{JSON.stringify(header, null, 2)}</pre>
+      <Label for="message">PAYLOAD: <span class="text-muted-foreground">DATA</span></Label>
+      <pre class=" text-purple-400">{JSON.stringify(payload, null, 2)}</pre>
+    </Resizable.Pane>
+  </Resizable.PaneGroup>
+</div>

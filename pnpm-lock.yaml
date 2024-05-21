@@ -631,6 +631,88 @@ importers:
         specifier: ^2.0.6
         version: 2.0.16(typescript@5.4.5)
 
+  packages/extensions-template/jwt-sveltekit:
+    dependencies:
+      bits-ui:
+        specifier: ^0.21.7
+        version: 0.21.7(svelte@4.2.16)
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      cmdk-sv:
+        specifier: ^0.0.17
+        version: 0.0.17(svelte@4.2.16)
+      dayjs:
+        specifier: ^1.11.11
+        version: 1.11.11
+      jose:
+        specifier: ^5.3.0
+        version: 5.3.0
+      lucide-svelte:
+        specifier: ^0.378.0
+        version: 0.378.0(svelte@4.2.16)
+      mode-watcher:
+        specifier: ^0.3.0
+        version: 0.3.0(svelte@4.2.16)
+      paneforge:
+        specifier: ^0.0.4
+        version: 0.0.4(svelte@4.2.16)
+      svelte-radix:
+        specifier: ^1.1.0
+        version: 1.1.0(svelte@4.2.16)
+      svelte-sonner:
+        specifier: ^0.3.24
+        version: 0.3.24(svelte@4.2.16)
+      tailwind-merge:
+        specifier: ^2.3.0
+        version: 2.3.0
+      tailwind-variants:
+        specifier: ^0.2.1
+        version: 0.2.1(tailwindcss@3.4.3)
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
+    devDependencies:
+      '@jarvis/api-ui':
+        specifier: workspace:*
+        version: link:../../api-ui
+      '@sveltejs/adapter-auto':
+        specifier: ^3.0.0
+        version: 3.2.0(@sveltejs/kit@2.5.7)
+      '@sveltejs/adapter-static':
+        specifier: ^3.0.1
+        version: 3.0.1(@sveltejs/kit@2.5.7)
+      '@sveltejs/kit':
+        specifier: ^2.0.0
+        version: 2.5.7(@sveltejs/vite-plugin-svelte@3.1.0)(svelte@4.2.16)(vite@5.2.11)
+      '@sveltejs/vite-plugin-svelte':
+        specifier: ^3.0.0
+        version: 3.1.0(svelte@4.2.16)(vite@5.2.11)
+      autoprefixer:
+        specifier: ^10.4.16
+        version: 10.4.19(postcss@8.4.38)
+      postcss:
+        specifier: ^8.4.33
+        version: 8.4.38
+      svelte:
+        specifier: ^4.2.7
+        version: 4.2.16
+      svelte-check:
+        specifier: ^3.6.0
+        version: 3.7.1(postcss@8.4.38)(svelte@4.2.16)
+      tailwindcss:
+        specifier: ^3.4.1
+        version: 3.4.3
+      tslib:
+        specifier: ^2.4.1
+        version: 2.6.2
+      typescript:
+        specifier: ^5.0.0
+        version: 5.4.5
+      vite:
+        specifier: ^5.0.3
+        version: 5.2.11(@types/node@20.12.11)
+
   packages/extensions/download-twitter:
     dependencies:
       '@hookform/resolvers':
@@ -857,6 +939,79 @@ importers:
         version: 5.4.5
 
   packages/extensions/jwt:
+    dependencies:
+      '@jarvis/api-ui':
+        specifier: workspace:*
+        version: link:../../api-ui
+      bits-ui:
+        specifier: ^0.21.7
+        version: 0.21.7(svelte@4.2.16)
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      cmdk-sv:
+        specifier: ^0.0.17
+        version: 0.0.17(svelte@4.2.16)
+      dayjs:
+        specifier: ^1.11.11
+        version: 1.11.11
+      jose:
+        specifier: ^5.3.0
+        version: 5.3.0
+      lucide-svelte:
+        specifier: ^0.378.0
+        version: 0.378.0(svelte@4.2.16)
+      mode-watcher:
+        specifier: ^0.3.0
+        version: 0.3.0(svelte@4.2.16)
+      paneforge:
+        specifier: ^0.0.4
+        version: 0.0.4(svelte@4.2.16)
+      svelte-radix:
+        specifier: ^1.1.0
+        version: 1.1.0(svelte@4.2.16)
+      svelte-sonner:
+        specifier: ^0.3.24
+        version: 0.3.24(svelte@4.2.16)
+      tailwind-merge:
+        specifier: ^2.3.0
+        version: 2.3.0
+      tailwind-variants:
+        specifier: ^0.2.1
+        version: 0.2.1(tailwindcss@3.4.3)
+    devDependencies:
+      '@sveltejs/vite-plugin-svelte':
+        specifier: ^3.0.2
+        version: 3.1.0(svelte@4.2.16)(vite@5.2.11)
+      '@tsconfig/svelte':
+        specifier: ^5.0.2
+        version: 5.0.4
+      autoprefixer:
+        specifier: ^10.4.16
+        version: 10.4.19(postcss@8.4.38)
+      postcss:
+        specifier: ^8.4.33
+        version: 8.4.38
+      svelte:
+        specifier: ^4.2.12
+        version: 4.2.16
+      svelte-check:
+        specifier: ^3.6.7
+        version: 3.7.1(postcss@8.4.38)(svelte@4.2.16)
+      tailwindcss:
+        specifier: ^3.4.1
+        version: 3.4.3
+      tslib:
+        specifier: ^2.6.2
+        version: 2.6.2
+      typescript:
+        specifier: ^5.2.2
+        version: 5.4.5
+      vite:
+        specifier: ^5.2.0
+        version: 5.2.11(@types/node@20.12.11)
+
+  packages/extensions/jwt-sveltekit:
     dependencies:
       bits-ui:
         specifier: ^0.21.7

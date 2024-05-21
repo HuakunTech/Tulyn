@@ -8,7 +8,7 @@
 </script>
 
 <CommandPrimitive.List
-	class={cn("overflow-y-auto overflow-x-hidden", className)}
+	class={cn("max-h-[300px] overflow-y-auto overflow-x-hidden", className)}
 	{...$$restProps}
 >
 	<slot />
