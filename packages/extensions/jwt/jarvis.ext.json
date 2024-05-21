@@ -13,6 +13,8 @@
             "main": "dist",
             "name": "View Decoded JWT",
             "devMain": "http://localhost:5173",
+            "width": 800,
+            "height": 500,
             "cmds": [
                 {
                     "type": "text",

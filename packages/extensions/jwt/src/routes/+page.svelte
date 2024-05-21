@@ -29,24 +29,24 @@
     }
   }
   onMount(async () => {
-    console.log(jose.base64url.encode("hello world"));
+    pasteJwt()
+  });
 
+  function pasteJwt() {
     clipboard.readText().then((text) => {
-      text =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
       if (jwtIsValid(text)) {
         jwtToken = JwtToken.parse(splitJwt(text));
       }
     });
-  });
+  }
 </script>
 
 <div class="h-screen py-2 px-1">
   <Resizable.PaneGroup direction="horizontal" class="w-full h-full rounded-lg">
     <Resizable.Pane defaultSize={50}>
-      <div class="w-full gap-1.5 h-full px-3">
+      <div class="w-full gap-1.5 h-full px-3 flex flex-col">
         <Label for="message" class="text-lg">JWT Token</Label>
-        <div class="">
+        <div class="grow">
           <span class="text-red-400 whitespace-pre-wrap text-wrap break-words box-border"
             >{jwtToken.header}</span
           >
@@ -59,6 +59,8 @@
             >{jwtToken.signature}</span
           >
         </div>
+        <Button class="" on:click={pasteJwt}>Paste JWT</Button>
+
         <!-- <Textarea placeholder="Type your token here." id="token" class="h-full mt-2" /> -->
       </div>
     </Resizable.Pane>

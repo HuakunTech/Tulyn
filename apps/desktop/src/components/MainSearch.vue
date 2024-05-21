@@ -120,16 +120,22 @@ function openExtention(item: TListItem) {
     const uiCmdParse = UiCmd.safeParse(cmd.cmd);
     if (uiCmdParse.success) {
       const uiCmd = uiCmdParse.data;
+
+      console.log(uiCmd.width, uiCmd.height);
       if (cmd.isDev && uiCmd.devMain) {
         new WebviewWindow("ext", {
           title: item.title,
           url: uiCmd.devMain,
+          width: uiCmd.width ?? undefined,
+          height: uiCmd.height ?? undefined,
         });
       } else {
         if (uiCmd.main.startsWith("http")) {
           new WebviewWindow("ext", {
             title: item.title,
             url: uiCmd.main,
+            width: uiCmd.width ?? undefined,
+            height: uiCmd.height ?? undefined,
           });
         } else {
           const postfix = !uiCmd.main.endsWith(".html") && !uiCmd.main.endsWith("/") ? "/" : "";
@@ -137,6 +143,8 @@ function openExtention(item: TListItem) {
           new WebviewWindow("ext", {
             title: item.title,
             url,
+            width: uiCmd.width ?? undefined,
+            height: uiCmd.height ?? undefined,
           });
         }
       }

@@ -85,6 +85,8 @@ pub struct UiCmd {
     pub main: String,
     pub name: String,
     pub dev_main: String,
+    pub width: Option<u32>,
+    pub height: Option<u32>,
     pub cmds: Vec<Cmd>,
 }
 

@@ -11,6 +11,8 @@ export const UiCmd = z.object({
   main: z.string(),
   devMain: z.string(),
   name: z.string(),
+  width: z.number().nullable(),
+  height: z.number().nullable(),
   cmds: TriggerCmd.array(),
 });
 export type UiCmd = z.infer<typeof UiCmd>;
