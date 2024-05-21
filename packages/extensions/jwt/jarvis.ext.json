@@ -21,6 +21,19 @@
                     "value": "jwt"
                 }
             ]
+        },
+        {
+            "main": "dist",
+            "name": "Search Decoded JWT",
+            "devMain": "http://localhost:5173/search",
+            "width": 800,
+            "height": 500,
+            "cmds": [
+                {
+                    "type": "text",
+                    "value": "search-jwt"
+                }
+            ]
         }
     ],
     "inlineCmds": []

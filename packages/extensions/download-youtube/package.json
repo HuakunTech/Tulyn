@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@internationalized/date": "^3.5.3",
     "@jarvis/api": "*",
     "@radix-icons/vue": "^1.0.0",
     "@vee-validate/zod": "^4.12.8",

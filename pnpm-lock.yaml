@@ -724,6 +724,9 @@ importers:
 
   packages/extensions/download-youtube:
     dependencies:
+      '@internationalized/date':
+        specifier: ^3.5.3
+        version: 3.5.3
       '@jarvis/api':
         specifier: '*'
         version: link:../../api
@@ -852,9 +855,18 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      cmdk-sv:
+        specifier: ^0.0.17
+        version: 0.0.17(svelte@4.2.16)
+      dayjs:
+        specifier: ^1.11.11
+        version: 1.11.11
       jose:
         specifier: ^5.3.0
         version: 5.3.0
+      lucide-svelte:
+        specifier: ^0.378.0
+        version: 0.378.0(svelte@4.2.16)
       mode-watcher:
         specifier: ^0.3.0
         version: 0.3.0(svelte@4.2.16)
@@ -864,6 +876,9 @@ importers:
       svelte-radix:
         specifier: ^1.1.0
         version: 1.1.0(svelte@4.2.16)
+      svelte-sonner:
+        specifier: ^0.3.24
+        version: 0.3.24(svelte@4.2.16)
       tailwind-merge:
         specifier: ^2.3.0
         version: 2.3.0
@@ -2769,6 +2784,20 @@ packages:
       vfile: 6.0.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@melt-ui/svelte@0.61.2(svelte@4.2.16):
+    resolution: {integrity: sha512-BHkD9G31zQBToA4euDRBgTQRvWxT9scufOVCXgDO6HKTvyxFspbWT2bgiSFqAK4BbAGDn9Ao36Q8F9O71KN4OQ==}
+    peerDependencies:
+      svelte: '>=3 <5'
+    dependencies:
+      '@floating-ui/core': 1.6.1
+      '@floating-ui/dom': 1.6.5
+      '@internationalized/date': 3.5.3
+      dequal: 2.0.3
+      focus-trap: 7.5.4
+      nanoid: 4.0.2
+      svelte: 4.2.16
     dev: false
 
   /@melt-ui/svelte@0.76.2(svelte@4.2.16):
@@ -7118,6 +7147,16 @@ packages:
       svelte: 4.2.16
     dev: false
 
+  /bits-ui@0.9.9(svelte@4.2.16):
+    resolution: {integrity: sha512-LkdkyTtpXdkjBzPZJVJgpcre4fut6DONoprMfadHFo82HNUhph+02CxDjYEcZcThb5z4YjSxMlCYvQPZm+YtfQ==}
+    peerDependencies:
+      svelte: ^4.0.0
+    dependencies:
+      '@melt-ui/svelte': 0.61.2(svelte@4.2.16)
+      nanoid: 5.0.7
+      svelte: 4.2.16
+    dev: false
+
   /bl@4.1.0:
     resolution: {integrity: sha512-1W07cM9gS6DcLperZfFSj+bWLtaPGSOHWhPiGzXmvVJbRLdG82sH/Kn8EtW1VqWVA54AKf2h5k5BbnIbwF3h6w==}
     dependencies:
@@ -7444,6 +7483,16 @@ packages:
   /cluster-key-slot@1.1.2:
     resolution: {integrity: sha512-RMr0FhtfXemyinomL4hrWcYJxmX6deFdCxpJzhDttxgO1+bcCnkk+9drydLVDmAMG7NE6aN/fl4F7ucU/90gAA==}
     engines: {node: '>=0.10.0'}
+    dev: false
+
+  /cmdk-sv@0.0.17(svelte@4.2.16):
+    resolution: {integrity: sha512-28QTrK1tT1TSNoGq9MVnzjeLNNjCgjmsM8c2HJfDpRt9t+GD+9m3wX/WdAPaP9jdoNYU0SSdZVdgsGgpaSQOYQ==}
+    peerDependencies:
+      svelte: ^4.0.0
+    dependencies:
+      bits-ui: 0.9.9(svelte@4.2.16)
+      nanoid: 5.0.7
+      svelte: 4.2.16
     dev: false
 
   /co@4.6.0:
@@ -7837,6 +7886,10 @@ packages:
       d3-interpolate: 3.0.1
       d3-selection: 3.0.0
       d3-transition: 3.0.1(d3-selection@3.0.0)
+    dev: false
+
+  /dayjs@1.11.11:
+    resolution: {integrity: sha512-okzr3f11N6WuqYtZSvm+F776mB41wRZMhKP+hc34YdW+KmtYYK9iqvHSwo2k9FEH3fhGXvOPV6yz2IcSrfRUDg==}
     dev: false
 
   /db0@0.1.4:
@@ -10845,6 +10898,12 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  /nanoid@4.0.2:
+    resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
+    engines: {node: ^14 || ^16 || >=18}
+    hasBin: true
+    dev: false
+
   /nanoid@5.0.7:
     resolution: {integrity: sha512-oLxFY2gd2IqnjcYyOXD8XGCftpGtZP2AbHbOkthDkvRywH5ayNtPVy9YlOPcHckXzbLTCHpkb7FB+yuxKV13pQ==}
     engines: {node: ^18 || >=20}
@@ -13484,6 +13543,14 @@ packages:
     resolution: {integrity: sha512-kyE9wZiJV937INGb+wiBkAjmGtQUUYRPkVL2Q+/gj+9Vog1Ewd2wNvNmpNMUd+c+euxoc5u5YZMuCUgky9EUPw==}
     peerDependencies:
       svelte: ^3.54.0 || ^4.0.0 || ^5.0.0
+    dependencies:
+      svelte: 4.2.16
+    dev: false
+
+  /svelte-sonner@0.3.24(svelte@4.2.16):
+    resolution: {integrity: sha512-txuL0JBUs0v6qGrr0PGCsbXmKHuthdrAkfISYi8umuveF7+gINb6EXl6VmKY9aHhyxCqvVgqd6yophQNrnor4w==}
+    peerDependencies:
+      svelte: '>=3 <5'
     dependencies:
       svelte: 4.2.16
     dev: false

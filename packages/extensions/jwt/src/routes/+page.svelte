@@ -29,7 +29,7 @@
     }
   }
   onMount(async () => {
-    pasteJwt()
+    pasteJwt();
   });
 
   function pasteJwt() {
