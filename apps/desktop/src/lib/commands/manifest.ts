@@ -12,8 +12,8 @@ export function loadAllExtensions(extensionsFolder: string): Promise<JarvisExtJs
         .map((x: unknown) => {
           const parse = JarvisExtJsonExtra.safeParse(x);
           if (parse.error) {
-            console.log(x);
-            console.error(parse.error);
+            // console.log(x);
+            // console.error(parse.error);
             return null;
           } else {
             return parse.data;

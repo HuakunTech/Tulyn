@@ -117,7 +117,7 @@ export const ExtCmdBundle = z.object({
   cmd: z.union([UiCmd, InlineCmd]),
   manifest: JarvisExtJsonExtra,
   cmdType: cmdType,
-  isDev: z.boolean(),
+  isDev: z.boolean(), // extension cmd is from dev extension folder
 });
 export type ExtCmdBundle = z.infer<typeof ExtCmdBundle>;
 
@@ -167,6 +167,11 @@ export const $extCmdMap = computed($extensionsStore, (state) => {
   return map;
 });
 
+/**
+ * Obtain extension command from a map by the value (unique identifier) used in list item
+ * @param extCmdListItemValue 
+ * @returns 
+ */
 export function getCmdFromValue(extCmdListItemValue: string): ExtCmdBundle | undefined {
   return $extCmdMap.get()[extCmdListItemValue];
 }

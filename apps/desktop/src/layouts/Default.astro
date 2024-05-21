@@ -4,6 +4,7 @@ import "@/styles/themes.css";
 import DefaultVue from "@/components/layouts/default.vue";
 import Topbar from "@/components/Topbar.vue";
 import Toaster from "@/components/ui/toast/Toaster.vue";
+import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 
 interface Props {
   title: string;
@@ -46,6 +47,7 @@ const { title } = Astro.props;
   </head>
   <body>
     <Toaster client:only="vue" />
+    <SonnerToaster client:only="vue" />
     <main class="h-screen">
       <div class="flex flex-col h-full">
         <Topbar client:only="vue" />

@@ -1,5 +1,5 @@
 import { map } from "nanostores";
-import { z } from "zod";
+import { boolean, z } from "zod";
 import { allColors } from "../themes/themes";
 import { useColorMode } from "@vueuse/core";
 import { Store } from "@tauri-apps/plugin-store";
@@ -16,6 +16,7 @@ export const appConfigSchema = z.object({
   launchAtLogin: z.boolean(),
   showInTray: z.boolean(),
   devExtentionPath: z.string().optional(),
+  devExtLoadUrl: z.boolean().default(false), // load extension page from dev server
 });
 
 export type State = z.infer<typeof appConfigSchema>;
@@ -27,6 +28,7 @@ const defaultState: State = {
   launchAtLogin: true,
   showInTray: true,
   devExtentionPath: undefined,
+  devExtLoadUrl: false,
 };
 
 const loadedConfig = await persistAppConfig.get("config");
@@ -39,6 +41,7 @@ if (parsedConfig.success) {
   defaultState.launchAtLogin = parsedConfig.data.launchAtLogin;
   defaultState.showInTray = parsedConfig.data.showInTray;
   defaultState.devExtentionPath = parsedConfig.data.devExtentionPath;
+  defaultState.devExtLoadUrl = parsedConfig.data.devExtLoadUrl;
 }
 
 export const $appConfig = map<State>(defaultState);
@@ -65,6 +68,10 @@ export function setShowInTray(showInTray: boolean) {
 
 export function setDevExtentionPath(devExtentionPath: string | undefined) {
   $appConfig.setKey("devExtentionPath", devExtentionPath);
+}
+
+export function setDevExtLoadUrl(devExtLoadUrl: boolean) {
+  $appConfig.setKey("devExtLoadUrl", devExtLoadUrl);
 }
 
 export function themeClass() {

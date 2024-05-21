@@ -54,11 +54,13 @@
     "uuid": "^9.0.1",
     "vee-validate": "^4.12.8",
     "vue": "^3.4.27",
+    "vue-sonner": "^1.1.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@iconify-json/radix-icons": "^1.1.14",
     "@iconify/vue": "^4.1.2",
+    "@tailwindcss/typography": "^0.5.13",
     "@tauri-apps/cli": "2.0.0-beta.17",
     "@types/uuid": "^9.0.7",
     "typescript": "^5.4.5"

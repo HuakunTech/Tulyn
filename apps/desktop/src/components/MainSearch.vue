@@ -35,6 +35,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { convertFileSrc } from "@tauri-apps/api/core";
 import { $appState, setSearchTerm, setAllApps } from "@/lib/stores/appState";
+import { $appConfig } from "@/lib/stores/appConfig";
 import { useStore } from "@nanostores/vue";
 import {
   $allExtensionListItems,
@@ -45,7 +46,7 @@ import {
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 
 const appState = useStore($appState);
-
+const appConfig = useStore($appConfig);
 const allExtensionListItems = useStore($allExtensionListItems);
 
 const searchTerm = computed({
@@ -125,36 +126,26 @@ function openExtention(item: TListItem) {
     const uiCmdParse = UiCmd.safeParse(cmd.cmd);
     if (uiCmdParse.success) {
       const uiCmd = uiCmdParse.data;
-      const baseWindowOptions = {
+      let url = uiCmd.main;
+      if (appConfig.value.devExtLoadUrl && cmd.isDev && uiCmd.devMain) {
+        url = uiCmd.devMain;
+      } else {
+        if (uiCmd.main.startsWith("http")) {
+          url = uiCmd.main;
+        } else {
+          const postfix = !uiCmd.main.endsWith(".html") && !uiCmd.main.endsWith("/") ? "/" : "";
+          url = `http://localhost:1566/extensions/${cmd.manifest.extFolderName}/${uiCmd.main}${postfix}`;
+        }
+      }
+      const window = new WebviewWindow("ext", {
+        url,
         title: item.title,
         titleBarStyle: TitleBarStyleAllLower.parse(
           uiCmd.window?.titleBarStyle?.toLowerCase() ?? "visible",
         ),
         width: uiCmd.window?.width ?? undefined,
         height: uiCmd.window?.height ?? undefined,
-      };
-      if (!cmd.isDev && uiCmd.devMain) {
-        new WebviewWindow("ext", {
-          ...baseWindowOptions,
-          url: uiCmd.devMain,
-        });
-      } else {
-        if (uiCmd.main.startsWith("http")) {
-          new WebviewWindow("ext", {
-            ...baseWindowOptions,
-            url: uiCmd.main,
-          });
-        } else {
-          const postfix = !uiCmd.main.endsWith(".html") && !uiCmd.main.endsWith("/") ? "/" : "";
-          const url = `http://localhost:1566/extensions/${cmd.manifest.extFolderName}/${uiCmd.main}${postfix}`;
-          console.log(url);
-          
-          new WebviewWindow("ext", {
-            ...baseWindowOptions,
-            url,
-          });
-        }
-      }
+      });
     } else {
       console.error(uiCmdParse.error);
     }
