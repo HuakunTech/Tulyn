@@ -10,7 +10,7 @@
     },
     "uiCmds": [
         {
-            "main": "dist",
+            "main": "dist/index.html",
             "name": "View Decoded JWT",
             "devMain": "http://localhost:5173",
             "window": {
@@ -26,7 +26,7 @@
             ]
         },
         {
-            "main": "dist",
+            "main": "dist/search",
             "name": "Search Decoded JWT",
             "devMain": "http://localhost:5173/search",
             "window": {

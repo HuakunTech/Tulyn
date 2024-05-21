@@ -106,7 +106,7 @@ pub fn run() {
             app.manage(ApplicationsState::default());
             app.manage(Server::default());
             // app.manage(ApplicationsState::default());
-            utils::setup::setup_server(&app.handle());
+            utils::setup::setup_server(app.handle());
 
             #[cfg(debug_assertions)] // only include this code on debug builds
             {

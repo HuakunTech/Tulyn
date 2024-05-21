@@ -1,3 +1,5 @@
+use tauri::{AppHandle, Manager, Runtime};
+
 use crate::server;
 use std::sync::{Arc, Mutex};
 #[derive(Default)]
@@ -8,7 +10,7 @@ pub struct Server {
 }
 
 impl Server {
-    pub fn start(&self) -> Result<(), String> {
+    pub fn start<R: Runtime>(&self, app: &AppHandle<R>) -> Result<(), String> {
         let mut join_handle = self.join_handle.lock().unwrap();
         if join_handle.is_some() {
             return Err("Server is already running".to_string());
@@ -34,8 +36,11 @@ impl Server {
 }
 
 #[tauri::command]
-pub fn start_server(server: tauri::State<'_, Server>) -> Result<(), String> {
-    server.start()?;
+pub fn start_server<R: Runtime>(
+    app: tauri::AppHandle<R>,
+    server: tauri::State<'_, Server>,
+) -> Result<(), String> {
+    server.start(&app)?;
     Ok(())
 }
 

@@ -133,7 +133,7 @@ function openExtention(item: TListItem) {
         width: uiCmd.window?.width ?? undefined,
         height: uiCmd.window?.height ?? undefined,
       };
-      if (cmd.isDev && uiCmd.devMain) {
+      if (!cmd.isDev && uiCmd.devMain) {
         new WebviewWindow("ext", {
           ...baseWindowOptions,
           url: uiCmd.devMain,
@@ -147,6 +147,8 @@ function openExtention(item: TListItem) {
         } else {
           const postfix = !uiCmd.main.endsWith(".html") && !uiCmd.main.endsWith("/") ? "/" : "";
           const url = `http://localhost:1566/extensions/${cmd.manifest.extFolderName}/${uiCmd.main}${postfix}`;
+          console.log(url);
+          
           new WebviewWindow("ext", {
             ...baseWindowOptions,
             url,

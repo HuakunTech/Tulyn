@@ -1,5 +1,5 @@
 use crate::commands::server::Server;
-use tauri::{AppHandle, Manager};
+use tauri::{AppHandle, Manager, Runtime};
 use window_vibrancy::{apply_vibrancy, NSVisualEffectMaterial};
 
 pub fn setup_app_path(handle: &AppHandle) {
@@ -9,9 +9,9 @@ pub fn setup_app_path(handle: &AppHandle) {
     }
 }
 
-pub fn setup_server(handle: &AppHandle) {
+pub fn setup_server<R: Runtime>(handle: &AppHandle<R>) {
     let server = handle.state::<Server>();
-    server.start().expect("Failed to start local server");
+    server.start(handle).expect("Failed to start local server");
 }
 
 pub fn setup_mac_transparent_bg(handle: &AppHandle) {
