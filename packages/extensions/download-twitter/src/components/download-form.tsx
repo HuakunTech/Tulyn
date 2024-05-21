@@ -6,14 +6,14 @@ import { z } from "zod";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { FormEvent, useEffect, useState } from "react";
-import { ChevronRightIcon, CopyIcon } from "@radix-ui/react-icons";
+import { FormEvent, useState } from "react";
+import { CopyIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   url: z.string().url(),
 });
-// https://x.com/CrabNebulaDev/status/1770145116239356352
+
 export default function DownloadForm({ className }: { className: string }) {
   const { toast } = useToast();
   const [url, setUrl] = useState("");
