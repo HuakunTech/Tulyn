@@ -5,6 +5,7 @@ import { currentMonitor } from "@tauri-apps/api/window";
 import { onMounted } from "vue";
 import { v4 as uuidv4 } from "uuid";
 import { tauriToast } from "./tauri/toast";
+import { convertFileSrc } from "@tauri-apps/api/core";
 
 async function trigger() {
   tauriToast({
@@ -27,7 +28,15 @@ async function trigger() {
   //   alwaysOnTop: true,
   // });
 }
+
+function openWindow() {
+  new WebviewWindow('ext', {
+    url: convertFileSrc("/Users/hacker/Dev/projects/Jarvis/packages/extensions/jwt/dist/index.html", "extasset")
+  })
+}
+
 </script>
 <template>
   <Button @click="trigger">Trigger Toast</Button>
+  <Button @click="openWindow">Open Window</Button>
 </template>

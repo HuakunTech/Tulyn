@@ -18,9 +18,10 @@ export default defineNuxtConfig({
   },
   ssr: false,
   app: {
-    baseURL:
-      // process.env.NODE_ENV === "production" ? "/extensions/encode/dist/" : "/",
-      process.env.NODE_ENV === "production" ? "/extensions/jarvis-ext-nuxt/dist/" : "/",
+    baseURL: "/extensions-template/jarvis-ext-nuxt/dist/",
+    // process.env.NODE_ENV === "production" ? "/extensions/encode/dist/" : "/",
+    // process.env.NODE_ENV === "production" ? "/extensions-template/jarvis-ext-nuxt/dist/" : "/",
+    // process.env.NODE_ENV === "production" ? "/dist" : "/",
     // buildAssetsDir: ""
   },
 });

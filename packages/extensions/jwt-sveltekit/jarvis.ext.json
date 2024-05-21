@@ -1,5 +1,5 @@
 {
-    "name": "JWT Inspector",
+    "name": "jwt-inspector",
     "version": "0.0.1",
     "description": "JWT Inspector",
     "identifier": "tech.huakun.jarvis-jwt-inspector",
@@ -10,7 +10,7 @@
     },
     "uiCmds": [
         {
-            "main": "dist/index.html",
+            "main": "build/index.html",
             "name": "View Decoded JWT",
             "devMain": "http://localhost:5173",
             "window": {
@@ -26,7 +26,7 @@
             ]
         },
         {
-            "main": "dist/search.html",
+            "main": "build/search",
             "name": "Search Decoded JWT",
             "devMain": "http://localhost:5173/search",
             "window": {

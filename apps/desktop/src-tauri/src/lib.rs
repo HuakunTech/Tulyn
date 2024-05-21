@@ -42,6 +42,21 @@ pub fn run() {
                     .unwrap(),
             }
         })
+        .register_uri_scheme_protocol("extasset", |_app, request| {
+            let url = &request.uri().path()[1..];
+            // let url = url.replace("%2F", "/").replace("%20", " ");
+            let url = urlencoding::decode(url).unwrap().to_string();
+            let path = PathBuf::from(url);
+            println!("path: {:?}", path);
+            if !path.exists() {
+                return tauri::http::Response::builder()
+                    .status(tauri::http::StatusCode::NOT_FOUND)
+                    .body("file not found".as_bytes().to_vec())
+                    .unwrap();
+            }
+            let bytes = std::fs::read(&path).unwrap();
+            tauri::http::Response::builder().body(bytes).unwrap()
+        })
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_fs::init())

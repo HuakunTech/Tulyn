@@ -1,6 +1,22 @@
-import { sveltekit } from "@sveltejs/kit/vite";
+import path from "path";
 import { defineConfig } from "vite";
+import { svelte } from "@sveltejs/vite-plugin-svelte";
 
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [sveltekit()],
+  plugins: [svelte()],
+  resolve: {
+    alias: {
+      $lib: path.resolve("./src/lib"),
+    },
+  },
+  base: "./",
+  build: {
+    rollupOptions: {
+      input: {
+        search: path.resolve(__dirname, "search.html"),
+        main: path.resolve(__dirname, "index.html"),
+      }
+    }
+  }
 });
