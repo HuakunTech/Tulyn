@@ -1,5 +1,3 @@
-use axum::ServiceExt;
-// use axum::{handler::HandlerWithoutStateExt, http::StatusCode, routing::get, Router};
 use helloworld::greeter_server::{Greeter, GreeterServer};
 use helloworld::{HelloReply, HelloRequest};
 use std::net::SocketAddr;
@@ -7,7 +5,7 @@ use std::path::PathBuf;
 use tonic::{
     transport::Server as tonic_server, Request as GRPC_Request, Response as GRPC_Response, Status,
 };
-use tower_http::{services::ServeDir};
+use tower_http::services::ServeDir;
 
 pub mod helloworld {
 

@@ -16,7 +16,7 @@ import { systemCommands } from "@/lib/commands/system";
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import {
   IconType,
-  TitleBarStyleAllLower,
+  TitleBarStyle,
   UiCmd,
   type AppInfo,
   type TCommand,
@@ -141,9 +141,8 @@ function openExtention(item: TListItem) {
       const window = new WebviewWindow("ext", {
         url,
         title: item.title,
-        titleBarStyle: TitleBarStyleAllLower.parse(
-          uiCmd.window?.titleBarStyle?.toLowerCase() ?? "visible",
-        ),
+        titleBarStyle: TitleBarStyle.parse(uiCmd.window?.titleBarStyle?.toLowerCase() ?? "visible"),
+
         width: uiCmd.window?.width ?? undefined,
         height: uiCmd.window?.height ?? undefined,
       });
