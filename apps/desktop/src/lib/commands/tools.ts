@@ -9,8 +9,6 @@ export function closeDevTools() {
 }
 
 export function toggleDevTools() {
-  console.log("toggleDevTools");
-
   return invoke("toggle_devtools");
 }
 

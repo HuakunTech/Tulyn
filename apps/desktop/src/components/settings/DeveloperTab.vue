@@ -1,24 +1,41 @@
 <script setup lang="ts">
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import ServerStatus from "./Developer/ServerStatus.vue";
+import { InfoIcon } from "lucide-vue-next";
 import Installation from "@/components/settings/Developer/Installation.vue";
-
-const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length - i}`);
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 </script>
 <template>
-  <div class="py-2 max-h-full overflow-auto flex">
-    <!-- <ScrollArea class="max-h-full w-48 rounded-md border">
-      <div class="p-4">
-        <h4 class="mb-4 text-sm font-medium leading-none">Tags</h4>
-
-        <div v-for="tag in tags" :key="tag">
-          <div class="text-sm">
-            {{ tag }}
-          </div>
-          <Separator class="my-2" />
-        </div>
-      </div>
-    </ScrollArea> -->
-    <Installation class="grow" />
+  <div class="pt-2 pb-5 max-h-full overflow-auto">
+    <div class="grow container">
+      <Accordion type="single" collapsible>
+        <AccordionItem value="server-status">
+          <AccordionTrigger>
+            <span class="flex space-x-2 items-center">
+              <span>Server Status</span>
+              <HoverCard>
+                <HoverCardTrigger><InfoIcon :size="20" /></HoverCardTrigger>
+                <HoverCardContent>
+                  The frontend of extensions are hosted from a local http server.
+                  Some IPC messages are also routed through this server.
+                  This tab can be used to debug server and check whether the corrected extensions folders are hosted.
+                  The Status badge and folder paths are updated every 1 second.
+                </HoverCardContent>
+              </HoverCard>
+            </span>
+          </AccordionTrigger>
+          <AccordionContent><ServerStatus /></AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="ext-installation">
+          <AccordionTrigger>Installation</AccordionTrigger>
+          <AccordionContent><Installation /></AccordionContent>
+        </AccordionItem>
+      </Accordion>
+    </div>
   </div>
 </template>

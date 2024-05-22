@@ -3,6 +3,10 @@ import { boolean, z } from "zod";
 import { allColors } from "../themes/themes";
 import { useColorMode } from "@vueuse/core";
 import { Store } from "@tauri-apps/plugin-store";
+import {
+  restartServer,
+  setDevExtensionFolder as setDevExtensionFolderForServer,
+} from "@/lib/commands/server";
 
 const persistAppConfig = new Store("appConfig.bin");
 
@@ -67,7 +71,11 @@ export function setShowInTray(showInTray: boolean) {
 }
 
 export function setDevExtentionPath(devExtentionPath: string | undefined) {
+  // set this in server and restart server
   $appConfig.setKey("devExtentionPath", devExtentionPath);
+  return setDevExtensionFolderForServer(devExtentionPath).then(() => {
+    return restartServer();
+  });
 }
 
 export function setDevExtLoadUrl(devExtLoadUrl: boolean) {

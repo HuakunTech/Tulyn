@@ -134,7 +134,7 @@ function openExtention(item: TListItem) {
           url = uiCmd.main;
         } else {
           const postfix = !uiCmd.main.endsWith(".html") && !uiCmd.main.endsWith("/") ? "/" : "";
-          url = `http://localhost:1566/extensions/${cmd.manifest.extFolderName}/${uiCmd.main}${postfix}`;
+          url = `http://localhost:1566/${cmd.isDev ? "dev-" : ""}extensions/${cmd.manifest.extFolderName}/${uiCmd.main}${postfix}`;
         }
       }
       const window = new WebviewWindow("ext", {

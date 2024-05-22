@@ -47,7 +47,7 @@ impl Greeter for MyGreeter {
     }
 }
 
-pub async fn start_server() {
+pub async fn start_server(extension_folder: PathBuf, dev_extension_folder: Option<PathBuf>) {
     // tracing_subscriber::registry()
     //     .with(
     //         tracing_subscriber::EnvFilter::try_from_default_env()
@@ -65,17 +65,19 @@ pub async fn start_server() {
         .register_encoded_file_descriptor_set(helloworld::FILE_DESCRIPTOR_SET)
         .build()
         .unwrap();
-    //     .into_make_service()
-    // .into_service();
-    let grpc_router = tonic_server::builder()
+    let mut router = tonic_server::builder()
         .add_service(reflection_service)
         .add_service(GreeterServer::new(MyGreeter::default()))
         .into_router()
-        .nest_service("/extensions", ServeDir::new("/Users/hacker/Dev/projects/Jarvis/packages/extensions"));
+        .nest_service("/extensions", ServeDir::new(extension_folder));
+    if dev_extension_folder.is_some() {
+        let dev_extension_folder = dev_extension_folder.unwrap();
+        router = router.nest_service("/dev-extensions", ServeDir::new(dev_extension_folder));
+    }
     let addr = SocketAddr::from(([127, 0, 0, 1], 1566));
     axum::Server::bind(&addr)
         // .serve(web_app.into_make_service())
-        .serve(grpc_router.into_make_service())
+        .serve(router.into_make_service())
         .await
         .expect("server failed");
 }

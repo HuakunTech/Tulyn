@@ -4,6 +4,9 @@ use commands::{apps::ApplicationsState, server::Server};
 use std::path::PathBuf;
 use tauri::Manager;
 use tauri_plugin_log::{Target, TargetKind};
+use tauri_plugin_store::StoreBuilder;
+use tokio::runtime::Runtime;
+use utils::{path::get_default_extensions_dir, settings::AppSettings};
 pub mod commands;
 pub mod model;
 pub mod server;
@@ -116,10 +119,27 @@ pub fn run() {
             commands::extension::load_all_extensions,
             // utils
             commands::fs::path_exists,
+            // server
+            commands::server::start_server,
+            commands::server::stop_server,
+            commands::server::restart_server,
+            commands::server::set_dev_extension_folder,
+            commands::server::set_extension_folder,
+            commands::server::get_extension_folder,
+            commands::server::get_dev_extension_folder,
+            commands::server::server_is_running,
         ])
         .setup(|app| {
             app.manage(ApplicationsState::default());
-            app.manage(Server::default());
+            let mut store = StoreBuilder::new("appConfig.bin").build(app.handle().clone());
+            let _ = store.load();
+
+            let app_settings = match AppSettings::load_from_store(&store) {
+                Ok(settings) => settings,
+                Err(_) => AppSettings::default(),
+            };
+            let ext_folder: Option<PathBuf> = get_default_extensions_dir(app.handle()).ok();
+            app.manage(Server::new(ext_folder, app_settings.dev_extention_path));
             // app.manage(ApplicationsState::default());
             utils::setup::setup_server(app.handle());
 
