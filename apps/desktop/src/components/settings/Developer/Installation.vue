@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { toast } from "vue-sonner";
+import { toast as sonner } from "vue-sonner";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -19,11 +19,16 @@ import { download } from "@tauri-apps/plugin-upload";
 import * as fs from "@tauri-apps/plugin-fs";
 import { tempDir, join as pathJoin, downloadDir } from "@tauri-apps/api/path";
 import { installTarball } from "@/lib/utils/tarball";
+import { useStore } from "@nanostores/vue";
+import { $appConfig } from "@/lib/stores/appConfig";
+import { useToast } from "@/components/ui/toast";
+
+const { toast } = useToast();
 
 const props = defineProps<{
   class?: HTMLAttributes["class"];
 }>();
-
+const appConfig = useStore($appConfig);
 const dragging = ref(false);
 
 async function pickProject() {
@@ -39,7 +44,7 @@ async function pickProject() {
     ],
   });
   if (!selected) {
-    return toast.warning("No File Selected");
+    return sonner.warning("No File Selected");
   }
   installTarball(selected.path);
 }
@@ -54,12 +59,16 @@ async function onDownloadSubmit(e: Event) {
     const filename = downloadUrl.value.split("/").pop();
 
     if (filename) {
-      const tempDirPath = await tempDir();
-      let tarballPath = await pathJoin(tempDirPath, filename);
-      await download(downloadUrl.value, tarballPath);
-      await installTarball(tarballPath);
-      toast.success(`Installed 1 Tarball`);
-      await fs.remove(tarballPath);
+      try {
+        const tempDirPath = await tempDir();
+        let tarballPath = await pathJoin(tempDirPath, filename);
+        await download(downloadUrl.value, tarballPath);
+        await installTarball(tarballPath);
+        sonner.success(`Installed 1 Tarball`);
+        await fs.remove(tarballPath);
+      } catch (error: any) {
+        toast({ title: error, variant: "destructive" });
+      }
     }
   }
 }
@@ -72,11 +81,13 @@ function handleDragNDropInstall(paths: string[]) {
   numInstalled += tarballs.length;
   if (tarballs.length > 0) {
     return Promise.all(tarballs.map((tarball) => installTarball(tarball))).then(() => {
-      toast.success(`Installed ${tarballs.length} Tarball${tarballs.length > 1 ? "s" : ""}`);
+      sonner.success(`Installed ${tarballs.length} Tarball${tarballs.length > 1 ? "s" : ""}`);
     });
   }
   if (numInstalled === 0) {
-    toast.error("Nothing is Installed", {
+    toast({
+      title: "Nothing is Installed",
+      variant: "destructive",
       description: "Only tarballs (.tar.gz) are supported",
     });
   }
@@ -92,104 +103,114 @@ function handleDragNDropInstall(paths: string[]) {
       </p>
 
       <DevExtPathForm />
-      <Label class="text-xl" for="pick"
-        >Pick Project Folder to Install
+      <!-- Dev Extensions can only be installed when a dev extension path is set -->
+      <div v-if="appConfig.devExtentionPath" class="flex flex-col space-y-2">
+        <Label class="text-xl" for="pick"
+          >Pick Project Folder to Install
 
-        <Popover>
-          <PopoverTrigger as-child>
-            <button class="-translate-y-0.5"><InfoIcon class="inline w-4 cursor-pointer" /></button>
-          </PopoverTrigger>
-          <PopoverContent class="w-96">
-            Drag tarballs to the window to install extensions.
-          </PopoverContent>
-        </Popover>
-      </Label>
-      <div class="flex justify-center">
-        <DragNDrop
-          @drop="handleDragNDropInstall"
-          @drag="dragging = true"
-          @drag-cancelled="dragging = false"
-        >
-          <Card :class="cn('w-96 h-36', dragging ? 'border-lime-400/30' : 'text-blue')">
-            <div
-              class="flex justify-center items-center h-full cursor-pointer"
-              @click="pickProject"
-            >
-              <div :class="cn('flex flex-col items-center', dragging ? 'text-lime-400/70' : '')">
-                <Icon icon="mdi:folder-cog-outline" class="w-10 h-10" />
-                <small class="text-xs select-none">Click or Drag and Drop</small>
+          <Popover>
+            <PopoverTrigger as-child>
+              <button class="-translate-y-0.5">
+                <InfoIcon class="inline w-4 cursor-pointer" />
+              </button>
+            </PopoverTrigger>
+            <PopoverContent class="w-96">
+              Drag tarballs to the window to install extensions.
+            </PopoverContent>
+          </Popover>
+        </Label>
+        <div class="flex justify-center">
+          <DragNDrop
+            @drop="handleDragNDropInstall"
+            @drag="dragging = true"
+            @drag-cancelled="dragging = false"
+          >
+            <Card :class="cn('w-96 h-36', dragging ? 'border-lime-400/30' : 'text-blue')">
+              <div
+                class="flex justify-center items-center h-full cursor-pointer"
+                @click="pickProject"
+              >
+                <div :class="cn('flex flex-col items-center', dragging ? 'text-lime-400/70' : '')">
+                  <Icon icon="mdi:folder-cog-outline" class="w-10 h-10" />
+                  <small class="text-xs select-none">Click or Drag and Drop</small>
+                </div>
               </div>
-            </div>
-          </Card>
-        </DragNDrop>
-      </div>
+            </Card>
+          </DragNDrop>
+        </div>
 
-      <Label for="url" class="text-xl">
-        Download URL
-        <Popover>
-          <PopoverTrigger as-child>
-            <button class="-translate-y-0.5"><InfoIcon class="inline w-4 cursor-pointer" /></button>
-          </PopoverTrigger>
-          <PopoverContent class="w-96">
-            <!-- TODO: Fix the Links -->
-            <TauriLink
-              class="block"
-              href="https://jarvis.huakun.tech/design/extensions/installation/"
-            >
-              Read Docs For More Details <ExternalLinkIcon class="inline w-4 -translate-y-0.5" />
-            </TauriLink>
-            <div class="text-xs">
-              It can be an npm package URL like
-              <TauriLink class="block" href="https://registry.npmjs.org/nest-neo4j/latest">
-                https://registry.npmjs.org/nest-neo4j/latest
+        <Label for="url" class="text-xl">
+          Download URL
+          <Popover>
+            <PopoverTrigger as-child>
+              <button class="-translate-y-0.5">
+                <InfoIcon class="inline w-4 cursor-pointer" />
+              </button>
+            </PopoverTrigger>
+            <PopoverContent class="w-96">
+              <!-- TODO: Fix the Links -->
+              <TauriLink
+                class="block"
+                href="https://jarvis.huakun.tech/design/extensions/installation/"
+              >
+                Read Docs For More Details <ExternalLinkIcon class="inline w-4 -translate-y-0.5" />
               </TauriLink>
-              or a tarball url like
-              <TauriLink class="block" href="https://jarvis-extensions.huakun.tech/qrcode.tar.gz">
-                https://jarvis-extensions.huakun.tech/qrcode.tar.gz
-              </TauriLink>
-            </div>
-          </PopoverContent>
-        </Popover>
-      </Label>
-      <form class="flex w-full items-center gap-1.5" @submit="onDownloadSubmit">
-        <Input id="url" type="text" placeholder="Download URL" v-model="downloadUrl" />
-        <Button type="submit">Download<DownloadIcon class="ml-2 h-4 w-4" /></Button>
-      </form>
+              <div class="text-xs">
+                It can be an npm package URL like
+                <TauriLink class="block" href="https://registry.npmjs.org/nest-neo4j/latest">
+                  https://registry.npmjs.org/nest-neo4j/latest
+                </TauriLink>
+                or a tarball url like
+                <TauriLink class="block" href="https://jarvis-extensions.huakun.tech/qrcode.tar.gz">
+                  https://jarvis-extensions.huakun.tech/qrcode.tar.gz
+                </TauriLink>
+              </div>
+            </PopoverContent>
+          </Popover>
+        </Label>
+        <form class="flex w-full items-center gap-1.5" @submit="onDownloadSubmit">
+          <Input id="url" type="text" placeholder="Download URL" v-model="downloadUrl" />
+          <Button type="submit" size="sm">Download<DownloadIcon class="ml-2 h-4 w-4" /></Button>
+        </form>
 
-      <Label for="url" class="text-xl">
-        Remote URL
-        <Popover>
-          <PopoverTrigger as-child>
-            <button class="-translate-y-0.5"><InfoIcon class="inline w-4 cursor-pointer" /></button>
-          </PopoverTrigger>
-          <PopoverContent class="w-96">
-            <!-- TODO: Fix the Links -->
-            <TauriLink
-              class="block"
-              href="https://jarvis.huakun.tech/design/extensions/installation/"
-            >
-              Read Docs For More Details <ExternalLinkIcon class="inline w-4 -translate-y-0.5" />
-            </TauriLink>
-            <Alert variant="destructive" class="dark:text-red-600 dark:border-red-600 my-2">
-              <Icon icon="material-symbols:warning-outline" class="h-5 w-5 dark:text-red-600" />
-              <AlertTitle>Warning</AlertTitle>
-              <AlertDescription>
-                Installing a remote website as extension is extremely dangerous. Website maintainer
-                could change the code any time. Only install website extensions you trust.
-              </AlertDescription>
-            </Alert>
-            <div class="text-xs">
-              It can be a remote website URL like
-              <TauriLink class="block" href="https://qrcode-ext.jarvis.huakun.tech">
-                https://qrcode-ext.jarvis.huakun.tech
+        <Label for="url" class="text-xl">
+          Remote URL
+          <Popover>
+            <PopoverTrigger as-child>
+              <button class="-translate-y-0.5">
+                <InfoIcon class="inline w-4 cursor-pointer" />
+              </button>
+            </PopoverTrigger>
+            <PopoverContent class="w-96">
+              <!-- TODO: Fix the Links -->
+              <TauriLink
+                class="block"
+                href="https://jarvis.huakun.tech/design/extensions/installation/"
+              >
+                Read Docs For More Details <ExternalLinkIcon class="inline w-4 -translate-y-0.5" />
               </TauriLink>
-            </div>
-          </PopoverContent>
-        </Popover>
-      </Label>
-      <div class="flex w-full items-center gap-1.5">
-        <Input id="url" type="text" placeholder="Remote URL" />
-        <Button type="submit">Install<CloudDownloadIcon class="ml-2 h-4 w-4" /></Button>
+              <Alert variant="destructive" class="dark:text-red-600 dark:border-red-600 my-2">
+                <Icon icon="material-symbols:warning-outline" class="h-5 w-5 dark:text-red-600" />
+                <AlertTitle>Warning</AlertTitle>
+                <AlertDescription>
+                  Installing a remote website as extension is extremely dangerous. Website
+                  maintainer could change the code any time. Only install website extensions you
+                  trust.
+                </AlertDescription>
+              </Alert>
+              <div class="text-xs">
+                It can be a remote website URL like
+                <TauriLink class="block" href="https://qrcode-ext.jarvis.huakun.tech">
+                  https://qrcode-ext.jarvis.huakun.tech
+                </TauriLink>
+              </div>
+            </PopoverContent>
+          </Popover>
+        </Label>
+        <div class="flex w-full items-center gap-1.5">
+          <Input id="url" type="text" placeholder="Remote URL" />
+          <Button type="submit" size="sm">Install<CloudDownloadIcon class="ml-2 h-4 w-4" /></Button>
+        </div>
       </div>
     </div>
   </div>

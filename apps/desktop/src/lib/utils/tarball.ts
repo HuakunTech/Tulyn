@@ -1,4 +1,3 @@
-import { toast } from "vue-sonner";
 import { getDevExtensionFolder } from "@/lib/commands/server";
 import { tempDir, join as pathJoin, downloadDir } from "@tauri-apps/api/path";
 import { v4 as uuidv4 } from "uuid";
@@ -14,7 +13,7 @@ export async function installTarball(tarballPath: string) {
   const tempDirPath = await tempDir();
 
   if (!extDir) {
-    return toast.error("Extension Folder Not Set");
+    return Promise.reject("Extension Folder Not Set");
   }
   const extInstallPath = await pathJoin(extDir, uuidv4());
   // await rename(tarballPath, "/Users/hacker/Downloads/qrcode.tar.gz");

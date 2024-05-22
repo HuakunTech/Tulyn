@@ -42,7 +42,7 @@ export async function loadExtManifests() {
 export function loadDevExtManifests() {
   const extPath = $appConfig.get().devExtentionPath;
   if (!extPath) {
-    return Promise.reject("No dev extension path set");
+    return setDevManifests([]);
   }
   return loadAllExtensions(extPath).then((manifests) => {
     setDevManifests(manifests);

@@ -11,6 +11,7 @@ import { pathExists } from "@/lib/commands/fs";
 import { onMount } from "nanostores";
 import { loadDevExtManifests, loadExtManifests, $extensionsStore } from "@/lib/stores/extensions";
 import { open } from "@tauri-apps/plugin-dialog";
+import { loadAllExtensions } from "@/lib/commands/manifest";
 
 const { toast } = useToast();
 const appConfig = useStore($appConfig);
@@ -43,43 +44,45 @@ async function pickDirectory() {
   }
 }
 
-async function onSubmit(e: Event) {
-  e.preventDefault();
-
-  if (!devExtPath.value || !(await pathExists(devExtPath.value))) {
-    console.log("Invalid Path");
-
-    return toast({
-      title: "Invalid Path",
-      description: "Please enter an existing path",
-      variant: "destructive",
+function clear() {
+  devExtPath.value = undefined;
+  return setDevExtentionPath(devExtPath.value)
+    .then(() => {
+      return loadExtManifests();
+    })
+    .then(() => {
+      return loadDevExtManifests();
+    })
+    .then(() => {
+      return toast({
+        title: "Cleared",
+      });
+    })
+    .catch((err) => {
+      return toast({
+        title: "Failed To Clear",
+        variant: "destructive",
+      });
     });
-  }
-
-  setDevExtentionPath(devExtPath.value);
-  loadExtManifests();
-  loadDevExtManifests();
-  lock.value = true;
 }
 </script>
 
 <template>
-  <form class="w-full space-y-6" @submit="onSubmit">
-    <div class="flex w-full items-center gap-1.5">
-      <Input
-        id="dev-ext-path"
-        type="path"
-        placeholder="Enter Path"
-        v-model="devExtPath"
-        :disabled="lock"
-      />
-      <!-- <Input id="folder" type="text" placeholder="Click to select a folder" class="cursor-pointer" disabled /> -->
-
-      <Button type="button" @click="pickDirectory">
-        Edit
-        <Icon icon="flowbite:edit-outline" class="w-5 h-5 ml-2" />
-      </Button>
-      <!-- <Button v-else type="submit">Set</Button> -->
-    </div>
-  </form>
+  <div class="flex w-full items-center gap-1.5">
+    <Input
+      id="dev-ext-path"
+      type="path"
+      placeholder="Enter Path"
+      v-model="devExtPath"
+      :disabled="lock"
+    />
+    <Button size="sm" type="button" @click="clear">
+      Clear
+      <Icon icon="material-symbols:delete-outline" class="w-5 h-5 ml-1" />
+    </Button>
+    <Button size="sm" type="button" @click="pickDirectory">
+      Edit
+      <Icon icon="flowbite:edit-outline" class="w-5 h-5 ml-1" />
+    </Button>
+  </div>
 </template>
