@@ -110,12 +110,12 @@ pub async fn set_extension_folder(
 pub async fn get_extension_folder(
     server: tauri::State<'_, Server>,
 ) -> Result<Option<PathBuf>, String> {
-    Ok(server.dev_extension_folder.lock().unwrap().to_owned())
+    Ok(server.extension_folder.lock().unwrap().to_owned())
 }
 
 #[tauri::command]
 pub async fn get_dev_extension_folder(
     server: tauri::State<'_, Server>,
 ) -> Result<Option<PathBuf>, String> {
-    Ok(server.extension_folder.lock().unwrap().to_owned())
+    Ok(server.dev_extension_folder.lock().unwrap().to_owned())
 }

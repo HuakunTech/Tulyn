@@ -33,6 +33,7 @@ export async function loadExtManifests() {
   if (!extFolderExists) {
     await mkdir("extensions", { baseDir: BaseDirectory.AppData });
   }
+
   return loadAllExtensions(extensionsFolder).then((manifests) => {
     setManifests(manifests);
   });
@@ -49,8 +50,7 @@ export function loadDevExtManifests() {
 }
 
 export function loadAllExtensionsManifest() {
-  loadExtManifests();
-  loadDevExtManifests();
+  return Promise.all([loadExtManifests(), loadDevExtManifests()]);
 }
 
 /**
@@ -107,8 +107,9 @@ export const $devExtensionListItems = computed($extensionsStore, (state): TListI
 });
 
 export const $allExtensionListItems = computed($extensionsStore, (state): TListItem[] => {
-  return $devExtensionListItems.get().concat($extensionListItems.get());
-  // return [...state.manifests, ...state.devManifests].map((m) => manifestToCmdItems(m)).flat();
+  const extCmds = state.manifests.map((m) => manifestToCmdItems(m)).flat();
+  const devExtCmds = state.devManifests.map((m) => manifestToCmdItems(m)).flat();
+  return [...extCmds, ...devExtCmds];
 });
 
 export const cmdType = z.enum(["UI", "Inline"]);
@@ -169,8 +170,8 @@ export const $extCmdMap = computed($extensionsStore, (state) => {
 
 /**
  * Obtain extension command from a map by the value (unique identifier) used in list item
- * @param extCmdListItemValue 
- * @returns 
+ * @param extCmdListItemValue
+ * @returns
  */
 export function getCmdFromValue(extCmdListItemValue: string): ExtCmdBundle | undefined {
   return $extCmdMap.get()[extCmdListItemValue];

@@ -17,13 +17,23 @@ pub fn decompress_tarball(
     let tar_gz = std::fs::File::open(&path)?;
     let tar = flate2::read::GzDecoder::new(tar_gz);
     let mut archive = tar::Archive::new(tar);
-    let dest = destination_folder.join(path.file_stem().unwrap());
+    println!("destination_folder: {:?}", &destination_folder);
+    let mut dest_filename: String = path.file_stem().unwrap().to_string_lossy().to_string();
+    if dest_filename.ends_with(".tar") {
+        dest_filename = dest_filename.replace(".tar", "");
+    }
+    let dest = destination_folder.join(dest_filename);
+
     if dest.exists() && !overwrite {
         return Err(anyhow::format_err!(
             "Destination folder already exists: {:?}",
             dest
         ));
     }
+    // get decompressed folder path
+
+    println!("unpack to {:?}", &destination_folder);
+    println!("expect dest: {:?}", dest);
     archive.unpack(&destination_folder)?;
     if !dest.exists() {
         return Err(anyhow::format_err!(

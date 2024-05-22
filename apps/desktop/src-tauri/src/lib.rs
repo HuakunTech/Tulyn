@@ -128,6 +128,9 @@ pub fn run() {
             commands::server::get_extension_folder,
             commands::server::get_dev_extension_folder,
             commands::server::server_is_running,
+            // fs
+            commands::fs::decompress_tarball,
+            commands::fs::compress_tarball,
         ])
         .setup(|app| {
             app.manage(ApplicationsState::default());

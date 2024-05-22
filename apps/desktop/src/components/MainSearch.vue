@@ -38,6 +38,7 @@ import { $appConfig } from "@/lib/stores/appConfig";
 import { useStore } from "@nanostores/vue";
 import {
   $allExtensionListItems,
+  $extensionsStore,
   cmdType,
   getCmdFromValue,
   loadAllExtensionsManifest,
@@ -46,6 +47,7 @@ import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 
 const appState = useStore($appState);
 const appConfig = useStore($appConfig);
+const extStore = useStore($extensionsStore);
 const allExtensionListItems = useStore($allExtensionListItems);
 
 const searchTerm = computed({
