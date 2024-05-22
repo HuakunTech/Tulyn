@@ -14,6 +14,7 @@
     "@astrojs/starlight": "^0.22.2",
     "@astrojs/vue": "^4.2.0",
     "@jarvis/api-ui": "workspace:*",
+    "@jarvis/api": "workspace:*",
     "astro": "^4.3.5",
     "astro-d2": "^0.2.0",
     "sharp": "^0.32.5",
