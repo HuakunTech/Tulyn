@@ -9,7 +9,7 @@ import DeveloperTab from "src/components/settings/DeveloperTab.vue";
 </script>
 <template>
   <Tabs default-value="general" class="w-full h-full flex flex-col px-4">
-    <TabsList class="grid w-full grid-cols-5 select-none">
+    <TabsList class="grid w-full grid-cols-4 select-none">
       <TabsTrigger value="general">
         <CogIcon class="mr-2 h-5 w-5" />
         General
@@ -18,10 +18,10 @@ import DeveloperTab from "src/components/settings/DeveloperTab.vue";
         <Icon icon="fluent:developer-board-lightning-20-regular" class="mr-2 h-5 w-5" />
         Extensions
       </TabsTrigger>
-      <TabsTrigger value="account">
+      <!-- <TabsTrigger value="account">
         <UserRoundIcon class="h-5 w-5 mr-2" />
         Account
-      </TabsTrigger>
+      </TabsTrigger> -->
       <TabsTrigger value="developer">
         <SquareTerminalIcon class="h-5 w-5 mr-2" />
         Developer
@@ -40,7 +40,7 @@ import DeveloperTab from "src/components/settings/DeveloperTab.vue";
     <TabsContent value="developer" class="grow min-h-0">
       <DeveloperTab />
     </TabsContent>
-    <TabsContent value="account"></TabsContent>
+    <!-- <TabsContent value="account"></TabsContent> -->
     <TabsContent value="about" class="grow min-h-0">
       <AboutTab class="" />
     </TabsContent>

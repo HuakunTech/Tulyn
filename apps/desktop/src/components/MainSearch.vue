@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { User } from "lucide-vue-next";
 import { open } from "@tauri-apps/plugin-shell";
 import { Icon } from "@iconify/vue";
 import {

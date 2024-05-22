@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { toast } from "vue-sonner";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -17,10 +18,11 @@ import DragNDrop from "@/components/DragNDrop.vue";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { default as TauriLink } from "@/components/tauri/link.vue";
 import { open } from "@tauri-apps/plugin-dialog";
-import { ref, type HTMLAttributes } from "vue";
+import { onMounted, ref, type HTMLAttributes } from "vue";
 import { cn } from "@/lib/utils";
 import { download } from "@tauri-apps/plugin-upload";
-import { downloadDir, join as pathJoin } from "@tauri-apps/api/path";
+import { downloadDir, templateDir, tempDir, join as pathJoin, join } from "@tauri-apps/api/path";
+import { v4 as uuidv4 } from "uuid";
 
 const props = defineProps<{
   class?: HTMLAttributes["class"];
@@ -43,10 +45,17 @@ async function onDownloadSubmit(e: Event) {
     // get file name from url
     const filename = downloadUrl.value.split("/").pop();
     if (filename) {
-      await download(downloadUrl.value, await pathJoin(await downloadDir(), filename));
+      const tempDirPath = await tempDir();
+      let filepath = await join(tempDirPath, filename);
+      await download(downloadUrl.value, await pathJoin(tempDirPath, filename));
+      console.log();
     }
   }
 }
+
+onMounted(async () => {
+  console.log(await tempDir());
+});
 </script>
 <template>
   <div :class="cn('h-full', props.class)">

@@ -20,11 +20,11 @@ import {
               <span>Server Status</span>
               <HoverCard>
                 <HoverCardTrigger><InfoIcon :size="20" /></HoverCardTrigger>
-                <HoverCardContent>
-                  The frontend of extensions are hosted from a local http server.
-                  Some IPC messages are also routed through this server.
-                  This tab can be used to debug server and check whether the corrected extensions folders are hosted.
-                  The Status badge and folder paths are updated every 1 second.
+                <HoverCardContent class="w-96 ml-10">
+                  The frontend of the extensions is hosted on a local HTTP server, which also routes
+                  some IPC messages. This tab can be used to debug the server and verify if the
+                  correct extension folders are being hosted. The status badge and folder paths are
+                  updated every second.
                 </HoverCardContent>
               </HoverCard>
             </span>
