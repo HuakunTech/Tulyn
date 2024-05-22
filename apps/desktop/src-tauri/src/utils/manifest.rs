@@ -14,8 +14,8 @@ pub fn load_jarvis_ext_manifest(manifest_path: PathBuf) -> Result<JarvisExtManif
     if !std::path::Path::new(&manifest_path).exists() {
         return Err(anyhow::Error::msg(format!(
             "{} not found",
-            manifest_path.to_string_lossy().to_string()
+            manifest_path.to_string_lossy()
         )));
     }
-    Ok(JarvisExtManifest::load(manifest_path)?)
+    JarvisExtManifest::load(manifest_path)
 }

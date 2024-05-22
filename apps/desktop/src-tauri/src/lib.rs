@@ -3,15 +3,12 @@ use applications::utils::image::RustImage;
 use commands::{apps::ApplicationsState, server::Server};
 use std::path::PathBuf;
 use tauri::Manager;
-use tauri_plugin_log::{Target, TargetKind};
 use tauri_plugin_store::StoreBuilder;
-use tokio::runtime::Runtime;
 use utils::{path::get_default_extensions_dir, settings::AppSettings};
 pub mod commands;
 pub mod model;
 pub mod server;
 pub mod utils;
-use window_vibrancy::{apply_vibrancy, NSVisualEffectMaterial};
 // use rdev::{listen, Event};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -151,7 +148,7 @@ pub fn run() {
                 let window = app.get_webview_window("main").unwrap();
                 window.open_devtools();
             }
-            utils::setup::setup_app_path(&app.handle());
+            utils::setup::setup_app_path(app.handle());
             // let window = app.get_webview_window("main").unwrap();
             // #[cfg(target_os = "macos")]
             // apply_vibrancy(&window, NSVisualEffectMaterial::HudWindow, None, None)

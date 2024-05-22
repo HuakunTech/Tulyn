@@ -2,7 +2,7 @@ use applications::utils::image::{RustImage, RustImageData};
 use std::{
     ffi::OsStr,
     fs::File,
-    io::{BufReader, BufWriter, Cursor},
+    io::{BufReader, Cursor},
     path::PathBuf,
 };
 use tauri_icns::{IconFamily, IconType};

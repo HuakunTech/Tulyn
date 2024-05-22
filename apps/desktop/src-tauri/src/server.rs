@@ -7,9 +7,7 @@ use std::path::PathBuf;
 use tonic::{
     transport::Server as tonic_server, Request as GRPC_Request, Response as GRPC_Response, Status,
 };
-use tower::MakeService;
-use tower_http::{services::ServeDir, trace::TraceLayer};
-use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
+use tower_http::{services::ServeDir};
 
 pub mod helloworld {
 

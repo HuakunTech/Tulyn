@@ -30,12 +30,13 @@ pub fn is_devtools_open<R: Runtime>(window: tauri::Window<R>) -> Result<bool, St
     {
         let win = window.get_webview_window(window.label());
         if let Some(win) = win {
-            return Ok(win.is_devtools_open());
+            Ok(win.is_devtools_open())
         } else {
-            return Err("Window not found".to_string());
+            Err("Window not found".to_string())
         }
     }
-    return Err("Devtools is not available in release mode".to_string());
+    #[cfg(not(debug_assertions))]
+    Err("Devtools is not available in release mode".to_string())
 }
 
 #[tauri::command]

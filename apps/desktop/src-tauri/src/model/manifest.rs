@@ -2,21 +2,24 @@ use serde_derive::Deserialize;
 use serde_derive::Serialize;
 use serde_json::Value;
 use std::path::PathBuf;
-use tauri::TitleBarStyle;
 
 pub const MANIFEST_FILE_NAME: &str = "jarvis.ext.json";
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum IconType {
+    #[default]
     Iconify,
     AssetPath,
 }
 
-impl Default for IconType {
-    fn default() -> Self {
-        IconType::Iconify
-    }
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub enum TitleBarStyle {
+    #[default]
+    Visible,
+    Transparent,
+    Overlay,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

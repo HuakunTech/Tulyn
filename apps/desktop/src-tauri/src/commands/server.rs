@@ -3,7 +3,7 @@ use std::{
     path::PathBuf,
     sync::{Arc, Mutex},
 };
-use tauri::{AppHandle, Manager, Runtime};
+use tauri::{AppHandle, Runtime};
 pub struct Server {
     join_handle: Arc<Mutex<Option<tauri::async_runtime::JoinHandle<()>>>>,
     extension_folder: Arc<Mutex<Option<PathBuf>>>,
