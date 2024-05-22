@@ -1,8 +1,6 @@
 packages:
   - "apps/*"
   - "packages/*"
-  - "docs"
-  - "packages/extensions/**"
-  - "packages/extensions-template/*"
   - "vendors/*"
+  - "docs"
   - "dev/docs"
