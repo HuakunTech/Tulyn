@@ -113,6 +113,9 @@ importers:
       nanostores:
         specifier: ^0.10.3
         version: 0.10.3
+      posthog-js:
+        specifier: ^1.132.2
+        version: 1.132.2
       radix-vue:
         specifier: ^1.7.4
         version: 1.7.4(vue@3.4.27)
@@ -201,6 +204,12 @@ importers:
       '@astrojs/starlight':
         specifier: ^0.22.2
         version: 0.22.2(astro@4.8.2)
+      '@astrojs/starlight-tailwind':
+        specifier: ^2.0.3
+        version: 2.0.3(@astrojs/starlight@0.22.2)(@astrojs/tailwind@5.1.0)(tailwindcss@3.4.3)
+      '@astrojs/tailwind':
+        specifier: ^5.1.0
+        version: 5.1.0(astro@4.8.2)(tailwindcss@3.4.3)
       '@astrojs/vue':
         specifier: ^4.2.0
         version: 4.2.0(astro@4.8.2)(vite@5.2.11)(vue@3.4.27)
@@ -219,6 +228,9 @@ importers:
       sharp:
         specifier: ^0.32.5
         version: 0.32.6
+      tailwindcss:
+        specifier: ^3.4.3
+        version: 3.4.3
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -1241,6 +1253,18 @@ packages:
       sitemap: 7.1.1
       stream-replace-string: 2.0.0
       zod: 3.23.8
+    dev: false
+
+  /@astrojs/starlight-tailwind@2.0.3(@astrojs/starlight@0.22.2)(@astrojs/tailwind@5.1.0)(tailwindcss@3.4.3):
+    resolution: {integrity: sha512-ZwbdXS/9rxYlo3tKZoTZoBPUnaaqek02b341dHwOkmMT0lIR2w+8k0mRUGxnRaYtPdMcaL+nYFd8RUa8sjdyRg==}
+    peerDependencies:
+      '@astrojs/starlight': '>=0.9.0'
+      '@astrojs/tailwind': ^5.0.0
+      tailwindcss: ^3.3.3
+    dependencies:
+      '@astrojs/starlight': 0.22.2(astro@4.8.2)
+      '@astrojs/tailwind': 5.1.0(astro@4.8.2)(tailwindcss@3.4.3)
+      tailwindcss: 3.4.3
     dev: false
 
   /@astrojs/starlight@0.22.2(astro@4.8.2):
@@ -7977,6 +8001,10 @@ packages:
     dependencies:
       reusify: 1.0.4
 
+  /fflate@0.4.8:
+    resolution: {integrity: sha512-FJqqoDBR00Mdj9ppamLa/Y7vxm+PRmNWA67N846RvsoYVMKB4q3y/de5PA7gUmRMYK/8CMz2GDZQmCRN1wBcWA==}
+    dev: false
+
   /file-entry-cache@6.0.1:
     resolution: {integrity: sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==}
     engines: {node: ^10.12.0 || >=12.0.0}
@@ -11500,6 +11528,17 @@ packages:
       nanoid: 3.3.7
       picocolors: 1.0.0
       source-map-js: 1.2.0
+
+  /posthog-js@1.132.2:
+    resolution: {integrity: sha512-GkiulyjQU7Ez48jcAeEXgj5zUFE2/D1nKIB83sJk/fD+8sLIYrK6ksR34ZkolEq6lRkFfuSoai/+Zgj79QbyXA==}
+    dependencies:
+      fflate: 0.4.8
+      preact: 10.22.0
+    dev: false
+
+  /preact@10.22.0:
+    resolution: {integrity: sha512-RRurnSjJPj4rp5K6XoP45Ui33ncb7e4H7WiOHVpjbkvqvA3U+N8Z6Qbo0AE6leGYBV66n8EhEaFixvIu3SkxFw==}
+    dev: false
 
   /prebuild-install@7.1.2:
     resolution: {integrity: sha512-UnNke3IQb6sgarcZIDU3gbMeTp/9SSU1DAIkil7PrqG1vZlBtY5msYccSKSHDqa3hNg436IXK+SNImReuA1wEQ==}

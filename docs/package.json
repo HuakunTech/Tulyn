@@ -12,12 +12,15 @@
   "dependencies": {
     "@astrojs/check": "^0.6.0",
     "@astrojs/starlight": "^0.22.2",
+    "@astrojs/starlight-tailwind": "^2.0.3",
+    "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vue": "^4.2.0",
-    "@jarvis/api-ui": "workspace:*",
     "@jarvis/api": "workspace:*",
+    "@jarvis/api-ui": "workspace:*",
     "astro": "^4.3.5",
     "astro-d2": "^0.2.0",
     "sharp": "^0.32.5",
+    "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5",
     "vue": "^3.4.27"
   }

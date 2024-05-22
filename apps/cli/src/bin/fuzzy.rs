@@ -1,26 +1,43 @@
-// use fuzzy_matcher::skim::SkimMatcherV2;
-// use fuzzy_matcher::FuzzyMatcher;
-use sublime_fuzzy::{best_match, format_simple};
+use flate2::read::GzDecoder;
+use std::fs::File;
+use std::io::BufReader;
+use tar::Archive;
 
-fn main() {
-    // let matcher = SkimMatcherV2::default();
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Open the tarball file
+    let tar_gz = File::open("/Users/hacker/Downloads/qrcode.tar.gz")?;
 
-    // // let (score, indices) = matcher
-    // //     .fuzzy_indices("restart", "system command reboot - restart")
-    // //     .unwrap();
-    // // // assert_eq!(indices, [0, 2, 4]);
-    // // println!("score: {}, indices: {:?}", score, indices);
+    // Create a GzDecoder to handle gzip decompression
+    let tar = GzDecoder::new(BufReader::new(tar_gz));
 
-    // let (score, indices) = matcher.fuzzy_indices("reboot", "restart - rebo").unwrap();
-    // // assert_eq!(indices, [0, 2, 4]);
-    // println!("score: {}, indices: {:?}", score, indices);
-    // use sublime_fuzzy::best_match;
+    // Create a tar Archive
+    let mut archive = Archive::new(tar);
 
-    // let result = best_match("something", "some search thing");
+    // Extract the archive to a specified directory
+    let output_dir = "/Users/hacker/Downloads";
+    archive.unpack(output_dir)?;
 
-    let target = "reboot - restart";
+    // Find the top-level directory in the extracted files
+    let mut top_level_dirs = std::fs::read_dir(output_dir)?
+        .filter_map(|entry| {
+            let entry = entry.ok()?;
+            let metadata = entry.metadata().ok()?;
+            if metadata.is_dir() {
+                Some(entry.path())
+            } else {
+                None
+            }
+        })
+        .collect::<Vec<_>>();
 
-    let result = best_match("shutdown", target).unwrap();
+    if top_level_dirs.len() == 1 {
+        println!("Extracted to directory: {:?}", top_level_dirs[0]);
+    } else {
+        println!("Extracted to multiple top-level directories");
+        for dir in top_level_dirs {
+            println!("{:?}", dir);
+        }
+    }
 
-    println!("{:?}", result);
+    Ok(())
 }
