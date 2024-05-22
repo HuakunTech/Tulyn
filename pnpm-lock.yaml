@@ -661,7 +661,7 @@ importers:
         specifier: ^2.0.6
         version: 2.0.19(typescript@5.4.5)
 
-  vendors/extensions/extensions/download-twitter:
+  vendors/extensions/extensions/download-twitter-video:
     dependencies:
       '@hookform/resolvers':
         specifier: ^3.4.0
@@ -7375,7 +7375,7 @@ packages:
       supports-color:
         optional: true
     dependencies:
-      ms: 2.1.2
+      ms: 2.1.3
     dev: true
 
   /debug@4.3.4:
@@ -10315,7 +10315,6 @@ packages:
 
   /ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
-    dev: false
 
   /muggle-string@0.4.1:
     resolution: {integrity: sha512-VNTrAak/KhO2i8dqqnqnAHOa3cYBwXEZe9h+D5h/1ZqFSTEFHdM65lR7RoIqq3tBBYavsOXV84NoHXZ0AkPyqQ==}
