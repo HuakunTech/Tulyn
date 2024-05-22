@@ -12,9 +12,12 @@
   "dependencies": {
     "@astrojs/check": "^0.6.0",
     "@astrojs/starlight": "^0.22.2",
+    "@astrojs/vue": "^4.2.0",
+    "@jarvis/api-ui": "workspace:*",
     "astro": "^4.3.5",
     "astro-d2": "^0.2.0",
     "sharp": "^0.32.5",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "vue": "^3.4.27"
   }
 }

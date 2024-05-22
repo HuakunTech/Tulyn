@@ -26,9 +26,12 @@ description: Jarvis Development Plan
   - From local folder
   - Dev server mode should be supported
   - Extension validator should be implemented
-- Search Engine
+- [ ] Search Engine
   - Implement a robust searching engine for Jarvis to find commands and extensions
   - Implement a global file searcher
+  - Calculator for simple math and currency/unit conversion 
+    - e.g. [smartcalc](https://github.com/ParthJadhav/smartcalc) GPL2
+    - e.g. https://github.com/ParthJadhav/verve AGPL3
 
 ## Stage 2
 

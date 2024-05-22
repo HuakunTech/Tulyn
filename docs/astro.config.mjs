@@ -1,23 +1,22 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
-
 import d2 from "astro-d2";
+
+import vue from "@astrojs/vue";
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [starlight({
     title: "Jarvis",
     social: {
-      github: "https://github.com/withastro/starlight"
+      github: "https://github.com/HuakunTech/Jarvis",
+      discord: "https://discord.gg/bvf6GwxKWX"
     },
     sidebar: [{
       label: "Guides",
-      items: [
-      // Each item here is one entry in the navigation menu.
-      {
-        label: "Example Guide",
-        link: "/guides/example/"
-      }]
+      autogenerate: {
+        directory: "guides"
+      }
     }, {
       label: "Reference",
       autogenerate: {
@@ -38,6 +37,11 @@ export default defineConfig({
       autogenerate: {
         directory: "extensions"
       }
+    }, {
+      label: "Developer",
+      autogenerate: {
+        directory: "developer"
+      }
     }]
-  }), d2()]
+  }), d2(), vue()]
 });

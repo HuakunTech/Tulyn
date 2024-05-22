@@ -201,6 +201,12 @@ importers:
       '@astrojs/starlight':
         specifier: ^0.22.2
         version: 0.22.2(astro@4.8.2)
+      '@astrojs/vue':
+        specifier: ^4.2.0
+        version: 4.2.0(astro@4.8.2)(vite@5.2.11)(vue@3.4.27)
+      '@jarvis/api-ui':
+        specifier: workspace:*
+        version: link:../packages/api-ui
       astro:
         specifier: ^4.3.5
         version: 4.8.2(typescript@5.4.5)
@@ -213,6 +219,9 @@ importers:
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
+      vue:
+        specifier: ^3.4.27
+        version: 3.4.27(typescript@5.4.5)
 
   packages/api:
     dependencies:
@@ -760,79 +769,6 @@ importers:
       vite:
         specifier: ^5.2.0
         version: 5.2.11(@types/node@20.12.11)
-
-  vendors/extensions/extensions/download-youtube:
-    dependencies:
-      '@internationalized/date':
-        specifier: ^3.5.3
-        version: 3.5.3
-      '@jarvis/api':
-        specifier: '*'
-        version: link:../../../../packages/api
-      '@radix-icons/vue':
-        specifier: ^1.0.0
-        version: 1.0.0(vue@3.4.27)
-      '@vee-validate/zod':
-        specifier: ^4.12.8
-        version: 4.12.8(vue@3.4.27)
-      '@vueuse/core':
-        specifier: ^10.9.0
-        version: 10.9.0(vue@3.4.27)
-      class-variance-authority:
-        specifier: ^0.7.0
-        version: 0.7.0
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
-      lucide-vue-next:
-        specifier: ^0.378.0
-        version: 0.378.0(vue@3.4.27)
-      radix-vue:
-        specifier: ^1.7.4
-        version: 1.8.1(vue@3.4.27)
-      tailwind-merge:
-        specifier: ^2.3.0
-        version: 2.3.0
-      tailwindcss-animate:
-        specifier: ^1.0.7
-        version: 1.0.7(tailwindcss@3.4.3)
-      vee-validate:
-        specifier: ^4.12.8
-        version: 4.12.8(vue@3.4.27)
-      vue:
-        specifier: ^3.4.21
-        version: 3.4.27(typescript@5.4.5)
-      zod:
-        specifier: ^3.23.8
-        version: 3.23.8
-    devDependencies:
-      '@iconify-json/radix-icons':
-        specifier: ^1.1.14
-        version: 1.1.14
-      '@iconify/vue':
-        specifier: ^4.1.2
-        version: 4.1.2(vue@3.4.27)
-      '@types/node':
-        specifier: ^20.12.11
-        version: 20.12.11
-      '@vitejs/plugin-vue':
-        specifier: ^5.0.4
-        version: 5.0.4(vite@5.2.11)(vue@3.4.27)
-      autoprefixer:
-        specifier: ^10.4.19
-        version: 10.4.19(postcss@8.4.38)
-      tailwindcss:
-        specifier: ^3.4.3
-        version: 3.4.3
-      typescript:
-        specifier: ^5.2.2
-        version: 5.4.5
-      vite:
-        specifier: ^5.2.0
-        version: 5.2.11(@types/node@20.12.11)
-      vue-tsc:
-        specifier: ^2.0.6
-        version: 2.0.19(typescript@5.4.5)
 
   vendors/extensions/extensions/encode:
     dependencies:
