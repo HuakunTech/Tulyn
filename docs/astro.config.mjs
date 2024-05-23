@@ -12,6 +12,12 @@ export default defineConfig({
     starlight({
       title: "Jarvis",
       customCss: ["./src/tailwind.css", "./src/monaco-editor-fix.css"],
+      logo: {
+        src: "./src/assets/logo.png",
+      },
+      components: {
+        Header: "./src/components/overrides/Header.astro",
+      },
       social: {
         github: "https://github.com/HuakunTech/Jarvis",
         discord: "https://discord.gg/bvf6GwxKWX",
