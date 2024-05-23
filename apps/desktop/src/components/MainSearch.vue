@@ -60,7 +60,7 @@ const searchTerm = computed({
  * This is to prevent the search term from being updated on every key press
  */
 const searchTermInSync = ref("");
-let updateSearchTermTimeout: NodeJS.Timeout;
+let updateSearchTermTimeout: ReturnType<typeof setTimeout>;
 watch(searchTermInSync, (val) => {
   clearTimeout(updateSearchTermTimeout);
   updateSearchTermTimeout = setTimeout(() => {

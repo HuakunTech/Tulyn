@@ -1,5 +1,5 @@
 use crate::{
-    model::manifest::{PackageJsonExtra, MANIFEST_FILE_NAME},
+    model::manifest::{ExtPackageJsonExtra, MANIFEST_FILE_NAME},
     utils::manifest::load_jarvis_ext_manifest,
 };
 use std::path::PathBuf;
@@ -12,8 +12,8 @@ pub async fn load_manifest<R: Runtime>(
     _app: tauri::AppHandle<R>,
     _window: tauri::Window<R>,
     manifest_path: PathBuf,
-) -> Result<PackageJsonExtra, String> {
-    Ok(PackageJsonExtra::from(
+) -> Result<ExtPackageJsonExtra, String> {
+    Ok(ExtPackageJsonExtra::from(
         load_jarvis_ext_manifest(manifest_path.clone()).map_err(|e| e.to_string())?,
         manifest_path.parent().unwrap().to_path_buf(),
     ))
@@ -24,8 +24,8 @@ pub async fn load_all_extensions<R: Runtime>(
     _app: tauri::AppHandle<R>,
     _window: tauri::Window<R>,
     extensions_folder: PathBuf,
-) -> Result<Vec<PackageJsonExtra>, String> {
-    let mut extensions_with_path: Vec<PackageJsonExtra> = vec![];
+) -> Result<Vec<ExtPackageJsonExtra>, String> {
+    let mut extensions_with_path: Vec<ExtPackageJsonExtra> = vec![];
     for entry in std::fs::read_dir(extensions_folder).map_err(|e| e.to_string())? {
         let entry = entry.map_err(|e| e.to_string())?;
 
@@ -34,7 +34,7 @@ pub async fn load_all_extensions<R: Runtime>(
             if ext_manifest.is_err() {
                 continue;
             }
-            extensions_with_path.push(PackageJsonExtra::from(
+            extensions_with_path.push(ExtPackageJsonExtra::from(
                 ext_manifest.unwrap(),
                 entry.path(),
             ));

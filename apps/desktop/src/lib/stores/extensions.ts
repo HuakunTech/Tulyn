@@ -1,27 +1,26 @@
-import { InlineCmd, JarvisExtJson, JarvisExtJsonExtra, TListItem, UiCmd } from "jarvis-api";
+import { InlineCmd, ExtPackageJsonExtra, TListItem, UiCmd } from "jarvis-api";
 import { map, computed } from "nanostores";
 import { z } from "zod";
 import { loadAllExtensions } from "../commands/manifest";
 import { extensionsFolder } from "../constants";
 import { $appConfig } from "./appConfig";
-import { exists, BaseDirectory, mkdir } from "@tauri-apps/plugin-fs";
-import { join } from "@tauri-apps/api/path";
+import { BaseDirectory, mkdir } from "@tauri-apps/plugin-fs";
 import { pathExists } from "../commands/fs";
 
 export const extensionsStoreSchema = z.object({
-  manifests: JarvisExtJsonExtra.array(),
-  devManifests: JarvisExtJsonExtra.array(),
+  manifests: ExtPackageJsonExtra.array(),
+  devManifests: ExtPackageJsonExtra.array(),
 });
 
 export type State = z.infer<typeof extensionsStoreSchema>;
 
 export const $extensionsStore = map<State>({ manifests: [], devManifests: [] });
 
-export function setManifests(manifests: JarvisExtJsonExtra[]) {
+export function setManifests(manifests: ExtPackageJsonExtra[]) {
   $extensionsStore.setKey("manifests", manifests);
 }
 
-export function setDevManifests(manifests: JarvisExtJsonExtra[]) {
+export function setDevManifests(manifests: ExtPackageJsonExtra[]) {
   $extensionsStore.setKey("devManifests", manifests);
 }
 
@@ -59,8 +58,8 @@ export function loadAllExtensionsManifest() {
  * @param cmd Command in Extension
  * @returns
  */
-export function generateExtensionValue(ext: JarvisExtJsonExtra, cmd: UiCmd | InlineCmd) {
-  return `${ext.identifier}/${cmd.name}`;
+export function generateExtensionValue(ext: ExtPackageJsonExtra, cmd: UiCmd | InlineCmd) {
+  return `${ext.jarvis.identifier}/${cmd.name}`;
 }
 
 /**
@@ -68,29 +67,29 @@ export function generateExtensionValue(ext: JarvisExtJsonExtra, cmd: UiCmd | Inl
  * @param manifest
  * @returns
  */
-export function manifestToCmdItems(manifest: JarvisExtJsonExtra): TListItem[] {
-  const uiItems = manifest.uiCmds.map((cmd) => {
+export function manifestToCmdItems(manifest: ExtPackageJsonExtra): TListItem[] {
+  const uiItems = manifest.jarvis.uiCmds.map((cmd) => {
     return {
       title: cmd.name,
       value: generateExtensionValue(manifest, cmd as UiCmd),
       description: `UI Extension`,
       type: "UI Command",
       icon: {
-        value: manifest.icon.icon,
-        type: manifest.icon.type,
+        value: manifest.jarvis.icon.icon,
+        type: manifest.jarvis.icon.type,
       },
       keywords: cmd.cmds.map((c) => c.value), // TODO: handle regex as well
     };
   });
-  const inlineItems = manifest.inlineCmds.map((cmd) => {
+  const inlineItems = manifest.jarvis.inlineCmds.map((cmd) => {
     return {
       title: cmd.name,
       value: generateExtensionValue(manifest, cmd as InlineCmd),
       description: "Inline Extension",
       type: "Inline Command",
       icon: {
-        value: manifest.icon.icon,
-        type: manifest.icon.type,
+        value: manifest.jarvis.icon.icon,
+        type: manifest.jarvis.icon.type,
       },
       keywords: cmd.cmds.map((c) => c.value), // TODO: handle regex as well
     };
@@ -116,7 +115,7 @@ export const cmdType = z.enum(["UI", "Inline"]);
 
 export const ExtCmdBundle = z.object({
   cmd: z.union([UiCmd, InlineCmd]),
-  manifest: JarvisExtJsonExtra,
+  manifest: ExtPackageJsonExtra,
   cmdType: cmdType,
   isDev: z.boolean(), // extension cmd is from dev extension folder
 });
@@ -129,7 +128,7 @@ export type CmdValueMap = z.infer<typeof CmdValueMap>;
 export const $extCmdMap = computed($extensionsStore, (state) => {
   const map: CmdValueMap = {};
   state.manifests.forEach((m) => {
-    m.uiCmds.forEach((cmd) => {
+    m.jarvis.uiCmds.forEach((cmd) => {
       map[generateExtensionValue(m, cmd)] = {
         cmd,
         manifest: m,
@@ -137,7 +136,7 @@ export const $extCmdMap = computed($extensionsStore, (state) => {
         isDev: false,
       };
     });
-    m.inlineCmds.forEach((cmd) => {
+    m.jarvis.inlineCmds.forEach((cmd) => {
       map[generateExtensionValue(m, cmd as InlineCmd)] = {
         cmd: cmd as InlineCmd,
         manifest: m,
@@ -148,7 +147,7 @@ export const $extCmdMap = computed($extensionsStore, (state) => {
   });
 
   state.devManifests.forEach((m) => {
-    m.uiCmds.forEach((cmd) => {
+    m.jarvis.uiCmds.forEach((cmd) => {
       map[generateExtensionValue(m, cmd)] = {
         cmd,
         manifest: m,
@@ -156,7 +155,7 @@ export const $extCmdMap = computed($extensionsStore, (state) => {
         isDev: true,
       };
     });
-    m.inlineCmds.forEach((cmd) => {
+    m.jarvis.inlineCmds.forEach((cmd) => {
       map[generateExtensionValue(m, cmd as InlineCmd)] = {
         cmd: cmd as InlineCmd,
         manifest: m,

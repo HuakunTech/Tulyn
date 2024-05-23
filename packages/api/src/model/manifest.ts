@@ -36,26 +36,31 @@ export const Icon = z.object({
   type: IconType,
   icon: z.string(),
 });
-export const JarvisExtJson = z.object({
-  name: z.string(),
-  version: z.string(),
-  description: z.string(),
+
+export const JarvisExtManifest = z.object({
   identifier: z.string(),
   icon: Icon,
   demoImages: z.array(z.string()),
   uiCmds: UiCmd.array(),
   inlineCmds: InlineCmd.array(),
 });
-export type JarvisExtJson = z.infer<typeof JarvisExtJson>;
+
+export const ExtPackageJson = z.object({
+  name: z.string(),
+  version: z.string(),
+  description: z.string(),
+  jarvis: JarvisExtManifest,
+});
+export type ExtPackageJson = z.infer<typeof ExtPackageJson>;
 
 /**
  * Extra fields for JarvisExtJson
  * e.g. path to the extension
  */
-export const JarvisExtJsonExtra = JarvisExtJson.merge(
+export const ExtPackageJsonExtra = ExtPackageJson.merge(
   z.object({
     extPath: z.string(),
     extFolderName: z.string(),
   }),
 );
-export type JarvisExtJsonExtra = z.infer<typeof JarvisExtJsonExtra>;
+export type ExtPackageJsonExtra = z.infer<typeof ExtPackageJsonExtra>;

@@ -5,6 +5,7 @@ import Search from '@astrojs/starlight/components/Search.astro';
 import SiteTitle from './SiteTitle.astro';
 import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
 import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
+import PostHog from "../posthog.astro";
 
 const curLocale = Astro.props.locale;
 
@@ -38,7 +39,9 @@ const links: Link[] = [
 	},
 ];
 ---
-
+<head>
+	<PostHog />
+</head>
 <div class="header sl-flex">
 	<div class="full-width sl-flex">
 		<SiteTitle {...Astro.props} />

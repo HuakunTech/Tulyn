@@ -1,16 +1,16 @@
 import { invoke } from "@tauri-apps/api/core";
-import { JarvisExtJson, JarvisExtJsonExtra } from "jarvis-api";
+import { ExtPackageJsonExtra } from "jarvis-api";
 
-export function loadManifest(manifestPath: string): Promise<JarvisExtJsonExtra> {
+export function loadManifest(manifestPath: string): Promise<ExtPackageJsonExtra> {
   return invoke("load_manifest", { manifestPath });
 }
 
-export function loadAllExtensions(extensionsFolder: string): Promise<JarvisExtJsonExtra[]> {
+export function loadAllExtensions(extensionsFolder: string): Promise<ExtPackageJsonExtra[]> {
   return invoke("load_all_extensions", { extensionsFolder }).then(
     (res: any) =>
       res
         .map((x: unknown) => {
-          const parse = JarvisExtJsonExtra.safeParse(x);
+          const parse = ExtPackageJsonExtra.safeParse(x);
           if (parse.error) {
             // console.log(x);
             // console.error(parse.error);
@@ -19,6 +19,6 @@ export function loadAllExtensions(extensionsFolder: string): Promise<JarvisExtJs
             return parse.data;
           }
         })
-        .filter((x: JarvisExtJsonExtra | null) => x !== null) as JarvisExtJsonExtra[],
+        .filter((x: ExtPackageJsonExtra | null) => x !== null) as ExtPackageJsonExtra[],
   );
 }

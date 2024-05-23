@@ -1,8 +1,8 @@
-use crate::model::manifest::{PackageJson, MANIFEST_FILE_NAME};
+use crate::model::manifest::{ExtPackageJson, MANIFEST_FILE_NAME};
 use anyhow::Result;
 use std::path::PathBuf;
 
-pub fn load_jarvis_ext_manifest(manifest_path: PathBuf) -> Result<PackageJson> {
+pub fn load_jarvis_ext_manifest(manifest_path: PathBuf) -> Result<ExtPackageJson> {
     // check if it's a folder
 
     let manifest_path = if manifest_path.is_file() && manifest_path.ends_with(MANIFEST_FILE_NAME) {
@@ -17,5 +17,5 @@ pub fn load_jarvis_ext_manifest(manifest_path: PathBuf) -> Result<PackageJson> {
             manifest_path.to_string_lossy()
         )));
     }
-    PackageJson::load(manifest_path)
+    ExtPackageJson::load(manifest_path)
 }

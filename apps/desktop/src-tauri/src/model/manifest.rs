@@ -34,15 +34,15 @@ pub struct Icon {
 #[serde(rename_all = "camelCase")]
 pub struct JarvisExtManifest {
     pub identifier: String,
+    pub icon: Icon,
     pub demo_images: Vec<Value>,
     pub ui_cmds: Vec<UiCmd>,
     pub inline_cmds: Vec<InlineCmd>,
-    pub icon: Icon,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct PackageJson {
+pub struct ExtPackageJson {
     pub name: String,
     pub version: String,
     pub description: String,
@@ -51,7 +51,7 @@ pub struct PackageJson {
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct PackageJsonExtra {
+pub struct ExtPackageJsonExtra {
     pub name: String,
     pub version: String,
     pub description: String,
@@ -61,8 +61,8 @@ pub struct PackageJsonExtra {
     pub ext_folder_name: String,
 }
 
-impl PackageJsonExtra {
-    pub fn from(manifest: PackageJson, ext_path: PathBuf) -> Self {
+impl ExtPackageJsonExtra {
+    pub fn from(manifest: ExtPackageJson, ext_path: PathBuf) -> Self {
         Self {
             name: manifest.name,
             version: manifest.version,
@@ -74,7 +74,7 @@ impl PackageJsonExtra {
     }
 }
 
-impl PackageJson {
+impl ExtPackageJson {
     pub fn load(manifest_path: PathBuf) -> anyhow::Result<Self> {
         let manifest_str = std::fs::read_to_string(manifest_path).unwrap();
         Ok(serde_json::from_str(&manifest_str)?)
@@ -122,15 +122,16 @@ mod tests {
 
     #[test]
     fn test_load_extension_manifest() {
+        // this test relies on submodule
         let manifest_paths = vec![
-            // "../../../packages/extensions/qrcode/jarvis.ext.json",
+            "../../../vendors/extensions/extensions/download-twitter-video/package.json",
+            "../../../vendors/extensions/extensions/jwt/package.json",
             "../../../vendors/extensions/extensions/myip/package.json",
-            // "../../../packages/extensions/vscode-project-manager/jarvis.ext.json",
+            "../../../vendors/extensions/extensions/qrcode/package.json",
         ];
         for manifest_path in manifest_paths {
             let manifest_str = std::fs::read_to_string(manifest_path).unwrap();
-            println!("manifest_str: {}", manifest_str);
-            let _: PackageJson = serde_json::from_str(&manifest_str).unwrap();
+            let _: ExtPackageJson = serde_json::from_str(&manifest_str).unwrap();
         }
     }
 }
