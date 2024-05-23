@@ -21,7 +21,7 @@ import {
   type AppInfo,
   type TCommand,
   type TListItem,
-} from "@jarvis/api";
+} from "jarvis-api";
 import {
   AlertDialogControlled,
   AlertDialogAction,

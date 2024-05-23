@@ -14,7 +14,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { onMounted, ref } from "vue";
-import { UiCmd, type TList, type TListItem } from "@jarvis/api";
+import { UiCmd, type TList, type TListItem } from "jarvis-api";
 import { useStore } from "@nanostores/vue";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { Window } from "@tauri-apps/api/window";

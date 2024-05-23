@@ -1,4 +1,4 @@
-import { InlineCmd, JarvisExtJson, JarvisExtJsonExtra, TListItem, UiCmd } from "@jarvis/api";
+import { InlineCmd, JarvisExtJson, JarvisExtJsonExtra, TListItem, UiCmd } from "jarvis-api";
 import { map, computed } from "nanostores";
 import { z } from "zod";
 import { loadAllExtensions } from "../commands/manifest";

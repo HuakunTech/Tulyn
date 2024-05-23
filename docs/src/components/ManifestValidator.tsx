@@ -1,5 +1,5 @@
 import Editor, { type OnChange } from "@monaco-editor/react";
-import { JarvisExtJson } from "@jarvis/api";
+import { JarvisExtJson } from "jarvis-api";
 import { useEffect, useMemo, useState } from "react";
 
 const defaultJson = `{

@@ -35,9 +35,6 @@ importers:
       '@internationalized/date':
         specifier: ^3.5.3
         version: 3.5.3
-      '@jarvis/api':
-        specifier: workspace:*
-        version: link:../../packages/api
       '@monaco-editor/react':
         specifier: ^4.6.0
         version: 4.6.0(monaco-editor@0.48.0)(react-dom@18.3.1)(react@18.3.1)
@@ -104,6 +101,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      jarvis-api:
+        specifier: workspace:*
+        version: link:../../packages/api
       lucide-vue-next:
         specifier: ^0.378.0
         version: 0.378.0(vue@3.4.27)
@@ -219,9 +219,6 @@ importers:
       '@astrojs/vue':
         specifier: ^4.2.0
         version: 4.2.0(astro@4.8.2)(vite@5.2.11)(vue@3.4.27)
-      '@jarvis/api':
-        specifier: workspace:*
-        version: link:../packages/api
       '@monaco-editor/react':
         specifier: ^4.6.0
         version: 4.6.0(monaco-editor@0.48.0)(react-dom@18.3.1)(react@18.3.1)
@@ -237,6 +234,9 @@ importers:
       astro-d2:
         specifier: ^0.2.0
         version: 0.2.0(astro@4.8.2)
+      jarvis-api:
+        specifier: workspace:*
+        version: link:../packages/api
       monaco-editor:
         specifier: ^0.48.0
         version: 0.48.0
@@ -368,7 +368,7 @@ importers:
 
   packages/runtime:
     dependencies:
-      '@jarvis/api':
+      jarvis-api:
         specifier: workspace:*
         version: link:../api
       typescript:
@@ -467,9 +467,6 @@ importers:
 
   vendors/extensions/extension-templates/jarvis-ext-nuxt:
     dependencies:
-      '@jarvis/api':
-        specifier: '*'
-        version: link:../../../../packages/api
       '@radix-icons/vue':
         specifier: ^1.0.0
         version: 1.0.0(vue@3.4.27)
@@ -479,6 +476,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      jarvis-api:
+        specifier: workspace:*
+        version: link:../../../../packages/api
       nuxt:
         specifier: ^3.11.2
         version: 3.11.2(@opentelemetry/api@1.8.0)(@unocss/reset@0.60.3)(eslint@8.57.0)(floating-vue@5.2.2)(typescript@5.4.5)(unocss@0.60.3)(vite@5.2.11)
@@ -519,9 +519,6 @@ importers:
 
   vendors/extensions/extension-templates/jarvis-ext-react:
     dependencies:
-      '@jarvis/api':
-        specifier: '*'
-        version: link:../../../../packages/api
       '@radix-ui/react-dropdown-menu':
         specifier: ^2.0.6
         version: 2.0.6(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
@@ -537,6 +534,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      jarvis-api:
+        specifier: workspace:*
+        version: link:../../../../packages/api
       lucide-react:
         specifier: ^0.378.0
         version: 0.378.0(react@18.3.1)
@@ -598,15 +598,15 @@ importers:
 
   vendors/extensions/extension-templates/jarvis-ext-svelte:
     dependencies:
-      '@jarvis/api':
-        specifier: '*'
-        version: link:../../../../packages/api
       bits-ui:
         specifier: ^0.21.7
         version: 0.21.9(svelte@4.2.17)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      jarvis-api:
+        specifier: workspace:*
+        version: link:../../../../packages/api
       mode-watcher:
         specifier: ^0.3.0
         version: 0.3.0(svelte@4.2.17)
@@ -650,9 +650,6 @@ importers:
 
   vendors/extensions/extension-templates/jarvis-ext-vue:
     dependencies:
-      '@jarvis/api':
-        specifier: '*'
-        version: link:../../../../packages/api
       '@radix-icons/vue':
         specifier: ^1.0.0
         version: 1.0.0(vue@3.4.27)
@@ -665,6 +662,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      jarvis-api:
+        specifier: workspace:*
+        version: link:../../../../packages/api
       radix-vue:
         specifier: ^1.7.4
         version: 1.8.1(vue@3.4.27)
@@ -711,9 +711,6 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.4.0
         version: 3.4.2(react-hook-form@7.51.5)
-      '@jarvis/api':
-        specifier: '*'
-        version: link:../../../../packages/api
       '@radix-ui/react-dropdown-menu':
         specifier: ^2.0.6
         version: 2.0.6(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
@@ -738,6 +735,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      jarvis-api:
+        specifier: workspace:*
+        version: link:../../../../packages/api
       lucide-react:
         specifier: ^0.378.0
         version: 0.378.0(react@18.3.1)
@@ -805,9 +805,6 @@ importers:
 
   vendors/extensions/extensions/encode:
     dependencies:
-      '@jarvis/api':
-        specifier: '*'
-        version: link:../../../../packages/api
       '@radix-icons/vue':
         specifier: ^1.0.0
         version: 1.0.0(vue@3.4.27)
@@ -817,6 +814,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      jarvis-api:
+        specifier: workspace:*
+        version: link:../../../../packages/api
       nuxt:
         specifier: ^3.11.2
         version: 3.11.2(@opentelemetry/api@1.8.0)(@unocss/reset@0.60.3)(eslint@8.57.0)(floating-vue@5.2.2)(typescript@5.4.5)(unocss@0.60.3)(vite@5.2.11)
@@ -857,9 +857,6 @@ importers:
 
   vendors/extensions/extensions/jwt:
     dependencies:
-      '@jarvis/api':
-        specifier: workspace:*
-        version: link:../../../../packages/api
       bits-ui:
         specifier: ^0.21.7
         version: 0.21.9(svelte@4.2.17)
@@ -872,6 +869,9 @@ importers:
       dayjs:
         specifier: ^1.11.11
         version: 1.11.11
+      jarvis-api:
+        specifier: workspace:*
+        version: link:../../../../packages/api
       jose:
         specifier: ^5.3.0
         version: 5.3.0
@@ -933,9 +933,6 @@ importers:
 
   vendors/extensions/extensions/myip:
     dependencies:
-      '@jarvis/api':
-        specifier: workspace:*
-        version: link:../../../../packages/api
       '@radix-icons/vue':
         specifier: ^1.0.0
         version: 1.0.0(vue@3.4.27)
@@ -951,6 +948,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      jarvis-api:
+        specifier: workspace:*
+        version: link:../../../../packages/api
       radix-vue:
         specifier: ^1.8.0
         version: 1.8.1(vue@3.4.27)
@@ -1015,9 +1015,6 @@ importers:
 
   vendors/extensions/extensions/qrcode:
     dependencies:
-      '@jarvis/api':
-        specifier: '*'
-        version: link:../../../../packages/api
       bits-ui:
         specifier: ^0.21.7
         version: 0.21.9(svelte@4.2.17)
@@ -1027,6 +1024,9 @@ importers:
       easyqrcodejs:
         specifier: ^4.6.1
         version: 4.6.1
+      jarvis-api:
+        specifier: workspace:*
+        version: link:../../../../packages/api
       jsqr:
         specifier: ^1.4.0
         version: 1.4.0

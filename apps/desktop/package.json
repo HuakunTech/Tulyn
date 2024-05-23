@@ -17,7 +17,7 @@
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vue": "^4.2.0",
     "@internationalized/date": "^3.5.3",
-    "@jarvis/api": "workspace:*",
+    "jarvis-api": "workspace:*",
     "@monaco-editor/react": "^4.6.0",
     "@nanostores/persistent": "^0.10.1",
     "@nanostores/vue": "^0.10.0",

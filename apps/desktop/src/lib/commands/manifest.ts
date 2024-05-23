@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import { JarvisExtJson, JarvisExtJsonExtra } from "@jarvis/api";
+import { JarvisExtJson, JarvisExtJsonExtra } from "jarvis-api";
 
 export function loadManifest(manifestPath: string): Promise<JarvisExtJsonExtra> {
   return invoke("load_manifest", { manifestPath });
