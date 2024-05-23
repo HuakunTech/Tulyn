@@ -6,7 +6,8 @@
     "test": "bun test --coverage"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "typedoc": "^0.25.13"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
