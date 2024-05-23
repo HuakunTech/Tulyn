@@ -1,8 +1,7 @@
 import { getDevExtensionFolder } from "@/lib/commands/server";
 import { tempDir, join as pathJoin, downloadDir } from "@tauri-apps/api/path";
 import { v4 as uuidv4 } from "uuid";
-import * as fs from "@tauri-apps/plugin-fs";
-import { decompressTarball } from "@jarvis/api-ui/src/fs";
+import { fs } from "@jarvis/api/ui";
 
 /**
  *
@@ -17,6 +16,6 @@ export async function installTarball(tarballPath: string) {
   }
   const extInstallPath = await pathJoin(extDir, uuidv4());
   // await rename(tarballPath, "/Users/hacker/Downloads/qrcode.tar.gz");
-  const decompressDest = await decompressTarball(tarballPath, tempDirPath, { overwrite: true });
+  const decompressDest = await fs.decompressTarball(tarballPath, tempDirPath, { overwrite: true });
   await fs.rename(decompressDest, extInstallPath);
 }

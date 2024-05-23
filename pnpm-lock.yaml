@@ -38,9 +38,6 @@ importers:
       '@jarvis/api':
         specifier: workspace:*
         version: link:../../packages/api
-      '@jarvis/api-ui':
-        specifier: workspace:*
-        version: link:../../packages/api-ui
       '@monaco-editor/react':
         specifier: ^4.6.0
         version: 4.6.0(monaco-editor@0.48.0)(react-dom@18.3.1)(react@18.3.1)
@@ -225,9 +222,6 @@ importers:
       '@jarvis/api':
         specifier: workspace:*
         version: link:../packages/api
-      '@jarvis/api-ui':
-        specifier: workspace:*
-        version: link:../packages/api-ui
       '@monaco-editor/react':
         specifier: ^4.6.0
         version: 4.6.0(monaco-editor@0.48.0)(react-dom@18.3.1)(react@18.3.1)
@@ -274,22 +268,6 @@ importers:
 
   packages/api:
     dependencies:
-      typescript:
-        specifier: ^5.0.0
-        version: 5.4.5
-      zod:
-        specifier: ^3.23.8
-        version: 3.23.8
-    devDependencies:
-      '@types/bun':
-        specifier: latest
-        version: 1.1.2
-      typedoc:
-        specifier: ^0.25.13
-        version: 0.25.13(typescript@5.4.5)
-
-  packages/api-ui:
-    dependencies:
       '@tauri-apps/api':
         specifier: 2.0.0-beta.11
         version: 2.0.0-beta.11
@@ -329,10 +307,16 @@ importers:
       typescript:
         specifier: ^5.0.0
         version: 5.4.5
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@types/bun':
         specifier: latest
         version: 1.1.2
+      typedoc:
+        specifier: ^0.25.13
+        version: 0.25.13(typescript@5.4.5)
 
   packages/common:
     dependencies:
@@ -730,9 +714,6 @@ importers:
       '@jarvis/api':
         specifier: '*'
         version: link:../../../../packages/api
-      '@jarvis/api-ui':
-        specifier: workspace:*
-        version: link:../../../../packages/api-ui
       '@radix-ui/react-dropdown-menu':
         specifier: ^2.0.6
         version: 2.0.6(@types/react-dom@18.3.0)(@types/react@18.3.2)(react-dom@18.3.1)(react@18.3.1)
@@ -876,9 +857,9 @@ importers:
 
   vendors/extensions/extensions/jwt:
     dependencies:
-      '@jarvis/api-ui':
+      '@jarvis/api':
         specifier: workspace:*
-        version: link:../../../../packages/api-ui
+        version: link:../../../../packages/api
       bits-ui:
         specifier: ^0.21.7
         version: 0.21.9(svelte@4.2.17)
@@ -952,9 +933,9 @@ importers:
 
   vendors/extensions/extensions/myip:
     dependencies:
-      '@jarvis/api-ui':
+      '@jarvis/api':
         specifier: workspace:*
-        version: link:../../../../packages/api-ui
+        version: link:../../../../packages/api
       '@radix-icons/vue':
         specifier: ^1.0.0
         version: 1.0.0(vue@3.4.27)
@@ -1068,9 +1049,6 @@ importers:
         specifier: ^0.30.0
         version: 0.30.0
     devDependencies:
-      '@jarvis/api-ui':
-        specifier: workspace:*
-        version: link:../../../../packages/api-ui
       '@sveltejs/vite-plugin-svelte':
         specifier: ^3.0.2
         version: 3.1.0(svelte@4.2.17)(vite@5.2.11)

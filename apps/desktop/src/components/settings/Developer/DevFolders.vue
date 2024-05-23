@@ -2,7 +2,7 @@
 import { getDevExtensionFolder, getExtensionFolder } from "@/lib/commands/server";
 import { Button } from "@/components/ui/button";
 import { onMounted, ref } from "vue";
-import { open } from "@jarvis/api-ui";
+import { open } from "@jarvis/api/ui";
 import { Icon } from "@iconify/vue";
 
 const extFolder = ref<string | null>();
@@ -18,20 +18,20 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <div class="flex justify-between pr-5">
+  <div class="flex flex-col space-y-3 pr-5">
     <ul>
       <li
         class="text-muted-foreground cursor-pointer flex space-x-2 items-center"
         @click="extFolder && open(extFolder)"
       >
-        <span>{{ extFolder }}</span
+        <strong>Extension Path: </strong><span class="">{{ extFolder }}</span
         ><Icon icon="ion:open-outline" />
       </li>
       <li
         class="text-muted-foreground cursor-pointer flex space-x-2 items-center"
         @click="devExtFolder && open(devExtFolder)"
       >
-        <span>{{ devExtFolder }}</span
+        <strong>Dev Extension Path: </strong><span>{{ devExtFolder }}</span
         ><Icon icon="ion:open-outline" />
       </li>
     </ul>

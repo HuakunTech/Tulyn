@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
-import { window } from "@jarvis/api-ui";
-import { getCurrent } from "@tauri-apps/api/webviewWindow";
 import "@/styles/globals.css";
 import "@/styles/toast.css";
 import { useColorMode } from "@vueuse/core";

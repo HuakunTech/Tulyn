@@ -3,21 +3,13 @@ import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
 // import CustomComponent from './CustomComponent.astro';
 ---
 
-<StarlightPage
-  frontmatter={{ title: "API docs" }}
-  sidebar={[
-    { label: "Home", href: "/" },
-    {
-      label: "Constellations",
-      items: [
-        { label: "Andromeda", href: "/andromeda/" },
-        { label: "Orion", href: "/orion/", isCurrent: true },
-        { label: "Ursa Minor", href: "/ursa-minor/", badge: "Stub" },
-      ],
-    },
-  ]}
-  hasSidebar={false}
-  
->
-  <p>This is a custom page with a custom component:</p>
+<StarlightPage frontmatter={{ title: "API docs" }} hasSidebar={false}>
+  <a href="https://jarvis-api-doc.pages.dev">API Docs</a>
+  <div class="h-[80vh]">
+    <iframe
+      src="https://jarvis-api-doc.pages.dev"
+      allow="fullscreen"
+      class="w-full h-full"
+      height="100%"></iframe>
+  </div>
 </StarlightPage>
