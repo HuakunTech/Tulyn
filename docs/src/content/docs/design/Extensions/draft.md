@@ -84,7 +84,7 @@ In Jarvis runtime, run with bun
 runtime.connect("http://localhost:1566");
 runtime.getExtensionInfo(); // get extension info from server, such as command keywords, etc.
 
-// it's possible to include this code in @jarvis/api and let extension run this client to connect with server
+// it's possible to include this code in jarvis-api and let extension run this client to connect with server
 // but if there are many extensions, the client code will be duplicated in each extension (e.g. socketio client lib duplicated many times)
 runtime.on("user-input", (data) => {
   const userInput: string = data;

@@ -1,7 +1,7 @@
 import { getDevExtensionFolder } from "@/lib/commands/server";
 import { tempDir, join as pathJoin, downloadDir } from "@tauri-apps/api/path";
 import { v4 as uuidv4 } from "uuid";
-import { fs } from "@jarvis/api/ui";
+import { fs } from "jarvis-api/ui";
 
 /**
  *

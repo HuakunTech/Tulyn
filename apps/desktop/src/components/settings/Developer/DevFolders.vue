@@ -2,7 +2,7 @@
 import { getDevExtensionFolder, getExtensionFolder } from "@/lib/commands/server";
 import { Button } from "@/components/ui/button";
 import { onMounted, ref } from "vue";
-import { open } from "@jarvis/api/ui";
+import { open } from "jarvis-api/ui";
 import { Icon } from "@iconify/vue";
 
 const extFolder = ref<string | null>();

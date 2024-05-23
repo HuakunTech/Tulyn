@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { window } from "@jarvis/api/ui";
+import { window } from "jarvis-api/ui";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { currentMonitor } from "@tauri-apps/api/window";
 import { enqueueToast, $toasts } from "@/lib/stores/toast";

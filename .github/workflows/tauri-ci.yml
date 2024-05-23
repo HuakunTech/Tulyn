@@ -75,7 +75,7 @@ jobs:
         # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
         run: |
           pnpm install # change this to npm or pnpm depending on which one you use.
-          pnpm build # build @jarvis/api
+          pnpm build # build jarvis-api
 
       - uses: tauri-apps/tauri-action@v0
         env:

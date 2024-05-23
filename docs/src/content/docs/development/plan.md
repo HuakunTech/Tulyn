@@ -16,9 +16,9 @@ description: Jarvis Development Plan
   - It should be able to control Tauri API commands
 - [ ] Extract bun runtime
   - Bun is current ~51MB on mac, and 93MB on Linux, comparing to deno and nodejs (~100MB) (The size is really platform-specific). Bun is also a package manager and wasm runtime. The only thing we need is the JS/TS runtime, Try to extract it and see how small it can be. Start by looking at the CLI entrypoint and remove the package manager part.
-- [ ] Implement `@jarvis/api` in TypeScript
-  - `@jarvis/api/ui` is for UI extensions that runs in Tauri. The APIs calls Tauri commands
-  - `@jarvis/api` is for library extensions. e.g. List View Builder (return a `ListView` to extension runtime that can be translated to json), etc.
+- [ ] Implement `jarvis-api` in TypeScript
+  - `jarvis-api/ui` is for UI extensions that runs in Tauri. The APIs calls Tauri commands
+  - `jarvis-api` is for library extensions. e.g. List View Builder (return a `ListView` to extension runtime that can be translated to json), etc.
 - [ ] Implement `@jarvis/rt` in TypeScript
   - `@jarvis/rt` is the runtime for Jarvis extensions, run with bun. The runtime process will communicate with the extension server, call extension functions and control the UI.
 - [ ] Implement installation system for extensions
