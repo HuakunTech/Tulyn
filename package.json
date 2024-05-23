@@ -16,7 +16,6 @@
   "workspaces": [
     "apps/*",
     "packages/*",
-    "vendors/*",
     "docs",
     "dev/docs"
   ]

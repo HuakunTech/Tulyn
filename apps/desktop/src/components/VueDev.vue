@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Window } from "@tauri-apps/api/window";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
-import { readText } from "tauri-plugin-clipboard-api";
+import { clipboard } from "jarvis-api/ui";
 import { invoke } from "@tauri-apps/api/core";
 
 function loadWebView() {
@@ -16,7 +16,7 @@ function loadWebView() {
   <Button
     @click="
       () => {
-        readText().then((text) => {
+        clipboard.readText().then((text) => {
           console.log(text);
         });
       }
