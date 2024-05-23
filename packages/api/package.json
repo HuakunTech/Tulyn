@@ -3,7 +3,9 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "test": "bun test --coverage"
+    "test": "bun test --coverage",
+    "build:doc": "npx typedoc",
+    "build": "npm run build:doc"
   },
   "devDependencies": {
     "@types/bun": "latest",
