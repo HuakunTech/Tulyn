@@ -1,16 +1,17 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import d2 from "astro-d2";
-import vue from "@astrojs/vue";
-
 import tailwind from "@astrojs/tailwind";
+import vue from "@astrojs/vue";
+import react from "@astrojs/react";
+import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [
     starlight({
       title: "Jarvis",
-      customCss: ["./src/tailwind.css"],
+      customCss: ["./src/tailwind.css", "./src/monaco-editor-fix.css"],
       social: {
         github: "https://github.com/HuakunTech/Jarvis",
         discord: "https://discord.gg/bvf6GwxKWX",
@@ -55,7 +56,11 @@ export default defineConfig({
       ],
     }),
     d2(),
+    tailwind({
+      applyBaseStyles: false,
+    }),
     vue(),
-    tailwind({ applyBaseStyles: false }),
+    react(),
+    svelte(),
   ],
 });
