@@ -1,6 +1,53 @@
 import Editor, { type OnChange } from "@monaco-editor/react";
 import { JarvisExtJson } from "@jarvis/api";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+
+const defaultJson = `{
+  "name": "JWT Inspector",
+  "version": "0.0.1",
+  "description": "JWT Inspector",
+  "identifier": "tech.huakun.jarvis-jwt-inspector",
+  "demoImages": [],
+  "icon": {
+      "type": "iconify",
+      "icon": "logos:jwt-icon"
+  },
+  "uiCmds": [
+      {
+          "main": "dist/index.html",
+          "name": "View Decoded JWT",
+          "devMain": "http://localhost:5173",
+          "window": {
+              "width": 800,
+              "height": 500,
+              "titleBarStyle": "overlay"
+          },
+          "cmds": [
+              {
+                  "type": "text",
+                  "value": "jwt"
+              }
+          ]
+      },
+      {
+          "main": "dist/search.html",
+          "name": "Search Decoded JWT",
+          "devMain": "http://localhost:5173/search",
+          "window": {
+              "width": 800,
+              "height": 500,
+              "titleBarStyle": "overlay"
+          },
+          "cmds": [
+              {
+                  "type": "text",
+                  "value": "search-jwt"
+              }
+          ]
+      }
+  ],
+  "inlineCmds": []
+}`;
 
 export default function MonacoEditor() {
   const [packagejson, setPackagejson] = useState("");
@@ -31,17 +78,24 @@ export default function MonacoEditor() {
     }
   };
 
+  useEffect(() => {
+    setPackagejson(defaultJson);
+    parse(defaultJson);
+  }, []);
+
   return (
     <>
       <div className="text-xl">
         <strong>Is Valid: </strong>
-        <span className="dark:text-yellow-400 text-blue-700 font-extrabold">{isValid ? "true" : "false"}</span>
+        <span className="dark:text-yellow-400 text-blue-700 font-extrabold">
+          {isValid ? "true" : "false"}
+        </span>
       </div>
       <Editor
         height="50vh"
         defaultLanguage="json"
         theme="vs-dark"
-        defaultValue={`{}`}
+        defaultValue={defaultJson}
         onChange={handleEditorChange}
       />
       {errMsg && (
