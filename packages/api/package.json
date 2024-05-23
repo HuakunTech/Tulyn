@@ -6,11 +6,14 @@
   "scripts": {
     "test": "bun test --coverage",
     "build:doc": "npx typedoc",
-    "build": "npm run build:doc"
+    "build": "npm run build:doc",
+    "build:ext-json-schema": "bun scripts/gen-json-schema.ts > jarvis-ext-package-json-schema.json"
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "typedoc": "^0.25.13"
+    "tsup": "^8.0.2",
+    "typedoc": "^0.25.13",
+    "zod-to-json-schema": "^3.23.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"

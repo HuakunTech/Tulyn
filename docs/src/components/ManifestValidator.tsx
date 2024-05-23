@@ -1,8 +1,10 @@
-import Editor, { type OnChange } from "@monaco-editor/react";
+import Editor, { type OnChange, type OnMount, type Monaco } from "@monaco-editor/react";
 import { ExtPackageJson } from "jarvis-api";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import jsonWorker from "monaco-editor/esm/vs/language/json/json.worker?worker";
 
 const defaultJson = `{
+  "$schema": "https://jarvis-extensions.huakun.tech/jarvis-ext-package-json-schema.json",
   "name": "jarvis-ext-jwt",
   "private": true,
   "version": "0.0.0",
@@ -87,8 +89,9 @@ const defaultJson = `{
   }
 }`;
 
-export default function MonacoEditor() {
+export default function SchemaValidatorEditor() {
   const [packagejson, setPackagejson] = useState("");
+  const monacoRef = useRef<null | Monaco>(null);
   const [errMsg, setErrMsg] = useState<string>("");
   const isValid = useMemo(() => {
     return errMsg.length === 0 && packagejson.length > 0;
@@ -116,6 +119,19 @@ export default function MonacoEditor() {
     }
   };
 
+  const handleEditorDidMount: OnMount = (editor, monaco) => {
+    console.log("editorDidMount", editor, monaco);
+
+    monacoRef.current = monaco;
+    monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
+      enableSchemaRequest: true,
+      validate: true,
+      schemas: [ // TODO: this schema is not working, I have to use $schema in the json file
+        { uri: "https://jarvis-extensions.huakun.tech/jarvis-ext-package-json-schema.json" },
+      ],
+    });
+  };
+
   useEffect(() => {
     setPackagejson(defaultJson);
     parse(defaultJson);
@@ -135,15 +151,19 @@ export default function MonacoEditor() {
         theme="vs-dark"
         defaultValue={defaultJson}
         onChange={handleEditorChange}
+        onMount={handleEditorDidMount}
       />
       {errMsg && (
-        <Editor
-          height="30vh"
-          defaultLanguage="json"
-          theme="vs-dark"
-          value={errMsg}
-          onChange={handleEditorChange}
-        />
+        <>
+          <strong>Error</strong>
+          <Editor
+            height="30vh"
+            defaultLanguage="json"
+            theme="vs-dark"
+            value={errMsg}
+            onChange={handleEditorChange}
+          />
+        </>
       )}
     </>
   );

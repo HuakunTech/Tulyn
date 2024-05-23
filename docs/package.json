@@ -1,4 +1,5 @@
 {
+  "$schema": "https://jarvis-extensions.huakun.tech/jarvis-ext-package-json-schema.json",
   "name": "docs",
   "type": "module",
   "version": "0.0.1",
