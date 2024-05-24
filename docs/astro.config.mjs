@@ -11,7 +11,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "Jarvis",
-      customCss: ["./src/tailwind.css", "./src/monaco-editor-fix.css"],
+      customCss: ["./src/tailwind.css"],
       logo: {
         src: "./src/assets/logo.png",
       },
