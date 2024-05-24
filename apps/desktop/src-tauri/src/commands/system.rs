@@ -4,42 +4,27 @@ use super::utils::run_apple_script;
 
 #[tauri::command]
 pub async fn open_trash() -> Result<(), String> {
-    #[cfg(target_os = "macos")]
-    return run_apple_script("tell application \"Finder\" to open trash");
-    #[cfg(target_os = "linux")]
-    return SystemCmds::open_trash().map_err(|err| err.to_string());
+    SystemCmds::open_trash().map_err(|err| err.to_string())
 }
 
 #[tauri::command]
 pub async fn empty_trash() -> Result<(), String> {
-    #[cfg(target_os = "macos")]
-    return run_apple_script("tell application \"Finder\" to empty the trash");
-    #[cfg(target_os = "linux")]
-    return SystemCmds::empty_trash().map_err(|err| err.to_string());
+    SystemCmds::empty_trash().map_err(|err| err.to_string())
 }
 
 #[tauri::command]
 pub async fn shutdown() -> Result<(), String> {
-    #[cfg(target_os = "macos")]
-    return run_apple_script("tell application \"System Events\" to shut down");
-    #[cfg(target_os = "linux")]
-    return SystemCmds::shutdown().map_err(|err| err.to_string());
+    SystemCmds::shutdown().map_err(|err| err.to_string())
 }
 
 #[tauri::command]
 pub async fn reboot() -> Result<(), String> {
-    #[cfg(target_os = "macos")]
-    return run_apple_script("tell application \"System Events\" to restart");
-    #[cfg(target_os = "linux")]
-    return SystemCmds::reboot().map_err(|err| err.to_string());
+    SystemCmds::reboot().map_err(|err| err.to_string())
 }
 
 #[tauri::command]
 pub async fn sleep() -> Result<(), String> {
-    #[cfg(target_os = "macos")]
-    return run_apple_script("tell application \"System Events\" to sleep");
-    #[cfg(target_os = "linux")]
-    return SystemCmds::sleep().map_err(|err| err.to_string());
+    SystemCmds::sleep().map_err(|err| err.to_string())
 }
 
 /// ```applescript
@@ -60,11 +45,13 @@ pub async fn toggle_system_appearance() -> Result<(), String> {
         end tell
     "#,
     )
+    .map_err(|err| err.to_string())
 }
 
 #[tauri::command]
 pub async fn show_desktop() -> Result<(), String> {
     run_apple_script("tell application \"System Events\" to key code 103")
+        .map_err(|err| err.to_string())
 }
 
 #[tauri::command]
@@ -74,32 +61,23 @@ pub async fn quit_all_apps() -> Result<(), String> {
 
 #[tauri::command]
 pub async fn sleep_displays() -> Result<(), String> {
-    run_apple_script("do shell script \"pmset displaysleepnow\"")
+    run_apple_script("do shell script \"pmset displaysleepnow\"").map_err(|err| err.to_string())
 }
 
 /// Set Volume to 0
 #[tauri::command]
 pub async fn set_volume(percentage: u8) -> Result<(), String> {
-    #[cfg(target_os = "macos")]
-    return run_apple_script(&format!("set volume output volume {}", percentage));
-    #[cfg(target_os = "linux")]
-    return SystemCmds::set_volume(percentage).map_err(|err| err.to_string());
+    SystemCmds::set_volume(percentage).map_err(|err| err.to_string())
 }
 /// Turn Volume Up
 #[tauri::command]
 pub async fn turn_volume_up() -> Result<(), String> {
-    #[cfg(target_os = "macos")]
-    return run_apple_script("set volume output volume (output volume of (get volume settings) + 10)");
-    #[cfg(target_os = "linux")]
-    return SystemCmds::turn_volume_up().map_err(|err| err.to_string());
+    SystemCmds::turn_volume_up().map_err(|err| err.to_string())
 }
 /// Turn Volume Down
 #[tauri::command]
 pub async fn turn_volume_down() -> Result<(), String> {
-    #[cfg(target_os = "macos")]
-    return run_apple_script("set volume output volume (output volume of (get volume settings) - 10)");
-    #[cfg(target_os = "linux")]
-    return SystemCmds::turn_volume_down().map_err(|err| err.to_string());
+    SystemCmds::turn_volume_down().map_err(|err| err.to_string())
 }
 /// Toggle Stage Manager
 #[tauri::command]
@@ -123,35 +101,27 @@ pub async fn toggle_hidden_files() -> Result<(), String> {
 #[tauri::command]
 pub async fn eject_all_disks() -> Result<(), String> {
     run_apple_script("tell application \"Finder\" to eject (every disk whose ejectable is true)")
+        .map_err(|err| err.to_string())
 }
 /// Logout <User>
 #[tauri::command]
 pub async fn logout_user() -> Result<(), String> {
-    run_apple_script("tell application \"System Events\" to log out")
+    SystemCmds::logout_user().map_err(|err| err.to_string())
 }
 /// Toggle Mute
 #[tauri::command]
 pub async fn toggle_mute() -> Result<(), String> {
-    #[cfg(target_os = "macos")]
-    return run_apple_script("set volume output muted not (output muted of (get volume settings))");
-    #[cfg(target_os = "linux")]
-    return SystemCmds::toggle_mute().map_err(|err| err.to_string());
+    SystemCmds::toggle_mute().map_err(|err| err.to_string())
 }
 
 #[tauri::command]
 pub async fn mute() -> Result<(), String> {
-    #[cfg(target_os = "macos")]
-    return run_apple_script("set volume with output muted");
-    #[cfg(target_os = "linux")]
-    return SystemCmds::mute().map_err(|err| err.to_string());
+    SystemCmds::mute().map_err(|err| err.to_string())
 }
 
 #[tauri::command]
 pub async fn unmute() -> Result<(), String> {
-    #[cfg(target_os = "macos")]
-    return run_apple_script("set volume without output muted");
-    #[cfg(target_os = "linux")]
-    return SystemCmds::unmute().map_err(|err| err.to_string());
+    SystemCmds::unmute().map_err(|err| err.to_string())
 }
 
 /// Hide All Apps Except Frontmost
@@ -166,4 +136,5 @@ pub async fn hide_all_apps_except_frontmost() -> Result<(), String> {
             end repeat
         end tell"#,
     )
+    .map_err(|err| err.to_string())
 }

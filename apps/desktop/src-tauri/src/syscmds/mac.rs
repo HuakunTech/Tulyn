@@ -1,53 +1,54 @@
 use super::CommonSystemCmds;
+use crate::commands::utils::run_apple_script;
 
 pub struct SystemCmds;
 
-impl CommonSystemCmds  for SystemCmds {
-    fn open_trash(&self) -> anyhow::Result<()> {
-        todo!()
+impl CommonSystemCmds for SystemCmds {
+    fn open_trash() -> anyhow::Result<()> {
+        run_apple_script("tell application \"Finder\" to open trash")
     }
 
-    fn empty_trash(&self) -> anyhow::Result<()> {
-        todo!()
+    fn empty_trash() -> anyhow::Result<()> {
+        run_apple_script("tell application \"Finder\" to empty the trash")
     }
 
-    fn shutdown(&self) -> anyhow::Result<()> {
-        todo!()
+    fn shutdown() -> anyhow::Result<()> {
+        run_apple_script("tell application \"System Events\" to shut down")
     }
 
-    fn reboot(&self) -> anyhow::Result<()> {
-        todo!()
+    fn reboot() -> anyhow::Result<()> {
+        run_apple_script("tell application \"System Events\" to restart")
     }
 
-    fn sleep(&self) -> anyhow::Result<()> {
-        todo!()
+    fn sleep() -> anyhow::Result<()> {
+        run_apple_script("tell application \"System Events\" to sleep")
     }
 
-    fn set_volume(&self, percentage: u8) -> anyhow::Result<()> {
-        todo!()
+    fn set_volume(percentage: u8) -> anyhow::Result<()> {
+        run_apple_script(&format!("set volume output volume {}", percentage))
     }
 
-    fn turn_volume_up(&self) -> anyhow::Result<()> {
-        todo!()
+    fn turn_volume_up() -> anyhow::Result<()> {
+        run_apple_script("set volume output volume (output volume of (get volume settings) + 10)")
     }
 
-    fn turn_volume_down(&self) -> anyhow::Result<()> {
-        todo!()
+    fn turn_volume_down() -> anyhow::Result<()> {
+        run_apple_script("set volume output volume (output volume of (get volume settings) - 10)")
     }
 
-    fn logout_user(&self) -> anyhow::Result<()> {
-        todo!()
+    fn logout_user() -> anyhow::Result<()> {
+        run_apple_script("tell application \"System Events\" to log out")
     }
 
-    fn toggle_mute(&self) -> anyhow::Result<()> {
-        todo!()
+    fn toggle_mute() -> anyhow::Result<()> {
+        run_apple_script("set volume output muted not (output muted of (get volume settings))")
     }
 
-    fn mute(&self) -> anyhow::Result<()> {
-        todo!()
+    fn mute() -> anyhow::Result<()> {
+        run_apple_script("set volume with output muted")
     }
 
-    fn unmute(&self) -> anyhow::Result<()> {
-        todo!()
+    fn unmute() -> anyhow::Result<()> {
+        run_apple_script("set volume without output muted")
     }
 }
