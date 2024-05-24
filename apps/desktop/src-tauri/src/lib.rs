@@ -9,6 +9,7 @@ pub mod commands;
 pub mod model;
 pub mod server;
 pub mod utils;
+pub mod syscmds;
 // use rdev::{listen, Event};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]

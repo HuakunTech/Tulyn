@@ -1,31 +1,45 @@
+use crate::syscmds::{CommonSystemCmds, SystemCmds};
+
 use super::utils::run_apple_script;
 
 #[tauri::command]
 pub async fn open_trash() -> Result<(), String> {
-    // #[cfg(target_os = "macos")]
-    run_apple_script("tell application \"Finder\" to open trash")
-    // #[cfg(target_os = "linux")]
-    // run_linux_command("xdg-open trash")
+    #[cfg(target_os = "macos")]
+    return run_apple_script("tell application \"Finder\" to open trash");
+    #[cfg(target_os = "linux")]
+    return SystemCmds::open_trash().map_err(|err| err.to_string());
 }
 
 #[tauri::command]
 pub async fn empty_trash() -> Result<(), String> {
-    run_apple_script("tell application \"Finder\" to empty the trash")
+    #[cfg(target_os = "macos")]
+    return run_apple_script("tell application \"Finder\" to empty the trash");
+    #[cfg(target_os = "linux")]
+    return SystemCmds::empty_trash().map_err(|err| err.to_string());
 }
 
 #[tauri::command]
 pub async fn shutdown() -> Result<(), String> {
-    run_apple_script("tell application \"System Events\" to shut down")
+    #[cfg(target_os = "macos")]
+    return run_apple_script("tell application \"System Events\" to shut down");
+    #[cfg(target_os = "linux")]
+    return SystemCmds::shutdown().map_err(|err| err.to_string());
 }
 
 #[tauri::command]
 pub async fn reboot() -> Result<(), String> {
-    run_apple_script("tell application \"System Events\" to restart")
+    #[cfg(target_os = "macos")]
+    return run_apple_script("tell application \"System Events\" to restart");
+    #[cfg(target_os = "linux")]
+    return SystemCmds::reboot().map_err(|err| err.to_string());
 }
 
 #[tauri::command]
 pub async fn sleep() -> Result<(), String> {
-    run_apple_script("tell application \"System Events\" to sleep")
+    #[cfg(target_os = "macos")]
+    return run_apple_script("tell application \"System Events\" to sleep");
+    #[cfg(target_os = "linux")]
+    return SystemCmds::sleep().map_err(|err| err.to_string());
 }
 
 /// ```applescript
@@ -66,17 +80,26 @@ pub async fn sleep_displays() -> Result<(), String> {
 /// Set Volume to 0
 #[tauri::command]
 pub async fn set_volume(percentage: u8) -> Result<(), String> {
-    run_apple_script(&format!("set volume output volume {}", percentage))
+    #[cfg(target_os = "macos")]
+    return run_apple_script(&format!("set volume output volume {}", percentage));
+    #[cfg(target_os = "linux")]
+    return SystemCmds::set_volume(percentage).map_err(|err| err.to_string());
 }
 /// Turn Volume Up
 #[tauri::command]
 pub async fn turn_volume_up() -> Result<(), String> {
-    run_apple_script("set volume output volume (output volume of (get volume settings) + 10)")
+    #[cfg(target_os = "macos")]
+    return run_apple_script("set volume output volume (output volume of (get volume settings) + 10)");
+    #[cfg(target_os = "linux")]
+    return SystemCmds::turn_volume_up().map_err(|err| err.to_string());
 }
 /// Turn Volume Down
 #[tauri::command]
 pub async fn turn_volume_down() -> Result<(), String> {
-    run_apple_script("set volume output volume (output volume of (get volume settings) - 10)")
+    #[cfg(target_os = "macos")]
+    return run_apple_script("set volume output volume (output volume of (get volume settings) - 10)");
+    #[cfg(target_os = "linux")]
+    return SystemCmds::turn_volume_down().map_err(|err| err.to_string());
 }
 /// Toggle Stage Manager
 #[tauri::command]
@@ -114,13 +137,20 @@ pub async fn toggle_mute() -> Result<(), String> {
 
 #[tauri::command]
 pub async fn mute() -> Result<(), String> {
-    run_apple_script("set volume with output muted")
+    #[cfg(target_os = "macos")]
+    return run_apple_script("set volume with output muted");
+    #[cfg(target_os = "linux")]
+    return SystemCmds::mute().map_err(|err| err.to_string());
 }
 
 #[tauri::command]
 pub async fn unmute() -> Result<(), String> {
-    run_apple_script("set volume without output muted")
+    #[cfg(target_os = "macos")]
+    return run_apple_script("set volume without output muted");
+    #[cfg(target_os = "linux")]
+    return SystemCmds::unmute().map_err(|err| err.to_string());
 }
+
 /// Hide All Apps Except Frontmost
 #[tauri::command]
 pub async fn hide_all_apps_except_frontmost() -> Result<(), String> {
