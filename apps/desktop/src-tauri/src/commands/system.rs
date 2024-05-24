@@ -132,7 +132,10 @@ pub async fn logout_user() -> Result<(), String> {
 /// Toggle Mute
 #[tauri::command]
 pub async fn toggle_mute() -> Result<(), String> {
-    run_apple_script("set volume output muted not (output muted of (get volume settings))")
+    #[cfg(target_os = "macos")]
+    return run_apple_script("set volume output muted not (output muted of (get volume settings))");
+    #[cfg(target_os = "linux")]
+    return SystemCmds::toggle_mute().map_err(|err| err.to_string());
 }
 
 #[tauri::command]
