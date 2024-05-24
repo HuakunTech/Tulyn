@@ -43,7 +43,7 @@ pub fn load_icns(icns_path: &PathBuf) -> anyhow::Result<RustImageData> {
     }
 }
 
-#[cfg(test)]
+#[cfg(all(test, target_os = "macos"))]
 mod tests {
     use applications::{utils::mac::MacAppPath, AppTrait};
 

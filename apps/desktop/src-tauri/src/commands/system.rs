@@ -2,7 +2,10 @@ use super::utils::run_apple_script;
 
 #[tauri::command]
 pub async fn open_trash() -> Result<(), String> {
+    // #[cfg(target_os = "macos")]
     run_apple_script("tell application \"Finder\" to open trash")
+    // #[cfg(target_os = "linux")]
+    // run_linux_command("xdg-open trash")
 }
 
 #[tauri::command]
