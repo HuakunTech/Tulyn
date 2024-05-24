@@ -9,7 +9,8 @@
         "urls": [
             "http://localhost:1566/*",
             "http://localhost:*",
-            "https://*.huakun.tech*"
+            "https://*.huakun.tech*",
+            "https://*"
         ]
     },
     "local": true,

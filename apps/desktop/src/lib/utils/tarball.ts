@@ -38,7 +38,7 @@ export async function installTarball(tarballPath: string) {
     })
     .catch((err) => {
       if (err instanceof ZodError) {
-        throw new Error("Invalid Manifest");
+        throw new Error("Invalid Manifest or Extension");
       }
       throw new Error(err);
     });

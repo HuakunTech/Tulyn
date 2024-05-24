@@ -135,10 +135,10 @@ async function handleDragNDropInstall(paths: string[]) {
     <div class="container grid w-full max-w-2xl items-center gap-1.5">
       <DeveloperWarning />
       <p class="text-xs">
-        There are 3 options to install an extension in developer mode. Either load it from your
-        local folder, download from URL or load from a remote URL directly.
+        There are 4 options to install an extension in developer mode. Either load it from your
+        local tarball file, a tarball remote URL, npm package name or load from a remote URL.
       </p>
-
+      <Label class="text-xl" for="pick">Set Dev Extension Path</Label>
       <DevExtPathForm />
       <!-- Dev Extensions can only be installed when a dev extension path is set -->
       <div v-if="appConfig.devExtentionPath" class="flex flex-col space-y-2">
@@ -223,11 +223,14 @@ async function handleDragNDropInstall(paths: string[]) {
                 <InfoIcon class="inline w-4 cursor-pointer" />
               </button>
             </PopoverTrigger>
-            <PopoverContent class="w-96">
+            <PopoverContent class="w-[45em] ml-5 text-xs">
               <!-- TODO: Fix the Links -->
+              Jarvis allows you to install a remote url as a command. Instead of loading UI from
+              locally-installed extension, Jarvis will load UI from the remote website. The website
+              may call Jarvis API to access native APIs and file system.
               <TauriLink
                 class="block"
-                href="https://jarvis.huakun.tech/design/extensions/installation/"
+                href="https://docs.jarvis.huakun.tech/design/extensions/installation/"
               >
                 Read Docs For More Details <ExternalLinkIcon class="inline w-4 -translate-y-0.5" />
               </TauriLink>
@@ -236,16 +239,32 @@ async function handleDragNDropInstall(paths: string[]) {
                 <AlertTitle>Warning</AlertTitle>
                 <AlertDescription>
                   Installing a remote website as extension is extremely dangerous. Website
-                  maintainer could change the code any time. Only install website extensions you
-                  trust.
+                  maintainer could change the code any time to execute anything on your computer.
+                  Only install website extensions you trust. Or even better, only websites you own.
+                  This feature is designed for developer only.
                 </AlertDescription>
               </Alert>
-              <div class="text-xs">
+              <p>
                 It can be a remote website URL like
-                <TauriLink class="block" href="https://qrcode-ext.jarvis.huakun.tech">
-                  https://qrcode-ext.jarvis.huakun.tech
+                <TauriLink class="" href="https://jarvis-ext-ip.pages.dev/">
+                  https://jarvis-ext-ip.pages.dev/
                 </TauriLink>
-              </div>
+                or even
+                <TauriLink class="" href="https://google.com"> https://google.com </TauriLink>
+
+                I recommend you to only install localhost remote url to facilitate development. Such
+                as
+                <TauriLink class="" href="http://localhost:3000/">
+                  http://localhost:3000/
+                </TauriLink>
+                and name it <strong class="text-green-500">Localhost 3000</strong>.
+              </p>
+              <p>
+                As of now, a remote extension has the same permissions a regular extension have, but
+                I may limit the permissions in the future on non-localhost URLs to prohibit code
+                execution and FS access. Only most basic APIs will be exposed to a remote extension
+                (e.g. write clipboard).
+              </p>
             </PopoverContent>
           </Popover>
         </Label>

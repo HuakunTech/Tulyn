@@ -86,6 +86,7 @@ pub fn run() {
             commands::dev::close_devtools,
             commands::dev::is_devtools_open,
             commands::dev::toggle_devtools,
+            commands::dev::app_is_dev,
             // system commands
             commands::system::open_trash,
             commands::system::empty_trash,

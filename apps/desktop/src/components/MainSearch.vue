@@ -220,6 +220,12 @@ function openExtention(item: TListItem) {
             :icon="ext.icon.value"
             class="mr-2 h-5 w-5"
           />
+          <img
+            v-if="ext.icon && ext.icon.type === IconType.Enum['remote-url']"
+            :src="ext.icon.value"
+            alt=""
+            class="mr-2 h-4 w-4"
+          />
           <span class="">{{ ext.title }}</span>
           <span class="mx-3">-</span>
           <span class="text-muted-foreground">{{ ext.description }}</span>
