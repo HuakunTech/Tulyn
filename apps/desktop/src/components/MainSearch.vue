@@ -16,6 +16,7 @@ import { systemCommands } from "@/lib/commands/system";
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import {
   IconType,
+  ListItemType,
   TitleBarStyle,
   UiCmd,
   type AppInfo,
@@ -44,10 +45,12 @@ import {
   loadAllExtensionsManifest,
 } from "@/lib/stores/extensions";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
+import { $remoteExtListItem, findRemoteExt } from "@/lib/stores/remoteExtensions";
 
 const appState = useStore($appState);
 const appConfig = useStore($appConfig);
 const extStore = useStore($extensionsStore);
+const remoteExtListStore = useStore($remoteExtListItem);
 const allExtensionListItems = useStore($allExtensionListItems);
 
 const searchTerm = computed({
@@ -116,10 +119,25 @@ const filteredSysCmds = computed(() => {
 });
 
 const filteredExtensionListItems = computed(() =>
-  allExtensionListItems.value.filter((ext) => {
-    return ext.title.toLowerCase().includes(searchTerm.value.toLowerCase());
+  [...allExtensionListItems.value, ...remoteExtListStore.value].filter((ext) => {
+    const titleContains = ext.title.toLowerCase().includes(searchTerm.value.toLowerCase());
+    if (titleContains) return true;
+    return ext.keywords.some((keyword) =>
+      keyword.toLowerCase().includes(searchTerm.value.toLowerCase()),
+    );
+    // return ext.title.toLowerCase().includes(searchTerm.value.toLowerCase());
   }),
 );
+
+// const filteredRemoteExtensionListItems = computed(() =>
+//   remoteExtListStore.value.filter((ext) => {
+//     const titleContains = ext.title.toLowerCase().includes(searchTerm.value.toLowerCase());
+//     if (titleContains) return true;
+//     return ext.keywords.some((keyword) =>
+//       keyword.toLowerCase().includes(searchTerm.value.toLowerCase()),
+//     );
+//   }),
+// );
 
 function openExtention(item: TListItem) {
   const cmd = getCmdFromValue(item.value);
@@ -149,13 +167,23 @@ function openExtention(item: TListItem) {
     } else {
       console.error(uiCmdParse.error);
     }
+  } else if (item.type === ListItemType.Enum["Remote Command"]) {
+    const ext = findRemoteExt(item.value);
+    if (ext) {
+      const window = new WebviewWindow("ext", {
+        url: ext.url,
+        title: item.title,
+        titleBarStyle: "visible",
+        // titleBarStyle: TitleBarStyle.parse(uiCmd.window?.titleBarStyle?.toLowerCase() ?? "visible"),
+        // width: uiCmd.window?.width ?? undefined,
+        // height: uiCmd.window?.height ?? undefined,
+      });
+    }
   }
 }
 </script>
 <template>
   <Command class="" v-model:searchTerm="searchTermInSync" :identity-filter="true">
-    <!-- <img width="40":src="convertFileSrc('/Applications/Google Chrome.app/Contents/Resources/app.icns', 'macicns')" alt="">
-    <img width="40":src="convertFileSrc('/Applications/Visual Studio Code.app/Contents/Resources/Code.icns', 'macicns')" alt=""> -->
     <CommandInput placeholder="Search for apps or commands..." :always-focus="true" />
     <div>
       <AlertDialogControlled v-model:open="alertdialogOpen">

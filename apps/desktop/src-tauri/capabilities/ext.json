@@ -8,7 +8,8 @@
     "remote": {
         "urls": [
             "http://localhost:1566/*",
-            "http://localhost:*"
+            "http://localhost:*",
+            "https://*.huakun.tech*"
         ]
     },
     "local": true,
@@ -20,6 +21,18 @@
         "window:allow-start-dragging",
         "window:allow-destroy",
         "webview:default",
+        {
+            "identifier": "http:default",
+            "allow": [
+                {
+                    "url": "https://*"
+                },
+                {
+                    "url": "http://*"
+                }
+            ]
+        },
+        "http:allow-fetch",
         "webview:allow-create-webview",
         "webview:allow-create-webview-window",
         "app:default",

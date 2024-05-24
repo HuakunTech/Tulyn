@@ -1,4 +1,4 @@
-import { InlineCmd, ExtPackageJsonExtra, TListItem, UiCmd } from "jarvis-api";
+import { InlineCmd, ExtPackageJsonExtra, TListItem, UiCmd, ListItemType } from "jarvis-api";
 import { map, computed } from "nanostores";
 import { z } from "zod";
 import { loadAllExtensions } from "../commands/manifest";
@@ -73,7 +73,7 @@ export function manifestToCmdItems(manifest: ExtPackageJsonExtra): TListItem[] {
       title: cmd.name,
       value: generateExtensionValue(manifest, cmd as UiCmd),
       description: `UI Extension`,
-      type: "UI Command",
+      type: ListItemType.Enum["UI Command"],
       icon: {
         value: manifest.jarvis.icon.icon,
         type: manifest.jarvis.icon.type,
@@ -86,7 +86,7 @@ export function manifestToCmdItems(manifest: ExtPackageJsonExtra): TListItem[] {
       title: cmd.name,
       value: generateExtensionValue(manifest, cmd as InlineCmd),
       description: "Inline Extension",
-      type: "Inline Command",
+      type: ListItemType.Enum["Inline Command"],
       icon: {
         value: manifest.jarvis.icon.icon,
         type: manifest.jarvis.icon.type,

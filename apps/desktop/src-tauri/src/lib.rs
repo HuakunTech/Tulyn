@@ -18,6 +18,7 @@ pub fn run() {
     log_path.push("jarvis-logs");
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_http::init())
         .register_uri_scheme_protocol("macicns", |_app, request| {
             let url = &request.uri().path()[1..];
             let url = url.replace("%2F", "/").replace("%20", " ");

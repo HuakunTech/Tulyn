@@ -1,18 +1,27 @@
 import { z } from "zod";
 import { IconType } from "./common";
 
+export const ListItemType = z.enum([
+  "Remote Command",
+  "Command",
+  "UI Command",
+  "Inline Command",
+  "System Command",
+  "Application",
+]);
+
 export const TListItem = z.object({
   title: z.string(),
   value: z.string(),
   description: z.string(),
-  type: z.string(),
+  type: ListItemType,
   icon: z
     .object({
       value: z.string(),
       type: IconType,
     })
     .nullable(),
-  keywords: z.array(z.string()).nullable(),
+  keywords: z.array(z.string()).optional().default([]),
 });
 export type TListItem = z.infer<typeof TListItem>;
 export const TListGroup = z.object({

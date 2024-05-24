@@ -17,9 +17,13 @@ const props = defineProps<{
 }>();
 </script>
 <template>
-  <Card :class="cn('h-full border-none flex justify-center items-center border-2 border-red-500', props.class)">
+  <Card
+    :class="
+      cn('h-full border-none flex justify-center items-center border-2 border-red-500', props.class)
+    "
+  >
     <CardContent class="flex space-x-5 items-center">
-      <img src="/128x128.png" class="w-36" />
+      <img src="/128x128.png" class=" w-44" />
       <div class="flex flex-col space-y-1">
         <p class="text-3xl font-bold">Jarvis</p>
         <p class="text-xs">Version: {{ appVersion }}</p>
@@ -30,6 +34,14 @@ const props = defineProps<{
             <Icon icon="mdi:github" class="inline text-white -translate-y-0.5" />
           </TauriLink>
         </p>
+        <TauriLink href="https://github.com/HuakunTech/Jarvis">
+          Jarvis Source Code
+          <Icon icon="mdi:github" class="inline text-white -translate-y-0.5" />
+        </TauriLink>
+        <TauriLink href="https://github.com/HuakunTech/JarvisExtensions">
+          Extensions Source Code
+          <Icon icon="mdi:github" class="inline text-white -translate-y-0.5" />
+        </TauriLink>
       </div>
     </CardContent>
   </Card>

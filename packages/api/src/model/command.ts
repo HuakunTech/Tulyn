@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-// export const CommandType = z.union([z.literal("system"), z.literal("custom")]);
+// TODO: Kind of Duplicate for ListItemType, consider remove one
 export const CommandType = z.enum(["system", "custom"]);
 
 export const TCommand = z.object({

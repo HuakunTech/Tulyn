@@ -1,5 +1,5 @@
 import { map } from "nanostores";
-import { boolean, z } from "zod";
+import { z } from "zod";
 import { allColors } from "../themes/themes";
 import { useColorMode } from "@vueuse/core";
 import { Store } from "@tauri-apps/plugin-store";

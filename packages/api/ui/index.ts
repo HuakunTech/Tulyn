@@ -1,6 +1,7 @@
 export { default as clipboard } from "tauri-plugin-clipboard-api"; // re-export from tauri-plugin-clipboard-api
 export * as fs from "./fs";
 export * as window from "./window";
+export * as http from "@tauri-apps/plugin-http";
 export * as dialog from "./dialog";
 export * as path from "./path";
 export * as notification from "./notification";

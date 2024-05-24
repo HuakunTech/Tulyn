@@ -24,6 +24,7 @@ import { installTarball } from "@/lib/utils/tarball";
 import { useStore } from "@nanostores/vue";
 import { $appConfig } from "@/lib/stores/appConfig";
 import { useToast } from "@/components/ui/toast";
+import RemoteURLInstall from "./RemoteURLInstall.vue";
 
 const { toast } = useToast();
 
@@ -192,9 +193,9 @@ async function handleDragNDropInstall(paths: string[]) {
                 Read Docs For More Details <ExternalLinkIcon class="inline w-4 -translate-y-0.5" />
               </TauriLink>
               <div class="text-xs">
-                It can be an npm package URL like
-                <TauriLink class="block" href="https://registry.npmjs.org/nest-neo4j/latest">
-                  https://registry.npmjs.org/nest-neo4j/latest
+                It can be an npm package name like
+                <TauriLink class="block" href="@huakunshen/jarvis-ext-myip">
+                  @huakunshen/jarvis-ext-myip
                 </TauriLink>
                 or a tarball url like
                 <TauriLink class="block" href="https://jarvis-extensions.huakun.tech/qrcode.tar.gz">
@@ -205,7 +206,12 @@ async function handleDragNDropInstall(paths: string[]) {
           </Popover>
         </Label>
         <form class="flex w-full items-center gap-1.5" @submit="onDownloadSubmit">
-          <Input id="url" type="text" placeholder="Tarball URL / NPM Package Name" v-model="downloadUrl" />
+          <Input
+            id="url"
+            type="text"
+            placeholder="Tarball URL / NPM Package Name"
+            v-model="downloadUrl"
+          />
           <Button type="submit" size="sm">Download<DownloadIcon class="ml-2 h-4 w-4" /></Button>
         </form>
 
@@ -243,10 +249,7 @@ async function handleDragNDropInstall(paths: string[]) {
             </PopoverContent>
           </Popover>
         </Label>
-        <div class="flex w-full items-center gap-1.5">
-          <Input id="url" type="text" placeholder="Remote URL" />
-          <Button type="submit" size="sm">Install<CloudDownloadIcon class="ml-2 h-4 w-4" /></Button>
-        </div>
+        <RemoteURLInstall />
       </div>
     </div>
   </div>

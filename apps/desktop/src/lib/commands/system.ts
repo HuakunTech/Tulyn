@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import { TCommand, CommandType, IconType, TListItem } from "jarvis-api";
+import { TCommand, CommandType, IconType, TListItem, ListItemType } from "jarvis-api";
 import { platform } from "@tauri-apps/plugin-os";
 
 export function openTrash(): Promise<void> {
@@ -303,7 +303,7 @@ export const systemCommandListItems: TListItem[] = systemCommands.map((cmd) =>
     title: cmd.name,
     value: cmd.value,
     description: "System",
-    type: CommandType.Enum.system,
+    type: ListItemType.Enum["System Command"],
     icon: {
       value: cmd.icon,
       type: IconType.Enum.iconify,
