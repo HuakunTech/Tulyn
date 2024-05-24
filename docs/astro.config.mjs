@@ -12,6 +12,7 @@ export default defineConfig({
     starlight({
       title: "Jarvis",
       customCss: ["./src/tailwind.css"],
+      lastUpdated: true,
       logo: {
         src: "./src/assets/logo.png",
       },
