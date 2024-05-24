@@ -6,7 +6,6 @@ import { useStore } from "@nanostores/vue";
 import { allColors } from "@/lib/themes/themes";
 import { KeyComb, SettingsKeyComb } from "@/lib/utils/keycomb";
 import { GlobalEventBus } from "@/lib/utils/events";
-import hotkeys from 'hotkeys-js';
 
 const appConfig = useStore($appConfig);
 const colorMode = useColorMode();
