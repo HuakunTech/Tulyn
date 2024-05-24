@@ -3,9 +3,12 @@ import DefaultLayout from "@/layouts/Default.astro";
 import { Button } from "@/components/ui/button";
 import VueDev from "@/components/VueDev.vue";
 import MainSearch from "@/components/MainSearch.vue";
+import DefaultVue from "@/components/layouts/default.vue";
 ---
 
 <DefaultLayout title="Tauri Astro Templte">
   <!-- <FlowEditor client:only="react" /> -->
-  <MainSearch client:only="vue" class="" />
+  <DefaultVue client:only="vue">
+    <MainSearch client:only="vue" class="" />
+  </DefaultVue>
 </DefaultLayout>

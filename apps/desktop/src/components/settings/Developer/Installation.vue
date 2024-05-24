@@ -119,7 +119,9 @@ async function handleDragNDropInstall(paths: string[]) {
         toast({ title: error, variant: "destructive" });
       }
     }
-    sonner.success(`Installed ${tarballs.length} Tarball${installedCount > 1 ? "s" : ""}`);
+    if (installedCount > 0) {
+      sonner.success(`Installed ${installedCount} Tarball${installedCount > 1 ? "s" : ""}`);
+    }
   }
   if (numInstalled === 0) {
     toast({

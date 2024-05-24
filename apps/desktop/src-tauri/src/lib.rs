@@ -145,11 +145,11 @@ pub fn run() {
             // app.manage(ApplicationsState::default());
             utils::setup::setup_server(app.handle());
 
-            #[cfg(debug_assertions)] // only include this code on debug builds
-            {
-                let window = app.get_webview_window("main").unwrap();
-                window.open_devtools();
-            }
+            // #[cfg(debug_assertions)] // only include this code on debug builds
+            // {
+            //     let window = app.get_webview_window("main").unwrap();
+            //     window.open_devtools();
+            // }
             utils::setup::setup_app_path(app.handle());
             // let window = app.get_webview_window("main").unwrap();
             // #[cfg(target_os = "macos")]

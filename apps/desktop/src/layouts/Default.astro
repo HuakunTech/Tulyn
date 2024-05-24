@@ -1,11 +1,11 @@
 ---
 import "@/styles/globals.css";
 import "@/styles/themes.css";
-import DefaultVue from "@/components/layouts/default.vue";
 import Topbar from "@/components/Topbar.vue";
 import Toaster from "@/components/ui/toast/Toaster.vue";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import PostHog from "@/components/posthog.astro";
+import GoogleAnalytics from "@/components/google-analytics.astro";
 
 interface Props {
   title: string;
@@ -23,6 +23,7 @@ const { title } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <PostHog />
+    <GoogleAnalytics />
     <title>{title}</title>
   </head>
   <body>
