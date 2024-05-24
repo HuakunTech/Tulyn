@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { toast as sonner } from "vue-sonner";
+import axios from "axios";
+import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -53,36 +55,70 @@ const downloadUrl = ref<string>("");
 
 async function onDownloadSubmit(e: Event) {
   e.preventDefault();
-  // check if downloadUrl is valid http url that ends with .tgz or .tar.gz
+  // check if downloadUrl is valid http url that ends with .tgz
   if (/https?:\/\/[^ ]+\.(?:tgz|tar\.gz)/.test(downloadUrl.value)) {
     // get file name from url
-    const filename = downloadUrl.value.split("/").pop();
-
-    if (filename) {
-      try {
-        const tempDirPath = await tempDir();
-        let tarballPath = await pathJoin(tempDirPath, filename);
-        await download(downloadUrl.value, tarballPath);
-        await installTarball(tarballPath);
-        sonner.success(`Installed 1 Tarball`);
-        await fs.remove(tarballPath);
-      } catch (error: any) {
-        toast({ title: error, variant: "destructive" });
-      }
+    await installTarballUrl(downloadUrl.value);
+    downloadUrl.value = "";
+  } else {
+    // assume npm package name is entered, check if package exists
+    try {
+      await installThroughNpmAPI(`https://registry.npmjs.org/${downloadUrl.value}/latest`);
+    } catch (error: any) {
+      toast({ title: error, variant: "destructive" });
     }
   }
 }
 
-function handleDragNDropInstall(paths: string[]) {
+async function installTarballUrl(tarballUrl: string) {
+  const filename = tarballUrl.split("/").pop();
+  if (filename) {
+    try {
+      const tempDirPath = await tempDir();
+      let tarballPath = await pathJoin(tempDirPath, filename);
+      await download(tarballUrl, tarballPath);
+      await installTarball(tarballPath);
+      sonner.success(`Installed 1 Tarball`);
+      await fs.remove(tarballPath);
+    } catch (error: any) {
+      toast({ title: error, variant: "destructive" });
+    }
+  }
+}
+
+function installThroughNpmAPI(url: string) {
+  return axios
+    .get(url)
+    .then((res) => {
+      const tarball = z.string().parse(res.data?.dist?.tarball);
+      if (tarball) {
+        return installTarballUrl(tarball);
+      } else {
+        toast({ title: "Tarball Not Found", variant: "destructive" });
+      }
+    })
+    .catch((error: any) => {
+      toast({ title: error, variant: "destructive" });
+    });
+}
+
+async function handleDragNDropInstall(paths: string[]) {
   dragging.value = false;
-  // install all .tar.gz
+  // install all .tar.gz and .tgz
   let numInstalled = 0;
   const tarballs = paths.filter((p) => p.endsWith(".tar.gz") || p.endsWith(".tgz"));
   numInstalled += tarballs.length;
   if (tarballs.length > 0) {
-    return Promise.all(tarballs.map((tarball) => installTarball(tarball))).then(() => {
-      sonner.success(`Installed ${tarballs.length} Tarball${tarballs.length > 1 ? "s" : ""}`);
-    });
+    let installedCount = 0;
+    for (const tarball of tarballs) {
+      try {
+        await installTarball(tarball);
+        installedCount++;
+      } catch (error: any) {
+        toast({ title: error, variant: "destructive" });
+      }
+    }
+    sonner.success(`Installed ${tarballs.length} Tarball${installedCount > 1 ? "s" : ""}`);
   }
   if (numInstalled === 0) {
     toast({
@@ -140,7 +176,7 @@ function handleDragNDropInstall(paths: string[]) {
         </div>
 
         <Label for="url" class="text-xl">
-          Download URL
+          Tarball URL / NPM Package Name
           <Popover>
             <PopoverTrigger as-child>
               <button class="-translate-y-0.5">
@@ -169,7 +205,7 @@ function handleDragNDropInstall(paths: string[]) {
           </Popover>
         </Label>
         <form class="flex w-full items-center gap-1.5" @submit="onDownloadSubmit">
-          <Input id="url" type="text" placeholder="Download URL" v-model="downloadUrl" />
+          <Input id="url" type="text" placeholder="Tarball URL / NPM Package Name" v-model="downloadUrl" />
           <Button type="submit" size="sm">Download<DownloadIcon class="ml-2 h-4 w-4" /></Button>
         </form>
 

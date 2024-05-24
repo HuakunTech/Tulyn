@@ -37,6 +37,7 @@ pub struct JarvisExtManifest {
     pub icon: Icon,
     pub demo_images: Vec<Value>,
     pub ui_cmds: Vec<UiCmd>,
+    #[serde(default = "Vec::new")]
     pub inline_cmds: Vec<InlineCmd>,
 }
 

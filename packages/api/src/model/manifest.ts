@@ -1,6 +1,18 @@
 import { z } from "zod";
 import { IconType } from "./common";
 
+export const OSPlatform = z.enum([
+  "linux",
+  "macos",
+  "ios",
+  "freebsd",
+  "dragonfly",
+  "netbsd",
+  "openbsd",
+  "solaris",
+  "android",
+  "windows",
+]);
 export const TriggerCmd = z.object({
   type: z.union([z.literal("text"), z.literal("regex")]),
   value: z.string(),
@@ -17,11 +29,14 @@ export const WindowConfig = z.object({
   titleBarStyle: TitleBarStyle.nullable().optional(),
 });
 export const UiCmd = z.object({
-  main: z.string(),
-  devMain: z.string(),
+  main: z.string().describe("HTML file to load, e.g. dist/index.html"),
+  devMain: z
+    .string()
+    .describe("URL to load in development to support live reload, e.g. http://localhost:5173/"),
   name: z.string(),
   window: WindowConfig.nullable().optional(),
   cmds: TriggerCmd.array(),
+  platforms: OSPlatform.array().optional(),
 });
 export type UiCmd = z.infer<typeof UiCmd>;
 
@@ -29,6 +44,7 @@ export const InlineCmd = z.object({
   main: z.string(),
   name: z.string(),
   cmds: TriggerCmd.array(),
+  platforms: OSPlatform.array().optional(),
 });
 export type InlineCmd = z.infer<typeof UiCmd>;
 
@@ -41,9 +57,10 @@ export const JarvisExtManifest = z.object({
   identifier: z.string(),
   icon: Icon,
   demoImages: z.array(z.string()),
-  uiCmds: UiCmd.array(),
-  inlineCmds: InlineCmd.array(),
+  uiCmds: UiCmd.array().optional().default([]),
+  inlineCmds: InlineCmd.array().optional().default([]),
 });
+export type JarvisExtManifest = z.infer<typeof JarvisExtManifest>;
 
 export const ExtPackageJson = z.object({
   name: z.string(),

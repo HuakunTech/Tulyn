@@ -5,8 +5,8 @@ use crate::{
 use std::path::PathBuf;
 use tauri::Runtime;
 
-/// manifest_path can be folder of jarvis.ext.json
-/// If it's a folder, join it with jarvis.ext.json
+/// manifest_path can be folder of package.json
+/// If it's a folder, join it with package.json
 #[tauri::command]
 pub async fn load_manifest<R: Runtime>(
     _app: tauri::AppHandle<R>,

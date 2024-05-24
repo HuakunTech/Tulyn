@@ -1,5 +1,9 @@
 use std::path::PathBuf;
 
+/// Decompress a tarball into a destination_folder
+/// destination_folder should be a empty folder to avoid being removed
+/// The resulting folder is expected to have "package" as its name
+/// All .tgz generated with `npm pack` should be decompressed into `package`
 pub fn decompress_tarball(
     path: PathBuf,
     destination_folder: PathBuf,
@@ -8,20 +12,15 @@ pub fn decompress_tarball(
     if !path.exists() {
         return Err(anyhow::format_err!("Tarball does not exist: {:?}", path));
     }
-    if !destination_folder.exists() {
-        return Err(anyhow::format_err!(
-            "Destination folder does not exist: {:?}",
-            destination_folder
-        ));
+    // if destination exists, remove it
+    if destination_folder.exists() && overwrite {
+        std::fs::remove_dir_all(&destination_folder)?;
     }
-    let tar_gz = std::fs::File::open(&path)?;
-    let tar = flate2::read::GzDecoder::new(tar_gz);
+    std::fs::create_dir_all(&destination_folder)?;
+    let tgz = std::fs::File::open(&path)?;
+    let tar = flate2::read::GzDecoder::new(tgz);
     let mut archive = tar::Archive::new(tar);
-    let mut dest_filename: String = path.file_stem().unwrap().to_string_lossy().to_string();
-    if dest_filename.ends_with(".tar") {
-        dest_filename = dest_filename.replace(".tar", "");
-    }
-    let dest = destination_folder.join(dest_filename);
+    let dest = destination_folder.join("package");
 
     if dest.exists() && !overwrite {
         return Err(anyhow::format_err!(
@@ -29,8 +28,6 @@ pub fn decompress_tarball(
             dest
         ));
     }
-    // get decompressed folder path
-
     archive.unpack(&destination_folder)?;
     if !dest.exists() {
         return Err(anyhow::format_err!(
@@ -71,3 +68,19 @@ pub fn compress_tarball(
     tar.append_dir_all(src_dir.file_name().unwrap().to_str().unwrap(), &src_dir)?;
     Ok(dest_file)
 }
+
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
+
+//     #[test]
+//     fn test_decompress_tarball() {
+//         // this test relies on submodule
+//         decompress_tarball(
+//             "/Users/hacker/Desktop/huakunshen-jarvis-ext-qrcode-0.0.0.tgz".into(),
+//             "/Users/hacker/Desktop/randomfolder".into(),
+//             true,
+//         )
+//         .unwrap();
+//     }
+// }
