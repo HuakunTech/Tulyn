@@ -1,5 +1,7 @@
 use crate::commands::server::Server;
 use tauri::{AppHandle, Manager, Runtime};
+
+#[cfg(target_os = "macos")]
 use window_vibrancy::{apply_vibrancy, NSVisualEffectMaterial};
 
 pub fn setup_app_path(handle: &AppHandle) {
