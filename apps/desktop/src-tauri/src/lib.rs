@@ -9,6 +9,7 @@ pub mod commands;
 pub mod model;
 pub mod server;
 pub mod utils;
+pub mod syscmds;
 // use rdev::{listen, Event};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -18,68 +19,68 @@ pub fn run() {
     log_path.push("jarvis-logs");
 
     tauri::Builder::default()
-        .plugin(tauri_plugin_http::init())
-        .register_uri_scheme_protocol("macicns", |_app, request| {
-            let url = &request.uri().path()[1..];
-            let url = url.replace("%2F", "/").replace("%20", " ");
-            let path = PathBuf::from(url);
-            if !path.exists() {
-                return tauri::http::Response::builder()
-                    .status(tauri::http::StatusCode::NOT_FOUND)
-                    .body("file not found".as_bytes().to_vec())
-                    .unwrap();
-            }
-            let icns = load_icns(&path);
-            match icns {
-                Ok(icns) => {
-                    let png = icns.to_png().unwrap();
-                    tauri::http::Response::builder()
-                        .body(png.get_bytes().to_vec())
-                        .unwrap()
-                }
-                Err(error) => tauri::http::Response::builder()
-                    .status(tauri::http::StatusCode::INTERNAL_SERVER_ERROR)
-                    .body(error.to_string().as_bytes().to_vec())
-                    .unwrap(),
-            }
-        })
-        .register_uri_scheme_protocol("extasset", |_app, request| {
-            let url = &request.uri().path()[1..];
-            // let url = url.replace("%2F", "/").replace("%20", " ");
-            let url = urlencoding::decode(url).unwrap().to_string();
-            let path = PathBuf::from(url);
-            println!("path: {:?}", path);
-            if !path.exists() {
-                return tauri::http::Response::builder()
-                    .status(tauri::http::StatusCode::NOT_FOUND)
-                    .body("file not found".as_bytes().to_vec())
-                    .unwrap();
-            }
-            let bytes = std::fs::read(&path).unwrap();
-            tauri::http::Response::builder().body(bytes).unwrap()
-        })
-        .plugin(tauri_plugin_updater::Builder::new().build())
-        .plugin(tauri_plugin_os::init())
-        .plugin(tauri_plugin_fs::init())
-        .plugin(tauri_plugin_global_shortcut::Builder::new().build())
-        // .plugin(tauri_plugin_log::Builder::new().build())
-        // .plugin(
-        //     tauri_plugin_log::Builder::new()
-        //         .targets([
-        //             Target::new(TargetKind::Stdout),
-        //             Target::new(TargetKind::LogDir {
-        //                 file_name: Some(log_path.to_str().unwrap().to_string()),
-        //             }),
-        //             Target::new(TargetKind::Webview),
-        //         ])
-        //         .build(),
-        // )
-        .plugin(tauri_plugin_notification::init())
-        .plugin(tauri_plugin_upload::init())
-        .plugin(tauri_plugin_shell::init())
-        .plugin(tauri_plugin_dialog::init())
-        .plugin(tauri_plugin_store::Builder::new().build())
-        .plugin(tauri_plugin_clipboard::init())
+        // .plugin(tauri_plugin_http::init())
+        // .register_uri_scheme_protocol("macicns", |_app, request| {
+        //     let url = &request.uri().path()[1..];
+        //     let url = url.replace("%2F", "/").replace("%20", " ");
+        //     let path = PathBuf::from(url);
+        //     if !path.exists() {
+        //         return tauri::http::Response::builder()
+        //             .status(tauri::http::StatusCode::NOT_FOUND)
+        //             .body("file not found".as_bytes().to_vec())
+        //             .unwrap();
+        //     }
+        //     let icns = load_icns(&path);
+        //     match icns {
+        //         Ok(icns) => {
+        //             let png = icns.to_png().unwrap();
+        //             tauri::http::Response::builder()
+        //                 .body(png.get_bytes().to_vec())
+        //                 .unwrap()
+        //         }
+        //         Err(error) => tauri::http::Response::builder()
+        //             .status(tauri::http::StatusCode::INTERNAL_SERVER_ERROR)
+        //             .body(error.to_string().as_bytes().to_vec())
+        //             .unwrap(),
+        //     }
+        // })
+        // .register_uri_scheme_protocol("extasset", |_app, request| {
+        //     let url = &request.uri().path()[1..];
+        //     // let url = url.replace("%2F", "/").replace("%20", " ");
+        //     let url = urlencoding::decode(url).unwrap().to_string();
+        //     let path = PathBuf::from(url);
+        //     println!("path: {:?}", path);
+        //     if !path.exists() {
+        //         return tauri::http::Response::builder()
+        //             .status(tauri::http::StatusCode::NOT_FOUND)
+        //             .body("file not found".as_bytes().to_vec())
+        //             .unwrap();
+        //     }
+        //     let bytes = std::fs::read(&path).unwrap();
+        //     tauri::http::Response::builder().body(bytes).unwrap()
+        // })
+        // .plugin(tauri_plugin_updater::Builder::new().build())
+        // .plugin(tauri_plugin_os::init())
+        // .plugin(tauri_plugin_fs::init())
+        // .plugin(tauri_plugin_global_shortcut::Builder::new().build())
+        // // .plugin(tauri_plugin_log::Builder::new().build())
+        // // .plugin(
+        // //     tauri_plugin_log::Builder::new()
+        // //         .targets([
+        // //             Target::new(TargetKind::Stdout),
+        // //             Target::new(TargetKind::LogDir {
+        // //                 file_name: Some(log_path.to_str().unwrap().to_string()),
+        // //             }),
+        // //             Target::new(TargetKind::Webview),
+        // //         ])
+        // //         .build(),
+        // // )
+        // .plugin(tauri_plugin_notification::init())
+        // .plugin(tauri_plugin_upload::init())
+        // .plugin(tauri_plugin_shell::init())
+        // .plugin(tauri_plugin_dialog::init())
+        // .plugin(tauri_plugin_store::Builder::new().build())
+        // .plugin(tauri_plugin_clipboard::init())
         .invoke_handler(tauri::generate_handler![
             // dev commands
             commands::dev::open_devtools,
