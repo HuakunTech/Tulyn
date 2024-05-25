@@ -25,7 +25,8 @@ tauri = { version = "2.0.0-beta.19", features = [ "macos-private-api", "protocol
 # tauri_plugin_jarvis = { path = "../../../packages/tauri_plugin_jarvis" }
 tauri-plugin-clipboard = { version = "0.7.0-beta.0"}
 tauri-plugin-store = "2.0.0-beta.6"
-applications = { path = "../../../vendors/applications-rs" }
+# applications = { path = "../../../vendors/applications-rs" }
+applications = { version = "0.2.1-alpha.1" }
 tauri-plugin-dialog = "2.0.0-beta.7"
 tauri-plugin-shell = "2.0.0-beta.5"
 tauri-plugin-upload = "2.0.0-beta.5"
