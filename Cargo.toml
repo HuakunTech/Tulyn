@@ -2,6 +2,5 @@
 resolver = "2"
 
 members = [
-    "apps/desktop2/src-tauri",
     "apps/desktop/src-tauri"
 ]
