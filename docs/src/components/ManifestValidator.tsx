@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import jsonWorker from "monaco-editor/esm/vs/language/json/json.worker?worker";
 
 const defaultJson = `{
-  "$schema": "https://jarvis-extensions.huakun.tech/jarvis-ext-package-json-schema.json",
+  "$schema": "https://extensions.jarvis.huakun.tech/schema.json",
   "name": "jarvis-ext-jwt",
   "private": true,
   "version": "0.0.0",
@@ -127,7 +127,7 @@ export default function SchemaValidatorEditor() {
       enableSchemaRequest: true,
       validate: true,
       schemas: [ // TODO: this schema is not working, I have to use $schema in the json file
-        { uri: "https://jarvis-extensions.huakun.tech/jarvis-ext-package-json-schema.json" },
+        { uri: "https://extensions.jarvis.huakun.tech/schema.json" },
       ],
     });
   };

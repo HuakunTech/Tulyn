@@ -1,13 +1,12 @@
 {
   "name": "jarvis-api",
   "module": "index.ts",
-  "version": "0.0.2-alpha.1",
+  "version": "0.0.2-alpha.2",
   "type": "module",
   "scripts": {
     "test": "bun test --coverage",
     "build:doc": "npx typedoc",
-    "build": "npm run build:doc",
-    "build:ext-json-schema": "bun scripts/gen-json-schema.ts > jarvis-ext-package-json-schema.json"
+    "build": "npm run build:doc"
   },
   "devDependencies": {
     "@types/bun": "latest",
