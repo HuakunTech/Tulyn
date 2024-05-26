@@ -31,7 +31,7 @@ export const WindowConfig = z.object({
 });
 export const UiCmd = z.object({
   main: z.string().describe("HTML file to load, e.g. dist/index.html"),
-  description: z.string().optional().default("").describe("Description of the Command"),
+  description: z.string().nullable().default("").describe("Description of the Command"),
   devMain: z
     .string()
     .describe("URL to load in development to support live reload, e.g. http://localhost:5173/"),
@@ -39,7 +39,7 @@ export const UiCmd = z.object({
   window: WindowConfig.nullable().optional(),
   cmds: TriggerCmd.array().describe("Commands to trigger the UI"),
   platforms: OSPlatform.array()
-    .optional()
+    .nullable()
     .default(allPlatforms)
     .describe("Platforms available on. Leave empty for all platforms."),
 });
@@ -48,10 +48,10 @@ export type UiCmd = z.infer<typeof UiCmd>;
 export const InlineCmd = z.object({
   main: z.string(),
   name: z.string(),
-  description: z.string().optional().default("").describe("Description of the Command"),
+  description: z.string().nullable().default("").describe("Description of the Command"),
   cmds: TriggerCmd.array(),
   platforms: OSPlatform.array()
-    .optional()
+    .nullable()
     .default(allPlatforms)
     .describe("Platforms available on. Leave empty for all platforms."),
 });

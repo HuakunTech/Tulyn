@@ -104,11 +104,11 @@ pub struct WindowConfig {
 pub struct UiCmd {
     pub main: String,
     pub name: String,
-    pub description: String,
+    pub description: Option<String>,
     pub dev_main: String,
     pub window: Option<WindowConfig>,
     pub cmds: Vec<Cmd>,
-    pub platforms: Vec<OSPlatform>
+    pub platforms: Option<Vec<OSPlatform>>
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -124,9 +124,9 @@ pub struct Cmd {
 pub struct InlineCmd {
     pub main: String,
     pub name: String,
-    pub description: String,
+    pub description: Option<String>,
     pub cmds: Vec<Cmd>,
-    pub platforms: Vec<OSPlatform>
+    pub platforms: Option<Vec<OSPlatform>>
 }
 
 // generate test
