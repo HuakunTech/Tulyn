@@ -39,6 +39,15 @@ const jsonSchema = zodToJsonSchema(ExtPackageJson, {});
 jsonSchema["additionalProperties"] = true;
 const schemaStr = JSON.stringify(jsonSchema, null, 2);
 
+await s3Client.send(
+  new PutObjectCommand({
+    Bucket: "jarvis-extensions",
+    Key: "nightly.schema.json",
+    Body: schemaStr,
+    ContentType: "application/json",
+  }),
+);
+
 s3Client
   .send(
     new PutObjectCommand({

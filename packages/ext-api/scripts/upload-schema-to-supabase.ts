@@ -19,6 +19,10 @@ const { data, error } = await supabase.storage.from("extensions").upload("schema
   cacheControl: "3600",
   upsert: true, // overwrite existing file with same name
 });
+await supabase.storage.from("extensions").upload("nightly.schema.json", schemaStr, {
+  cacheControl: "3600",
+  upsert: true, // overwrite existing file with same name
+});
 console.log("data", data);
 if (error) {
   console.error("Failed to upload schema.json");

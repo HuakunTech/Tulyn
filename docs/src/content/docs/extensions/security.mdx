@@ -1,0 +1,72 @@
+---
+title: Extension Security
+description: Extension Security Design
+sidebar:
+    order: 2
+---
+
+Extension is a powerful feature that allows users to extend the functionality however they want.
+
+However, great functionality requires access to file system and system APIs, which can be dangerous if not properly secured.
+
+Since community maintained extensions can be installed to Jarvis, there is no guarantee that the extension is safe,
+just like other extension systems like Chrome extensions, VSCode Extensions, Raycast Extensions, etc.
+We can only try to maintain a safety design to minimize the risk.
+
+All extensions are open sourced in GitHub Repo [JarvisExtensions](https://github.com/HuakunTech/JarvisExtensions/) for transparency and security review.
+
+Before a new extension is added, I will review the code and make sure it is safe to use.
+But there is no guarantee that the extension is completely safe as I can't review and test every single line of code.
+
+## Permission Management System
+
+Similar apps like Raycast gives extensions full access to the file system and system APIs.
+This gives extensions a lot of power to do anything they want, but also makes it dangerous.
+
+Although their extensions are all open sourced for review, there is still a risk that the extension can do something malicious.
+
+Jarvis also takes advantages of system APIs to provide powerful features, but it also has a multi-level
+permission management system to control what an extension can do.
+
+Jarvis is designed to take a similar approach to Chrome extensions, where the required permission for an app must be declared in the manifest file.
+
+The extension store will show the required permissions for each extension, and the user can decide whether to install it or not.
+
+For example, if a timer extension is expected to request notification permission, but not clipboard permission.
+
+Jarvis splits exposed APIs into different permission groups. e.g. clipboard APIs have `clipboard-read` and `clipboard-write` permissions.
+Extensions should only request the minimum required permissions.
+
+File system APIs will also have different access scopes. e.g.
+
+1. Access to Desktop, Documents, Downloads
+2. Access to all files in the user's home directory
+3. Access to all files in the system
+
+Fore more details about permission declaration, see [Extension Permissions](./permissions.dx).
+
+## Application Lifecycle Threats
+
+![](https://hacker-storage.s3.us-east-2.amazonaws.com/2024/5/14/application-flow-simple.KMHPzXtV_5V2Cf.svg)
+
+### Buildtime Threats
+
+Buildtime threats are the threats that happen when the extension is being built. e.g.
+
+All extensions are open sourced in GitHub Repo [JarvisExtensions](https://github.com/HuakunTech/JarvisExtensions/).
+
+It's a pnpm monorepo, CI will build all extensions to make sure they can be built.
+
+However, it is possible that some extensions includes malicious code that can be triggered during build time.
+
+`build` script in `package.json` for every extension is run during build time.
+`prebuild` or `postbuild` scripts in `package.json` can be used to run malicious code to alter the source code or
+even simply replace the tarball of another extension.
+
+If the malicious extension doesn't have shell permission, but infects another extension with shell permission, it can do a lot of damage.
+
+So it is crucial to isolate the build environment for each extension to make sure they can't affect each other.
+
+The extension upload CI doesn't build extensions altogether as a monorepo, but build them one by one in a docker container.
+
+Only the resulting tarball produced by `npm pack` will be taken and uploaded to the extension registry.

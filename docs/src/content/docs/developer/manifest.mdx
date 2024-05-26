@@ -3,7 +3,15 @@ title: Extension Manifest Validator
 description: Jarvis Extension Manifest Validator
 ---
 
-Jarvis extensions metadata is defined in `package.json` for simplicity.
+:::caution
+Jarvis is still in early development, the extension schema is not finalized yet, and could change any time.
+
+I will try to make the schema as stable as possible, and be backward compatible. But there is no guarantee in the current stage.
+
+To get the latest schema for nightly build: `https://extensions.jarvis.huakun.tech/nightly.schema.json`
+:::
+
+Jarvis extensions metadata is defined in `package.json`.
 
 In order to facilitate the validation of the extension manifest, I provide some tools that can be used to validate the manifest file.
 
@@ -49,5 +57,5 @@ Try removing the `description` field or change `jarvis` to `jarvis2`. Error mess
 import ManifestValidator from "../../../components/ManifestValidator.tsx";
 
 <div className="not-content">
-<ManifestValidator client:only="react" />
+  <ManifestValidator client:only="react" />
 </div>

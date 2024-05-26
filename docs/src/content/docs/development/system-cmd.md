@@ -3,6 +3,10 @@ title: System Commands
 description: Commands to interact with the system.
 ---
 
+Jarvis includes built-in system commands for essential tasks such as emptying the trash, restarting, shutting down, and adjusting the volume.
+
+Here is a list of system commands that Jarvis supports and their status. I aim to support all commands provided by Raycast and Alfred. While some commands may be platform specific, I will try to implement them for all platforms.
+
 ## Raycast System Commands
 
 > I will try to implement all of these for all 3 platforms, but some may not be possible/trivial.
