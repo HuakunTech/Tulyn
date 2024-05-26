@@ -10,6 +10,7 @@ import { ExtPackageJson } from "jarvis-api";
 
 const s3Client = new S3Client({
   endpoint: z.string().parse(process.env.S3_ENDPOINT),
+  region: "auto",
   credentials: {
     accessKeyId: z.string().parse(process.env.S3_ACCESS_KEY_ID),
     secretAccessKey: z.string().parse(process.env.S3_SECRET_ACCESS_KEY),
