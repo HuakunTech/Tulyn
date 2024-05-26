@@ -4,13 +4,13 @@ import { IconType } from "./common";
 export const OSPlatform = z.enum([
   "linux",
   "macos",
-  "ios",
-  "freebsd",
-  "dragonfly",
-  "netbsd",
-  "openbsd",
-  "solaris",
-  "android",
+  // "ios",
+  // "freebsd",
+  // "dragonfly",
+  // "netbsd",
+  // "openbsd",
+  // "solaris",
+  // "android",
   "windows",
 ]);
 export const TriggerCmd = z.object({
