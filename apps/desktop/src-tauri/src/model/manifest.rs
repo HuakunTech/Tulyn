@@ -22,6 +22,15 @@ pub enum TitleBarStyle {
     Overlay,
 }
 
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub enum OSPlatform {
+    Windows,
+    MacOS,
+    Linux,
+}
+
+
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Icon {
@@ -95,9 +104,11 @@ pub struct WindowConfig {
 pub struct UiCmd {
     pub main: String,
     pub name: String,
+    pub description: String,
     pub dev_main: String,
     pub window: Option<WindowConfig>,
     pub cmds: Vec<Cmd>,
+    pub platforms: Vec<OSPlatform>
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -113,7 +124,9 @@ pub struct Cmd {
 pub struct InlineCmd {
     pub main: String,
     pub name: String,
+    pub description: String,
     pub cmds: Vec<Cmd>,
+    pub platforms: Vec<OSPlatform>
 }
 
 // generate test

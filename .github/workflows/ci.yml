@@ -34,6 +34,12 @@ jobs:
         run: curl -fsSL https://d2lang.com/install.sh | sh -s --
       - uses: oven-sh/setup-bun@v1
         with:
-          bun-version: 1.1.7
-      - run: pnpm i
+          bun-version: 1.1.10
+          
+      - name: Install Dependencies
+        run: pnpm i
+      - name: Upload Extension Manifest Schema
+        run: |
+          pnpm --filter jarvis-ext-api upload-schema-to-supabase
+          pnpm --filter jarvis-ext-api upload-schema-to-s3
       - run: pnpm build

@@ -17,9 +17,9 @@ const schemaStr = JSON.stringify(jsonSchema, null, 2);
 
 const { data, error } = await supabase.storage.from("extensions").upload("schema.json", schemaStr, {
   cacheControl: "3600",
-  upsert: false,
+  upsert: true, // overwrite existing file with same name
 });
-console.log(data);
+console.log("data", data);
 if (error) {
   console.error("Failed to upload schema.json");
   console.error(error);

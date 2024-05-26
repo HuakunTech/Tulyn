@@ -1,5 +1,5 @@
 {
-  "name": "ext-api",
+  "name": "jarvis-ext-api",
   "module": "index.ts",
   "type": "module",
   "scripts": {
