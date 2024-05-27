@@ -5,21 +5,21 @@ import { ApolloClient, InMemoryCache, HttpLink, type ApolloQueryResult } from "@
 import { type AllExtensionsQuery, AllExtensionsDocument } from "@jarvis/gql";
 
 onMounted(async () => {
-//   const client = new ApolloClient({
-//     cache: new InMemoryCache(),
-//     link: new HttpLink({
-//       uri: SUPABASE_GRAPHQL_ENDPOINT,
-//       headers: {
-//         apiKey: SUPABASE_ANON_KEY,
-//       },
-//     }),
-//   });
+  const client = new ApolloClient({
+    cache: new InMemoryCache(),
+    link: new HttpLink({
+      uri: SUPABASE_GRAPHQL_ENDPOINT,
+      headers: {
+        apiKey: SUPABASE_ANON_KEY,
+      },
+    }),
+  });
 
-//   const response: ApolloQueryResult<AllExtensionsQuery> = await client.query({
-//     query: AllExtensionsDocument,
-//   });
+  const response: ApolloQueryResult<AllExtensionsQuery> = await client.query({
+    query: AllExtensionsDocument,
+  });
 
-//   console.log(response.data.extensionsCollection?.edges);
+  console.log(response.data.extensionsCollection?.edges);
 });
 </script>
 <template></template>

@@ -353,6 +353,9 @@ importers:
       '@aws-sdk/client-s3':
         specifier: ^3.583.0
         version: 3.583.0
+      '@jarvis/gql':
+        specifier: workspace:*
+        version: link:../gql
       '@supabase/supabase-js':
         specifier: ^2.43.4
         version: 2.43.4
@@ -381,9 +384,6 @@ importers:
       '@graphql-codegen/client-preset':
         specifier: ^4.2.6
         version: 4.2.6(graphql@16.8.1)
-      '@graphql-typed-document-node/core':
-        specifier: ^3.2.0
-        version: 3.2.0(graphql@16.8.1)
       graphql:
         specifier: ^16.8.1
         version: 16.8.1
