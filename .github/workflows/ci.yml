@@ -48,4 +48,8 @@ jobs:
         run: |
           pnpm --filter jarvis-ext-api upload-schema-to-supabase
           pnpm --filter jarvis-ext-api upload-schema-to-s3
-      - run: pnpm build
+      - name: Build
+        env:
+          SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: pnpm build

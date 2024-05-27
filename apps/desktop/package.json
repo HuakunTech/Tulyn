@@ -43,6 +43,7 @@
     "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "compare-versions": "^6.1.0",
     "element-plus": "^2.7.3",
     "jarvis-api": "workspace:*",
     "lucide-vue-next": "^0.378.0",
