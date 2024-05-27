@@ -40,3 +40,5 @@ dev/extensions/*
 !dev/extensions/.gitkeep
 target/
 .idea/
+
+stats.html

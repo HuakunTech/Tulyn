@@ -20,7 +20,7 @@ import "element-plus/theme-chalk/dark/css-vars.css";
 import "element-plus/dist/index.css";
 import { devProgressRawData, finishedIds, overallProgressPercentage } from "./data";
 import { onMounted, ref } from "vue";
-import { ElTree } from "element-plus";
+import { ElTree, ElProgress } from "element-plus";
 
 const treeRef = ref<InstanceType<typeof ElTree>>();
 

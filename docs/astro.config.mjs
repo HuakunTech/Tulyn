@@ -5,6 +5,7 @@ import tailwind from "@astrojs/tailwind";
 import vue from "@astrojs/vue";
 import react from "@astrojs/react";
 import svelte from "@astrojs/svelte";
+import { visualizer } from "rollup-plugin-visualizer";
 
 // https://astro.build/config
 export default defineConfig({
@@ -60,8 +61,11 @@ export default defineConfig({
     tailwind({
       applyBaseStyles: false,
     }),
-    vue({ appEntrypoint: "/src/pages/_app", devtools: true }),
+    vue(),
     react(),
     svelte(),
   ],
+  vite: {
+    plugins: [visualizer()],
+  },
 });
