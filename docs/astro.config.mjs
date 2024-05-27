@@ -60,7 +60,7 @@ export default defineConfig({
     tailwind({
       applyBaseStyles: false,
     }),
-    vue(),
+    vue({ appEntrypoint: "/src/pages/_app", devtools: true }),
     react(),
     svelte(),
   ],
