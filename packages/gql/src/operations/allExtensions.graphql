@@ -1,0 +1,11 @@
+query AllExtensions {
+  extensionsCollection {
+    edges {
+      node {
+        id
+        identifier
+        name
+      }
+    }
+  }
+}
