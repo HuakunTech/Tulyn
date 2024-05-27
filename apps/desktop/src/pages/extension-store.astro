@@ -1,14 +1,12 @@
 ---
+import ExtensionStorePage from "@/components/extension-store/store.vue";
 import DefaultLayout from "@/layouts/Default.astro";
-import { Button } from "@/components/ui/button";
-import VueDev from "@/components/VueDev.vue";
-import MainSearch from "@/components/MainSearch.vue";
 import DefaultVue from "@/components/layouts/default.vue";
 ---
 
-<DefaultLayout title="Main Page">
+<DefaultLayout title="Extension Store">
   <!-- <FlowEditor client:only="react" /> -->
   <DefaultVue client:only="vue">
-    <MainSearch client:only="vue" class="" />
+    <ExtensionStorePage client:only="vue" />
   </DefaultVue>
 </DefaultLayout>

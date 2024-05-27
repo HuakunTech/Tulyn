@@ -8,6 +8,7 @@ import {
   UserCogIcon,
   TestTubesIcon,
 } from "lucide-vue-next";
+import { Icon } from "@iconify/vue";
 import ModeToggle from "@/components/ui/ModeToggle.vue";
 import { Button } from "@/components/ui/button";
 import { toggleDevTools } from "@/lib/commands/tools";
@@ -37,6 +38,11 @@ onMounted(async () => {
       <a href="./link-list" v-if="isDev">
         <Button class="w-4 h-4" size="icon" variant="ghost">
           <TestTubesIcon />
+        </Button>
+      </a>
+      <a href="./extension-store" v-if="isDev">
+        <Button class="w-4 h-4" size="icon" variant="ghost">
+          <Icon icon="ri:app-store-fill" class="w-5 h-5" />
         </Button>
       </a>
       <a href="./settings">

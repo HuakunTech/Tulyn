@@ -12,11 +12,13 @@
     "tauri": "tauri"
   },
   "dependencies": {
+    "@apollo/client": "^3.10.4",
     "@astrojs/check": "^0.6.0",
     "@astrojs/react": "^3.3.4",
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vue": "^4.2.0",
     "@internationalized/date": "^3.5.3",
+    "@jarvis/gql": "workspace:*",
     "@monaco-editor/react": "^4.6.0",
     "@nanostores/persistent": "^0.10.1",
     "@nanostores/vue": "^0.10.0",
