@@ -6,5 +6,5 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [vue(), tailwind(), react()],
+  integrations: [vue({ appEntrypoint: "/src/lib/vue", devtools: true }), tailwind(), react()],
 });

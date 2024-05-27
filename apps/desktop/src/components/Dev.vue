@@ -6,6 +6,10 @@ import { onMounted } from "vue";
 import { v4 as uuidv4 } from "uuid";
 import { tauriToast } from "./tauri/toast";
 import { convertFileSrc } from "@tauri-apps/api/core";
+import { ElMessage } from "element-plus";
+
+import "element-plus/dist/index.css";
+import "element-plus/theme-chalk/dark/css-vars.css";
 
 async function trigger() {
   tauriToast({
@@ -30,13 +34,20 @@ async function trigger() {
 }
 
 function openWindow() {
-  new WebviewWindow('ext', {
-    url: convertFileSrc("/Users/hacker/Dev/projects/Jarvis/packages/extensions/jwt/dist/index.html", "extasset")
-  })
-}
+  // new WebviewWindow('ext', {
+  //   url: convertFileSrc("/Users/hacker/Dev/projects/Jarvis/packages/extensions/jwt/dist/index.html", "extasset")
+  // })
 
+  ElMessage({
+    message: "Congrats, this is a success message.",
+    type: "success",
+  });
+}
 </script>
 <template>
-  <Button @click="trigger">Trigger Toast</Button>
-  <Button @click="openWindow">Open Window</Button>
+  <div>
+    <Button @click="trigger">Trigger Toast</Button>
+    <Button @click="openWindow">Open Window</Button>
+    <el-button>Default</el-button>
+  </div>
 </template>

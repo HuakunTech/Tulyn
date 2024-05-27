@@ -14,6 +14,15 @@ export const devProgressRawData: DevProgressData[] = [
     children: [{ label: "System Commands", finished: true }],
   },
   {
+    label: "Desktop",
+    children: [
+      { label: "Global Toast in A Separate Window", finished: true },
+      { label: "Shortcut To Open", finished: false },
+      { label: "Main window close on focus lose", finished: false },
+      { label: "Pin Window", finished: false },
+    ],
+  },
+  {
     label: "Extensions",
     children: [
       { label: "UI Extension", finished: true },
@@ -33,6 +42,7 @@ export const devProgressRawData: DevProgressData[] = [
           { label: "Shell", finished: true },
           { label: "System Info (CPU, Battery, etc.)", finished: false },
           { label: "Network", finished: false },
+          { label: "Global Toast", finished: false },
         ],
       },
       { label: "Use HTTPS for Extension Loading", finished: false },
@@ -88,8 +98,6 @@ function fillId(data: DevProgressData): void {
 }
 devProgressRawData.forEach(fillId);
 export const overallProgressPercentage = Math.round((overallProgress / count) * 100);
-
-
 
 export interface Tree {
   id: number;
