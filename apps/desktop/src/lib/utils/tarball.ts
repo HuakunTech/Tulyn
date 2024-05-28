@@ -1,18 +1,20 @@
-import { getDevExtensionFolder } from "@/lib/commands/server";
+import { getDevExtensionFolder, getExtensionFolder } from "@/lib/commands/server";
 import { loadManifest } from "../commands/manifest";
 import { tempDir, join as pathJoin, downloadDir } from "@tauri-apps/api/path";
 import { v4 as uuidv4 } from "uuid";
 import { fs, path, dialog } from "jarvis-api/ui";
 import { ZodError } from "zod";
+import { download } from "@tauri-apps/plugin-upload";
+import { toast as sonner } from "vue-sonner";
+import { useToast } from "@/components/ui/toast";
 
 /**
  *
  * @param tarballPath path to .tar.gz file
  */
-export async function installTarball(tarballPath: string) {
-  const extDir = await getDevExtensionFolder();
+export async function installTarball(tarballPath: string, targetDir: string) {
   const tempDirPath = await tempDir();
-  if (!extDir) {
+  if (!targetDir) {
     return Promise.reject("Extension Folder Not Set");
   }
   // decompress tarball to tempDir
@@ -24,7 +26,7 @@ export async function installTarball(tarballPath: string) {
   return loadManifest(decompressDest)
     .then(async (manifest) => {
       // The extension folder name will be the identifier
-      const extInstallPath = await pathJoin(extDir, manifest.jarvis.identifier);
+      const extInstallPath = await pathJoin(targetDir, manifest.jarvis.identifier);
       if (await fs.exists(extInstallPath)) {
         const overwrite = await dialog.ask(
           `Extension ${manifest.jarvis.identifier} already exists, do you want to overwrite it?`,
@@ -43,4 +45,21 @@ export async function installTarball(tarballPath: string) {
       }
       throw new Error(err);
     });
+}
+
+export async function installTarballUrl(tarballUrl: string, targetDir: string) {
+  const filename = tarballUrl.split("/").pop();
+  if (filename) {
+    try {
+      const tempDirPath = await tempDir();
+      let tarballPath = await pathJoin(tempDirPath, filename);
+      await download(tarballUrl, tarballPath);
+      await installTarball(tarballPath, targetDir);
+      sonner.success(`Installed 1 Tarball`);
+      await fs.remove(tarballPath);
+    } catch (error: any) {
+      const { toast } = useToast();
+      toast({ title: error, variant: "destructive" });
+    }
+  }
 }

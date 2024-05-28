@@ -11,11 +11,12 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import DialogImage from "./DialogImage.vue";
 import ExtStoreDrawer from "./ExtStoreDrawer.vue";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ExtItem } from "./types";
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { ApolloClient, HttpLink, InMemoryCache, type ApolloQueryResult } from "@apollo/client";
 import {
   type FindLatestExtQuery,
@@ -28,13 +29,21 @@ import { type Tables } from "@jarvis/ext-api/supabase/types/supabase";
 import * as supabase from "@/lib/utils/supabase";
 import { JarvisExtManifest } from "jarvis-api";
 import { Separator } from "@/components/ui/separator";
+import { CircleCheckBigIcon } from "lucide-vue-next";
 import { GlobalEventBus } from "@/lib/utils/events";
+import { installTarballUrl } from "@/lib/utils/tarball";
+import { getDevExtensionFolder, getExtensionFolder } from "@/lib/commands/server";
+import { ElMessage } from "element-plus";
+// import { useToast } from "@/components/ui/toast/use-toast";
+import { toast as sonner, toast } from "vue-sonner";
+// const toast = useToast();
 
 const props = defineProps<{
   open: boolean;
   selectedExt?: ExtItem;
+  installed?: boolean;
 }>();
-
+const imageDialogOpen = ref(false);
 const emits = defineEmits<{
   (e: "update:open", open: boolean): void;
 }>();
@@ -79,14 +88,37 @@ const manifest = computed(() => {
   }
 });
 
-onMounted(() => {
-  GlobalEventBus.onKeyDown((e) => {
-    if (e.key === "Enter" && currentExt.value) {
-      // run installation
-      const tarballUrl = supabase.getFileUrl(currentExt.value.tarball_path).data.publicUrl;
+async function installExt() {
+  if (!currentExt.value) {
+    return toast.error("Unexpected Error: No Extension Selected");
+  }
+  const tarballUrl = supabase.getFileUrl(currentExt.value.tarball_path).data.publicUrl;
+  const targetInstallDir = await getExtensionFolder();
+  console.log();
 
-    }
-  });
+  if (!targetInstallDir) {
+    toast.error("Unexpected Error: Extension Folder is Null");
+  } else {
+    await installTarballUrl(tarballUrl, targetInstallDir);
+  }
+}
+
+function onEnterPressed(e: KeyboardEvent) {
+  if (e.key === "Enter" && currentExt.value) {
+    installExt();
+  }
+}
+
+onMounted(() => {
+  GlobalEventBus.onKeyDown(onEnterPressed);
+});
+
+onUnmounted(() => {
+  GlobalEventBus.offKeyDown(onEnterPressed);
+});
+
+const imageSrcs = computed(() => {
+  return currentExt.value?.demo_images.map((src) => supabase.getFileUrl(src).data.publicUrl) ?? [];
 });
 </script>
 <template>
@@ -98,26 +130,32 @@ onMounted(() => {
         <div>
           <DrawerTitle>
             <strong class="text-xl">{{ selectedExt?.name }}</strong>
+            <CircleCheckBigIcon v-if="props.installed" class="inline ml-2 text-green-400" />
           </DrawerTitle>
           <DrawerDescription>{{ selectedExt?.short_description }}</DrawerDescription>
         </div>
       </DrawerHeader>
       <ScrollArea class="h-[60vh] px-4">
-        <ScrollArea dir="ltr">
+        <!-- <div class="overflow-x-scroll flex border border-green-400 p-3 space-x-2 w-96"> -->
+        <div class="flex space-x-4 snap-x snap-mandatory w-full mx:auto overflow-x-scroll">
+          <!-- <ScrollArea dir="ltr" class="overflow-x-auto flex border space-x-2"> -->
+          <DialogImage v-model:open="imageDialogOpen" :img-src="imageSrcs" />
           <img
-            v-for="ext in currentExt?.demo_images"
-            :src="supabase.getFileUrl(ext).data.publicUrl"
-            class="h-32"
+            v-for="src in imageSrcs"
+            :src="src"
+            class="h-32 inline cursor-pointer"
+            @click="imageDialogOpen = true"
             alt=""
           />
-        </ScrollArea>
+        </div>
+        <!-- </ScrollArea> -->
         <Separator class="my-5" />
-        <DrawerDescription class="text-lg">Description</DrawerDescription>
-        <span>
+        <DrawerDescription class="text-md">Description</DrawerDescription>
+        <span class="text-sm">
           {{ selectedExt?.long_description }}
         </span>
         <Separator class="my-5" />
-        <DrawerDescription class="text-lg">Commands</DrawerDescription>
+        <DrawerDescription class="text-mg my-3">Commands</DrawerDescription>
 
         <ul>
           <li v-if="manifest" v-for="cmd in manifest.uiCmds">
@@ -125,13 +163,14 @@ onMounted(() => {
               <Icon
                 v-if="props.selectedExt"
                 :icon="props.selectedExt?.icon"
-                class="w-8 h-8 inline"
+                class="w-6 h-6 inline"
               />
-              <span class="text-xl">{{ cmd.name }}</span>
+              <div>
+                <span class="text-dm">{{ cmd.name }}</span>
+                <DrawerDescription class="text-xs">{{ cmd.description }}</DrawerDescription>
+              </div>
             </div>
-            <DrawerDescription>cmd.description</DrawerDescription>
             <Separator class="my-3" />
-            <!-- <span>{{ cmd.description }}</span> -->
           </li>
         </ul>
       </ScrollArea>
@@ -140,9 +179,9 @@ onMounted(() => {
         <DrawerClose>
           <Button variant="outline"> Cancel </Button>
         </DrawerClose> -->
-        <Button @click=""
-          >Install <kbd><Iconify icon="mi:enter" class="w-5 h-5 ml-2" /></kbd
-        ></Button>
+        <Button @click="installExt">
+          Install <kbd><Iconify icon="mi:enter" class="w-5 h-5 ml-2" /></kbd>
+        </Button>
       </DrawerFooter>
     </DrawerContent>
   </ExtStoreDrawer>

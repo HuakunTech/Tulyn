@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { SUPABASE_ANON_KEY, SUPABASE_GRAPHQL_ENDPOINT } from "@/lib/constants";
 import { ApolloClient, InMemoryCache, HttpLink, type ApolloQueryResult, gql } from "@apollo/client";
 import { type AllExtensionsQuery, AllExtensionsDocument } from "@jarvis/gql";
@@ -17,15 +17,22 @@ import {
 import ExtDrawer from "./ExtDrawer.vue";
 import Command from "./Command.vue";
 import { ExtItem, ExtItemParser } from "./types";
-import { $extensionsStore } from "@/lib/stores/extensions";
+import { $extensionsStore, loadAllExtensionsManifest } from "@/lib/stores/extensions";
 import { useStore } from "@nanostores/vue";
-import { computed } from "nanostores";
+import { computed as nanoComputed } from "nanostores";
 import { gqlClient } from "@/lib/utils/graphql";
 
-const extIdentifiersSet = computed($extensionsStore, (state) => {
+const extIdentifiersSet = nanoComputed($extensionsStore, (state) => {
   return new Set(state.manifests.map((ext) => ext.jarvis.identifier));
 });
 const selectedExt = ref<ExtItem>();
+const selectedInstalled = computed(() => {
+  if (selectedExt.value?.identifier) {
+    return extIdentifiersSet.value?.has(selectedExt.value?.identifier);
+  } else {
+    return false;
+  }
+});
 const extDrawerOpen = ref(false);
 const extList = ref<ExtItem[]>([]);
 onMounted(async () => {
@@ -37,8 +44,11 @@ onMounted(async () => {
       ExtItem.parse(ExtItemParser.parse(x.node)),
     ) ?? [];
 
-  selectedExt.value = extList.value[0];
-  extDrawerOpen.value = true;
+  // this is for debug only
+  // selectedExt.value = extList.value[0];
+  // extDrawerOpen.value = true;
+  await loadAllExtensionsManifest();
+  console.log($extensionsStore.get());
 });
 
 function select(item: ExtItem) {
@@ -46,9 +56,19 @@ function select(item: ExtItem) {
   selectedExt.value = item;
   extDrawerOpen.value = true;
 }
+
+watch(
+  () => extIdentifiersSet,
+  () => {
+    console.log(extIdentifiersSet.value);
+  },
+);
 </script>
 <template>
-  <ExtDrawer v-model:open="extDrawerOpen" :selectedExt="selectedExt" />
+  <ExtDrawer
+    v-model:open="extDrawerOpen"
+    :selectedExt="selectedExt"
+  />
   <Command>
     <CommandInput placeholder="Type to search..." />
     <CommandList>
