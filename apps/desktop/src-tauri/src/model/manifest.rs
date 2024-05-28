@@ -50,7 +50,8 @@ pub struct Icon {
 #[serde(rename_all = "camelCase")]
 pub struct JarvisExtManifest {
     pub name: String,
-    pub description: String,
+    pub short_description: String,
+    pub long_description: String,
     pub identifier: String,
     pub icon: Icon,
     pub demo_images: Vec<Value>,
@@ -64,7 +65,6 @@ pub struct JarvisExtManifest {
 pub struct ExtPackageJson {
     pub name: String,
     pub version: String,
-    pub description: String,
     pub jarvis: JarvisExtManifest,
 }
 
@@ -73,7 +73,6 @@ pub struct ExtPackageJson {
 pub struct ExtPackageJsonExtra {
     pub name: String,
     pub version: String,
-    pub description: String,
     pub jarvis: JarvisExtManifest,
     // extra fields
     pub ext_path: PathBuf,
@@ -85,7 +84,6 @@ impl ExtPackageJsonExtra {
         Self {
             name: manifest.name,
             version: manifest.version,
-            description: manifest.description,
             jarvis: manifest.jarvis,
             ext_folder_name: ext_path.file_name().unwrap().to_str().unwrap().to_string(),
             ext_path,

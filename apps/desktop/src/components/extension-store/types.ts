@@ -1,10 +1,11 @@
 import { z } from "zod";
 
 export const ExtItem = z.object({
-  id: z.string(),
   identifier: z.string(),
   name: z.string(),
-  version: z.string(),
+  downloads: z.number(),
+  description: z.string(),
+  icon: z.string().transform((val) => JSON.parse(val)),
 });
 
 export type ExtItem = z.infer<typeof ExtItem>;

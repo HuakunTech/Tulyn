@@ -2,10 +2,11 @@ query AllExtensions {
   extensionsCollection {
     edges {
       node {
-        name
         identifier
+        name
         downloads
         description
+        icon
       }
     }
   }

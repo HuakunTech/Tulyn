@@ -2,7 +2,7 @@
 import { Icon } from "@iconify/vue";
 import { onMounted, ref } from "vue";
 import { SUPABASE_ANON_KEY, SUPABASE_GRAPHQL_ENDPOINT } from "@/lib/constants";
-import { ApolloClient, InMemoryCache, HttpLink, type ApolloQueryResult } from "@apollo/client";
+import { ApolloClient, InMemoryCache, HttpLink, type ApolloQueryResult, gql } from "@apollo/client";
 import { type AllExtensionsQuery, AllExtensionsDocument } from "@jarvis/gql";
 import ExtListItem from "./ext-list-item.vue";
 import {
@@ -34,20 +34,15 @@ onMounted(async () => {
     query: AllExtensionsDocument,
   });
   extList.value = response.data.extensionsCollection?.edges.map((x) => ExtItem.parse(x.node)) ?? [];
-  console.log(response.data.extensionsCollection?.edges);
 });
 </script>
 <template>
-  <Command>
+  <Command :identity-filter="false">
     <CommandInput placeholder="Type to search..." />
     <CommandList>
       <CommandEmpty>No results found.</CommandEmpty>
       <CommandGroup heading="Extensions">
-        <ExtListItem
-          v-for="item in extList"
-          :value="`${item.identifier}@${item.version}`"
-          :data="item"
-        />
+        <ExtListItem v-for="item in extList" :value="item.identifier" :data="item" />
         <!-- <CommandItem v-for="item in extList" :value="`${item.identifier}@${item.version}`">
           <div class="flex justify-between items-center w-full">
             <div class="">

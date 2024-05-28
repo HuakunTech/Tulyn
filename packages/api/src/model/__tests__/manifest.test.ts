@@ -8,10 +8,10 @@ test("Load extension manifest in this repo", () => {
   console.log(extensionsDir);
   
   for (const extJsonPath of [
-    // join(extensionsDir, "qrcode/package.json"),
+    join(extensionsDir, "qrcode/package.json"),
     join(extensionsDir, "ip-info/package.json"),
-    // join(extensionsDir, "jwt/package.json"),
-    // join(extensionsDir, "download-twitter-video/package.json"),
+    join(extensionsDir, "jwt/package.json"),
+    join(extensionsDir, "download-twitter-video/package.json"),
   ]) {
     const manifestStr = fs.readFileSync(extJsonPath).toString();
     ExtPackageJson.parse(JSON.parse(manifestStr));
