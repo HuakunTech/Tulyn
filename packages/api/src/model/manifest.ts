@@ -63,6 +63,8 @@ export const Icon = z.object({
 });
 
 export const JarvisExtManifest = z.object({
+  name: z.string().describe("Name of the extension (Human Readable)"),
+  description: z.string().describe("Description of the extension"),
   identifier: z.string().describe("Unique identifier for the extension"),
   icon: Icon.describe("Icon for the extension"),
   demoImages: z.array(z.string()).describe("Demo images for the extension"),
@@ -72,9 +74,13 @@ export const JarvisExtManifest = z.object({
 export type JarvisExtManifest = z.infer<typeof JarvisExtManifest>;
 
 export const ExtPackageJson = z.object({
-  name: z.string().describe("Unique name for the extension"),
+  name: z.string().describe("Package name for the extension (just a regular npm package name)"),
   version: z.string().describe("Version of the extension"),
-  description: z.string().describe("Description of the extension"),
+  description: z
+    .string()
+    .describe(
+      "Description of the extension, will not be displayed in store. Use 'jarvjs' description for that.",
+    ),
   jarvis: JarvisExtManifest.describe("Jarvis extension manifest"),
 });
 export type ExtPackageJson = z.infer<typeof ExtPackageJson>;

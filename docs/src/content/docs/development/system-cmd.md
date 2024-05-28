@@ -1,6 +1,8 @@
 ---
 title: System Commands
 description: Commands to interact with the system.
+sidebar:
+  order: 2
 ---
 
 Jarvis includes built-in system commands for essential tasks such as emptying the trash, restarting, shutting down, and adjusting the volume.
