@@ -38,6 +38,9 @@ importers:
       '@internationalized/date':
         specifier: ^3.5.3
         version: 3.5.4
+      '@jarvis/ext-api':
+        specifier: workspace:*
+        version: link:../../packages/ext-api
       '@jarvis/gql':
         specifier: workspace:*
         version: link:../../packages/gql
@@ -53,6 +56,9 @@ importers:
       '@radix-icons/vue':
         specifier: ^1.0.0
         version: 1.0.0(vue@3.4.27(typescript@5.4.5))
+      '@supabase/supabase-js':
+        specifier: ^2.43.4
+        version: 2.43.4
       '@tauri-apps/api':
         specifier: 2.0.0-beta.11
         version: 2.0.0-beta.11
@@ -158,6 +164,9 @@ importers:
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
+      vaul-vue:
+        specifier: ^0.1.2
+        version: 0.1.2(typescript@5.4.5)
       vee-validate:
         specifier: ^4.12.8
         version: 4.12.8(vue@3.4.27(typescript@5.4.5))
@@ -6349,6 +6358,9 @@ packages:
   value-or-promise@1.0.12:
     resolution: {integrity: sha512-Z6Uz+TYwEqE7ZN50gwn+1LCVo9ZVrpxRPOhOLnncYkY1ZzOYtrX8Fwf/rFktZ8R5mJms6EZf5TqNOMeZmnPq9Q==}
     engines: {node: '>=12'}
+
+  vaul-vue@0.1.2:
+    resolution: {integrity: sha512-E9e0qmHXScnYXDXYuBM0xFjW5DaRcUhj9fkFlv12omd7K/RzXpM+prU+EfHS3sjtDJuy1lBdOlPPYXJeQuT/Qw==}
 
   vee-validate@4.12.8:
     resolution: {integrity: sha512-A07rm3+y7SRk0CMD/O4nBT0nxtwjyfzGZwjEUDk18SxK0ZMzd4AFCzzdHlIiCE1QgHetxd0I3kVkZdN0GG0Oww==}
@@ -14221,6 +14233,15 @@ snapshots:
   valid-url@1.0.9: {}
 
   value-or-promise@1.0.12: {}
+
+  vaul-vue@0.1.2(typescript@5.4.5):
+    dependencies:
+      '@vueuse/core': 10.9.0(vue@3.4.27(typescript@5.4.5))
+      radix-vue: 1.8.1(vue@3.4.27(typescript@5.4.5))
+      vue: 3.4.27(typescript@5.4.5)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - typescript
 
   vee-validate@4.12.8(vue@3.4.27(typescript@5.4.5)):
     dependencies:

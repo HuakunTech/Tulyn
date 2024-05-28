@@ -92,6 +92,7 @@ export const Icon = z.object({
   type: IconType,
   icon: z.string(),
 });
+export type Icon = z.infer<typeof Icon>;
 
 export const JarvisExtManifest = z.object({
   name: z.string().describe("Name of the extension (Human Readable)"),

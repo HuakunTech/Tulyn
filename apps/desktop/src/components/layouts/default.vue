@@ -22,6 +22,7 @@ onMounted(() => {
   /* -------------------------------------------------------------------------- */
 
   document.addEventListener("keydown", KeyComb.onKeyDown);
+  document.addEventListener("keydown", GlobalEventBus.emitKeyDown);
   document.addEventListener("keyup", KeyComb.onKeyUp);
 
   GlobalEventBus.setupSettingsKeyComb();
@@ -29,6 +30,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   document.removeEventListener("keydown", KeyComb.onKeyDown);
+  document.removeEventListener("keydown", GlobalEventBus.emitKeyDown);
   document.removeEventListener("keyup", KeyComb.onKeyUp);
   GlobalEventBus.removeSettingsKeyComb();
 });

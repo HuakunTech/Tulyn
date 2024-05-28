@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { SUPABASE_ANON_KEY, SUPABASE_GRAPHQL_ENDPOINT } from "@/lib/constants";
 import { ApolloClient, InMemoryCache, HttpLink, type ApolloQueryResult, gql } from "@apollo/client";
 import { type AllExtensionsQuery, AllExtensionsDocument } from "@jarvis/gql";
@@ -15,39 +14,41 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
+import ExtDrawer from "./ExtDrawer.vue";
 import Command from "./Command.vue";
-import { ExtItem } from "./types";
+import { ExtItem, ExtItemParser } from "./types";
 import { $extensionsStore } from "@/lib/stores/extensions";
 import { useStore } from "@nanostores/vue";
 import { computed } from "nanostores";
+import { gqlClient } from "@/lib/utils/graphql";
 
 const extIdentifiersSet = computed($extensionsStore, (state) => {
   return new Set(state.manifests.map((ext) => ext.jarvis.identifier));
 });
-
+const selectedExt = ref<ExtItem>();
+const extDrawerOpen = ref(false);
 const extList = ref<ExtItem[]>([]);
 onMounted(async () => {
-  const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    link: new HttpLink({
-      uri: SUPABASE_GRAPHQL_ENDPOINT,
-      headers: {
-        apiKey: SUPABASE_ANON_KEY,
-      },
-    }),
-  });
-
-  const response: ApolloQueryResult<AllExtensionsQuery> = await client.query({
+  const response: ApolloQueryResult<AllExtensionsQuery> = await gqlClient.query({
     query: AllExtensionsDocument,
   });
-  extList.value = response.data.extensionsCollection?.edges.map((x) => ExtItem.parse(x.node)) ?? [];
+  extList.value =
+    response.data.extensionsCollection?.edges.map((x) =>
+      ExtItem.parse(ExtItemParser.parse(x.node)),
+    ) ?? [];
+
+  selectedExt.value = extList.value[0];
+  extDrawerOpen.value = true;
 });
 
 function select(item: ExtItem) {
   console.log(item);
+  selectedExt.value = item;
+  extDrawerOpen.value = true;
 }
 </script>
 <template>
+  <ExtDrawer v-model:open="extDrawerOpen" :selectedExt="selectedExt" />
   <Command>
     <CommandInput placeholder="Type to search..." />
     <CommandList>

@@ -15,3 +15,4 @@ export const SUPABASE_GRAPHQL_ENDPOINT = z
   .string()
   .min(10)
   .parse(import.meta.env.PUBLIC_SUPABASE_GRAPHQL_ENDPOINT);
+export const FileStorageUrl = "";

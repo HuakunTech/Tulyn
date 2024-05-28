@@ -9,30 +9,107 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      extensions: {
+      ext_images: {
         Row: {
           created_at: string
-          id: number
-          identifier: string | null
-          name: string | null
-          packagejson: Json | null
-          version: string | null
+          image_path: string
+          sha512: string
         }
         Insert: {
           created_at?: string
-          id?: number
-          identifier?: string | null
-          name?: string | null
-          packagejson?: Json | null
-          version?: string | null
+          image_path: string
+          sha512: string
         }
         Update: {
           created_at?: string
+          image_path?: string
+          sha512?: string
+        }
+        Relationships: []
+      }
+      ext_publish: {
+        Row: {
+          cmd_count: number
+          created_at: string
+          demo_images: string[]
+          downloads: number
+          id: number
+          identifier: string
+          manifest: Json
+          name: string
+          shasum: string
+          size: number
+          tarball_path: string
+          version: string
+        }
+        Insert: {
+          cmd_count: number
+          created_at?: string
+          demo_images: string[]
+          downloads: number
           id?: number
-          identifier?: string | null
-          name?: string | null
-          packagejson?: Json | null
-          version?: string | null
+          identifier: string
+          manifest: Json
+          name: string
+          shasum: string
+          size: number
+          tarball_path: string
+          version: string
+        }
+        Update: {
+          cmd_count?: number
+          created_at?: string
+          demo_images?: string[]
+          downloads?: number
+          id?: number
+          identifier?: string
+          manifest?: Json
+          name?: string
+          shasum?: string
+          size?: number
+          tarball_path?: string
+          version?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ext_publish_identifier_fkey"
+            columns: ["identifier"]
+            isOneToOne: false
+            referencedRelation: "extensions"
+            referencedColumns: ["identifier"]
+          },
+        ]
+      }
+      extensions: {
+        Row: {
+          created_at: string
+          downloads: number
+          icon: Json | null
+          identifier: string
+          long_description: string | null
+          name: string
+          readme: string | null
+          short_description: string
+        }
+        Insert: {
+          created_at?: string
+          downloads: number
+          icon?: Json | null
+          identifier: string
+          long_description?: string | null
+          name: string
+          readme?: string | null
+          short_description: string
+        }
+        Update: {
+          created_at?: string
+          downloads?: number
+          icon?: Json | null
+          identifier?: string
+          long_description?: string | null
+          name?: string
+          readme?: string | null
+          short_description?: string
         }
         Relationships: []
       }

@@ -7,12 +7,13 @@ import { setsEqual } from "./js";
 import { SettingsKeyComb } from "./keycomb";
 
 export const EVENT_SEARCH_BAR_KEYDOWN = "searchBarKeyDown";
-
+export const EVENT_KEY_DOWN = "keyDown";
 export const EVENT_KEY_COMBINATION = "keyCombination";
 
 type Events = {
   searchBarKeyDown: KeyboardEvent;
   keyCombination: Set<string>;
+  keyDown: KeyboardEvent;
 };
 
 export function keyCombToSetting(keyComb: Set<string>) {
@@ -54,6 +55,22 @@ export class GlobalEventBus {
 
   static offKeyCombination(handler: (keyComb: Set<string>) => void) {
     GlobalEventBus.emitter.off(EVENT_KEY_COMBINATION, handler);
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                                Any Key Down                                */
+  /* -------------------------------------------------------------------------- */
+
+  static onKeyDown(handler: (event: KeyboardEvent) => void) {
+    GlobalEventBus.emitter.on(EVENT_KEY_DOWN, handler);
+  }
+
+  static offKeyDown(handler: (event: KeyboardEvent) => void) {
+    GlobalEventBus.emitter.off(EVENT_KEY_DOWN, handler);
+  }
+
+  static emitKeyDown(event: KeyboardEvent) {
+    GlobalEventBus.emitter.emit(EVENT_KEY_DOWN, event);
   }
 
   /* -------------------------------------------------------------------------- */
