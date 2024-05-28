@@ -2,10 +2,10 @@ query AllExtensions {
   extensionsCollection {
     edges {
       node {
-        id
-        identifier
         name
-        version
+        identifier
+        downloads
+        description
       }
     }
   }
