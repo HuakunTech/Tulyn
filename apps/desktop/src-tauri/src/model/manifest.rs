@@ -22,6 +22,14 @@ pub enum TitleBarStyle {
     Overlay,
 }
 
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum WindowTheme {
+    #[default]
+    Light,
+    Dark,
+}
+
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum OSPlatform {
@@ -29,7 +37,6 @@ pub enum OSPlatform {
     MacOS,
     Linux,
 }
-
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -42,6 +49,8 @@ pub struct Icon {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct JarvisExtManifest {
+    pub name: String,
+    pub description: String,
     pub identifier: String,
     pub icon: Icon,
     pub demo_images: Vec<Value>,
@@ -94,9 +103,37 @@ impl ExtPackageJson {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct WindowConfig {
+    pub center: Option<bool>,
+    pub x: Option<u32>,
+    pub y: Option<u32>,
     pub width: Option<u32>,
     pub height: Option<u32>,
+    pub min_width: Option<u32>,
+    pub min_height: Option<u32>,
+    pub max_width: Option<u32>,
+    pub max_height: Option<u32>,
+    pub resizable: Option<bool>,
+    pub title: Option<String>,
+    pub fullscreen: Option<bool>,
+    pub focus: Option<bool>,
+    pub transparent: Option<bool>,
+    pub maximized: Option<bool>,
+    pub visible: Option<bool>,
+    pub decorations: Option<bool>,
+    pub always_on_top: Option<bool>,
+    pub always_on_bottom: Option<bool>,
+    pub content_protected: Option<bool>,
+    pub skip_taskbar: Option<bool>,
+    pub shadow: Option<bool>,
+    pub theme: Option<WindowTheme>,
     pub title_bar_style: Option<TitleBarStyle>,
+    pub hidden_title: Option<bool>,
+    pub tabbing_identifier: Option<String>,
+    pub maximizable: Option<bool>,
+    pub minimizable: Option<bool>,
+    pub closable: Option<bool>,
+    pub parent: Option<String>,
+    pub visible_on_all_workspaces: Option<bool>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -108,7 +145,7 @@ pub struct UiCmd {
     pub dev_main: String,
     pub window: Option<WindowConfig>,
     pub cmds: Vec<Cmd>,
-    pub platforms: Option<Vec<OSPlatform>>
+    pub platforms: Option<Vec<OSPlatform>>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -126,7 +163,7 @@ pub struct InlineCmd {
     pub name: String,
     pub description: Option<String>,
     pub cmds: Vec<Cmd>,
-    pub platforms: Option<Vec<OSPlatform>>
+    pub platforms: Option<Vec<OSPlatform>>,
 }
 
 // generate test

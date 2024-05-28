@@ -160,7 +160,7 @@ function openExtention(item: TListItem) {
         url,
         title: item.title,
         titleBarStyle: TitleBarStyle.parse(uiCmd.window?.titleBarStyle?.toLowerCase() ?? "visible"),
-
+        // parent: "main"
         width: uiCmd.window?.width ?? undefined,
         height: uiCmd.window?.height ?? undefined,
       });

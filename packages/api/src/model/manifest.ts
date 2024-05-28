@@ -25,9 +25,40 @@ export const TitleBarStyle = z.enum(["visible", "transparent", "overlay"]);
 // export const TitleBarStyleAllLower = z.enum(["visible", "transparent", "overlay"]);
 // export type TitleBarStyleAllLower = z.infer<typeof TitleBarStyleAllLower>;
 export const WindowConfig = z.object({
+  center: z.boolean().nullable().optional(),
+  x: z.number().nullable().optional(),
+  y: z.number().nullable().optional(),
   width: z.number().nullable().optional(),
   height: z.number().nullable().optional(),
+  minWidth: z.number().nullable().optional(),
+  minHeight: z.number().nullable().optional(),
+  maxWidth: z.number().nullable().optional(),
+  maxHeight: z.number().nullable().optional(),
+  resizable: z.boolean().nullable().optional(),
+  title: z.string().optional().nullable(),
+  fullscreen: z.boolean().nullable().optional(),
+  focus: z.boolean().nullable().optional(),
+  transparent: z.boolean().nullable().optional(),
+  maximized: z.boolean().nullable().optional(),
+  visible: z.boolean().nullable().optional(),
+  decorations: z.boolean().nullable().optional(),
+  alwaysOnTop: z.boolean().nullable().optional(),
+  alwaysOnBottom: z.boolean().nullable().optional(),
+  contentProtected: z.boolean().nullable().optional(),
+  skipTaskbar: z.boolean().nullable().optional(),
+  shadow: z.boolean().nullable().optional(),
+  theme: z
+    .union([z.literal("light"), z.literal("dark")])
+    .nullable()
+    .optional(),
   titleBarStyle: TitleBarStyle.nullable().optional(),
+  hiddenTitle: z.boolean().nullable().optional(),
+  tabbingIdentifier: z.string().optional().nullable(),
+  maximizable: z.boolean().nullable().optional(),
+  minimizable: z.boolean().nullable().optional(),
+  closable: z.boolean().nullable().optional(),
+  parent: z.string().nullable().optional(),
+  visibleOnAllWorkspaces: z.boolean().nullable().optional(),
 });
 export const UiCmd = z.object({
   main: z.string().describe("HTML file to load, e.g. dist/index.html"),
@@ -64,7 +95,7 @@ export const Icon = z.object({
 
 export const JarvisExtManifest = z.object({
   name: z.string().describe("Name of the extension (Human Readable)"),
-  description: z.string().describe("Description of the extension"),
+  description: z.string().describe("Description of the extension (Will be displayed in store)"),
   identifier: z.string().describe("Unique identifier for the extension"),
   icon: Icon.describe("Icon for the extension"),
   demoImages: z.array(z.string()).describe("Demo images for the extension"),
