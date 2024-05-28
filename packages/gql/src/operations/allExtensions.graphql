@@ -5,6 +5,7 @@ query AllExtensions {
         id
         identifier
         name
+        version
       }
     }
   }
