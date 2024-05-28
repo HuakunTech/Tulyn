@@ -15,24 +15,14 @@ import {
   CommandShortcut,
 } from "@/components/ui/command";
 import ExtDrawer from "./ExtDrawer.vue";
+import { Button } from "@/components/ui/button";
 import Command from "./Command.vue";
 import { ExtItem, ExtItemParser } from "./types";
 import { $extensionsStore, loadAllExtensionsManifest } from "@/lib/stores/extensions";
-import { useStore } from "@nanostores/vue";
-import { computed as nanoComputed } from "nanostores";
 import { gqlClient } from "@/lib/utils/graphql";
+import { ElMessage } from "element-plus";
 
-const extIdentifiersSet = nanoComputed($extensionsStore, (state) => {
-  return new Set(state.manifests.map((ext) => ext.jarvis.identifier));
-});
 const selectedExt = ref<ExtItem>();
-const selectedInstalled = computed(() => {
-  if (selectedExt.value?.identifier) {
-    return extIdentifiersSet.value?.has(selectedExt.value?.identifier);
-  } else {
-    return false;
-  }
-});
 const extDrawerOpen = ref(false);
 const extList = ref<ExtItem[]>([]);
 onMounted(async () => {
@@ -43,12 +33,6 @@ onMounted(async () => {
     response.data.extensionsCollection?.edges.map((x) =>
       ExtItem.parse(ExtItemParser.parse(x.node)),
     ) ?? [];
-
-  // this is for debug only
-  // selectedExt.value = extList.value[0];
-  // extDrawerOpen.value = true;
-  await loadAllExtensionsManifest();
-  console.log($extensionsStore.get());
 });
 
 function select(item: ExtItem) {
@@ -57,18 +41,24 @@ function select(item: ExtItem) {
   extDrawerOpen.value = true;
 }
 
-watch(
-  () => extIdentifiersSet,
-  () => {
-    console.log(extIdentifiersSet.value);
-  },
-);
+function isInstalled(identifier: string) {
+  return !!$extensionsStore.value?.manifests.find((x) => x.jarvis.identifier === identifier);
+}
+
+function message() {
+  ElMessage({
+    message: "Congrats, this is a success message.",
+    type: "success",
+  });
+}
 </script>
 <template>
   <ExtDrawer
     v-model:open="extDrawerOpen"
     :selectedExt="selectedExt"
+    :installed="selectedExt?.identifier ? isInstalled(selectedExt?.identifier) : false"
   />
+  <Button @click="message">Msg</Button>
   <Command>
     <CommandInput placeholder="Type to search..." />
     <CommandList>
@@ -77,7 +67,7 @@ watch(
         <ExtListItem
           v-for="item in extList"
           :data="item"
-          :installed="extIdentifiersSet.value?.has(item.identifier) ?? false"
+          :installed="isInstalled(item.identifier)"
           @select="select(item)"
         />
       </CommandGroup>

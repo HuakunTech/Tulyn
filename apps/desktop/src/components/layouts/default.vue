@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import { useColorMode } from "@vueuse/core";
 import { onMounted, onUnmounted, watch } from "vue";
+import ElementPlusCSS from "@/components/ElementPlusCSS.vue";
 import { $appConfig, LightMode, setLightMode, setTheme, setRadius } from "@/lib/stores/appConfig";
 import { useStore } from "@nanostores/vue";
 import { allColors } from "@/lib/themes/themes";
 import { KeyComb, SettingsKeyComb } from "@/lib/utils/keycomb";
 import { GlobalEventBus } from "@/lib/utils/events";
+import { loadAllExtensionsManifest } from "@/lib/stores/extensions";
 
 const appConfig = useStore($appConfig);
 const colorMode = useColorMode();
 
-onMounted(() => {
+onMounted(async () => {
   /* -------------------------------------------------------------------------- */
   /*                            Theme and Style Init                            */
   /* -------------------------------------------------------------------------- */
@@ -26,6 +28,7 @@ onMounted(() => {
   document.addEventListener("keyup", KeyComb.onKeyUp);
 
   GlobalEventBus.setupSettingsKeyComb();
+  await loadAllExtensionsManifest();
 });
 
 onUnmounted(() => {
@@ -51,5 +54,6 @@ watch(
 );
 </script>
 <template>
+  <ElementPlusCSS />
   <slot />
 </template>

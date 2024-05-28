@@ -29,7 +29,7 @@ import { type Tables } from "@jarvis/ext-api/supabase/types/supabase";
 import * as supabase from "@/lib/utils/supabase";
 import { JarvisExtManifest } from "jarvis-api";
 import { Separator } from "@/components/ui/separator";
-import { CircleCheckBigIcon } from "lucide-vue-next";
+import { CircleCheckBigIcon, Trash2Icon } from "lucide-vue-next";
 import { GlobalEventBus } from "@/lib/utils/events";
 import { installTarballUrl } from "@/lib/utils/tarball";
 import { getDevExtensionFolder, getExtensionFolder } from "@/lib/commands/server";
@@ -128,17 +128,16 @@ const imageSrcs = computed(() => {
       <DrawerHeader class="flex space-x-5 items-center">
         <Icon v-if="props.selectedExt" :icon="props.selectedExt?.icon" class="w-12 h-12" />
         <div>
-          <DrawerTitle>
+          <DrawerTitle class="flex items-center">
             <strong class="text-xl">{{ selectedExt?.name }}</strong>
             <CircleCheckBigIcon v-if="props.installed" class="inline ml-2 text-green-400" />
           </DrawerTitle>
           <DrawerDescription>{{ selectedExt?.short_description }}</DrawerDescription>
+          <pre class="text-xs text-muted-foreground">{{ currentExt?.identifier }}</pre>
         </div>
       </DrawerHeader>
       <ScrollArea class="h-[60vh] px-4">
-        <!-- <div class="overflow-x-scroll flex border border-green-400 p-3 space-x-2 w-96"> -->
         <div class="flex space-x-4 snap-x snap-mandatory w-full mx:auto overflow-x-scroll">
-          <!-- <ScrollArea dir="ltr" class="overflow-x-auto flex border space-x-2"> -->
           <DialogImage v-model:open="imageDialogOpen" :img-src="imageSrcs" />
           <img
             v-for="src in imageSrcs"
@@ -175,13 +174,10 @@ const imageSrcs = computed(() => {
         </ul>
       </ScrollArea>
       <DrawerFooter>
-        <!-- <Button>Submit</Button>
-        <DrawerClose>
-          <Button variant="outline"> Cancel </Button>
-        </DrawerClose> -->
-        <Button @click="installExt">
-          Install <kbd><Iconify icon="mi:enter" class="w-5 h-5 ml-2" /></kbd>
+        <Button v-if="!props.installed" @click="installExt">
+          Install <Iconify icon="mi:enter" class="w-5 h-5 ml-2" />
         </Button>
+        <Button v-else>Uninstall <Trash2Icon class="w-5 h-5 ml-2" /></Button>
       </DrawerFooter>
     </DrawerContent>
   </ExtStoreDrawer>
