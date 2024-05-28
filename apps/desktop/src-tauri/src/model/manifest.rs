@@ -175,7 +175,7 @@ mod tests {
         let manifest_paths = vec![
             "../../../vendors/extensions/extensions/download-twitter-video/package.json",
             "../../../vendors/extensions/extensions/jwt/package.json",
-            "../../../vendors/extensions/extensions/myip/package.json",
+            "../../../vendors/extensions/extensions/ip-info/package.json",
             "../../../vendors/extensions/extensions/qrcode/package.json",
         ];
         for manifest_path in manifest_paths {

@@ -6,7 +6,6 @@ import { ApolloClient, InMemoryCache, HttpLink, type ApolloQueryResult, gql } fr
 import { type AllExtensionsQuery, AllExtensionsDocument } from "@jarvis/gql";
 import ExtListItem from "./ext-list-item.vue";
 import {
-  Command,
   CommandDialog,
   CommandEmpty,
   CommandGroup,
@@ -16,7 +15,15 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
+import Command from "./Command.vue";
 import { ExtItem } from "./types";
+import { $extensionsStore } from "@/lib/stores/extensions";
+import { useStore } from "@nanostores/vue";
+import { computed } from "nanostores";
+
+const extIdentifiersSet = computed($extensionsStore, (state) => {
+  return new Set(state.manifests.map((ext) => ext.jarvis.identifier));
+});
 
 const extList = ref<ExtItem[]>([]);
 onMounted(async () => {
@@ -35,34 +42,24 @@ onMounted(async () => {
   });
   extList.value = response.data.extensionsCollection?.edges.map((x) => ExtItem.parse(x.node)) ?? [];
 });
+
+function select(item: ExtItem) {
+  console.log(item);
+}
 </script>
 <template>
-  <Command :identity-filter="false">
+  <Command>
     <CommandInput placeholder="Type to search..." />
     <CommandList>
       <CommandEmpty>No results found.</CommandEmpty>
       <CommandGroup heading="Extensions">
-        <ExtListItem v-for="item in extList" :value="item.identifier" :data="item" />
-        <!-- <CommandItem v-for="item in extList" :value="`${item.identifier}@${item.version}`">
-          <div class="flex justify-between items-center w-full">
-            <div class="">
-              <span>{{ item.name }}</span>
-            </div>
-            <div class="flex space-x-4">
-              <CircleCheckBigIcon class="w-4 text-green-400" />
-              <div class="flex items-center space-x-1">
-                <Icon icon="ic:round-download" class="w-5 h-5 inline" />
-                <span>TODO</span>
-              </div>
-              <div class="flex items-center space-x-1">
-                <Icon icon="ph:command-bold" class="w-5 h-5 inline" />
-                <span>TODO</span>
-              </div>
-            </div>
-          </div>
-        </CommandItem> -->
+        <ExtListItem
+          v-for="item in extList"
+          :data="item"
+          :installed="extIdentifiersSet.value?.has(item.identifier) ?? false"
+          @select="select(item)"
+        />
       </CommandGroup>
-      <!-- <CommandSeparator /> -->
     </CommandList>
   </Command>
 </template>

@@ -95,10 +95,10 @@ export const Icon = z.object({
 
 export const JarvisExtManifest = z.object({
   name: z.string().describe("Name of the extension (Human Readable)"),
-  short_description: z
+  shortDescription: z
     .string()
     .describe("Description of the extension (Will be displayed in store)"),
-  long_description: z
+  longDescription: z
     .string()
     .describe("Long description of the extension (Will be displayed in store)"),
   identifier: z.string().describe("Unique identifier for the extension"),

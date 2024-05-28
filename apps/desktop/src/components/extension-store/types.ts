@@ -4,7 +4,8 @@ export const ExtItem = z.object({
   identifier: z.string(),
   name: z.string(),
   downloads: z.number(),
-  description: z.string(),
+  short_description: z.string(),
+  long_description: z.string(),
   icon: z.string().transform((val) => JSON.parse(val)),
 });
 
