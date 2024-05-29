@@ -1,7 +1,8 @@
 import { IconType, ListItemType, TCommand, TListItem } from "jarvis-api";
-import { ExtensionBase } from "./base";
+import { type IExtensionBase } from "./base";
 import { systemCommands } from "@/lib/commands/system";
 import { dialog } from "jarvis-api/ui";
+import { atom, type ReadableAtom } from "nanostores";
 
 export const systemCommandListItems: TListItem[] = systemCommands.map((cmd) =>
   TListItem.parse({
@@ -17,15 +18,18 @@ export const systemCommandListItems: TListItem[] = systemCommands.map((cmd) =>
   }),
 );
 
-export class SystemCommandExtension extends ExtensionBase {
+export class SystemCommandExtension implements IExtensionBase {
+  extensionName: string;
+  $listItems: ReadableAtom<TListItem[]> = atom(systemCommandListItems);
+
   constructor() {
-    super("System Commands");
+    this.extensionName = "System Commands";
   }
   load(): Promise<void> {
     return Promise.resolve();
   }
-  getInitialListItems(): TListItem[] {
-    return systemCommandListItems.slice(0, 10);
+  default(): TListItem[] {
+    return systemCommandListItems.slice(0, 5);
   }
   async onSelect(item: TListItem): Promise<void> {
     const cmd = systemCommands.find((c) => c.value === item.value) as TCommand;
@@ -36,13 +40,5 @@ export class SystemCommandExtension extends ExtensionBase {
     if (confirmed) {
       cmd.function();
     }
-  }
-  search(searchTerm: string): TListItem[] {
-    if (searchTerm.trim() === "" || searchTerm.length < 2) {
-      return this.getInitialListItems();
-    }
-    return systemCommandListItems.filter((item) =>
-      item.title.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
   }
 }

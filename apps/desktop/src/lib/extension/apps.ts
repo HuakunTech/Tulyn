@@ -1,12 +1,13 @@
 import type { TListItem } from "jarvis-api";
-import { ExtensionBase } from "./base";
+import { type IExtensionBase } from "./base";
 import { getAllApps, refreshApplicationsList } from "@/lib/commands/apps";
 import { AppInfo } from "jarvis-api";
 import { convertFileSrc } from "@tauri-apps/api/core";
 import { open } from "jarvis-api/ui";
 import { ElNotification } from "element-plus";
+import { atom, type WritableAtom, computed } from "nanostores";
 
-function appInfoToListItem(app: AppInfo): TListItem {
+export function appInfoToListItem(app: AppInfo): TListItem {
   return {
     title: app.name,
     value: app.app_desktop_path,
@@ -21,25 +22,23 @@ function appInfoToListItem(app: AppInfo): TListItem {
   };
 }
 
-export class AppsExtension extends ExtensionBase {
-  apps: AppInfo[] = [];
-
-  constructor() {
-    super("Applications");
-  }
+export class AppsExtension implements IExtensionBase {
+  $apps: WritableAtom<AppInfo[]> = atom([]);
+  extensionName = "Applications";
+  $listItems = computed(this.$apps, (apps) => apps.map((app) => appInfoToListItem(app)));
 
   load(): Promise<void> {
     return refreshApplicationsList()
       .then(() => getAllApps())
       .then((apps) => {
-        this.apps = apps;
+        this.$apps.set(apps);
       });
   }
-  getInitialListItems(): TListItem[] {
-    return this.apps.map((app) => appInfoToListItem(app)).slice(0, 10);
+  default(): TListItem[] {
+    return [];
   }
   onSelect(item: TListItem): Promise<void> {
-    const foundApp = this.apps.find((app) => app.app_desktop_path === item.value);
+    const foundApp = this.$apps.value?.find((app) => app.app_desktop_path === item.value);
     if (!foundApp) {
       ElNotification({
         title: "App Not Found",
@@ -50,17 +49,6 @@ export class AppsExtension extends ExtensionBase {
     } else {
       open(foundApp.app_desktop_path);
       return Promise.resolve();
-    }
-  }
-  search(searchTerm: string): TListItem[] {
-    console.log("Search", searchTerm);
-
-    if (searchTerm.trim() === "" || searchTerm.length < 2) {
-      return this.getInitialListItems();
-    } else {
-      return this.apps
-        .filter((app) => app.name.toLowerCase().includes(searchTerm.toLowerCase()))
-        .map((app) => appInfoToListItem(app));
     }
   }
 }

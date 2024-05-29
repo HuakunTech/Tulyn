@@ -5,11 +5,12 @@ import {
   type TListItem,
   type UiCmd,
 } from "jarvis-api";
-import { ExtensionBase } from "./base";
+import { type IExtensionBase } from "./base";
 import { $appConfig } from "@/lib/stores/appConfig";
 import { loadAllExtensions } from "@/lib/commands/manifest";
 import { pathExists } from "@/lib/commands/fs";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
+import { type ReadableAtom, type WritableAtom, atom } from "nanostores";
 
 /**
  * Generate a value (unique identified) for a command in an extension
@@ -61,25 +62,33 @@ export function manifestToCmdItems(manifest: ExtPackageJsonExtra, isDev: boolean
   return [...uiItems, ...inlineItems];
 }
 
-export class DevExtension extends ExtensionBase {
+export class DevExtension implements IExtensionBase {
   manifests: ExtPackageJsonExtra[];
   extPath: string | undefined;
   isDev: boolean;
+  extensionName: string;
+  //  $listItems, $listItemsDisplay
+  $listItems: WritableAtom<TListItem[]>;
+  // $listItemsDisplay: ReadableAtom<TListItem[]>;
 
   constructor(name: string, extPath?: string, isDev: boolean = false) {
-    super(name);
+    this.extensionName = name;
     this.extPath = extPath;
     this.manifests = [];
     this.isDev = isDev;
+    this.$listItems = atom([]);
   }
   async load(): Promise<void> {
     if (!this.extPath || !pathExists(this.extPath)) {
       this.manifests = [];
     } else {
       this.manifests = await loadAllExtensions(this.extPath);
+      this.$listItems.set(
+        this.manifests.map((manifest) => manifestToCmdItems(manifest, this.isDev)).flat(),
+      );
     }
   }
-  getInitialListItems(): TListItem[] {
+  default(): TListItem[] {
     return [];
   }
 
@@ -144,15 +153,5 @@ export class DevExtension extends ExtensionBase {
     });
     // const foundExt = this.
     return Promise.resolve();
-  }
-  search(searchTerm: string): TListItem[] {
-    if (searchTerm.trim() === "" || searchTerm.length < 2) {
-      return this.getInitialListItems();
-    } else {
-      return this.manifests
-        .map((manifest) => manifestToCmdItems(manifest, this.isDev))
-        .flat()
-        .filter((item) => item.title.toLowerCase().includes(searchTerm.toLowerCase()));
-    }
   }
 }

@@ -1,16 +1,19 @@
 import type { TListItem } from "jarvis-api";
+import type { ReadableAtom } from "nanostores";
 
-export abstract class ExtensionBase {
+export interface IExtensionBase {
   extensionName: string;
-  constructor(extName: string) {
-    this.extensionName = extName;
-  }
+  $listItems: ReadableAtom<TListItem[]>;
+  // $listItemsDisplay: ReadableAtom<TListItem[]>;
 
-  abstract load(): Promise<void>;
+  load(): Promise<void>;
 
-  abstract getInitialListItems(): TListItem[];
+  /**
+   * Get the default list items for the extension when search term is empty
+   */
+  default(): TListItem[];
 
-  abstract onSelect(item: TListItem): Promise<void>;
+  onSelect(item: TListItem): Promise<void>;
 
-  abstract search(searchTerm: string): TListItem[];
+  // search(items: TListItem[], searchTerm?: string): TListItem[];
 }
