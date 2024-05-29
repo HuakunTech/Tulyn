@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useColorMode } from "@vueuse/core";
 import { onMounted, onUnmounted, watch } from "vue";
-import ElementPlusCSS from "@/components/ElementPlusCSS.vue";
 import { $appConfig, LightMode, setLightMode, setTheme, setRadius } from "@/lib/stores/appConfig";
 import { useStore } from "@nanostores/vue";
 import { allColors } from "@/lib/themes/themes";
@@ -54,6 +53,5 @@ watch(
 );
 </script>
 <template>
-  <ElementPlusCSS />
   <slot />
 </template>

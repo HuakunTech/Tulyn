@@ -1,5 +1,5 @@
 use super::CommonSystemCmds;
-use crate::commands::utils::run_apple_script;
+use crate::commands::utils::{run_apple_script, run_powershell};
 
 pub struct SystemCmds;
 
@@ -52,7 +52,32 @@ impl CommonSystemCmds for SystemCmds {
         todo!()
     }
 
-    fn get_selected_files() -> anyhow::Result<Vec<String>> {
-        todo!()
+    /// Get the selected files in the Windows File Explorer
+    fn get_selected_files() -> anyhow::Result<Vec<std::path::PathBuf>> {
+        let script = r#"
+            # Create a COM object for the Shell application
+            $shell = New-Object -ComObject Shell.Application
+            
+            # Get all open Windows Explorer windows
+            $windows = $shell.Windows()
+            
+            # Iterate through each window
+            foreach ($window in $windows) {
+                # Get the current selection
+                $selectedItems = $window.Document.SelectedItems()
+                foreach ($item in $selectedItems) {
+                    # Print the path of each selected file
+                    Write-Output $item.Path
+                }
+            }
+        "#;
+        let result = run_powershell(script).unwrap();
+        let paths: Vec<std::path::PathBuf> = result
+            .split('\n')
+            .map(|path| std::path::PathBuf::from(path.trim()))
+            .filter(|path| path.exists())
+            .collect();
+        Ok(paths)
     }
 }
+

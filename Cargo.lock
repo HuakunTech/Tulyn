@@ -110,9 +110,9 @@ checksum = "b3d1d046238990b9cf5bcde22a3fb3584ee5cf65fb2765f454ed428c7a0063da"
 
 [[package]]
 name = "applications"
-version = "0.2.1-alpha.1"
+version = "0.2.1-alpha.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "53a211a3f55eb35c3332544d5a5b7e4d65206cfb01fdc39412e9b9fbfc3662a3"
+checksum = "cf2a6272bf84dc3e030f554b98c80fbc0a212ffffcd54963deecaf6d48370b85"
 dependencies = [
  "anyhow",
  "cocoa 0.25.0",
@@ -120,7 +120,6 @@ dependencies = [
  "glob",
  "image",
  "ini",
- "installed",
  "lnk",
  "objc",
  "parselnk",
@@ -131,7 +130,7 @@ dependencies = [
  "tauri-icns",
  "thiserror",
  "walkdir",
- "winreg 0.52.0",
+ "winreg",
 ]
 
 [[package]]
@@ -1401,7 +1400,7 @@ dependencies = [
  "rustc_version",
  "toml 0.8.2",
  "vswhom",
- "winreg 0.52.0",
+ "winreg",
 ]
 
 [[package]]
@@ -2545,18 +2544,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a0c10553d664a4d0bcff9f4215d0aac67a639cc68ef660840afe309b807bc9f5"
 dependencies = [
  "generic-array",
-]
-
-[[package]]
-name = "installed"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3c279161f63cb1cc6bbce67522c673341543aef1fbee41d817322e60d412e997"
-dependencies = [
- "once_cell",
- "plist",
- "windows 0.44.0",
- "winreg 0.11.0",
 ]
 
 [[package]]
@@ -4306,7 +4293,7 @@ dependencies = [
  "wasm-streams",
  "web-sys",
  "webpki-roots",
- "winreg 0.52.0",
+ "winreg",
 ]
 
 [[package]]
@@ -5241,6 +5228,8 @@ dependencies = [
 [[package]]
 name = "tauri-plugin-clipboard"
 version = "0.7.0-beta.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fee16fd0d6909ad501f3fc9d440b60a8578f77945e88713edb1426f6768f96b8"
 dependencies = [
  "base64 0.22.1",
  "clipboard-rs",
@@ -6503,15 +6492,6 @@ dependencies = [
 
 [[package]]
 name = "windows"
-version = "0.44.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9e745dab35a0c4c77aa3ce42d595e13d2003d6902d6b08c9ef5fc326d08da12b"
-dependencies = [
- "windows-targets 0.42.2",
-]
-
-[[package]]
-name = "windows"
 version = "0.48.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e686886bc078bc1b0b600cac0147aadb815089b6e4da64016cbd754b6342700f"
@@ -6811,16 +6791,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f593a95398737aeed53e489c785df13f3618e41dbcd6718c6addbf1395aa6876"
 dependencies = [
  "memchr",
-]
-
-[[package]]
-name = "winreg"
-version = "0.11.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "76a1a57ff50e9b408431e8f97d5456f2807f8eb2a2cd79b06068fc87f8ecf189"
-dependencies = [
- "cfg-if",
- "winapi",
 ]
 
 [[package]]
