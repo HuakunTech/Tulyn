@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 // TODO: Kind of Duplicate for ListItemType, consider remove one
-export const CommandType = z.enum(["system", "custom"]);
+export const CommandType = z.enum(["system", "ui-cmd", "inline-cmd", "app"]);
 
 export const TCommand = z.object({
   name: z.string(),

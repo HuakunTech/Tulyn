@@ -22,6 +22,7 @@ export const TListItem = z.object({
     })
     .nullable(),
   keywords: z.array(z.string()).optional().default([]),
+  identityFilter: z.boolean().optional().default(false),
 });
 export type TListItem = z.infer<typeof TListItem>;
 export const TListGroup = z.object({

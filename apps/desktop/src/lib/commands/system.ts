@@ -297,17 +297,3 @@ export const systemCommands: TCommand[] = rawSystemCommands
     function: cmd.function,
     confirmRequired: cmd.confirmRequired,
   }));
-
-export const systemCommandListItems: TListItem[] = systemCommands.map((cmd) =>
-  TListItem.parse({
-    title: cmd.name,
-    value: cmd.value,
-    description: "System",
-    type: ListItemType.Enum["System Command"],
-    icon: {
-      value: cmd.icon,
-      type: IconType.Enum.iconify,
-    },
-    keywords: cmd.keywords,
-  }),
-);
