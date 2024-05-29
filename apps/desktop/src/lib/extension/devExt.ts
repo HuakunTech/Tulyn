@@ -9,6 +9,7 @@ import { ExtensionBase } from "./base";
 import { $appConfig } from "@/lib/stores/appConfig";
 import { loadAllExtensions } from "@/lib/commands/manifest";
 import { pathExists } from "@/lib/commands/fs";
+import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 
 /**
  * Generate a value (unique identified) for a command in an extension
@@ -16,7 +17,7 @@ import { pathExists } from "@/lib/commands/fs";
  * @param cmd Command in Extension
  * @returns
  */
-export function generateExtensionValue(
+export function generateItemValue(
   ext: ExtPackageJsonExtra,
   cmd: UiCmd | InlineCmd,
   isDev: boolean,
@@ -32,7 +33,7 @@ export function cmdToItem(
 ): TListItem {
   return {
     title: cmd.name,
-    value: generateExtensionValue(manifest, cmd as UiCmd, isDev),
+    value: generateItemValue(manifest, cmd as UiCmd, isDev),
     description: cmd.description ?? "",
     isDev,
     type,
@@ -82,11 +83,65 @@ export class DevExtension extends ExtensionBase {
     return [];
   }
 
-  get uiCmds(): UiCmd[] {
-    return this.manifests.flatMap((m) => m.jarvis.uiCmds);
-  }
-
   onSelect(item: TListItem): Promise<void> {
+    this.manifests.forEach((manifest) => {
+      if (item.type == "UI Command") {
+        manifest.jarvis.uiCmds.forEach((cmd) => {
+          if (item.value === generateItemValue(manifest, cmd, this.isDev)) {
+            let url = cmd.main;
+            if ($appConfig.value?.devExtLoadUrl && this.isDev && cmd.devMain) {
+              url = cmd.devMain;
+            } else {
+              if (cmd.main.startsWith("http")) {
+                url = cmd.main;
+              } else {
+                const postfix = !cmd.main.endsWith(".html") && !cmd.main.endsWith("/") ? "/" : "";
+                url = `http://localhost:1566/${this.isDev ? "dev-" : ""}extensions/${manifest.extFolderName}/${cmd.main}${postfix}`;
+              }
+            }
+
+            const windowLabel = `ext:${manifest.jarvis.permissions?.join(":")}`;
+            const window = new WebviewWindow(windowLabel, {
+              center: cmd.window?.center ?? undefined,
+              x: cmd.window?.x ?? undefined,
+              y: cmd.window?.y ?? undefined,
+              width: cmd.window?.width ?? undefined,
+              height: cmd.window?.height ?? undefined,
+              minWidth: cmd.window?.minWidth ?? undefined,
+              minHeight: cmd.window?.minHeight ?? undefined,
+              maxWidth: cmd.window?.maxWidth ?? undefined,
+              maxHeight: cmd.window?.maxHeight ?? undefined,
+              resizable: cmd.window?.resizable ?? undefined,
+              title: cmd.window?.title ?? undefined,
+              fullscreen: cmd.window?.fullscreen ?? undefined,
+              focus: cmd.window?.focus ?? undefined,
+              transparent: cmd.window?.transparent ?? undefined,
+              maximized: cmd.window?.maximized ?? undefined,
+              visible: cmd.window?.visible ?? undefined,
+              decorations: cmd.window?.decorations ?? undefined,
+              alwaysOnTop: cmd.window?.alwaysOnTop ?? undefined,
+              alwaysOnBottom: cmd.window?.alwaysOnBottom ?? undefined,
+              contentProtected: cmd.window?.contentProtected ?? undefined,
+              skipTaskbar: cmd.window?.skipTaskbar ?? undefined,
+              shadow: cmd.window?.shadow ?? undefined,
+              theme: cmd.window?.theme ?? undefined,
+              titleBarStyle: cmd.window?.titleBarStyle ?? undefined,
+              hiddenTitle: cmd.window?.hiddenTitle ?? undefined,
+              tabbingIdentifier: cmd.window?.tabbingIdentifier ?? undefined,
+              maximizable: cmd.window?.maximizable ?? undefined,
+              minimizable: cmd.window?.minimizable ?? undefined,
+              closable: cmd.window?.closable ?? undefined,
+              parent: cmd.window?.parent ?? undefined,
+              visibleOnAllWorkspaces: cmd.window?.visibleOnAllWorkspaces ?? undefined,
+              url,
+            });
+          }
+        });
+      } else if (item.type == "Inline Command") {
+      } else {
+        console.error("Unknown command type", item.type);
+      }
+    });
     // const foundExt = this.
     return Promise.resolve();
   }

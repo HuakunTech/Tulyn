@@ -3,7 +3,7 @@
     "identifier": "ext-shell",
     "description": "Enable all shell permissions.",
     "windows": [
-        "*:shell:*"
+        "*:shell*"
     ],
     "remote": {
         "urls": [

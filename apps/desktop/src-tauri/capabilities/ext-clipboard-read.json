@@ -3,7 +3,7 @@
     "identifier": "ext-clipboard-read",
     "description": "Enable all Clipboard Read Commands",
     "windows": [
-        "*:clipboard-read:*"
+        "*:clipboard-read*"
     ],
     "remote": {
         "urls": [

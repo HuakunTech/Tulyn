@@ -3,7 +3,7 @@
     "identifier": "ext-clipboard-write",
     "description": "Enable all Clipboard Write Commands",
     "windows": [
-        "*:clipboard-write:*"
+        "*:clipboard-write*"
     ],
     "remote": {
         "urls": [

@@ -3,7 +3,7 @@
     "identifier": "ext-fs-home",
     "description": "Grants all read and write permissions for the entire Home Directory recursively.",
     "windows": [
-        "*:fs-home:*"
+        "*:fs-home*"
     ],
     "remote": {
         "urls": [
