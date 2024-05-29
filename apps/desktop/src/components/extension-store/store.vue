@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from "vue";
-import { SUPABASE_ANON_KEY, SUPABASE_GRAPHQL_ENDPOINT } from "@/lib/constants";
+import { extensionsFolder, SUPABASE_ANON_KEY, SUPABASE_GRAPHQL_ENDPOINT } from "@/lib/constants";
 import { ApolloClient, InMemoryCache, HttpLink, type ApolloQueryResult, gql } from "@apollo/client";
 import { type AllExtensionsQuery, AllExtensionsDocument } from "@jarvis/gql";
 import ExtListItem from "./ext-list-item.vue";
@@ -18,10 +18,13 @@ import ExtDrawer from "./ExtDrawer.vue";
 import { Button } from "@/components/ui/button";
 import Command from "./Command.vue";
 import { ExtItem, ExtItemParser } from "./types";
-import { $extensionsStore, loadAllExtensionsManifest } from "@/lib/stores/extensions";
+// import { $extensionsStore, loadAllExtensionsManifest } from "@/lib/stores/extensions";
+import { Extension } from "@/lib/extension/ext";
 import { gqlClient } from "@/lib/utils/graphql";
 import { ElMessage } from "element-plus";
+import { $appConfig } from "@/lib/stores/appConfig";
 
+const ext = new Extension("Extensions", extensionsFolder);
 const selectedExt = ref<ExtItem>();
 const extDrawerOpen = ref(false);
 const extList = ref<ExtItem[]>([]);
@@ -36,21 +39,17 @@ onMounted(async () => {
 });
 
 function select(item: ExtItem) {
-  console.log(item);
   selectedExt.value = item;
   extDrawerOpen.value = true;
 }
 
 function isInstalled(identifier: string) {
-  return !!$extensionsStore.value?.manifests.find((x) => x.jarvis.identifier === identifier);
+  return !!ext.manifests.find((x) => x.jarvis.identifier === identifier);
 }
 
-function message() {
-  ElMessage({
-    message: "Congrats, this is a success message.",
-    type: "success",
-  });
-}
+onMounted(() => {
+  ext.load();
+});
 </script>
 <template>
   <ExtDrawer

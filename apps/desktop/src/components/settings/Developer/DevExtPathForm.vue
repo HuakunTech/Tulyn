@@ -9,10 +9,12 @@ import { $appConfig, setDevExtentionPath } from "@/lib/stores/appConfig";
 import { useStore } from "@nanostores/vue";
 import { pathExists } from "@/lib/commands/fs";
 import { onMount } from "nanostores";
-import { loadDevExtManifests, loadExtManifests, $extensionsStore } from "@/lib/stores/extensions";
+// import { loadDevExtManifests, loadExtManifests, $extensionsStore } from "@/lib/stores/extensions";
 import { open } from "@tauri-apps/plugin-dialog";
 import { loadAllExtensions } from "@/lib/commands/manifest";
+import { Extension } from "@/lib/extension/ext";
 
+const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath, true);
 const { toast } = useToast();
 const appConfig = useStore($appConfig);
 const devExtPath = ref(appConfig.value.devExtentionPath);
@@ -28,12 +30,10 @@ async function pickDirectory() {
   if (dir && (await pathExists(dir))) {
     devExtPath.value = dir;
     setDevExtentionPath(devExtPath.value);
-    await loadExtManifests();
-    await loadDevExtManifests();
-    // $extensionsStore.get().devManifests.length
+    await devExt.load();
     toast({
       title: "Dev Extension Path Set",
-      description: `${$extensionsStore.get().devManifests.length} dev extensions loaded.`,
+      description: `${devExt.manifests.length} dev extensions loaded.`,
     });
   } else {
     return toast({
@@ -47,12 +47,6 @@ async function pickDirectory() {
 function clear() {
   devExtPath.value = undefined;
   return setDevExtentionPath(devExtPath.value)
-    .then(() => {
-      return loadExtManifests();
-    })
-    .then(() => {
-      return loadDevExtManifests();
-    })
     .then(() => {
       return toast({
         title: "Cleared",

@@ -11,6 +11,7 @@ import { loadAllExtensions } from "@/lib/commands/manifest";
 import { pathExists } from "@/lib/commands/fs";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { type ReadableAtom, type WritableAtom, atom } from "nanostores";
+import { findRemoteExt } from "@/lib/stores/remoteExtensions";
 
 /**
  * Generate a value (unique identified) for a command in an extension
@@ -62,7 +63,7 @@ export function manifestToCmdItems(manifest: ExtPackageJsonExtra, isDev: boolean
   return [...uiItems, ...inlineItems];
 }
 
-export class DevExtension implements IExtensionBase {
+export class Extension implements IExtensionBase {
   manifests: ExtPackageJsonExtra[];
   extPath: string | undefined;
   isDev: boolean;
@@ -146,7 +147,19 @@ export class DevExtension implements IExtensionBase {
             });
           }
         });
-      } else if (item.type == "Inline Command") {
+      } else if (item.type === "Inline Command") {
+      } else if (item.type === "Remote Command") {
+        const ext = findRemoteExt(item.value);
+        if (ext) {
+          const window = new WebviewWindow("ext", {
+            url: ext.url,
+            title: item.title,
+            titleBarStyle: "visible",
+            // titleBarStyle: TitleBarStyle.parse(uiCmd.window?.titleBarStyle?.toLowerCase() ?? "visible"),
+            // width: uiCmd.window?.width ?? undefined,
+            // height: uiCmd.window?.height ?? undefined,
+          });
+        }
       } else {
         console.error("Unknown command type", item.type);
       }

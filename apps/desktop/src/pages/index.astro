@@ -1,16 +1,11 @@
 ---
 import DefaultLayout from "@/layouts/Default.astro";
-import { Button } from "@/components/ui/button";
-import VueDev from "@/components/VueDev.vue";
 import MainSearch from "@/components/MainSearch.vue";
-import MainSearch2 from "@/components/MainSearch2.vue";
 import DefaultVue from "@/components/layouts/default.vue";
 ---
-
 <DefaultLayout title="Main Page">
   <!-- <FlowEditor client:only="react" /> -->
   <DefaultVue client:only="vue">
-    <!-- <MainSearch client:only="vue" class="" /> -->
-    <MainSearch2 client:only="vue" class="" />
+    <MainSearch client:only="vue" class="" />
   </DefaultVue>
 </DefaultLayout>

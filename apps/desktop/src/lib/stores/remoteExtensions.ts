@@ -37,6 +37,8 @@ export const $remoteExtListItem = computed($remoteExtensions, (state): TListItem
       value: `${ext.url}/favicon.ico`,
     },
     keywords: ext.triggerCmds,
+    isDev: false,
+    identityFilter: false,
   }));
 });
 

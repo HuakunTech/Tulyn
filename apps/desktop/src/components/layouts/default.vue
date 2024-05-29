@@ -6,7 +6,7 @@ import { useStore } from "@nanostores/vue";
 import { allColors } from "@/lib/themes/themes";
 import { KeyComb, SettingsKeyComb } from "@/lib/utils/keycomb";
 import { GlobalEventBus } from "@/lib/utils/events";
-import { loadAllExtensionsManifest } from "@/lib/stores/extensions";
+// import { loadAllExtensionsManifest } from "@/lib/stores/extensions";
 import "element-plus/dist/index.css";
 import "element-plus/theme-chalk/dark/css-vars.css";
 
@@ -29,7 +29,7 @@ onMounted(async () => {
   document.addEventListener("keyup", KeyComb.onKeyUp);
 
   GlobalEventBus.setupSettingsKeyComb();
-  await loadAllExtensionsManifest();
+  // await loadAllExtensionsManifest();
 });
 
 onUnmounted(() => {
