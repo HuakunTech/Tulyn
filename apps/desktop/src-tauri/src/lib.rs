@@ -8,9 +8,10 @@ use utils::{path::get_default_extensions_dir, settings::AppSettings};
 pub mod commands;
 pub mod model;
 pub mod server;
-pub mod utils;
 pub mod syscmds;
+pub mod utils;
 // use rdev::{listen, Event};
+
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -22,27 +23,9 @@ pub fn run() {
         .plugin(tauri_plugin_http::init())
         .register_uri_scheme_protocol("macicns", |_app, request| {
             let url = &request.uri().path()[1..];
-            let url = url.replace("%2F", "/").replace("%20", " ");
+            let url = urlencoding::decode(url).unwrap().to_string();
             let path = PathBuf::from(url);
-            if !path.exists() {
-                return tauri::http::Response::builder()
-                    .status(tauri::http::StatusCode::NOT_FOUND)
-                    .body("file not found".as_bytes().to_vec())
-                    .unwrap();
-            }
-            let icns = load_icns(&path);
-            match icns {
-                Ok(icns) => {
-                    let png = icns.to_png().unwrap();
-                    tauri::http::Response::builder()
-                        .body(png.get_bytes().to_vec())
-                        .unwrap()
-                }
-                Err(error) => tauri::http::Response::builder()
-                    .status(tauri::http::StatusCode::INTERNAL_SERVER_ERROR)
-                    .body(error.to_string().as_bytes().to_vec())
-                    .unwrap(),
-            }
+            return utils::icns::load_icon(path);
         })
         // .register_uri_scheme_protocol("extasset", |_app, request| {
         //     let url = &request.uri().path()[1..];
@@ -110,6 +93,10 @@ pub fn run() {
             commands::system::mute,
             commands::system::unmute,
             commands::system::hide_all_apps_except_frontmost,
+            commands::system::get_selected_files_in_file_explorer,
+            // run scripts
+            commands::utils::run_apple_script,
+            commands::utils::run_powershell,
             // applications
             commands::apps::get_applications,
             commands::apps::refresh_applications_list,

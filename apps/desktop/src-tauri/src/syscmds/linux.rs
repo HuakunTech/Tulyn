@@ -202,7 +202,7 @@ impl CommonSystemCmds for SystemCmds {
         }
     }
 
-    fn get_selected_files() -> anyhow::Result<Vec<String>> {
-        todo!()
+    fn get_selected_files() -> anyhow::Result<Vec<std::path::PathBuf>> {
+        Ok(vec![])
     }
 }
