@@ -58,7 +58,6 @@ function message() {
     :selectedExt="selectedExt"
     :installed="selectedExt?.identifier ? isInstalled(selectedExt?.identifier) : false"
   />
-  <Button @click="message">Msg</Button>
   <Command>
     <CommandInput placeholder="Type to search..." />
     <CommandList>

@@ -1,5 +1,5 @@
 use super::CommonSystemCmds;
-use crate::commands::utils::{run_apple_script, run_powershell};
+use crate::utils::script::{run_apple_script, run_powershell};
 
 pub struct SystemCmds;
 

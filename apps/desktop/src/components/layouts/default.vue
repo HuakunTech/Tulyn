@@ -7,6 +7,8 @@ import { allColors } from "@/lib/themes/themes";
 import { KeyComb, SettingsKeyComb } from "@/lib/utils/keycomb";
 import { GlobalEventBus } from "@/lib/utils/events";
 import { loadAllExtensionsManifest } from "@/lib/stores/extensions";
+import "element-plus/dist/index.css";
+import "element-plus/theme-chalk/dark/css-vars.css";
 
 const appConfig = useStore($appConfig);
 const colorMode = useColorMode();

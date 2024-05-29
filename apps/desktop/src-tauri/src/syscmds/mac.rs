@@ -1,7 +1,6 @@
-use std::path::PathBuf;
-
 use super::CommonSystemCmds;
-use crate::commands::utils::run_apple_script;
+use crate::utils::script::run_apple_script;
+use std::path::PathBuf;
 
 pub struct SystemCmds;
 
