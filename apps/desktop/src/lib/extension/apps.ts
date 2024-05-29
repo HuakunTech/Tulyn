@@ -17,6 +17,7 @@ function appInfoToListItem(app: AppInfo): TListItem {
       : null,
     keywords: app.name.split(" "),
     identityFilter: false,
+    isDev: false,
   };
 }
 
@@ -55,8 +56,6 @@ export class AppsExtension extends ExtensionBase {
     console.log("Search", searchTerm);
 
     if (searchTerm.trim() === "" || searchTerm.length < 2) {
-      console.log("return initial", this.getInitialListItems());
-
       return this.getInitialListItems();
     } else {
       return this.apps

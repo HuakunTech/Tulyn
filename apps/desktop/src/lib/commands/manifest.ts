@@ -13,7 +13,7 @@ export function loadAllExtensions(extensionsFolder: string): Promise<ExtPackageJ
           const parse = ExtPackageJsonExtra.safeParse(x);
           if (parse.error) {
             // console.log(x);
-            // console.error(parse.error);
+            console.error(parse.error);
             return null;
           } else {
             return parse.data;

@@ -9,12 +9,14 @@ export const ListItemType = z.enum([
   "System Command",
   "Application",
 ]);
+export type ListItemType = z.infer<typeof ListItemType>;
 
 export const TListItem = z.object({
   title: z.string(),
   value: z.string(),
   description: z.string(),
   type: ListItemType,
+  isDev: z.boolean().optional().default(false),
   icon: z
     .object({
       value: z.string(),

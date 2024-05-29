@@ -11,16 +11,6 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from "@/components/ui/command";
-import {
-  AlertDialogControlled,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 import { $appState, setSearchTerm } from "@/lib/stores/appState";
 import ListItem from "./MainSearch/list-item.vue";
 import ListGroup from "./MainSearch/list-group.vue";
@@ -29,10 +19,15 @@ import { ElNotification } from "element-plus";
 import { SystemCommandExtension } from "@/lib/extension/systemCmds";
 import type { ExtensionBase } from "@/lib/extension/base";
 import { useStore } from "@nanostores/vue";
+import { DevExtension } from "@/lib/extension/devExt";
+import { $appConfig } from "@/lib/stores/appConfig";
+import { extensionsFolder } from "@/lib/constants";
 
 const appExt = new AppsExtension();
 const sysCmdExt = new SystemCommandExtension();
-const exts: ExtensionBase[] = [sysCmdExt, appExt];
+const devExt = new DevExtension("Dev Extensions", $appConfig.get().devExtentionPath, true);
+const storeExt = new DevExtension("Extensions", extensionsFolder);
+const exts: ExtensionBase[] = [storeExt, devExt, sysCmdExt, appExt];
 const searchTermInSync = ref("");
 let updateSearchTermTimeout: ReturnType<typeof setTimeout>;
 
@@ -48,7 +43,7 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <Command class="" v-model:searchTerm="searchTermInSync" :identity-filter="false">
+  <Command class="" v-model:searchTerm="searchTermInSync" :identity-filter="true">
     <CommandInput placeholder="Search for apps or commands..." :always-focus="true" />
     <CommandList class="px-2">
       <CommandEmpty>No results found.</CommandEmpty>

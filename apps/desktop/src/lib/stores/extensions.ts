@@ -79,6 +79,8 @@ export function manifestToCmdItems(manifest: ExtPackageJsonExtra): TListItem[] {
         type: manifest.jarvis.icon.type,
       },
       keywords: cmd.cmds.map((c) => c.value), // TODO: handle regex as well
+      identityFilter: true,
+      isDev: false,
     };
   });
   const inlineItems = manifest.jarvis.inlineCmds.map((cmd) => {
@@ -92,6 +94,8 @@ export function manifestToCmdItems(manifest: ExtPackageJsonExtra): TListItem[] {
         type: manifest.jarvis.icon.type,
       },
       keywords: cmd.cmds.map((c) => c.value), // TODO: handle regex as well
+      identityFilter: false,
+      isDev: false,
     };
   });
   return [...uiItems, ...inlineItems];

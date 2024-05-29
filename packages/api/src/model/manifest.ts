@@ -87,7 +87,7 @@ export const InlineCmd = z.object({
     .default(allPlatforms)
     .describe("Platforms available on. Leave empty for all platforms."),
 });
-export type InlineCmd = z.infer<typeof UiCmd>;
+export type InlineCmd = z.infer<typeof InlineCmd>;
 
 export const Icon = z.object({
   type: IconType,
@@ -107,6 +107,7 @@ export const JarvisExtManifest = z.object({
   icon: Icon.describe("Icon for the extension"),
   permissions: PermissionsEnum.array()
     .optional()
+    .nullable()
     .default([])
     .describe(
       "Permissions Declared by the extension. e.g. clipboard-all. Not declared APIs will be blocked.",

@@ -21,9 +21,7 @@ export class SystemCommandExtension extends ExtensionBase {
   constructor() {
     super("System Commands");
   }
-
   load(): Promise<void> {
-    console.log(systemCommandListItems);
     return Promise.resolve();
   }
   getInitialListItems(): TListItem[] {
@@ -40,6 +38,9 @@ export class SystemCommandExtension extends ExtensionBase {
     }
   }
   search(searchTerm: string): TListItem[] {
+    if (searchTerm.trim() === "" || searchTerm.length < 2) {
+      return this.getInitialListItems();
+    }
     return systemCommandListItems.filter((item) =>
       item.title.toLowerCase().includes(searchTerm.toLowerCase()),
     );
