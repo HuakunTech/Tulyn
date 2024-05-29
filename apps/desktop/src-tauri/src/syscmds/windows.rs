@@ -51,4 +51,8 @@ impl CommonSystemCmds for SystemCmds {
     fn unmute() -> anyhow::Result<()> {
         todo!()
     }
+
+    fn get_selected_files() -> anyhow::Result<Vec<String>> {
+        todo!()
+    }
 }

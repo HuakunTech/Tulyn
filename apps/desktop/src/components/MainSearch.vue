@@ -157,6 +157,8 @@ function openExtention(item: TListItem) {
         }
       }
       const window = new WebviewWindow("ext", {
+        transparent: uiCmd.window?.transparent ?? undefined,
+        decorations: uiCmd.window?.decorations ?? undefined,
         url,
         title: item.title,
         titleBarStyle: TitleBarStyle.parse(uiCmd.window?.titleBarStyle?.toLowerCase() ?? "visible"),

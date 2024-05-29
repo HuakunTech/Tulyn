@@ -14,6 +14,7 @@ export const OSPlatform = z.enum([
   "windows",
 ]);
 const allPlatforms = [OSPlatform.Enum.linux, OSPlatform.Enum.macos, OSPlatform.Enum.windows];
+export const PermissionsEnum = z.enum(["clipboard-read", "clipboard-write", "fs-home"]);
 export const TriggerCmd = z.object({
   type: z.union([z.literal("text"), z.literal("regex")]),
   value: z.string(),
@@ -104,6 +105,12 @@ export const JarvisExtManifest = z.object({
     .describe("Long description of the extension (Will be displayed in store)"),
   identifier: z.string().describe("Unique identifier for the extension"),
   icon: Icon.describe("Icon for the extension"),
+  permissions: PermissionsEnum.array()
+    .optional()
+    .default([])
+    .describe(
+      "Permissions Declared by the extension. e.g. clipboard-all. Not declared APIs will be blocked.",
+    ),
   demoImages: z.array(z.string()).describe("Demo images for the extension"),
   uiCmds: UiCmd.array().optional().default([]).describe("UI Commands"),
   inlineCmds: InlineCmd.array().optional().default([]).describe("Inline Commands"),

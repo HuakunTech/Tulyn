@@ -31,7 +31,7 @@ pub enum WindowTheme {
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[serde(rename_all = "lowercase")]
 pub enum OSPlatform {
     Windows,
     MacOS,
@@ -46,6 +46,14 @@ pub struct Icon {
     pub type_field: IconType,
 }
 
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum Permissions {
+    ClipboardRead,
+    ClipboardWrite,
+    FsHome,
+}
+
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct JarvisExtManifest {
@@ -55,6 +63,7 @@ pub struct JarvisExtManifest {
     pub identifier: String,
     pub icon: Icon,
     pub demo_images: Vec<Value>,
+    pub permissions: Option<Vec<Permissions>>,
     pub ui_cmds: Vec<UiCmd>,
     #[serde(default = "Vec::new")]
     pub inline_cmds: Vec<InlineCmd>,

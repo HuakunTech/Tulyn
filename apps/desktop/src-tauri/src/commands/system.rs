@@ -45,13 +45,15 @@ pub async fn toggle_system_appearance() -> Result<(), String> {
         end tell
     "#,
     )
-    .map_err(|err| err.to_string())
+    .map_err(|err| err.to_string())?;
+    Ok(())
 }
 
 #[tauri::command]
 pub async fn show_desktop() -> Result<(), String> {
     run_apple_script("tell application \"System Events\" to key code 103")
-        .map_err(|err| err.to_string())
+        .map_err(|err| err.to_string())?;
+    Ok(())
 }
 
 #[tauri::command]
@@ -61,7 +63,8 @@ pub async fn quit_all_apps() -> Result<(), String> {
 
 #[tauri::command]
 pub async fn sleep_displays() -> Result<(), String> {
-    run_apple_script("do shell script \"pmset displaysleepnow\"").map_err(|err| err.to_string())
+    run_apple_script("do shell script \"pmset displaysleepnow\"").map_err(|err| err.to_string())?;
+    Ok(())
 }
 
 /// Set Volume to 0
@@ -101,7 +104,8 @@ pub async fn toggle_hidden_files() -> Result<(), String> {
 #[tauri::command]
 pub async fn eject_all_disks() -> Result<(), String> {
     run_apple_script("tell application \"Finder\" to eject (every disk whose ejectable is true)")
-        .map_err(|err| err.to_string())
+        .map_err(|err| err.to_string())?;
+    Ok(())
 }
 /// Logout <User>
 #[tauri::command]
@@ -136,5 +140,12 @@ pub async fn hide_all_apps_except_frontmost() -> Result<(), String> {
             end repeat
         end tell"#,
     )
-    .map_err(|err| err.to_string())
+    .map_err(|err| err.to_string())?;
+    Ok(())
+}
+
+/// For macOS, return the selected files in the finder
+#[tauri::command]
+pub async fn get_selected_files_in_file_explorer() -> Result<Vec<std::path::PathBuf>, String> {
+    SystemCmds::get_selected_files().map_err(|err| err.to_string())
 }

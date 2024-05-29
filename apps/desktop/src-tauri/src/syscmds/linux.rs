@@ -1,7 +1,6 @@
 use super::CommonSystemCmds;
 use std::process::Command;
 
-
 struct Amixer;
 impl Amixer {
     fn cmd_exists() -> bool {
@@ -87,7 +86,10 @@ impl CommonSystemCmds for SystemCmds {
     }
 
     fn empty_trash() -> anyhow::Result<()> {
-        let output = Command::new("rm").arg("-rf").arg("~/.local/share/Trash/files/*").output()?;
+        let output = Command::new("rm")
+            .arg("-rf")
+            .arg("~/.local/share/Trash/files/*")
+            .output()?;
         match output.status.success() {
             true => Ok(()),
             false => Err(anyhow::anyhow!("Failed to empty trash")),
@@ -198,5 +200,9 @@ impl CommonSystemCmds for SystemCmds {
                 "No volume control command found (Only Support pactl and amixer)"
             ))
         }
+    }
+
+    fn get_selected_files() -> anyhow::Result<Vec<String>> {
+        todo!()
     }
 }
