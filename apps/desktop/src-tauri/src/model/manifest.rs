@@ -75,6 +75,7 @@ pub struct ExtPackageJson {
     pub name: String,
     pub version: String,
     pub jarvis: JarvisExtManifest,
+    pub files: Vec<String>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -83,6 +84,7 @@ pub struct ExtPackageJsonExtra {
     pub name: String,
     pub version: String,
     pub jarvis: JarvisExtManifest,
+    pub files: Vec<String>,
     // extra fields
     pub ext_path: PathBuf,
     pub ext_folder_name: String,
@@ -94,6 +96,7 @@ impl ExtPackageJsonExtra {
             name: manifest.name,
             version: manifest.version,
             jarvis: manifest.jarvis,
+            files: manifest.files,
             ext_folder_name: ext_path.file_name().unwrap().to_str().unwrap().to_string(),
             ext_path,
         }
@@ -189,7 +192,8 @@ mod tests {
         ];
         for manifest_path in manifest_paths {
             let manifest_str = std::fs::read_to_string(manifest_path).unwrap();
-            let _: ExtPackageJson = serde_json::from_str(&manifest_str).unwrap();
+            let pkg: ExtPackageJson = serde_json::from_str(&manifest_str).unwrap();
+            println!("{:?}", pkg.files);
         }
     }
 }

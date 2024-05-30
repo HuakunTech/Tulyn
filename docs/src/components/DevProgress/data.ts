@@ -75,7 +75,7 @@ export const devProgressRawData: DevProgressData[] = [
     label: "Security",
     children: [
       { label: "Isolated Extension Build Environment", finished: true },
-      { label: "Extension Permission Control System (requires API declaration)", finished: false },
+      { label: "Extension Permission Control System (requires API declaration)", finished: true },
     ],
   },
 ];

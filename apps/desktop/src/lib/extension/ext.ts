@@ -11,7 +11,7 @@ import { loadAllExtensions } from "@/lib/commands/manifest";
 import { pathExists } from "@/lib/commands/fs";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { type ReadableAtom, type WritableAtom, atom } from "nanostores";
-import { findRemoteExt } from "@/lib/stores/remoteExtensions";
+// import { findRemoteExt } from "@/lib/stores/remoteExtensions";
 
 /**
  * Generate a value (unique identified) for a command in an extension
@@ -37,7 +37,7 @@ export function cmdToItem(
     title: cmd.name,
     value: generateItemValue(manifest, cmd as UiCmd, isDev),
     description: cmd.description ?? "",
-    isDev,
+    flags: { isDev },
     type,
     icon: {
       value: manifest.jarvis.icon.icon,
@@ -90,7 +90,7 @@ export class Extension implements IExtensionBase {
     }
   }
   default(): TListItem[] {
-    return [];
+    return this.$listItems.get();
   }
 
   onSelect(item: TListItem): Promise<void> {
@@ -111,6 +111,9 @@ export class Extension implements IExtensionBase {
             }
 
             const windowLabel = `ext:${manifest.jarvis.permissions?.join(":")}`;
+            console.log("url", url);
+            console.log("windowLabel", windowLabel);
+
             const window = new WebviewWindow(windowLabel, {
               center: cmd.window?.center ?? undefined,
               x: cmd.window?.x ?? undefined,
@@ -122,7 +125,7 @@ export class Extension implements IExtensionBase {
               maxWidth: cmd.window?.maxWidth ?? undefined,
               maxHeight: cmd.window?.maxHeight ?? undefined,
               resizable: cmd.window?.resizable ?? undefined,
-              title: cmd.window?.title ?? undefined,
+              title: cmd.window?.title ?? cmd.name,
               fullscreen: cmd.window?.fullscreen ?? undefined,
               focus: cmd.window?.focus ?? undefined,
               transparent: cmd.window?.transparent ?? undefined,
@@ -149,17 +152,18 @@ export class Extension implements IExtensionBase {
         });
       } else if (item.type === "Inline Command") {
       } else if (item.type === "Remote Command") {
-        const ext = findRemoteExt(item.value);
-        if (ext) {
-          const window = new WebviewWindow("ext", {
-            url: ext.url,
-            title: item.title,
-            titleBarStyle: "visible",
-            // titleBarStyle: TitleBarStyle.parse(uiCmd.window?.titleBarStyle?.toLowerCase() ?? "visible"),
-            // width: uiCmd.window?.width ?? undefined,
-            // height: uiCmd.window?.height ?? undefined,
-          });
-        }
+        // const remoteExt = new RemoteExtension();
+        // const ext = findRemoteExt(item.value);
+        // if (ext) {
+        //   const window = new WebviewWindow("ext", {
+        //     url: ext.url,
+        //     title: item.title,
+        //     titleBarStyle: "visible",
+        //     // titleBarStyle: TitleBarStyle.parse(uiCmd.window?.titleBarStyle?.toLowerCase() ?? "visible"),
+        //     // width: uiCmd.window?.width ?? undefined,
+        //     // height: uiCmd.window?.height ?? undefined,
+        //   });
+        // }
       } else {
         console.error("Unknown command type", item.type);
       }

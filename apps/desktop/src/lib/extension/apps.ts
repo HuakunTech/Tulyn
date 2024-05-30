@@ -18,13 +18,14 @@ export function appInfoToListItem(app: AppInfo): TListItem {
       : null,
     keywords: app.name.split(" "),
     identityFilter: false,
-    isDev: false,
+    flags: { isDev: false },
   };
 }
 
 export class AppsExtension implements IExtensionBase {
   $apps: WritableAtom<AppInfo[]> = atom([]);
   extensionName = "Applications";
+  // $listItems = atom<TListItem[]>([]);
   $listItems = computed(this.$apps, (apps) => apps.map((app) => appInfoToListItem(app)));
 
   load(): Promise<void> {
@@ -32,6 +33,7 @@ export class AppsExtension implements IExtensionBase {
       .then(() => getAllApps())
       .then((apps) => {
         this.$apps.set(apps);
+        // this.$listItems.set(apps.map((app) => appInfoToListItem(app)));
       });
   }
   default(): TListItem[] {

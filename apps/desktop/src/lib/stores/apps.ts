@@ -8,8 +8,6 @@ export const $apps = atom<AppInfo[]>([]);
 refreshApplicationsList()
   .then(() => getAllApps())
   .then((apps) => {
-    console.log("Apps", apps);
-    
     $apps.set(apps);
   });
 

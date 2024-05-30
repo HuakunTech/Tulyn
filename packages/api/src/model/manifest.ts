@@ -122,6 +122,7 @@ export const ExtPackageJson = z.object({
   name: z.string().describe("Package name for the extension (just a regular npm package name)"),
   version: z.string().describe("Version of the extension"),
   jarvis: JarvisExtManifest.describe("Jarvis extension manifest"),
+  files: z.string().array().describe("Files to include in the extension. e.g. ['dist']"),
 });
 export type ExtPackageJson = z.infer<typeof ExtPackageJson>;
 

@@ -31,7 +31,11 @@ const emits = defineEmits<{
     <Icon v-else icon="mingcute:appstore-fill" class="w-5 h-5 mr-2" />
     <span>{{ item.title }}</span>
     <CommandShortcut class="space-x-3">
-      <Icon v-if="item.isDev" icon="ph:dev-to-logo-fill" class="inline w-5 h-6 text-green-500" />
+      <Icon
+        v-if="item.flags.isDev"
+        icon="ph:dev-to-logo-fill"
+        class="inline w-5 h-6 text-green-500"
+      />
       <span>{{ item.type }}</span>
     </CommandShortcut>
   </CommandItem>

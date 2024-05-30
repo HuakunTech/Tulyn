@@ -16,7 +16,12 @@ export const TListItem = z.object({
   value: z.string(),
   description: z.string(),
   type: ListItemType,
-  isDev: z.boolean().optional().default(false),
+  flags: z
+    .object({
+      isDev: z.boolean().optional().default(false),
+    })
+    .optional()
+    .default({}),
   icon: z
     .object({
       value: z.string(),

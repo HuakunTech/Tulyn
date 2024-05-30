@@ -21,10 +21,10 @@ import {
   TagsInputItemDelete,
   TagsInputItemText,
 } from "@/components/ui/tags-input";
-import { addRemoteExt, RemoteExt } from "@/lib/stores/remoteExtensions";
-import { toast as sonner } from "vue-sonner";
 import { useToast } from "@/components/ui/toast";
+import { RemoteExt, RemoteExtension } from "@/lib/extension/remoteExt";
 
+const remoteExt = new RemoteExtension();
 const { toast } = useToast();
 const remoteUrl = ref("");
 const name = ref("");
@@ -39,16 +39,16 @@ function onSave() {
       url: remoteUrl.value,
       triggerCmds: triggerKeywords.value,
     });
-    addRemoteExt(remoteExtPayload);
+    remoteExt.addRemoteExt(remoteExtPayload);
     toast({
       title: "Installed 1 Remote Command",
     });
     open.value = false; // close dialog
   } catch (error) {
     toast({
-        title: "Wrong Format",
-        variant: 'destructive'
-    })
+      title: "Wrong Format",
+      variant: "destructive",
+    });
   }
 }
 </script>
@@ -57,8 +57,6 @@ function onSave() {
     <Dialog v-model:open="open">
       <div class="flex justify-center w-full">
         <DialogTrigger as-child>
-          <!-- <Button variant="outline"> Edit Profile </Button> -->
-          <!-- <Input id="url" type="text" placeholder="Remote URL" v-model="remoteUrl" /> -->
           <Button type="submit" size="sm"
             >Add A Remote URL Command<CloudDownloadIcon class="ml-2 h-4 w-4"
           /></Button>

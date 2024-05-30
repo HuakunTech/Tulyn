@@ -6,14 +6,14 @@ export function loadManifest(manifestPath: string): Promise<ExtPackageJsonExtra>
 }
 
 export function loadAllExtensions(extensionsFolder: string): Promise<ExtPackageJsonExtra[]> {
+  console.log(extensionsFolder);
+  
   return invoke("load_all_extensions", { extensionsFolder }).then(
     (res: any) =>
       res
         .map((x: unknown) => {
           const parse = ExtPackageJsonExtra.safeParse(x);
           if (parse.error) {
-            // console.log(x);
-            console.error(parse.error);
             return null;
           } else {
             return parse.data;
