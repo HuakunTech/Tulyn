@@ -70,15 +70,19 @@ export class RemoteExtension implements IExtensionBase {
   async load(): Promise<void> {
     const defaultState: RemoteExtState = [];
     const loadedConfig = await this.persistAppConfig.get("remoteExts");
-    const parsedConfig = RemoteExtState.safeParse(loadedConfig);
-    if (parsedConfig.success) {
-      defaultState.push(...parsedConfig.data);
-    } else {
-      console.error(parsedConfig.error);
-      ElMessage.error(`Failed to load remote extensions: ${parsedConfig.error.message}`);
+    if (!loadedConfig === null) {
+      // not null means config is initialized, if parse error is thrown then it's a problem
+      const parsedConfig = RemoteExtState.safeParse(loadedConfig);
+      if (parsedConfig.success) {
+        defaultState.push(...parsedConfig.data);
+      } else {
+        console.error(parsedConfig.error);
+        ElMessage.error(`Failed to load remote extensions: ${parsedConfig.error.message}`);
+      }
     }
-    console.log("defaultState", defaultState);
     this.$remoteExtensions.set(defaultState);
+    // !Subscribe is replaced by save(). save() is called in addRemoteExt() and removeRemoteCmd().
+    // !Subscribe could have problem when this class is used in multiple places (instanciated multiple times), data could be erased.
     // this.$remoteExtensions.subscribe((state, oldState) => {
     //   console.log("Subscribe", state);
     //   this.persistAppConfig.set("remoteExts", state);
