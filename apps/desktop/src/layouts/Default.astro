@@ -6,7 +6,7 @@ import Toaster from "@/components/ui/toast/Toaster.vue";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import PostHog from "@/components/posthog.astro";
 import GoogleAnalytics from "@/components/google-analytics.astro";
-import { ViewTransitions } from 'astro:transitions';
+import { ViewTransitions } from "astro:transitions";
 import "element-plus/dist/index.css";
 import "element-plus/theme-chalk/dark/css-vars.css";
 
@@ -25,10 +25,10 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <!-- <PostHog /> -->
+    {import.meta.env.PROD && <PostHog />}
     <GoogleAnalytics />
     <title>{title}</title>
-    <ViewTransitions />
+    <!-- <ViewTransitions /> -->
   </head>
   <body>
     <Toaster client:only="vue" />
