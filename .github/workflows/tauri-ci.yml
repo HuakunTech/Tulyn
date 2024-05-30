@@ -50,7 +50,7 @@ jobs:
         if: matrix.settings.platform == 'ubuntu-22.04'
         run: |
           curl -fsSL https://d2lang.com/install.sh | sh -s --
-          apt install -y protobuf-compiler
+          sudo apt install -y protobuf-compiler
       - uses: pnpm/action-setup@v4
       - name: setup node
         uses: actions/setup-node@v4
