@@ -1,8 +1,10 @@
+import { z } from "zod";
 import {
   ListItemType,
+  TListItem,
+  TListGroup,
   type ExtPackageJsonExtra,
   type InlineCmd,
-  type TListItem,
   type UiCmd,
 } from "jarvis-api";
 import { type IExtensionBase } from "./base";
@@ -11,7 +13,7 @@ import { loadAllExtensions } from "@/lib/commands/manifest";
 import { pathExists } from "@/lib/commands/fs";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { type ReadableAtom, type WritableAtom, atom } from "nanostores";
-// import { findRemoteExt } from "@/lib/stores/remoteExtensions";
+import { fs } from "jarvis-api/ui";
 
 /**
  * Generate a value (unique identified) for a command in an extension
@@ -91,6 +93,33 @@ export class Extension implements IExtensionBase {
   }
   default(): TListItem[] {
     return this.$listItems.get();
+  }
+
+  groups(): TListGroup[] {
+    return this.manifests.map((manifest) => ({
+      title: manifest.jarvis.name,
+      identifier: manifest.jarvis.identifier,
+      type: "Extension",
+      icon: {
+        value: manifest.jarvis.icon.icon,
+        type: manifest.jarvis.icon.type,
+      },
+      items: manifestToCmdItems(manifest, this.isDev),
+      flags: { isDev: this.isDev },
+    }));
+  }
+
+  uninstallExt(identifier: string): Promise<ExtPackageJsonExtra> {
+    const found = this.manifests.find((m) => m.jarvis.identifier === identifier);
+    console.log(found);
+    if (found) {
+      return fs.remove(found.extPath, { recursive: true }).then(() => {
+        return found;
+      });
+    } else {
+      console.error("Extension not found", identifier);
+      return Promise.reject("Extension not found");
+    }
   }
 
   onSelect(item: TListItem): Promise<void> {

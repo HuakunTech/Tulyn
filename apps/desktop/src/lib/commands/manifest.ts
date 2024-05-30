@@ -6,8 +6,6 @@ export function loadManifest(manifestPath: string): Promise<ExtPackageJsonExtra>
 }
 
 export function loadAllExtensions(extensionsFolder: string): Promise<ExtPackageJsonExtra[]> {
-  console.log(extensionsFolder);
-  
   return invoke("load_all_extensions", { extensionsFolder }).then(
     (res: any) =>
       res

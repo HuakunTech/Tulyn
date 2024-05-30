@@ -135,6 +135,7 @@ declare module 'vue' {
     HoverCardContent: typeof import('./src/components/ui/hover-card/HoverCardContent.vue')['default']
     HoverCardTrigger: typeof import('./src/components/ui/hover-card/HoverCardTrigger.vue')['default']
     Icon: typeof import('./src/components/extension-store/Icon.vue')['default']
+    IconMultiplexer: typeof import('./src/components/IconMultiplexer.vue')['default']
     Input: typeof import('./src/components/ui/input/Input.vue')['default']
     Installation: typeof import('./src/components/settings/Developer/Installation.vue')['default']
     Label: typeof import('./src/components/ui/label/Label.vue')['default']

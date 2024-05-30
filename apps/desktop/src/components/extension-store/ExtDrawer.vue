@@ -35,7 +35,7 @@ import { installTarballUrl } from "@/lib/utils/tarball";
 import { getDevExtensionFolder, getExtensionFolder } from "@/lib/commands/server";
 import { ElMessage } from "element-plus";
 // import { useToast } from "@/components/ui/toast/use-toast";
-import { toast as sonner, toast } from "vue-sonner";
+// import { toast as sonner, toast } from "vue-sonner";
 // const toast = useToast();
 
 const props = defineProps<{
@@ -46,13 +46,10 @@ const props = defineProps<{
 const imageDialogOpen = ref(false);
 const emits = defineEmits<{
   (e: "update:open", open: boolean): void;
+  (e: "installed"): void;
+  (e: "uninstall", ext: Tables<"ext_publish"> | null): void;
 }>();
-type ExtPublish = Tables<"ext_publish"> & {
-  // demo_images: (string | null)[];
-  // nodeId: string;
-  // __typename: string;
-};
-const currentExt = ref<ExtPublish | null>(null);
+const currentExt = ref<Tables<"ext_publish"> | null>(null);
 
 watch(
   () => props.open,
@@ -90,17 +87,23 @@ const manifest = computed(() => {
 
 async function installExt() {
   if (!currentExt.value) {
-    return toast.error("Unexpected Error: No Extension Selected");
+    return ElMessage.error("Unexpected Error: No Extension Selected");
   }
   const tarballUrl = supabase.getFileUrl(currentExt.value.tarball_path).data.publicUrl;
-  const targetInstallDir = await getExtensionFolder();
-  console.log();
-
-  if (!targetInstallDir) {
-    toast.error("Unexpected Error: Extension Folder is Null");
-  } else {
-    await installTarballUrl(tarballUrl, targetInstallDir);
-  }
+  getExtensionFolder()
+    .then((targetInstallDir) => {
+      if (!targetInstallDir) {
+        return Promise.reject("Unexpected Error: Extension Folder is Null");
+      } else {
+        return installTarballUrl(tarballUrl, targetInstallDir);
+      }
+    })
+    .then(() => {
+      ElMessage.success(`Plugin ${currentExt.value!.name} Installed`);
+      emits("update:open", false);
+      emits("installed");
+    })
+    .catch(ElMessage.error);
 }
 
 function onEnterPressed(e: KeyboardEvent) {
@@ -177,7 +180,10 @@ const imageSrcs = computed(() => {
         <Button v-if="!props.installed" @click="installExt">
           Install <Iconify icon="mi:enter" class="w-5 h-5 ml-2" />
         </Button>
-        <Button v-else>Uninstall <Trash2Icon class="w-5 h-5 ml-2" /></Button>
+        <Button v-else @click="emits('uninstall', currentExt)" variant="destructive">
+          Uninstall
+          <Trash2Icon class="w-5 h-5 ml-2" />
+        </Button>
       </DrawerFooter>
     </DrawerContent>
   </ExtStoreDrawer>

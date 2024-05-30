@@ -23,12 +23,23 @@ import { Extension } from "@/lib/extension/ext";
 import { gqlClient } from "@/lib/utils/graphql";
 import { ElMessage } from "element-plus";
 import { $appConfig } from "@/lib/stores/appConfig";
+import type { ExtPackageJsonExtra } from "jarvis-api";
+import { type Tables } from "@jarvis/ext-api/supabase/types/supabase";
 
 const ext = new Extension("Extensions", extensionsFolder);
 const selectedExt = ref<ExtItem>();
 const extDrawerOpen = ref(false);
 const extList = ref<ExtItem[]>([]);
+const installedManifests = ref<ExtPackageJsonExtra[]>([]);
+
+function refreshListing() {
+  return ext.load().then(() => {
+    installedManifests.value = ext.manifests;
+  });
+}
+
 onMounted(async () => {
+  refreshListing();
   const response: ApolloQueryResult<AllExtensionsQuery> = await gqlClient.query({
     query: AllExtensionsDocument,
   });
@@ -44,18 +55,32 @@ function select(item: ExtItem) {
 }
 
 function isInstalled(identifier: string) {
-  return !!ext.manifests.find((x) => x.jarvis.identifier === identifier);
+  return !!installedManifests.value.find((x) => x.jarvis.identifier === identifier);
 }
 
-onMounted(() => {
-  ext.load();
-});
+function onInstalled() {
+  refreshListing();
+}
+
+function uninstall(extPublish: Tables<"ext_publish"> | null) {
+  if (extPublish) {
+    ext.uninstallExt(extPublish.identifier).then((manifest) => {
+      ElMessage.success(`Uninstalled: ${manifest.name}`);
+    });
+    extDrawerOpen.value = false;
+    refreshListing();
+  } else {
+    ElMessage.error("No Extension Selected");
+  }
+}
 </script>
 <template>
   <ExtDrawer
     v-model:open="extDrawerOpen"
     :selectedExt="selectedExt"
     :installed="selectedExt?.identifier ? isInstalled(selectedExt?.identifier) : false"
+    @installed="onInstalled"
+    @uninstall="uninstall"
   />
   <Command>
     <CommandInput placeholder="Type to search..." />

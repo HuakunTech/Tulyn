@@ -47,19 +47,20 @@ export async function installTarball(tarballPath: string, targetDir: string) {
     });
 }
 
-export async function installTarballUrl(tarballUrl: string, targetDir: string) {
+export async function installTarballUrl(tarballUrl: string, targetDir: string): Promise<void> {
   const filename = tarballUrl.split("/").pop();
   if (filename) {
-    try {
-      const tempDirPath = await tempDir();
-      let tarballPath = await pathJoin(tempDirPath, filename);
-      await download(tarballUrl, tarballPath);
-      await installTarball(tarballPath, targetDir);
-      sonner.success(`Installed 1 Tarball`);
-      await fs.remove(tarballPath);
-    } catch (error: any) {
-      const { toast } = useToast();
-      toast({ title: error, variant: "destructive" });
-    }
+    const tempDirPath = await tempDir();
+    let tarballPath = await pathJoin(tempDirPath, filename);
+    await download(tarballUrl, tarballPath);
+    await installTarball(tarballPath, targetDir);
+    // sonner.success(`Installed 1 Tarball`);
+    await fs.remove(tarballPath);
+    // } catch (error: any) {
+    //   const { toast } = useToast();
+    //   // toast({ title: error, variant: "destructive" });
+    // }
+  } else {
+    return Promise.reject("Invalid Tarball URL. Cannot parse filename");
   }
 }
