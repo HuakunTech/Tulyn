@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Icon from "./Icon.vue";
 import { Icon as Iconify } from "@iconify/vue";
 import {
   Drawer,
@@ -16,8 +15,10 @@ import ExtStoreDrawer from "./ExtStoreDrawer.vue";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ExtItem } from "./types";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { ApolloClient, HttpLink, InMemoryCache, type ApolloQueryResult } from "@apollo/client";
+import { PERMISSIONS_EXPLANATION } from "@/lib/constants";
 import {
   type FindLatestExtQuery,
   type FindLatestExtQueryVariables,
@@ -34,6 +35,7 @@ import { GlobalEventBus } from "@/lib/utils/events";
 import { installTarballUrl } from "@/lib/utils/tarball";
 import { getDevExtensionFolder, getExtensionFolder } from "@/lib/commands/server";
 import { ElMessage } from "element-plus";
+import { InfoFilled } from "@element-plus/icons-vue";
 // import { useToast } from "@/components/ui/toast/use-toast";
 // import { toast as sonner, toast } from "vue-sonner";
 // const toast = useToast();
@@ -128,7 +130,10 @@ const imageSrcs = computed(() => {
   <ExtStoreDrawer :open="props.open" @update:open="(open) => emits('update:open', open)">
     <DrawerContent>
       <DrawerHeader class="flex space-x-5 items-center">
-        <Icon v-if="props.selectedExt" :icon="props.selectedExt?.icon" class="w-12 h-12" />
+        <IconMultiplexer v-if="props.selectedExt" :icon="{
+          type: props.selectedExt?.icon.type,
+          value: props.selectedExt?.icon.icon
+        }" class="w-12 h-12" />
         <div>
           <DrawerTitle class="flex items-center">
             <strong class="text-xl">{{ selectedExt?.name }}</strong>
@@ -152,6 +157,24 @@ const imageSrcs = computed(() => {
         </div>
         <!-- </ScrollArea> -->
         <Separator class="my-5" />
+
+        <DrawerDescription class="text-md">Security and Privacy</DrawerDescription>
+        <li v-for="perm in manifest?.permissions" class="flex space-x-2 items-center">
+          <span>{{ PERMISSIONS_EXPLANATION[perm]?.displayName }}</span>
+          <HoverCard>
+            <HoverCardTrigger>
+              <!-- <el-icon><InfoFilled /></el-icon> -->
+              <IconMultiplexer
+                :icon="{ type: 'iconify', value: 'material-symbols:info-outline' }"
+              />
+            </HoverCardTrigger>
+            <HoverCardContent class="w-96">
+              {{ PERMISSIONS_EXPLANATION[perm]?.description }}
+            </HoverCardContent>
+          </HoverCard>
+        </li>
+
+        <Separator class="my-5" />
         <DrawerDescription class="text-md">Description</DrawerDescription>
         <span class="text-sm">
           {{ selectedExt?.long_description }}
@@ -162,9 +185,12 @@ const imageSrcs = computed(() => {
         <ul>
           <li v-if="manifest" v-for="cmd in manifest.uiCmds">
             <div class="flex items-center space-x-3">
-              <Icon
+              <IconMultiplexer
                 v-if="props.selectedExt"
-                :icon="props.selectedExt?.icon"
+                :icon="{
+                  type: props.selectedExt.icon.type,
+                  value: props.selectedExt.icon.icon,
+                }"
                 class="w-6 h-6 inline"
               />
               <div>
