@@ -7,13 +7,13 @@ const appDataDirPath = await appDataDir();
 export const extensionsFolder = await join(appDataDirPath, "extensions");
 
 /* ---------------------------- Get Supabase URL ---------------------------- */
-export const SUPABASE_URL = loadEnvVarWithNotification("PUBLIC_SUPABASE_URL");
+export const SUPABASE_URL = await loadEnvVarWithNotification("PUBLIC_SUPABASE_URL");
 
 /* ----------------------- Get Supabase Anonymous Key ----------------------- */
-export const SUPABASE_ANON_KEY = loadEnvVarWithNotification("PUBLIC_SUPABASE_ANON_KEY");
+export const SUPABASE_ANON_KEY = await loadEnvVarWithNotification("PUBLIC_SUPABASE_ANON_KEY");
 
 /* ------------------------ Supabase GraphQL Endpoint ----------------------- */
-export const SUPABASE_GRAPHQL_ENDPOINT = loadEnvVarWithNotification(
+export const SUPABASE_GRAPHQL_ENDPOINT = await loadEnvVarWithNotification(
   "PUBLIC_SUPABASE_GRAPHQL_ENDPOINT",
 );
 

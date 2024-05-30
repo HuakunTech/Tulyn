@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { onMounted, ref } from "vue";
 import { open } from "jarvis-api/ui";
 import { Icon } from "@iconify/vue";
+import { SUPABASE_URL } from "@/lib/constants";
 
 const extFolder = ref<string | null>();
 const devExtFolder = ref<string | null>();
@@ -34,6 +35,11 @@ onMounted(async () => {
         <strong>Dev Extension Path: </strong><span>{{ devExtFolder }}</span
         ><Icon icon="ion:open-outline" />
       </li>
+
+      <!-- <li class="text-muted-foreground cursor-pointer flex space-x-2 items-center">
+        <strong>Supabase GraphQL Endpoint</strong><span>{{ SUPABASE_URL }}</span
+        ><Icon icon="ion:open-outline" />
+      </li> -->
     </ul>
     <Button class="" size="xs" @click="refreshFolderFetch">Refresh</Button>
   </div>

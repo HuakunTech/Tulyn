@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import ServerStatus from "./Developer/ServerStatus.vue";
-import DevFolders from "./Developer/DevFolders.vue";
+import DevVars from "./Developer/DevVars.vue";
 import { InfoIcon } from "lucide-vue-next";
 import Installation from "@/components/settings/Developer/Installation.vue";
 import {
@@ -38,7 +38,7 @@ import {
         </AccordionItem>
         <AccordionItem value="Folders">
           <AccordionTrigger>Folders</AccordionTrigger>
-          <AccordionContent><DevFolders /></AccordionContent>
+          <AccordionContent><DevVars /></AccordionContent>
         </AccordionItem>
       </Accordion>
     </div>
