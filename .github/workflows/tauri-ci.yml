@@ -18,14 +18,14 @@ jobs:
         settings:
           - platform: 'macos-14' # for Arm based macs (M1 and above).
             args: '--target aarch64-apple-darwin'
-          # - platform: 'macos-14' # for Intel based macs.
-          #   args: '--target x86_64-apple-darwin'
-          # - platform: "macos-14" # for Both Arm and Intel based macs.
-          #   args: "--target universal-apple-darwin"
-          # - platform: 'ubuntu-22.04' # for Tauri v1 you could replace this with ubuntu-20.04.
-          #   args: ''
-          # - platform: 'windows-latest'
-          #   args: ''
+          - platform: 'macos-14' # for Intel based macs.
+            args: '--target x86_64-apple-darwin'
+          - platform: "macos-14" # for Both Arm and Intel based macs.
+            args: "--target universal-apple-darwin"
+          - platform: 'ubuntu-22.04' # for Tauri v1 you could replace this with ubuntu-20.04.
+            args: ''
+          - platform: 'windows-latest'
+            args: ''
 
     runs-on: ${{ matrix.settings.platform }}
     steps:
