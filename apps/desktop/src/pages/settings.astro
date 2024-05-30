@@ -1,0 +1,11 @@
+---
+import SettingsPage from "@/components/SettingsPage.vue";
+import DefaultLayout from "@/layouts/Default.astro";
+import DefaultVue from "@/components/layouts/default.vue";
+---
+
+<DefaultLayout title="Tauri Astro Templte">
+  <DefaultVue client:only="vue">
+    <SettingsPage client:only="vue" />
+  </DefaultVue>
+</DefaultLayout>

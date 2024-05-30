@@ -1,0 +1,25 @@
+query FindLatestExt($identifier: String) {
+  ext_publishCollection(
+    filter: { identifier: { eq: $identifier } }
+    orderBy: { created_at: DescNullsFirst }
+    first: 1
+  ) {
+    edges {
+      node {
+        nodeId
+        id
+        created_at
+        name
+        version
+        manifest
+        shasum
+        size
+        tarball_path
+        cmd_count
+        identifier
+        downloads
+        demo_images
+      }
+    }
+  }
+}

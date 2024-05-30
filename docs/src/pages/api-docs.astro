@@ -1,0 +1,15 @@
+---
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro";
+// import CustomComponent from './CustomComponent.astro';
+---
+
+<StarlightPage frontmatter={{ title: "API docs" }} hasSidebar={false}>
+  <a href="https://jarvis-api-doc.pages.dev">API Docs</a>
+  <div class="h-[80vh]">
+    <iframe
+      src="https://jarvis-api-doc.pages.dev"
+      allow="fullscreen"
+      class="w-full h-full"
+      height="100%"></iframe>
+  </div>
+</StarlightPage>

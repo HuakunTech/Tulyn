@@ -1,0 +1,16 @@
+---
+import DefaultLayout from "@/layouts/Default.astro";
+import { Button } from "@/components/ui/button";
+import VueDev from "@/components/VueDev.vue";
+import MainSearch from "@/components/MainSearch.vue";
+import DevComponent from "@/components/Dev.vue";
+// import { ElButton } from "element-plus";
+
+import "element-plus/dist/index.css";
+import "element-plus/theme-chalk/dark/css-vars.css";
+---
+
+<DefaultLayout title="Dev">
+  <!-- <img src="macicns://localhost/Users/hacker/Downloads/jarvis-logo.png" alt="" /> -->
+  <DevComponent client:only="vue" />
+</DefaultLayout>

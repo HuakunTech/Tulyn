@@ -1,0 +1,22 @@
+{
+  "name": "jarvis",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md,vue,json,yaml,yml}\""
+  },
+  "devDependencies": {
+    "eslint": "^8.48.0",
+    "prettier": "^3.0.3",
+    "turbo": "^1.10.16"
+  },
+  "packageManager": "pnpm@9.1.2",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "docs",
+    "dev/docs"
+  ]
+}

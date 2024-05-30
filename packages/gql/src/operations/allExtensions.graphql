@@ -1,0 +1,14 @@
+query AllExtensions {
+  extensionsCollection {
+    edges {
+      node {
+        identifier
+        name
+        downloads
+        short_description
+        long_description
+        icon
+      }
+    }
+  }
+}

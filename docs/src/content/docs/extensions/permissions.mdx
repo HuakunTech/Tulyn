@@ -1,0 +1,36 @@
+---
+title: Extension Permissions
+description: Extension Permissions
+sidebar:
+  order: 3
+---
+
+:::caution
+Work In Progress
+
+The project is still under early development, more permissions will be added in the future.
+
+If you need any permissions or have any suggestions, plean open an issue on GitHub. https://github.com/HuakunTech/Jarvis
+:::
+
+If a permission requires access to system APIs such as clipboard, file system, etc.,
+the extension must declare the permission in the `package.json` file.
+
+The requested permissions will be shown to the user when the extension is installed.
+
+## Clipboard
+
+- `clipboard-read`
+    - Read clipboard content (text, image, html, RTF, Monitor Update)
+- `clipboard-write`
+    - Write text, image, html, RTF to clipboard
+
+## File System
+
+This is based on Tauri's file system plugin. Read more in their documentation. 
+
+- `fs-home`
+    - Recursive read and write access to user's home directory
+- `fs-basic`
+    - Rcurisive read and write access to `Desktop`, `Documents`, `Downloads`.
+

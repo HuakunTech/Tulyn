@@ -1,0 +1,11 @@
+---
+import DefaultLayout from "@/layouts/Default.astro";
+import MainSearch from "@/components/MainSearch.vue";
+import DefaultVue from "@/components/layouts/default.vue";
+---
+<DefaultLayout title="Main Page">
+  <!-- <FlowEditor client:only="react" /> -->
+  <DefaultVue client:only="vue">
+    <MainSearch client:only="vue" class="" />
+  </DefaultVue>
+</DefaultLayout>

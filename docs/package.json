@@ -1,0 +1,42 @@
+{
+  "name": "docs",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.6.0",
+    "@astrojs/react": "^3.3.4",
+    "@astrojs/starlight": "^0.22.2",
+    "@astrojs/starlight-tailwind": "^2.0.3",
+    "@astrojs/svelte": "^5.4.0",
+    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/vue": "^4.2.0",
+    "@monaco-editor/react": "^4.6.0",
+    "@types/react": "^18.3.2",
+    "@types/react-dom": "^18.3.0",
+    "@vueuse/core": "^10.9.0",
+    "astro": "^4.3.5",
+    "astro-d2": "^0.2.0",
+    "element-plus": "^2.7.3",
+    "jarvis-api": "workspace:*",
+    "monaco-editor": "^0.48.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.32.5",
+    "svelte": "^4.2.17",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.5",
+    "vue": "^3.4.27"
+  },
+  "devDependencies": {
+    "@monaco-editor/loader": "^1.4.0",
+    "astro-icon": "^1.1.0",
+    "rollup-plugin-visualizer": "^5.12.0"
+  }
+}
