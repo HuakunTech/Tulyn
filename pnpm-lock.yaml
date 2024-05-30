@@ -86,6 +86,9 @@ importers:
       '@tauri-apps/plugin-os':
         specifier: 2.0.0-beta.3
         version: 2.0.0-beta.3
+      '@tauri-apps/plugin-process':
+        specifier: 2.0.0-beta.4
+        version: 2.0.0-beta.4
       '@tauri-apps/plugin-shell':
         specifier: 2.0.0-beta.4
         version: 2.0.0-beta.4
@@ -2601,6 +2604,10 @@ packages:
     resolution: {integrity: sha512-wJRY+fBUm3KpqZDHMIz5HRv+1vlnvRJ/dFxiyY3NlINTx2qXqDou5qWYcP1CuZXsd39InWVPV3FAZvno/kGCkA==}
     engines: {node: '>= 18', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
 
+  '@tauri-apps/api@2.0.0-beta.12':
+    resolution: {integrity: sha512-77OvAnsExtiprnjQcvmDyZGfnIvMF/zVL5+8Vkl1R8o8E3iDtvEJZpbbH1F4dPtNa3gr4byp/5dm8hAa1+r3AA==}
+    engines: {node: '>= 18', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
+
   '@tauri-apps/cli-darwin-arm64@2.0.0-beta.17':
     resolution: {integrity: sha512-N69Udn+Kw7QqhOMOmlmuhG/0WPz7g5LNOGRAvDEaBJLUneu2o3iUAC1HIMDF/MffTiJClcCPmDtbcSkr6glf9w==}
     engines: {node: '>= 10'}
@@ -2686,6 +2693,9 @@ packages:
 
   '@tauri-apps/plugin-os@2.0.0-beta.3':
     resolution: {integrity: sha512-kuTfns6z7z/RKAqij3293fnSsgRHlogO/SzNWziFDGHpijGUm/peH70Cv45LKvHw+7kEMX+nfHFWOZm8UEVy/w==}
+
+  '@tauri-apps/plugin-process@2.0.0-beta.4':
+    resolution: {integrity: sha512-VAmUISa8rntcWl0Ci3GjjAPBymrzP5HqQSm9Qf3rjqhDcJMPpqis8PqLKjw1j7L0b836TdRYcw3vgWp6bDjjKw==}
 
   '@tauri-apps/plugin-shell@2.0.0-beta.4':
     resolution: {integrity: sha512-y9APB3ZLtkY4IM6syE+dn/R4XR2UTHBcAI/n9L5PgnvOjJAuuEzVYURn10G51nKnLw+sFbxO7LW4VW66Uoaa9g==}
@@ -9893,6 +9903,8 @@ snapshots:
 
   '@tauri-apps/api@2.0.0-beta.11': {}
 
+  '@tauri-apps/api@2.0.0-beta.12': {}
+
   '@tauri-apps/cli-darwin-arm64@2.0.0-beta.17':
     optional: true
 
@@ -9963,6 +9975,10 @@ snapshots:
   '@tauri-apps/plugin-os@2.0.0-beta.3':
     dependencies:
       '@tauri-apps/api': 2.0.0-beta.11
+
+  '@tauri-apps/plugin-process@2.0.0-beta.4':
+    dependencies:
+      '@tauri-apps/api': 2.0.0-beta.12
 
   '@tauri-apps/plugin-shell@2.0.0-beta.4':
     dependencies:
