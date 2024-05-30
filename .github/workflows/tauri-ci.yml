@@ -8,10 +8,6 @@ on:
       - "v*"
   workflow_dispatch:
 
-env:
-  TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
-  TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
-
 jobs:
   publish-tauri:
     permissions:
@@ -45,8 +41,16 @@ jobs:
           curl -fsSL https://d2lang.com/install.sh | sh -s --
         # webkitgtk 4.0 is for Tauri v1 - webkitgtk 4.1 is for Tauri v2.
         # You can remove the one that doesn't apply to your app to speed up the workflow a bit.
-      - name: Install D2 For Docs
-        run: brew install d2
+      - name: Install D2 and protobuf (Mac)
+        if: matrix.settings.platform == 'macos-14'
+        run: |
+          brew install d2
+          brew install protobuf
+      - name: Install D2 and Protobuf (Ubuntu)
+        if: matrix.settings.platform == 'ubuntu-22.04'
+        run: |
+          curl -fsSL https://d2lang.com/install.sh | sh -s --
+          apt install -y protobuf-compiler
       - uses: pnpm/action-setup@v4
       - name: setup node
         uses: actions/setup-node@v4
@@ -55,7 +59,7 @@ jobs:
           cache: "pnpm" # Set this to npm, yarn or pnpm.
           cache-dependency-path: ./pnpm-lock.yaml
 
-      - name: install Rust stable
+      - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
         with:
           # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
@@ -69,12 +73,10 @@ jobs:
         uses: swatinem/rust-cache@v2
         with:
           workspaces: "./apps/desktop/src-tauri -> target"
-      - name: Install protobuf
-        run: brew install protobuf
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: 1.1.10
-      - name: install frontend dependencies
+      - name: Install frontend dependencies
         # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
         env:
           SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}
@@ -92,9 +94,11 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}        
         with:
-          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
-          releaseName: "App v__VERSION__"
+          tagName: Jarvis-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
+          releaseName: "Jarvis v__VERSION__"
           releaseBody: "See the assets to download this version and install."
           releaseDraft: true
           prerelease: false
