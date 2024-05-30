@@ -1,6 +1,6 @@
 {
   "productName": "Jarvis",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "identifier": "tech.huakun.jarvis",
   "build": {
     "frontendDist": "../dist",
