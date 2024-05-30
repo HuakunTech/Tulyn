@@ -41,7 +41,7 @@ pub enum OSPlatform {
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Icon {
-    pub icon: String,
+    pub value: String,
     #[serde(rename = "type")]
     pub type_field: IconType,
 }

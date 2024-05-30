@@ -18,7 +18,7 @@ const emits = defineEmits<{
   <CommandItem :value="props.data" class="" @select="emits('select')">
     <div class="flex justify-between items-center w-full">
       <div class="flex items-center space-x-4">
-        <Icon :icon="props.data.icon.icon" class="w-6 h-6" />
+        <IconMultiplexer :icon="props.data.icon" class="w-6 h-6" />
         <div>
           <div class="font-semibold">{{ props.data.name }}</div>
           <div class="text-xs text-muted-foreground font-mono">

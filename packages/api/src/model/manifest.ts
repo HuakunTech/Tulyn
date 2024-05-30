@@ -91,7 +91,7 @@ export type InlineCmd = z.infer<typeof InlineCmd>;
 
 export const Icon = z.object({
   type: IconType,
-  icon: z.string(),
+  value: z.string(),
 });
 export type Icon = z.infer<typeof Icon>;
 

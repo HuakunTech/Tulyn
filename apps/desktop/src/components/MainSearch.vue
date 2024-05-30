@@ -41,7 +41,9 @@ watch(searchTermInSync, (val) => {
 });
 
 onMounted(async () => {
-  Promise.all(exts.map((ext) => ext.load()));
+  Promise.all(exts.map((ext) => ext.load())).then(() => {
+    console.log(storeExt.manifests);
+  });
 });
 </script>
 <template>

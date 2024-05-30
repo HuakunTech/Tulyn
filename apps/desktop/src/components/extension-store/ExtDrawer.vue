@@ -130,10 +130,11 @@ const imageSrcs = computed(() => {
   <ExtStoreDrawer :open="props.open" @update:open="(open) => emits('update:open', open)">
     <DrawerContent>
       <DrawerHeader class="flex space-x-5 items-center">
-        <IconMultiplexer v-if="props.selectedExt" :icon="{
-          type: props.selectedExt?.icon.type,
-          value: props.selectedExt?.icon.icon
-        }" class="w-12 h-12" />
+        <IconMultiplexer
+          v-if="props.selectedExt"
+          :icon="props.selectedExt?.icon"
+          class="w-12 h-12"
+        />
         <div>
           <DrawerTitle class="flex items-center">
             <strong class="text-xl">{{ selectedExt?.name }}</strong>
@@ -187,10 +188,7 @@ const imageSrcs = computed(() => {
             <div class="flex items-center space-x-3">
               <IconMultiplexer
                 v-if="props.selectedExt"
-                :icon="{
-                  type: props.selectedExt.icon.type,
-                  value: props.selectedExt.icon.icon,
-                }"
+                :icon="props.selectedExt?.icon"
                 class="w-6 h-6 inline"
               />
               <div>

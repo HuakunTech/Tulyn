@@ -41,10 +41,7 @@ export function cmdToItem(
     description: cmd.description ?? "",
     flags: { isDev },
     type,
-    icon: {
-      value: manifest.jarvis.icon.icon,
-      type: manifest.jarvis.icon.type,
-    },
+    icon: manifest.jarvis.icon,
     keywords: cmd.cmds.map((c) => c.value), // TODO: handle regex as well
     identityFilter: true,
   };
@@ -100,10 +97,7 @@ export class Extension implements IExtensionBase {
       title: manifest.jarvis.name,
       identifier: manifest.jarvis.identifier,
       type: "Extension",
-      icon: {
-        value: manifest.jarvis.icon.icon,
-        type: manifest.jarvis.icon.type,
-      },
+      icon: manifest.jarvis.icon,
       items: manifestToCmdItems(manifest, this.isDev),
       flags: { isDev: this.isDev },
     }));
