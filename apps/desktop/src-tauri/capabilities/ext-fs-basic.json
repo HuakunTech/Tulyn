@@ -3,7 +3,7 @@
     "identifier": "ext-fs-basic",
     "description": "Grants all read and write permissions to basic scope (Desktop, Downloads, Documents)",
     "windows": [
-        "*:fs-home*"
+        "*:fs-basic*"
     ],
     "remote": {
         "urls": [

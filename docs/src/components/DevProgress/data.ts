@@ -17,7 +17,7 @@ export const devProgressRawData: DevProgressData[] = [
     label: "Desktop",
     children: [
       { label: "Global Toast in A Separate Window", finished: true },
-      { label: "Shortcut To Open", finished: false },
+      { label: "Keyboard Shortcut To Open", finished: false },
       { label: "Main window close on focus lose", finished: false },
       { label: "Pin Window", finished: false },
     ],
@@ -51,8 +51,9 @@ export const devProgressRawData: DevProgressData[] = [
         children: [
           { label: "Through Tarball File", finished: true },
           { label: "Through Tarball URL", finished: true },
+          { label: "Through NPM Package Name", finished: true },
           { label: "Through Remote Website", finished: true },
-          { label: "Extension Store", finished: false },
+          { label: "Extension Store", finished: true },
         ],
       },
     ],

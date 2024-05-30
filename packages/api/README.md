@@ -1,15 +1,17 @@
-# api
+# jarvis-api
 
-To install dependencies:
+[Jarvis API](https://www.npmjs.com/package/jarvis-api) is an NPM package designed for developers to create extensions for Jarvis.
 
-```bash
-bun install
-```
+For now, only `jarvis-api/ui` is useful. This subpackage is designed for UI extension commands.
 
-To run:
+`jarvis-api/ui` exposes a set of APIs to interact with Jarvis and access system resources.
 
-```bash
-bun run index.ts
-```
+- Clipboard API: read and write clipboard
+- System API: get system information
+- Shell API: run shell command
+- File System API: access file system
+- Notification API: show notification
+- Dialog API: show dialog, interact with user
+- etc.
 
-This project was created using `bun init` in bun v1.1.8. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+Read more details in documentation at https://docs.jarvis.huakun.tech.

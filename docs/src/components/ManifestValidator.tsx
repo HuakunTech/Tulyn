@@ -11,11 +11,14 @@ const defaultJson = `{
   "type": "module",
   "description": "JWT Inspector",
   "jarvis": {
+    "name": "JWT Inspector",
+    "shortDescription": "JWT Inspector",
+    "longDescription": "JWT Inspector",
     "identifier": "tech.huakun.jarvis-jwt-inspector",
     "demoImages": [],
     "icon": {
       "type": "iconify",
-      "icon": "logos:jwt-icon"
+      "value": "logos:jwt-icon"
     },
     "uiCmds": [
       {

@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@monaco-editor/loader": "^1.4.0",
+    "astro-icon": "^1.1.0",
     "rollup-plugin-visualizer": "^5.12.0"
   }
 }

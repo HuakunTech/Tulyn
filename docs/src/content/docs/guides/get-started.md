@@ -1,6 +1,8 @@
 ---
 title: Get Started
 description: Get started with Jarvis
+sidebar:
+  order: 1
 ---
 
 Jarvis is an open source cross-platform extensible app launcher that aims to be an alternative to Alfred and Raycast. This guide will help you get started with Jarvis both as a user and a developer.
@@ -13,9 +15,11 @@ In the future, I will publish Jarvis to package managers and also provide a webs
 
 ## Supported Platforms
 
-Jarvis is designed to be cross-platform. It will work on Windows, macOS, and Linux. However, community maintained plugins may not work on all platforms. Some features may also be platform-specific.
+Jarvis is designed to be cross-platform. It will work on Windows, macOS, and Linux. 
 
-At the time of writing, Jarvis only supports macOS. Windows and Linux support will soon be added. (I still need to work on some platform-specific APIs).
+At the time of writing, Jarvis is still under early development.
+Only macOS is fully supported. Linux is partially working. 
+Some stack overflow bug prevents Windows build from running. I will try to get it working ASAP. 
 
 ## Extensions
 

@@ -3,7 +3,7 @@ title: Jarvis
 description: Cross-platform Extensible App Launcher
 template: splash
 hero:
-  tagline: A cross-platform alternative to Alfred and Raycast
+  tagline: An open source, extensible, cross-platform alternative to Alfred and Raycast
   image:
     file: ../../assets/logo.png
   actions:
@@ -14,23 +14,25 @@ hero:
     - text: View on GitHub
       link: https://github.com/HuakunTech/Jarvis
       icon: external
+    - text: Download
+      link: https://github.com/HuakunTech/Jarvis/releases
+      icon: external
+    - text: Discord
+      link: https://discord.gg/bvf6GwxKWX
+      icon: external
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, CardGrid } from "@astrojs/starlight/components";
 
-{/* ## Next steps */}
-{/* 
 <CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
-	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
-	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
-	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
-	</Card>
-</CardGrid> */}
+  <Card title="Cross-Platform" icon="linux">
+    Support MacOS, Windows (`WIP`), Linux.
+  </Card>
+  <Card title="Extensible" icon="puzzle">
+    Write your own extension in JavaScript. Install extensons from a store.
+  </Card>
+  <Card title="Extension Permission Management">
+    Extensions have limited access to system resource. Only declared permissions are granted.
+  </Card>
+  <Card title="Open Source">All extensions and the App itself are open source.</Card>
+</CardGrid>
