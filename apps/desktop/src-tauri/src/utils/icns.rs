@@ -44,7 +44,6 @@ pub fn load_icns(icns_path: &PathBuf) -> anyhow::Result<RustImageData> {
     }
 }
 
-
 #[cfg(target_os = "linux")]
 pub fn load_icon(path: PathBuf) -> tauri::http::Response<Vec<u8>> {
     match path.exists() {

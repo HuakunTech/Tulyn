@@ -3,6 +3,8 @@ use applications::utils::image::RustImage;
 use commands::{apps::ApplicationsState, server::Server};
 use std::path::PathBuf;
 use tauri::Manager;
+use tauri_plugin_fs::FsExt;
+use tauri_plugin_global_shortcut::{Code, Modifiers, ShortcutState};
 use tauri_plugin_store::StoreBuilder;
 use utils::{path::get_default_extensions_dir, settings::AppSettings};
 pub mod commands;
@@ -12,14 +14,14 @@ pub mod syscmds;
 pub mod utils;
 // use rdev::{listen, Event};
 
-
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
-pub fn run() {
+pub fn run() -> anyhow::Result<()> {
     // get cwd
     let mut log_path = std::env::current_dir().unwrap();
     log_path.push("jarvis-logs");
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_http::init())
         .register_uri_scheme_protocol("macicns", |_app, request| {
             let url = &request.uri().path()[1..];
@@ -45,7 +47,11 @@ pub fn run() {
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_fs::init())
-        .plugin(tauri_plugin_global_shortcut::Builder::new().build())
+        // .plugin(
+        //     tauri_plugin_global_shortcut::Builder::new()
+        //         .with_shortcuts(["option+space"])?
+        //         .build(),
+        // )
         // .plugin(tauri_plugin_log::Builder::new().build())
         // .plugin(
         //     tauri_plugin_log::Builder::new()
@@ -139,6 +145,35 @@ pub fn run() {
             //     window.open_devtools();
             // }
             utils::setup::setup_app_path(app.handle());
+
+            app.handle().plugin(
+                tauri_plugin_global_shortcut::Builder::new()
+                    .with_shortcuts(["alt+space"])?
+                    .with_handler(|app, shortcut, event| {
+                        if event.state == ShortcutState::Pressed {
+                            // if shortcut.matches(Modifiers::CONTROL, Code::KeyD) {
+                            //     let _ = app.emit("shortcut-event", "Ctrl+D triggered");
+                            // }
+                            if shortcut.matches(Modifiers::ALT, Code::Space) {
+                                // println!("Alt+Space triggered");
+                                // app.show().unwrap();
+                                let window = app.get_webview_window("main").unwrap();
+                                let is_focused = window.is_focused().unwrap();
+                                let is_visible = window.is_visible().unwrap();
+                                // println!("is_focused: {:?}", is_focused);
+                                // println!("is_visible: {:?}", is_visible);
+                                // println!("fs_scope allowed: {:?}", fs_scope.allowed());
+                                if !is_visible || !is_focused {
+                                    window.show().unwrap();
+                                } else {
+                                    window.hide().unwrap();
+                                }
+                                // let _ = app.emit("shortcut-event", "Alt+Space triggered");
+                            }
+                        }
+                    })
+                    .build(),
+            )?;
             // let window = app.get_webview_window("main").unwrap();
             // #[cfg(target_os = "macos")]
             // apply_vibrancy(&window, NSVisualEffectMaterial::HudWindow, None, None)
@@ -147,4 +182,5 @@ pub fn run() {
         })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+    Ok(())
 }

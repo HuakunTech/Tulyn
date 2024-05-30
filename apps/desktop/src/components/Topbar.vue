@@ -40,7 +40,7 @@ onMounted(async () => {
           <TestTubesIcon />
         </Button>
       </a>
-      <a href="./extension-store" v-if="isDev">
+      <a href="./extension-store">
         <Button class="w-4 h-4" size="icon" variant="ghost">
           <Icon icon="ri:app-store-fill" class="w-5 h-5" />
         </Button>

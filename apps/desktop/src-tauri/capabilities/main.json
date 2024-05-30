@@ -92,6 +92,7 @@
     "clipboard:allow-clear",
     "clipboard:read-all",
     "clipboard:write-all",
-    "clipboard:monitor-all"
+    "clipboard:monitor-all",
+    "process:default"
   ]
 }
