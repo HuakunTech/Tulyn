@@ -34,7 +34,7 @@ const emits = defineEmits<{
       <Icon
         v-if="item.flags.isDev"
         icon="ph:dev-to-logo-fill"
-        class="inline w-5 h-6 text-green-500"
+        class="inline w-6 h-6 text-green-500"
       />
       <span>{{ item.type }}</span>
     </CommandShortcut>

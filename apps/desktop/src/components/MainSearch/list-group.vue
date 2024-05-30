@@ -11,7 +11,7 @@ const appState = useStore($appState);
 const props = defineProps<{ ext: IExtensionBase }>();
 const listItems = useStore(props.ext.$listItems);
 const showListItems = computed(() => {
-  if (!appState.value.searchTerm) return listItems.value?.slice(0, 5);
+  if (!appState.value.searchTerm) return listItems.value?.slice(0, 30);
   return listItems.value.filter((item) =>
     item.title.toLowerCase().includes(appState.value.searchTerm.toLowerCase()),
   );

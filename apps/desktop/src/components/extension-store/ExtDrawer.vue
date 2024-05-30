@@ -126,7 +126,6 @@ const imageSrcs = computed(() => {
 </script>
 <template>
   <ExtStoreDrawer :open="props.open" @update:open="(open) => emits('update:open', open)">
-    <!-- <DrawerTrigger>Open</DrawerTrigger> -->
     <DrawerContent>
       <DrawerHeader class="flex space-x-5 items-center">
         <Icon v-if="props.selectedExt" :icon="props.selectedExt?.icon" class="w-12 h-12" />
@@ -137,6 +136,7 @@ const imageSrcs = computed(() => {
           </DrawerTitle>
           <DrawerDescription>{{ selectedExt?.short_description }}</DrawerDescription>
           <pre class="text-xs text-muted-foreground">{{ currentExt?.identifier }}</pre>
+          <pre class="text-xs text-muted-foreground">Version: {{ currentExt?.version }}</pre>
         </div>
       </DrawerHeader>
       <ScrollArea class="h-[60vh] px-4">

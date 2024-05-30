@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { toast as sonner } from "vue-sonner";
 import axios from "axios";
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
@@ -17,17 +16,16 @@ import { default as TauriLink } from "@/components/tauri/link.vue";
 import { open as openFileSelector } from "@tauri-apps/plugin-dialog";
 import { ref, type HTMLAttributes } from "vue";
 import { cn } from "@/lib/utils";
-import { download } from "@tauri-apps/plugin-upload";
-import * as fs from "@tauri-apps/plugin-fs";
 import { tempDir, join as pathJoin, downloadDir } from "@tauri-apps/api/path";
 import { installTarball, installTarballUrl } from "@/lib/utils/tarball";
 import { useStore } from "@nanostores/vue";
 import { $appConfig } from "@/lib/stores/appConfig";
-import { useToast } from "@/components/ui/toast";
+// import { useToast } from "@/components/ui/toast";
 import RemoteURLInstall from "./RemoteURLInstall.vue";
 import { getDevExtensionFolder, getExtensionFolder } from "@/lib/commands/server";
+import { ElMessage, ElNotification } from "element-plus";
 
-const { toast } = useToast();
+// const { toast } = useToast();
 
 const props = defineProps<{
   class?: HTMLAttributes["class"];
@@ -50,7 +48,7 @@ async function pickProject() {
     ],
   });
   if (!selected) {
-    return sonner.warning("No File Selected");
+    return ElMessage.warning("No File Selected");
   }
   installTarball(selected.path, devExtFolder);
 }
@@ -71,7 +69,8 @@ async function onDownloadSubmit(e: Event) {
     try {
       await installThroughNpmAPI(`https://registry.npmjs.org/${downloadUrl.value}/latest`);
     } catch (error: any) {
-      toast({ title: error, variant: "destructive" });
+      ElMessage.error("Fail to Install");
+      ElMessage.error(error);
     }
   }
 }
@@ -86,11 +85,11 @@ async function installThroughNpmAPI(url: string) {
       if (tarball) {
         return installTarballUrl(tarball, devExtFolder);
       } else {
-        toast({ title: "Tarball Not Found", variant: "destructive" });
+        ElMessage.error("Tarball Not Found");
       }
     })
     .catch((error: any) => {
-      toast({ title: error, variant: "destructive" });
+      ElMessage.error(error);
     });
 }
 
@@ -109,18 +108,17 @@ async function handleDragNDropInstall(paths: string[]) {
         await installTarball(tarball, devExtFolder);
         installedCount++;
       } catch (error: any) {
-        toast({ title: error, variant: "destructive" });
+        ElMessage.error(error);
       }
     }
     if (installedCount > 0) {
-      sonner.success(`Installed ${installedCount} Tarball${installedCount > 1 ? "s" : ""}`);
+      ElMessage.success(`Installed ${installedCount} Tarball${installedCount > 1 ? "s" : ""}`);
     }
   }
   if (numInstalled === 0) {
-    toast({
+    ElNotification.error({
       title: "Nothing is Installed",
-      variant: "destructive",
-      description: "Only tarballs (.tar.gz) are supported",
+      message: "Only tarballs (.tar.gz) are supported",
     });
   }
 }
