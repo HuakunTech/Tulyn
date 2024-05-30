@@ -39,7 +39,7 @@ export function cmdToItem(
     title: cmd.name,
     value: generateItemValue(manifest, cmd as UiCmd, isDev),
     description: cmd.description ?? "",
-    flags: { isDev },
+    flags: { isDev, isRemovable: false },
     type,
     icon: manifest.jarvis.icon,
     keywords: cmd.cmds.map((c) => c.value), // TODO: handle regex as well
@@ -99,7 +99,7 @@ export class Extension implements IExtensionBase {
       type: "Extension",
       icon: manifest.jarvis.icon,
       items: manifestToCmdItems(manifest, this.isDev),
-      flags: { isDev: this.isDev },
+      flags: { isDev: this.isDev, isRemovable: true },
     }));
   }
 

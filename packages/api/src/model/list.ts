@@ -8,6 +8,7 @@ export const ListItemType = z.enum([
   "Inline Command",
   "System Command",
   "Application",
+  "Built-In Command",
 ]);
 export type ListItemType = z.infer<typeof ListItemType>;
 
@@ -24,6 +25,7 @@ export const TListItem = z.object({
   flags: z
     .object({
       isDev: z.boolean().optional().default(false),
+      isRemovable: z.boolean().optional().default(false),
     })
     .optional()
     .default({}),
@@ -40,6 +42,7 @@ export const TListGroup = z.object({
   items: z.array(TListItem),
   flags: z.object({
     isDev: z.boolean().optional().default(false),
+    isRemovable: z.boolean().optional().default(false),
   }),
 });
 export type TListGroup = z.infer<typeof TListGroup>;

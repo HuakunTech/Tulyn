@@ -17,18 +17,22 @@ import ListGroup from "./MainSearch/list-group.vue";
 import { TListItem } from "jarvis-api";
 import { ElNotification } from "element-plus";
 import { SystemCommandExtension } from "@/lib/extension/systemCmds";
+import { BuiltinCmds } from "@/lib/extension/builtin";
 import type { IExtensionBase } from "@/lib/extension/base";
 import { useStore } from "@nanostores/vue";
 import { Extension } from "@/lib/extension/ext";
 import { $appConfig } from "@/lib/stores/appConfig";
 import { extensionsFolder } from "@/lib/constants";
 import { $appListItems } from "@/lib/stores/apps";
+import { RemoteExtension } from "@/lib/extension/remoteExt";
 
 const appExt = new AppsExtension();
 const sysCmdExt = new SystemCommandExtension();
+const builtinCmdExt = new BuiltinCmds();
 const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath, true);
 const storeExt = new Extension("Extensions", extensionsFolder);
-const exts: IExtensionBase[] = [storeExt, devExt, sysCmdExt, appExt];
+const remoteExt = new RemoteExtension();
+const exts: IExtensionBase[] = [storeExt, builtinCmdExt, remoteExt, devExt, sysCmdExt, appExt];
 
 // search input debouncing
 const searchTermInSync = ref("");
@@ -41,9 +45,7 @@ watch(searchTermInSync, (val) => {
 });
 
 onMounted(async () => {
-  Promise.all(exts.map((ext) => ext.load())).then(() => {
-    console.log(storeExt.manifests);
-  });
+  Promise.all(exts.map((ext) => ext.load()));
 });
 </script>
 <template>

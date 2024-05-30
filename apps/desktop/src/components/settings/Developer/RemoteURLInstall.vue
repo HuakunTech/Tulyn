@@ -21,11 +21,10 @@ import {
   TagsInputItemDelete,
   TagsInputItemText,
 } from "@/components/ui/tags-input";
-import { useToast } from "@/components/ui/toast";
 import { RemoteExt, RemoteExtension } from "@/lib/extension/remoteExt";
+import { ElMessage } from "element-plus";
 
 const remoteExt = new RemoteExtension();
-const { toast } = useToast();
 const remoteUrl = ref("");
 const name = ref("");
 const triggerKeywords = ref(["remote"]);
@@ -39,16 +38,15 @@ function onSave() {
       url: remoteUrl.value,
       triggerCmds: triggerKeywords.value,
     });
-    remoteExt.addRemoteExt(remoteExtPayload);
-    toast({
-      title: "Installed 1 Remote Command",
-    });
+    remoteExt
+      .addRemoteExt(remoteExtPayload)
+      .then(() => {
+        ElMessage.success("Installed 1 Remote Command");
+      })
+      .catch(ElMessage.error);
     open.value = false; // close dialog
   } catch (error) {
-    toast({
-      title: "Wrong Format",
-      variant: "destructive",
-    });
+    ElMessage.error("Wrong Format");
   }
 }
 </script>

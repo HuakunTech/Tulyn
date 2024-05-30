@@ -66,9 +66,9 @@ function uninstall(extPublish: Tables<"ext_publish"> | null) {
   if (extPublish) {
     ext.uninstallExt(extPublish.identifier).then((manifest) => {
       ElMessage.success(`Uninstalled: ${manifest.name}`);
+      extDrawerOpen.value = false;
+      refreshListing();
     });
-    extDrawerOpen.value = false;
-    refreshListing();
   } else {
     ElMessage.error("No Extension Selected");
   }

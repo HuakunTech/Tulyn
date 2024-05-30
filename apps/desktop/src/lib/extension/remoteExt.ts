@@ -1,10 +1,11 @@
 import { z } from "zod";
-import { atom, computed, type ReadableAtom, type WritableAtom } from "nanostores";
+import { atom, computed, type ReadableAtom, type WritableAtom, task } from "nanostores";
 import type { IExtensionBase } from "./base";
-import { ListItemType, type TListItem } from "jarvis-api";
+import { Icon, IconType, ListItemType, TListGroup, type TListItem } from "jarvis-api";
 // import { $remoteExtListItem } from "@/lib/stores/remoteExtensions";
 import { Store } from "@tauri-apps/plugin-store";
 import { ElMessage } from "element-plus";
+import axios from "axios";
 
 export const RemoteExt = z.object({
   name: z.string().min(1),
@@ -16,19 +17,39 @@ export type RemoteExt = z.infer<typeof RemoteExt>;
 export const RemoteExtState = RemoteExt.array();
 export type RemoteExtState = z.infer<typeof RemoteExtState>;
 
+// async function getFavicon(url: string): Promise<Icon> {
+//   return axios
+//     .get(url + "/favicon.ico")
+//     .then((res) => {
+//       return Icon.parse({
+//         type: "remote-url",
+//         value: url + "/favicon.ico",
+//       });
+//     })
+//     .catch((err) => {
+//       console.log(url, err);
+
+//       return Icon.parse({
+//         type: "iconify",
+//         value: "mdi:web",
+//       });
+//     });
+// }
+
 function convertToListItem(rawExt: RemoteExt): TListItem {
   return {
     title: rawExt.name,
-    value: rawExt.id,
+    value: rawExt.id, // uuid of command can be used to identify list item
     description: "Remote Extension",
     type: ListItemType.Enum["Remote Command"],
     icon: {
-      type: "remote-url",
-      value: `${rawExt.url}/favicon.ico`,
+      type: IconType.Enum["remote-url"],
+      value: rawExt.url + "/favicon.ico",
     },
-    keywords: rawExt.triggerCmds,
+    // icon: await getFavicon(rawExt.url),
+    keywords: ["remote", ...rawExt.triggerCmds],
     identityFilter: false,
-    flags: { isDev: true },
+    flags: { isDev: true, isRemovable: true },
   };
 }
 
@@ -44,10 +65,6 @@ export class RemoteExtension implements IExtensionBase {
     this.$listItems = computed(this.$remoteExtensions, (state): TListItem[] => {
       return state.map((x) => convertToListItem(x));
     });
-    this.$remoteExtensions.subscribe((state, oldState) => {
-      this.persistAppConfig.set("remoteExts", state);
-      this.persistAppConfig.save();
-    });
   }
 
   async load(): Promise<void> {
@@ -60,22 +77,54 @@ export class RemoteExtension implements IExtensionBase {
       console.error(parsedConfig.error);
       ElMessage.error(`Failed to load remote extensions: ${parsedConfig.error.message}`);
     }
+    console.log("defaultState", defaultState);
     this.$remoteExtensions.set(defaultState);
+    // this.$remoteExtensions.subscribe((state, oldState) => {
+    //   console.log("Subscribe", state);
+    //   this.persistAppConfig.set("remoteExts", state);
+    //   this.persistAppConfig.save();
+    // });
   }
   default(): TListItem[] {
     return this.$listItems.get();
   }
 
+  groups(): TListGroup[] {
+    return [
+      {
+        title: this.extensionName,
+        identifier: "remote-ext",
+        type: "Remote Extension",
+        icon: Icon.parse({
+          type: "iconify",
+          value: "mdi:remote",
+        }),
+        items: this.default(),
+        flags: { isDev: true, isRemovable: false },
+      },
+    ];
+  }
   findRemoteExt(uuid: string): RemoteExt | undefined {
     return this.$remoteExtensions.get().find((ext) => ext.id === uuid);
   }
 
-  addRemoteExt(ext: RemoteExt) {
+  async addRemoteExt(ext: RemoteExt) {
+    await this.load();
+    console.log("addRemoteExt", ext);
     this.$remoteExtensions.set([...this.$remoteExtensions.get(), ext]);
+    console.log("Save ", this.$remoteExtensions.get());
+    this.save();
   }
 
-  removeRemoteExt(uuid: string) {
+  save() {
+    this.persistAppConfig.set("remoteExts", this.$remoteExtensions.get());
+    this.persistAppConfig.save();
+  }
+
+  async removeRemoteCmd(uuid: string) {
+    await this.load();
     this.$remoteExtensions.set(this.$remoteExtensions.get().filter((ext) => ext.id !== uuid));
+    this.save();
   }
 
   onSelect(item: TListItem): Promise<void> {

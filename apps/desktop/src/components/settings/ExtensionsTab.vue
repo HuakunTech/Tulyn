@@ -16,12 +16,8 @@ const remoteExt = new RemoteExtension();
 const tableData = ref<TListGroup[]>([]);
 
 function refreshListing() {
-  Promise.all([devExt.load(), storeExt.load(), remoteExt.load()]).then(() => {
-    tableData.value = [
-      ...storeExt.groups(),
-      ...devExt.groups(),
-      // ...remoteExt.$listItems.get(),
-    ];
+  return Promise.all([devExt.load(), storeExt.load(), remoteExt.load()]).then(() => {
+    tableData.value = [...storeExt.groups(), ...devExt.groups(), ...remoteExt.groups()];
   });
 }
 
@@ -29,7 +25,19 @@ onMounted(() => {
   refreshListing();
 });
 
-function handleDelete(index: number, item: TListGroup) {
+function handleDeleteCommand(index: number, item: TListItem) {
+  if (item.type === "Remote Command") {
+    remoteExt
+      .removeRemoteCmd(item.value)
+      .then(() => {
+        ElMessage.success(`Removed Remote Command: ${item.title}`);
+        refreshListing();
+      })
+      .catch(ElMessage.error);
+  }
+}
+
+function handleDeleteExtension(index: number, item: TListGroup) {
   const ext = item.flags.isDev ? devExt : storeExt;
   ext
     .uninstallExt(item.identifier)
@@ -49,8 +57,8 @@ function handleDelete(index: number, item: TListGroup) {
     <el-table-column type="expand" width="30">
       <template #default="props">
         <div m="4">
-          <el-table :data="props.row.items" :border="false">
-            <el-table-column width="30" />
+          <el-table :data="props.row.items" :border="false" size="small">
+            <el-table-column width="50" />
             <el-table-column label="Command">
               <template #default="scope">
                 <div class="flex items-center space-x-2">
@@ -60,6 +68,18 @@ function handleDelete(index: number, item: TListGroup) {
               </template>
             </el-table-column>
             <el-table-column prop="type" label="Type" />
+            <el-table-column label="Operations">
+              <template #default="scope">
+                <el-button
+                  v-if="scope.row.flags.isRemovable"
+                  type="danger"
+                  :icon="Trash2Icon"
+                  circle
+                  size="small"
+                  @click="handleDeleteCommand(scope.$index, scope.row)"
+                />
+              </template>
+            </el-table-column>
           </el-table>
         </div>
       </template>
@@ -87,11 +107,12 @@ function handleDelete(index: number, item: TListGroup) {
     <el-table-column label="Operations">
       <template #default="scope">
         <el-button
+          v-if="scope.row.flags.isRemovable"
           type="danger"
           :icon="Trash2Icon"
           circle
           size="small"
-          @click="handleDelete(scope.$index, scope.row)"
+          @click="handleDeleteExtension(scope.$index, scope.row)"
         />
       </template>
     </el-table-column>
