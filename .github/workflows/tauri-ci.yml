@@ -71,6 +71,9 @@ jobs:
           workspaces: "./apps/desktop/src-tauri -> target"
       - name: Install protobuf
         run: brew install protobuf
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: 1.1.10
       - name: install frontend dependencies
         # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
         run: |
