@@ -118,7 +118,29 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_aggregated_downloads: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          identifier: string
+          total_downloads: number
+        }[]
+      }
+      get_aggregated_downloads_with_details: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          identifier: string
+          total_downloads: number
+          name: string
+          short_description: string
+        }[]
+      }
+      increment_downloads: {
+        Args: {
+          t_identifier: string
+          t_version: string
+        }
+        Returns: number
+      }
     }
     Enums: {
       [_ in never]: never

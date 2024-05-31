@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { createClient } from "@supabase/supabase-js";
-import { type Database } from "@jarvis/ext-api";
+import { type Database } from "@jarvis/supabase";
 
 export const supabaseClient = createClient<Database>(
   z.string().parse(import.meta.env.PUBLIC_SUPABASE_URL),

@@ -26,7 +26,7 @@ import {
 } from "@jarvis/gql";
 import { gqlClient } from "@/lib/utils/graphql";
 import { compareVersions } from "compare-versions";
-import { type Tables } from "@jarvis/ext-api/supabase/types/supabase";
+import { type Tables } from "@jarvis/supabase";
 import * as supabase from "@/lib/utils/supabase";
 import { JarvisExtManifest } from "jarvis-api";
 import { Separator } from "@/components/ui/separator";

@@ -1,10 +1,11 @@
 {
-  "name": "@jarvis/ext-api",
+  "name": "@jarvis/schema",
   "module": "index.ts",
   "type": "module",
   "scripts": {
     "upload-schema-to-supabase": "bun scripts/upload-schema-to-supabase.ts",
-    "upload-schema-to-s3": "bun scripts/upload-schema-to-s3.ts"
+    "upload-schema-to-s3": "bun scripts/upload-schema-to-s3.ts",
+    "print-schema": "bun scripts/print-schema.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -12,6 +13,7 @@
   },
   "peerDependencies": {
     "jarvis-api": "workspace:*",
+    "@jarvis/supabase": "workspace:*",
     "typescript": "^5.0.0"
   },
   "dependencies": {

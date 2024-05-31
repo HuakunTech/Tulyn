@@ -24,7 +24,7 @@ import { gqlClient } from "@/lib/utils/graphql";
 import { ElMessage } from "element-plus";
 import { $appConfig } from "@/lib/stores/appConfig";
 import type { ExtPackageJsonExtra } from "jarvis-api";
-import { type Tables } from "@jarvis/ext-api/supabase/types/supabase";
+import { type Tables } from "@jarvis/supabase";
 
 const ext = new Extension("Extensions", extensionsFolder);
 const selectedExt = ref<ExtItem>();
