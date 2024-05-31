@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Icon as Iconify } from "@iconify/vue";
+import { z } from "zod";
 import {
   Drawer,
   DrawerClose,
@@ -36,6 +37,7 @@ import { installTarballUrl } from "@/lib/utils/tarball";
 import { getDevExtensionFolder, getExtensionFolder } from "@/lib/commands/server";
 import { ElMessage } from "element-plus";
 import { InfoFilled } from "@element-plus/icons-vue";
+import { supabaseClient } from "@/lib/utils/supabase";
 // import { useToast } from "@/components/ui/toast/use-toast";
 // import { toast as sonner, toast } from "vue-sonner";
 // const toast = useToast();
@@ -48,7 +50,7 @@ const props = defineProps<{
 const imageDialogOpen = ref(false);
 const emits = defineEmits<{
   (e: "update:open", open: boolean): void;
-  (e: "installed"): void;
+  (e: "installed", downloads: number): void;
   (e: "uninstall", ext: Tables<"ext_publish"> | null): void;
 }>();
 const currentExt = ref<Tables<"ext_publish"> | null>(null);
@@ -102,10 +104,17 @@ async function installExt() {
         return installTarballUrl(tarballUrl, targetInstallDir);
       }
     })
-    .then(() => {
+    .then(async () => {
       ElMessage.success(`Plugin ${currentExt.value!.name} Installed`);
-      emits("update:open", false);
-      emits("installed");
+
+      if (currentExt.value) {
+        const { data, error } = await supabaseClient.functions.invoke("increment-downloads", {
+          body: { identifier: currentExt.value.identifier, version: currentExt.value.version },
+        });
+        const { downloads } = z.object({ downloads: z.number() }).parse(data);
+        emits("update:open", false);
+        emits("installed", downloads);
+      }
     })
     .catch((err) => {
       ElMessage.error("Fail to install tarball");

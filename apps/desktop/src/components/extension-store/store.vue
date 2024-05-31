@@ -46,6 +46,7 @@ onMounted(async () => {
     response.data.extensionsCollection?.edges.map((x) =>
       ExtItem.parse(ExtItemParser.parse(x.node)),
     ) ?? [];
+  console.log(extList.value);
 });
 
 function select(item: ExtItem) {
@@ -57,8 +58,11 @@ function isInstalled(identifier: string) {
   return !!installedManifests.value.find((x) => x.jarvis.identifier === identifier);
 }
 
-function onInstalled() {
+function onInstalled(downloads: number) {
   refreshListing();
+  if (selectedExt.value) {
+    selectedExt.value.downloads = downloads;
+  }
 }
 
 function uninstall(extPublish: Tables<"ext_publish"> | null) {
