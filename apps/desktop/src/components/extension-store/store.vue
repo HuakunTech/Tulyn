@@ -18,7 +18,6 @@ import ExtDrawer from "./ExtDrawer.vue";
 import { Button } from "@/components/ui/button";
 import Command from "./Command.vue";
 import { ExtItem, ExtItemParser } from "./types";
-// import { $extensionsStore, loadAllExtensionsManifest } from "@/lib/stores/extensions";
 import { Extension } from "@/lib/extension/ext";
 import { gqlClient } from "@/lib/utils/graphql";
 import { ElMessage } from "element-plus";

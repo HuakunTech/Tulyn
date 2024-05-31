@@ -92,6 +92,8 @@ async function installExt() {
     return ElMessage.error("Unexpected Error: No Extension Selected");
   }
   const tarballUrl = supabase.getFileUrl(currentExt.value.tarball_path).data.publicUrl;
+  console.log(`Install tarball: ${tarballUrl}`);
+
   getExtensionFolder()
     .then((targetInstallDir) => {
       if (!targetInstallDir) {
@@ -105,7 +107,10 @@ async function installExt() {
       emits("update:open", false);
       emits("installed");
     })
-    .catch(ElMessage.error);
+    .catch((err) => {
+      ElMessage.error("Fail to install tarball");
+      ElMessage.error(err);
+    });
 }
 
 function onEnterPressed(e: KeyboardEvent) {

@@ -1,4 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
+import { ElMessage } from "element-plus";
 import { ExtPackageJsonExtra } from "jarvis-api";
 
 export function loadManifest(manifestPath: string): Promise<ExtPackageJsonExtra> {

@@ -7,7 +7,14 @@ use window_vibrancy::{apply_vibrancy, NSVisualEffectMaterial};
 pub fn setup_app_path(handle: &AppHandle) {
     let app_d = handle.path().app_data_dir().unwrap();
     if !app_d.exists() {
-        std::fs::create_dir_all(app_d).unwrap();
+        std::fs::create_dir_all(&app_d).unwrap();
+    }
+    /* -------------------------------------------------------------------------- */
+    /*                          Create Extensions Folder                          */
+    /* -------------------------------------------------------------------------- */
+    let ext_folder = app_d.join("extensions");
+    if !ext_folder.exists() {
+        std::fs::create_dir_all(&ext_folder).unwrap();
     }
 }
 

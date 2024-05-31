@@ -14,6 +14,7 @@ import { pathExists } from "@/lib/commands/fs";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { type ReadableAtom, type WritableAtom, atom } from "nanostores";
 import { fs } from "jarvis-api/ui";
+import { ElMessage } from "element-plus";
 
 /**
  * Generate a value (unique identified) for a command in an extension
@@ -82,10 +83,18 @@ export class Extension implements IExtensionBase {
     if (!this.extPath || !pathExists(this.extPath)) {
       this.manifests = [];
     } else {
-      this.manifests = await loadAllExtensions(this.extPath);
-      this.$listItems.set(
-        this.manifests.map((manifest) => manifestToCmdItems(manifest, this.isDev)).flat(),
-      );
+      return loadAllExtensions(this.extPath)
+        .then((manifests) => {
+          this.manifests = manifests;
+          this.$listItems.set(
+            this.manifests.map((manifest) => manifestToCmdItems(manifest, this.isDev)).flat(),
+          );
+        })
+        .catch((err) => {
+          console.error(err);
+          ElMessage.error("Failed to load extensions");
+          ElMessage.error(err);
+        });
     }
   }
   default(): TListItem[] {
