@@ -25,11 +25,16 @@ AS $$
 DECLARE
   downloads_after integer;
 BEGIN
+  -- check if identifier and version exist, if not quit this function
+  IF NOT EXISTS (SELECT 1 FROM ext_publish WHERE identifier = t_identifier AND version = t_version) THEN
+    RAISE EXCEPTION 'Extension with identifier % and version % does not exist', t_identifier, t_version;
+  END IF;
+
   -- Increment downloads in ext_publish table
   UPDATE ext_publish
   SET downloads = downloads + 1
   WHERE identifier = t_identifier AND version = t_version;
-
+  
   -- Increment downloads in extensions table
   UPDATE extensions
   SET downloads = downloads + 1
