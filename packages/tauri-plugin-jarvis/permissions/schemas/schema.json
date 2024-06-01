@@ -1,0 +1,1049 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PermissionFile",
+  "description": "Permission file that can define a default permission, a set of permissions or a list of inlined permissions.",
+  "type": "object",
+  "properties": {
+    "default": {
+      "description": "The default permission set for the plugin",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/DefaultPermission"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "set": {
+      "description": "A list of permissions sets defined",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PermissionSet"
+      }
+    },
+    "permission": {
+      "description": "A list of inlined permissions",
+      "default": [],
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Permission"
+      }
+    }
+  },
+  "definitions": {
+    "DefaultPermission": {
+      "description": "The default permission set of the plugin.\n\nWorks similarly to a permission with the \"default\" identifier.",
+      "type": "object",
+      "required": [
+        "permissions"
+      ],
+      "properties": {
+        "version": {
+          "description": "The version of the permission.",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint64",
+          "minimum": 1.0
+        },
+        "description": {
+          "description": "Human-readable description of what the permission does.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "permissions": {
+          "description": "All permissions this set contains.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "PermissionSet": {
+      "description": "A set of direct permissions grouped together under a new name.",
+      "type": "object",
+      "required": [
+        "description",
+        "identifier",
+        "permissions"
+      ],
+      "properties": {
+        "identifier": {
+          "description": "A unique identifier for the permission.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Human-readable description of what the permission does.",
+          "type": "string"
+        },
+        "permissions": {
+          "description": "All permissions this set contains.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PermissionKind"
+          }
+        }
+      }
+    },
+    "Permission": {
+      "description": "Descriptions of explicit privileges of commands.\n\nIt can enable commands to be accessible in the frontend of the application.\n\nIf the scope is defined it can be used to fine grain control the access of individual or multiple commands.",
+      "type": "object",
+      "required": [
+        "identifier"
+      ],
+      "properties": {
+        "version": {
+          "description": "The version of the permission.",
+          "type": [
+            "integer",
+            "null"
+          ],
+          "format": "uint64",
+          "minimum": 1.0
+        },
+        "identifier": {
+          "description": "A unique identifier for the permission.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Human-readable description of what the permission does.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "commands": {
+          "description": "Allowed or denied commands when using this permission.",
+          "default": {
+            "allow": [],
+            "deny": []
+          },
+          "allOf": [
+            {
+              "$ref": "#/definitions/Commands"
+            }
+          ]
+        },
+        "scope": {
+          "description": "Allowed or denied scoped when using this permission.",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Scopes"
+            }
+          ]
+        },
+        "platforms": {
+          "description": "Target platforms this permission applies. By default all platforms are affected by this permission.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/Target"
+          }
+        }
+      }
+    },
+    "Commands": {
+      "description": "Allowed and denied commands inside a permission.\n\nIf two commands clash inside of `allow` and `deny`, it should be denied by default.",
+      "type": "object",
+      "properties": {
+        "allow": {
+          "description": "Allowed command.",
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "deny": {
+          "description": "Denied command, which takes priority.",
+          "default": [],
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Scopes": {
+      "description": "A restriction of the command/endpoint functionality.\n\nIt can be of any serde serializable type and is used for allowing or preventing certain actions inside a Tauri command.\n\nThe scope is passed to the command and handled/enforced by the command itself.",
+      "type": "object",
+      "properties": {
+        "allow": {
+          "description": "Data that defines what is allowed by the scope.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/Value"
+          }
+        },
+        "deny": {
+          "description": "Data that defines what is denied by the scope.",
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "$ref": "#/definitions/Value"
+          }
+        }
+      }
+    },
+    "Value": {
+      "description": "All supported ACL values.",
+      "anyOf": [
+        {
+          "description": "Represents a null JSON value.",
+          "type": "null"
+        },
+        {
+          "description": "Represents a [`bool`].",
+          "type": "boolean"
+        },
+        {
+          "description": "Represents a valid ACL [`Number`].",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Number"
+            }
+          ]
+        },
+        {
+          "description": "Represents a [`String`].",
+          "type": "string"
+        },
+        {
+          "description": "Represents a list of other [`Value`]s.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Value"
+          }
+        },
+        {
+          "description": "Represents a map of [`String`] keys to [`Value`]s.",
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Value"
+          }
+        }
+      ]
+    },
+    "Number": {
+      "description": "A valid ACL number.",
+      "anyOf": [
+        {
+          "description": "Represents an [`i64`].",
+          "type": "integer",
+          "format": "int64"
+        },
+        {
+          "description": "Represents a [`f64`].",
+          "type": "number",
+          "format": "double"
+        }
+      ]
+    },
+    "Target": {
+      "description": "Platform target.",
+      "oneOf": [
+        {
+          "description": "MacOS.",
+          "type": "string",
+          "enum": [
+            "macOS"
+          ]
+        },
+        {
+          "description": "Windows.",
+          "type": "string",
+          "enum": [
+            "windows"
+          ]
+        },
+        {
+          "description": "Linux.",
+          "type": "string",
+          "enum": [
+            "linux"
+          ]
+        },
+        {
+          "description": "Android.",
+          "type": "string",
+          "enum": [
+            "android"
+          ]
+        },
+        {
+          "description": "iOS.",
+          "type": "string",
+          "enum": [
+            "iOS"
+          ]
+        }
+      ]
+    },
+    "PermissionKind": {
+      "type": "string",
+      "oneOf": [
+        {
+          "description": "allow-all -> This enables all permissions for Jarvis",
+          "type": "string",
+          "enum": [
+            "allow-all"
+          ]
+        },
+        {
+          "description": "allow-app-is-dev -> Enables the app_is_dev command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-app-is-dev"
+          ]
+        },
+        {
+          "description": "deny-app-is-dev -> Denies the app_is_dev command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-app-is-dev"
+          ]
+        },
+        {
+          "description": "allow-close-devtools -> Enables the close_devtools command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-close-devtools"
+          ]
+        },
+        {
+          "description": "deny-close-devtools -> Denies the close_devtools command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-close-devtools"
+          ]
+        },
+        {
+          "description": "allow-compress-tarball -> Enables the compress_tarball command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-compress-tarball"
+          ]
+        },
+        {
+          "description": "deny-compress-tarball -> Denies the compress_tarball command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-compress-tarball"
+          ]
+        },
+        {
+          "description": "allow-decompress-tarball -> Enables the decompress_tarball command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-decompress-tarball"
+          ]
+        },
+        {
+          "description": "deny-decompress-tarball -> Denies the decompress_tarball command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-decompress-tarball"
+          ]
+        },
+        {
+          "description": "allow-eject-all-disks -> Enables the eject_all_disks command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-eject-all-disks"
+          ]
+        },
+        {
+          "description": "deny-eject-all-disks -> Denies the eject_all_disks command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-eject-all-disks"
+          ]
+        },
+        {
+          "description": "allow-empty-trash -> Enables the empty_trash command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-empty-trash"
+          ]
+        },
+        {
+          "description": "deny-empty-trash -> Denies the empty_trash command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-empty-trash"
+          ]
+        },
+        {
+          "description": "allow-execute -> Enables the execute command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-execute"
+          ]
+        },
+        {
+          "description": "deny-execute -> Denies the execute command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-execute"
+          ]
+        },
+        {
+          "description": "allow-get-applications -> Enables the get_applications command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-get-applications"
+          ]
+        },
+        {
+          "description": "deny-get-applications -> Denies the get_applications command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-get-applications"
+          ]
+        },
+        {
+          "description": "allow-get-default-extensions-dir -> Enables the get_default_extensions_dir command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-get-default-extensions-dir"
+          ]
+        },
+        {
+          "description": "deny-get-default-extensions-dir -> Denies the get_default_extensions_dir command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-get-default-extensions-dir"
+          ]
+        },
+        {
+          "description": "allow-get-default-extensions-storage-dir -> Enables the get_default_extensions_storage_dir command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-get-default-extensions-storage-dir"
+          ]
+        },
+        {
+          "description": "deny-get-default-extensions-storage-dir -> Denies the get_default_extensions_storage_dir command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-get-default-extensions-storage-dir"
+          ]
+        },
+        {
+          "description": "allow-get-dev-extension-folder -> Enables the get_dev_extension_folder command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-get-dev-extension-folder"
+          ]
+        },
+        {
+          "description": "deny-get-dev-extension-folder -> Denies the get_dev_extension_folder command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-get-dev-extension-folder"
+          ]
+        },
+        {
+          "description": "allow-get-ext-label-map -> Enables the get_ext_label_map command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-get-ext-label-map"
+          ]
+        },
+        {
+          "description": "deny-get-ext-label-map -> Denies the get_ext_label_map command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-get-ext-label-map"
+          ]
+        },
+        {
+          "description": "allow-get-extension-folder -> Enables the get_extension_folder command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-get-extension-folder"
+          ]
+        },
+        {
+          "description": "deny-get-extension-folder -> Denies the get_extension_folder command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-get-extension-folder"
+          ]
+        },
+        {
+          "description": "allow-get-selected-files-in-file-explorer -> Enables the get_selected_files_in_file_explorer command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-get-selected-files-in-file-explorer"
+          ]
+        },
+        {
+          "description": "deny-get-selected-files-in-file-explorer -> Denies the get_selected_files_in_file_explorer command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-get-selected-files-in-file-explorer"
+          ]
+        },
+        {
+          "description": "allow-hide-all-apps-except-frontmost -> Enables the hide_all_apps_except_frontmost command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-hide-all-apps-except-frontmost"
+          ]
+        },
+        {
+          "description": "deny-hide-all-apps-except-frontmost -> Denies the hide_all_apps_except_frontmost command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-hide-all-apps-except-frontmost"
+          ]
+        },
+        {
+          "description": "allow-is-devtools-open -> Enables the is_devtools_open command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-is-devtools-open"
+          ]
+        },
+        {
+          "description": "deny-is-devtools-open -> Denies the is_devtools_open command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-is-devtools-open"
+          ]
+        },
+        {
+          "description": "allow-is-window-label-registered -> Enables the is_window_label_registered command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-is-window-label-registered"
+          ]
+        },
+        {
+          "description": "deny-is-window-label-registered -> Denies the is_window_label_registered command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-is-window-label-registered"
+          ]
+        },
+        {
+          "description": "allow-load-all-extensions -> Enables the load_all_extensions command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-load-all-extensions"
+          ]
+        },
+        {
+          "description": "deny-load-all-extensions -> Denies the load_all_extensions command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-load-all-extensions"
+          ]
+        },
+        {
+          "description": "allow-load-manifest -> Enables the load_manifest command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-load-manifest"
+          ]
+        },
+        {
+          "description": "deny-load-manifest -> Denies the load_manifest command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-load-manifest"
+          ]
+        },
+        {
+          "description": "allow-logout-user -> Enables the logout_user command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-logout-user"
+          ]
+        },
+        {
+          "description": "deny-logout-user -> Denies the logout_user command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-logout-user"
+          ]
+        },
+        {
+          "description": "allow-mute -> Enables the mute command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-mute"
+          ]
+        },
+        {
+          "description": "deny-mute -> Denies the mute command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-mute"
+          ]
+        },
+        {
+          "description": "allow-open-devtools -> Enables the open_devtools command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-open-devtools"
+          ]
+        },
+        {
+          "description": "deny-open-devtools -> Denies the open_devtools command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-open-devtools"
+          ]
+        },
+        {
+          "description": "allow-open-trash -> Enables the open_trash command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-open-trash"
+          ]
+        },
+        {
+          "description": "deny-open-trash -> Denies the open_trash command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-open-trash"
+          ]
+        },
+        {
+          "description": "allow-path-exists -> Enables the path_exists command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-path-exists"
+          ]
+        },
+        {
+          "description": "deny-path-exists -> Denies the path_exists command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-path-exists"
+          ]
+        },
+        {
+          "description": "allow-ping -> Enables the ping command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-ping"
+          ]
+        },
+        {
+          "description": "deny-ping -> Denies the ping command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-ping"
+          ]
+        },
+        {
+          "description": "allow-quit-all-apps -> Enables the quit_all_apps command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-quit-all-apps"
+          ]
+        },
+        {
+          "description": "deny-quit-all-apps -> Denies the quit_all_apps command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-quit-all-apps"
+          ]
+        },
+        {
+          "description": "allow-reboot -> Enables the reboot command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-reboot"
+          ]
+        },
+        {
+          "description": "deny-reboot -> Denies the reboot command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-reboot"
+          ]
+        },
+        {
+          "description": "allow-refresh-applications-list -> Enables the refresh_applications_list command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-refresh-applications-list"
+          ]
+        },
+        {
+          "description": "deny-refresh-applications-list -> Denies the refresh_applications_list command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-refresh-applications-list"
+          ]
+        },
+        {
+          "description": "allow-refresh-applications-list-in-bg -> Enables the refresh_applications_list_in_bg command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-refresh-applications-list-in-bg"
+          ]
+        },
+        {
+          "description": "deny-refresh-applications-list-in-bg -> Denies the refresh_applications_list_in_bg command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-refresh-applications-list-in-bg"
+          ]
+        },
+        {
+          "description": "allow-register-extension-window -> Enables the register_extension_window command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-register-extension-window"
+          ]
+        },
+        {
+          "description": "deny-register-extension-window -> Denies the register_extension_window command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-register-extension-window"
+          ]
+        },
+        {
+          "description": "allow-restart-server -> Enables the restart_server command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-restart-server"
+          ]
+        },
+        {
+          "description": "deny-restart-server -> Denies the restart_server command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-restart-server"
+          ]
+        },
+        {
+          "description": "allow-run-apple-script -> Enables the run_apple_script command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-run-apple-script"
+          ]
+        },
+        {
+          "description": "deny-run-apple-script -> Denies the run_apple_script command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-run-apple-script"
+          ]
+        },
+        {
+          "description": "allow-run-powershell -> Enables the run_powershell command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-run-powershell"
+          ]
+        },
+        {
+          "description": "deny-run-powershell -> Denies the run_powershell command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-run-powershell"
+          ]
+        },
+        {
+          "description": "allow-server-is-running -> Enables the server_is_running command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-server-is-running"
+          ]
+        },
+        {
+          "description": "deny-server-is-running -> Denies the server_is_running command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-server-is-running"
+          ]
+        },
+        {
+          "description": "allow-set-dev-extension-folder -> Enables the set_dev_extension_folder command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-set-dev-extension-folder"
+          ]
+        },
+        {
+          "description": "deny-set-dev-extension-folder -> Denies the set_dev_extension_folder command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-set-dev-extension-folder"
+          ]
+        },
+        {
+          "description": "allow-set-extension-folder -> Enables the set_extension_folder command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-set-extension-folder"
+          ]
+        },
+        {
+          "description": "deny-set-extension-folder -> Denies the set_extension_folder command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-set-extension-folder"
+          ]
+        },
+        {
+          "description": "allow-set-volume -> Enables the set_volume command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-set-volume"
+          ]
+        },
+        {
+          "description": "deny-set-volume -> Denies the set_volume command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-set-volume"
+          ]
+        },
+        {
+          "description": "allow-show-desktop -> Enables the show_desktop command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-show-desktop"
+          ]
+        },
+        {
+          "description": "deny-show-desktop -> Denies the show_desktop command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-show-desktop"
+          ]
+        },
+        {
+          "description": "allow-shutdown -> Enables the shutdown command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-shutdown"
+          ]
+        },
+        {
+          "description": "deny-shutdown -> Denies the shutdown command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-shutdown"
+          ]
+        },
+        {
+          "description": "allow-sleep -> Enables the sleep command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-sleep"
+          ]
+        },
+        {
+          "description": "deny-sleep -> Denies the sleep command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-sleep"
+          ]
+        },
+        {
+          "description": "allow-sleep-displays -> Enables the sleep_displays command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-sleep-displays"
+          ]
+        },
+        {
+          "description": "deny-sleep-displays -> Denies the sleep_displays command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-sleep-displays"
+          ]
+        },
+        {
+          "description": "allow-start-server -> Enables the start_server command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-start-server"
+          ]
+        },
+        {
+          "description": "deny-start-server -> Denies the start_server command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-start-server"
+          ]
+        },
+        {
+          "description": "allow-stop-server -> Enables the stop_server command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-stop-server"
+          ]
+        },
+        {
+          "description": "deny-stop-server -> Denies the stop_server command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-stop-server"
+          ]
+        },
+        {
+          "description": "allow-toggle-bluetooth -> Enables the toggle_bluetooth command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-toggle-bluetooth"
+          ]
+        },
+        {
+          "description": "deny-toggle-bluetooth -> Denies the toggle_bluetooth command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-toggle-bluetooth"
+          ]
+        },
+        {
+          "description": "allow-toggle-devtools -> Enables the toggle_devtools command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-toggle-devtools"
+          ]
+        },
+        {
+          "description": "deny-toggle-devtools -> Denies the toggle_devtools command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-toggle-devtools"
+          ]
+        },
+        {
+          "description": "allow-toggle-hidden-files -> Enables the toggle_hidden_files command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-toggle-hidden-files"
+          ]
+        },
+        {
+          "description": "deny-toggle-hidden-files -> Denies the toggle_hidden_files command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-toggle-hidden-files"
+          ]
+        },
+        {
+          "description": "allow-toggle-mute -> Enables the toggle_mute command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-toggle-mute"
+          ]
+        },
+        {
+          "description": "deny-toggle-mute -> Denies the toggle_mute command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-toggle-mute"
+          ]
+        },
+        {
+          "description": "allow-toggle-stage-manager -> Enables the toggle_stage_manager command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-toggle-stage-manager"
+          ]
+        },
+        {
+          "description": "deny-toggle-stage-manager -> Denies the toggle_stage_manager command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-toggle-stage-manager"
+          ]
+        },
+        {
+          "description": "allow-toggle-system-appearance -> Enables the toggle_system_appearance command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-toggle-system-appearance"
+          ]
+        },
+        {
+          "description": "deny-toggle-system-appearance -> Denies the toggle_system_appearance command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-toggle-system-appearance"
+          ]
+        },
+        {
+          "description": "allow-turn-volume-down -> Enables the turn_volume_down command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-turn-volume-down"
+          ]
+        },
+        {
+          "description": "deny-turn-volume-down -> Denies the turn_volume_down command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-turn-volume-down"
+          ]
+        },
+        {
+          "description": "allow-turn-volume-up -> Enables the turn_volume_up command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-turn-volume-up"
+          ]
+        },
+        {
+          "description": "deny-turn-volume-up -> Denies the turn_volume_up command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-turn-volume-up"
+          ]
+        },
+        {
+          "description": "allow-unmute -> Enables the unmute command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-unmute"
+          ]
+        },
+        {
+          "description": "deny-unmute -> Denies the unmute command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-unmute"
+          ]
+        },
+        {
+          "description": "allow-unregister-extension-window -> Enables the unregister_extension_window command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-unregister-extension-window"
+          ]
+        },
+        {
+          "description": "deny-unregister-extension-window -> Denies the unregister_extension_window command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-unregister-extension-window"
+          ]
+        }
+      ]
+    }
+  }
+}

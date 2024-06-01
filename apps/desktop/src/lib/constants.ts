@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { appDataDir, join } from "@tauri-apps/api/path";
-import { PermissionsEnum } from "jarvis-api";
+import { PermissionsEnum } from "tauri-plugin-jarvis-api/models";
 import { loadEnvVarWithNotification } from "./utils/envvar";
 
 const appDataDirPath = await appDataDir();
@@ -16,7 +16,8 @@ export const SUPABASE_ANON_KEY = await loadEnvVarWithNotification("PUBLIC_SUPABA
 export const SUPABASE_GRAPHQL_ENDPOINT = await loadEnvVarWithNotification(
   "PUBLIC_SUPABASE_GRAPHQL_ENDPOINT",
 );
-
+export const DebugWindowLabel = "main-debug";
+export const SettingsWindowLabel = "main-settings";
 export const FileStorageUrl = "";
 
 // PermissionsEnum.

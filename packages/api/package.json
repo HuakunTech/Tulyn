@@ -1,12 +1,25 @@
 {
   "name": "jarvis-api",
-  "module": "index.ts",
   "version": "0.0.2-alpha.7",
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./ui": {
+      "types": "./dist/ui/index.d.ts",
+      "import": "./dist/ui.js"
+    },
+    "./models": {
+      "types": "./dist/models/index.d.ts",
+      "import": "./dist/models.js"
+    }
+  },
   "scripts": {
     "test": "bun test --coverage",
     "build:doc": "npx typedoc",
-    "build": "npm run build:doc"
+    "build": "rollup -c"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -30,7 +43,10 @@
     "@tauri-apps/plugin-store": "2.0.0-beta.3",
     "@tauri-apps/plugin-updater": "2.0.0-beta.3",
     "@tauri-apps/plugin-upload": "2.0.0-beta.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rollup": "^4.9.6",
     "tauri-plugin-clipboard-api": "0.7.0-beta.0",
+    "tauri-plugin-jarvis-api": "workspace:*",
     "zod": "^3.23.8"
   }
 }

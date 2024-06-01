@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CogIcon, InfoIcon, UserRoundIcon, SquareTerminalIcon } from "lucide-vue-next";
+import { CogIcon, InfoIcon, UserRoundIcon, SquareTerminalIcon, BugIcon } from "lucide-vue-next";
 import { Icon } from "@iconify/vue";
 import AboutTab from "src/components/settings/AboutTab.vue";
 import GeneralTab from "src/components/settings/GeneralTab.vue";
@@ -40,7 +40,6 @@ import DeveloperTab from "src/components/settings/DeveloperTab.vue";
     <TabsContent value="developer" class="grow min-h-0">
       <DeveloperTab />
     </TabsContent>
-    <!-- <TabsContent value="account"></TabsContent> -->
     <TabsContent value="about" class="grow min-h-0">
       <AboutTab class="" />
     </TabsContent>

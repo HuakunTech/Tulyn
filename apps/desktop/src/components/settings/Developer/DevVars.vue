@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getDevExtensionFolder, getExtensionFolder } from "@/lib/commands/server";
+import { getDevExtensionFolder, getExtensionFolder } from "tauri-plugin-jarvis-api/commands";
 import { Button } from "@/components/ui/button";
 import { onMounted, ref } from "vue";
 import { open } from "jarvis-api/ui";

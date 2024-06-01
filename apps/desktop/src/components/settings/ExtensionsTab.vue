@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { type TListItem, TListGroup } from "jarvis-api";
+import { type TListItem, TListGroup } from "tauri-plugin-jarvis-api/models";
 import { ElMessage, ElTable, ElTableColumn } from "element-plus";
 import { Icon } from "@iconify/vue";
 import { useToast } from "@/components/ui/toast/use-toast";

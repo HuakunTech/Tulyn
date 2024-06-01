@@ -1,5 +1,4 @@
-import type { TListItem } from "./src/model";
-export * from "./src/model";
+import { TListItem } from "tauri-plugin-jarvis-api/models";
 
 export interface IClipboardAPI {
   writeText(text: string): void;

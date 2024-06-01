@@ -1,20 +1,25 @@
-import { z } from "zod";
+import { type IExtensionBase } from "./base";
+import { $appConfig } from "@/lib/stores/appConfig";
 import {
+  ExtPackageJsonExtra,
+  UiCmd,
+  InlineCmd,
   ListItemType,
   TListItem,
   TListGroup,
-  type ExtPackageJsonExtra,
-  type InlineCmd,
-  type UiCmd,
-} from "jarvis-api";
-import { type IExtensionBase } from "./base";
-import { $appConfig } from "@/lib/stores/appConfig";
-import { loadAllExtensions } from "@/lib/commands/manifest";
-import { pathExists } from "@/lib/commands/fs";
+} from "tauri-plugin-jarvis-api/models";
+import {
+  isWindowLabelRegistered,
+  loadAllExtensions,
+  pathExists,
+  registerExtensionWindow,
+  unregisterExtensionWindow,
+} from "tauri-plugin-jarvis-api/commands";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { type ReadableAtom, type WritableAtom, atom } from "nanostores";
 import { fs } from "jarvis-api/ui";
-import { ElMessage } from "element-plus";
+import { ElMessage, ElNotification } from "element-plus";
+import { v4 as uuidv4 } from "uuid";
 
 /**
  * Generate a value (unique identified) for a command in an extension
@@ -46,6 +51,52 @@ export function cmdToItem(
     keywords: cmd.cmds.map((c) => c.value), // TODO: handle regex as well
     identityFilter: true,
   };
+}
+
+function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: UiCmd, url: string) {
+  return registerExtensionWindow(manifest.extPath).then((windowLabel) => {
+    // console.log(`Open Extension: ${manifest.jarvis.name} - ${cmd.name}`);
+    // console.log("url", url);
+    // console.log("windowLabel", windowLabel);
+
+    const window = new WebviewWindow(windowLabel, {
+      center: cmd.window?.center ?? undefined,
+      x: cmd.window?.x ?? undefined,
+      y: cmd.window?.y ?? undefined,
+      width: cmd.window?.width ?? undefined,
+      height: cmd.window?.height ?? undefined,
+      minWidth: cmd.window?.minWidth ?? undefined,
+      minHeight: cmd.window?.minHeight ?? undefined,
+      maxWidth: cmd.window?.maxWidth ?? undefined,
+      maxHeight: cmd.window?.maxHeight ?? undefined,
+      resizable: cmd.window?.resizable ?? undefined,
+      title: cmd.window?.title ?? cmd.name,
+      fullscreen: cmd.window?.fullscreen ?? undefined,
+      focus: cmd.window?.focus ?? undefined,
+      transparent: cmd.window?.transparent ?? undefined,
+      maximized: cmd.window?.maximized ?? undefined,
+      visible: cmd.window?.visible ?? undefined,
+      decorations: cmd.window?.decorations ?? undefined,
+      alwaysOnTop: cmd.window?.alwaysOnTop ?? undefined,
+      alwaysOnBottom: cmd.window?.alwaysOnBottom ?? undefined,
+      contentProtected: cmd.window?.contentProtected ?? undefined,
+      skipTaskbar: cmd.window?.skipTaskbar ?? undefined,
+      shadow: cmd.window?.shadow ?? undefined,
+      theme: cmd.window?.theme ?? undefined,
+      titleBarStyle: cmd.window?.titleBarStyle ?? undefined,
+      hiddenTitle: cmd.window?.hiddenTitle ?? undefined,
+      tabbingIdentifier: cmd.window?.tabbingIdentifier ?? undefined,
+      maximizable: cmd.window?.maximizable ?? undefined,
+      minimizable: cmd.window?.minimizable ?? undefined,
+      closable: cmd.window?.closable ?? undefined,
+      parent: cmd.window?.parent ?? undefined,
+      visibleOnAllWorkspaces: cmd.window?.visibleOnAllWorkspaces ?? undefined,
+      url,
+    });
+    window.onCloseRequested(async (event) => {
+      await unregisterExtensionWindow(window.label);
+    });
+  });
 }
 
 /**
@@ -141,45 +192,7 @@ export class Extension implements IExtensionBase {
                 url = `http://localhost:1566/${this.isDev ? "dev-" : ""}extensions/${manifest.extFolderName}/${cmd.main}${postfix}`;
               }
             }
-
-            const windowLabel = `ext:${manifest.jarvis.permissions?.join(":")}`;
-            console.log("url", url);
-            console.log("windowLabel", windowLabel);
-
-            const window = new WebviewWindow(windowLabel, {
-              center: cmd.window?.center ?? undefined,
-              x: cmd.window?.x ?? undefined,
-              y: cmd.window?.y ?? undefined,
-              width: cmd.window?.width ?? undefined,
-              height: cmd.window?.height ?? undefined,
-              minWidth: cmd.window?.minWidth ?? undefined,
-              minHeight: cmd.window?.minHeight ?? undefined,
-              maxWidth: cmd.window?.maxWidth ?? undefined,
-              maxHeight: cmd.window?.maxHeight ?? undefined,
-              resizable: cmd.window?.resizable ?? undefined,
-              title: cmd.window?.title ?? cmd.name,
-              fullscreen: cmd.window?.fullscreen ?? undefined,
-              focus: cmd.window?.focus ?? undefined,
-              transparent: cmd.window?.transparent ?? undefined,
-              maximized: cmd.window?.maximized ?? undefined,
-              visible: cmd.window?.visible ?? undefined,
-              decorations: cmd.window?.decorations ?? undefined,
-              alwaysOnTop: cmd.window?.alwaysOnTop ?? undefined,
-              alwaysOnBottom: cmd.window?.alwaysOnBottom ?? undefined,
-              contentProtected: cmd.window?.contentProtected ?? undefined,
-              skipTaskbar: cmd.window?.skipTaskbar ?? undefined,
-              shadow: cmd.window?.shadow ?? undefined,
-              theme: cmd.window?.theme ?? undefined,
-              titleBarStyle: cmd.window?.titleBarStyle ?? undefined,
-              hiddenTitle: cmd.window?.hiddenTitle ?? undefined,
-              tabbingIdentifier: cmd.window?.tabbingIdentifier ?? undefined,
-              maximizable: cmd.window?.maximizable ?? undefined,
-              minimizable: cmd.window?.minimizable ?? undefined,
-              closable: cmd.window?.closable ?? undefined,
-              parent: cmd.window?.parent ?? undefined,
-              visibleOnAllWorkspaces: cmd.window?.visibleOnAllWorkspaces ?? undefined,
-              url,
-            });
+            createNewExtWindowForUiCmd(manifest, cmd, url);
           }
         });
       } else if (item.type === "Inline Command") {

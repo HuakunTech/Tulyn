@@ -9,6 +9,7 @@ import { check } from "@tauri-apps/plugin-updater";
 import { relaunch } from "@tauri-apps/plugin-process";
 import { Button } from "@/components/ui/button";
 import { confirm } from "@tauri-apps/plugin-dialog";
+import { ElMessage, ElNotification } from "element-plus";
 
 const appVersion = ref("");
 onMounted(() => {
@@ -30,6 +31,8 @@ async function checkUpdate() {
       await update.downloadAndInstall();
       await relaunch();
     }
+  } else {
+    ElNotification.info("You are on the latest version");
   }
 }
 </script>

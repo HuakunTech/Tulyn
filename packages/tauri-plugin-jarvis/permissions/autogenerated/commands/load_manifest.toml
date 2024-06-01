@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-load-manifest"
+description = "Enables the load_manifest command without any pre-configured scope."
+commands.allow = ["load_manifest"]
+
+[[permission]]
+identifier = "deny-load-manifest"
+description = "Denies the load_manifest command without any pre-configured scope."
+commands.deny = ["load_manifest"]
