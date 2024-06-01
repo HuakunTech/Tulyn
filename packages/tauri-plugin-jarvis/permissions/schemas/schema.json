@@ -400,6 +400,174 @@
           ]
         },
         {
+          "description": "allow-ext-store-wrapper-clear -> Enables the ext_store_wrapper_clear command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-ext-store-wrapper-clear"
+          ]
+        },
+        {
+          "description": "deny-ext-store-wrapper-clear -> Denies the ext_store_wrapper_clear command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-ext-store-wrapper-clear"
+          ]
+        },
+        {
+          "description": "allow-ext-store-wrapper-delete -> Enables the ext_store_wrapper_delete command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-ext-store-wrapper-delete"
+          ]
+        },
+        {
+          "description": "deny-ext-store-wrapper-delete -> Denies the ext_store_wrapper_delete command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-ext-store-wrapper-delete"
+          ]
+        },
+        {
+          "description": "allow-ext-store-wrapper-entries -> Enables the ext_store_wrapper_entries command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-ext-store-wrapper-entries"
+          ]
+        },
+        {
+          "description": "deny-ext-store-wrapper-entries -> Denies the ext_store_wrapper_entries command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-ext-store-wrapper-entries"
+          ]
+        },
+        {
+          "description": "allow-ext-store-wrapper-get -> Enables the ext_store_wrapper_get command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-ext-store-wrapper-get"
+          ]
+        },
+        {
+          "description": "deny-ext-store-wrapper-get -> Denies the ext_store_wrapper_get command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-ext-store-wrapper-get"
+          ]
+        },
+        {
+          "description": "allow-ext-store-wrapper-has -> Enables the ext_store_wrapper_has command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-ext-store-wrapper-has"
+          ]
+        },
+        {
+          "description": "deny-ext-store-wrapper-has -> Denies the ext_store_wrapper_has command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-ext-store-wrapper-has"
+          ]
+        },
+        {
+          "description": "allow-ext-store-wrapper-keys -> Enables the ext_store_wrapper_keys command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-ext-store-wrapper-keys"
+          ]
+        },
+        {
+          "description": "deny-ext-store-wrapper-keys -> Denies the ext_store_wrapper_keys command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-ext-store-wrapper-keys"
+          ]
+        },
+        {
+          "description": "allow-ext-store-wrapper-length -> Enables the ext_store_wrapper_length command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-ext-store-wrapper-length"
+          ]
+        },
+        {
+          "description": "deny-ext-store-wrapper-length -> Denies the ext_store_wrapper_length command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-ext-store-wrapper-length"
+          ]
+        },
+        {
+          "description": "allow-ext-store-wrapper-load -> Enables the ext_store_wrapper_load command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-ext-store-wrapper-load"
+          ]
+        },
+        {
+          "description": "deny-ext-store-wrapper-load -> Denies the ext_store_wrapper_load command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-ext-store-wrapper-load"
+          ]
+        },
+        {
+          "description": "allow-ext-store-wrapper-reset -> Enables the ext_store_wrapper_reset command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-ext-store-wrapper-reset"
+          ]
+        },
+        {
+          "description": "deny-ext-store-wrapper-reset -> Denies the ext_store_wrapper_reset command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-ext-store-wrapper-reset"
+          ]
+        },
+        {
+          "description": "allow-ext-store-wrapper-save -> Enables the ext_store_wrapper_save command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-ext-store-wrapper-save"
+          ]
+        },
+        {
+          "description": "deny-ext-store-wrapper-save -> Denies the ext_store_wrapper_save command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-ext-store-wrapper-save"
+          ]
+        },
+        {
+          "description": "allow-ext-store-wrapper-set -> Enables the ext_store_wrapper_set command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-ext-store-wrapper-set"
+          ]
+        },
+        {
+          "description": "deny-ext-store-wrapper-set -> Denies the ext_store_wrapper_set command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-ext-store-wrapper-set"
+          ]
+        },
+        {
+          "description": "allow-ext-store-wrapper-values -> Enables the ext_store_wrapper_values command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-ext-store-wrapper-values"
+          ]
+        },
+        {
+          "description": "deny-ext-store-wrapper-values -> Denies the ext_store_wrapper_values command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-ext-store-wrapper-values"
+          ]
+        },
+        {
           "description": "allow-get-applications -> Enables the get_applications command without any pre-configured scope.",
           "type": "string",
           "enum": [
@@ -1041,6 +1209,13 @@
           "type": "string",
           "enum": [
             "deny-unregister-extension-window"
+          ]
+        },
+        {
+          "description": "allow-all-store -> This enables all permissions for Jarvis",
+          "type": "string",
+          "enum": [
+            "allow-all-store"
           ]
         }
       ]

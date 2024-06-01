@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-ext-store-wrapper-clear"
+description = "Enables the ext_store_wrapper_clear command without any pre-configured scope."
+commands.allow = ["ext_store_wrapper_clear"]
+
+[[permission]]
+identifier = "deny-ext-store-wrapper-clear"
+description = "Denies the ext_store_wrapper_clear command without any pre-configured scope."
+commands.deny = ["ext_store_wrapper_clear"]

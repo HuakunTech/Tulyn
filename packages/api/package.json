@@ -1,6 +1,6 @@
 {
   "name": "jarvis-api",
-  "version": "0.0.2-alpha.7",
+  "version": "0.0.2-alpha.10",
   "type": "module",
   "exports": {
     ".": {
@@ -48,5 +48,8 @@
     "tauri-plugin-clipboard-api": "0.7.0-beta.0",
     "tauri-plugin-jarvis-api": "workspace:*",
     "zod": "^3.23.8"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
