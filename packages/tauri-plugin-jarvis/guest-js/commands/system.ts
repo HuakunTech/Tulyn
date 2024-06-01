@@ -110,6 +110,10 @@ export function hideAllAppsExceptFrontmost(): Promise<void> {
   return invoke("plugin:jarvis|hide_all_apps_except_frontmost");
 }
 
+export function getSelectedFilesInFileExplorer(): Promise<string[]> {
+  return invoke("plugin:jarvis|get_selected_files_in_file_explorer");
+}
+
 export const rawSystemCommands = [
   {
     name: "Open Trash",

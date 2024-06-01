@@ -16,6 +16,8 @@
         "shell:allow-kill",
         "shell:allow-execute",
         "shell:allow-spawn",
-        "shell:allow-stdin-write"
+        "shell:allow-stdin-write",
+        "jarvis:allow-run-apple-script",
+        "jarvis:allow-run-powershell"
     ]
 }

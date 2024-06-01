@@ -61,6 +61,9 @@
         "fs:read-all",
         "fs:allow-mkdir",
         "os:allow-platform",
-        "jarvis:allow-all-store"
+        "jarvis:allow-all-store",
+        "jarvis:allow-app-is-dev",
+        "jarvis:allow-open-devtools",
+        "jarvis:allow-get-selected-files-in-file-explorer"
     ]
 }
