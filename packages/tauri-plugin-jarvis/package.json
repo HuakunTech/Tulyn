@@ -1,7 +1,7 @@
 {
   "name": "tauri-plugin-jarvis-api",
-  "version": "0.0.0",
-  "author": "You",
+  "version": "0.0.1-alpha.0",
+  "author": "Huakun",
   "description": "",
   "type": "module",
   "types": "./dist-js/index.d.ts",
@@ -24,7 +24,8 @@
   "scripts": {
     "build": "rollup -c",
     "prepublishOnly": "pnpm build",
-    "pretest": "pnpm build"
+    "pretest": "pnpm build",
+    "develop": "rollup -c --watch"
   },
   "dependencies": {
     "@tauri-apps/api": ">=2.0.0-beta.6",

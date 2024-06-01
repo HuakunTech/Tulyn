@@ -288,16 +288,16 @@ export const rawSystemCommands = [
   },
 ];
 
-const currentPlatform = await platform();
-
-export const systemCommands: TCommand[] = rawSystemCommands
-  .filter((cmd) => cmd.platforms.includes(currentPlatform)) // Filter out system commands that are not supported on the current platform
-  .map((cmd) => ({
-    name: cmd.name,
-    value: "system-cmd" + cmd.name.split(" ").join("-").toLowerCase(),
-    icon: cmd.icon,
-    keywords: cmd.name.split(" "),
-    commandType: CommandType.Enum.system,
-    function: cmd.function,
-    confirmRequired: cmd.confirmRequired,
-  }));
+export async function getSystemCommands(): Promise<TCommand[]> {
+  return rawSystemCommands
+    .filter(async (cmd) => cmd.platforms.includes(await platform())) // Filter out system commands that are not supported on the current platform
+    .map((cmd) => ({
+      name: cmd.name,
+      value: "system-cmd" + cmd.name.split(" ").join("-").toLowerCase(),
+      icon: cmd.icon,
+      keywords: cmd.name.split(" "),
+      commandType: CommandType.Enum.system,
+      function: cmd.function,
+      confirmRequired: cmd.confirmRequired,
+    }));
+}

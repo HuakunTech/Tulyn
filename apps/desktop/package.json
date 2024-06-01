@@ -4,6 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "develop": "pnpm tauri dev",
     "start": "astro dev",
     "build": "astro build",
     "check:build": "astro check && astro build",

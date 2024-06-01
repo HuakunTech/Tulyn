@@ -1,6 +1,6 @@
 {
   "name": "jarvis-api",
-  "version": "0.0.2-alpha.10",
+  "version": "0.0.2-alpha.11",
   "type": "module",
   "exports": {
     ".": {
@@ -19,7 +19,8 @@
   "scripts": {
     "test": "bun test --coverage",
     "build:doc": "npx typedoc",
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "develop": "rollup -c --watch"
   },
   "devDependencies": {
     "@types/bun": "latest",

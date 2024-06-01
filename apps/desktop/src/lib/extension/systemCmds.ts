@@ -1,8 +1,10 @@
 import { ListItemType, IconType, TListItem, TCommand } from "tauri-plugin-jarvis-api/models";
-import { systemCommands } from "tauri-plugin-jarvis-api/commands";
+import { getSystemCommands } from "tauri-plugin-jarvis-api/commands";
 import { type IExtensionBase } from "./base";
 import { dialog } from "jarvis-api/ui";
 import { atom, type ReadableAtom } from "nanostores";
+
+const systemCommands = await getSystemCommands();
 
 export const systemCommandListItems: TListItem[] = systemCommands.map((cmd) =>
   TListItem.parse({
