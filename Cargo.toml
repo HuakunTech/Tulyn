@@ -2,5 +2,6 @@
 resolver = "2"
 
 members = [
-    "apps/desktop/src-tauri"
+    "apps/desktop/src-tauri",
+    "packages/tauri-plugin-jarvis"
 ]

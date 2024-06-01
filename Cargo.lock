@@ -5315,6 +5315,31 @@ dependencies = [
 ]
 
 [[package]]
+name = "tauri-plugin-jarvis"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "applications",
+ "axum",
+ "axum-extra",
+ "flate2",
+ "serde",
+ "serde_json",
+ "tar",
+ "tauri",
+ "tauri-icns",
+ "tauri-plugin",
+ "tauri-plugin-store",
+ "thiserror",
+ "tonic",
+ "tonic-build",
+ "tonic-reflection",
+ "tower",
+ "tower-http",
+ "window-vibrancy",
+]
+
+[[package]]
 name = "tauri-plugin-log"
 version = "2.0.0-beta.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"

@@ -6,6 +6,10 @@ use tauri::{
 use std::{collections::HashMap, sync::Mutex};
 
 pub use models::*;
+pub mod utils;
+pub mod model;
+pub mod syscmds;
+pub mod server;
 
 #[cfg(desktop)]
 mod desktop;
@@ -40,7 +44,7 @@ impl<R: Runtime, T: Manager<R>> crate::JarvisExt<R> for T {
 /// Initializes the plugin.
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
   Builder::new("jarvis")
-    .invoke_handler(tauri::generate_handler![commands::execute])
+    .invoke_handler(tauri::generate_handler![])
     .setup(|app, api| {
       #[cfg(mobile)]
       let jarvis = mobile::init(app, api)?;
