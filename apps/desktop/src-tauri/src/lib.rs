@@ -145,35 +145,37 @@ pub fn run() -> anyhow::Result<()> {
             //     window.open_devtools();
             // }
             utils::setup::setup_app_path(app.handle());
-
-            app.handle().plugin(
-                tauri_plugin_global_shortcut::Builder::new()
-                    .with_shortcuts(["alt+space"])?
-                    .with_handler(|app, shortcut, event| {
-                        if event.state == ShortcutState::Pressed {
-                            // if shortcut.matches(Modifiers::CONTROL, Code::KeyD) {
-                            //     let _ = app.emit("shortcut-event", "Ctrl+D triggered");
-                            // }
-                            if shortcut.matches(Modifiers::ALT, Code::Space) {
-                                // println!("Alt+Space triggered");
-                                // app.show().unwrap();
-                                let window = app.get_webview_window("main").unwrap();
-                                let is_focused = window.is_focused().unwrap();
-                                let is_visible = window.is_visible().unwrap();
-                                // println!("is_focused: {:?}", is_focused);
-                                // println!("is_visible: {:?}", is_visible);
-                                // println!("fs_scope allowed: {:?}", fs_scope.allowed());
-                                if !is_visible || !is_focused {
-                                    window.show().unwrap();
-                                } else {
-                                    window.hide().unwrap();
-                                }
-                                // let _ = app.emit("shortcut-event", "Alt+Space triggered");
-                            }
-                        }
-                    })
-                    .build(),
-            )?;
+            /* -------------------------------------------------------------------------- */
+            /*                                  Shortcut                                  */
+            /* -------------------------------------------------------------------------- */
+            // app.handle().plugin(
+            //     tauri_plugin_global_shortcut::Builder::new()
+            //         .with_shortcuts(["alt+space"])?
+            //         .with_handler(|app, shortcut, event| {
+            //             if event.state == ShortcutState::Pressed {
+            //                 // if shortcut.matches(Modifiers::CONTROL, Code::KeyD) {
+            //                 //     let _ = app.emit("shortcut-event", "Ctrl+D triggered");
+            //                 // }
+            //                 if shortcut.matches(Modifiers::ALT, Code::Space) {
+            //                     // println!("Alt+Space triggered");
+            //                     // app.show().unwrap();
+            //                     let window = app.get_webview_window("main").unwrap();
+            //                     let is_focused = window.is_focused().unwrap();
+            //                     let is_visible = window.is_visible().unwrap();
+            //                     // println!("is_focused: {:?}", is_focused);
+            //                     // println!("is_visible: {:?}", is_visible);
+            //                     // println!("fs_scope allowed: {:?}", fs_scope.allowed());
+            //                     if !is_visible || !is_focused {
+            //                         window.show().unwrap();
+            //                     } else {
+            //                         window.hide().unwrap();
+            //                     }
+            //                     // let _ = app.emit("shortcut-event", "Alt+Space triggered");
+            //                 }
+            //             }
+            //         })
+            //         .build(),
+            // )?;
             // let window = app.get_webview_window("main").unwrap();
             // #[cfg(target_os = "macos")]
             // apply_vibrancy(&window, NSVisualEffectMaterial::HudWindow, None, None)
