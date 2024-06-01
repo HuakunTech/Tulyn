@@ -15,6 +15,30 @@
 |`deny-empty-trash`|Denies the empty_trash command without any pre-configured scope.|
 |`allow-execute`|Enables the execute command without any pre-configured scope.|
 |`deny-execute`|Denies the execute command without any pre-configured scope.|
+|`allow-ext-store-wrapper-clear`|Enables the ext_store_wrapper_clear command without any pre-configured scope.|
+|`deny-ext-store-wrapper-clear`|Denies the ext_store_wrapper_clear command without any pre-configured scope.|
+|`allow-ext-store-wrapper-delete`|Enables the ext_store_wrapper_delete command without any pre-configured scope.|
+|`deny-ext-store-wrapper-delete`|Denies the ext_store_wrapper_delete command without any pre-configured scope.|
+|`allow-ext-store-wrapper-entries`|Enables the ext_store_wrapper_entries command without any pre-configured scope.|
+|`deny-ext-store-wrapper-entries`|Denies the ext_store_wrapper_entries command without any pre-configured scope.|
+|`allow-ext-store-wrapper-get`|Enables the ext_store_wrapper_get command without any pre-configured scope.|
+|`deny-ext-store-wrapper-get`|Denies the ext_store_wrapper_get command without any pre-configured scope.|
+|`allow-ext-store-wrapper-has`|Enables the ext_store_wrapper_has command without any pre-configured scope.|
+|`deny-ext-store-wrapper-has`|Denies the ext_store_wrapper_has command without any pre-configured scope.|
+|`allow-ext-store-wrapper-keys`|Enables the ext_store_wrapper_keys command without any pre-configured scope.|
+|`deny-ext-store-wrapper-keys`|Denies the ext_store_wrapper_keys command without any pre-configured scope.|
+|`allow-ext-store-wrapper-length`|Enables the ext_store_wrapper_length command without any pre-configured scope.|
+|`deny-ext-store-wrapper-length`|Denies the ext_store_wrapper_length command without any pre-configured scope.|
+|`allow-ext-store-wrapper-load`|Enables the ext_store_wrapper_load command without any pre-configured scope.|
+|`deny-ext-store-wrapper-load`|Denies the ext_store_wrapper_load command without any pre-configured scope.|
+|`allow-ext-store-wrapper-reset`|Enables the ext_store_wrapper_reset command without any pre-configured scope.|
+|`deny-ext-store-wrapper-reset`|Denies the ext_store_wrapper_reset command without any pre-configured scope.|
+|`allow-ext-store-wrapper-save`|Enables the ext_store_wrapper_save command without any pre-configured scope.|
+|`deny-ext-store-wrapper-save`|Denies the ext_store_wrapper_save command without any pre-configured scope.|
+|`allow-ext-store-wrapper-set`|Enables the ext_store_wrapper_set command without any pre-configured scope.|
+|`deny-ext-store-wrapper-set`|Denies the ext_store_wrapper_set command without any pre-configured scope.|
+|`allow-ext-store-wrapper-values`|Enables the ext_store_wrapper_values command without any pre-configured scope.|
+|`deny-ext-store-wrapper-values`|Denies the ext_store_wrapper_values command without any pre-configured scope.|
 |`allow-get-applications`|Enables the get_applications command without any pre-configured scope.|
 |`deny-get-applications`|Denies the get_applications command without any pre-configured scope.|
 |`allow-get-default-extensions-dir`|Enables the get_default_extensions_dir command without any pre-configured scope.|
@@ -107,3 +131,4 @@
 |`deny-unmute`|Denies the unmute command without any pre-configured scope.|
 |`allow-unregister-extension-window`|Enables the unregister_extension_window command without any pre-configured scope.|
 |`deny-unregister-extension-window`|Denies the unregister_extension_window command without any pre-configured scope.|
+|`allow-all-store`|This enables all permissions for Jarvis|

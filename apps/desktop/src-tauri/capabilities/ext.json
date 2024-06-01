@@ -60,6 +60,7 @@
         "fs:allow-stat",
         "fs:read-all",
         "fs:allow-mkdir",
-        "os:allow-platform"
+        "os:allow-platform",
+        "jarvis:allow-all-store"
     ]
 }

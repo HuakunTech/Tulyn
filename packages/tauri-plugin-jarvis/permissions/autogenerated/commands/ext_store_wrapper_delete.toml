@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-ext-store-wrapper-delete"
+description = "Enables the ext_store_wrapper_delete command without any pre-configured scope."
+commands.allow = ["ext_store_wrapper_delete"]
+
+[[permission]]
+identifier = "deny-ext-store-wrapper-delete"
+description = "Denies the ext_store_wrapper_delete command without any pre-configured scope."
+commands.deny = ["ext_store_wrapper_delete"]

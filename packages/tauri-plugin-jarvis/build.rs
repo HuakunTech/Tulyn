@@ -50,6 +50,18 @@ const COMMANDS: &[&str] = &[
     "register_extension_window",
     "unregister_extension_window",
     "get_ext_label_map",
+    "ext_store_wrapper_set",
+    "ext_store_wrapper_get",
+    "ext_store_wrapper_has",
+    "ext_store_wrapper_delete",
+    "ext_store_wrapper_clear",
+    "ext_store_wrapper_reset",
+    "ext_store_wrapper_keys",
+    "ext_store_wrapper_values",
+    "ext_store_wrapper_entries",
+    "ext_store_wrapper_length",
+    "ext_store_wrapper_load",
+    "ext_store_wrapper_save",
 ];
 
 fn main() {

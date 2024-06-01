@@ -5,3 +5,4 @@ export * from "./server";
 export * from "./system";
 export * from "./tools";
 export * from "./extension";
+export * from "./store";
