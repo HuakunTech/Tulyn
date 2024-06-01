@@ -1,5 +1,4 @@
-import { invoke } from '@tauri-apps/api/core'
-
-export async function execute() {
-  await invoke('plugin:jarvis|execute')
-}
+export * as commands from "./commands";
+export * from "./commands";
+export * as models from "./models";
+export * from "./models";

@@ -34,7 +34,7 @@ import { Separator } from "@/components/ui/separator";
 import { CircleCheckBigIcon, Trash2Icon } from "lucide-vue-next";
 import { GlobalEventBus } from "@/lib/utils/events";
 import { installTarballUrl } from "@/lib/utils/tarball";
-import { getDevExtensionFolder, getExtensionFolder } from "@/lib/commands/server";
+import { getDevExtensionFolder, getExtensionFolder } from "tauri-plugin-jarvis-api";
 import { ElMessage } from "element-plus";
 import { InfoFilled } from "@element-plus/icons-vue";
 import { supabaseClient } from "@/lib/utils/supabase";

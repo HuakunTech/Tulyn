@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { appDataDir, join } from "@tauri-apps/api/path";
-import { PermissionsEnum } from "jarvis-api";
+import { PermissionsEnum } from "tauri-plugin-jarvis-api";
 import { loadEnvVarWithNotification } from "./utils/envvar";
 
 const appDataDirPath = await appDataDir();

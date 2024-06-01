@@ -1,6 +1,6 @@
 import type { ReadableAtom, WritableAtom } from "nanostores";
 import type { IExtensionBase } from "./base";
-import { ListItemType, type TListItem } from "jarvis-api";
+import { TListItem, ListItemType } from "tauri-plugin-jarvis-api";
 import { atom } from "nanostores";
 import { ElMessage } from "element-plus";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
@@ -36,7 +36,7 @@ const buildinCmdsListItems: TListItem[] = builtinCmds.map(
       value: "streamline:store-2-solid",
       type: "iconify",
     },
-    flags: { isDev: false },
+    flags: { isDev: false, isRemovable: false },
     keywords: ["builtin"],
     identityFilter: true,
   }),

@@ -93,6 +93,7 @@
     "clipboard:read-all",
     "clipboard:write-all",
     "clipboard:monitor-all",
-    "process:default"
+    "process:default",
+    "jarvis:allow-all"
   ]
 }

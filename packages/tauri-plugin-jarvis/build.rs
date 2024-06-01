@@ -1,8 +1,54 @@
-const COMMANDS: &[&str] = &["ping", "execute"];
+const COMMANDS: &[&str] = &[
+    "open_devtools",
+    "close_devtools",
+    "is_devtools_open",
+    "toggle_devtools",
+    "app_is_dev",
+    "open_trash",
+    "empty_trash",
+    "shutdown",
+    "reboot",
+    "sleep",
+    "toggle_system_appearance",
+    "show_desktop",
+    "quit_all_apps",
+    "sleep_displays",
+    "set_volume",
+    "turn_volume_up",
+    "turn_volume_down",
+    "toggle_stage_manager",
+    "toggle_bluetooth",
+    "toggle_hidden_files",
+    "eject_all_disks",
+    "logout_user",
+    "toggle_mute",
+    "mute",
+    "unmute",
+    "hide_all_apps_except_frontmost",
+    "get_selected_files_in_file_explorer",
+    "run_apple_script",
+    "run_powershell",
+    "get_applications",
+    "refresh_applications_list",
+    "refresh_applications_list_in_bg",
+    "load_manifest",
+    "load_all_extensions",
+    "path_exists",
+    "start_server",
+    "stop_server",
+    "restart_server",
+    "set_dev_extension_folder",
+    "set_extension_folder",
+    "get_extension_folder",
+    "get_dev_extension_folder",
+    "server_is_running",
+    "decompress_tarball",
+    "compress_tarball",
+];
 
 fn main() {
-  tauri_plugin::Builder::new(COMMANDS)
-    .android_path("android")
-    .ios_path("ios")
-    .build();
+    tauri_plugin::Builder::new(COMMANDS)
+        .android_path("android")
+        .ios_path("ios")
+        .build();
 }

@@ -6,7 +6,7 @@ import { Store } from "@tauri-apps/plugin-store";
 import {
   restartServer,
   setDevExtensionFolder as setDevExtensionFolderForServer,
-} from "@/lib/commands/server";
+} from "tauri-plugin-jarvis-api";
 
 const persistAppConfig = new Store("appConfig.bin");
 

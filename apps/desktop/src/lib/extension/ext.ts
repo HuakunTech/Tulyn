@@ -1,16 +1,14 @@
-import { z } from "zod";
+import { type IExtensionBase } from "./base";
+import { $appConfig } from "@/lib/stores/appConfig";
 import {
+  ExtPackageJsonExtra,
+  UiCmd,
+  InlineCmd,
   ListItemType,
   TListItem,
   TListGroup,
-  type ExtPackageJsonExtra,
-  type InlineCmd,
-  type UiCmd,
-} from "jarvis-api";
-import { type IExtensionBase } from "./base";
-import { $appConfig } from "@/lib/stores/appConfig";
-import { loadAllExtensions } from "@/lib/commands/manifest";
-import { pathExists } from "@/lib/commands/fs";
+  commands,
+} from "tauri-plugin-jarvis-api";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { type ReadableAtom, type WritableAtom, atom } from "nanostores";
 import { fs } from "jarvis-api/ui";
@@ -80,10 +78,11 @@ export class Extension implements IExtensionBase {
     this.$listItems = atom([]);
   }
   async load(): Promise<void> {
-    if (!this.extPath || !pathExists(this.extPath)) {
+    if (!this.extPath || !commands.pathExists(this.extPath)) {
       this.manifests = [];
     } else {
-      return loadAllExtensions(this.extPath)
+      return commands
+        .loadAllExtensions(this.extPath)
         .then((manifests) => {
           this.manifests = manifests;
           this.$listItems.set(

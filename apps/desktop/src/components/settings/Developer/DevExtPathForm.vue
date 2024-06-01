@@ -7,11 +7,10 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/toast";
 import { $appConfig, setDevExtentionPath } from "@/lib/stores/appConfig";
 import { useStore } from "@nanostores/vue";
-import { pathExists } from "@/lib/commands/fs";
+import { pathExists } from "tauri-plugin-jarvis-api";
 import { onMount } from "nanostores";
 // import { loadDevExtManifests, loadExtManifests, $extensionsStore } from "@/lib/stores/extensions";
 import { open } from "@tauri-apps/plugin-dialog";
-import { loadAllExtensions } from "@/lib/commands/manifest";
 import { Extension } from "@/lib/extension/ext";
 
 const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath, true);

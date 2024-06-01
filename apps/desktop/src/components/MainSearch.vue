@@ -14,7 +14,7 @@ import {
 import { $appState, setSearchTerm } from "@/lib/stores/appState";
 import ListItem from "./MainSearch/list-item.vue";
 import ListGroup from "./MainSearch/list-group.vue";
-import { TListItem } from "jarvis-api";
+import { models } from "tauri-plugin-jarvis-api";
 import { ElNotification } from "element-plus";
 import { SystemCommandExtension } from "@/lib/extension/systemCmds";
 import { BuiltinCmds } from "@/lib/extension/builtin";

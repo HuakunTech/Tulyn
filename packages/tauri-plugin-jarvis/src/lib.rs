@@ -103,8 +103,8 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             commands::fs::compress_tarball,
         ])
         .setup(|app, api| {
-            #[cfg(mobile)]
-            let jarvis = mobile::init(app, api)?;
+            // #[cfg(mobile)]
+            // let jarvis = mobile::init(app, api)?;
             #[cfg(desktop)]
             let jarvis = desktop::init(app, api)?;
             app.manage(jarvis);
@@ -125,8 +125,8 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
                 ext_folder,
                 app_settings.dev_extention_path,
             ));
-            // utils::setup::setup_server(app);
-            // utils::setup::setup_app_path(app);
+            utils::setup::setup_server(app); // start the server
+            utils::setup::setup_app_path(app);
             Ok(())
         })
         .build()

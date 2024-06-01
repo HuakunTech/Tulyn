@@ -1,7 +1,5 @@
-import type { TListItem } from "jarvis-api";
 import { type IExtensionBase } from "./base";
-import { getAllApps, refreshApplicationsList } from "@/lib/commands/apps";
-import { AppInfo } from "jarvis-api";
+import { AppInfo, TListItem, getAllApps, refreshApplicationsList } from "tauri-plugin-jarvis-api";
 import { convertFileSrc } from "@tauri-apps/api/core";
 import { open } from "jarvis-api/ui";
 import { ElNotification } from "element-plus";
@@ -18,7 +16,7 @@ export function appInfoToListItem(app: AppInfo): TListItem {
       : null,
     keywords: app.name.split(" "),
     identityFilter: false,
-    flags: { isDev: false },
+    flags: { isDev: false, isRemovable: false },
   };
 }
 

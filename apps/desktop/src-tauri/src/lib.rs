@@ -1,18 +1,8 @@
-// use crate::utils::icns::load_icns;
-use applications::utils::image::RustImage;
-// use commands::{apps::ApplicationsState, server::Server};
 use std::path::PathBuf;
 use tauri::Manager;
 use tauri_plugin_fs::FsExt;
 use tauri_plugin_global_shortcut::{Code, Modifiers, ShortcutState};
 use tauri_plugin_store::StoreBuilder;
-// use utils::{path::get_default_extensions_dir, settings::AppSettings};
-// pub mod commands;
-// pub mod model;
-// pub mod server;
-// pub mod syscmds;
-// pub mod utils;
-// use rdev::{listen, Event};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() -> anyhow::Result<()> {

@@ -8,7 +8,7 @@ import {
   getDevExtensionFolder,
   getExtensionFolder,
   serverIsRunning,
-} from "@/lib/commands/server";
+} from "tauri-plugin-jarvis-api";
 import { Badge } from "@/components/ui/badge";
 import { onMounted, onUnmounted, ref } from "vue";
 import { useToast } from "@/components/ui/toast/use-toast";
@@ -16,7 +16,7 @@ import { open } from "@tauri-apps/plugin-shell";
 
 const { toast } = useToast();
 const serverRunning = ref(false);
-let interval: NodeJS.Timeout;
+let interval: Timer;
 const extFolder = ref<string | null>();
 const devExtFolder = ref<string | null>();
 

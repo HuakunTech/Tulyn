@@ -4,7 +4,7 @@ use tauri::{AppHandle, Manager, Runtime};
 #[cfg(target_os = "macos")]
 use window_vibrancy::{apply_vibrancy, NSVisualEffectMaterial};
 
-pub fn setup_app_path(handle: &AppHandle) {
+pub fn setup_app_path<R: Runtime>(handle: &AppHandle<R>) {
     let app_d = handle.path().app_data_dir().unwrap();
     if !app_d.exists() {
         std::fs::create_dir_all(&app_d).unwrap();
