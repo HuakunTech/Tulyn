@@ -15,12 +15,34 @@ interface ChangePayload<T> {
 }
 
 /**
- * A key-value store persisted by the backend layer.
+ * This Store is actually a wrapper over the tauri-plugin-store. Customized to be used with Jarvis Extensions, the APIs are exactly the same.
+ * A key-value store for Jarvis Extensions. Create a store in UI Extensions to store any data.
+ * filename is optional for the constructor if you only need one store file.
+ * If you plan to have multiple stores, e.g. one for settings, one for data, you can specify different filenames.
+ * @example
+ * ```ts
+ * const store = new JarvisStore("settings.bin");
+ * await store.set("theme", "dark");
+ * const theme = await store.get("theme");
+ * console.log(theme); // dark
+ * ```
  */
 export class JarvisStore {
   path: string;
-  constructor(path: string) {
-    this.path = path;
+  /**
+   * filename is optional if you only need one store file.
+   * If you plan to have multiple stores, e.g. one for settings, one for data, you can specify different filenames.
+   * @example 
+   * ```ts
+   * const store = new JarvisStore("settings.bin");
+   * await store.set("theme", "dark");
+   * const theme = await store.get("theme");
+   * console.log(theme); // dark
+   * ```
+   * @param filename filename for the store. Defaults to `default.bin`.
+   */
+  constructor(filename: string = "default.bin") {
+    this.path = filename;
   }
 
   /**
@@ -177,8 +199,6 @@ export class JarvisStore {
    * @param key
    * @param cb
    * @returns A promise resolving to a function to unlisten to the event.
-   *
-   * @since 2.0.0
    */
   async onKeyChange<T>(key: string, cb: (value: T | null) => void): Promise<UnlistenFn> {
     return await listen<ChangePayload<T>>("store://change", (event) => {
@@ -192,8 +212,6 @@ export class JarvisStore {
    * Listen to changes on the store.
    * @param cb
    * @returns A promise resolving to a function to unlisten to the event.
-   *
-   * @since 2.0.0
    */
   async onChange<T>(cb: (key: string, value: T | null) => void): Promise<UnlistenFn> {
     return await listen<ChangePayload<T>>("store://change", (event) => {

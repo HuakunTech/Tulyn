@@ -32,7 +32,7 @@ export const devProgressRawData: DevProgressData[] = [
       {
         label: "API",
         children: [
-          { label: "Extension Storage", finished: false },
+          { label: "Extension Storage API", finished: true },
           { label: "File Search", finished: false },
           { label: "Clipboard", finished: true },
           { label: "Notification", finished: true },
