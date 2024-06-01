@@ -23,6 +23,8 @@
 |`deny-get-default-extensions-storage-dir`|Denies the get_default_extensions_storage_dir command without any pre-configured scope.|
 |`allow-get-dev-extension-folder`|Enables the get_dev_extension_folder command without any pre-configured scope.|
 |`deny-get-dev-extension-folder`|Denies the get_dev_extension_folder command without any pre-configured scope.|
+|`allow-get-ext-label-map`|Enables the get_ext_label_map command without any pre-configured scope.|
+|`deny-get-ext-label-map`|Denies the get_ext_label_map command without any pre-configured scope.|
 |`allow-get-extension-folder`|Enables the get_extension_folder command without any pre-configured scope.|
 |`deny-get-extension-folder`|Denies the get_extension_folder command without any pre-configured scope.|
 |`allow-get-selected-files-in-file-explorer`|Enables the get_selected_files_in_file_explorer command without any pre-configured scope.|
@@ -31,6 +33,8 @@
 |`deny-hide-all-apps-except-frontmost`|Denies the hide_all_apps_except_frontmost command without any pre-configured scope.|
 |`allow-is-devtools-open`|Enables the is_devtools_open command without any pre-configured scope.|
 |`deny-is-devtools-open`|Denies the is_devtools_open command without any pre-configured scope.|
+|`allow-is-window-label-registered`|Enables the is_window_label_registered command without any pre-configured scope.|
+|`deny-is-window-label-registered`|Denies the is_window_label_registered command without any pre-configured scope.|
 |`allow-load-all-extensions`|Enables the load_all_extensions command without any pre-configured scope.|
 |`deny-load-all-extensions`|Denies the load_all_extensions command without any pre-configured scope.|
 |`allow-load-manifest`|Enables the load_manifest command without any pre-configured scope.|
@@ -55,6 +59,8 @@
 |`deny-refresh-applications-list`|Denies the refresh_applications_list command without any pre-configured scope.|
 |`allow-refresh-applications-list-in-bg`|Enables the refresh_applications_list_in_bg command without any pre-configured scope.|
 |`deny-refresh-applications-list-in-bg`|Denies the refresh_applications_list_in_bg command without any pre-configured scope.|
+|`allow-register-extension-window`|Enables the register_extension_window command without any pre-configured scope.|
+|`deny-register-extension-window`|Denies the register_extension_window command without any pre-configured scope.|
 |`allow-restart-server`|Enables the restart_server command without any pre-configured scope.|
 |`deny-restart-server`|Denies the restart_server command without any pre-configured scope.|
 |`allow-run-apple-script`|Enables the run_apple_script command without any pre-configured scope.|
@@ -99,3 +105,5 @@
 |`deny-turn-volume-up`|Denies the turn_volume_up command without any pre-configured scope.|
 |`allow-unmute`|Enables the unmute command without any pre-configured scope.|
 |`deny-unmute`|Denies the unmute command without any pre-configured scope.|
+|`allow-unregister-extension-window`|Enables the unregister_extension_window command without any pre-configured scope.|
+|`deny-unregister-extension-window`|Denies the unregister_extension_window command without any pre-configured scope.|

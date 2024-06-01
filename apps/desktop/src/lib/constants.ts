@@ -16,7 +16,8 @@ export const SUPABASE_ANON_KEY = await loadEnvVarWithNotification("PUBLIC_SUPABA
 export const SUPABASE_GRAPHQL_ENDPOINT = await loadEnvVarWithNotification(
   "PUBLIC_SUPABASE_GRAPHQL_ENDPOINT",
 );
-
+export const DebugWindowLabel = "main-debug";
+export const SettingsWindowLabel = "main-settings";
 export const FileStorageUrl = "";
 
 // PermissionsEnum.

@@ -1,3 +1,4 @@
+use model::extension::Extension;
 pub use models::*;
 use tauri::{
     plugin::{Builder, TauriPlugin},
@@ -30,8 +31,10 @@ use desktop::Jarvis;
 #[cfg(mobile)]
 use mobile::Jarvis;
 
-// #[derive(Default)]
-// struct MyState(Mutex<HashMap<String, String>>);
+#[derive(Default)]
+pub struct JarvisState {
+    pub window_label_ext_map: Mutex<HashMap<String, Extension>>,
+}
 
 /// Extensions to [`tauri::App`], [`tauri::AppHandle`] and [`tauri::Window`] to access the jarvis APIs.
 pub trait JarvisExt<R: Runtime> {
@@ -104,6 +107,11 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             // fs
             commands::fs::decompress_tarball,
             commands::fs::compress_tarball,
+            // extensions
+            commands::extension::is_window_label_registered,
+            commands::extension::register_extension_window,
+            commands::extension::unregister_extension_window,
+            commands::extension::get_ext_label_map,
         ])
         .setup(|app, api| {
             // #[cfg(mobile)]
@@ -113,7 +121,7 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             app.manage(jarvis);
 
             // manage state so it is accessible by the commands
-            // app.manage(MyState::default());
+            app.manage(JarvisState::default());
             app.manage(commands::apps::ApplicationsState::default());
 
             let mut store = StoreBuilder::new("appConfig.bin").build(app.clone());

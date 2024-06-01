@@ -46,6 +46,10 @@ const COMMANDS: &[&str] = &[
     "compress_tarball",
     "get_default_extensions_dir",
     "get_default_extensions_storage_dir",
+    "is_window_label_registered",
+    "register_extension_window",
+    "unregister_extension_window",
+    "get_ext_label_map",
 ];
 
 fn main() {

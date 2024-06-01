@@ -1,7 +1,6 @@
 import Editor, { type OnChange, type OnMount, type Monaco } from "@monaco-editor/react";
-import { ExtPackageJson } from "jarvis-api";
+import { ExtPackageJson } from "jarvis-api/models";
 import { useEffect, useMemo, useRef, useState } from "react";
-import jsonWorker from "monaco-editor/esm/vs/language/json/json.worker?worker";
 
 const defaultJson = `{
   "$schema": "https://extensions.jarvis.huakun.tech/schema.json",
@@ -129,7 +128,8 @@ export default function SchemaValidatorEditor() {
     monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
       enableSchemaRequest: true,
       validate: true,
-      schemas: [ // TODO: this schema is not working, I have to use $schema in the json file
+      schemas: [
+        // TODO: this schema is not working, I have to use $schema in the json file
         { uri: "https://extensions.jarvis.huakun.tech/schema.json" },
       ],
     });

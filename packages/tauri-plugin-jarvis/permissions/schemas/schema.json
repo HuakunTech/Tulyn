@@ -456,6 +456,20 @@
           ]
         },
         {
+          "description": "allow-get-ext-label-map -> Enables the get_ext_label_map command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-get-ext-label-map"
+          ]
+        },
+        {
+          "description": "deny-get-ext-label-map -> Denies the get_ext_label_map command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-get-ext-label-map"
+          ]
+        },
+        {
           "description": "allow-get-extension-folder -> Enables the get_extension_folder command without any pre-configured scope.",
           "type": "string",
           "enum": [
@@ -509,6 +523,20 @@
           "type": "string",
           "enum": [
             "deny-is-devtools-open"
+          ]
+        },
+        {
+          "description": "allow-is-window-label-registered -> Enables the is_window_label_registered command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-is-window-label-registered"
+          ]
+        },
+        {
+          "description": "deny-is-window-label-registered -> Denies the is_window_label_registered command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-is-window-label-registered"
           ]
         },
         {
@@ -677,6 +705,20 @@
           "type": "string",
           "enum": [
             "deny-refresh-applications-list-in-bg"
+          ]
+        },
+        {
+          "description": "allow-register-extension-window -> Enables the register_extension_window command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-register-extension-window"
+          ]
+        },
+        {
+          "description": "deny-register-extension-window -> Denies the register_extension_window command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-register-extension-window"
           ]
         },
         {
@@ -985,6 +1027,20 @@
           "type": "string",
           "enum": [
             "deny-unmute"
+          ]
+        },
+        {
+          "description": "allow-unregister-extension-window -> Enables the unregister_extension_window command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-unregister-extension-window"
+          ]
+        },
+        {
+          "description": "deny-unregister-extension-window -> Denies the unregister_extension_window command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-unregister-extension-window"
           ]
         }
       ]

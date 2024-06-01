@@ -10,12 +10,16 @@
     "noEmit": true,
     "baseUrl": "guest-js",
     "paths": {
-      "@models/*": ["./models/*"],
-      "@models/": ["./models"],
-      "@commands/*": ["./commands/*"],
-      "@commands": ["./commands"],
+      "@/*": [
+        "./*"
+      ]
     }
   },
-  "include": ["guest-js/*.ts"],
-  "exclude": ["dist-js", "node_modules"]
+  "include": [
+    "guest-js/*.ts"
+  ],
+  "exclude": [
+    "dist-js",
+    "node_modules"
+  ]
 }

@@ -46,4 +46,24 @@ export default [
       ...Object.keys(pkg.peerDependencies || {}),
     ],
   },
+  {
+    input: "models/index.ts",
+    output: [
+      {
+        file: "./dist/models.js",
+        format: "esm",
+      },
+    ],
+    plugins: [
+      typescript({
+        declaration: true,
+        declarationDir: `./.`,
+      }),
+    ],
+    external: [
+      /^@tauri-apps\/api/,
+      ...Object.keys(pkg.dependencies || {}),
+      ...Object.keys(pkg.peerDependencies || {}),
+    ],
+  },
 ];

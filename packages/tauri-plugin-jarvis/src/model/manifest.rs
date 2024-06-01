@@ -1,6 +1,7 @@
 use serde::Deserialize;
 use serde::Serialize;
 use serde_json::Value;
+use std::fmt::Display;
 use std::path::PathBuf;
 
 pub const MANIFEST_FILE_NAME: &str = "package.json";
@@ -52,6 +53,16 @@ pub enum Permissions {
     ClipboardRead,
     ClipboardWrite,
     FsHome,
+}
+
+impl Display for Permissions {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Permissions::ClipboardRead => write!(f, "clipboard-read"),
+            Permissions::ClipboardWrite => write!(f, "clipboard-write"),
+            Permissions::FsHome => write!(f, "fs-home"),
+        }
+    }
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]

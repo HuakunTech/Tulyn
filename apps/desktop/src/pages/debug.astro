@@ -1,0 +1,11 @@
+---
+import DefaultLayout from "@/layouts/Default.astro";
+import DebugPage from "@/components/debug/DebugPage.vue";
+import DefaultVue from "@/components/layouts/default.vue";
+---
+
+<DefaultLayout title="Main Page">
+  <DefaultVue client:only="vue">
+    <DebugPage client:only="vue" />
+  </DefaultVue>
+</DefaultLayout>

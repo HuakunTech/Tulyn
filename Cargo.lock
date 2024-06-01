@@ -5232,6 +5232,7 @@ dependencies = [
  "tonic-reflection",
  "tower",
  "tower-http",
+ "uuid",
  "window-vibrancy",
 ]
 
