@@ -14,7 +14,13 @@ export const OSPlatform = z.enum([
   "windows",
 ]);
 const allPlatforms = [OSPlatform.Enum.linux, OSPlatform.Enum.macos, OSPlatform.Enum.windows];
-export const PermissionsEnum = z.enum(["clipboard-read", "clipboard-write", "fs-home"]);
+export const PermissionsEnum = z.enum([
+  "clipboard-read",
+  "clipboard-write",
+  "fs-home",
+  "fs-basic",
+  "shell",
+]);
 export const TriggerCmd = z.object({
   type: z.union([z.literal("text"), z.literal("regex")]),
   value: z.string(),
