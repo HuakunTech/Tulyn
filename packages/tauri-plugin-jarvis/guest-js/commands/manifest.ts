@@ -14,8 +14,10 @@ export function loadAllExtensions(extensionsFolder: string): Promise<ExtPackageJ
         .map((x: unknown) => {
           const parse = ExtPackageJsonExtra.safeParse(x);
           if (parse.error) {
+            console.error(`Fail to load extension ${extensionsFolder}`, parse.error);
             return null;
           } else {
+            console.log(`Loaded extension ${parse.data.jarvis.name}`);
             return parse.data;
           }
         })

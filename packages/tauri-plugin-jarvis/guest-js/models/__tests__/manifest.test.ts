@@ -12,6 +12,7 @@ test("Load extension manifest in this repo", () => {
     join(extensionsDir, "ip-info/package.json"),
     join(extensionsDir, "jwt/package.json"),
     join(extensionsDir, "download-twitter-video/package.json"),
+    join(extensionsDir, "video-processor/package.json"),
   ]) {
     const manifestStr = fs.readFileSync(extJsonPath).toString();
     ExtPackageJson.parse(JSON.parse(manifestStr));

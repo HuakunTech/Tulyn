@@ -6,7 +6,7 @@ import {
   PutObjectCommand,
 } from "@aws-sdk/client-s3";
 import { zodToJsonSchema } from "zod-to-json-schema";
-import { ExtPackageJson } from "jarvis-api";
+import { ExtPackageJson } from "jarvis-api/models";
 
 const s3Client = new S3Client({
   endpoint: z.string().parse(process.env.S3_ENDPOINT),

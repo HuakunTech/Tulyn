@@ -9,3 +9,4 @@ pub fn run_apple_script(script: &str) -> Result<String, String> {
 pub fn run_powershell(script: &str) -> Result<String, String> {
     utils::script::run_powershell(script).map_err(|e| e.to_string())
 }
+

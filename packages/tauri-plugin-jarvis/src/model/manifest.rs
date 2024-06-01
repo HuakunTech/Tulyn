@@ -53,6 +53,7 @@ pub enum Permissions {
     ClipboardRead,
     ClipboardWrite,
     FsHome,
+    Shell,
 }
 
 impl Display for Permissions {
@@ -61,6 +62,7 @@ impl Display for Permissions {
             Permissions::ClipboardRead => write!(f, "clipboard-read"),
             Permissions::ClipboardWrite => write!(f, "clipboard-write"),
             Permissions::FsHome => write!(f, "fs-home"),
+            Permissions::Shell => write!(f, "shell"),
         }
     }
 }
@@ -196,13 +198,16 @@ mod tests {
     fn test_load_extension_manifest() {
         // this test relies on submodule
         let manifest_paths = vec![
-            "../../../vendors/extensions/extensions/download-twitter-video/package.json",
-            "../../../vendors/extensions/extensions/jwt/package.json",
-            "../../../vendors/extensions/extensions/ip-info/package.json",
-            "../../../vendors/extensions/extensions/qrcode/package.json",
+            "../../vendors/extensions/extensions/download-twitter-video/package.json",
+            "../../vendors/extensions/extensions/jwt/package.json",
+            "../../vendors/extensions/extensions/ip-info/package.json",
+            "../../vendors/extensions/extensions/qrcode/package.json",
+            "../../vendors/extensions/extensions/video-processor/package.json",
         ];
         for manifest_path in manifest_paths {
-            let manifest_str = std::fs::read_to_string(manifest_path).unwrap();
+            let abs_path = std::fs::canonicalize(manifest_path).unwrap();
+            println!("{:?}", abs_path);
+            let manifest_str = std::fs::read_to_string(abs_path).unwrap();
             let pkg: ExtPackageJson = serde_json::from_str(&manifest_str).unwrap();
             println!("{:?}", pkg.files);
         }

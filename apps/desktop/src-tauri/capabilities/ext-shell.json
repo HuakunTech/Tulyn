@@ -14,7 +14,23 @@
     "permissions": [
         "shell:allow-open",
         "shell:allow-kill",
-        "shell:allow-execute",
+        {
+            "identifier": "shell:allow-execute",
+            "allow": [
+                {
+                    "name": "exec-ffmpeg",
+                    "cmd": "ffmpeg",
+                    "args": [],
+                    "sidecar": false
+                },
+                {
+                    "name": "exec-ffprobe",
+                    "cmd": "ffprobe",
+                    "args": [],
+                    "sidecar": false
+                }
+            ]
+        },
         "shell:allow-spawn",
         "shell:allow-stdin-write",
         "jarvis:allow-run-apple-script",

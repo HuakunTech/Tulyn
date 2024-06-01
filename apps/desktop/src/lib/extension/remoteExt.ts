@@ -11,6 +11,7 @@ import {
 import { Store } from "@tauri-apps/plugin-store";
 import { ElMessage } from "element-plus";
 import axios from "axios";
+import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 
 export const RemoteExt = z.object({
   name: z.string().min(1),
@@ -75,7 +76,9 @@ export class RemoteExtension implements IExtensionBase {
   async load(): Promise<void> {
     const defaultState: RemoteExtState = [];
     const loadedConfig = await this.persistAppConfig.get("remoteExts");
-    if (!loadedConfig === null) {
+    console.log(loadedConfig);
+
+    if (loadedConfig !== null) {
       // not null means config is initialized, if parse error is thrown then it's a problem
       const parsedConfig = RemoteExtState.safeParse(loadedConfig);
       if (parsedConfig.success) {
@@ -137,6 +140,13 @@ export class RemoteExtension implements IExtensionBase {
   }
 
   onSelect(item: TListItem): Promise<void> {
-    throw new Error("Method not implemented.");
+    const ext = this.findRemoteExt(item.value);
+    if (!ext) {
+      return Promise.reject("Remote Extension not found");
+    }
+    new WebviewWindow("ext-remote", {
+      url: ext.url,
+    });
+    return Promise.resolve();
   }
 }

@@ -6,7 +6,7 @@ import {
   PutObjectCommand,
 } from "@aws-sdk/client-s3";
 import { zodToJsonSchema } from "zod-to-json-schema";
-import { ExtPackageJson } from "jarvis-api";
+import { ExtPackageJson } from "jarvis-api/models";
 
 const jsonSchema = zodToJsonSchema(ExtPackageJson, {});
 // @ts-ignore
