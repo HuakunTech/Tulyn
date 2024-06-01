@@ -337,6 +337,9 @@ importers:
 
   packages/api:
     dependencies:
+      '@rollup/plugin-typescript':
+        specifier: ^11.1.6
+        version: 11.1.6(rollup@4.18.0)(tslib@2.6.2)(typescript@5.4.5)
       '@tauri-apps/api':
         specifier: 2.0.0-beta.11
         version: 2.0.0-beta.11
@@ -373,6 +376,9 @@ importers:
       '@tauri-apps/plugin-upload':
         specifier: 2.0.0-beta.4
         version: 2.0.0-beta.4
+      rollup:
+        specifier: ^4.9.6
+        version: 4.18.0
       tauri-plugin-clipboard-api:
         specifier: 0.7.0-beta.0
         version: 0.7.0-beta.0
