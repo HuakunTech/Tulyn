@@ -1,10 +1,5 @@
-import {
-  ListItemType,
-  IconType,
-  TListItem,
-  systemCommands,
-  TCommand,
-} from "tauri-plugin-jarvis-api";
+import { ListItemType, IconType, TListItem, TCommand } from "tauri-plugin-jarvis-api/models";
+import { systemCommands } from "tauri-plugin-jarvis-api/commands";
 import { type IExtensionBase } from "./base";
 import { dialog } from "jarvis-api/ui";
 import { atom, type ReadableAtom } from "nanostores";

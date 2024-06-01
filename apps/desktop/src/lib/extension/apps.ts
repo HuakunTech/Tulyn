@@ -1,5 +1,6 @@
 import { type IExtensionBase } from "./base";
-import { AppInfo, TListItem, getAllApps, refreshApplicationsList } from "tauri-plugin-jarvis-api";
+import { getAllApps, refreshApplicationsList } from "tauri-plugin-jarvis-api/commands";
+import { AppInfo, TListItem } from "tauri-plugin-jarvis-api/models";
 import { convertFileSrc } from "@tauri-apps/api/core";
 import { open } from "jarvis-api/ui";
 import { ElNotification } from "element-plus";

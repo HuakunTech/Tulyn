@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/toast";
 import { $appConfig, setDevExtentionPath } from "@/lib/stores/appConfig";
 import { useStore } from "@nanostores/vue";
-import { pathExists } from "tauri-plugin-jarvis-api";
+import { pathExists } from "tauri-plugin-jarvis-api/commands";
 import { onMount } from "nanostores";
 // import { loadDevExtManifests, loadExtManifests, $extensionsStore } from "@/lib/stores/extensions";
 import { open } from "@tauri-apps/plugin-dialog";
@@ -51,7 +51,7 @@ function clear() {
         title: "Cleared",
       });
     })
-    .catch((err) => {
+    .catch(() => {
       return toast({
         title: "Failed To Clear",
         variant: "destructive",

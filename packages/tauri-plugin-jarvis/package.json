@@ -8,9 +8,14 @@
   "main": "./dist-js/index.cjs",
   "module": "./dist-js/index.js",
   "exports": {
-    "types": "./dist-js/index.d.ts",
-    "import": "./dist-js/index.js",
-    "require": "./dist-js/index.cjs"
+    "./commands": {
+      "types": "./dist-js/commands/index.d.ts",
+      "import": "./dist-js/commands.js"
+    },
+    "./models": {
+      "types": "./dist-js/models/index.d.ts",
+      "import": "./dist-js/models.js"
+    }
   },
   "files": [
     "dist-js",

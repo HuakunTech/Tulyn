@@ -1,7 +1,4 @@
-// import { TListItem } from "tauri-plugin-jarvis-api";
-import { models } from "tauri-plugin-jarvis-api";
-export { models } from "tauri-plugin-jarvis-api";
-export * from "tauri-plugin-jarvis-api";
+import { TListItem } from "tauri-plugin-jarvis-api/models";
 
 export interface IClipboardAPI {
   writeText(text: string): void;
@@ -16,7 +13,7 @@ export interface IAppsAPI {
 export interface IJarvisAPIContext {
   getSearchQuery(): string;
   setSearchQuery(query: string): void;
-  setSearchResult(items: models.TListItem[]): void;
+  setSearchResult(items: TListItem[]): void;
   apps: IAppsAPI;
   clipboard: IClipboardAPI;
 }
@@ -30,7 +27,7 @@ export abstract class BaseJarvisExtension {
     throw new Error("Not implemented");
   }
 
-  onItemSelected(item: models.TListItem) {
+  onItemSelected(item: TListItem) {
     throw new Error("Not implemented");
   }
 }

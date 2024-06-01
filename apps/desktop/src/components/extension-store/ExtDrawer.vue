@@ -29,18 +29,14 @@ import { gqlClient } from "@/lib/utils/graphql";
 import { compareVersions } from "compare-versions";
 import { type Tables } from "@jarvis/supabase";
 import * as supabase from "@/lib/utils/supabase";
-import { JarvisExtManifest } from "jarvis-api";
+import { JarvisExtManifest } from "tauri-plugin-jarvis-api/models";
 import { Separator } from "@/components/ui/separator";
 import { CircleCheckBigIcon, Trash2Icon } from "lucide-vue-next";
 import { GlobalEventBus } from "@/lib/utils/events";
 import { installTarballUrl } from "@/lib/utils/tarball";
-import { getDevExtensionFolder, getExtensionFolder } from "tauri-plugin-jarvis-api";
+import { getDevExtensionFolder, getExtensionFolder } from "tauri-plugin-jarvis-api/commands";
 import { ElMessage } from "element-plus";
-import { InfoFilled } from "@element-plus/icons-vue";
 import { supabaseClient } from "@/lib/utils/supabase";
-// import { useToast } from "@/components/ui/toast/use-toast";
-// import { toast as sonner, toast } from "vue-sonner";
-// const toast = useToast();
 
 const props = defineProps<{
   open: boolean;

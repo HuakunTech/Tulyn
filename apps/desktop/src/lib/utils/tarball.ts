@@ -1,11 +1,13 @@
-import { loadManifest, getDevExtensionFolder, getExtensionFolder } from "tauri-plugin-jarvis-api";
+import {
+  loadManifest,
+  getDevExtensionFolder,
+  getExtensionFolder,
+} from "tauri-plugin-jarvis-api/commands";
 import { tempDir, join as pathJoin, downloadDir } from "@tauri-apps/api/path";
 import { v4 as uuidv4 } from "uuid";
 import { fs, path, dialog } from "jarvis-api/ui";
 import { ZodError } from "zod";
 import { download } from "@tauri-apps/plugin-upload";
-import { toast as sonner } from "vue-sonner";
-import { useToast } from "@/components/ui/toast";
 
 /**
  *

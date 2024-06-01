@@ -8,7 +8,7 @@ import {
   getDevExtensionFolder,
   getExtensionFolder,
   serverIsRunning,
-} from "tauri-plugin-jarvis-api";
+} from "tauri-plugin-jarvis-api/commands";
 import { Badge } from "@/components/ui/badge";
 import { onMounted, onUnmounted, ref } from "vue";
 import { useToast } from "@/components/ui/toast/use-toast";

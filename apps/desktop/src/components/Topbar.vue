@@ -11,7 +11,7 @@ import {
 import { Icon } from "@iconify/vue";
 import ModeToggle from "@/components/ui/ModeToggle.vue";
 import { Button } from "@/components/ui/button";
-import { toggleDevTools, appIsDev } from "tauri-plugin-jarvis-api";
+import { toggleDevTools, appIsDev } from "tauri-plugin-jarvis-api/commands";
 import { onMounted, ref } from "vue";
 
 const isDev = ref(false);

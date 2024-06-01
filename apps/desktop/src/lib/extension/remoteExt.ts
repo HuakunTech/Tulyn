@@ -1,9 +1,13 @@
 import { z } from "zod";
 import { atom, computed, type ReadableAtom, type WritableAtom, task } from "nanostores";
 import type { IExtensionBase } from "./base";
-import { TListItem, ListItemType, IconType, TListGroup, Icon } from "tauri-plugin-jarvis-api";
-
-// import { $remoteExtListItem } from "@/lib/stores/remoteExtensions";
+import {
+  TListItem,
+  ListItemType,
+  IconType,
+  TListGroup,
+  Icon,
+} from "tauri-plugin-jarvis-api/models";
 import { Store } from "@tauri-apps/plugin-store";
 import { ElMessage } from "element-plus";
 import axios from "axios";

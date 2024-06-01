@@ -1,6 +1,6 @@
 import type { ReadableAtom, WritableAtom } from "nanostores";
 import type { IExtensionBase } from "./base";
-import { TListItem, ListItemType } from "tauri-plugin-jarvis-api";
+import { TListItem, ListItemType } from "tauri-plugin-jarvis-api/models";
 import { atom } from "nanostores";
 import { ElMessage } from "element-plus";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";

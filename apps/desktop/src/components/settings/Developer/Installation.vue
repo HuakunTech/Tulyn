@@ -22,7 +22,7 @@ import { useStore } from "@nanostores/vue";
 import { $appConfig } from "@/lib/stores/appConfig";
 // import { useToast } from "@/components/ui/toast";
 import RemoteURLInstall from "./RemoteURLInstall.vue";
-import { getDevExtensionFolder, getExtensionFolder } from "tauri-plugin-jarvis-api";
+import { getDevExtensionFolder, getExtensionFolder } from "tauri-plugin-jarvis-api/commands";
 import { ElMessage, ElNotification } from "element-plus";
 
 // const { toast } = useToast();

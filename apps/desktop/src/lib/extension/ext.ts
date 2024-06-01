@@ -7,8 +7,8 @@ import {
   ListItemType,
   TListItem,
   TListGroup,
-  commands,
-} from "tauri-plugin-jarvis-api";
+} from "tauri-plugin-jarvis-api/models";
+import { loadAllExtensions, pathExists } from "tauri-plugin-jarvis-api/commands";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { type ReadableAtom, type WritableAtom, atom } from "nanostores";
 import { fs } from "jarvis-api/ui";
@@ -78,11 +78,10 @@ export class Extension implements IExtensionBase {
     this.$listItems = atom([]);
   }
   async load(): Promise<void> {
-    if (!this.extPath || !commands.pathExists(this.extPath)) {
+    if (!this.extPath || !pathExists(this.extPath)) {
       this.manifests = [];
     } else {
-      return commands
-        .loadAllExtensions(this.extPath)
+      return loadAllExtensions(this.extPath)
         .then((manifests) => {
           this.manifests = manifests;
           this.$listItems.set(

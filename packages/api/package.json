@@ -8,7 +8,7 @@
       "import": "./dist/index.js"
     },
     "./ui": {
-      "types": "./dist/ui.d.ts",
+      "types": "./dist/ui/index.d.ts",
       "import": "./dist/ui.js"
     }
   },
