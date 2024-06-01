@@ -44,6 +44,8 @@ const COMMANDS: &[&str] = &[
     "server_is_running",
     "decompress_tarball",
     "compress_tarball",
+    "get_default_extensions_dir",
+    "get_default_extensions_storage_dir",
 ];
 
 fn main() {

@@ -54,6 +54,9 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             commands::dev::is_devtools_open,
             commands::dev::toggle_devtools,
             commands::dev::app_is_dev,
+            // path commands
+            commands::path::get_default_extensions_dir,
+            commands::path::get_default_extensions_storage_dir,
             // system commands
             commands::system::open_trash,
             commands::system::empty_trash,

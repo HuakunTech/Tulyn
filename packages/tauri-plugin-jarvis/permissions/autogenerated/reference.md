@@ -17,6 +17,10 @@
 |`deny-execute`|Denies the execute command without any pre-configured scope.|
 |`allow-get-applications`|Enables the get_applications command without any pre-configured scope.|
 |`deny-get-applications`|Denies the get_applications command without any pre-configured scope.|
+|`allow-get-default-extensions-dir`|Enables the get_default_extensions_dir command without any pre-configured scope.|
+|`deny-get-default-extensions-dir`|Denies the get_default_extensions_dir command without any pre-configured scope.|
+|`allow-get-default-extensions-storage-dir`|Enables the get_default_extensions_storage_dir command without any pre-configured scope.|
+|`deny-get-default-extensions-storage-dir`|Denies the get_default_extensions_storage_dir command without any pre-configured scope.|
 |`allow-get-dev-extension-folder`|Enables the get_dev_extension_folder command without any pre-configured scope.|
 |`deny-get-dev-extension-folder`|Denies the get_dev_extension_folder command without any pre-configured scope.|
 |`allow-get-extension-folder`|Enables the get_extension_folder command without any pre-configured scope.|

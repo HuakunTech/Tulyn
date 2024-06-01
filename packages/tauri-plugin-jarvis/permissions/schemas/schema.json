@@ -414,6 +414,34 @@
           ]
         },
         {
+          "description": "allow-get-default-extensions-dir -> Enables the get_default_extensions_dir command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-get-default-extensions-dir"
+          ]
+        },
+        {
+          "description": "deny-get-default-extensions-dir -> Denies the get_default_extensions_dir command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-get-default-extensions-dir"
+          ]
+        },
+        {
+          "description": "allow-get-default-extensions-storage-dir -> Enables the get_default_extensions_storage_dir command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-get-default-extensions-storage-dir"
+          ]
+        },
+        {
+          "description": "deny-get-default-extensions-storage-dir -> Denies the get_default_extensions_storage_dir command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-get-default-extensions-storage-dir"
+          ]
+        },
+        {
           "description": "allow-get-dev-extension-folder -> Enables the get_dev_extension_folder command without any pre-configured scope.",
           "type": "string",
           "enum": [
