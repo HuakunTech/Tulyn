@@ -10,4 +10,16 @@ export * as shell from "./shell";
 export { open } from "./shell";
 // Network
 export * as updownload from "@tauri-apps/plugin-upload";
-export { JarvisStore } from "tauri-plugin-jarvis-api/commands";
+export {
+  JarvisStore,
+  getFrontmostApp,
+  getSelectedFilesInFileExplorer,
+  runAppleScript,
+  runPowershell,
+  pathExists,
+  openDevTools,
+  closeDevTools,
+  isDevToolsOpen,
+  toggleDevTools,
+  appIsDev,
+} from "tauri-plugin-jarvis-api/commands";
