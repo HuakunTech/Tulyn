@@ -127,6 +127,7 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             ));
             utils::setup::setup_server(app); // start the server
             utils::setup::setup_app_path(app);
+            utils::setup::setup_extension_storage(app);
             Ok(())
         })
         .build()

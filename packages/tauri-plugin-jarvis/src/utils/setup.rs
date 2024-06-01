@@ -29,3 +29,20 @@ pub fn setup_mac_transparent_bg(handle: &AppHandle) {
     apply_vibrancy(&window, NSVisualEffectMaterial::HudWindow, None, None)
         .expect("Unsupported platform! 'apply_vibrancy' is only supported on macOS");
 }
+
+
+/**
+ * On MacOS
+ * app_config: "/Users/<user>/Library/Application Support/tech.huakun.jarvis"
+ * app_data: "/Users/<user>/Library/Application Support/tech.huakun.jarvis"
+ * app_local_data: "/Users/<user>/Library/Application Support/tech.huakun.jarvis"
+ * app_cache: "/Users/<user>/Library/Caches/tech.huakun.jarvis"
+ * app_log: "/Users/<user>/Library/Logs/tech.huakun.jarvis"
+ */
+pub fn setup_extension_storage<R: Runtime>(handle: &AppHandle<R>) {
+    let app_data_dir = handle.path().app_data_dir().unwrap();
+    let ext_dir = app_data_dir.join("extensions_storage");
+    if !ext_dir.exists() {
+        std::fs::create_dir_all(&ext_dir).unwrap();
+    }
+}
