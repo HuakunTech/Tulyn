@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import { TCommand, CommandType } from "../models";
+import { TCommand, CommandType, AppInfo } from "@models/";
 import { platform } from "@tauri-apps/plugin-os";
 
 export function openTrash(): Promise<void> {
@@ -100,6 +100,10 @@ export function mute(): Promise<void> {
 
 export function unmute(): Promise<void> {
   return invoke("plugin:jarvis|unmute");
+}
+
+export function getFrontmostApp(): Promise<AppInfo> {
+  return invoke("plugin:jarvis|get_frontmost_app").then((app) => AppInfo.parse(app));
 }
 
 export function hideAllAppsExceptFrontmost(): Promise<void> {

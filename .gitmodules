@@ -10,3 +10,6 @@
 [submodule "vendors/tauri-plugin-network"]
 	path = vendors/tauri-plugin-network
 	url = https://github.com/HuakunShen/tauri-plugin-network.git
+[submodule "vendors/applications-rs"]
+	path = vendors/applications-rs
+	url = https://github.com/HuakunShen/applications-rs.git

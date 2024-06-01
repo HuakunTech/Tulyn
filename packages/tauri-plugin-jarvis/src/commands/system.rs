@@ -1,3 +1,5 @@
+use applications::AppInfo;
+
 use crate::syscmds::{CommonSystemCmds, SystemCmds};
 
 use super::utils::run_apple_script;
@@ -126,6 +128,13 @@ pub async fn mute() -> Result<(), String> {
 #[tauri::command]
 pub async fn unmute() -> Result<(), String> {
     SystemCmds::unmute().map_err(|err| err.to_string())
+}
+
+#[tauri::command]
+pub async fn get_frontmost_app() -> Result<applications::App, String> {
+    let ctx = applications::AppInfoContext::new();
+    ctx.get_frontmost_application()
+        .map_err(|err| err.to_string())
 }
 
 /// Hide All Apps Except Frontmost
