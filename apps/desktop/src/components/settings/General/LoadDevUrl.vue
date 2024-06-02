@@ -23,9 +23,8 @@ const checked = computed({
         for="dev-ext-load-url"
         class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 select-none"
       >
-        <span v-if="checked"> Load UI from Dev Server </span>
+        <span v-if="checked">Live Load UI from Dev Server</span>
         <span v-else>Load from Compiled Static Assets</span>
-
       </label>
     </div>
   </div>

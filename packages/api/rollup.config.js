@@ -17,7 +17,7 @@ export default [
     plugins: [
       typescript({
         declaration: true,
-        declarationDir: `./.`,
+        declarationDir: `./dist/types`,
       }),
     ],
     external: [
@@ -37,7 +37,7 @@ export default [
     plugins: [
       typescript({
         declaration: true,
-        declarationDir: `./.`,
+        declarationDir: `./dist/types/ui`,
       }),
     ],
     external: [
@@ -57,7 +57,7 @@ export default [
     plugins: [
       typescript({
         declaration: true,
-        declarationDir: `./.`,
+        declarationDir: `./dist/types/models`,
       }),
     ],
     external: [

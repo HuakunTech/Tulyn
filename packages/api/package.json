@@ -1,18 +1,18 @@
 {
   "name": "jarvis-api",
-  "version": "0.0.2-alpha.13",
+  "version": "0.0.2-alpha.14",
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./dist/types/index.d.ts",
       "import": "./dist/index.js"
     },
     "./ui": {
-      "types": "./dist/ui/index.d.ts",
+      "types": "./dist/types/ui/index.d.ts",
       "import": "./dist/ui.js"
     },
     "./models": {
-      "types": "./dist/models/index.d.ts",
+      "types": "./dist/types/models/index.d.ts",
       "import": "./dist/models.js"
     }
   },

@@ -5,7 +5,7 @@ import type { IExtensionBase } from "@/lib/extension/base";
 import { $appState } from "@/lib/stores/appState";
 import { useStore } from "@nanostores/vue";
 import { computed } from "vue";
-import type { TListItem } from "jarvis-api";
+import type { TListItem } from "jarvis-api/models";
 
 const appState = useStore($appState);
 const props = defineProps<{ ext: IExtensionBase }>();
