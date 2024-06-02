@@ -1,25 +1,28 @@
 {
   "name": "jarvis-api",
-  "version": "0.0.2-alpha.14",
+  "version": "0.0.2-alpha.15",
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/index.js"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./ui": {
-      "types": "./dist/types/ui/index.d.ts",
-      "import": "./dist/ui.js"
+      "types": "./dist/ui/index.d.ts",
+      "import": "./dist/ui/index.js",
+      "require": "./dist/ui/index.cjs"
     },
     "./models": {
-      "types": "./dist/types/models/index.d.ts",
-      "import": "./dist/models.js"
+      "types": "./dist/models/index.d.ts",
+      "import": "./dist/models/index.js",
+      "require": "./dist/models/index.cjs"
     }
   },
   "scripts": {
     "test": "bun test --coverage",
     "build:doc": "npx typedoc",
-    "build": "rollup -c",
+    "build": "tsup",
     "develop": "rollup -c --watch"
   },
   "devDependencies": {
