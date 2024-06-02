@@ -31,7 +31,7 @@ const builtinCmdExt = new BuiltinCmds();
 const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath, true);
 const storeExt = new Extension("Extensions", extensionsFolder);
 const remoteExt = new RemoteExtension();
-const exts: IExtensionBase[] = [storeExt, builtinCmdExt, remoteExt, devExt, sysCmdExt, appExt];
+const exts: IExtensionBase[] = [devExt, remoteExt, storeExt, builtinCmdExt, sysCmdExt, appExt];
 
 // search input debouncing
 const searchTermInSync = ref("");

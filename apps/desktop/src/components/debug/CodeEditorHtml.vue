@@ -1,18 +1,26 @@
 <script setup lang="ts">
 import { codeToHtml } from "shikiji";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
+import { computedAsync } from "@vueuse/core";
 
-const code = "const a = 1"; // input code
+const props = defineProps<{
+  lang: string;
+  theme: string;
+  value: string;
+}>();
+
 const html = ref("");
-onMounted(async () => {
-  html.value = await codeToHtml(code, {
-    lang: "rust",
-    theme: "vitesse-dark",
-  });
-});
 
-console.log(html); // highlighted html string
+watch(
+  () => props.value,
+  async () => {
+    html.value = await codeToHtml(props.value, {
+      lang: props.lang,
+      theme: props.theme,
+    });
+  },
+);
 </script>
 <template>
-  <div v-html="html"></div>
+  <div class="" v-html="html"></div>
 </template>

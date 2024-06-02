@@ -18,21 +18,38 @@
             "identifier": "shell:allow-execute",
             "allow": [
                 {
-                    "name": "exec-ffmpeg",
+                    "name": "ffmpeg",
                     "cmd": "ffmpeg",
                     "args": true,
                     "sidecar": false
                 },
                 {
-                    "name": "exec-ffprobe",
+                    "name": "ffprobe",
                     "cmd": "ffprobe",
                     "args": true,
                     "sidecar": false
                 },
                 {
-                    "name": "exec-bash",
+                    "name": "bash",
                     "cmd": "bash",
                     "args": true,
+                    "sidecar": false
+                },
+                {
+                    "name": "echo",
+                    "cmd": "echo",
+                    "args": true,
+                    "sidecar": false
+                },
+                {
+                    "name": "exec-sh",
+                    "cmd": "sh",
+                    "args": [
+                        "-c",
+                        {
+                            "validator": "\\S+"
+                        }
+                    ],
                     "sidecar": false
                 }
             ]
@@ -41,20 +58,26 @@
             "identifier": "shell:allow-spawn",
             "allow": [
                 {
-                    "name": "exec-ffmpeg",
+                    "name": "ffmpeg",
                     "cmd": "ffmpeg",
                     "args": true,
                     "sidecar": false
                 },
                 {
-                    "name": "exec-ffprobe",
+                    "name": "ffprobe",
                     "cmd": "ffprobe",
                     "args": true,
                     "sidecar": false
                 },
                 {
-                    "name": "exec-bash",
+                    "name": "bash",
                     "cmd": "bash",
+                    "args": true,
+                    "sidecar": false
+                },
+                {
+                    "name": "echo",
+                    "cmd": "echo",
                     "args": true,
                     "sidecar": false
                 }

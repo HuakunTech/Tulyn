@@ -2,17 +2,15 @@
 import { getHighlighter } from "shikiji";
 import { shikijiToMonaco } from "shikiji-monaco";
 import * as monaco from "monaco-editor-core";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 
 const themes = ["vitesse-dark", "github-dark", "one-dark-pro", "dark-plus"];
-const langs = ["javascript", "typescript", "vue"];
+const langs = ["javascript", "typescript", "vue", "json"];
 const editorRef = ref(null);
+const editor = ref<monaco.editor.IStandaloneCodeEditor>();
 const props = defineProps({
   value: String,
-  language: {
-    type: String,
-    default: "typescript",
-  },
+  language: String,
   fontSize: {
     type: Number,
     default: 14,
@@ -37,7 +35,7 @@ onMounted(async () => {
   }
 
   if (editorRef.value) {
-    const editor = monaco.editor.create(editorRef.value, {
+    editor.value = monaco.editor.create(editorRef.value, {
       value: props.value,
       language: props.language,
       fontSize: props.fontSize,
@@ -45,6 +43,13 @@ onMounted(async () => {
     });
   }
 });
+
+watch(
+  () => props.value,
+  () => {
+    editor.value?.setValue(props.value ?? "");
+  },
+);
 </script>
 
 <template>

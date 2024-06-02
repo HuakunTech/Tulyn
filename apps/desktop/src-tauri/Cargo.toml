@@ -29,7 +29,7 @@ tauri-plugin-clipboard = { version = "0.7.0-beta.1" }
 # tauri-plugin-clipboard = { path = "../../../vendors/tauri-plugin-clipboard" }
 tauri-plugin-store = "2.0.0-beta.6"
 tauri-plugin-dialog = "2.0.0-beta.7"
-tauri-plugin-shell = "2.0.0-beta.5"
+tauri-plugin-shell = "2.0.0-beta.4"
 tauri-plugin-upload = "2.0.0-beta.5"
 tauri-plugin-notification = "2.0.0-beta.5"
 tauri-plugin-log = { version = "2.0.0-beta.4", features = ["colored"] }

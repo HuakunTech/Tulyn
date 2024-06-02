@@ -43,6 +43,22 @@
     "shell:allow-kill",
     "shell:allow-spawn",
     "shell:allow-stdin-write",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "exec-sh",
+          "cmd": "sh",
+          "args": [
+            "-c",
+            {
+              "validator": "\\S+"
+            }
+          ],
+          "sidecar": false
+        }
+      ]
+    },
     "upload:default",
     "notification:default",
     "log:default",

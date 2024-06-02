@@ -6,7 +6,7 @@ import DebugExtLabelMap from "./DebugExtLabelMap.vue";
   <div class="px-3 flex flex-col space-y-4 overflow-x-clip">
     <DebugExtLabelMap />
     <Separator />
-    <CodeEditor language="javascript" />
+    <!-- <CodeEditor language="javascript" /> -->
     <!-- <CodeEditorHtml /> -->
   </div>
 </template>
