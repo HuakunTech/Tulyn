@@ -42,19 +42,19 @@ pub fn run() -> anyhow::Result<()> {
         // .plugin(tauri_plugin_log::Builder::new().build())
         .plugin(
             tauri_plugin_log::Builder::new()
-                // .format(|buf, argrecord| {
-                //     writeln!(
-                //         buf,
-                //         "{} [{}] - {}",
-                //         Local::now().format("%Y-%m-%dT%H:%M:%S"),
-                //         record.level(),
-                //         record.args()
-                //     )
-                // })
                 .targets(log_targets)
                 .level(log::get_log_level())
                 .with_colors(ColoredLevelConfig::default())
                 .max_file_size(10_000_000) // max 10MB
+                .format(|out, message, record| {
+                    out.finish(format_args!(
+                        "{}[{}] {}",
+                        chrono::Local::now().format("[%Y-%m-%d][%H:%M:%S]"),
+                        // record.target(),
+                        record.level(),
+                        message
+                    ))
+                })
                 .build(),
         )
         .plugin(tauri_plugin_notification::init())
