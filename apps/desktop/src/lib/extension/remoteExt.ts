@@ -12,6 +12,7 @@ import { Store } from "@tauri-apps/plugin-store";
 import { ElMessage } from "element-plus";
 import axios from "axios";
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
+import { info } from "@tauri-apps/plugin-log";
 
 export const RemoteExt = z.object({
   name: z.string().min(1),
@@ -76,7 +77,7 @@ export class RemoteExtension implements IExtensionBase {
   async load(): Promise<void> {
     const defaultState: RemoteExtState = [];
     const loadedConfig = await this.persistAppConfig.get("remoteExts");
-    console.log(loadedConfig);
+    info(`Loaded remote extensions: ${JSON.stringify(loadedConfig, null, 2)}`)
 
     if (loadedConfig !== null) {
       // not null means config is initialized, if parse error is thrown then it's a problem

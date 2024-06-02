@@ -1,5 +1,6 @@
 import { invoke } from "@tauri-apps/api/core";
 import { ExtPackageJsonExtra } from "@/models/manifest";
+import { error, debug } from "@tauri-apps/plugin-log";
 
 export function loadManifest(manifestPath: string): Promise<ExtPackageJsonExtra> {
   return invoke("plugin:jarvis|load_manifest", { manifestPath }).then((res) =>
@@ -14,10 +15,12 @@ export function loadAllExtensions(extensionsFolder: string): Promise<ExtPackageJ
         .map((x: unknown) => {
           const parse = ExtPackageJsonExtra.safeParse(x);
           if (parse.error) {
-            console.error(`Fail to load extension ${extensionsFolder}`, parse.error);
+            error(`Fail to load extension ${extensionsFolder}. Error: ${parse.error}`);
+            console.error(parse.error);
+
             return null;
           } else {
-            console.log(`Loaded extension ${parse.data.jarvis.name}`);
+            debug(`Loaded extension ${parse.data.jarvis.identifier} from ${extensionsFolder}`);
             return parse.data;
           }
         })

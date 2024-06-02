@@ -3,6 +3,8 @@ name = "cli"
 version = "0.1.0"
 edition = "2021"
 
+default-run = "cli"
+
 [dependencies]
 # tower = { version = "0.4.13", features = ["util"] }
 # tower-http = { "version" = "0.5.2", features = ["fs", "trace"] }
@@ -26,4 +28,5 @@ tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 tar = "0.4.40"
 flate2 = "1.0.30"
 anyhow = "1.0.86"
+chrono = "0.4.38"
 

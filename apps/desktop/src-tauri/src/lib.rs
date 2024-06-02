@@ -1,15 +1,12 @@
 use std::path::PathBuf;
-use tauri::Manager;
-use tauri_plugin_fs::FsExt;
-use tauri_plugin_global_shortcut::{Code, Modifiers, ShortcutState};
-use tauri_plugin_store::StoreBuilder;
+use tauri_plugin_log::{fern::colors::ColoredLevelConfig, Target as LogTarget, TargetKind};
+
+mod log;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() -> anyhow::Result<()> {
-    // get cwd
-    let mut log_path = std::env::current_dir().unwrap();
-    log_path.push("jarvis-logs");
-
+    let log_targets = log::get_log_targets();
+    // generate a filename for log with date and time created
     tauri::Builder::default()
         .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_http::init())
@@ -43,17 +40,23 @@ pub fn run() -> anyhow::Result<()> {
         //         .build(),
         // )
         // .plugin(tauri_plugin_log::Builder::new().build())
-        // .plugin(
-        //     tauri_plugin_log::Builder::new()
-        //         .targets([
-        //             Target::new(TargetKind::Stdout),
-        //             Target::new(TargetKind::LogDir {
-        //                 file_name: Some(log_path.to_str().unwrap().to_string()),
-        //             }),
-        //             Target::new(TargetKind::Webview),
-        //         ])
-        //         .build(),
-        // )
+        .plugin(
+            tauri_plugin_log::Builder::new()
+                // .format(|buf, argrecord| {
+                //     writeln!(
+                //         buf,
+                //         "{} [{}] - {}",
+                //         Local::now().format("%Y-%m-%dT%H:%M:%S"),
+                //         record.level(),
+                //         record.args()
+                //     )
+                // })
+                .targets(log_targets)
+                .level(log::get_log_level())
+                .with_colors(ColoredLevelConfig::default())
+                .max_file_size(10_000_000) // max 10MB
+                .build(),
+        )
         .plugin(tauri_plugin_notification::init())
         .plugin(tauri_plugin_upload::init())
         .plugin(tauri_plugin_shell::init())
@@ -62,6 +65,7 @@ pub fn run() -> anyhow::Result<()> {
         .plugin(tauri_plugin_clipboard::init())
         .plugin(tauri_plugin_jarvis::init())
         .setup(|app| {
+            log::clear_old_log_files(app.handle()).unwrap();
             // app.manage(ApplicationsState::default());
             // let mut store = StoreBuilder::new("appConfig.bin").build(app.handle().clone());
             // let _ = store.load();

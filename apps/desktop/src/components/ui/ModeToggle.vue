@@ -8,12 +8,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import { setLightMode, type LightMode } from "@/lib/stores/appConfig";
 
 const props = defineProps<{
   class?: string;
 }>();
-const mode = useColorMode();
+// const mode = useColorMode();
 const isDark = useDark();
+const colorMode = useColorMode();
+
+function changeLightMode(mode: LightMode) {
+  colorMode.value = mode;
+  setLightMode(mode);
+}
 </script>
 
 <template>
@@ -34,9 +41,9 @@ const isDark = useDark();
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem @click="mode = 'light'"> Light </DropdownMenuItem>
-        <DropdownMenuItem @click="mode = 'dark'"> Dark </DropdownMenuItem>
-        <DropdownMenuItem @click="mode = 'auto'"> System </DropdownMenuItem>
+        <DropdownMenuItem @click="changeLightMode('light')"> Light </DropdownMenuItem>
+        <DropdownMenuItem @click="changeLightMode('dark')"> Dark </DropdownMenuItem>
+        <DropdownMenuItem @click="changeLightMode('auto')"> System </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   </span>

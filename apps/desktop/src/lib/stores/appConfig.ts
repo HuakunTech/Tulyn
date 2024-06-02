@@ -7,6 +7,7 @@ import {
   restartServer,
   setDevExtensionFolder as setDevExtensionFolderForServer,
 } from "tauri-plugin-jarvis-api/commands";
+import { trace, info, error, attachConsole, debug } from "@tauri-apps/plugin-log";
 
 const persistAppConfig = new Store("appConfig.bin");
 
@@ -59,6 +60,7 @@ export function setRadius(radius: number) {
 }
 
 export function setLightMode(mode: LightMode) {
+  debug(`setLightMode: ${mode}`);
   $appConfig.setKey("lightMode", LightMode.parse(mode));
 }
 

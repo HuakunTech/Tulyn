@@ -71,7 +71,7 @@ function changeLightMode(mode: LightMode) {
           class="h-8"
           variant="outline"
           :class="{ 'border-2 border-foreground': appConfig.lightMode == 'light' }"
-          @click="setLightMode('light')"
+          @click="changeLightMode('light')"
         >
           <SunIcon class="w-4 h-4 mr-2" />
           <span class="text-xs">Light</span>
@@ -80,7 +80,7 @@ function changeLightMode(mode: LightMode) {
           class="h-8"
           variant="outline"
           :class="{ 'border-2 border-foreground': appConfig.lightMode == 'dark' }"
-          @click="setLightMode('dark')"
+          @click="changeLightMode('dark')"
         >
           <MoonIcon class="w-4 h-4 mr-2" />
           <span class="text-xs">Dark</span>

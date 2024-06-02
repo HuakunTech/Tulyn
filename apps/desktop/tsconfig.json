@@ -10,6 +10,5 @@
     },
     "jsxImportSource": "react"
   },
-  "exclude": ["src-tauri"],
-  "include": ["src"]
+  "exclude": ["src-tauri"]
 }
