@@ -65,6 +65,8 @@ declare module 'vue' {
     CarouselNext: typeof import('./src/components/ui/carousel/CarouselNext.vue')['default']
     CarouselPrevious: typeof import('./src/components/ui/carousel/CarouselPrevious.vue')['default']
     Checkbox: typeof import('./src/components/ui/checkbox/Checkbox.vue')['default']
+    CodeEditor: typeof import('./src/components/debug/CodeEditor.vue')['default']
+    CodeEditorHtml: typeof import('./src/components/debug/CodeEditorHtml.vue')['default']
     Collapsible: typeof import('./src/components/ui/collapsible/Collapsible.vue')['default']
     CollapsibleContent: typeof import('./src/components/ui/collapsible/CollapsibleContent.vue')['default']
     CollapsibleTrigger: typeof import('./src/components/ui/collapsible/CollapsibleTrigger.vue')['default']

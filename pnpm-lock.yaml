@@ -152,6 +152,9 @@ importers:
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
+      monaco-editor-core:
+        specifier: ^0.49.0
+        version: 0.49.0
       nanostores:
         specifier: ^0.10.3
         version: 0.10.3
@@ -170,6 +173,9 @@ importers:
       reactflow:
         specifier: ^11.11.3
         version: 11.11.3(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      shikiji:
+        specifier: ^0.10.2
+        version: 0.10.2
       tailwind-merge:
         specifier: ^2.3.0
         version: 2.3.0
@@ -222,6 +228,9 @@ importers:
       rollup-plugin-visualizer:
         specifier: ^5.12.0
         version: 5.12.0(rollup@4.18.0)
+      shikiji-monaco:
+        specifier: ^0.10.2
+        version: 0.10.2
       tauri-plugin-jarvis-api:
         specifier: workspace:*
         version: link:../../packages/tauri-plugin-jarvis
@@ -5365,6 +5374,9 @@ packages:
   mlly@1.7.0:
     resolution: {integrity: sha512-U9SDaXGEREBYQgfejV97coK0UL1r+qnF2SyO9A3qcI8MzKnsIFKHNVEkrDyNncQTKQQumsasmeq84eNMdBfsNQ==}
 
+  monaco-editor-core@0.49.0:
+    resolution: {integrity: sha512-MANZcpLnpcM5qceEMsdwndvyB9rlGu+Sd8mVLd6y4VpSZCQenpoUAYk0K+UAPtcnCOYhgIsR/ZS9PxzMnCFkYw==}
+
   monaco-editor@0.48.0:
     resolution: {integrity: sha512-goSDElNqFfw7iDHMg8WDATkfcyeLTNpBHQpO8incK6p5qZt5G/1j41X0xdGzpIkGojGXM+QiRQyLjnfDVvrpwA==}
 
@@ -6110,6 +6122,15 @@ packages:
 
   shiki@1.6.0:
     resolution: {integrity: sha512-P31ROeXcVgW/k3Z+vUUErcxoTah7ZRaimctOpzGuqAntqnnSmx1HOsvnbAB8Z2qfXPRhw61yptAzCsuKOhTHwQ==}
+
+  shikiji-core@0.10.2:
+    resolution: {integrity: sha512-9Of8HMlF96usXJHmCL3Gd0Fcf0EcyJUF9m8EoAKKd98mHXi0La2AZl1h6PegSFGtiYcBDK/fLuKbDa1l16r1fA==}
+
+  shikiji-monaco@0.10.2:
+    resolution: {integrity: sha512-o/6UCWD3Pz1r/dcQ6yG5cztQBAO/vHDL+6h2wwDu+Vs/cFtGpFHF9mcr7zCIME2XozjbPY87moyjUR7sN+1GSA==}
+
+  shikiji@0.10.2:
+    resolution: {integrity: sha512-wtZg3T0vtYV2PnqusWQs3mDaJBdCPWxFDrBM/SE5LfrX92gjUvfEMlc+vJnoKY6Z/S44OWaCRzNIsdBRWcTAiw==}
 
   siginfo@2.0.0:
     resolution: {integrity: sha512-ybx0WO1/8bSBLEWXZvEd7gMW3Sn3JFlW3TvX1nREbDLRNQNaeNN8WK0meBwPdAaOI7TtRRRJn/Es1zhrrCHu7g==}
@@ -13464,6 +13485,8 @@ snapshots:
       pkg-types: 1.1.1
       ufo: 1.5.3
 
+  monaco-editor-core@0.49.0: {}
+
   monaco-editor@0.48.0: {}
 
   mrmime@2.0.0: {}
@@ -14354,6 +14377,16 @@ snapshots:
   shiki@1.6.0:
     dependencies:
       '@shikijs/core': 1.6.0
+
+  shikiji-core@0.10.2: {}
+
+  shikiji-monaco@0.10.2:
+    dependencies:
+      shikiji-core: 0.10.2
+
+  shikiji@0.10.2:
+    dependencies:
+      shikiji-core: 0.10.2
 
   siginfo@2.0.0: {}
 
