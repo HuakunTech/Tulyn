@@ -20,18 +20,46 @@
                 {
                     "name": "exec-ffmpeg",
                     "cmd": "ffmpeg",
-                    "args": [],
+                    "args": true,
                     "sidecar": false
                 },
                 {
                     "name": "exec-ffprobe",
                     "cmd": "ffprobe",
-                    "args": [],
+                    "args": true,
+                    "sidecar": false
+                },
+                {
+                    "name": "exec-bash",
+                    "cmd": "bash",
+                    "args": true,
                     "sidecar": false
                 }
             ]
         },
-        "shell:allow-spawn",
+        {
+            "identifier": "shell:allow-spawn",
+            "allow": [
+                {
+                    "name": "exec-ffmpeg",
+                    "cmd": "ffmpeg",
+                    "args": true,
+                    "sidecar": false
+                },
+                {
+                    "name": "exec-ffprobe",
+                    "cmd": "ffprobe",
+                    "args": true,
+                    "sidecar": false
+                },
+                {
+                    "name": "exec-bash",
+                    "cmd": "bash",
+                    "args": true,
+                    "sidecar": false
+                }
+            ]
+        },
         "shell:allow-stdin-write",
         "jarvis:allow-run-apple-script",
         "jarvis:allow-run-powershell"
