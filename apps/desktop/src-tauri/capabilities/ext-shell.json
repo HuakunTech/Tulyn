@@ -76,6 +76,12 @@
                     "sidecar": false
                 },
                 {
+                    "name": "zsh",
+                    "cmd": "zsh",
+                    "args": true,
+                    "sidecar": false
+                },
+                {
                     "name": "echo",
                     "cmd": "echo",
                     "args": true,

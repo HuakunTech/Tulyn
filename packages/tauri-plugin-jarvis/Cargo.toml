@@ -9,7 +9,7 @@ exclude = ["/examples", "/webview-dist", "/webview-src", "/node_modules"]
 links = "tauri-plugin-jarvis"
 
 [dependencies]
-tauri = { version = "2.0.0-beta.19" }
+tauri = { version = "2.0.0-beta" }
 serde = "1.0"
 thiserror = "1.0"
 applications = { path = "../../vendors/applications-rs" }
@@ -20,7 +20,7 @@ flate2 = "1.0.30"
 tauri-icns = "0.1.0"
 serde_json = "1.0.117"
 window-vibrancy = "0.5.0"
-tauri-plugin-store = "2.0.0-beta.6"
+tauri-plugin-store = "2.0.0-beta"
 axum = { version = "0.6.20" }
 axum-extra = { version = "0.8.0" }
 tower = { version = "0.4", features = ["util"] }
@@ -31,5 +31,5 @@ uuid = { version = "1.8.0", features = ["v4"] }
 
 
 [build-dependencies]
-tauri-plugin = { version = "2.0.0-beta.15", features = ["build"] }
+tauri-plugin = { version = "2.0.0-beta", features = ["build"] }
 tonic-build = "0.11"

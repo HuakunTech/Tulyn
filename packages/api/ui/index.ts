@@ -3,6 +3,7 @@ export * as fs from "./fs";
 export * as window from "./window";
 export * as http from "@tauri-apps/plugin-http";
 export * as dialog from "./dialog";
+export * as log from "@tauri-apps/plugin-log";
 export * as path from "./path";
 export * as notification from "./notification";
 // Shell

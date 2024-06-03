@@ -1,3 +1,4 @@
+import axios from "axios";
 import { type IExtensionBase } from "./base";
 import { $appConfig } from "@/lib/stores/appConfig";
 import {
@@ -18,8 +19,8 @@ import {
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { type ReadableAtom, type WritableAtom, atom } from "nanostores";
 import { fs } from "jarvis-api/ui";
+import { log } from "jarvis-api/ui";
 import { ElMessage, ElNotification } from "element-plus";
-import { v4 as uuidv4 } from "uuid";
 
 /**
  * Generate a value (unique identified) for a command in an extension
@@ -54,10 +55,16 @@ export function cmdToItem(
 }
 
 function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: UiCmd, url: string) {
-  return registerExtensionWindow(manifest.extPath).then((windowLabel) => {
-    // console.log(`Open Extension: ${manifest.jarvis.name} - ${cmd.name}`);
-    // console.log("url", url);
-    // console.log("windowLabel", windowLabel);
+  return registerExtensionWindow(manifest.extPath).then(async (windowLabel) => {
+    try {
+      await axios.get(url);
+    } catch (error) {
+      log.error(`Failed to load extension UI at ${url}: ${error}`);
+      return ElNotification.error({
+        title: "Failed to load extension UI",
+        message: "Consider Running the TroubleShooter",
+      });
+    }
 
     const window = new WebviewWindow(windowLabel, {
       center: cmd.window?.center ?? undefined,
