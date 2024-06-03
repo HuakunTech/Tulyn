@@ -91,6 +91,7 @@
         },
         "shell:allow-stdin-write",
         "jarvis:allow-run-apple-script",
-        "jarvis:allow-run-powershell"
+        "jarvis:allow-run-powershell",
+        "jarvis:allow-run-script"
     ]
 }

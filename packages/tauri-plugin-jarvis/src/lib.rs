@@ -87,6 +87,7 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             // run scripts
             commands::utils::run_apple_script,
             commands::utils::run_powershell,
+            commands::utils::run_script,
             // applications
             commands::apps::get_applications,
             commands::apps::refresh_applications_list,

@@ -91,6 +91,8 @@
 |`deny-run-apple-script`|Denies the run_apple_script command without any pre-configured scope.|
 |`allow-run-powershell`|Enables the run_powershell command without any pre-configured scope.|
 |`deny-run-powershell`|Denies the run_powershell command without any pre-configured scope.|
+|`allow-run-script`|Enables the run_script command without any pre-configured scope.|
+|`deny-run-script`|Denies the run_script command without any pre-configured scope.|
 |`allow-server-is-running`|Enables the server_is_running command without any pre-configured scope.|
 |`deny-server-is-running`|Denies the server_is_running command without any pre-configured scope.|
 |`allow-set-dev-extension-folder`|Enables the set_dev_extension_folder command without any pre-configured scope.|

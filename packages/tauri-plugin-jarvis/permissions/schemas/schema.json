@@ -932,6 +932,20 @@
           ]
         },
         {
+          "description": "allow-run-script -> Enables the run_script command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-run-script"
+          ]
+        },
+        {
+          "description": "deny-run-script -> Denies the run_script command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-run-script"
+          ]
+        },
+        {
           "description": "allow-server-is-running -> Enables the server_is_running command without any pre-configured scope.",
           "type": "string",
           "enum": [

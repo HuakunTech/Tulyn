@@ -43,10 +43,7 @@ const builtinCmds: BuiltinCmd[] = [
       return Promise.resolve();
     },
   },
-];
-
-if (import.meta.env.DEV) {
-  builtinCmds.push({
+  {
     name: "Open Debug Page",
     iconifyIcon: "carbon:debug",
     description: "Open Debug Page",
@@ -65,8 +62,8 @@ if (import.meta.env.DEV) {
       }
       return Promise.resolve();
     },
-  });
-}
+  },
+];
 
 function genListItemValue(name: string): string {
   return "builtin:" + name;

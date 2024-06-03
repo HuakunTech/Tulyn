@@ -66,7 +66,7 @@ impl CommonSystemCmds for SystemCmds {
     }
 
     fn get_selected_files() -> anyhow::Result<Vec<PathBuf>> {
-        let stdout = run_apple_script(
+        let output = run_apple_script(
             r#"use framework "Foundation"
             use scripting additions
             
@@ -91,7 +91,7 @@ impl CommonSystemCmds for SystemCmds {
             end tell
             "#,
         )?;
-        let paths: Vec<PathBuf> = serde_json::from_str(&stdout)?;
+        let paths: Vec<PathBuf> = serde_json::from_str(&output.stdout)?;
         Ok(paths)
     }
 }

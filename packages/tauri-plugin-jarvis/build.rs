@@ -28,6 +28,7 @@ const COMMANDS: &[&str] = &[
     "get_selected_files_in_file_explorer",
     "run_apple_script",
     "run_powershell",
+    "run_script",
     "get_applications",
     "refresh_applications_list",
     "refresh_applications_list_in_bg",

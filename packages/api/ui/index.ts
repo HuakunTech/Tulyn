@@ -1,5 +1,6 @@
 export { default as clipboard } from "tauri-plugin-clipboard-api"; // re-export from tauri-plugin-clipboard-api
 export * as fs from "./fs";
+export { invoke } from "@tauri-apps/api/core";
 export * as window from "./window";
 export * as http from "@tauri-apps/plugin-http";
 export * as dialog from "./dialog";
@@ -9,6 +10,7 @@ export * as notification from "./notification";
 // Shell
 export * as shell from "./shell";
 export { open } from "./shell";
+export * as os from "@tauri-apps/plugin-os";
 // Network
 export * as updownload from "@tauri-apps/plugin-upload";
 export {
@@ -17,6 +19,7 @@ export {
   getSelectedFilesInFileExplorer,
   runAppleScript,
   runPowershell,
+  runScript,
   pathExists,
   openDevTools,
   closeDevTools,
