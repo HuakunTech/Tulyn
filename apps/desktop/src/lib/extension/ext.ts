@@ -56,15 +56,15 @@ export function cmdToItem(
 
 function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: UiCmd, url: string) {
   return registerExtensionWindow(manifest.extPath).then(async (windowLabel) => {
-    try {
-      await axios.get(url);
-    } catch (error) {
-      log.error(`Failed to load extension UI at ${url}: ${error}`);
-      return ElNotification.error({
-        title: "Failed to load extension UI",
-        message: "Consider Running the TroubleShooter",
-      });
-    }
+    // try {
+    //   await axios.get(url);
+    // } catch (error) {
+    //   log.error(`Failed to load extension UI at ${url}: ${error}`);
+    //   return ElNotification.error({
+    //     title: "Failed to load extension UI",
+    //     message: "Consider Running the TroubleShooter",
+    //   });
+    // }
 
     const window = new WebviewWindow(windowLabel, {
       center: cmd.window?.center ?? undefined,
@@ -100,6 +100,11 @@ function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: UiCmd, u
       visibleOnAllWorkspaces: cmd.window?.visibleOnAllWorkspaces ?? undefined,
       url,
     });
+
+    // new WebviewWindow("", {
+    //   url: 
+    // })
+
     window.onCloseRequested(async (event) => {
       await unregisterExtensionWindow(window.label);
     });
