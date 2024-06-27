@@ -20,9 +20,9 @@ tauri-plugin-notification = "2.0.0-beta.8"
 tauri-plugin-os = "2.0.0-beta.6"
 tauri-plugin-shellx = "2.0.7"
 tauri-plugin-http = "2.0.0-beta.10"
-tauri-plugin-clipboard = { path = "../../../vendors/tauri-plugin-clipboard" }
 tauri-plugin-dialog = "2.0.0-beta.9"
 tauri-plugin-jarvis = { path = "../../../packages/tauri-plugin-jarvis" }
 tauri-plugin-network = { path = "../../../vendors/tauri-plugin-network" }
 tauri-plugin-system-info = { path = "../../../vendors/tauri-plugin-system-info" }
+tauri-plugin-clipboard = "2.0.4"
 
