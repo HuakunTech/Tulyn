@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "npm run tauri build",
+    "build": "npm run generate",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
@@ -19,7 +19,9 @@
     "@tauri-apps/plugin-notification": "2.0.0-beta.3",
     "@tauri-apps/plugin-os": "2.0.0-beta.3",
     "nuxt": "^3.12.2",
-    "tauri-plugin-clipboard-api": "2.0.4",
+    "tauri-plugin-clipboard-api": "workspace:*",
+    "tauri-plugin-network-api": "workspace:*",
+    "tauri-plugin-system-info-api": "workspace:*",
     "tauri-plugin-shellx-api": "^2.0.7"
   }
 }

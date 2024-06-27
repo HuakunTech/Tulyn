@@ -10,8 +10,9 @@
   },
   "devDependencies": {
     "eslint": "^8.48.0",
-    "prettier": "^3.0.3",
-    "turbo": "^1.10.16"
+    "prettier": "^3.2.5",
+    "turbo": "^2.0.5",
+    "typescript": "^5.4.5"
   },
   "packageManager": "pnpm@9.1.2",
   "workspaces": [

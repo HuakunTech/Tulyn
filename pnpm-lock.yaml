@@ -12,11 +12,14 @@ importers:
         specifier: ^8.48.0
         version: 8.57.0
       prettier:
-        specifier: ^3.0.3
+        specifier: ^3.2.5
         version: 3.2.5
       turbo:
-        specifier: ^1.10.16
-        version: 1.13.3
+        specifier: ^2.0.5
+        version: 2.0.5
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
 
   apps/desktop:
     dependencies:
@@ -268,32 +271,17 @@ importers:
         specifier: ^3.12.2
         version: 3.12.2(@opentelemetry/api@1.9.0)(@parcel/watcher@2.4.1)(@types/node@20.12.12)(encoding@0.1.13)(eslint@8.57.0)(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.18.0)(terser@5.31.1)(typescript@5.4.5)(vite@5.3.1(@types/node@20.12.12)(terser@5.31.1))(vue-tsc@2.0.22(typescript@5.4.5))
       tauri-plugin-clipboard-api:
-        specifier: 2.0.4
-        version: 2.0.4
+        specifier: workspace:*
+        version: link:../../vendors/tauri-plugin-clipboard
+      tauri-plugin-network-api:
+        specifier: workspace:*
+        version: link:../../vendors/tauri-plugin-network
       tauri-plugin-shellx-api:
         specifier: ^2.0.7
         version: 2.0.7
-
-  dev/docs:
-    dependencies:
-      '@astrojs/check':
-        specifier: ^0.6.0
-        version: 0.6.0(prettier@3.2.5)(typescript@5.4.5)
-      '@astrojs/starlight':
-        specifier: ^0.22.2
-        version: 0.22.4(astro@4.9.1(@types/node@20.12.12)(terser@5.31.1)(typescript@5.4.5))
-      astro:
-        specifier: ^4.3.5
-        version: 4.9.1(@types/node@20.12.12)(terser@5.31.1)(typescript@5.4.5)
-      astro-d2:
-        specifier: ^0.2.0
-        version: 0.2.0(astro@4.9.1(@types/node@20.12.12)(terser@5.31.1)(typescript@5.4.5))
-      sharp:
-        specifier: ^0.32.5
-        version: 0.32.6
-      typescript:
-        specifier: ^5.4.5
-        version: 5.4.5
+      tauri-plugin-system-info-api:
+        specifier: workspace:*
+        version: link:../../vendors/tauri-plugin-system-info
 
   docs:
     dependencies:
@@ -594,6 +582,78 @@ importers:
       tslib:
         specifier: ^2.6.2
         version: 2.6.2
+      typescript:
+        specifier: ^5.3.3
+        version: 5.4.5
+
+  vendors/tauri-plugin-clipboard:
+    dependencies:
+      '@tauri-apps/api':
+        specifier: 2.0.0-beta.11
+        version: 2.0.0-beta.11
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
+    devDependencies:
+      '@rollup/plugin-typescript':
+        specifier: ^11.1.6
+        version: 11.1.6(rollup@4.18.0)(tslib@2.6.2)(typescript@5.4.5)
+      rollup:
+        specifier: ^4.9.6
+        version: 4.18.0
+      tslib:
+        specifier: ^2.6.2
+        version: 2.6.2
+      typescript:
+        specifier: ^5.3.3
+        version: 5.4.5
+
+  vendors/tauri-plugin-network:
+    dependencies:
+      '@tauri-apps/api':
+        specifier: '>=2.0.0-beta.6'
+        version: 2.0.0-beta.11
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
+    devDependencies:
+      '@rollup/plugin-typescript':
+        specifier: ^11.1.6
+        version: 11.1.6(rollup@4.18.0)(tslib@2.6.2)(typescript@5.4.5)
+      rollup:
+        specifier: ^4.9.6
+        version: 4.18.0
+      tslib:
+        specifier: ^2.6.2
+        version: 2.6.2
+      typedoc:
+        specifier: ^0.25.13
+        version: 0.25.13(typescript@5.4.5)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.4.5
+
+  vendors/tauri-plugin-system-info:
+    dependencies:
+      '@tauri-apps/api':
+        specifier: '>=2.0.0-beta.6'
+        version: 2.0.0-beta.11
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
+    devDependencies:
+      '@rollup/plugin-typescript':
+        specifier: ^11.1.6
+        version: 11.1.6(rollup@4.18.0)(tslib@2.6.2)(typescript@5.4.5)
+      rollup:
+        specifier: ^4.9.6
+        version: 4.18.0
+      tslib:
+        specifier: ^2.6.2
+        version: 2.6.2
+      typedoc:
+        specifier: ^0.25.13
+        version: 0.25.13(typescript@5.4.5)
       typescript:
         specifier: ^5.3.3
         version: 5.4.5
@@ -8241,9 +8301,6 @@ packages:
   tauri-plugin-clipboard-api@0.7.0-beta.0:
     resolution: {integrity: sha512-CzkkI/T7RHe9Jw0OmkDLoko7pFFwLKV5QqMAXgXjP43W/U5Nec0GtXKCyxkHgFcb3fbMYQ6wrajK47PTrERGcg==}
 
-  tauri-plugin-clipboard-api@2.0.4:
-    resolution: {integrity: sha512-vBwp1l/Y3Y/digh/XuN3/wA2NeReNBYnWN9/w3OCgT360lNV62IObfyvMnxfFtA2HqSLAwKsuw3VocJiTh9pkA==}
-
   tauri-plugin-shellx-api@2.0.7:
     resolution: {integrity: sha512-yYV546xhOn4Z9bRLUpyQp89k0U32jR6nmgfg0W+JOjnunabgwwStilIo2wUyeTcGs89GAZIRSBeBhgVnF8/E7w==}
 
@@ -8386,38 +8443,38 @@ packages:
   tunnel-agent@0.6.0:
     resolution: {integrity: sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==}
 
-  turbo-darwin-64@1.13.3:
-    resolution: {integrity: sha512-glup8Qx1qEFB5jerAnXbS8WrL92OKyMmg5Hnd4PleLljAeYmx+cmmnsmLT7tpaVZIN58EAAwu8wHC6kIIqhbWA==}
+  turbo-darwin-64@2.0.5:
+    resolution: {integrity: sha512-t/9XpWYIjOhIHUdwiR47SYBGYHkR1zWLxTkTNKZwCSn8BN0cfjPZ1BR6kcwYGxLGBhtl5GBf6A29nq2K7iwAjg==}
     cpu: [x64]
     os: [darwin]
 
-  turbo-darwin-arm64@1.13.3:
-    resolution: {integrity: sha512-/np2xD+f/+9qY8BVtuOQXRq5f9LehCFxamiQnwdqWm5iZmdjygC5T3uVSYuagVFsZKMvX3ycySwh8dylGTl6lg==}
+  turbo-darwin-arm64@2.0.5:
+    resolution: {integrity: sha512-//5y4RJvnal8CttOLBwlaBqblcQb1qTlIxLN+I8O3E3rPuvHOupNKB9ZJxYIQ8oWf8ns8Ec8cxQ0GSBLTJIMtA==}
     cpu: [arm64]
     os: [darwin]
 
-  turbo-linux-64@1.13.3:
-    resolution: {integrity: sha512-G+HGrau54iAnbXLfl+N/PynqpDwi/uDzb6iM9hXEDG+yJnSJxaHMShhOkXYJPk9offm9prH33Khx2scXrYVW1g==}
+  turbo-linux-64@2.0.5:
+    resolution: {integrity: sha512-LDtEDU2Gm8p3lKu//aHXZFRKUCVu68BNF9LQ+HmiCKFpNyK7khpMTxIAAUhDqt+AzlrbxtrxcCpCJaWg1JDjHg==}
     cpu: [x64]
     os: [linux]
 
-  turbo-linux-arm64@1.13.3:
-    resolution: {integrity: sha512-qWwEl5VR02NqRyl68/3pwp3c/olZuSp+vwlwrunuoNTm6JXGLG5pTeme4zoHNnk0qn4cCX7DFrOboArlYxv0wQ==}
+  turbo-linux-arm64@2.0.5:
+    resolution: {integrity: sha512-84wdrzntErBNxkHcwHxiTZdaginQAxGPnwLTyZj8lpUYI7okPoxy3jKpUeMHN3adm3iDedl/x0mYSIvVVkmOiA==}
     cpu: [arm64]
     os: [linux]
 
-  turbo-windows-64@1.13.3:
-    resolution: {integrity: sha512-Nudr4bRChfJzBPzEmpVV85VwUYRCGKecwkBFpbp2a4NtrJ3+UP1VZES653ckqCu2FRyRuS0n03v9euMbAvzH+Q==}
+  turbo-windows-64@2.0.5:
+    resolution: {integrity: sha512-SgaFZ0VW6kHCJogLNuLEleAauAJx2Y48wazZGVRmBpgSUS2AylXesaBMhJaEScYqLz7mIRn6KOgwM8D4wTxI9g==}
     cpu: [x64]
     os: [win32]
 
-  turbo-windows-arm64@1.13.3:
-    resolution: {integrity: sha512-ouJCgsVLd3icjRLmRvHQDDZnmGzT64GBupM1Y+TjtYn2LVaEBoV6hicFy8x5DUpnqdLy+YpCzRMkWlwhmkX7sQ==}
+  turbo-windows-arm64@2.0.5:
+    resolution: {integrity: sha512-foUxLOZoru0IRNIxm53fkfM4ubas9P0nTFjIcHtd+E8YHeogt8GqTweNre2e6ri1EHDo71emmuQgpuoFCOXZMg==}
     cpu: [arm64]
     os: [win32]
 
-  turbo@1.13.3:
-    resolution: {integrity: sha512-n17HJv4F4CpsYTvKzUJhLbyewbXjq1oLCi90i5tW1TiWDz16ML1eDG7wi5dHaKxzh5efIM56SITnuVbMq5dk4g==}
+  turbo@2.0.5:
+    resolution: {integrity: sha512-+6+hcWr4nwuESlKqUc626HMOTd3QT8hUOc9QM45PP1d4nErGkNOgExm4Pcov3in7LTuadMnB0gcd/BuzkEDIPw==}
     hasBin: true
 
   tweetnacl@0.14.5:
@@ -19274,11 +19331,6 @@ snapshots:
       '@tauri-apps/api': 2.0.0-beta.11
       zod: 3.23.8
 
-  tauri-plugin-clipboard-api@2.0.4:
-    dependencies:
-      '@tauri-apps/api': 2.0.0-beta.11
-      zod: 3.23.8
-
   tauri-plugin-shellx-api@2.0.7:
     dependencies:
       '@tauri-apps/api': 2.0.0-beta.11
@@ -19404,32 +19456,32 @@ snapshots:
     dependencies:
       safe-buffer: 5.2.1
 
-  turbo-darwin-64@1.13.3:
+  turbo-darwin-64@2.0.5:
     optional: true
 
-  turbo-darwin-arm64@1.13.3:
+  turbo-darwin-arm64@2.0.5:
     optional: true
 
-  turbo-linux-64@1.13.3:
+  turbo-linux-64@2.0.5:
     optional: true
 
-  turbo-linux-arm64@1.13.3:
+  turbo-linux-arm64@2.0.5:
     optional: true
 
-  turbo-windows-64@1.13.3:
+  turbo-windows-64@2.0.5:
     optional: true
 
-  turbo-windows-arm64@1.13.3:
+  turbo-windows-arm64@2.0.5:
     optional: true
 
-  turbo@1.13.3:
+  turbo@2.0.5:
     optionalDependencies:
-      turbo-darwin-64: 1.13.3
-      turbo-darwin-arm64: 1.13.3
-      turbo-linux-64: 1.13.3
-      turbo-linux-arm64: 1.13.3
-      turbo-windows-64: 1.13.3
-      turbo-windows-arm64: 1.13.3
+      turbo-darwin-64: 2.0.5
+      turbo-darwin-arm64: 2.0.5
+      turbo-linux-64: 2.0.5
+      turbo-linux-arm64: 2.0.5
+      turbo-windows-64: 2.0.5
+      turbo-windows-arm64: 2.0.5
 
   tweetnacl@0.14.5: {}
 

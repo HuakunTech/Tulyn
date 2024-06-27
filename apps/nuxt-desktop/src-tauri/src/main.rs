@@ -1,11 +1,7 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-// Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
+use tauri::Manager;
 
 fn main() {
     let shell_unlocked = true;
@@ -16,11 +12,20 @@ fn main() {
         .plugin(tauri_plugin_notification::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_shellx::init(shell_unlocked))
-        // .plugin(tauri_plugin_jarvis::init())
-        // .plugin(tauri_plugin_clipboard::init())
-        // .plugin(tauri_plugin_network::init())
-        // .plugin(tauri_plugin_system_info::init())
-        .invoke_handler(tauri::generate_handler![greet])
+        .plugin(tauri_plugin_jarvis::init())
+        .plugin(tauri_plugin_clipboard::init())
+        .plugin(tauri_plugin_network::init())
+        .plugin(tauri_plugin_system_info::init())
+        .invoke_handler(tauri::generate_handler![])
+        .setup(|app| {
+            #[cfg(debug_assertions)] // only include this code on debug builds
+            {
+                let window = app.get_webview_window("main").unwrap();
+                window.open_devtools();
+                window.close_devtools();
+            }
+            Ok(())
+        })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
