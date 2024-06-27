@@ -249,9 +249,30 @@ importers:
       '@tauri-apps/cli':
         specifier: '>=2.0.0-beta.0'
         version: 2.0.0-beta.17
+      '@tauri-apps/plugin-dialog':
+        specifier: 2.0.0-beta.3
+        version: 2.0.0-beta.3
+      '@tauri-apps/plugin-fs':
+        specifier: 2.0.0-beta.3
+        version: 2.0.0-beta.3
+      '@tauri-apps/plugin-http':
+        specifier: 2.0.0-beta.3
+        version: 2.0.0-beta.3
+      '@tauri-apps/plugin-notification':
+        specifier: 2.0.0-beta.3
+        version: 2.0.0-beta.3
+      '@tauri-apps/plugin-os':
+        specifier: 2.0.0-beta.3
+        version: 2.0.0-beta.3
       nuxt:
         specifier: ^3.12.2
         version: 3.12.2(@opentelemetry/api@1.9.0)(@parcel/watcher@2.4.1)(@types/node@20.12.12)(encoding@0.1.13)(eslint@8.57.0)(ioredis@5.4.1)(magicast@0.3.4)(optionator@0.9.4)(rollup@4.18.0)(terser@5.31.1)(typescript@5.4.5)(vite@5.3.1(@types/node@20.12.12)(terser@5.31.1))(vue-tsc@2.0.22(typescript@5.4.5))
+      tauri-plugin-clipboard-api:
+        specifier: 2.0.4
+        version: 2.0.4
+      tauri-plugin-shellx-api:
+        specifier: ^2.0.7
+        version: 2.0.7
 
   dev/docs:
     dependencies:
@@ -8219,6 +8240,12 @@ packages:
 
   tauri-plugin-clipboard-api@0.7.0-beta.0:
     resolution: {integrity: sha512-CzkkI/T7RHe9Jw0OmkDLoko7pFFwLKV5QqMAXgXjP43W/U5Nec0GtXKCyxkHgFcb3fbMYQ6wrajK47PTrERGcg==}
+
+  tauri-plugin-clipboard-api@2.0.4:
+    resolution: {integrity: sha512-vBwp1l/Y3Y/digh/XuN3/wA2NeReNBYnWN9/w3OCgT360lNV62IObfyvMnxfFtA2HqSLAwKsuw3VocJiTh9pkA==}
+
+  tauri-plugin-shellx-api@2.0.7:
+    resolution: {integrity: sha512-yYV546xhOn4Z9bRLUpyQp89k0U32jR6nmgfg0W+JOjnunabgwwStilIo2wUyeTcGs89GAZIRSBeBhgVnF8/E7w==}
 
   terser@5.31.1:
     resolution: {integrity: sha512-37upzU1+viGvuFtBo9NPufCb9dwM0+l9hMxYyWfBA+fbwrPqNJAhbZ6W47bBFnZHKHTUBnMvi87434qq+qnxOg==}
@@ -19243,6 +19270,16 @@ snapshots:
       yallist: 5.0.0
 
   tauri-plugin-clipboard-api@0.7.0-beta.0:
+    dependencies:
+      '@tauri-apps/api': 2.0.0-beta.11
+      zod: 3.23.8
+
+  tauri-plugin-clipboard-api@2.0.4:
+    dependencies:
+      '@tauri-apps/api': 2.0.0-beta.11
+      zod: 3.23.8
+
+  tauri-plugin-shellx-api@2.0.7:
     dependencies:
       '@tauri-apps/api': 2.0.0-beta.11
       zod: 3.23.8
