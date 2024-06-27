@@ -1,0 +1,18 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "npm run generate",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "nuxt": "^3.12.2",
+    "@tauri-apps/api": ">=2.0.0-beta.0",
+    "@tauri-apps/cli": ">=2.0.0-beta.0"
+  }
+}
