@@ -49,7 +49,6 @@
         "upload:default",
         "upload:allow-download",
         "os:default",
-        "updater:default",
         "os:default",
         "notification:default",
         "notification:allow-is-permission-granted",

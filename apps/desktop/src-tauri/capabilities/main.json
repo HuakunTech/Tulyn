@@ -84,7 +84,6 @@
     "fs:allow-appdata-read-recursive",
     "fs:allow-appdata-write-recursive",
     "os:default",
-    "updater:default",
     "os:default",
     "store:allow-clear",
     "store:allow-delete",

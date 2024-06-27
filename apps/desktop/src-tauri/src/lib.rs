@@ -31,7 +31,7 @@ pub fn run() -> anyhow::Result<()> {
         //     let bytes = std::fs::read(&path).unwrap();
         //     tauri::http::Response::builder().body(bytes).unwrap()
         // })
-        .plugin(tauri_plugin_updater::Builder::new().build())
+        // .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_fs::init())
         // .plugin(

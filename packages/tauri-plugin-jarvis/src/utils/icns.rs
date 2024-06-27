@@ -84,6 +84,12 @@ pub fn load_icon(path: PathBuf) -> tauri::http::Response<Vec<u8>> {
     }
 }
 
+#[cfg(target_os = "windows")]
+pub fn load_icon(path: PathBuf) -> tauri::http::Response<Vec<u8>> {
+    // tauri::http::Response::builder().body(vec![]).unwrap()
+    todo!("load_icon for windows")
+}
+
 #[cfg(all(test, target_os = "macos"))]
 mod tests {
     use applications::{utils::mac::MacAppPath, AppTrait};

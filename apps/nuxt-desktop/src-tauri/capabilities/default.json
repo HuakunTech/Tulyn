@@ -6,6 +6,17 @@
     "main"
   ],
   "permissions": [
+    {
+      "identifier": "http:default",
+      "allow": [
+        {
+          "url": "https://*"
+        },
+        {
+          "url": "http://*"
+        }
+      ]
+    },
     "path:default",
     "event:default",
     "window:default",
@@ -32,12 +43,24 @@
     "fs:allow-app-meta",
     "fs:allow-home-read-recursive",
     "shellx:allow-execute",
+    "shellx:allow-open",
+    "shellx:allow-kill",
+    "shellx:allow-spawn",
+    "shellx:allow-stdin-write",
+    "shellx:allow-fix-path-env",
     "dialog:default",
     "dialog:allow-open",
     "dialog:allow-confirm",
     "dialog:allow-save",
     "dialog:allow-message",
     "dialog:allow-ask",
-    "dialog:default"
+    "dialog:default",
+    "global-shortcut:default",
+    "global-shortcut:allow-is-registered",
+    "global-shortcut:allow-register",
+    "global-shortcut:allow-unregister",
+    "jarvis:allow-all",
+    "store:default",
+    "log:default"
   ]
 }
