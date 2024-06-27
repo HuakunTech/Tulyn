@@ -1,6 +1,3 @@
-[submodule "vendors/extensions"]
-	path = vendors/extensions
-	url = https://github.com/HuakunTech/JarvisExtensions.git
 [submodule "vendors/tauri-plugin-clipboard"]
 	path = vendors/tauri-plugin-clipboard
 	url = https://github.com/CrossCopy/tauri-plugin-clipboard.git
