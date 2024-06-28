@@ -291,6 +291,9 @@ importers:
       element-plus:
         specifier: ^2.7.3
         version: 2.7.3(vue@3.4.31(typescript@5.5.2))
+      embla-carousel-vue:
+        specifier: ^8.1.3
+        version: 8.1.3(vue@3.4.31(typescript@5.5.2))
       lucide-vue-next:
         specifier: ^0.399.0
         version: 0.399.0(vue@3.4.31(typescript@5.5.2))
@@ -324,8 +327,11 @@ importers:
       tauri-plugin-system-info-api:
         specifier: workspace:*
         version: link:../../vendors/tauri-plugin-system-info
+      vaul-vue:
+        specifier: ^0.1.2
+        version: 0.1.2(typescript@5.5.2)
       vue:
-        specifier: latest
+        specifier: ^3.4.31
         version: 3.4.31(typescript@5.5.2)
       vue-sonner:
         specifier: ^1.1.3
@@ -341,7 +347,7 @@ importers:
         specifier: ^6.12.0
         version: 6.12.0(magicast@0.3.4)(rollup@4.18.0)(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.5.2))
       '@vueuse/core':
-        specifier: ^10.9.0
+        specifier: ^10.11.0
         version: 10.11.0(vue@3.4.31(typescript@5.5.2))
       '@vueuse/nuxt':
         specifier: ^10.11.0
@@ -13571,6 +13577,15 @@ snapshots:
       - '@vue/composition-api'
       - vue
 
+  '@floating-ui/vue@1.0.6(vue@3.4.31(typescript@5.4.5))':
+    dependencies:
+      '@floating-ui/dom': 1.6.5
+      '@floating-ui/utils': 0.2.2
+      vue-demi: 0.14.8(vue@3.4.31(typescript@5.4.5))
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+
   '@floating-ui/vue@1.0.6(vue@3.4.31(typescript@5.5.2))':
     dependencies:
       '@floating-ui/dom': 1.6.5
@@ -15629,6 +15644,11 @@ snapshots:
       '@tanstack/virtual-core': 3.5.0
       vue: 3.4.27(typescript@5.4.5)
 
+  '@tanstack/vue-virtual@3.5.0(vue@3.4.31(typescript@5.4.5))':
+    dependencies:
+      '@tanstack/virtual-core': 3.5.0
+      vue: 3.4.31(typescript@5.4.5)
+
   '@tanstack/vue-virtual@3.5.0(vue@3.4.31(typescript@5.5.2))':
     dependencies:
       '@tanstack/virtual-core': 3.5.0
@@ -16626,6 +16646,12 @@ snapshots:
       '@vue/shared': 3.4.27
       vue: 3.4.27(typescript@5.4.5)
 
+  '@vue/server-renderer@3.4.31(vue@3.4.31(typescript@5.4.5))':
+    dependencies:
+      '@vue/compiler-ssr': 3.4.31
+      '@vue/shared': 3.4.31
+      vue: 3.4.31(typescript@5.4.5)
+
   '@vue/server-renderer@3.4.31(vue@3.4.31(typescript@5.5.2))':
     dependencies:
       '@vue/compiler-ssr': 3.4.31
@@ -16645,6 +16671,16 @@ snapshots:
 
   '@vue/tsconfig@0.4.0': {}
 
+  '@vueuse/core@10.11.0(vue@3.4.31(typescript@5.4.5))':
+    dependencies:
+      '@types/web-bluetooth': 0.0.20
+      '@vueuse/metadata': 10.11.0
+      '@vueuse/shared': 10.11.0(vue@3.4.31(typescript@5.4.5))
+      vue-demi: 0.14.8(vue@3.4.31(typescript@5.4.5))
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+
   '@vueuse/core@10.11.0(vue@3.4.31(typescript@5.5.2))':
     dependencies:
       '@types/web-bluetooth': 0.0.20
@@ -16661,6 +16697,26 @@ snapshots:
       '@vueuse/metadata': 10.9.0
       '@vueuse/shared': 10.9.0(vue@3.4.27(typescript@5.4.5))
       vue-demi: 0.14.7(vue@3.4.27(typescript@5.4.5))
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+
+  '@vueuse/core@10.9.0(vue@3.4.31(typescript@5.4.5))':
+    dependencies:
+      '@types/web-bluetooth': 0.0.20
+      '@vueuse/metadata': 10.9.0
+      '@vueuse/shared': 10.9.0(vue@3.4.31(typescript@5.4.5))
+      vue-demi: 0.14.7(vue@3.4.31(typescript@5.4.5))
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+
+  '@vueuse/core@10.9.0(vue@3.4.31(typescript@5.5.2))':
+    dependencies:
+      '@types/web-bluetooth': 0.0.20
+      '@vueuse/metadata': 10.9.0
+      '@vueuse/shared': 10.9.0(vue@3.4.31(typescript@5.5.2))
+      vue-demi: 0.14.7(vue@3.4.31(typescript@5.5.2))
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -16706,6 +16762,13 @@ snapshots:
       - supports-color
       - vue
 
+  '@vueuse/shared@10.11.0(vue@3.4.31(typescript@5.4.5))':
+    dependencies:
+      vue-demi: 0.14.8(vue@3.4.31(typescript@5.4.5))
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+
   '@vueuse/shared@10.11.0(vue@3.4.31(typescript@5.5.2))':
     dependencies:
       vue-demi: 0.14.8(vue@3.4.31(typescript@5.5.2))
@@ -16716,6 +16779,20 @@ snapshots:
   '@vueuse/shared@10.9.0(vue@3.4.27(typescript@5.4.5))':
     dependencies:
       vue-demi: 0.14.7(vue@3.4.27(typescript@5.4.5))
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+
+  '@vueuse/shared@10.9.0(vue@3.4.31(typescript@5.4.5))':
+    dependencies:
+      vue-demi: 0.14.7(vue@3.4.31(typescript@5.4.5))
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+
+  '@vueuse/shared@10.9.0(vue@3.4.31(typescript@5.5.2))':
+    dependencies:
+      vue-demi: 0.14.7(vue@3.4.31(typescript@5.5.2))
     transitivePeerDependencies:
       - '@vue/composition-api'
       - vue
@@ -18305,6 +18382,12 @@ snapshots:
       embla-carousel: 8.1.3
       embla-carousel-reactive-utils: 8.1.3(embla-carousel@8.1.3)
       vue: 3.4.27(typescript@5.4.5)
+
+  embla-carousel-vue@8.1.3(vue@3.4.31(typescript@5.5.2)):
+    dependencies:
+      embla-carousel: 8.1.3
+      embla-carousel-reactive-utils: 8.1.3(embla-carousel@8.1.3)
+      vue: 3.4.31(typescript@5.5.2)
 
   embla-carousel@8.1.3: {}
 
@@ -22449,6 +22532,40 @@ snapshots:
     transitivePeerDependencies:
       - '@vue/composition-api'
 
+  radix-vue@1.8.1(vue@3.4.31(typescript@5.4.5)):
+    dependencies:
+      '@floating-ui/dom': 1.6.5
+      '@floating-ui/vue': 1.0.6(vue@3.4.31(typescript@5.4.5))
+      '@internationalized/date': 3.5.4
+      '@internationalized/number': 3.5.3
+      '@tanstack/vue-virtual': 3.5.0(vue@3.4.31(typescript@5.4.5))
+      '@vueuse/core': 10.9.0(vue@3.4.31(typescript@5.4.5))
+      '@vueuse/shared': 10.9.0(vue@3.4.31(typescript@5.4.5))
+      aria-hidden: 1.2.4
+      defu: 6.1.4
+      fast-deep-equal: 3.1.3
+      nanoid: 5.0.7
+      vue: 3.4.31(typescript@5.4.5)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+
+  radix-vue@1.8.1(vue@3.4.31(typescript@5.5.2)):
+    dependencies:
+      '@floating-ui/dom': 1.6.5
+      '@floating-ui/vue': 1.0.6(vue@3.4.31(typescript@5.5.2))
+      '@internationalized/date': 3.5.4
+      '@internationalized/number': 3.5.3
+      '@tanstack/vue-virtual': 3.5.0(vue@3.4.31(typescript@5.5.2))
+      '@vueuse/core': 10.9.0(vue@3.4.31(typescript@5.5.2))
+      '@vueuse/shared': 10.9.0(vue@3.4.31(typescript@5.5.2))
+      aria-hidden: 1.2.4
+      defu: 6.1.4
+      fast-deep-equal: 3.1.3
+      nanoid: 5.0.7
+      vue: 3.4.31(typescript@5.5.2)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+
   radix3@1.1.2: {}
 
   randombytes@2.1.0:
@@ -23557,7 +23674,7 @@ snapshots:
       fast-glob: 3.3.2
       glob-parent: 6.0.2
       is-glob: 4.0.3
-      jiti: 1.21.6
+      jiti: 1.21.0
       lilconfig: 2.1.0
       micromatch: 4.0.7
       normalize-path: 3.0.0
@@ -24308,9 +24425,18 @@ snapshots:
 
   vaul-vue@0.1.2(typescript@5.4.5):
     dependencies:
-      '@vueuse/core': 10.9.0(vue@3.4.27(typescript@5.4.5))
-      radix-vue: 1.8.1(vue@3.4.27(typescript@5.4.5))
-      vue: 3.4.27(typescript@5.4.5)
+      '@vueuse/core': 10.11.0(vue@3.4.31(typescript@5.4.5))
+      radix-vue: 1.8.1(vue@3.4.31(typescript@5.4.5))
+      vue: 3.4.31(typescript@5.4.5)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - typescript
+
+  vaul-vue@0.1.2(typescript@5.5.2):
+    dependencies:
+      '@vueuse/core': 10.11.0(vue@3.4.31(typescript@5.5.2))
+      radix-vue: 1.8.1(vue@3.4.31(typescript@5.5.2))
+      vue: 3.4.31(typescript@5.5.2)
     transitivePeerDependencies:
       - '@vue/composition-api'
       - typescript
@@ -24828,9 +24954,21 @@ snapshots:
     dependencies:
       vue: 3.4.27(typescript@5.4.5)
 
+  vue-demi@0.14.7(vue@3.4.31(typescript@5.4.5)):
+    dependencies:
+      vue: 3.4.31(typescript@5.4.5)
+
+  vue-demi@0.14.7(vue@3.4.31(typescript@5.5.2)):
+    dependencies:
+      vue: 3.4.31(typescript@5.5.2)
+
   vue-demi@0.14.8(vue@3.4.27(typescript@5.4.5)):
     dependencies:
       vue: 3.4.27(typescript@5.4.5)
+
+  vue-demi@0.14.8(vue@3.4.31(typescript@5.4.5)):
+    dependencies:
+      vue: 3.4.31(typescript@5.4.5)
 
   vue-demi@0.14.8(vue@3.4.31(typescript@5.5.2)):
     dependencies:
@@ -24887,6 +25025,16 @@ snapshots:
       '@vue/runtime-dom': 3.4.27
       '@vue/server-renderer': 3.4.27(vue@3.4.27(typescript@5.4.5))
       '@vue/shared': 3.4.27
+    optionalDependencies:
+      typescript: 5.4.5
+
+  vue@3.4.31(typescript@5.4.5):
+    dependencies:
+      '@vue/compiler-dom': 3.4.31
+      '@vue/compiler-sfc': 3.4.31
+      '@vue/runtime-dom': 3.4.31
+      '@vue/server-renderer': 3.4.31(vue@3.4.31(typescript@5.4.5))
+      '@vue/shared': 3.4.31
     optionalDependencies:
       typescript: 5.4.5
 

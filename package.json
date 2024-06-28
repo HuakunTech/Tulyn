@@ -14,12 +14,5 @@
     "turbo": "^2.0.5",
     "typescript": "^5.4.5"
   },
-  "packageManager": "pnpm@9.1.2",
-  "workspaces": [
-    "apps/*",
-    "packages/*",
-    "docs",
-    "vendors/*",
-    "vendors/radix-vue/packages/radix-vue"
-  ]
+  "packageManager": "pnpm@9.1.2"
 }
