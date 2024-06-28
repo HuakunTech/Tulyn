@@ -61,6 +61,7 @@
     "global-shortcut:allow-unregister",
     "jarvis:allow-all",
     "store:default",
-    "log:default"
+    "log:default",
+    "updater:default"
   ]
 }

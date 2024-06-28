@@ -6,8 +6,8 @@ use tauri::Manager;
 fn main() {
     let shell_unlocked = true;
     tauri::Builder::default()
+        .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_log::Builder::new().build())
-        // .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(tauri_plugin_store::Builder::new().build())
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
         .plugin(tauri_plugin_dialog::init())

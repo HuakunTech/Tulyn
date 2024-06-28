@@ -30,6 +30,7 @@ tauri-plugin-log = "2.0.0-beta.6"
 
 [target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
 tauri-plugin-global-shortcut = "2.0.0-beta.6"
+tauri-plugin-updater = "2.0.0-beta.8"
 
 [target.x86_64-pc-windows-msvc]
 rustflags = ["-C", "link-arg=/STACK:8000000"]
