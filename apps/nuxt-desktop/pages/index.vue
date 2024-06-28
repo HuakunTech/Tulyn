@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import clipboard from 'tauri-plugin-clipboard-api';
+import { toast } from "vue-sonner";
 
 onMounted(() => {
-    clipboard.readText().then(console.log)
-})
-const { x, y } = useMouse()
+  // toast.success("hello", {
+  //   position: "bottom-left",
+  // });
+});
 </script>
 <template>
-    <h1>Hello World</h1>
-    <Button>Hello</Button>
-    <ModeToggle />
-    <div>pos: {{ x }}, {{ y }}</div>
+  <el-button @click="ElMessage('hello')">button</el-button>
+  <ElButton :icon="ElIconEditPen" type="success">button</ElButton>
+  <LazyElButton type="warning">lazy button</LazyElButton>
 </template>

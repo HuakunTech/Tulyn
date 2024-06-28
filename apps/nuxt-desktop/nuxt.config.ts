@@ -14,4 +14,9 @@ export default defineNuxtConfig({
      */
     componentDir: "./components/ui",
   },
+  elementPlus: {
+    icon: "ElIcon",
+    importStyle: "scss",
+    themes: ["dark"],
+  },
 });

@@ -25,15 +25,18 @@
     "@tauri-apps/plugin-store": "2.0.0-beta.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "element-plus": "^2.7.3",
     "nuxt": "^3.12.2",
-    "radix-vue": "^1.8.1",
+    "radix-vue": "link:../../vendors/radix-vue/packages/radix-vue/",
     "shadcn-nuxt": "^0.10.4",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
+    "tauri-api-adapter": "^0.0.5",
     "tauri-plugin-clipboard-api": "0.7.0-beta.0",
     "tauri-plugin-network-api": "workspace:*",
     "tauri-plugin-shellx-api": "^2.0.7",
-    "tauri-plugin-system-info-api": "workspace:*"
+    "tauri-plugin-system-info-api": "workspace:*",
+    "vue-sonner": "^1.1.2"
   },
   "devDependencies": {
     "@iconify-json/radix-icons": "^1.1.14",
@@ -41,6 +44,7 @@
     "@nuxtjs/color-mode": "^3.4.2",
     "@nuxtjs/tailwindcss": "^6.12.0",
     "@vueuse/core": "^10.9.0",
-    "@vueuse/nuxt": "^10.11.0"
+    "@vueuse/nuxt": "^10.11.0",
+    "sass": "^1.77.6"
   }
 }

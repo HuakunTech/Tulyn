@@ -9,4 +9,4 @@
 	url = https://github.com/HuakunShen/tauri-plugin-system-info.git
 [submodule "vendors/radix-vue"]
 	path = vendors/radix-vue
-	url = https://github.com/radix-vue/radix-vue.git
+	url = https://github.com/HuakunShen/radix-vue.git
