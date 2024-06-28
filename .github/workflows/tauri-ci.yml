@@ -84,8 +84,7 @@ jobs:
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
           pnpm install # change this to npm or pnpm depending on which one you use.
-          # pnpm build # build jarvis-api
-          pnpm --filter @jarvis/gql build
+          pnpm build
 
       - uses: tauri-apps/tauri-action@v0
         env:

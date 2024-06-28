@@ -2,5 +2,6 @@ packages:
   - "apps/*"
   - "packages/*"
   - "docs"
-  - "vendors/*"
-  - "vendors/radix-vue/packages/radix-vue"
+  - "vendors/tauri-plugin-clipboard"
+  - "vendors/tauri-plugin-network"
+  - "vendors/tauri-plugin-system-info"
