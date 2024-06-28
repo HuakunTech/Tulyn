@@ -19,6 +19,7 @@
     "apps/*",
     "packages/*",
     "docs",
-    "dev/docs"
+    "vendors/*",
+    "vendors/radix-vue/packages/radix-vue"
   ]
 }

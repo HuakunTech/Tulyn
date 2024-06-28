@@ -3,12 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "npm run generate",
+    "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
-    "tauri": "tauri"
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "@element-plus/nuxt": "^1.0.9",
@@ -26,6 +25,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "element-plus": "^2.7.3",
+    "lucide-vue-next": "^0.399.0",
     "nuxt": "^3.12.2",
     "radix-vue": "link:../../vendors/radix-vue/packages/radix-vue/",
     "shadcn-nuxt": "^0.10.4",
@@ -36,15 +36,15 @@
     "tauri-plugin-network-api": "workspace:*",
     "tauri-plugin-shellx-api": "^2.0.7",
     "tauri-plugin-system-info-api": "workspace:*",
-    "vue-sonner": "^1.1.2"
+    "vue": "latest",
+    "vue-sonner": "^1.1.3"
   },
   "devDependencies": {
     "@iconify-json/radix-icons": "^1.1.14",
     "@iconify/vue": "^4.1.2",
-    "@nuxtjs/color-mode": "^3.4.2",
     "@nuxtjs/tailwindcss": "^6.12.0",
     "@vueuse/core": "^10.9.0",
     "@vueuse/nuxt": "^10.11.0",
-    "sass": "^1.77.6"
+    "typescript": "^5.5.2"
   }
 }

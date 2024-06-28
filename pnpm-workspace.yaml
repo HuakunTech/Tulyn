@@ -3,3 +3,4 @@ packages:
   - "packages/*"
   - "docs"
   - "vendors/*"
+  - "vendors/radix-vue/packages/radix-vue"
