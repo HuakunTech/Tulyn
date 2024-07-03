@@ -3,6 +3,7 @@ import { z } from "zod";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: false,
+  css: ["@/assets/css/themes.css"],
   devtools: { enabled: true },
   modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "@vueuse/nuxt", "@element-plus/nuxt"],
   shadcn: {

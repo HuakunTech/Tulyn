@@ -1,9 +1,4 @@
 name: CI Build & Test
-# This will build the following packages
-# - docs
-# - packages/*
-# - packages/extensions/*
-# - apps/desktop
 on:
   push:
   workflow_dispatch:
@@ -12,20 +7,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [20.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: "true"
       - uses: pnpm/action-setup@v4
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 20.x
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 20.x
           cache: "pnpm"
       - name: Install D2 For Docs
         run: curl -fsSL https://d2lang.com/install.sh | sh -s --

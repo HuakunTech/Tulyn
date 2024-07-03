@@ -12,11 +12,11 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { onMounted, onUnmounted, ref } from "vue";
 import { useToast } from "@/components/ui/toast/use-toast";
-import { open } from "@tauri-apps/plugin-shell";
+import { open } from "tauri-plugin-shellx-api";
 
 const { toast } = useToast();
 const serverRunning = ref(false);
-let interval: Timer;
+let interval: NodeJS.Timeout;
 const extFolder = ref<string | null>();
 const devExtFolder = ref<string | null>();
 
@@ -93,7 +93,7 @@ function restart() {
       <Button size="xs" @click="restart">Restart Server</Button>
     </div>
     <span class="pr-5">
-      <Badge v-if="serverRunning" variant="success" class="select-none cursor-default">On</Badge>
+      <Badge v-if="serverRunning" variant="secondary" class="select-none cursor-default bg-green-700 text-white">On</Badge>
       <Badge v-else variant="destructive" class="select-none cursor-default">Off</Badge>
     </span>
   </div>

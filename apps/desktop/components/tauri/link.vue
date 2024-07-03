@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { open } from "@tauri-apps/plugin-shell";
+import { open } from "tauri-plugin-shellx-api";
 import type { HTMLAttributes } from "vue";
 import { cn } from "@/lib/utils";
 

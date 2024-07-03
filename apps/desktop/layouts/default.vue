@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useGoToSettingShortcuts } from "@/composables/useShortcuts";
 import type { UnlistenFn } from "@tauri-apps/api/event";
 import { allColors } from "@/lib/themes/themes";
 import { attachConsole } from "@tauri-apps/plugin-log";
@@ -9,6 +10,7 @@ import { Toaster } from "@/components/ui/sonner";
 const colorMode = useColorMode(); // auto set html class to dark is in dark mode
 const appConfig = useStore($appConfig);
 let detach: UnlistenFn;
+useGoToSettingShortcuts();
 
 onMounted(async () => {
   detach = await attachConsole();
