@@ -1,4 +1,4 @@
-name: CI Build & Test
+name: Debug CI
 # This will build the following packages
 # - docs
 # - packages/*
