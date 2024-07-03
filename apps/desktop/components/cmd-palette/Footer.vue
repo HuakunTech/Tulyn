@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import ActionPanel from "./ActionPanel.vue";
+import { Icon } from "@iconify/vue"
+import ActionPanel from "./ActionPanel.vue"
 </script>
 <template>
   <div data-tauri-drag-region class="h-12 border flex justify-between p-2 items-center">

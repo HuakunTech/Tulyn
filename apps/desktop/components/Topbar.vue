@@ -6,19 +6,19 @@ import {
   CogIcon,
   FlaskConicalIcon,
   UserCogIcon,
-  TestTubesIcon,
-} from "lucide-vue-next";
-import { Icon } from "@iconify/vue";
-import ModeToggle from "@/components/theme/ModeToggle.vue";
-import { Button } from "@/components/ui/button";
-import { toggleDevTools, appIsDev } from "tauri-plugin-jarvis-api/commands";
-import { onMounted, ref } from "vue";
+  TestTubesIcon
+} from "lucide-vue-next"
+import { Icon } from "@iconify/vue"
+import ModeToggle from "@/components/theme/ModeToggle.vue"
+import { Button } from "@/components/ui/button"
+import { toggleDevTools, appIsDev } from "tauri-plugin-jarvis-api/commands"
+import { onMounted, ref } from "vue"
 
-const isDev = ref(false);
+const isDev = ref(false)
 
 onMounted(async () => {
-  isDev.value = await appIsDev();
-});
+  isDev.value = await appIsDev()
+})
 </script>
 <template>
   <div data-tauri-drag-region class="h-8">

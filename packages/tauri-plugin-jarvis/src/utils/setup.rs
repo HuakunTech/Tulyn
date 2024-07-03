@@ -30,7 +30,6 @@ pub fn setup_mac_transparent_bg(handle: &AppHandle) {
         .expect("Unsupported platform! 'apply_vibrancy' is only supported on macOS");
 }
 
-
 /**
  * On MacOS
  * app_config: "/Users/<user>/Library/Application Support/tech.huakun.jarvis"

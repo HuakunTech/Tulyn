@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { BaseNode, FileType, NodeTypeInput, Position, SortBy } from "../common";
+import { z } from "zod"
+import { BaseNode, FileType, NodeTypeInput, Position, SortBy } from "../common"
 
-export const FileFilterName = z.literal("file_filter");
+export const FileFilterName = z.literal("file_filter")
 
 export const FileFilterNode = z
   .object({
@@ -15,10 +15,10 @@ export const FileFilterNode = z
     filter: z.object({
       extension: z.string(),
       regex: z.string(),
-      fileType: FileType,
+      fileType: FileType
     }),
     limit: z.number(),
-    sortBy: SortBy,
+    sortBy: SortBy
   })
   .merge(BaseNode)
-  .merge(Position);
+  .merge(Position)

@@ -1,6 +1,6 @@
-import { type IOs } from "../api/client-types";
-import { defaultClientAPI, isMain } from "../client";
-import { type Remote } from "@huakunshen/comlink";
+import { type IOs } from "../api/client-types"
+import { defaultClientAPI, isMain } from "../client"
+import { type Remote } from "@huakunshen/comlink"
 import {
   arch,
   eol,
@@ -10,8 +10,8 @@ import {
   locale,
   platform,
   version
-} from "@tauri-apps/plugin-os";
-import { type IOsServer } from "./server-types";
+} from "@tauri-apps/plugin-os"
+import { type IOsServer } from "./server-types"
 
 export function constructAPI(api: Remote<IOsServer>): IOs {
   return {
@@ -23,9 +23,9 @@ export function constructAPI(api: Remote<IOsServer>): IOs {
     eol: api.osEol,
     version: api.osVersion,
     locale: api.osLocale
-  };
+  }
 }
-export const comlinkOs: IOs = constructAPI(defaultClientAPI);
+export const comlinkOs: IOs = constructAPI(defaultClientAPI)
 
 export const nativeOs: IOs = {
   platform: platform,
@@ -36,6 +36,6 @@ export const nativeOs: IOs = {
   eol: () => Promise.resolve(eol()),
   version: version,
   locale: locale
-};
+}
 
-export const os = isMain ? nativeOs : comlinkOs;
+export const os = isMain ? nativeOs : comlinkOs

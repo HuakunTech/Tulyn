@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Icon as Iconify } from "@iconify/vue";
-import { z } from "zod";
+import { Icon as Iconify } from "@iconify/vue"
+import { z } from "zod"
 import {
   Drawer,
   DrawerClose,
@@ -9,47 +9,47 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-import DialogImage from "./DialogImage.vue";
-import ExtStoreDrawer from "./ExtStoreDrawer.vue";
-import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { ExtItem } from "./types";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import { computed, onMounted, onUnmounted, ref, watch } from "vue";
-import { ApolloClient, HttpLink, InMemoryCache, type ApolloQueryResult } from "@apollo/client";
-import { PERMISSIONS_EXPLANATION } from "@/lib/constants";
+  DrawerTrigger
+} from "@/components/ui/drawer"
+import DialogImage from "./DialogImage.vue"
+import ExtStoreDrawer from "./ExtStoreDrawer.vue"
+import { Button } from "@/components/ui/button"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { ExtItem } from "./types"
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
+import { computed, onMounted, onUnmounted, ref, watch } from "vue"
+import { ApolloClient, HttpLink, InMemoryCache, type ApolloQueryResult } from "@apollo/client"
+import { PERMISSIONS_EXPLANATION } from "@/lib/constants"
 import {
   type FindLatestExtQuery,
   type FindLatestExtQueryVariables,
-  FindLatestExtDocument,
-} from "@jarvis/gql";
-import { gqlClient } from "@/lib/utils/graphql";
-import { compareVersions } from "compare-versions";
-import { type Tables } from "@jarvis/supabase";
-import * as supabase from "@/lib/utils/supabase";
-import { JarvisExtManifest } from "tauri-plugin-jarvis-api/models";
-import { Separator } from "@/components/ui/separator";
-import { CircleCheckBigIcon, Trash2Icon } from "lucide-vue-next";
-import { GlobalEventBus } from "@/lib/utils/events";
-import { installTarballUrl } from "@/lib/utils/tarball";
-import { getDevExtensionFolder, getExtensionFolder } from "tauri-plugin-jarvis-api/commands";
-import { ElMessage } from "element-plus";
-import { supabaseClient } from "@/lib/utils/supabase";
+  FindLatestExtDocument
+} from "@jarvis/gql"
+import { gqlClient } from "@/lib/utils/graphql"
+import { compareVersions } from "compare-versions"
+import { type Tables } from "@jarvis/supabase"
+import * as supabase from "@/lib/utils/supabase"
+import { JarvisExtManifest } from "tauri-plugin-jarvis-api/models"
+import { Separator } from "@/components/ui/separator"
+import { CircleCheckBigIcon, Trash2Icon } from "lucide-vue-next"
+import { GlobalEventBus } from "@/lib/utils/events"
+import { installTarballUrl } from "@/lib/utils/tarball"
+import { getDevExtensionFolder, getExtensionFolder } from "tauri-plugin-jarvis-api/commands"
+import { ElMessage } from "element-plus"
+import { supabaseClient } from "@/lib/utils/supabase"
 
 const props = defineProps<{
-  open: boolean;
-  selectedExt?: ExtItem;
-  installed?: boolean;
-}>();
-const imageDialogOpen = ref(false);
+  open: boolean
+  selectedExt?: ExtItem
+  installed?: boolean
+}>()
+const imageDialogOpen = ref(false)
 const emits = defineEmits<{
-  (e: "update:open", open: boolean): void;
-  (e: "installed", downloads: number): void;
-  (e: "uninstall", ext: Tables<"ext_publish"> | null): void;
-}>();
-const currentExt = ref<Tables<"ext_publish"> | null>(null);
+  (e: "update:open", open: boolean): void
+  (e: "installed", downloads: number): void
+  (e: "uninstall", ext: Tables<"ext_publish"> | null): void
+}>()
+const currentExt = ref<Tables<"ext_publish"> | null>(null)
 
 watch(
   () => props.open,
@@ -61,80 +61,80 @@ watch(
       const response = await gqlClient.query<FindLatestExtQuery, FindLatestExtQueryVariables>({
         query: FindLatestExtDocument,
         variables: {
-          identifier: props.selectedExt?.identifier,
-        },
-      });
-      const exts = response.data.ext_publishCollection?.edges;
+          identifier: props.selectedExt?.identifier
+        }
+      })
+      const exts = response.data.ext_publishCollection?.edges
       if (exts && exts.length > 0) {
         // @ts-ignore
-        currentExt.value = exts[0].node;
-        console.log(currentExt.value);
+        currentExt.value = exts[0].node
+        console.log(currentExt.value)
       }
     } else {
-      currentExt.value = null;
+      currentExt.value = null
     }
-  },
-);
+  }
+)
 
 const manifest = computed(() => {
   if (currentExt.value) {
     // @ts-ignore
-    return JarvisExtManifest.parse(JSON.parse(currentExt.value?.manifest as string));
+    return JarvisExtManifest.parse(JSON.parse(currentExt.value?.manifest as string))
   } else {
-    return null;
+    return null
   }
-});
+})
 
 async function installExt() {
   if (!currentExt.value) {
-    return ElMessage.error("Unexpected Error: No Extension Selected");
+    return ElMessage.error("Unexpected Error: No Extension Selected")
   }
-  const tarballUrl = supabase.getFileUrl(currentExt.value.tarball_path).data.publicUrl;
-  console.log(`Install tarball: ${tarballUrl}`);
+  const tarballUrl = supabase.getFileUrl(currentExt.value.tarball_path).data.publicUrl
+  console.log(`Install tarball: ${tarballUrl}`)
 
   getExtensionFolder()
     .then((targetInstallDir) => {
       if (!targetInstallDir) {
-        return Promise.reject("Unexpected Error: Extension Folder is Null");
+        return Promise.reject("Unexpected Error: Extension Folder is Null")
       } else {
-        return installTarballUrl(tarballUrl, targetInstallDir);
+        return installTarballUrl(tarballUrl, targetInstallDir)
       }
     })
     .then(async () => {
-      ElMessage.success(`Plugin ${currentExt.value!.name} Installed`);
+      ElMessage.success(`Plugin ${currentExt.value!.name} Installed`)
 
       if (currentExt.value) {
         const { data, error } = await supabaseClient.functions.invoke("increment-downloads", {
-          body: { identifier: currentExt.value.identifier, version: currentExt.value.version },
-        });
-        const { downloads } = z.object({ downloads: z.number() }).parse(data);
-        emits("update:open", false);
-        emits("installed", downloads);
+          body: { identifier: currentExt.value.identifier, version: currentExt.value.version }
+        })
+        const { downloads } = z.object({ downloads: z.number() }).parse(data)
+        emits("update:open", false)
+        emits("installed", downloads)
       }
     })
     .catch((err) => {
-      ElMessage.error("Fail to install tarball");
-      ElMessage.error(err);
-    });
+      ElMessage.error("Fail to install tarball")
+      ElMessage.error(err)
+    })
 }
 
 function onEnterPressed(e: KeyboardEvent) {
   if (e.key === "Enter" && currentExt.value) {
-    installExt();
+    installExt()
   }
 }
 
 onMounted(() => {
-  GlobalEventBus.onKeyDown(onEnterPressed);
-});
+  GlobalEventBus.onKeyDown(onEnterPressed)
+})
 
 onUnmounted(() => {
-  GlobalEventBus.offKeyDown(onEnterPressed);
-});
+  GlobalEventBus.offKeyDown(onEnterPressed)
+})
 
 const imageSrcs = computed(() => {
-  return currentExt.value?.demo_images.map((src) => supabase.getFileUrl(src).data.publicUrl) ?? [];
-});
+  return currentExt.value?.demo_images.map((src) => supabase.getFileUrl(src).data.publicUrl) ?? []
+})
 </script>
 <template>
   <ExtStoreDrawer :open="props.open" @update:open="(open) => emits('update:open', open)">

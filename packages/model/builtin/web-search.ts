@@ -2,11 +2,11 @@
  * Web Search is a combination of trigger node and open url actin node.
  */
 
-import { KeywordTriggerNode } from "../workflow/inputs/keyword-trigger";
-import { OpenUrlNode } from "../workflow/actions/open-url";
-import { Workflow, NodeType } from "../workflow";
-import { ArgumentRequired, NodeTypeInput } from "../workflow/common";
-import { v4 as uuidv4 } from "uuid";
+import { KeywordTriggerNode } from "../workflow/inputs/keyword-trigger"
+import { OpenUrlNode } from "../workflow/actions/open-url"
+import { Workflow, NodeType } from "../workflow"
+import { ArgumentRequired, NodeTypeInput } from "../workflow/common"
+import { v4 as uuidv4 } from "uuid"
 
 // export const GoogleSearch: Workflow = {
 //     name: "Google Search",

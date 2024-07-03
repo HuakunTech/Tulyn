@@ -15,11 +15,11 @@ In the future, I will publish Jarvis to package managers and also provide a webs
 
 ## Supported Platforms
 
-Jarvis is designed to be cross-platform. It will work on Windows, macOS, and Linux. 
+Jarvis is designed to be cross-platform. It will work on Windows, macOS, and Linux.
 
 At the time of writing, Jarvis is still under early development.
-Only macOS is fully supported. Linux is partially working. 
-Some stack overflow bug prevents Windows build from running. I will try to get it working ASAP. 
+Only macOS is fully supported. Linux is partially working.
+Some stack overflow bug prevents Windows build from running. I will try to get it working ASAP.
 
 ## Extensions
 

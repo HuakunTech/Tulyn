@@ -1,54 +1,54 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { type TListItem, TListGroup } from "tauri-plugin-jarvis-api/models";
-import { ElMessage, ElTable, ElTableColumn } from "element-plus";
-import { Icon } from "@iconify/vue";
-import { Extension } from "@/lib/extension/ext";
-import { $appConfig } from "@/lib/stores/appConfig";
-import { getExtensionsFolder } from "@/lib/constants";
-import { Trash2Icon } from "lucide-vue-next";
-import { RemoteExtension } from "@/lib/extension/remoteExt";
-import IconMultiplexer from "@/components/IconMultiplexer.vue";
-const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath, true);
-const storeExt = new Extension("Extensions", await getExtensionsFolder());
-const remoteExt = new RemoteExtension();
-const tableData = ref<TListGroup[]>([]);
+import { onMounted, ref } from "vue"
+import { type TListItem, TListGroup } from "tauri-plugin-jarvis-api/models"
+import { ElMessage, ElTable, ElTableColumn } from "element-plus"
+import { Icon } from "@iconify/vue"
+import { Extension } from "@/lib/extension/ext"
+import { $appConfig } from "@/lib/stores/appConfig"
+import { getExtensionsFolder } from "@/lib/constants"
+import { Trash2Icon } from "lucide-vue-next"
+import { RemoteExtension } from "@/lib/extension/remoteExt"
+import IconMultiplexer from "@/components/IconMultiplexer.vue"
+const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath, true)
+const storeExt = new Extension("Extensions", await getExtensionsFolder())
+const remoteExt = new RemoteExtension()
+const tableData = ref<TListGroup[]>([])
 
 function refreshListing() {
   return Promise.all([devExt.load(), storeExt.load(), remoteExt.load()]).then(() => {
-    tableData.value = [...storeExt.groups(), ...devExt.groups(), ...remoteExt.groups()];
-  });
+    tableData.value = [...storeExt.groups(), ...devExt.groups(), ...remoteExt.groups()]
+  })
 }
 
 onMounted(() => {
-  refreshListing();
-});
+  refreshListing()
+})
 
 function handleDeleteCommand(index: number, item: TListItem) {
   if (item.type === "Remote Command") {
     remoteExt
       .removeRemoteCmd(item.value)
       .then(() => {
-        ElMessage.success(`Removed Remote Command: ${item.title}`);
-        refreshListing();
+        ElMessage.success(`Removed Remote Command: ${item.title}`)
+        refreshListing()
       })
-      .catch(ElMessage.error);
+      .catch(ElMessage.error)
   }
 }
 
 function handleDeleteExtension(index: number, item: TListGroup) {
-  const ext = item.flags.isDev ? devExt : storeExt;
+  const ext = item.flags.isDev ? devExt : storeExt
   ext
     .uninstallExt(item.identifier)
     .then(() => {
       ElMessage.success({
-        message: `Deleted Extension: ${item.title}`,
-      });
-      refreshListing();
+        message: `Deleted Extension: ${item.title}`
+      })
+      refreshListing()
     })
     .catch((error) => {
-      ElMessage.error({ message: error });
-    });
+      ElMessage.error({ message: error })
+    })
 }
 </script>
 <template>

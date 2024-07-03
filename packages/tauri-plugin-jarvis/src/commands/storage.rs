@@ -70,7 +70,8 @@ pub async fn ext_store_wrapper_get<R: Runtime>(
     key: String,
 ) -> Result<Option<JsonValue>> {
     let store_path = preprocess(&app, &window, &jarvis_state, &path).map_err(|e| e.to_string())?;
-    with_store(app, stores, store_path, |store| Ok(store.get(key).cloned())).map_err(|e| e.to_string())
+    with_store(app, stores, store_path, |store| Ok(store.get(key).cloned()))
+        .map_err(|e| e.to_string())
 }
 
 #[tauri::command]

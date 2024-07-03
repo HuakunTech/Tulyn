@@ -1,38 +1,38 @@
 <script setup lang="ts">
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Icon } from "@iconify/vue";
-import { CaretSortIcon, CheckIcon } from "@radix-icons/vue";
-import clipboard from "tauri-plugin-clipboard-api";
-import { ref } from "vue";
-import { toast } from "vue-sonner";
+  CommandList
+} from "@/components/ui/command"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Icon } from "@iconify/vue"
+import { CaretSortIcon, CheckIcon } from "@radix-icons/vue"
+import clipboard from "tauri-plugin-clipboard-api"
+import { ref } from "vue"
+import { toast } from "vue-sonner"
 
 const ActionTypes = {
   CopyPlainText: "Copy Plain Text",
-  CopyToClipboard: "Copy to Clipboard",
-};
+  CopyToClipboard: "Copy to Clipboard"
+}
 
-const { meta, k, escape } = useMagicKeys();
-const open = ref(false);
-const cmdk = computed(() => meta.value && k.value);
+const { meta, k, escape } = useMagicKeys()
+const open = ref(false)
+const cmdk = computed(() => meta.value && k.value)
 watch(cmdk, (val) => {
   if (val) {
-    open.value = true;
+    open.value = true
   }
-});
+})
 watch(escape, (val) => {
   if (val) {
-    open.value = false;
+    open.value = false
   }
-});
+})
 // const actions = computed<string[]>(() => {
 //   const candidates = [ActionTypes.CopyToClipboard]
 //   switch (props.rec?.content_type) {

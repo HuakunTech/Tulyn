@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { IconType } from "./common";
+import { z } from "zod"
+import { IconType } from "./common"
 
 export const OSPlatform = z.enum([
   "linux",
@@ -11,22 +11,22 @@ export const OSPlatform = z.enum([
   // "openbsd",
   // "solaris",
   // "android",
-  "windows",
-]);
-const allPlatforms = [OSPlatform.Enum.linux, OSPlatform.Enum.macos, OSPlatform.Enum.windows];
+  "windows"
+])
+const allPlatforms = [OSPlatform.Enum.linux, OSPlatform.Enum.macos, OSPlatform.Enum.windows]
 export const PermissionsEnum = z.enum([
   "clipboard-read",
   "clipboard-write",
   "fs-home",
   "fs-basic",
-  "shell",
-]);
+  "shell"
+])
 export const TriggerCmd = z.object({
   type: z.union([z.literal("text"), z.literal("regex")]),
-  value: z.string(),
-});
-export type TriggerCmd = z.infer<typeof TriggerCmd>;
-export const TitleBarStyle = z.enum(["visible", "transparent", "overlay"]);
+  value: z.string()
+})
+export type TriggerCmd = z.infer<typeof TriggerCmd>
+export const TitleBarStyle = z.enum(["visible", "transparent", "overlay"])
 // JS new WebViewWindow only accepts lowercase, while manifest loaded from Rust is capitalized. I run toLowerCase() on the value before passing it to the WebViewWindow.
 // This lowercase title bar style schema is used to validate and set the type so TypeScript won't complaint
 // export const TitleBarStyleAllLower = z.enum(["visible", "transparent", "overlay"]);
@@ -65,8 +65,8 @@ export const WindowConfig = z.object({
   minimizable: z.boolean().nullable().optional(),
   closable: z.boolean().nullable().optional(),
   parent: z.string().nullable().optional(),
-  visibleOnAllWorkspaces: z.boolean().nullable().optional(),
-});
+  visibleOnAllWorkspaces: z.boolean().nullable().optional()
+})
 export const UiCmd = z.object({
   main: z.string().describe("HTML file to load, e.g. dist/index.html"),
   description: z.string().nullable().default("").describe("Description of the Command"),
@@ -79,9 +79,9 @@ export const UiCmd = z.object({
   platforms: OSPlatform.array()
     .nullable()
     .default(allPlatforms)
-    .describe("Platforms available on. Leave empty for all platforms."),
-});
-export type UiCmd = z.infer<typeof UiCmd>;
+    .describe("Platforms available on. Leave empty for all platforms.")
+})
+export type UiCmd = z.infer<typeof UiCmd>
 
 export const InlineCmd = z.object({
   main: z.string(),
@@ -91,15 +91,15 @@ export const InlineCmd = z.object({
   platforms: OSPlatform.array()
     .nullable()
     .default(allPlatforms)
-    .describe("Platforms available on. Leave empty for all platforms."),
-});
-export type InlineCmd = z.infer<typeof InlineCmd>;
+    .describe("Platforms available on. Leave empty for all platforms.")
+})
+export type InlineCmd = z.infer<typeof InlineCmd>
 
 export const Icon = z.object({
   type: IconType,
-  value: z.string(),
-});
-export type Icon = z.infer<typeof Icon>;
+  value: z.string()
+})
+export type Icon = z.infer<typeof Icon>
 
 export const JarvisExtManifest = z.object({
   name: z.string().describe("Name of the extension (Human Readable)"),
@@ -116,21 +116,21 @@ export const JarvisExtManifest = z.object({
     .nullable()
     .default([])
     .describe(
-      "Permissions Declared by the extension. e.g. clipboard-all. Not declared APIs will be blocked.",
+      "Permissions Declared by the extension. e.g. clipboard-all. Not declared APIs will be blocked."
     ),
   demoImages: z.array(z.string()).describe("Demo images for the extension"),
   uiCmds: UiCmd.array().optional().default([]).describe("UI Commands"),
-  inlineCmds: InlineCmd.array().optional().default([]).describe("Inline Commands"),
-});
-export type JarvisExtManifest = z.infer<typeof JarvisExtManifest>;
+  inlineCmds: InlineCmd.array().optional().default([]).describe("Inline Commands")
+})
+export type JarvisExtManifest = z.infer<typeof JarvisExtManifest>
 
 export const ExtPackageJson = z.object({
   name: z.string().describe("Package name for the extension (just a regular npm package name)"),
   version: z.string().describe("Version of the extension"),
   jarvis: JarvisExtManifest.describe("Jarvis extension manifest"),
-  files: z.string().array().describe("Files to include in the extension. e.g. ['dist']"),
-});
-export type ExtPackageJson = z.infer<typeof ExtPackageJson>;
+  files: z.string().array().describe("Files to include in the extension. e.g. ['dist']")
+})
+export type ExtPackageJson = z.infer<typeof ExtPackageJson>
 
 /**
  * Extra fields for JarvisExtJson
@@ -139,7 +139,7 @@ export type ExtPackageJson = z.infer<typeof ExtPackageJson>;
 export const ExtPackageJsonExtra = ExtPackageJson.merge(
   z.object({
     extPath: z.string(),
-    extFolderName: z.string(),
-  }),
-);
-export type ExtPackageJsonExtra = z.infer<typeof ExtPackageJsonExtra>;
+    extFolderName: z.string()
+  })
+)
+export type ExtPackageJsonExtra = z.infer<typeof ExtPackageJsonExtra>

@@ -1,14 +1,10 @@
 <script setup lang="ts">
-import { type HTMLAttributes, computed } from 'vue'
-import {
-  AccordionHeader,
-  AccordionTrigger,
-  type AccordionTriggerProps,
-} from 'radix-vue'
-import { ChevronDownIcon } from '@radix-icons/vue'
-import { cn } from '@/lib/utils'
+import { type HTMLAttributes, computed } from "vue"
+import { AccordionHeader, AccordionTrigger, type AccordionTriggerProps } from "radix-vue"
+import { ChevronDownIcon } from "@radix-icons/vue"
+import { cn } from "@/lib/utils"
 
-const props = defineProps<AccordionTriggerProps & { class?: HTMLAttributes['class'] }>()
+const props = defineProps<AccordionTriggerProps & { class?: HTMLAttributes["class"] }>()
 
 const delegatedProps = computed(() => {
   const { class: _, ...delegated } = props
@@ -24,7 +20,7 @@ const delegatedProps = computed(() => {
       :class="
         cn(
           'flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180',
-          props.class,
+          props.class
         )
       "
     >

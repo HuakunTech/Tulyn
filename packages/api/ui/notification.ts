@@ -19,5 +19,5 @@ export {
   onNotificationReceived,
   onAction,
   Schedule,
-  ScheduleEvery,
-} from "@tauri-apps/plugin-notification";
+  ScheduleEvery
+} from "@tauri-apps/plugin-notification"

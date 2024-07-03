@@ -1,6 +1,6 @@
-import { type IClipboard } from "../api/client-types";
-import { defaultClientAPI, isMain } from "../client";
-import { type Remote } from "@huakunshen/comlink";
+import { type IClipboard } from "../api/client-types"
+import { defaultClientAPI, isMain } from "../client"
+import { type Remote } from "@huakunshen/comlink"
 import {
   hasFiles,
   hasHTML,
@@ -21,8 +21,8 @@ import {
   writeImageBinary,
   writeRtf,
   writeText
-} from "tauri-plugin-clipboard-api";
-import { type IClipboardServer } from "./server-types";
+} from "tauri-plugin-clipboard-api"
+import { type IClipboardServer } from "./server-types"
 
 export function constructAPI(api: Remote<IClipboardServer>): IClipboard {
   return {
@@ -45,9 +45,9 @@ export function constructAPI(api: Remote<IClipboardServer>): IClipboard {
     hasImage: api.clipboardHasImage,
     hasFiles: api.clipboardHasFiles,
     startMonitor: api.clipboardStartMonitor
-  };
+  }
 }
-export const comlinkClipboard = constructAPI(defaultClientAPI);
+export const comlinkClipboard = constructAPI(defaultClientAPI)
 
 export const nativeClipboard: IClipboard = {
   readText: readText,
@@ -69,6 +69,6 @@ export const nativeClipboard: IClipboard = {
   hasImage: hasImage,
   hasFiles: hasFiles,
   startMonitor: startMonitor
-};
+}
 
-export const clipboard = isMain ? nativeClipboard : comlinkClipboard;
+export const clipboard = isMain ? nativeClipboard : comlinkClipboard

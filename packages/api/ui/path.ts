@@ -1,4 +1,4 @@
-import * as _pathApis from "@tauri-apps/api/path";
+import * as _pathApis from "@tauri-apps/api/path"
 
 export {
   BaseDirectory,
@@ -34,5 +34,5 @@ export {
   extname,
   basename,
   isAbsolute,
-  tempDir,
-} from "@tauri-apps/api/path";
+  tempDir
+} from "@tauri-apps/api/path"

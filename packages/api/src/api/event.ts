@@ -1,6 +1,6 @@
-import { type IEvent, type IEventInternal } from "../api/client-types";
-import { defaultClientAPI, isMain } from "../client";
-import { proxy as comlinkProxy, type Remote } from "@huakunshen/comlink";
+import { type IEvent, type IEventInternal } from "../api/client-types"
+import { defaultClientAPI, isMain } from "../client"
+import { proxy as comlinkProxy, type Remote } from "@huakunshen/comlink"
 import {
   emit,
   emitTo,
@@ -11,8 +11,8 @@ import {
   type EventTarget,
   type Options,
   type UnlistenFn
-} from "@tauri-apps/api/event";
-import { type IEventServer } from "./server-types";
+} from "@tauri-apps/api/event"
+import { type IEventServer } from "./server-types"
 
 export function constructAPI(api: Remote<IEventServer>): IEventInternal {
   return {
@@ -31,10 +31,10 @@ export function constructAPI(api: Remote<IEventServer>): IEventInternal {
       handler: EventCallback<T>,
       options?: Options
     ): Promise<UnlistenFn> => api.eventOnce(event, handler, options)
-  };
+  }
 }
 
-const _event = constructAPI(defaultClientAPI);
+const _event = constructAPI(defaultClientAPI)
 
 export const listen = async function listen<T>(
   eventName: EventName,
@@ -44,28 +44,28 @@ export const listen = async function listen<T>(
   const target: EventTarget =
     typeof options?.target === "string"
       ? { kind: "AnyLabel", label: options.target }
-      : options?.target ?? { kind: "Any" };
+      : options?.target ?? { kind: "Any" }
   return _event.rawListen(eventName, target, handler).then((eventId) => {
     return async () => {
-      _event.rawUnlisten(eventName, eventId);
-    };
-  });
-};
+      _event.rawUnlisten(eventName, eventId)
+    }
+  })
+}
 
-export { TauriEvent } from "@tauri-apps/api/event";
+export { TauriEvent } from "@tauri-apps/api/event"
 
 export const comlinkEvent: IEvent = {
   emit: _event.emit,
   emitTo: _event.emitTo,
   once: _event.once,
   listen
-};
+}
 
 export const nativeEvent: IEvent = {
   emit: emit,
   emitTo: emitTo,
   once: once,
   listen: listen
-};
+}
 
-export const event = isMain ? nativeEvent : comlinkEvent;
+export const event = isMain ? nativeEvent : comlinkEvent

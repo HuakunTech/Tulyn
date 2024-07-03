@@ -1,6 +1,6 @@
-import { type IFs } from "../api/client-types";
-import { defaultClientAPI, isMain } from "../client";
-import { type Remote } from "@huakunshen/comlink";
+import { type IFs } from "../api/client-types"
+import { defaultClientAPI, isMain } from "../client"
+import { type Remote } from "@huakunshen/comlink"
 import {
   copyFile,
   create,
@@ -16,8 +16,8 @@ import {
   truncate,
   writeFile,
   writeTextFile
-} from "@tauri-apps/plugin-fs";
-import { type IFsServer } from "./server-types";
+} from "@tauri-apps/plugin-fs"
+import { type IFsServer } from "./server-types"
 
 export function constructAPI(api: Remote<IFsServer>): IFs {
   return {
@@ -35,9 +35,9 @@ export function constructAPI(api: Remote<IFsServer>): IFs {
     truncate: api.fsTruncate,
     writeFile: api.fsWriteFile,
     writeTextFile: api.fsWriteTextFile
-  };
+  }
 }
-export const comlinkFs: IFs = constructAPI(defaultClientAPI);
+export const comlinkFs: IFs = constructAPI(defaultClientAPI)
 
 export const nativeFs: IFs = {
   readDir: readDir,
@@ -54,6 +54,6 @@ export const nativeFs: IFs = {
   truncate: truncate,
   writeFile: writeFile,
   writeTextFile: writeTextFile
-};
+}
 
-export const fs = isMain ? nativeFs : comlinkFs;
+export const fs = isMain ? nativeFs : comlinkFs

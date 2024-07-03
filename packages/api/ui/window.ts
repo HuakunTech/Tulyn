@@ -1,14 +1,14 @@
-import * as _windowApis from "@tauri-apps/api/window";
-import * as _webviewWindowApis from "@tauri-apps/api/webviewWindow";
-import * as _webviewApis from "@tauri-apps/api/webview";
+import * as _windowApis from "@tauri-apps/api/window"
+import * as _webviewWindowApis from "@tauri-apps/api/webviewWindow"
+import * as _webviewApis from "@tauri-apps/api/webview"
 
-export { getCurrent, getAll, currentMonitor } from "@tauri-apps/api/window";
-export { WebviewWindow } from "@tauri-apps/api/webviewWindow";
+export { getCurrent, getAll, currentMonitor } from "@tauri-apps/api/window"
+export { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 
-type Unlisten = () => void;
+type Unlisten = () => void
 
 export function closeWindow() {
-  return _windowApis.getCurrent().close();
+  return _windowApis.getCurrent().close()
 }
 
 /**
@@ -16,44 +16,44 @@ export function closeWindow() {
  * @returns Promise<void>
  */
 export function destroyWindow() {
-  return _windowApis.getCurrent().destroy();
+  return _windowApis.getCurrent().destroy()
 }
 
 export function windowLabelExists(label: string) {
-  return _windowApis.getAll().some((w) => w.label === label);
+  return _windowApis.getAll().some((w) => w.label === label)
 }
 
 export function getWindowByLabel(label: string) {
-  return _windowApis.getAll().find((w) => w.label === label);
+  return _windowApis.getAll().find((w) => w.label === label)
 }
 
 export function closeMainWindow() {
   return _windowApis
     .getAll()
     .find((w) => w.label === "main")
-    ?.close();
+    ?.close()
 }
 
 export function hideWindow(windowLabel: string) {
   return _windowApis
     .getAll()
     .find((w) => w.label === windowLabel)
-    ?.hide();
+    ?.hide()
 }
 
 export function hideMainWindow() {
-  return hideWindow("main");
+  return hideWindow("main")
 }
 
 export function showWindow(windowLabel: string) {
   return _windowApis
     .getAll()
     .find((w) => w.label === windowLabel)
-    ?.show();
+    ?.show()
 }
 
 export function showMainWindow() {
-  return showWindow("main");
+  return showWindow("main")
 }
 
 /**
@@ -65,9 +65,9 @@ export function showMainWindow() {
 export function destroyWindowOnKeyPressed(key: string = "Escape"): Unlisten {
   function quitOn(e: KeyboardEvent) {
     if (e.key === key) {
-      destroyWindow();
+      destroyWindow()
     }
   }
-  document.addEventListener("keydown", quitOn);
-  return () => document.removeEventListener("keydown", quitOn);
+  document.addEventListener("keydown", quitOn)
+  return () => document.removeEventListener("keydown", quitOn)
 }

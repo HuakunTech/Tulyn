@@ -1,27 +1,27 @@
-import axios from "axios";
-import { type IExtensionBase } from "./base";
-import { $appConfig } from "@/lib/stores/appConfig";
+import axios from "axios"
+import { type IExtensionBase } from "./base"
+import { $appConfig } from "@/lib/stores/appConfig"
 import {
   ExtPackageJsonExtra,
   UiCmd,
   InlineCmd,
   ListItemType,
   TListItem,
-  TListGroup,
-} from "tauri-plugin-jarvis-api/models";
+  TListGroup
+} from "tauri-plugin-jarvis-api/models"
 import {
   isWindowLabelRegistered,
   loadAllExtensions,
   pathExists,
   registerExtensionWindow,
-  unregisterExtensionWindow,
-} from "tauri-plugin-jarvis-api/commands";
-import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
-import { type ReadableAtom, type WritableAtom, atom } from "nanostores";
-import { fs } from "jarvis-api/ui";
-import { log } from "jarvis-api/ui";
-import { ElMessage, ElNotification } from "element-plus";
-import { toast } from "vue-sonner";
+  unregisterExtensionWindow
+} from "tauri-plugin-jarvis-api/commands"
+import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
+import { type ReadableAtom, type WritableAtom, atom } from "nanostores"
+import { fs } from "jarvis-api/ui"
+import { log } from "jarvis-api/ui"
+import { ElMessage, ElNotification } from "element-plus"
+import { toast } from "vue-sonner"
 
 /**
  * Generate a value (unique identified) for a command in an extension
@@ -32,16 +32,16 @@ import { toast } from "vue-sonner";
 export function generateItemValue(
   ext: ExtPackageJsonExtra,
   cmd: UiCmd | InlineCmd,
-  isDev: boolean,
+  isDev: boolean
 ) {
-  return `${ext.jarvis.identifier}/${cmd.name}/${isDev ? "dev" : ""}`;
+  return `${ext.jarvis.identifier}/${cmd.name}/${isDev ? "dev" : ""}`
 }
 
 export function cmdToItem(
   cmd: UiCmd | InlineCmd,
   manifest: ExtPackageJsonExtra,
   type: ListItemType,
-  isDev: boolean,
+  isDev: boolean
 ): TListItem {
   return {
     title: cmd.name,
@@ -51,8 +51,8 @@ export function cmdToItem(
     type,
     icon: manifest.jarvis.icon,
     keywords: cmd.cmds.map((c) => c.value), // TODO: handle regex as well
-    identityFilter: true,
-  };
+    identityFilter: true
+  }
 }
 
 function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: UiCmd, url: string) {
@@ -100,12 +100,12 @@ function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: UiCmd, u
       closable: cmd.window?.closable ?? undefined,
       parent: cmd.window?.parent ?? undefined,
       visibleOnAllWorkspaces: cmd.window?.visibleOnAllWorkspaces ?? undefined,
-      url,
-    });
+      url
+    })
     window.onCloseRequested(async (event) => {
-      await unregisterExtensionWindow(window.label);
-    });
-  });
+      await unregisterExtensionWindow(window.label)
+    })
+  })
 }
 
 /**
@@ -115,49 +115,49 @@ function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: UiCmd, u
  */
 export function manifestToCmdItems(manifest: ExtPackageJsonExtra, isDev: boolean): TListItem[] {
   const uiItems = manifest.jarvis.uiCmds.map((cmd) =>
-    cmdToItem(cmd, manifest, ListItemType.Enum["UI Command"], isDev),
-  );
+    cmdToItem(cmd, manifest, ListItemType.Enum["UI Command"], isDev)
+  )
   const inlineItems = manifest.jarvis.inlineCmds.map((cmd) =>
-    cmdToItem(cmd, manifest, ListItemType.Enum["Inline Command"], isDev),
-  );
-  return [...uiItems, ...inlineItems];
+    cmdToItem(cmd, manifest, ListItemType.Enum["Inline Command"], isDev)
+  )
+  return [...uiItems, ...inlineItems]
 }
 
 export class Extension implements IExtensionBase {
-  manifests: ExtPackageJsonExtra[];
-  extPath: string | undefined;
-  isDev: boolean;
-  extensionName: string;
+  manifests: ExtPackageJsonExtra[]
+  extPath: string | undefined
+  isDev: boolean
+  extensionName: string
   //  $listItems, $listItemsDisplay
-  $listItems: WritableAtom<TListItem[]>;
+  $listItems: WritableAtom<TListItem[]>
   // $listItemsDisplay: ReadableAtom<TListItem[]>;
 
   constructor(name: string, extPath?: string, isDev: boolean = false) {
-    this.extensionName = name;
-    this.extPath = extPath;
-    this.manifests = [];
-    this.isDev = isDev;
-    this.$listItems = atom([]);
+    this.extensionName = name
+    this.extPath = extPath
+    this.manifests = []
+    this.isDev = isDev
+    this.$listItems = atom([])
   }
   async load(): Promise<void> {
     if (!this.extPath || !pathExists(this.extPath)) {
-      this.manifests = [];
+      this.manifests = []
     } else {
       return loadAllExtensions(this.extPath)
         .then((manifests) => {
-          this.manifests = manifests;
+          this.manifests = manifests
           this.$listItems.set(
-            this.manifests.map((manifest) => manifestToCmdItems(manifest, this.isDev)).flat(),
-          );
+            this.manifests.map((manifest) => manifestToCmdItems(manifest, this.isDev)).flat()
+          )
         })
         .catch((err) => {
-          toast.error(`Failed to loa extensions from ${this.extPath}`);
+          toast.error(`Failed to loa extensions from ${this.extPath}`)
           // toast.error(err);
-        });
+        })
     }
   }
   default(): TListItem[] {
-    return this.$listItems.get();
+    return this.$listItems.get()
   }
 
   groups(): TListGroup[] {
@@ -167,20 +167,20 @@ export class Extension implements IExtensionBase {
       type: "Extension",
       icon: manifest.jarvis.icon,
       items: manifestToCmdItems(manifest, this.isDev),
-      flags: { isDev: this.isDev, isRemovable: true },
-    }));
+      flags: { isDev: this.isDev, isRemovable: true }
+    }))
   }
 
   uninstallExt(identifier: string): Promise<ExtPackageJsonExtra> {
-    const found = this.manifests.find((m) => m.jarvis.identifier === identifier);
-    console.log(found);
+    const found = this.manifests.find((m) => m.jarvis.identifier === identifier)
+    console.log(found)
     if (found) {
       return fs.remove(found.extPath, { recursive: true }).then(() => {
-        return found;
-      });
+        return found
+      })
     } else {
-      console.error("Extension not found", identifier);
-      return Promise.reject("Extension not found");
+      console.error("Extension not found", identifier)
+      return Promise.reject("Extension not found")
     }
   }
 
@@ -189,20 +189,20 @@ export class Extension implements IExtensionBase {
       if (item.type == "UI Command") {
         manifest.jarvis.uiCmds.forEach((cmd) => {
           if (item.value === generateItemValue(manifest, cmd, this.isDev)) {
-            let url = cmd.main;
+            let url = cmd.main
             if ($appConfig.value?.devExtLoadUrl && this.isDev && cmd.devMain) {
-              url = cmd.devMain;
+              url = cmd.devMain
             } else {
               if (cmd.main.startsWith("http")) {
-                url = cmd.main;
+                url = cmd.main
               } else {
-                const postfix = !cmd.main.endsWith(".html") && !cmd.main.endsWith("/") ? "/" : "";
-                url = `http://localhost:1566/${this.isDev ? "dev-" : ""}extensions/${manifest.extFolderName}/${cmd.main}${postfix}`;
+                const postfix = !cmd.main.endsWith(".html") && !cmd.main.endsWith("/") ? "/" : ""
+                url = `http://localhost:1566/${this.isDev ? "dev-" : ""}extensions/${manifest.extFolderName}/${cmd.main}${postfix}`
               }
             }
-            createNewExtWindowForUiCmd(manifest, cmd, url);
+            createNewExtWindowForUiCmd(manifest, cmd, url)
           }
-        });
+        })
       } else if (item.type === "Inline Command") {
       } else if (item.type === "Remote Command") {
         // const remoteExt = new RemoteExtension();
@@ -218,10 +218,10 @@ export class Extension implements IExtensionBase {
         //   });
         // }
       } else {
-        console.error("Unknown command type", item.type);
+        console.error("Unknown command type", item.type)
       }
-    });
+    })
     // const foundExt = this.
-    return Promise.resolve();
+    return Promise.resolve()
   }
 }

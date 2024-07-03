@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from "vue";
-import { getExtensionsFolder, SUPABASE_ANON_KEY, SUPABASE_GRAPHQL_ENDPOINT } from "@/lib/constants";
-import { ApolloClient, InMemoryCache, HttpLink, type ApolloQueryResult, gql } from "@apollo/client";
-import { type AllExtensionsQuery, AllExtensionsDocument } from "@jarvis/gql";
-import { ArrowLeftIcon } from "@radix-icons/vue";
-import ExtListItem from "@/components/extension-store/ext-list-item.vue";
+import { computed, onMounted, ref, watch } from "vue"
+import { getExtensionsFolder, SUPABASE_ANON_KEY, SUPABASE_GRAPHQL_ENDPOINT } from "@/lib/constants"
+import { ApolloClient, InMemoryCache, HttpLink, type ApolloQueryResult, gql } from "@apollo/client"
+import { type AllExtensionsQuery, AllExtensionsDocument } from "@jarvis/gql"
+import { ArrowLeftIcon } from "@radix-icons/vue"
+import ExtListItem from "@/components/extension-store/ext-list-item.vue"
 import {
   Command,
   CommandDialog,
@@ -13,75 +13,75 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut,
-} from "@/components/ui/command";
-import CommandInput from "@/components/cmd-palette/CommandInput.vue";
-import ExtDrawer from "@/components/extension-store/ExtDrawer.vue";
-import { Button } from "@/components/ui/button";
+  CommandShortcut
+} from "@/components/ui/command"
+import CommandInput from "@/components/cmd-palette/CommandInput.vue"
+import ExtDrawer from "@/components/extension-store/ExtDrawer.vue"
+import { Button } from "@/components/ui/button"
 // import Command from "@/components/extension-store/Command.vue";
-import { ExtItem, ExtItemParser } from "@/components/extension-store/types";
-import { Extension } from "@/lib/extension/ext";
-import { gqlClient } from "@/lib/utils/graphql";
-import { ElMessage } from "element-plus";
-import { $appConfig } from "@/lib/stores/appConfig";
-import type { ExtPackageJsonExtra } from "jarvis-api/models";
-import { type Tables } from "@jarvis/supabase";
+import { ExtItem, ExtItemParser } from "@/components/extension-store/types"
+import { Extension } from "@/lib/extension/ext"
+import { gqlClient } from "@/lib/utils/graphql"
+import { ElMessage } from "element-plus"
+import { $appConfig } from "@/lib/stores/appConfig"
+import type { ExtPackageJsonExtra } from "jarvis-api/models"
+import { type Tables } from "@jarvis/supabase"
 
-const ext = new Extension("Extensions", await getExtensionsFolder());
-const selectedExt = ref<ExtItem>();
-const extDrawerOpen = ref(false);
-const extList = ref<ExtItem[]>([]);
-const installedManifests = ref<ExtPackageJsonExtra[]>([]);
+const ext = new Extension("Extensions", await getExtensionsFolder())
+const selectedExt = ref<ExtItem>()
+const extDrawerOpen = ref(false)
+const extList = ref<ExtItem[]>([])
+const installedManifests = ref<ExtPackageJsonExtra[]>([])
 
 function refreshListing() {
   return ext.load().then(() => {
-    installedManifests.value = ext.manifests;
-  });
+    installedManifests.value = ext.manifests
+  })
 }
 
 onKeyStroke("Escape", () => {
   if (document.activeElement?.nodeName === "INPUT") {
-    navigateTo("/");
+    navigateTo("/")
   }
-});
+})
 
 onMounted(async () => {
-  refreshListing();
+  refreshListing()
   const response: ApolloQueryResult<AllExtensionsQuery> = await gqlClient.query({
-    query: AllExtensionsDocument,
-  });
+    query: AllExtensionsDocument
+  })
   extList.value =
     response.data.extensionsCollection?.edges.map((x) =>
-      ExtItem.parse(ExtItemParser.parse(x.node)),
-    ) ?? [];
-  console.log(extList.value);
-});
+      ExtItem.parse(ExtItemParser.parse(x.node))
+    ) ?? []
+  console.log(extList.value)
+})
 
 function select(item: ExtItem) {
-  selectedExt.value = item;
-  extDrawerOpen.value = true;
+  selectedExt.value = item
+  extDrawerOpen.value = true
 }
 
 function isInstalled(identifier: string) {
-  return !!installedManifests.value.find((x) => x.jarvis.identifier === identifier);
+  return !!installedManifests.value.find((x) => x.jarvis.identifier === identifier)
 }
 
 function onInstalled(downloads: number) {
-  refreshListing();
+  refreshListing()
   if (selectedExt.value) {
-    selectedExt.value.downloads = downloads;
+    selectedExt.value.downloads = downloads
   }
 }
 
 function uninstall(extPublish: Tables<"ext_publish"> | null) {
   if (extPublish) {
     ext.uninstallExt(extPublish.identifier).then((manifest) => {
-      ElMessage.success(`Uninstalled: ${manifest.name}`);
-      extDrawerOpen.value = false;
-      refreshListing();
-    });
+      ElMessage.success(`Uninstalled: ${manifest.name}`)
+      extDrawerOpen.value = false
+      refreshListing()
+    })
   } else {
-    ElMessage.error("No Extension Selected");
+    ElMessage.error("No Extension Selected")
   }
 }
 
@@ -90,9 +90,9 @@ const filterFunc = (items: ExtItem[], searchTerm: string) => {
     return (
       item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.short_description.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  });
-};
+    )
+  })
+}
 </script>
 <template>
   <div>

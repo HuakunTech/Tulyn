@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import ServerStatus from "./Developer/ServerStatus.vue";
-import DevVars from "./Developer/DevVars.vue";
-import { InfoIcon } from "lucide-vue-next";
-import Installation from "@/components/settings/Developer/Installation.vue";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
+import ServerStatus from "./Developer/ServerStatus.vue"
+import DevVars from "./Developer/DevVars.vue"
+import { InfoIcon } from "lucide-vue-next"
+import Installation from "@/components/settings/Developer/Installation.vue"
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+  AccordionTrigger
+} from "@/components/ui/accordion"
 </script>
 <template>
   <div class="pt-2 pb-5 max-h-full overflow-auto">

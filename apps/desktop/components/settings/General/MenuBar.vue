@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { Checkbox } from "@/components/ui/checkbox";
-import { useStore } from "@nanostores/vue";
-import { $appConfig, setShowInTray } from "@/lib/stores/appConfig";
-import { computed, ref, watch } from "vue";
+import { Checkbox } from "@/components/ui/checkbox"
+import { useStore } from "@nanostores/vue"
+import { $appConfig, setShowInTray } from "@/lib/stores/appConfig"
+import { computed, ref, watch } from "vue"
 
-const appConfig = useStore($appConfig);
+const appConfig = useStore($appConfig)
 const checked = computed({
   get() {
-    return appConfig.value.showInTray;
+    return appConfig.value.showInTray
   },
   set(val) {
-    setShowInTray(val);
-  },
-});
+    setShowInTray(val)
+  }
+})
 </script>
 <template>
   <div class="grid grid-cols-2 gap-4">

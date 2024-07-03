@@ -16,15 +16,15 @@ jobs:
       fail-fast: false
       matrix:
         settings:
-          - platform: 'macos-14' # for Arm based macs (M1 and above).
-            args: '--target aarch64-apple-darwin --verbose'
-          - platform: 'macos-14' # for Intel based macs.
-            args: '--target x86_64-apple-darwin --verbose'
+          - platform: "macos-14" # for Arm based macs (M1 and above).
+            args: "--target aarch64-apple-darwin --verbose"
+          - platform: "macos-14" # for Intel based macs.
+            args: "--target x86_64-apple-darwin --verbose"
           - platform: "macos-14" # for Both Arm and Intel based macs.
             args: "--target universal-apple-darwin --verbose"
-          - platform: 'ubuntu-22.04' # for Tauri v1 you could replace this with ubuntu-20.04.
+          - platform: "ubuntu-22.04" # for Tauri v1 you could replace this with ubuntu-20.04.
             args: "--verbose"
-          - platform: 'windows-latest'
+          - platform: "windows-latest"
             args: "--verbose"
 
     runs-on: ${{ matrix.settings.platform }}
@@ -85,7 +85,7 @@ jobs:
           bun scripts/init-env.ts
       - name: Build radix-vue
         working-directory: vendors/radix-vue
-        env: 
+        env:
           COREPACK_ENABLE_STRICT: 0
         run: |
           pnpm i
@@ -109,7 +109,7 @@ jobs:
           # Otherwise Page won't load because constant vars cannot be loaded
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-          SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}     
+          SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}
         with:
           tagName: Jarvis-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
           releaseName: "Jarvis v__VERSION__"

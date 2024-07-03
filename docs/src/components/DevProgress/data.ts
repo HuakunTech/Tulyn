@@ -1,17 +1,17 @@
 export interface DevProgressData {
-  label: string;
-  id?: number;
-  children?: DevProgressData[];
-  finished?: boolean;
+  label: string
+  id?: number
+  children?: DevProgressData[]
+  finished?: boolean
 }
 export const devProgressRawData: DevProgressData[] = [
   {
     label: "App Launcher",
-    finished: true,
+    finished: true
   },
   {
     label: "Commands",
-    children: [{ label: "System Commands", finished: true }],
+    children: [{ label: "System Commands", finished: true }]
   },
   {
     label: "Desktop",
@@ -19,8 +19,8 @@ export const devProgressRawData: DevProgressData[] = [
       { label: "Global Toast in A Separate Window", finished: true },
       { label: "Keyboard Shortcut To Open", finished: false },
       { label: "Main window close on focus lose", finished: false },
-      { label: "Pin Window", finished: false },
-    ],
+      { label: "Pin Window", finished: false }
+    ]
   },
   {
     label: "Extensions",
@@ -42,8 +42,8 @@ export const devProgressRawData: DevProgressData[] = [
           { label: "Shell", finished: true },
           { label: "System Info (CPU, Battery, etc.)", finished: false },
           { label: "Network", finished: false },
-          { label: "Global Toast", finished: false },
-        ],
+          { label: "Global Toast", finished: false }
+        ]
       },
       { label: "Use HTTPS for Extension Loading", finished: false },
       {
@@ -53,10 +53,10 @@ export const devProgressRawData: DevProgressData[] = [
           { label: "Through Tarball URL", finished: true },
           { label: "Through NPM Package Name", finished: true },
           { label: "Through Remote Website", finished: true },
-          { label: "Extension Store", finished: true },
-        ],
-      },
-    ],
+          { label: "Extension Store", finished: true }
+        ]
+      }
+    ]
   },
   {
     label: "Search",
@@ -69,39 +69,39 @@ export const devProgressRawData: DevProgressData[] = [
       { label: "Sort by use frequency", finished: false },
       { label: "Unit Conversion", finished: false },
       { label: "Currency Conversion", finished: false },
-      { label: "File Search", finished: false },
-    ],
+      { label: "File Search", finished: false }
+    ]
   },
   {
     label: "Security",
     children: [
       { label: "Isolated Extension Build Environment", finished: true },
-      { label: "Extension Permission Control System (requires API declaration)", finished: true },
-    ],
-  },
-];
+      { label: "Extension Permission Control System (requires API declaration)", finished: true }
+    ]
+  }
+]
 
-let count = 0;
-export const finishedIds: number[] = [];
-let overallProgress = 0;
+let count = 0
+export const finishedIds: number[] = []
+let overallProgress = 0
 // fill in devProgressRawData id field with count using DPS
 function fillId(data: DevProgressData): void {
-  data.id = count++;
+  data.id = count++
   if (data.finished) {
-    overallProgress++;
+    overallProgress++
   }
   if (data.finished) {
-    finishedIds.push(data.id);
+    finishedIds.push(data.id)
   }
   if (data.children) {
-    data.children.forEach(fillId);
+    data.children.forEach(fillId)
   }
 }
-devProgressRawData.forEach(fillId);
-export const overallProgressPercentage = Math.round((overallProgress / count) * 100);
+devProgressRawData.forEach(fillId)
+export const overallProgressPercentage = Math.round((overallProgress / count) * 100)
 
 export interface Tree {
-  id: number;
-  label: string;
-  children?: Tree[];
+  id: number
+  label: string
+  children?: Tree[]
 }

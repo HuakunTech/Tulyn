@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { TListItem } from "jarvis-api";
-import { Button } from "@/components/ui/button";
-import { TrashIcon } from "lucide-vue-next";
+import type { TListItem } from "jarvis-api"
+import { Button } from "@/components/ui/button"
+import { TrashIcon } from "lucide-vue-next"
 
-const props = defineProps<{ item: TListItem }>();
+const props = defineProps<{ item: TListItem }>()
 const emits = defineEmits<{
-  (e: "delete", item: TListItem): void;
-}>();
+  (e: "delete", item: TListItem): void
+}>()
 </script>
 <template>
   <div class="text-sm flex justify-between">

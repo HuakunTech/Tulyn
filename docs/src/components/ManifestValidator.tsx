@@ -1,6 +1,6 @@
-import Editor, { type OnChange, type OnMount, type Monaco } from "@monaco-editor/react";
-import { ExtPackageJson } from "jarvis-api/models";
-import { useEffect, useMemo, useRef, useState } from "react";
+import Editor, { type OnChange, type OnMount, type Monaco } from "@monaco-editor/react"
+import { ExtPackageJson } from "jarvis-api/models"
+import { useEffect, useMemo, useRef, useState } from "react"
 
 const defaultJson = `{
   "$schema": "https://extensions.jarvis.huakun.tech/schema.json",
@@ -89,56 +89,56 @@ const defaultJson = `{
     "tailwind-variants": "^0.2.1",
     "zod": "^3.23.8"
   }
-}`;
+}`
 
 export default function SchemaValidatorEditor() {
-  const [packagejson, setPackagejson] = useState("");
-  const monacoRef = useRef<null | Monaco>(null);
-  const [errMsg, setErrMsg] = useState<string>("");
+  const [packagejson, setPackagejson] = useState("")
+  const monacoRef = useRef<null | Monaco>(null)
+  const [errMsg, setErrMsg] = useState<string>("")
   const isValid = useMemo(() => {
-    return errMsg.length === 0 && packagejson.length > 0;
-  }, [packagejson, errMsg]);
+    return errMsg.length === 0 && packagejson.length > 0
+  }, [packagejson, errMsg])
   function parse(manifestStr: string) {
-    if (manifestStr.length === 0) return;
+    if (manifestStr.length === 0) return
     try {
-      const parsedRes = ExtPackageJson.safeParse(JSON.parse(manifestStr));
+      const parsedRes = ExtPackageJson.safeParse(JSON.parse(manifestStr))
       if (parsedRes.error) {
-        setErrMsg(parsedRes.error.message);
-        console.error(parsedRes.error);
+        setErrMsg(parsedRes.error.message)
+        console.error(parsedRes.error)
       } else {
-        setErrMsg("");
+        setErrMsg("")
       }
     } catch (error: unknown) {
-      setErrMsg(`{ "message": "Parse Error" }`);
+      setErrMsg(`{ "message": "Parse Error" }`)
     }
   }
 
   const handleEditorChange: OnChange = (value, event) => {
     // here is the current value
     if (value) {
-      setPackagejson(value);
-      parse(value);
+      setPackagejson(value)
+      parse(value)
     }
-  };
+  }
 
   const handleEditorDidMount: OnMount = (editor, monaco) => {
-    console.log("editorDidMount", editor, monaco);
+    console.log("editorDidMount", editor, monaco)
 
-    monacoRef.current = monaco;
+    monacoRef.current = monaco
     monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
       enableSchemaRequest: true,
       validate: true,
       schemas: [
         // TODO: this schema is not working, I have to use $schema in the json file
-        { uri: "https://extensions.jarvis.huakun.tech/schema.json" },
-      ],
-    });
-  };
+        { uri: "https://extensions.jarvis.huakun.tech/schema.json" }
+      ]
+    })
+  }
 
   useEffect(() => {
-    setPackagejson(defaultJson);
-    parse(defaultJson);
-  }, []);
+    setPackagejson(defaultJson)
+    parse(defaultJson)
+  }, [])
 
   return (
     <>
@@ -169,5 +169,5 @@ export default function SchemaValidatorEditor() {
         </>
       )}
     </>
-  );
+  )
 }

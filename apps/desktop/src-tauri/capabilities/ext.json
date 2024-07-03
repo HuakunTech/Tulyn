@@ -2,15 +2,9 @@
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default-ext-capability",
   "description": "Capability for the extension window",
-  "windows": [
-    "ext*"
-  ],
+  "windows": ["ext*"],
   "remote": {
-    "urls": [
-      "http://localhost:*",
-      "https://*.huakun.tech*",
-      "https://*"
-    ]
+    "urls": ["http://localhost:*", "https://*.huakun.tech*", "https://*"]
   },
   "local": true,
   "permissions": [

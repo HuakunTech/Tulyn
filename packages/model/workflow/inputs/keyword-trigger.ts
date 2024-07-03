@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { ArgumentType, BaseNode, NodeTypeInput, Position } from "../common";
+import { z } from "zod"
+import { ArgumentType, BaseNode, NodeTypeInput, Position } from "../common"
 
-export const KeywordTriggerName = z.literal("keyword_trigger");
+export const KeywordTriggerName = z.literal("keyword_trigger")
 
 /**
  * A node that triggers the workflow when the user types a keyword.
@@ -15,7 +15,7 @@ export const KeywordTriggerNode = z
     keyword: z.string(),
     workflowIcon: z.string(),
     title: z.string(),
-    subtext: z.string(),
+    subtext: z.string()
   })
   .merge(BaseNode)
-  .merge(Position);
+  .merge(Position)

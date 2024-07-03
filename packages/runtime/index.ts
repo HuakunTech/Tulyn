@@ -1,20 +1,19 @@
-import { type IJarvisAPIContext, BaseJarvisExtension, TListItem } from "jarvis-api";
-import { APIContext } from "./src/context";
+import { type IJarvisAPIContext, BaseJarvisExtension, TListItem } from "jarvis-api"
+import { APIContext } from "./src/context"
 
 // const ext = new VSCodeProjectManagerExt();
 // ext.onCall(new APIContext());
 
-const vscodeExtPath =
-  "/Users/hacker/Dev/projects/Jarvis/packages/extensions/vscode-project-manager";
+const vscodeExtPath = "/Users/hacker/Dev/projects/Jarvis/packages/extensions/vscode-project-manager"
 
-const extlib = await import(vscodeExtPath);
+const extlib = await import(vscodeExtPath)
 if (!extlib.default) {
-  throw new Error("No default export found in extension");
+  throw new Error("No default export found in extension")
 }
 
-const ext: BaseJarvisExtension = new extlib.default(new APIContext());
+const ext: BaseJarvisExtension = new extlib.default(new APIContext())
 
-ext.onSearchTermUpdate("jarvis");
+ext.onSearchTermUpdate("jarvis")
 
 const tmpItem = TListItem.parse({
   title: "Jarvis",
@@ -22,7 +21,7 @@ const tmpItem = TListItem.parse({
   description: "",
   type: "",
   icon: null,
-  keywords: [],
-});
+  keywords: []
+})
 
-ext.onItemSelected(tmpItem);
+ext.onItemSelected(tmpItem)

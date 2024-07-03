@@ -1,19 +1,19 @@
-import type { ReadableAtom, WritableAtom } from "nanostores";
-import type { IExtensionBase } from "./base";
-import { TListItem, ListItemType } from "tauri-plugin-jarvis-api/models";
-import { atom } from "nanostores";
-import { ElMessage, ElNotification } from "element-plus";
-import { WebviewWindow, getAll as getAllWindows } from "@tauri-apps/api/webviewWindow";
-import { DebugWindowLabel, SettingsWindowLabel } from "@/lib/constants";
+import type { ReadableAtom, WritableAtom } from "nanostores"
+import type { IExtensionBase } from "./base"
+import { TListItem, ListItemType } from "tauri-plugin-jarvis-api/models"
+import { atom } from "nanostores"
+import { ElMessage, ElNotification } from "element-plus"
+import { WebviewWindow, getAll as getAllWindows } from "@tauri-apps/api/webviewWindow"
+import { DebugWindowLabel, SettingsWindowLabel } from "@/lib/constants"
 
-const rtConfig = useRuntimeConfig();
+const rtConfig = useRuntimeConfig()
 
 type BuiltinCmd = {
-  name: string;
-  description: string;
-  iconifyIcon: string;
-  function: () => Promise<void>;
-};
+  name: string
+  description: string
+  iconifyIcon: string
+  function: () => Promise<void>
+}
 
 const builtinCmds: BuiltinCmd[] = [
   {
@@ -21,19 +21,19 @@ const builtinCmds: BuiltinCmd[] = [
     iconifyIcon: "streamline:store-2-solid",
     description: "Go to Extension Store",
     function: () => {
-      navigateTo("/extension-store");
-      return Promise.resolve();
-    },
+      navigateTo("/extension-store")
+      return Promise.resolve()
+    }
   },
   {
     name: "Settings",
     iconifyIcon: "solar:settings-linear",
     description: "Open Settings",
     function: () => {
-      const windows = getAllWindows();
-      const found = windows.find((w) => w.label === SettingsWindowLabel);
+      const windows = getAllWindows()
+      const found = windows.find((w) => w.label === SettingsWindowLabel)
       if (found) {
-        ElNotification.error("Settings Page is already open");
+        ElNotification.error("Settings Page is already open")
       } else {
         new WebviewWindow(SettingsWindowLabel, {
           url: "/settings",
@@ -41,13 +41,13 @@ const builtinCmds: BuiltinCmd[] = [
           hiddenTitle: true,
           width: 1000,
           height: 800,
-          titleBarStyle: "overlay",
-        });
+          titleBarStyle: "overlay"
+        })
       }
-      return Promise.resolve();
-    },
-  },
-];
+      return Promise.resolve()
+    }
+  }
+]
 
 if (rtConfig.public.isDev) {
   builtinCmds.push({
@@ -55,25 +55,25 @@ if (rtConfig.public.isDev) {
     iconifyIcon: "carbon:debug",
     description: "Open Debug Page",
     function: () => {
-      const windows = getAllWindows();
-      const found = windows.find((w) => w.label === DebugWindowLabel);
+      const windows = getAllWindows()
+      const found = windows.find((w) => w.label === DebugWindowLabel)
       if (found) {
-        ElNotification.error("Debug Page is already open");
+        ElNotification.error("Debug Page is already open")
       } else {
         new WebviewWindow(DebugWindowLabel, {
           url: "/debug",
           width: 1000,
           height: 800,
-          titleBarStyle: "overlay",
-        });
+          titleBarStyle: "overlay"
+        })
       }
-      return Promise.resolve();
-    },
-  });
+      return Promise.resolve()
+    }
+  })
 }
 
 function genListItemValue(name: string): string {
-  return "builtin:" + name;
+  return "builtin:" + name
 }
 
 const buildinCmdsListItems: TListItem[] = builtinCmds.map(
@@ -84,42 +84,42 @@ const buildinCmdsListItems: TListItem[] = builtinCmds.map(
     type: ListItemType.Enum["Built-In Command"],
     icon: {
       value: cmd.iconifyIcon,
-      type: "iconify",
+      type: "iconify"
     },
     flags: { isDev: false, isRemovable: false },
     keywords: ["builtin"],
-    identityFilter: true,
-  }),
-);
+    identityFilter: true
+  })
+)
 
 export class BuiltinCmds implements IExtensionBase {
-  extensionName: string = "Builtin Commands";
-  $listItems: WritableAtom<TListItem[]>;
+  extensionName: string = "Builtin Commands"
+  $listItems: WritableAtom<TListItem[]>
   constructor() {
-    this.$listItems = atom([]);
+    this.$listItems = atom([])
     setTimeout(() => {
-      this.$listItems.set(buildinCmdsListItems);
-    });
+      this.$listItems.set(buildinCmdsListItems)
+    })
   }
 
   load(): Promise<void> {
-    return Promise.resolve();
+    return Promise.resolve()
   }
 
   /**
    * Get the default list items for the extension when search term is empty
    */
   default(): TListItem[] {
-    return buildinCmdsListItems;
+    return buildinCmdsListItems
   }
 
   onSelect(item: TListItem): Promise<void> {
-    const cmd = builtinCmds.find((cmd) => genListItemValue(cmd.name) === item.value);
+    const cmd = builtinCmds.find((cmd) => genListItemValue(cmd.name) === item.value)
     if (cmd) {
-      return cmd.function();
+      return cmd.function()
     } else {
-      ElMessage.error(`Command (${item.title}) not found`);
-      return Promise.reject(`Command (${item.title}) not found`);
+      ElMessage.error(`Command (${item.title}) not found`)
+      return Promise.reject(`Command (${item.title}) not found`)
     }
   }
 }

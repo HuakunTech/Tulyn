@@ -1,18 +1,18 @@
-import { map } from "nanostores";
-import { z } from "zod";
-import { allColors } from "../themes/themes";
-import { useColorMode } from "@vueuse/core";
-import { Store } from "@tauri-apps/plugin-store";
+import { map } from "nanostores"
+import { z } from "zod"
+import { allColors } from "../themes/themes"
+import { useColorMode } from "@vueuse/core"
+import { Store } from "@tauri-apps/plugin-store"
 import {
   restartServer,
-  setDevExtensionFolder as setDevExtensionFolderForServer,
-} from "tauri-plugin-jarvis-api/commands";
-import { trace, info, error, attachConsole, debug } from "@tauri-apps/plugin-log";
+  setDevExtensionFolder as setDevExtensionFolderForServer
+} from "tauri-plugin-jarvis-api/commands"
+import { trace, info, error, attachConsole, debug } from "@tauri-apps/plugin-log"
 
-const persistAppConfig = new Store("appConfig.bin");
+const persistAppConfig = new Store("appConfig.bin")
 
-export const LightMode = z.union([z.literal("light"), z.literal("dark"), z.literal("auto")]);
-export type LightMode = z.infer<typeof LightMode>;
+export const LightMode = z.union([z.literal("light"), z.literal("dark"), z.literal("auto")])
+export type LightMode = z.infer<typeof LightMode>
 
 export const appConfigSchema = z.object({
   theme: z.string(),
@@ -21,10 +21,10 @@ export const appConfigSchema = z.object({
   launchAtLogin: z.boolean(),
   showInTray: z.boolean(),
   devExtentionPath: z.string().optional(),
-  devExtLoadUrl: z.boolean().default(false), // load extension page from dev server
-});
+  devExtLoadUrl: z.boolean().default(false) // load extension page from dev server
+})
 
-export type State = z.infer<typeof appConfigSchema>;
+export type State = z.infer<typeof appConfigSchema>
 
 const defaultState: State = {
   theme: "zinc",
@@ -33,79 +33,79 @@ const defaultState: State = {
   launchAtLogin: true,
   showInTray: true,
   devExtentionPath: undefined,
-  devExtLoadUrl: false,
-};
+  devExtLoadUrl: false
+}
 
-export const $appConfig = map<State>(defaultState);
+export const $appConfig = map<State>(defaultState)
 
 async function initAppConfig() {
-  const loadedConfig = await persistAppConfig.get("config");
+  const loadedConfig = await persistAppConfig.get("config")
 
-  const parsedConfig = appConfigSchema.safeParse(loadedConfig);
+  const parsedConfig = appConfigSchema.safeParse(loadedConfig)
   if (parsedConfig.success) {
-    defaultState.theme = parsedConfig.data.theme;
-    defaultState.radius = parsedConfig.data.radius;
-    defaultState.lightMode = parsedConfig.data.lightMode;
-    defaultState.launchAtLogin = parsedConfig.data.launchAtLogin;
-    defaultState.showInTray = parsedConfig.data.showInTray;
-    defaultState.devExtentionPath = parsedConfig.data.devExtentionPath;
-    defaultState.devExtLoadUrl = parsedConfig.data.devExtLoadUrl;
+    defaultState.theme = parsedConfig.data.theme
+    defaultState.radius = parsedConfig.data.radius
+    defaultState.lightMode = parsedConfig.data.lightMode
+    defaultState.launchAtLogin = parsedConfig.data.launchAtLogin
+    defaultState.showInTray = parsedConfig.data.showInTray
+    defaultState.devExtentionPath = parsedConfig.data.devExtentionPath
+    defaultState.devExtLoadUrl = parsedConfig.data.devExtLoadUrl
   }
 
   $appConfig.subscribe((state, oldState) => {
     // update color mode
     if (oldState?.lightMode !== state.lightMode) {
-      colorMode.value = state.lightMode;
+      colorMode.value = state.lightMode
     }
     if (oldState?.theme !== state.theme) {
-      document.documentElement.classList.remove(...allColors.map((color) => `theme-${color}`));
-      document.documentElement.classList.add(`theme-${state.theme}`);
+      document.documentElement.classList.remove(...allColors.map((color) => `theme-${color}`))
+      document.documentElement.classList.add(`theme-${state.theme}`)
     }
     if (oldState?.radius !== state.radius) {
-      document.documentElement.style.setProperty("--radius", `${state.radius}rem`);
+      document.documentElement.style.setProperty("--radius", `${state.radius}rem`)
     }
 
     // update storage
-    persistAppConfig.set("config", state);
-    persistAppConfig.save();
-  });
+    persistAppConfig.set("config", state)
+    persistAppConfig.save()
+  })
 }
-initAppConfig();
+initAppConfig()
 export function setTheme(theme: string) {
-  $appConfig.setKey("theme", theme);
+  $appConfig.setKey("theme", theme)
 }
 
 export function setRadius(radius: number) {
-  $appConfig.setKey("radius", radius);
+  $appConfig.setKey("radius", radius)
 }
 
 export function setLightMode(mode: LightMode) {
-  debug(`setLightMode: ${mode}`);
-  $appConfig.setKey("lightMode", LightMode.parse(mode));
+  debug(`setLightMode: ${mode}`)
+  $appConfig.setKey("lightMode", LightMode.parse(mode))
 }
 
 export function setLaunchAtLogin(launchAtLogin: boolean) {
-  $appConfig.setKey("launchAtLogin", launchAtLogin);
+  $appConfig.setKey("launchAtLogin", launchAtLogin)
 }
 
 export function setShowInTray(showInTray: boolean) {
-  $appConfig.setKey("showInTray", showInTray);
+  $appConfig.setKey("showInTray", showInTray)
 }
 
 export function setDevExtentionPath(devExtentionPath: string | undefined) {
   // set this in server and restart server
-  $appConfig.setKey("devExtentionPath", devExtentionPath);
+  $appConfig.setKey("devExtentionPath", devExtentionPath)
   return setDevExtensionFolderForServer(devExtentionPath).then(() => {
-    return restartServer();
-  });
+    return restartServer()
+  })
 }
 
 export function setDevExtLoadUrl(devExtLoadUrl: boolean) {
-  $appConfig.setKey("devExtLoadUrl", devExtLoadUrl);
+  $appConfig.setKey("devExtLoadUrl", devExtLoadUrl)
 }
 
 export function themeClass() {
-  return `theme-${$appConfig.get().theme}`;
+  return `theme-${$appConfig.get().theme}`
 }
 
-const colorMode = useColorMode();
+const colorMode = useColorMode()

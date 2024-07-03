@@ -1,4 +1,4 @@
-import { defineConfig } from "tsup";
+import { defineConfig } from "tsup"
 
 export default defineConfig({
   entry: ["index.ts", "models/index.ts", "ui/index.ts"],
@@ -6,5 +6,5 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   dts: true,
-  format: ["cjs", "esm"],
-});
+  format: ["cjs", "esm"]
+})

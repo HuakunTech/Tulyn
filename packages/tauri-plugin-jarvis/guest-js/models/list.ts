@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { IconType } from "./common";
+import { z } from "zod"
+import { IconType } from "./common"
 
 export const ListItemType = z.enum([
   "Remote Command",
@@ -8,15 +8,15 @@ export const ListItemType = z.enum([
   "Inline Command",
   "System Command",
   "Application",
-  "Built-In Command",
-]);
-export type ListItemType = z.infer<typeof ListItemType>;
+  "Built-In Command"
+])
+export type ListItemType = z.infer<typeof ListItemType>
 
 export const IconSchema = z.object({
   value: z.string(),
-  type: IconType,
-});
-export type IconSchema = z.infer<typeof IconSchema>;
+  type: IconType
+})
+export type IconSchema = z.infer<typeof IconSchema>
 export const TListItem = z.object({
   title: z.string(),
   value: z.string(),
@@ -25,15 +25,15 @@ export const TListItem = z.object({
   flags: z
     .object({
       isDev: z.boolean().optional().default(false),
-      isRemovable: z.boolean().optional().default(false),
+      isRemovable: z.boolean().optional().default(false)
     })
     .optional()
     .default({}),
   icon: IconSchema.nullable(),
   keywords: z.array(z.string()).optional().default([]),
-  identityFilter: z.boolean().optional().default(false),
-});
-export type TListItem = z.infer<typeof TListItem>;
+  identityFilter: z.boolean().optional().default(false)
+})
+export type TListItem = z.infer<typeof TListItem>
 export const TListGroup = z.object({
   title: z.string(),
   type: z.string(),
@@ -42,9 +42,9 @@ export const TListGroup = z.object({
   items: z.array(TListItem),
   flags: z.object({
     isDev: z.boolean().optional().default(false),
-    isRemovable: z.boolean().optional().default(false),
-  }),
-});
-export type TListGroup = z.infer<typeof TListGroup>;
+    isRemovable: z.boolean().optional().default(false)
+  })
+})
+export type TListGroup = z.infer<typeof TListGroup>
 // export const TList = z.array(TListGroup);
 // export type TList = z.infer<typeof TList>;

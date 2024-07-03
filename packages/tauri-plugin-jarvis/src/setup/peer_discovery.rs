@@ -15,7 +15,10 @@ pub fn setup_mdns(my_port: u16) -> anyhow::Result<MdnsService> {
     Ok(mdns)
 }
 
-pub fn handle_mdns_service_evt<R: Runtime>(app_handle: &AppHandle<R>, rx: mdns_sd::Receiver<ServiceEvent>) {
+pub fn handle_mdns_service_evt<R: Runtime>(
+    app_handle: &AppHandle<R>,
+    rx: mdns_sd::Receiver<ServiceEvent>,
+) {
     let app_handle = app_handle.clone();
     tauri::async_runtime::spawn(async move {
         while let Ok(event) = rx.recv() {

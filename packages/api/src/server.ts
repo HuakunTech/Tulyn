@@ -3,8 +3,8 @@
  * Code from here should run in regular Tauri webview environment, not iframe or web worker. i.e. needs access to Tauri APIs (invoke is called here)
  * Client from iframe or web worker can call APIs exposed from here
  */
-import type { FetchOptions, FetchSendResponse } from "./api/fetch/types";
-import { Channel, invoke, transformCallback } from "@tauri-apps/api/core";
+import type { FetchOptions, FetchSendResponse } from "./api/fetch/types"
+import { Channel, invoke, transformCallback } from "@tauri-apps/api/core"
 import {
   emit,
   emitTo,
@@ -12,14 +12,14 @@ import {
   type EventCallback,
   type EventName,
   type EventTarget
-} from "@tauri-apps/api/event";
+} from "@tauri-apps/api/event"
 import {
   ask as dialogAsk,
   confirm as dialogConfirm,
   message as dialogMessage,
   open as dialogOpen,
   save as dialogSave
-} from "@tauri-apps/plugin-dialog";
+} from "@tauri-apps/plugin-dialog"
 import {
   copyFile as fsCopyFile,
   create as fsCreate,
@@ -35,7 +35,7 @@ import {
   truncate as fsTruncate,
   writeFile as fsWriteFile,
   writeTextFile as fsWriteTextFile
-} from "@tauri-apps/plugin-fs";
+} from "@tauri-apps/plugin-fs"
 import {
   active as notificationActive,
   cancel as notificationCancel,
@@ -52,7 +52,7 @@ import {
   removeChannel as notificationRemoveChannel,
   requestPermission as notificationRequestPermission,
   sendNotification as notificationSendNotification
-} from "@tauri-apps/plugin-notification";
+} from "@tauri-apps/plugin-notification"
 import {
   arch as osArch,
   eol as osEol,
@@ -62,8 +62,8 @@ import {
   locale as osLocale,
   platform as osPlatform,
   version as osVersion
-} from "@tauri-apps/plugin-os";
-import clipboard from "tauri-plugin-clipboard-api";
+} from "@tauri-apps/plugin-os"
+import clipboard from "tauri-plugin-clipboard-api"
 import {
   findAvailablePort as networkFindAvailablePort,
   getInterfaces as networkGetInterfaces,
@@ -75,7 +75,7 @@ import {
   scanLocalNetworkOnlineHostsByPort as networkScanLocalNetworkOnlineHostsByPort,
   scanOnlineIpPortPairs as networkScanOnlineIpPortPairs,
   scanOnlineIpsByPort as networkScanOnlineIpsByPort
-} from "tauri-plugin-network-api";
+} from "tauri-plugin-network-api"
 import {
   executeAppleScript as shellExecuteAppleScript,
   executeBashScript as shellExecuteBashScript,
@@ -90,7 +90,7 @@ import {
   type CommandEvent,
   type InternalSpawnOptions,
   type IOPayload
-} from "tauri-plugin-shellx-api";
+} from "tauri-plugin-shellx-api"
 import {
   allSysInfo as sysInfoAllSysInfo,
   batteries as sysInfoBatteries,
@@ -116,7 +116,7 @@ import {
   totalSwap as sysInfoTotalSwap,
   usedMemory as sysInfoUsedMemory,
   usedSwap as sysInfoUsedSwap
-} from "tauri-plugin-system-info-api";
+} from "tauri-plugin-system-info-api"
 import type {
   IClipboardServer,
   IDialogServer,
@@ -129,7 +129,7 @@ import type {
   IOsServer,
   IShellServer,
   ISystemInfoServer
-} from "./api/server-types";
+} from "./api/server-types"
 
 /* -------------------------------------------------------------------------- */
 /*                                    Event                                   */
@@ -144,7 +144,7 @@ export const eventApi: IEventServer = {
       event,
       target,
       handler: transformCallback(handler)
-    });
+    })
   },
   eventRawUnlisten: (event: string, eventId: number): Promise<void> =>
     invoke<void>("plugin:event|unlisten", {
@@ -154,7 +154,7 @@ export const eventApi: IEventServer = {
   eventEmit: emit,
   eventEmitTo: emitTo,
   eventOnce: once
-};
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                  Clipboard                                 */
@@ -179,7 +179,7 @@ export const clipboardApi: IClipboardServer = {
   clipboardHasImage: clipboard.hasImage,
   clipboardHasFiles: clipboard.hasFiles,
   clipboardStartMonitor: clipboard.startMonitor
-};
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                   Dialog                                   */
@@ -190,7 +190,7 @@ export const dialogApi: IDialogServer = {
   dialogMessage,
   dialogOpen,
   dialogSave
-};
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                Notification                                */
@@ -211,7 +211,7 @@ export const notificationApi: INotificationServer = {
   notificationChannels,
   notificationOnNotificationReceived,
   notificationOnAction
-};
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                 File System                                */
@@ -231,7 +231,7 @@ export const fsApi: IFsServer = {
   fsTruncate,
   fsWriteFile,
   fsWriteTextFile
-};
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                     OS                                     */
@@ -245,7 +245,7 @@ export const osApi: IOsServer = {
   osEol: () => Promise.resolve(osEol()),
   osVersion,
   osLocale
-};
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                    Shell                                   */
@@ -278,14 +278,14 @@ export const shellApi: IShellServer = {
     options: InternalSpawnOptions,
     cb: (evt: CommandEvent<O>) => void
   ): Promise<number> => {
-    const onEvent = new Channel<CommandEvent<O>>();
-    onEvent.onmessage = cb;
+    const onEvent = new Channel<CommandEvent<O>>()
+    onEvent.onmessage = cb
     return invoke<number>("plugin:shellx|spawn", {
       program: program,
       args: args,
       options: options,
       onEvent
-    });
+    })
   },
   shellExecuteBashScript,
   shellExecutePowershellScript,
@@ -295,7 +295,7 @@ export const shellApi: IShellServer = {
   shellExecuteNodeScript,
   shellHasCommand,
   shellLikelyOnWindows
-};
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                    Fetch                                   */
@@ -306,7 +306,7 @@ export const fetchApi: IFetchServer = {
   fetchFetchSend: (rid: number) => invoke<FetchSendResponse>("plugin:http|fetch_send", { rid }),
   fetchFetchReadBody: (rid: number) =>
     invoke<ArrayBuffer | number[]>("plugin:http|fetch_read_body", { rid })
-};
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                 System Info                                */
@@ -336,7 +336,7 @@ export const systemInfoAPI: ISystemInfoServer = {
   sysInfoRefreshProcesses,
   sysInfoDebugCommand,
   sysInfoBatteries
-};
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                   Network                                  */
@@ -352,7 +352,7 @@ export const networkAPI: INetworkServer = {
   networkNonLocalhostNetworks,
   networkLocalServerIsRunning,
   networkScanLocalNetworkOnlineHostsByPort
-};
+}
 
 export const defaultServerAPI: IFullAPI = {
   ...clipboardApi,
@@ -365,4 +365,4 @@ export const defaultServerAPI: IFullAPI = {
   ...systemInfoAPI,
   ...networkAPI,
   ...eventApi
-};
+}

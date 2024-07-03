@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from "vue";
-import "@/styles/globals.css";
-import "@/styles/toast.css";
-import { useColorMode } from "@vueuse/core";
-import { $toasts, dequeueToast } from "@/lib/stores/toast";
-import { $appConfig } from "@/lib/stores/appConfig";
-import { useStore } from "@nanostores/vue";
+import { onMounted, onUnmounted, ref } from "vue"
+import "@/styles/globals.css"
+import "@/styles/toast.css"
+import { useColorMode } from "@vueuse/core"
+import { $toasts, dequeueToast } from "@/lib/stores/toast"
+import { $appConfig } from "@/lib/stores/appConfig"
+import { useStore } from "@nanostores/vue"
 
-const toasts = useStore($toasts);
-const message = ref();
+const toasts = useStore($toasts)
+const message = ref()
 
-useColorMode();
+useColorMode()
 function handleKeyPress(e: KeyboardEvent) {
   if (e.key === "Escape") {
     // window.closeWindow();
@@ -18,33 +18,33 @@ function handleKeyPress(e: KeyboardEvent) {
 }
 
 function handleToast() {
-  console.log(toasts.value);
+  console.log(toasts.value)
 
-  const t = dequeueToast();
-  console.log(t);
+  const t = dequeueToast()
+  console.log(t)
 
   if (!t) {
     // window.closeWindow();
-    return;
+    return
   }
-  message.value = t.message;
+  message.value = t.message
   setTimeout(() => {
-    handleToast();
-  }, t.duration);
+    handleToast()
+  }, t.duration)
 }
 
 onMounted(() => {
   // parse url query params
-  console.log($toasts.get());
-  console.log($appConfig.get());
+  console.log($toasts.get())
+  console.log($appConfig.get())
 
-  document.addEventListener("keydown", handleKeyPress);
-  handleToast();
-});
+  document.addEventListener("keydown", handleKeyPress)
+  handleToast()
+})
 
 onUnmounted(() => {
-  document.removeEventListener("keydown", handleKeyPress);
-});
+  document.removeEventListener("keydown", handleKeyPress)
+})
 </script>
 <template>
   <div

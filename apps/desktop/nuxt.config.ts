@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "zod"
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -15,7 +15,7 @@ export default defineNuxtConfig({
      * Directory that the component lives in.
      * @default "./components/ui"
      */
-    componentDir: "./components/ui",
+    componentDir: "./components/ui"
   },
   // elementPlus: {
   //   icon: "ElIcon",
@@ -42,7 +42,7 @@ export default defineNuxtConfig({
         .string()
         .describe("POSTHOG_PUBLIC_KEY")
         .parse(process.env.POSTHOG_PUBLIC_KEY),
-      posthogHost: z.string().describe("POSTHOG_HOST").parse(process.env.POSTHOG_HOST),
-    },
-  },
-});
+      posthogHost: z.string().describe("POSTHOG_HOST").parse(process.env.POSTHOG_HOST)
+    }
+  }
+})

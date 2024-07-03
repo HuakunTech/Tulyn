@@ -1,7 +1,7 @@
-import { type INotification } from "../api/client-types";
-import { defaultClientAPI, isMain } from "../client";
-import { proxy as comlinkProxy, type Remote } from "@huakunshen/comlink";
-import { PluginListener } from "@tauri-apps/api/core";
+import { type INotification } from "../api/client-types"
+import { defaultClientAPI, isMain } from "../client"
+import { proxy as comlinkProxy, type Remote } from "@huakunshen/comlink"
+import { PluginListener } from "@tauri-apps/api/core"
 import {
   active,
   cancel,
@@ -19,8 +19,8 @@ import {
   requestPermission,
   sendNotification,
   type Options as NotificationOptions
-} from "@tauri-apps/plugin-notification";
-import { type INotificationServer } from "./server-types";
+} from "@tauri-apps/plugin-notification"
+import { type INotificationServer } from "./server-types"
 
 export function constructAPI(api: Remote<INotificationServer>): INotification {
   return {
@@ -43,15 +43,15 @@ export function constructAPI(api: Remote<INotificationServer>): INotification {
     onNotificationReceived: (
       cb: (notification: NotificationOptions) => void
     ): Promise<PluginListener> => {
-      return api.notificationOnNotificationReceived(comlinkProxy(cb));
+      return api.notificationOnNotificationReceived(comlinkProxy(cb))
     },
     // this may not work
     onAction: (cb: (notification: NotificationOptions) => void): Promise<PluginListener> => {
-      return api.notificationOnAction(comlinkProxy(cb));
+      return api.notificationOnAction(comlinkProxy(cb))
     }
-  };
+  }
 }
-export const comlinkNotification: INotification = constructAPI(defaultClientAPI);
+export const comlinkNotification: INotification = constructAPI(defaultClientAPI)
 
 export const nativeNotification: INotification = {
   sendNotification: sendNotification,
@@ -69,6 +69,6 @@ export const nativeNotification: INotification = {
   channels: channels,
   onNotificationReceived: onNotificationReceived,
   onAction: onAction
-};
+}
 
-export const notification = isMain ? nativeNotification : comlinkNotification;
+export const notification = isMain ? nativeNotification : comlinkNotification

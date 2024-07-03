@@ -2,28 +2,28 @@
 import {
   getDevExtensionFolder,
   getExtensionFolder,
-  getServerPort,
-} from "tauri-plugin-jarvis-api/commands";
-import { Button } from "@/components/ui/button";
-import { onMounted, ref } from "vue";
+  getServerPort
+} from "tauri-plugin-jarvis-api/commands"
+import { Button } from "@/components/ui/button"
+import { onMounted, ref } from "vue"
 // import { open } from "jarvis-api/ui";
-import { open } from "tauri-plugin-shellx-api";
-import { Icon } from "@iconify/vue";
-import { SUPABASE_URL } from "@/lib/constants";
+import { open } from "tauri-plugin-shellx-api"
+import { Icon } from "@iconify/vue"
+import { SUPABASE_URL } from "@/lib/constants"
 
-const extFolder = ref<string | null>();
-const devExtFolder = ref<string | null>();
-const port = ref<number>();
+const extFolder = ref<string | null>()
+const devExtFolder = ref<string | null>()
+const port = ref<number>()
 
 async function refreshFolderFetch() {
-  extFolder.value = await getExtensionFolder();
-  devExtFolder.value = await getDevExtensionFolder();
+  extFolder.value = await getExtensionFolder()
+  devExtFolder.value = await getDevExtensionFolder()
 }
 
 onMounted(async () => {
-  refreshFolderFetch();
-  port.value = await getServerPort();
-});
+  refreshFolderFetch()
+  port.value = await getServerPort()
+})
 </script>
 <template>
   <div class="flex flex-col space-y-3 pr-5">
@@ -42,7 +42,7 @@ onMounted(async () => {
         <strong>Dev Extension Path: </strong><span>{{ devExtFolder }}</span
         ><Icon icon="ion:open-outline" />
       </li>
-      
+
       <li
         class="text-muted-foreground cursor-pointer flex space-x-2 items-center"
         @click="devExtFolder && open(`http://localhost:${port}`)"

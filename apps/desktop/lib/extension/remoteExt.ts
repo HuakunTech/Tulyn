@@ -1,28 +1,22 @@
-import { z } from "zod";
-import { atom, computed, type ReadableAtom, type WritableAtom, task } from "nanostores";
-import type { IExtensionBase } from "./base";
-import {
-  TListItem,
-  ListItemType,
-  IconType,
-  TListGroup,
-  Icon,
-} from "tauri-plugin-jarvis-api/models";
-import { Store } from "@tauri-apps/plugin-store";
-import { ElMessage } from "element-plus";
-import axios from "axios";
-import { WebviewWindow } from "@tauri-apps/api/webviewWindow";
-import { info } from "@tauri-apps/plugin-log";
+import { z } from "zod"
+import { atom, computed, type ReadableAtom, type WritableAtom, task } from "nanostores"
+import type { IExtensionBase } from "./base"
+import { TListItem, ListItemType, IconType, TListGroup, Icon } from "tauri-plugin-jarvis-api/models"
+import { Store } from "@tauri-apps/plugin-store"
+import { ElMessage } from "element-plus"
+import axios from "axios"
+import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
+import { info } from "@tauri-apps/plugin-log"
 
 export const RemoteExt = z.object({
   name: z.string().min(1),
   id: z.string().uuid(),
   url: z.string().url(),
-  triggerCmds: z.array(z.string()).min(1),
-});
-export type RemoteExt = z.infer<typeof RemoteExt>;
-export const RemoteExtState = RemoteExt.array();
-export type RemoteExtState = z.infer<typeof RemoteExtState>;
+  triggerCmds: z.array(z.string()).min(1)
+})
+export type RemoteExt = z.infer<typeof RemoteExt>
+export const RemoteExtState = RemoteExt.array()
+export type RemoteExtState = z.infer<typeof RemoteExtState>
 
 // async function getFavicon(url: string): Promise<Icon> {
 //   return axios
@@ -51,45 +45,45 @@ function convertToListItem(rawExt: RemoteExt): TListItem {
     type: ListItemType.Enum["Remote Command"],
     icon: {
       type: IconType.Enum["remote-url"],
-      value: rawExt.url + "/favicon.ico",
+      value: rawExt.url + "/favicon.ico"
     },
     // icon: await getFavicon(rawExt.url),
     keywords: ["remote", ...rawExt.triggerCmds],
     identityFilter: false,
-    flags: { isDev: true, isRemovable: true },
-  };
+    flags: { isDev: true, isRemovable: true }
+  }
 }
 
 export class RemoteExtension implements IExtensionBase {
-  extensionName: string = "Remote Extensions";
-  $remoteExtensions: WritableAtom<RemoteExt[]>;
-  $listItems: ReadableAtom<TListItem[]>;
-  persistAppConfig: Store;
+  extensionName: string = "Remote Extensions"
+  $remoteExtensions: WritableAtom<RemoteExt[]>
+  $listItems: ReadableAtom<TListItem[]>
+  persistAppConfig: Store
 
   constructor() {
-    this.persistAppConfig = new Store("remoteExt.bin");
-    this.$remoteExtensions = atom<RemoteExtState>([]);
+    this.persistAppConfig = new Store("remoteExt.bin")
+    this.$remoteExtensions = atom<RemoteExtState>([])
     this.$listItems = computed(this.$remoteExtensions, (state): TListItem[] => {
-      return state.map((x) => convertToListItem(x));
-    });
+      return state.map((x) => convertToListItem(x))
+    })
   }
 
   async load(): Promise<void> {
-    const defaultState: RemoteExtState = [];
-    const loadedConfig = await this.persistAppConfig.get("remoteExts");
+    const defaultState: RemoteExtState = []
+    const loadedConfig = await this.persistAppConfig.get("remoteExts")
     info(`Loaded remote extensions: ${JSON.stringify(loadedConfig, null, 2)}`)
 
     if (loadedConfig !== null) {
       // not null means config is initialized, if parse error is thrown then it's a problem
-      const parsedConfig = RemoteExtState.safeParse(loadedConfig);
+      const parsedConfig = RemoteExtState.safeParse(loadedConfig)
       if (parsedConfig.success) {
-        defaultState.push(...parsedConfig.data);
+        defaultState.push(...parsedConfig.data)
       } else {
-        console.error(parsedConfig.error);
-        ElMessage.error(`Failed to load remote extensions: ${parsedConfig.error.message}`);
+        console.error(parsedConfig.error)
+        ElMessage.error(`Failed to load remote extensions: ${parsedConfig.error.message}`)
       }
     }
-    this.$remoteExtensions.set(defaultState);
+    this.$remoteExtensions.set(defaultState)
     // !Subscribe is replaced by save(). save() is called in addRemoteExt() and removeRemoteCmd().
     // !Subscribe could have problem when this class is used in multiple places (instanciated multiple times), data could be erased.
     // this.$remoteExtensions.subscribe((state, oldState) => {
@@ -99,7 +93,7 @@ export class RemoteExtension implements IExtensionBase {
     // });
   }
   default(): TListItem[] {
-    return this.$listItems.get();
+    return this.$listItems.get()
   }
 
   groups(): TListGroup[] {
@@ -110,44 +104,44 @@ export class RemoteExtension implements IExtensionBase {
         type: "Remote Extension",
         icon: Icon.parse({
           type: "iconify",
-          value: "mdi:remote",
+          value: "mdi:remote"
         }),
         items: this.default(),
-        flags: { isDev: true, isRemovable: false },
-      },
-    ];
+        flags: { isDev: true, isRemovable: false }
+      }
+    ]
   }
   findRemoteExt(uuid: string): RemoteExt | undefined {
-    return this.$remoteExtensions.get().find((ext) => ext.id === uuid);
+    return this.$remoteExtensions.get().find((ext) => ext.id === uuid)
   }
 
   async addRemoteExt(ext: RemoteExt) {
-    await this.load();
-    console.log("addRemoteExt", ext);
-    this.$remoteExtensions.set([...this.$remoteExtensions.get(), ext]);
-    console.log("Save ", this.$remoteExtensions.get());
-    this.save();
+    await this.load()
+    console.log("addRemoteExt", ext)
+    this.$remoteExtensions.set([...this.$remoteExtensions.get(), ext])
+    console.log("Save ", this.$remoteExtensions.get())
+    this.save()
   }
 
   save() {
-    this.persistAppConfig.set("remoteExts", this.$remoteExtensions.get());
-    this.persistAppConfig.save();
+    this.persistAppConfig.set("remoteExts", this.$remoteExtensions.get())
+    this.persistAppConfig.save()
   }
 
   async removeRemoteCmd(uuid: string) {
-    await this.load();
-    this.$remoteExtensions.set(this.$remoteExtensions.get().filter((ext) => ext.id !== uuid));
-    this.save();
+    await this.load()
+    this.$remoteExtensions.set(this.$remoteExtensions.get().filter((ext) => ext.id !== uuid))
+    this.save()
   }
 
   onSelect(item: TListItem): Promise<void> {
-    const ext = this.findRemoteExt(item.value);
+    const ext = this.findRemoteExt(item.value)
     if (!ext) {
-      return Promise.reject("Remote Extension not found");
+      return Promise.reject("Remote Extension not found")
     }
     new WebviewWindow("ext-remote", {
-      url: ext.url,
-    });
-    return Promise.resolve();
+      url: ext.url
+    })
+    return Promise.resolve()
   }
 }

@@ -6,22 +6,22 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  DialogTrigger
+} from "@/components/ui/dialog"
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import { VisuallyHidden } from "radix-vue";
-import type { HTMLAttributes } from "vue";
+  CarouselPrevious
+} from "@/components/ui/carousel"
+import { VisuallyHidden } from "radix-vue"
+import type { HTMLAttributes } from "vue"
 
-const props = defineProps<{ class?: HTMLAttributes["class"]; imgSrc: string[]; open?: boolean }>();
+const props = defineProps<{ class?: HTMLAttributes["class"]; imgSrc: string[]; open?: boolean }>()
 const emits = defineEmits<{
-  (e: "update:open", open: boolean): void;
-}>();
+  (e: "update:open", open: boolean): void
+}>()
 </script>
 
 <template>

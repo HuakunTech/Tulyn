@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { BaseNode, GeneralDefault, NodeTypeAction, Position } from "../common";
+import { z } from "zod"
+import { BaseNode, GeneralDefault, NodeTypeAction, Position } from "../common"
 
-export const OpenURLName = z.literal("open_url");
+export const OpenURLName = z.literal("open_url")
 
 /**
  * Open a url with given app.
@@ -12,7 +12,7 @@ export const OpenUrlNode = z
   .object({
     type: NodeTypeAction,
     input: z.string().or(GeneralDefault),
-    app: z.string().or(GeneralDefault).default(GeneralDefault.value),
+    app: z.string().or(GeneralDefault).default(GeneralDefault.value)
   })
   .merge(BaseNode)
-  .merge(Position);
+  .merge(Position)

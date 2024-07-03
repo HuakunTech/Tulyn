@@ -3,8 +3,8 @@ import {
   MenubarRadioGroup,
   type MenubarRadioGroupEmits,
   type MenubarRadioGroupProps,
-  useForwardPropsEmits,
-} from 'radix-vue'
+  useForwardPropsEmits
+} from "radix-vue"
 
 const props = defineProps<MenubarRadioGroupProps>()
 

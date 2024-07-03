@@ -1,17 +1,17 @@
-import { listen, type UnlistenFn } from "@tauri-apps/api/event";
-import { invoke } from "@tauri-apps/api/core";
+import { listen, type UnlistenFn } from "@tauri-apps/api/event"
+import { invoke } from "@tauri-apps/api/core"
 
-const pluginPrefix = `plugin:jarvis|`;
-const storageCmdPrefix = `ext_store_wrapper_`;
+const pluginPrefix = `plugin:jarvis|`
+const storageCmdPrefix = `ext_store_wrapper_`
 
 function computeCommandName(command: string): string {
-  return `${pluginPrefix}${storageCmdPrefix}${command}`;
+  return `${pluginPrefix}${storageCmdPrefix}${command}`
 }
 
 interface ChangePayload<T> {
-  path: string;
-  key: string;
-  value: T | null;
+  path: string
+  key: string
+  value: T | null
 }
 
 /**
@@ -28,11 +28,11 @@ interface ChangePayload<T> {
  * ```
  */
 export class JarvisStore {
-  path: string;
+  path: string
   /**
    * filename is optional if you only need one store file.
    * If you plan to have multiple stores, e.g. one for settings, one for data, you can specify different filenames.
-   * @example 
+   * @example
    * ```ts
    * const store = new JarvisStore("settings.bin");
    * await store.set("theme", "dark");
@@ -42,7 +42,7 @@ export class JarvisStore {
    * @param filename filename for the store. Defaults to `default.bin`.
    */
   constructor(filename: string = "default.bin") {
-    this.path = filename;
+    this.path = filename
   }
 
   /**
@@ -56,8 +56,8 @@ export class JarvisStore {
     await invoke(computeCommandName("set"), {
       path: this.path,
       key,
-      value,
-    });
+      value
+    })
   }
 
   /**
@@ -69,8 +69,8 @@ export class JarvisStore {
   async get<T>(key: string): Promise<T | null> {
     return await invoke(computeCommandName("get"), {
       path: this.path,
-      key,
-    });
+      key
+    })
   }
 
   /**
@@ -82,8 +82,8 @@ export class JarvisStore {
   async has(key: string): Promise<boolean> {
     return await invoke(computeCommandName("has"), {
       path: this.path,
-      key,
-    });
+      key
+    })
   }
 
   /**
@@ -95,8 +95,8 @@ export class JarvisStore {
   async delete(key: string): Promise<boolean> {
     return await invoke(computeCommandName("delete"), {
       path: this.path,
-      key,
-    });
+      key
+    })
   }
 
   /**
@@ -107,8 +107,8 @@ export class JarvisStore {
    */
   async clear(): Promise<void> {
     await invoke(computeCommandName("clear"), {
-      path: this.path,
-    });
+      path: this.path
+    })
   }
 
   /**
@@ -119,8 +119,8 @@ export class JarvisStore {
    */
   async reset(): Promise<void> {
     await invoke(computeCommandName("reset"), {
-      path: this.path,
-    });
+      path: this.path
+    })
   }
 
   /**
@@ -130,8 +130,8 @@ export class JarvisStore {
    */
   async keys(): Promise<string[]> {
     return await invoke(computeCommandName("keys"), {
-      path: this.path,
-    });
+      path: this.path
+    })
   }
 
   /**
@@ -141,8 +141,8 @@ export class JarvisStore {
    */
   async values<T>(): Promise<T[]> {
     return await invoke(computeCommandName("values"), {
-      path: this.path,
-    });
+      path: this.path
+    })
   }
 
   /**
@@ -152,8 +152,8 @@ export class JarvisStore {
    */
   async entries<T>(): Promise<Array<[key: string, value: T]>> {
     return await invoke(computeCommandName("entries"), {
-      path: this.path,
-    });
+      path: this.path
+    })
   }
 
   /**
@@ -163,8 +163,8 @@ export class JarvisStore {
    */
   async length(): Promise<number> {
     return await invoke(computeCommandName("length"), {
-      path: this.path,
-    });
+      path: this.path
+    })
   }
 
   /**
@@ -177,8 +177,8 @@ export class JarvisStore {
    */
   async load(): Promise<void> {
     await invoke(computeCommandName("load"), {
-      path: this.path,
-    });
+      path: this.path
+    })
   }
 
   /**
@@ -190,8 +190,8 @@ export class JarvisStore {
    */
   async save(): Promise<void> {
     await invoke(computeCommandName("save"), {
-      path: this.path,
-    });
+      path: this.path
+    })
   }
 
   /**
@@ -203,9 +203,9 @@ export class JarvisStore {
   async onKeyChange<T>(key: string, cb: (value: T | null) => void): Promise<UnlistenFn> {
     return await listen<ChangePayload<T>>("store://change", (event) => {
       if (event.payload.path === this.path && event.payload.key === key) {
-        cb(event.payload.value);
+        cb(event.payload.value)
       }
-    });
+    })
   }
 
   /**
@@ -216,8 +216,8 @@ export class JarvisStore {
   async onChange<T>(cb: (key: string, value: T | null) => void): Promise<UnlistenFn> {
     return await listen<ChangePayload<T>>("store://change", (event) => {
       if (event.payload.path === this.path) {
-        cb(event.payload.key, event.payload.value);
+        cb(event.payload.key, event.payload.value)
       }
-    });
+    })
   }
 }

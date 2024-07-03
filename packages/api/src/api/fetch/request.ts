@@ -2,16 +2,16 @@
  * This module is a modified versioin of Tauri's official `http` plugin.
  * https://github.com/tauri-apps/plugins-workspace/blob/e162e811fe5f6787eddd2cacac24ab0701539b45/plugins/http/guest-js/index.ts#L103
  */
-import { type IFetch } from "../client-types";
-import { defaultClientAPI } from "../../client";
-import { type ClientOptions } from "./types";
+import { type IFetch } from "../client-types"
+import { defaultClientAPI } from "../../client"
+import { type ClientOptions } from "./types"
 
 const webFetch: IFetch = {
   rawFetch: defaultClientAPI.fetchRawFetch,
   fetchCancel: defaultClientAPI.fetchFetchCancel,
   fetchSend: defaultClientAPI.fetchFetchSend,
   fetchReadBody: defaultClientAPI.fetchFetchReadBody
-};
+}
 
 /**
  * @example
@@ -28,18 +28,18 @@ export async function fetch(
   input: URL | Request | string,
   init?: RequestInit & ClientOptions
 ): Promise<Response> {
-  const maxRedirections = init?.maxRedirections;
-  const connectTimeout = init?.connectTimeout;
-  const proxy = init?.proxy;
+  const maxRedirections = init?.maxRedirections
+  const connectTimeout = init?.connectTimeout
+  const proxy = init?.proxy
 
   // Remove these fields before creating the request
   if (init != null) {
-    delete init.maxRedirections;
-    delete init.connectTimeout;
-    delete init.proxy;
+    delete init.maxRedirections
+    delete init.connectTimeout
+    delete init.proxy
   }
 
-  const signal = init?.signal;
+  const signal = init?.signal
 
   const headers =
     init?.headers == null
@@ -48,18 +48,18 @@ export async function fetch(
         ? Array.from(init.headers.entries())
         : Array.isArray(init.headers)
           ? init.headers
-          : Object.entries(init.headers);
+          : Object.entries(init.headers)
 
   const mappedHeaders: Array<[string, string]> = headers.map(([name, val]) => [
     name,
     // we need to ensure we have all values as strings
     // eslint-disable-next-line
     typeof val === "string" ? val : (val as any).toString()
-  ]);
+  ])
 
-  const req = new Request(input, init);
-  const buffer = await req.arrayBuffer();
-  const reqData = buffer.byteLength !== 0 ? Array.from(new Uint8Array(buffer)) : null;
+  const req = new Request(input, init)
+  const buffer = await req.arrayBuffer()
+  const reqData = buffer.byteLength !== 0 ? Array.from(new Uint8Array(buffer)) : null
   const rid = await webFetch.rawFetch({
     clientConfig: {
       method: req.method,
@@ -70,10 +70,10 @@ export async function fetch(
       connectTimeout,
       proxy
     }
-  });
+  })
   signal?.addEventListener("abort", () => {
-    void webFetch.fetchCancel(rid);
-  });
+    void webFetch.fetchCancel(rid)
+  })
 
   const {
     status,
@@ -81,9 +81,9 @@ export async function fetch(
     url,
     headers: responseHeaders,
     rid: responseRid
-  } = await webFetch.fetchSend(rid);
+  } = await webFetch.fetchSend(rid)
 
-  const body = await webFetch.fetchReadBody(responseRid);
+  const body = await webFetch.fetchReadBody(responseRid)
 
   const res = new Response(
     body instanceof ArrayBuffer && body.byteLength !== 0
@@ -96,10 +96,10 @@ export async function fetch(
       status,
       statusText
     }
-  );
+  )
 
   // url is read only but seems like we can do this
-  Object.defineProperty(res, "url", { value: url });
+  Object.defineProperty(res, "url", { value: url })
 
-  return res;
+  return res
 }

@@ -62,7 +62,7 @@ const COMMANDS: &[&str] = &[
     "ext_store_wrapper_length",
     "ext_store_wrapper_load",
     "ext_store_wrapper_save",
-    "get_server_port"
+    "get_server_port",
 ];
 
 fn main() {

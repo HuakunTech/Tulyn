@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
+import { Icon } from "@iconify/vue"
 import {
   Command,
   CommandEmpty,
@@ -8,18 +8,18 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut,
-} from "@/components/ui/command";
-import type { TListItem } from "jarvis-api/models";
-import { Badge } from "@/components/ui/badge";
-import { $appConfig, setDevExtLoadUrl, setShowInTray } from "@/lib/stores/appConfig";
-import { useStore } from "@nanostores/vue";
+  CommandShortcut
+} from "@/components/ui/command"
+import type { TListItem } from "jarvis-api/models"
+import { Badge } from "@/components/ui/badge"
+import { $appConfig, setDevExtLoadUrl, setShowInTray } from "@/lib/stores/appConfig"
+import { useStore } from "@nanostores/vue"
 
-const appConfig = useStore($appConfig);
-const props = defineProps<{ item: TListItem; isDevExt: boolean }>();
+const appConfig = useStore($appConfig)
+const props = defineProps<{ item: TListItem; isDevExt: boolean }>()
 const emits = defineEmits<{
-  (e: "select"): void;
-}>();
+  (e: "select"): void
+}>()
 </script>
 
 <template>
@@ -40,7 +40,10 @@ const emits = defineEmits<{
         icon="ph:dev-to-logo-fill"
         class="inline w-6 h-6 text-green-500"
       />
-      <Badge v-if="appConfig.devExtLoadUrl && isDevExt" class="rounded-sm py-0.5 px-1" variant="outline"
+      <Badge
+        v-if="appConfig.devExtLoadUrl && isDevExt"
+        class="rounded-sm py-0.5 px-1"
+        variant="outline"
         >Live</Badge
       >
       <span>{{ item.type }}</span>

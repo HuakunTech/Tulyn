@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { BaseNode, GeneralDefault, NodeTypeAction, Position } from "../common";
+import { z } from "zod"
+import { BaseNode, GeneralDefault, NodeTypeAction, Position } from "../common"
 
-export const OpenFileName = z.literal("open_file");
+export const OpenFileName = z.literal("open_file")
 
 /**
  * Open a file with given app.
@@ -12,7 +12,7 @@ export const OpenFileNode = z
   .object({
     type: NodeTypeAction,
     input: z.string().or(GeneralDefault),
-    app: z.string().or(GeneralDefault).default(GeneralDefault.value),
+    app: z.string().or(GeneralDefault).default(GeneralDefault.value)
   })
   .merge(BaseNode)
-  .merge(Position);
+  .merge(Position)

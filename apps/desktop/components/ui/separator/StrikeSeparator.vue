@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Separator from "./Separator.vue";
+import Separator from "./Separator.vue"
 </script>
 
 <template>

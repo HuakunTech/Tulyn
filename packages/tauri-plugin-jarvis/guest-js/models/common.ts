@@ -1,3 +1,3 @@
-import { z } from "zod";
+import { z } from "zod"
 
-export const IconType = z.enum(["iconify", "asset", "remote-url"]);
+export const IconType = z.enum(["iconify", "asset", "remote-url"])

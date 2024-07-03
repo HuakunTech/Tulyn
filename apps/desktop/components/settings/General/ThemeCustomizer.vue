@@ -1,23 +1,23 @@
 <script lang="ts" setup>
-import { allColors } from "@/lib/themes/themes";
-import { colors } from "@/lib/themes/colors";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { $appConfig, LightMode, setLightMode, setTheme, setRadius } from "@/lib/stores/appConfig";
-import { useStore } from "@nanostores/vue";
-import { useColorMode, useDark } from "@vueuse/core";
-import { SunIcon, MoonIcon, CheckIcon } from "@radix-icons/vue";
+import { allColors } from "@/lib/themes/themes"
+import { colors } from "@/lib/themes/colors"
+import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
+import { $appConfig, LightMode, setLightMode, setTheme, setRadius } from "@/lib/stores/appConfig"
+import { useStore } from "@nanostores/vue"
+import { useColorMode, useDark } from "@vueuse/core"
+import { SunIcon, MoonIcon, CheckIcon } from "@radix-icons/vue"
 
-const appConfig = useStore($appConfig);
+const appConfig = useStore($appConfig)
 
 // const isDark = useDark();
-const RADII = [0, 0.25, 0.5, 0.75, 1];
+const RADII = [0, 0.25, 0.5, 0.75, 1]
 // const appConfig = useAppConfigStore();
-const colorMode = useColorMode();
+const colorMode = useColorMode()
 
 function changeLightMode(mode: LightMode) {
-  colorMode.value = mode;
-  setLightMode(mode);
+  colorMode.value = mode
+  setLightMode(mode)
 }
 </script>
 

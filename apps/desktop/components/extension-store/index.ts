@@ -1,1 +1,1 @@
-export { default as ExtensionStorePage } from "./store.vue";
+export { default as ExtensionStorePage } from "./store.vue"

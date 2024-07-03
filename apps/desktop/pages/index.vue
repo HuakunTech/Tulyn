@@ -7,39 +7,39 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut,
-} from "@/components/ui/command";
-import { AppsExtension } from "@/lib/extension/apps";
-import { SystemCommandExtension } from "@/lib/extension/systemCmds";
-import { BuiltinCmds } from "@/lib/extension/builtin";
-import type { IExtensionBase } from "@/lib/extension/base";
-import { useStore } from "@nanostores/vue";
-import { Extension } from "@/lib/extension/ext";
-import { $appConfig } from "@/lib/stores/appConfig";
-import { getExtensionsFolder } from "@/lib/constants";
-import { $appState, setSearchTerm } from "@/lib/stores/appState";
-import { RemoteExtension } from "@/lib/extension/remoteExt";
+  CommandShortcut
+} from "@/components/ui/command"
+import { AppsExtension } from "@/lib/extension/apps"
+import { SystemCommandExtension } from "@/lib/extension/systemCmds"
+import { BuiltinCmds } from "@/lib/extension/builtin"
+import type { IExtensionBase } from "@/lib/extension/base"
+import { useStore } from "@nanostores/vue"
+import { Extension } from "@/lib/extension/ext"
+import { $appConfig } from "@/lib/stores/appConfig"
+import { getExtensionsFolder } from "@/lib/constants"
+import { $appState, setSearchTerm } from "@/lib/stores/appState"
+import { RemoteExtension } from "@/lib/extension/remoteExt"
 
-const appExt = new AppsExtension();
-const sysCmdExt = new SystemCommandExtension();
-const builtinCmdExt = new BuiltinCmds();
-const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath, true);
-const storeExt = new Extension("Extensions", await getExtensionsFolder());
-const remoteExt = new RemoteExtension();
-const exts: IExtensionBase[] = [devExt, remoteExt, storeExt, builtinCmdExt, sysCmdExt, appExt];
+const appExt = new AppsExtension()
+const sysCmdExt = new SystemCommandExtension()
+const builtinCmdExt = new BuiltinCmds()
+const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath, true)
+const storeExt = new Extension("Extensions", await getExtensionsFolder())
+const remoteExt = new RemoteExtension()
+const exts: IExtensionBase[] = [devExt, remoteExt, storeExt, builtinCmdExt, sysCmdExt, appExt]
 
-const searchTermInSync = ref("");
-let updateSearchTermTimeout: ReturnType<typeof setTimeout>;
+const searchTermInSync = ref("")
+let updateSearchTermTimeout: ReturnType<typeof setTimeout>
 watch(searchTermInSync, (val) => {
-  clearTimeout(updateSearchTermTimeout);
+  clearTimeout(updateSearchTermTimeout)
   updateSearchTermTimeout = setTimeout(() => {
-    setSearchTerm(val);
-  }, 100);
-});
+    setSearchTerm(val)
+  }, 100)
+})
 
 onMounted(async () => {
-  Promise.all(exts.map((ext) => ext.load()));
-});
+  Promise.all(exts.map((ext) => ext.load()))
+})
 </script>
 <template>
   <div class="h-full">

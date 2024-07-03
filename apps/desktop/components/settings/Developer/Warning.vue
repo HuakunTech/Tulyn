@@ -5,9 +5,9 @@ import {
   InfoIcon,
   ExternalLinkIcon,
   CloudDownloadIcon,
-  FolderDownIcon,
-} from "lucide-vue-next";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+  FolderDownIcon
+} from "lucide-vue-next"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,8 +16,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+  AlertDialogTrigger
+} from "@/components/ui/alert-dialog"
 </script>
 <template>
   <Alert variant="destructive" class="dark:text-red-600 dark:border-red-600">

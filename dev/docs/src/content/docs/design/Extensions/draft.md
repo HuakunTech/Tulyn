@@ -43,7 +43,7 @@ Procedures
 API-Driven Design: write sample client code first
 
 ```ts title="extension/lib/index.js"
-import { ExtensionTemplate, FileFilter, open, setListView } from "jarvis-api";
+import { ExtensionTemplate, FileFilter, open, setListView } from "jarvis-api"
 
 function customFindFile(filename: string, scope: string, depth: number = 5) {
   // ...
@@ -51,26 +51,26 @@ function customFindFile(filename: string, scope: string, depth: number = 5) {
 
 class OpenEditorExt extends ExtensionTemplate {
   constructor() {
-    super();
+    super()
   }
 
   async onPluginCalled(data) {
-    const { code, type, payload } = data;
+    const { code, type, payload } = data
     // payload is the query. For example `code {filename query}`
-    const file = await FileFilter.findFile(payload, scope);
+    const file = await FileFilter.findFile(payload, scope)
     // send request to server, server will find related files, list them, when user select a file from list view, server will send the file path to the client
 
     // Or if developer choose to use custom file filter
-    const paths = customFindFile(payload, scope, 5);
+    const paths = customFindFile(payload, scope, 5)
     // send a request to server to update the list view with the paths
-    setListView(paths);
+    setListView(paths)
     // client will open the file with a specific editor
-    open(file, "code"); // send another request to server to open the file with a specific app
+    open(file, "code") // send another request to server to open the file with a specific app
   }
 }
 
-const ext = OpenEditorExt();
-ext.start(); //
+const ext = OpenEditorExt()
+ext.start() //
 ```
 
 ## Option 2: Provide a Extension Runtime
@@ -81,16 +81,16 @@ In Jarvis runtime, run with bun
 
 ```ts
 // connect to server, e.g. socketio or bidirectinal grpc stream
-runtime.connect("http://localhost:1566");
-runtime.getExtensionInfo(); // get extension info from server, such as command keywords, etc.
+runtime.connect("http://localhost:1566")
+runtime.getExtensionInfo() // get extension info from server, such as command keywords, etc.
 
 // it's possible to include this code in jarvis-api and let extension run this client to connect with server
 // but if there are many extensions, the client code will be duplicated in each extension (e.g. socketio client lib duplicated many times)
 runtime.on("user-input", (data) => {
-  const userInput: string = data;
-  const { command, query } = userInput; // in real code, split the command and query, command is the first word (trigger word), query is the rest
-  const ext = runtime.findExtension(command); // find the extension that has the command
-  const lib = await import(ext.libpath);
-  lib.onPluginCalled(query);
-});
+  const userInput: string = data
+  const { command, query } = userInput // in real code, split the command and query, command is the first word (trigger word), query is the rest
+  const ext = runtime.findExtension(command) // find the extension that has the command
+  const lib = await import(ext.libpath)
+  lib.onPluginCalled(query)
+})
 ```

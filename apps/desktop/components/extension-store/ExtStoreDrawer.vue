@@ -1,19 +1,19 @@
 <script lang="ts" setup>
-import type { DrawerRootEmits, DrawerRootProps } from "vaul-vue";
-import { DrawerRoot } from "vaul-vue";
-import { useForwardPropsEmits } from "radix-vue";
+import type { DrawerRootEmits, DrawerRootProps } from "vaul-vue"
+import { DrawerRoot } from "vaul-vue"
+import { useForwardPropsEmits } from "radix-vue"
 
 const props = withDefaults(defineProps<DrawerRootProps & { open: boolean }>(), {
-  shouldScaleBackground: true,
-});
+  shouldScaleBackground: true
+})
 
 const emits = defineEmits<
   DrawerRootEmits & {
-    (e: "update:open", open: boolean): void;
+    (e: "update:open", open: boolean): void
   }
->();
+>()
 
-const forwarded = useForwardPropsEmits(props, emits);
+const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
@@ -22,7 +22,7 @@ const forwarded = useForwardPropsEmits(props, emits);
     :open="props.open"
     @update:open="
       (open) => {
-        emits('update:open', open);
+        emits('update:open', open)
       }
     "
   >

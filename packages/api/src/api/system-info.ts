@@ -1,6 +1,6 @@
-import { type ISystemInfo } from "../api/client-types";
-import { defaultClientAPI, isMain } from "../client";
-import { type Remote } from "@huakunshen/comlink";
+import { type ISystemInfo } from "../api/client-types"
+import { defaultClientAPI, isMain } from "../client"
+import { type Remote } from "@huakunshen/comlink"
 import {
   allSysInfo,
   batteries,
@@ -26,8 +26,8 @@ import {
   totalSwap,
   usedMemory,
   usedSwap
-} from "tauri-plugin-system-info-api";
-import { type ISystemInfoServer } from "./server-types";
+} from "tauri-plugin-system-info-api"
+import { type ISystemInfoServer } from "./server-types"
 
 export function constructAPI(api: Remote<ISystemInfoServer>): ISystemInfo {
   return {
@@ -55,9 +55,9 @@ export function constructAPI(api: Remote<ISystemInfoServer>): ISystemInfo {
     refreshProcesses: api.sysInfoRefreshProcesses,
     debugCommand: api.sysInfoDebugCommand,
     batteries: api.sysInfoBatteries
-  };
+  }
 }
-export const comlinkSysInfo: ISystemInfo = constructAPI(defaultClientAPI);
+export const comlinkSysInfo: ISystemInfo = constructAPI(defaultClientAPI)
 
 export const nativeSysInfo: ISystemInfo = {
   allSysInfo,
@@ -84,6 +84,6 @@ export const nativeSysInfo: ISystemInfo = {
   refreshProcesses,
   debugCommand,
   batteries
-};
+}
 
-export const sysInfo = isMain ? nativeSysInfo : comlinkSysInfo;
+export const sysInfo = isMain ? nativeSysInfo : comlinkSysInfo

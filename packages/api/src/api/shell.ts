@@ -1,6 +1,6 @@
-import type { IShell, IShellInternal } from "../api/client-types";
-import { defaultClientAPI, isMain } from "../client";
-import { proxy as comlinkProxy, type Remote } from "@huakunshen/comlink";
+import type { IShell, IShellInternal } from "../api/client-types"
+import { defaultClientAPI, isMain } from "../client"
+import { proxy as comlinkProxy, type Remote } from "@huakunshen/comlink"
 import {
   Child as ShellxChild,
   Command as ShellxCommand,
@@ -22,8 +22,8 @@ import {
   type ChildProcess,
   type IOPayload,
   type SpawnOptions
-} from "tauri-plugin-shellx-api";
-import { type IShellServer } from "./server-types";
+} from "tauri-plugin-shellx-api"
+import { type IShellServer } from "./server-types"
 
 export function constructAPI(api: Remote<IShellServer>): IShellInternal {
   return {
@@ -46,18 +46,18 @@ export function constructAPI(api: Remote<IShellServer>): IShellInternal {
     executeNodeScript: api.shellExecuteNodeScript,
     hasCommand: api.shellHasCommand,
     likelyOnWindows: api.shellLikelyOnWindows
-  };
+  }
 }
 
-const _comlinkShell: IShellInternal = constructAPI(defaultClientAPI);
+const _comlinkShell: IShellInternal = constructAPI(defaultClientAPI)
 
 export class Child extends ShellxChild {
   write(data: IOPayload): Promise<void> {
-    return _comlinkShell.stdinWrite(typeof data === "string" ? data : Array.from(data), this.pid);
+    return _comlinkShell.stdinWrite(typeof data === "string" ? data : Array.from(data), this.pid)
   }
 
   kill(): Promise<void> {
-    return _comlinkShell.kill(this.pid);
+    return _comlinkShell.kill(this.pid)
   }
 }
 
@@ -67,14 +67,14 @@ export class Command<O extends IOPayload> extends ShellxCommand<O> {
     args: string | string[] = [],
     options?: SpawnOptions
   ): Command<O> {
-    return new Command(program, args, options);
+    return new Command(program, args, options)
   }
 
   async spawn(): Promise<Child> {
-    const args = this.args;
+    const args = this.args
 
     if (typeof args === "object") {
-      Object.freeze(args);
+      Object.freeze(args)
     }
 
     return _comlinkShell
@@ -85,66 +85,66 @@ export class Command<O extends IOPayload> extends ShellxCommand<O> {
         comlinkProxy((evt) => {
           switch (evt.event) {
             case "Error":
-              this.emit("error", evt.payload);
-              break;
+              this.emit("error", evt.payload)
+              break
             case "Terminated":
-              this.emit("close", evt.payload);
-              break;
+              this.emit("close", evt.payload)
+              break
             case "Stdout":
-              this.stdout.emit("data", evt.payload);
-              break;
+              this.stdout.emit("data", evt.payload)
+              break
             case "Stderr":
-              this.stderr.emit("data", evt.payload);
-              break;
+              this.stderr.emit("data", evt.payload)
+              break
           }
         })
       )
-      .then((pid) => new Child(pid));
+      .then((pid) => new Child(pid))
   }
 
   async execute(): Promise<ChildProcess<O>> {
-    const program = this.program;
-    const args = this.args;
-    const options = this.options;
+    const program = this.program
+    const args = this.args
+    const options = this.options
 
     if (typeof args === "object") {
-      Object.freeze(args);
+      Object.freeze(args)
     }
-    return _comlinkShell.execute(program, args, options) as Promise<ChildProcess<O>>;
+    return _comlinkShell.execute(program, args, options) as Promise<ChildProcess<O>>
   }
 }
 
 function makeBashScript(script: string): Command<string> {
-  return Command.create("bash", ["-c", script]);
+  return Command.create("bash", ["-c", script])
 }
 
 function makePowershellScript(script: string): Command<string> {
-  return Command.create("powershell", ["-Command", script]);
+  return Command.create("powershell", ["-Command", script])
 }
 
 function makeAppleScript(script: string): Command<string> {
-  return Command.create("osascript", ["-e", script]);
+  return Command.create("osascript", ["-e", script])
 }
 
 function makePythonScript(script: string): Command<string> {
-  return Command.create("python", ["-c", script]);
+  return Command.create("python", ["-c", script])
 }
 
 function makeZshScript(script: string): Command<string> {
-  return Command.create("zsh", ["-c", script]);
+  return Command.create("zsh", ["-c", script])
 }
 
 function makeNodeScript(script: string): Command<string> {
-  return Command.create("node", ["-e", script]);
+  return Command.create("node", ["-e", script])
 }
 
-export const shellOpen = _comlinkShell.open;
+export const shellOpen = _comlinkShell.open
 
 export const comlinkShell: IShell = {
   ..._comlinkShell,
   Command,
   Child
-};
+}
 
 export const nativeShell: IShell = {
   open: shellxOpen,
@@ -164,6 +164,6 @@ export const nativeShell: IShell = {
   likelyOnWindows: shellxLikelyOnWindows,
   Command: ShellxCommand,
   Child: ShellxChild
-};
+}
 
-export const shell = isMain ? nativeShell : comlinkShell;
+export const shell = isMain ? nativeShell : comlinkShell

@@ -1,6 +1,6 @@
-import { type INetwork } from "../api/client-types";
-import { defaultClientAPI, isMain } from "../client";
-import { type Remote } from "@huakunshen/comlink";
+import { type INetwork } from "../api/client-types"
+import { defaultClientAPI, isMain } from "../client"
+import { type Remote } from "@huakunshen/comlink"
 import {
   findAvailablePort,
   getInterfaces,
@@ -12,8 +12,8 @@ import {
   scanLocalNetworkOnlineHostsByPort,
   scanOnlineIpPortPairs,
   scanOnlineIpsByPort
-} from "tauri-plugin-network-api";
-import { type INetworkServer } from "./server-types";
+} from "tauri-plugin-network-api"
+import { type INetworkServer } from "./server-types"
 
 export function constructAPI(api: Remote<INetworkServer>): INetwork {
   return {
@@ -27,9 +27,9 @@ export function constructAPI(api: Remote<INetworkServer>): INetwork {
     nonLocalhostNetworks: api.networkNonLocalhostNetworks,
     localServerIsRunning: api.networkLocalServerIsRunning,
     scanLocalNetworkOnlineHostsByPort: api.networkScanLocalNetworkOnlineHostsByPort
-  };
+  }
 }
-export const comlinkNetwork: INetwork = constructAPI(defaultClientAPI);
+export const comlinkNetwork: INetwork = constructAPI(defaultClientAPI)
 
 export const nativeNetwork: INetwork = {
   getInterfaces: getInterfaces,
@@ -42,6 +42,6 @@ export const nativeNetwork: INetwork = {
   nonLocalhostNetworks: nonLocalhostNetworks,
   localServerIsRunning: localServerIsRunning,
   scanLocalNetworkOnlineHostsByPort: scanLocalNetworkOnlineHostsByPort
-};
+}
 
-export const network = isMain ? nativeNetwork : comlinkNetwork;
+export const network = isMain ? nativeNetwork : comlinkNetwork

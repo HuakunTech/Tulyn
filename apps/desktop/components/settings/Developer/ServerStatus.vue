@@ -1,88 +1,88 @@
 <script setup lang="ts">
-import { z } from "zod";
-import { Button } from "@/components/ui/button";
+import { z } from "zod"
+import { Button } from "@/components/ui/button"
 import {
   startServer,
   restartServer,
   stopServer,
   getDevExtensionFolder,
   getExtensionFolder,
-  serverIsRunning,
-} from "tauri-plugin-jarvis-api/commands";
-import { Badge } from "@/components/ui/badge";
-import { onMounted, onUnmounted, ref } from "vue";
-import { useToast } from "@/components/ui/toast/use-toast";
-import { open } from "tauri-plugin-shellx-api";
+  serverIsRunning
+} from "tauri-plugin-jarvis-api/commands"
+import { Badge } from "@/components/ui/badge"
+import { onMounted, onUnmounted, ref } from "vue"
+import { useToast } from "@/components/ui/toast/use-toast"
+import { open } from "tauri-plugin-shellx-api"
 
-const { toast } = useToast();
-const serverRunning = ref(false);
-let interval: NodeJS.Timeout;
-const extFolder = ref<string | null>();
-const devExtFolder = ref<string | null>();
+const { toast } = useToast()
+const serverRunning = ref(false)
+let interval: NodeJS.Timeout
+const extFolder = ref<string | null>()
+const devExtFolder = ref<string | null>()
 
 async function refreshStatus() {
-  serverRunning.value = z.boolean().parse(await serverIsRunning());
-  extFolder.value = await getExtensionFolder();
-  devExtFolder.value = await getDevExtensionFolder();
+  serverRunning.value = z.boolean().parse(await serverIsRunning())
+  extFolder.value = await getExtensionFolder()
+  devExtFolder.value = await getDevExtensionFolder()
 }
 
 onMounted(async () => {
-  refreshStatus();
+  refreshStatus()
   interval = setInterval(async () => {
-    refreshStatus();
-  }, 1000);
-});
+    refreshStatus()
+  }, 1000)
+})
 
 onUnmounted(() => {
-  clearInterval(interval);
-});
+  clearInterval(interval)
+})
 
 function start() {
   startServer()
     .then(() => {
       toast({
-        title: "Start Server Command Sent",
-      });
+        title: "Start Server Command Sent"
+      })
     })
     .catch((err) => {
       toast({
         title: "Start Server Error",
         description: err,
-        variant: "destructive",
-      });
-    });
+        variant: "destructive"
+      })
+    })
 }
 
 function stop() {
   stopServer()
     .then(() => {
       toast({
-        title: "Stop Server Command Sent",
-      });
+        title: "Stop Server Command Sent"
+      })
     })
     .catch((err) => {
       toast({
         title: "Stop Server Error",
         description: err,
-        variant: "destructive",
-      });
-    });
+        variant: "destructive"
+      })
+    })
 }
 
 function restart() {
   restartServer()
     .then(() => {
       toast({
-        title: "Restart Server Command Sent",
-      });
+        title: "Restart Server Command Sent"
+      })
     })
     .catch((err) => {
       toast({
         title: "Restart Server Error",
         description: err,
-        variant: "destructive",
-      });
-    });
+        variant: "destructive"
+      })
+    })
 }
 </script>
 <template>
@@ -93,7 +93,12 @@ function restart() {
       <Button size="xs" @click="restart">Restart Server</Button>
     </div>
     <span class="pr-5">
-      <Badge v-if="serverRunning" variant="secondary" class="select-none cursor-default bg-green-700 text-white">On</Badge>
+      <Badge
+        v-if="serverRunning"
+        variant="secondary"
+        class="select-none cursor-default bg-green-700 text-white"
+        >On</Badge
+      >
       <Badge v-else variant="destructive" class="select-none cursor-default">Off</Badge>
     </span>
   </div>

@@ -1,41 +1,41 @@
 <script setup lang="ts">
-import { useGoToSettingShortcuts } from "@/composables/useShortcuts";
-import type { UnlistenFn } from "@tauri-apps/api/event";
-import { allColors } from "@/lib/themes/themes";
-import { attachConsole } from "@tauri-apps/plugin-log";
-import { useStore } from "@nanostores/vue";
-import { $appConfig, LightMode, setLightMode, setTheme, setRadius } from "@/lib/stores/appConfig";
-import { Toaster } from "@/components/ui/sonner";
+import { useGoToSettingShortcuts } from "@/composables/useShortcuts"
+import type { UnlistenFn } from "@tauri-apps/api/event"
+import { allColors } from "@/lib/themes/themes"
+import { attachConsole } from "@tauri-apps/plugin-log"
+import { useStore } from "@nanostores/vue"
+import { $appConfig, LightMode, setLightMode, setTheme, setRadius } from "@/lib/stores/appConfig"
+import { Toaster } from "@/components/ui/sonner"
 
-const colorMode = useColorMode(); // auto set html class to dark is in dark mode
-const appConfig = useStore($appConfig);
-let detach: UnlistenFn;
-useGoToSettingShortcuts();
+const colorMode = useColorMode() // auto set html class to dark is in dark mode
+const appConfig = useStore($appConfig)
+let detach: UnlistenFn
+useGoToSettingShortcuts()
 
 onMounted(async () => {
-  detach = await attachConsole();
+  detach = await attachConsole()
   /* -------------------------------------------------------------------------- */
   /*                            Theme and Style Init                            */
   /* -------------------------------------------------------------------------- */
-  document.documentElement.style.setProperty("--radius", `${appConfig.value.radius}rem`);
-  document.documentElement.classList.add(`theme-${appConfig.value.theme}`);
-  colorMode.value = appConfig.value.lightMode ?? "system";
-});
+  document.documentElement.style.setProperty("--radius", `${appConfig.value.radius}rem`)
+  document.documentElement.classList.add(`theme-${appConfig.value.theme}`)
+  colorMode.value = appConfig.value.lightMode ?? "system"
+})
 
 watch(
   () => appConfig.value.theme,
   (theme) => {
-    document.documentElement.classList.remove(...allColors.map((color) => `theme-${color}`));
-    document.documentElement.classList.add(`theme-${theme}`);
-  },
-);
+    document.documentElement.classList.remove(...allColors.map((color) => `theme-${color}`))
+    document.documentElement.classList.add(`theme-${theme}`)
+  }
+)
 
 watch(
   () => appConfig.value.radius,
   (radius) => {
-    document.documentElement.style.setProperty("--radius", `${radius}rem`);
-  },
-);
+    document.documentElement.style.setProperty("--radius", `${radius}rem`)
+  }
+)
 </script>
 
 <template>

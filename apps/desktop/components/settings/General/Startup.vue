@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { Checkbox } from "@/components/ui/checkbox";
-import { useStore } from "@nanostores/vue";
-import { $appConfig, setLaunchAtLogin } from "@/lib/stores/appConfig";
-import { computed, ref, watch } from "vue";
+import { Checkbox } from "@/components/ui/checkbox"
+import { useStore } from "@nanostores/vue"
+import { $appConfig, setLaunchAtLogin } from "@/lib/stores/appConfig"
+import { computed, ref, watch } from "vue"
 
-const appConfig = useStore($appConfig);
+const appConfig = useStore($appConfig)
 const checked = computed({
   get() {
-    return appConfig.value.launchAtLogin;
+    return appConfig.value.launchAtLogin
   },
   set(val) {
-    setLaunchAtLogin(val);
-  },
-});
+    setLaunchAtLogin(val)
+  }
+})
 </script>
 <template>
   <div class="grid grid-cols-2 gap-4">

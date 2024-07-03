@@ -1,24 +1,24 @@
-import { z } from "zod";
-import { computed, map } from "nanostores";
-import { AppInfo } from "tauri-plugin-jarvis-api/models";
+import { z } from "zod"
+import { computed, map } from "nanostores"
+import { AppInfo } from "tauri-plugin-jarvis-api/models"
 
 export const appStateSchema = z.object({
   searchTerm: z.string(),
-  allApps: AppInfo.array(),
-});
-export type AppState = z.infer<typeof appStateSchema>;
+  allApps: AppInfo.array()
+})
+export type AppState = z.infer<typeof appStateSchema>
 
 export const $appState = map<AppState>({
   searchTerm: "",
-  allApps: [],
-});
+  allApps: []
+})
 
 export function setSearchTerm(searchTerm: string) {
-  $appState.setKey("searchTerm", searchTerm);
+  $appState.setKey("searchTerm", searchTerm)
 }
 
 export function setAllApps(allApps: AppInfo[]) {
-  $appState.setKey("allApps", allApps);
+  $appState.setKey("allApps", allApps)
 }
 
 // export const $filteredApps = computed($appState, (state) => {

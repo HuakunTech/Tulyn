@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import { humanReadableNumber } from "@/lib/utils/format";
-import { CircleCheckBigIcon } from "lucide-vue-next";
-import { CommandItem } from "@/components/ui/command";
-import { ExtItem } from "./types";
-import IconMultiplexer from '@/components/IconMultiplexer.vue'
+import { Icon } from "@iconify/vue"
+import { humanReadableNumber } from "@/lib/utils/format"
+import { CircleCheckBigIcon } from "lucide-vue-next"
+import { CommandItem } from "@/components/ui/command"
+import { ExtItem } from "./types"
+import IconMultiplexer from "@/components/IconMultiplexer.vue"
 
 const props = defineProps<{
-  data: ExtItem;
-  installed: boolean;
-}>();
+  data: ExtItem
+  installed: boolean
+}>()
 
 const emits = defineEmits<{
-  (e: "select"): void;
-}>();
+  (e: "select"): void
+}>()
 </script>
 <template>
   <CommandItem :value="props.data" class="" @select="emits('select')">

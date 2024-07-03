@@ -1,4 +1,4 @@
-import { expose, windowEndpoint, wrap, type Endpoint, type Remote } from '@huakunshen/comlink'
+import { expose, windowEndpoint, wrap, type Endpoint, type Remote } from "@huakunshen/comlink"
 
 /**
  *

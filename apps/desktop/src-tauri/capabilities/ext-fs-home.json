@@ -1,18 +1,10 @@
 {
-    "$schema": "../gen/schemas/desktop-schema.json",
-    "identifier": "ext-fs-home",
-    "description": "Grants all read and write permissions for the entire Home Directory recursively.",
-    "windows": [
-        "*:fs-home*"
-    ],
-    "remote": {
-        "urls": [
-            "http://localhost:*",
-            "https://*.huakun.tech*"
-        ]
-    },
-    "permissions": [
-        "fs:allow-home-write-recursive",
-        "fs:allow-home-read-recursive"
-    ]
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "ext-fs-home",
+  "description": "Grants all read and write permissions for the entire Home Directory recursively.",
+  "windows": ["*:fs-home*"],
+  "remote": {
+    "urls": ["http://localhost:*", "https://*.huakun.tech*"]
+  },
+  "permissions": ["fs:allow-home-write-recursive", "fs:allow-home-read-recursive"]
 }

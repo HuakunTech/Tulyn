@@ -1,41 +1,41 @@
 <script setup lang="ts">
-import axios from "axios";
-import { z } from "zod";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { InfoIcon, ExternalLinkIcon, CloudDownloadIcon, DownloadIcon } from "lucide-vue-next";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Icon } from "@iconify/vue";
-import DeveloperWarning from "@/components/settings/Developer/Warning.vue";
-import DevExtPathForm from "@/components/settings/Developer/DevExtPathForm.vue";
-import DragNDrop from "@/components/DragNDrop.vue";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { default as TauriLink } from "@/components/tauri/link.vue";
-import { open as openFileSelector } from "@tauri-apps/plugin-dialog";
-import { ref, type HTMLAttributes } from "vue";
-import { cn } from "@/lib/utils";
-import { tempDir, join as pathJoin, downloadDir } from "@tauri-apps/api/path";
-import { installTarball, installTarballUrl } from "@/lib/utils/tarball";
-import { useStore } from "@nanostores/vue";
-import { $appConfig } from "@/lib/stores/appConfig";
+import axios from "axios"
+import { z } from "zod"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+import { InfoIcon, ExternalLinkIcon, CloudDownloadIcon, DownloadIcon } from "lucide-vue-next"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Icon } from "@iconify/vue"
+import DeveloperWarning from "@/components/settings/Developer/Warning.vue"
+import DevExtPathForm from "@/components/settings/Developer/DevExtPathForm.vue"
+import DragNDrop from "@/components/DragNDrop.vue"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { default as TauriLink } from "@/components/tauri/link.vue"
+import { open as openFileSelector } from "@tauri-apps/plugin-dialog"
+import { ref, type HTMLAttributes } from "vue"
+import { cn } from "@/lib/utils"
+import { tempDir, join as pathJoin, downloadDir } from "@tauri-apps/api/path"
+import { installTarball, installTarballUrl } from "@/lib/utils/tarball"
+import { useStore } from "@nanostores/vue"
+import { $appConfig } from "@/lib/stores/appConfig"
 // import { useToast } from "@/components/ui/toast";
-import RemoteURLInstall from "./RemoteURLInstall.vue";
-import { getDevExtensionFolder, getExtensionFolder } from "tauri-plugin-jarvis-api/commands";
-import { ElMessage, ElNotification } from "element-plus";
+import RemoteURLInstall from "./RemoteURLInstall.vue"
+import { getDevExtensionFolder, getExtensionFolder } from "tauri-plugin-jarvis-api/commands"
+import { ElMessage, ElNotification } from "element-plus"
 
 // const { toast } = useToast();
 
 const props = defineProps<{
-  class?: HTMLAttributes["class"];
-}>();
-const appConfig = useStore($appConfig);
-const dragging = ref(false);
+  class?: HTMLAttributes["class"]
+}>()
+const appConfig = useStore($appConfig)
+const dragging = ref(false)
 
 async function pickProject() {
-  const devExtFolder = await getDevExtensionFolder();
-  if (!devExtFolder) return;
+  const devExtFolder = await getDevExtensionFolder()
+  if (!devExtFolder) return
   const selected = await openFileSelector({
     directory: false,
     multiple: false,
@@ -43,83 +43,83 @@ async function pickProject() {
     filters: [
       {
         name: "qrcode",
-        extensions: ["tgz", "gz"],
-      },
-    ],
-  });
+        extensions: ["tgz", "gz"]
+      }
+    ]
+  })
   if (!selected) {
-    return ElMessage.warning("No File Selected");
+    return ElMessage.warning("No File Selected")
   }
-  installTarball(selected.path, devExtFolder);
+  installTarball(selected.path, devExtFolder)
 }
 
-const downloadUrl = ref<string>("");
+const downloadUrl = ref<string>("")
 
 async function onDownloadSubmit(e: Event) {
-  e.preventDefault();
-  const devExtFolder = await getDevExtensionFolder();
-  if (!devExtFolder) return;
+  e.preventDefault()
+  const devExtFolder = await getDevExtensionFolder()
+  if (!devExtFolder) return
   // check if downloadUrl is valid http url that ends with .tgz
   if (/https?:\/\/[^ ]+\.(?:tgz|tar\.gz)/.test(downloadUrl.value)) {
     // get file name from url
-    await installTarballUrl(downloadUrl.value, devExtFolder);
-    downloadUrl.value = "";
+    await installTarballUrl(downloadUrl.value, devExtFolder)
+    downloadUrl.value = ""
   } else {
     // assume npm package name is entered, check if package exists
     try {
-      await installThroughNpmAPI(`https://registry.npmjs.org/${downloadUrl.value}/latest`);
+      await installThroughNpmAPI(`https://registry.npmjs.org/${downloadUrl.value}/latest`)
     } catch (error: any) {
-      ElMessage.error("Fail to Install");
-      ElMessage.error(error);
+      ElMessage.error("Fail to Install")
+      ElMessage.error(error)
     }
   }
 }
 
 async function installThroughNpmAPI(url: string) {
-  const devExtFolder = await getDevExtensionFolder();
-  if (!devExtFolder) return;
+  const devExtFolder = await getDevExtensionFolder()
+  if (!devExtFolder) return
   return axios
     .get(url)
     .then((res) => {
-      const tarball = z.string().parse(res.data?.dist?.tarball);
+      const tarball = z.string().parse(res.data?.dist?.tarball)
       if (tarball) {
-        return installTarballUrl(tarball, devExtFolder);
+        return installTarballUrl(tarball, devExtFolder)
       } else {
-        ElMessage.error("Tarball Not Found");
+        ElMessage.error("Tarball Not Found")
       }
     })
     .catch((error: any) => {
-      ElMessage.error(error);
-    });
+      ElMessage.error(error)
+    })
 }
 
 async function handleDragNDropInstall(paths: string[]) {
-  const devExtFolder = await getDevExtensionFolder();
-  if (!devExtFolder) return;
-  dragging.value = false;
+  const devExtFolder = await getDevExtensionFolder()
+  if (!devExtFolder) return
+  dragging.value = false
   // install all .tar.gz and .tgz
-  let numInstalled = 0;
-  const tarballs = paths.filter((p) => p.endsWith(".tar.gz") || p.endsWith(".tgz"));
-  numInstalled += tarballs.length;
+  let numInstalled = 0
+  const tarballs = paths.filter((p) => p.endsWith(".tar.gz") || p.endsWith(".tgz"))
+  numInstalled += tarballs.length
   if (tarballs.length > 0) {
-    let installedCount = 0;
+    let installedCount = 0
     for (const tarball of tarballs) {
       try {
-        await installTarball(tarball, devExtFolder);
-        installedCount++;
+        await installTarball(tarball, devExtFolder)
+        installedCount++
       } catch (error: any) {
-        ElMessage.error(error);
+        ElMessage.error(error)
       }
     }
     if (installedCount > 0) {
-      ElMessage.success(`Installed ${installedCount} Tarball${installedCount > 1 ? "s" : ""}`);
+      ElMessage.success(`Installed ${installedCount} Tarball${installedCount > 1 ? "s" : ""}`)
     }
   }
   if (numInstalled === 0) {
     ElNotification.error({
       title: "Nothing is Installed",
-      message: "Only tarballs (.tar.gz) are supported",
-    });
+      message: "Only tarballs (.tar.gz) are supported"
+    })
   }
 }
 </script>

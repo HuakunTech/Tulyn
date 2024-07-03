@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { BaseNode, NodeTypeInput, Position } from "../common";
+import { z } from "zod"
+import { BaseNode, NodeTypeInput, Position } from "../common"
 
-export const ScriptFilterName = z.literal("script_filter");
+export const ScriptFilterName = z.literal("script_filter")
 
 export const ScriptFilterNode = z
   .object({
@@ -13,7 +13,7 @@ export const ScriptFilterNode = z
     subtext: z.string(),
     pleaseWaitSubtext: z.string().default("Please Wait..."),
     script: z.string(),
-    language: z.string(),
+    language: z.string()
   })
   .merge(BaseNode)
-  .merge(Position);
+  .merge(Position)

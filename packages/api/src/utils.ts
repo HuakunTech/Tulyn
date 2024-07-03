@@ -1,14 +1,14 @@
-import { EventType } from "./constants";
+import { EventType } from "./constants"
 
 export type PenxAPIResponseMessageEvent<T> = MessageEvent<{
-  type: string;
-  result: T;
-}>;
+  type: string
+  result: T
+}>
 
 export type PenxAPIRequestMessageEvent<T> = MessageEvent<{
-  type: string;
-  payload: T;
-}>;
+  type: string
+  payload: T
+}>
 
 /**
  * Constructs an API function that sends a message to the main thread and returns a promise for the result.
@@ -29,17 +29,17 @@ export function constructAPI<Payload, Result>(
   : (payload: Payload) => Promise<Result> {
   return ((payload?: Payload) => {
     return new Promise((resolve, reject) => {
-      const channel = new MessageChannel();
+      const channel = new MessageChannel()
       channel.port1.onmessage = (event: PenxAPIResponseMessageEvent<Result>) => {
-        const expectedEvtType = retEvtType ?? evtType;
+        const expectedEvtType = retEvtType ?? evtType
         if (event.data.type === expectedEvtType) {
-          resolve(event.data.result);
+          resolve(event.data.result)
         } else {
           reject(
             new Error(`Unexpected message type: ${event.data.type} (expected: ${expectedEvtType})`)
-          );
+          )
         }
-      };
+      }
       window.parent.postMessage(
         {
           type: evtType,
@@ -47,9 +47,9 @@ export function constructAPI<Payload, Result>(
         },
         "*",
         [channel.port2]
-      );
-    });
-  }) as any;
+      )
+    })
+  }) as any
 }
 
 export function constructAPICallback<Payload, Result>(
@@ -58,10 +58,10 @@ export function constructAPICallback<Payload, Result>(
   ? (fn: (result: Result) => void) => void
   : (fn: (result: Result) => void, payload: Payload) => void {
   return (fn: (result: Result) => void, payload?: Payload) => {
-    const channel = new MessageChannel();
+    const channel = new MessageChannel()
     channel.port1.onmessage = (event: PenxAPIResponseMessageEvent<Result>) => {
-      fn(event.data.result);
-    };
+      fn(event.data.result)
+    }
     window.parent.postMessage(
       {
         type: evtType,
@@ -69,8 +69,8 @@ export function constructAPICallback<Payload, Result>(
       },
       "*",
       [channel.port2]
-    );
-  };
+    )
+  }
 }
 
 export function constructAPIExecuter<Payload, Result>(
@@ -84,10 +84,10 @@ export function constructAPIExecuter<Payload, Result>(
         event.ports[0].postMessage({
           type: retEvtType ?? evtType,
           result
-        });
-      });
+        })
+      })
     }
-  };
+  }
 }
 
 export function constructAPICallbackExecuter<Payload>(
@@ -96,9 +96,9 @@ export function constructAPICallbackExecuter<Payload>(
 ) {
   return (event: PenxAPIRequestMessageEvent<Payload>) => {
     if (event.data.type === evtType) {
-      handlerFn(event.data.payload);
+      handlerFn(event.data.payload)
     }
-  };
+  }
 }
 
 /**
@@ -109,11 +109,11 @@ export function constructAPICallbackExecuter<Payload>(
  * @param iframeWin
  */
 export function isolateIframeFromTauri(iframeWin: Window) {
-  (iframeWin as any).eval(`window.parent = {
+  ;(iframeWin as any).eval(`window.parent = {
     postMessage: window.parent.postMessage
-  };`);
+  };`)
 }
 
 export function hackIframeToUseParentWindow(iframeWin: Window) {
-  (iframeWin as any).eval(`window.__TAURI_INTERNALS__ = window.parent.__TAURI_INTERNALS__;`);
+  ;(iframeWin as any).eval(`window.__TAURI_INTERNALS__ = window.parent.__TAURI_INTERNALS__;`)
 }

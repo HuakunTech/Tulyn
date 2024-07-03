@@ -1,7 +1,7 @@
-import { z } from "zod";
+import { z } from "zod"
 
 // TODO: Kind of Duplicate for ListItemType, consider remove one
-export const CommandType = z.enum(["system", "ui-cmd", "inline-cmd", "app"]);
+export const CommandType = z.enum(["system", "ui-cmd", "inline-cmd", "app"])
 
 export const TCommand = z.object({
   name: z.string(),
@@ -10,6 +10,6 @@ export const TCommand = z.object({
   keywords: z.array(z.string()).nullable(),
   commandType: CommandType,
   function: z.function(),
-  confirmRequired: z.boolean(),
-});
-export type TCommand = z.infer<typeof TCommand>;
+  confirmRequired: z.boolean()
+})
+export type TCommand = z.infer<typeof TCommand>

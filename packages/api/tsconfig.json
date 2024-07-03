@@ -16,18 +16,9 @@
     "allowSyntheticDefaultImports": false,
     "verbatimModuleSyntax": true,
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
+      "@/*": ["src/*"]
     }
   },
-  "include": [
-    "src",
-    "ui",
-    "modles"
-  ],
-  "exclude": [
-    "dist",
-    "node_modules"
-  ]
+  "include": ["src", "ui", "modles"],
+  "exclude": ["dist", "node_modules"]
 }

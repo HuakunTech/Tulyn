@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CogIcon, InfoIcon, UserRoundIcon, SquareTerminalIcon, BugIcon } from "lucide-vue-next";
-import { Icon } from "@iconify/vue";
-import AboutTab from "@/components/settings/AboutTab.vue";
-import GeneralTab from "@/components/settings/GeneralTab.vue";
-import ExtensionsTab from "@/components/settings/ExtensionsTab.vue";
-import DeveloperTab from "@/components/settings/DeveloperTab.vue";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { CogIcon, InfoIcon, UserRoundIcon, SquareTerminalIcon, BugIcon } from "lucide-vue-next"
+import { Icon } from "@iconify/vue"
+import AboutTab from "@/components/settings/AboutTab.vue"
+import GeneralTab from "@/components/settings/GeneralTab.vue"
+import ExtensionsTab from "@/components/settings/ExtensionsTab.vue"
+import DeveloperTab from "@/components/settings/DeveloperTab.vue"
 
 definePageMeta({
-  layout: "top-bar",
-});
+  layout: "top-bar"
+})
 </script>
 <template>
   <Tabs default-value="general" class="w-full h-full flex flex-col px-1">

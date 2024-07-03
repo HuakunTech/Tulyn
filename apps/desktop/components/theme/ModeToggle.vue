@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { useColorMode, useDark } from "@vueuse/core";
-import { Icon } from "@iconify/vue";
+import { useColorMode, useDark } from "@vueuse/core"
+import { Icon } from "@iconify/vue"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { cn } from "@/lib/utils";
-import { setLightMode, type LightMode } from "@/lib/stores/appConfig";
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu"
+import { cn } from "@/lib/utils"
+import { setLightMode, type LightMode } from "@/lib/stores/appConfig"
 
 const props = defineProps<{
-  class?: string;
-}>();
+  class?: string
+}>()
 // const mode = useColorMode();
-const isDark = useDark();
-const colorMode = useColorMode();
+const isDark = useDark()
+const colorMode = useColorMode()
 
 function changeLightMode(mode: LightMode) {
-  colorMode.value = mode;
-  setLightMode(mode);
+  colorMode.value = mode
+  setLightMode(mode)
 }
 </script>
 

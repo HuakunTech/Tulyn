@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { InfoIcon, ExternalLinkIcon, CloudDownloadIcon, DownloadIcon } from "lucide-vue-next";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { InfoIcon, ExternalLinkIcon, CloudDownloadIcon, DownloadIcon } from "lucide-vue-next"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -9,26 +9,26 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import { ref } from "vue";
-import { v4 as uuidv4 } from "uuid";
+  DialogTrigger
+} from "@/components/ui/dialog"
+import { Label } from "@/components/ui/label"
+import { ref } from "vue"
+import { v4 as uuidv4 } from "uuid"
 import {
   TagsInput,
   TagsInputInput,
   TagsInputItem,
   TagsInputItemDelete,
-  TagsInputItemText,
-} from "@/components/ui/tags-input";
-import { RemoteExt, RemoteExtension } from "@/lib/extension/remoteExt";
-import { ElMessage } from "element-plus";
+  TagsInputItemText
+} from "@/components/ui/tags-input"
+import { RemoteExt, RemoteExtension } from "@/lib/extension/remoteExt"
+import { ElMessage } from "element-plus"
 
-const remoteExt = new RemoteExtension();
-const remoteUrl = ref("");
-const name = ref("");
-const triggerKeywords = ref(["remote"]);
-const open = ref(false);
+const remoteExt = new RemoteExtension()
+const remoteUrl = ref("")
+const name = ref("")
+const triggerKeywords = ref(["remote"])
+const open = ref(false)
 
 function onSave() {
   try {
@@ -36,17 +36,17 @@ function onSave() {
       name: name.value,
       id: uuidv4(),
       url: remoteUrl.value,
-      triggerCmds: triggerKeywords.value,
-    });
+      triggerCmds: triggerKeywords.value
+    })
     remoteExt
       .addRemoteExt(remoteExtPayload)
       .then(() => {
-        ElMessage.success("Installed 1 Remote Command");
+        ElMessage.success("Installed 1 Remote Command")
       })
-      .catch(ElMessage.error);
-    open.value = false; // close dialog
+      .catch(ElMessage.error)
+    open.value = false // close dialog
   } catch (error) {
-    ElMessage.error("Wrong Format");
+    ElMessage.error("Wrong Format")
   }
 }
 </script>
