@@ -91,6 +91,8 @@ jobs:
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
         run: |
+          echo $SUPABASE_GRAPHQL_ENDPOINT >> packages/gql/.env
+          echo $SUPABASE_ANON_KEY >> packages/gql/.env
           pnpm install # change this to npm or pnpm depending on which one you use.
           pnpm build
       - uses: tauri-apps/tauri-action@v0

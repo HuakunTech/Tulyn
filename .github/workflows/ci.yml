@@ -8,11 +8,6 @@ on:
   push:
   workflow_dispatch:
 
-env:
-  SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-  SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-  SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -56,4 +51,6 @@ jobs:
           SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
+          echo $SUPABASE_GRAPHQL_ENDPOINT >> packages/gql/.env
+          echo $SUPABASE_ANON_KEY >> packages/gql/.env
           pnpm build
