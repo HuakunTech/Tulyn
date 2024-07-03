@@ -11,7 +11,7 @@ edition = "2021"
 tauri-build = { version = "2.0.0-beta", features = [] }
 
 [dependencies]
-tauri = { version = "2.0.0-beta", features = [] }
+tauri = { version = "2.0.0-beta", features = ["protocol-asset"] }
 tauri-plugin-shell = "2.0.0-beta"
 serde = { workspace = true }
 serde_json = { workspace = true }
@@ -32,6 +32,12 @@ tokio = { workspace = true }
 mdns-sd = { workspace = true }
 chrono = "0.4.38"
 log = "0.4.22"
+
+
+[target."cfg(target_os = \"macos\")".dependencies]
+cocoa = "0.24.1"
+objc = "0.2.7"
+
 
 [target."cfg(not(any(target_os = \"android\", target_os = \"ios\")))".dependencies]
 tauri-plugin-global-shortcut = "2.0.0-beta.6"

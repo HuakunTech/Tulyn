@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@element-plus/nuxt": "^1.0.9",
+    "@nanostores/persistent": "^0.10.1",
+    "@nanostores/vue": "^0.10.0",
     "@radix-icons/vue": "^1.0.0",
     "@tauri-apps/api": ">=2.0.0-beta.0",
     "@tauri-apps/cli": ">=2.0.0-beta.0",
@@ -27,6 +29,7 @@
     "element-plus": "^2.7.3",
     "embla-carousel-vue": "^8.1.3",
     "lucide-vue-next": "^0.399.0",
+    "nanostores": "^0.10.3",
     "nuxt": "^3.12.2",
     "radix-vue": "link:../../vendors/radix-vue/packages/radix-vue/",
     "shadcn-nuxt": "^0.10.4",

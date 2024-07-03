@@ -17,6 +17,8 @@
         }
       ]
     },
+    "os:default",
+    "os:allow-platform",
     "path:default",
     "event:default",
     "window:default",
@@ -61,6 +63,18 @@
     "global-shortcut:allow-unregister",
     "jarvis:allow-all",
     "store:default",
+    "store:allow-clear",
+    "store:allow-delete",
+    "store:allow-entries",
+    "store:allow-get",
+    "store:allow-has",
+    "store:allow-keys",
+    "store:allow-length",
+    "store:allow-load",
+    "store:allow-reset",
+    "store:allow-save",
+    "store:allow-set",
+    "store:allow-values",
     "log:default",
     "updater:default"
   ]

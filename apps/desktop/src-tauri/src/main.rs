@@ -3,7 +3,6 @@
 
 use std::path::PathBuf;
 
-use tauri::Manager;
 mod setup;
 use tauri_plugin_jarvis::{
     server::Protocol,
@@ -11,6 +10,9 @@ use tauri_plugin_jarvis::{
 };
 use tauri_plugin_store::StoreBuilder;
 pub mod utils;
+#[cfg(target_os = "macos")]
+use tauri::ActivationPolicy;
+use tauri::{is_dev, LogicalSize, Manager, Runtime, Size, WebviewWindow, Window};
 pub use tauri_plugin_log::fern::colors::ColoredLevelConfig;
 
 fn main() {
@@ -49,6 +51,9 @@ fn main() {
         .plugin(tauri_plugin_system_info::init())
         .invoke_handler(tauri::generate_handler![])
         .setup(|app| {
+            // #[cfg(all(target_os = "macos", debug_assertions))]
+            // app.set_activation_policy(ActivationPolicy::Accessory);
+
             let mut store = StoreBuilder::new("appConfig.bin").build(app.handle().clone());
             let _ = store.load();
 
@@ -70,6 +75,7 @@ fn main() {
                 app_settings.dev_extention_path,
             ));
             tauri_plugin_jarvis::setup::server::setup_server(app.handle())?; // start the server
+
             let mdns = tauri_plugin_jarvis::setup::peer_discovery::setup_mdns(my_port)?;
             tauri_plugin_jarvis::setup::peer_discovery::handle_mdns_service_evt(
                 app.handle(),

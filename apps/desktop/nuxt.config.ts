@@ -2,7 +2,12 @@
 export default defineNuxtConfig({
   ssr: false,
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "@vueuse/nuxt", "@element-plus/nuxt"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "shadcn-nuxt",
+    "@vueuse/nuxt",
+    // "@element-plus/nuxt"
+  ],
   shadcn: {
     /**
      * Prefix for all the imported component
@@ -14,10 +19,10 @@ export default defineNuxtConfig({
      */
     componentDir: "./components/ui",
   },
-  elementPlus: {
-    icon: "ElIcon",
-    importStyle: "scss",
-    themes: ["dark"],
-  },
+  // elementPlus: {
+  //   icon: "ElIcon",
+  //   importStyle: "scss",
+  //   themes: ["dark"],
+  // },
   alias: { "@jarvis-plugin": "../../../packages/tauri-plugin-jarvis/guest-js" },
 });
