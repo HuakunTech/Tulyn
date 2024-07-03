@@ -1,1 +1,1 @@
-export { Child, Command, EventEmitter, open } from "@tauri-apps/plugin-shell";
+export { Child, Command, EventEmitter, open } from "tauri-plugin-shellx-api";
