@@ -2,11 +2,13 @@ import { z } from "zod";
 import { ElMessage, ElNotification } from "element-plus";
 import { sendNotificationWithPermission } from "./notification";
 
+const rtConfig = useRuntimeConfig();
+
 export async function loadEnvVarWithNotification(envVarName: string): Promise<string> {
   const parse = z
     .string()
     .min(1)
-    .safeParse(import.meta.env[envVarName]);
+    .safeParse(rtConfig.public[envVarName]);
   if (parse.error || !parse.data) {
     console.error(`Invalid Env Var: ${envVarName}`, parse.error);
     sendNotificationWithPermission("Invalid Env Var", envVarName);

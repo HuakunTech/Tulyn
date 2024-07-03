@@ -7,13 +7,14 @@ use super::{
     rest::{get_server_info, web_root},
 };
 use crate::utils::path::get_default_extensions_dir;
+use axum::http::{HeaderValue, Method};
 use axum::routing::get;
 use axum_server::tls_rustls::RustlsConfig;
 use std::sync::Mutex;
 use std::{net::SocketAddr, path::PathBuf, sync::Arc};
 use tauri::AppHandle;
 use tonic::transport::Server as TonicServer;
-use tower_http::services::ServeDir;
+use tower_http::{cors::CorsLayer, services::ServeDir};
 
 struct ServerOptions {
     extension_folder: PathBuf,
@@ -44,6 +45,11 @@ async fn start_server(
     let mut rest_router = axum::Router::new()
         .route("/", get(web_root))
         .route("/info", get(get_server_info))
+        .layer(
+            CorsLayer::new()
+                .allow_origin("http://localhost:3000".parse::<HeaderValue>().unwrap())
+                .allow_methods([Method::GET]),
+        )
         .nest_service("/extensions", ServeDir::new(options.extension_folder))
         .with_state(server_state);
     if options.dev_extension_folder.is_some() {

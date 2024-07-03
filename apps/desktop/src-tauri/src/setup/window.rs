@@ -1,4 +1,4 @@
-use tauri::{is_dev, App, LogicalSize, Manager, Runtime, Size, WebviewWindow, Window};
+use tauri::{is_dev, App, AppHandle, LogicalSize, Manager, Runtime, Size, WebviewWindow, Window};
 
 #[cfg(target_os = "macos")]
 use cocoa::appkit::{NSWindow, NSWindowButton, NSWindowStyleMask, NSWindowTitleVisibility};
@@ -52,7 +52,7 @@ impl<R: Runtime> WindowExt for WebviewWindow<R> {
     }
 }
 
-pub fn setup_window<R: Runtime>(app: &App<R>) {
+pub fn setup_window<R: Runtime>(app: &AppHandle<R>) {
     let window = app.get_webview_window("main").unwrap();
     #[cfg(target_os = "macos")]
     window.set_transparent_titlebar(true, true);

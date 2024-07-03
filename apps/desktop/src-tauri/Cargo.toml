@@ -32,6 +32,8 @@ tokio = { workspace = true }
 mdns-sd = { workspace = true }
 chrono = "0.4.38"
 log = "0.4.22"
+urlencoding = "2.1.3"
+tauri-plugin-upload = "2.0.0-beta.8"
 
 
 [target."cfg(target_os = \"macos\")".dependencies]

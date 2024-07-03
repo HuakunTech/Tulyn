@@ -24,7 +24,7 @@ axum = { version = "0.6.20" }
 axum-extra = { version = "0.8.0" }
 axum-server = { version = "0.5", features = ["tls-rustls"] }
 tower = { version = "0.4", features = ["util"] }
-tower-http = { version = "0.4.0", features = ["fs", "trace"] }
+tower-http = { version = "0.4.0", features = ["fs", "trace", "cors"] }
 tonic = "0.11"
 tonic-reflection = "0.11.0"
 uuid = { version = "1.8.0", features = ["v4"] }

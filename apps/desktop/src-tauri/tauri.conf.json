@@ -16,7 +16,7 @@
         "height": 600,
         "resizable": true,
         "fullscreen": false,
-        "titleBarStyle": "Visible",
+        "titleBarStyle": "Overlay",
         "hiddenTitle": true
       }
     ],

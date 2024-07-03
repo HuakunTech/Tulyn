@@ -13,7 +13,7 @@ export function appInfoToListItem(app: AppInfo): TListItem {
     description: "",
     type: "Application",
     icon: app.icon_path
-      ? { type: "remote-url", value: convertFileSrc(app.icon_path, "macicns") }
+      ? { type: "remote-url", value: convertFileSrc(app.icon_path, "appicon") }
       : null,
     keywords: app.name.split(" "),
     identityFilter: false,

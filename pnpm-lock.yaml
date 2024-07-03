@@ -65,6 +65,9 @@ importers:
       '@tauri-apps/plugin-store':
         specifier: 2.0.0-beta.3
         version: 2.0.0-beta.3
+      axios:
+        specifier: ^1.7.2
+        version: 1.7.2
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -77,6 +80,9 @@ importers:
       embla-carousel-vue:
         specifier: ^8.1.3
         version: 8.1.3(vue@3.4.31(typescript@5.5.2))
+      jarvis-api:
+        specifier: workspace:*
+        version: link:../../packages/api
       lucide-vue-next:
         specifier: ^0.399.0
         version: 0.399.0(vue@3.4.31(typescript@5.5.2))
@@ -125,6 +131,9 @@ importers:
       vue-sonner:
         specifier: ^1.1.3
         version: 1.1.3
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@iconify-json/radix-icons':
         specifier: ^1.1.14

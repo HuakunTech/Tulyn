@@ -18,6 +18,7 @@ pub use tauri_plugin_log::fern::colors::ColoredLevelConfig;
 fn main() {
     let shell_unlocked = true;
     tauri::Builder::default()
+        .plugin(tauri_plugin_upload::init())
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(
             tauri_plugin_log::Builder::new()
@@ -50,7 +51,14 @@ fn main() {
         .plugin(tauri_plugin_network::init())
         .plugin(tauri_plugin_system_info::init())
         .invoke_handler(tauri::generate_handler![])
+        .register_uri_scheme_protocol("appicon", |_app, request| {
+            let url = &request.uri().path()[1..];
+            let url = urlencoding::decode(url).unwrap().to_string();
+            let path = PathBuf::from(url);
+            return tauri_plugin_jarvis::utils::icns::load_icon(path);
+        })
         .setup(|app| {
+            setup::window::setup_window(app.handle());
             // #[cfg(all(target_os = "macos", debug_assertions))]
             // app.set_activation_policy(ActivationPolicy::Accessory);
 

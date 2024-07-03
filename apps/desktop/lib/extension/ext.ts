@@ -21,6 +21,7 @@ import { type ReadableAtom, type WritableAtom, atom } from "nanostores";
 import { fs } from "jarvis-api/ui";
 import { log } from "jarvis-api/ui";
 import { ElMessage, ElNotification } from "element-plus";
+import { toast } from "vue-sonner";
 
 /**
  * Generate a value (unique identified) for a command in an extension
@@ -56,15 +57,16 @@ export function cmdToItem(
 
 function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: UiCmd, url: string) {
   return registerExtensionWindow(manifest.extPath).then(async (windowLabel) => {
-    try {
-      await axios.get(url);
-    } catch (error) {
-      log.error(`Failed to load extension UI at ${url}: ${error}`);
-      return ElNotification.error({
-        title: "Failed to load extension UI",
-        message: "Consider Running the TroubleShooter",
-      });
-    }
+    // try {
+    //   console.log("Loading extension UI at", url);
+    //   await axios.get(url);
+    // } catch (error) {
+    //   log.error(`Failed to load extension UI at ${url}: ${error}`);
+    //   return ElNotification.error({
+    //     title: "Failed to load extension UI",
+    //     message: "Consider Running the TroubleShooter",
+    //   });
+    // }
 
     const window = new WebviewWindow(windowLabel, {
       center: cmd.window?.center ?? undefined,
@@ -149,8 +151,7 @@ export class Extension implements IExtensionBase {
           );
         })
         .catch((err) => {
-          console.error(err);
-          ElMessage.error("Failed to load extensions");
+          ElMessage.error(`Failed to load extensions from ${this.extPath}`);
           ElMessage.error(err);
         });
     }
