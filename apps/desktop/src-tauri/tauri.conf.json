@@ -1,6 +1,6 @@
 {
   "productName": "Jarvis",
-  "version": "0.0.1",
+  "version": "0.1.2",
   "identifier": "tech.huakun.jarvis",
   "build": {
     "beforeDevCommand": "pnpm dev",

@@ -17,7 +17,6 @@ import { useStore } from "@nanostores/vue";
 import { Extension } from "@/lib/extension/ext";
 import { $appConfig } from "@/lib/stores/appConfig";
 import { extensionsFolder } from "@/lib/constants";
-import { $appListItems } from "@/lib/stores/apps";
 import { $appState, setSearchTerm } from "@/lib/stores/appState";
 import { RemoteExtension } from "@/lib/extension/remoteExt";
 
@@ -27,17 +26,8 @@ const builtinCmdExt = new BuiltinCmds();
 const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath, true);
 const storeExt = new Extension("Extensions", extensionsFolder);
 const remoteExt = new RemoteExtension();
-const exts: IExtensionBase[] = [
-  // devExt,
-  remoteExt,
-  storeExt,
-  builtinCmdExt,
-  sysCmdExt,
-  // appExt
-];
+const exts: IExtensionBase[] = [devExt, remoteExt, storeExt, builtinCmdExt, sysCmdExt, appExt];
 
-// const config = useRuntimeConfig();
-// search input debouncing
 const searchTermInSync = ref("");
 let updateSearchTermTimeout: ReturnType<typeof setTimeout>;
 watch(searchTermInSync, (val) => {

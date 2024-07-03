@@ -96,7 +96,10 @@ export class BuiltinCmds implements IExtensionBase {
   extensionName: string = "Builtin Commands";
   $listItems: WritableAtom<TListItem[]>;
   constructor() {
-    this.$listItems = atom(buildinCmdsListItems);
+    this.$listItems = atom([]);
+    setTimeout(() => {
+      this.$listItems.set(buildinCmdsListItems);
+    });
   }
 
   load(): Promise<void> {

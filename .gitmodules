@@ -11,4 +11,5 @@
 	path = vendors/radix-vue
 	url = https://github.com/HuakunShen/radix-vue.git
 [submodule "vendors/tauri-plugin-clipboard"]
+	path = vendors/tauri-plugin-clipboard
 	url = https://github.com/CrossCopy/tauri-plugin-clipboard.git

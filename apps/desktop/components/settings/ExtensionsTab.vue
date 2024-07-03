@@ -3,7 +3,6 @@ import { onMounted, ref } from "vue";
 import { type TListItem, TListGroup } from "tauri-plugin-jarvis-api/models";
 import { ElMessage, ElTable, ElTableColumn } from "element-plus";
 import { Icon } from "@iconify/vue";
-import { useToast } from "@/components/ui/toast/use-toast";
 import { Extension } from "@/lib/extension/ext";
 import { $appConfig } from "@/lib/stores/appConfig";
 import { extensionsFolder } from "@/lib/constants";

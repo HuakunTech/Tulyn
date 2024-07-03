@@ -2,7 +2,8 @@ import { ListItemType, IconType, TListItem, TCommand } from "tauri-plugin-jarvis
 import { getSystemCommands } from "tauri-plugin-jarvis-api/commands";
 import { type IExtensionBase } from "./base";
 import { dialog } from "jarvis-api/ui";
-import { atom, type ReadableAtom } from "nanostores";
+import { atom, type ReadableAtom, type WritableAtom } from "nanostores";
+import { ElNotification } from "element-plus";
 
 const systemCommands = await getSystemCommands();
 
@@ -22,16 +23,23 @@ export const systemCommandListItems: TListItem[] = systemCommands.map((cmd) =>
 
 export class SystemCommandExtension implements IExtensionBase {
   extensionName: string;
-  $listItems: ReadableAtom<TListItem[]> = atom(systemCommandListItems);
+  $listItems: WritableAtom<TListItem[]> = atom([]);
 
   constructor() {
     this.extensionName = "System Commands";
   }
+
   load(): Promise<void> {
+    setTimeout(() => {
+      this.$listItems.set(systemCommandListItems);
+    });
     return Promise.resolve();
   }
   default(): TListItem[] {
-    return systemCommandListItems.slice(0, 5);
+    const items = systemCommandListItems.slice(0, 5);
+    console.log("load sys cmds", items);
+    // ElNotification(`Loaded ${items.length} system commands`);
+    return systemCommandListItems;
   }
   async onSelect(item: TListItem): Promise<void> {
     const cmd = systemCommands.find((c) => c.value === item.value) as TCommand;
