@@ -15,8 +15,8 @@ importers:
         specifier: ^3.2.5
         version: 3.2.5
       turbo:
-        specifier: ^2.0.5
-        version: 2.0.5
+        specifier: ^2.0.6
+        version: 2.0.6
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -8912,38 +8912,38 @@ packages:
   tunnel-agent@0.6.0:
     resolution: {integrity: sha512-McnNiV1l8RYeY8tBgEpuodCC1mLUdbSN+CYBL7kJsJNInOP8UjDDEwdk6Mw60vdLLrr5NHKZhMAOSrR2NZuQ+w==}
 
-  turbo-darwin-64@2.0.5:
-    resolution: {integrity: sha512-t/9XpWYIjOhIHUdwiR47SYBGYHkR1zWLxTkTNKZwCSn8BN0cfjPZ1BR6kcwYGxLGBhtl5GBf6A29nq2K7iwAjg==}
+  turbo-darwin-64@2.0.6:
+    resolution: {integrity: sha512-XpgBwWj3Ggmz/gQVqXdMKXHC1iFPMDiuwugLwSzE7Ih0O13JuNtYZKhQnopvbDQnFQCeRq2Vsm5OTWabg/oB/g==}
     cpu: [x64]
     os: [darwin]
 
-  turbo-darwin-arm64@2.0.5:
-    resolution: {integrity: sha512-//5y4RJvnal8CttOLBwlaBqblcQb1qTlIxLN+I8O3E3rPuvHOupNKB9ZJxYIQ8oWf8ns8Ec8cxQ0GSBLTJIMtA==}
+  turbo-darwin-arm64@2.0.6:
+    resolution: {integrity: sha512-RfeZYXIAkiA21E8lsvfptGTqz/256YD+eI1x37fedfvnHFWuIMFZGAOwJxtZc6QasQunDZ9TRRREbJNI68tkIw==}
     cpu: [arm64]
     os: [darwin]
 
-  turbo-linux-64@2.0.5:
-    resolution: {integrity: sha512-LDtEDU2Gm8p3lKu//aHXZFRKUCVu68BNF9LQ+HmiCKFpNyK7khpMTxIAAUhDqt+AzlrbxtrxcCpCJaWg1JDjHg==}
+  turbo-linux-64@2.0.6:
+    resolution: {integrity: sha512-92UDa0xNQQbx0HdSp9ag3YSS3xPdavhc7q9q9mxIAcqyjjD6VElA4Y85m4F/DDGE5SolCrvBz2sQhVmkOd6Caw==}
     cpu: [x64]
     os: [linux]
 
-  turbo-linux-arm64@2.0.5:
-    resolution: {integrity: sha512-84wdrzntErBNxkHcwHxiTZdaginQAxGPnwLTyZj8lpUYI7okPoxy3jKpUeMHN3adm3iDedl/x0mYSIvVVkmOiA==}
+  turbo-linux-arm64@2.0.6:
+    resolution: {integrity: sha512-eQKu6utCVUkIH2kqOzD8OS6E0ba6COjWm6PRDTNCHQRljZW503ycaTUIdMOiJrVg1MkEjDyOReUg8s8D18aJ4Q==}
     cpu: [arm64]
     os: [linux]
 
-  turbo-windows-64@2.0.5:
-    resolution: {integrity: sha512-SgaFZ0VW6kHCJogLNuLEleAauAJx2Y48wazZGVRmBpgSUS2AylXesaBMhJaEScYqLz7mIRn6KOgwM8D4wTxI9g==}
+  turbo-windows-64@2.0.6:
+    resolution: {integrity: sha512-+9u4EPrpoeHYCQ46dRcou9kbkSoelhOelHNcbs2d86D6ruYD/oIAHK9qgYK8LeARRz0jxhZIA/dWYdYsxJJWkw==}
     cpu: [x64]
     os: [win32]
 
-  turbo-windows-arm64@2.0.5:
-    resolution: {integrity: sha512-foUxLOZoru0IRNIxm53fkfM4ubas9P0nTFjIcHtd+E8YHeogt8GqTweNre2e6ri1EHDo71emmuQgpuoFCOXZMg==}
+  turbo-windows-arm64@2.0.6:
+    resolution: {integrity: sha512-rdrKL+p+EjtdDVg0wQ/7yTbzkIYrnb0Pw4IKcjsy3M0RqUM9UcEi67b94XOAyTa5a0GqJL1+tUj2ebsFGPgZbg==}
     cpu: [arm64]
     os: [win32]
 
-  turbo@2.0.5:
-    resolution: {integrity: sha512-+6+hcWr4nwuESlKqUc626HMOTd3QT8hUOc9QM45PP1d4nErGkNOgExm4Pcov3in7LTuadMnB0gcd/BuzkEDIPw==}
+  turbo@2.0.6:
+    resolution: {integrity: sha512-/Ftmxd5Mq//a9yMonvmwENNUN65jOVTwhhBPQjEtNZutYT9YKyzydFGLyVM1nzhpLWahQSMamRc/RDBv5EapzA==}
     hasBin: true
 
   tweetnacl@0.14.5:
@@ -10180,7 +10180,7 @@ snapshots:
       astro: 4.9.1(@types/node@20.12.12)(sass@1.77.6)(terser@5.31.1)(typescript@5.4.5)
       autoprefixer: 10.4.19(postcss@8.4.38)
       postcss: 8.4.38
-      postcss-load-config: 4.0.2(postcss@8.4.38)(ts-node@10.9.2(typescript@5.4.5))
+      postcss-load-config: 4.0.2(postcss@8.4.38)(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))
       tailwindcss: 3.4.3(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))
     transitivePeerDependencies:
       - ts-node
@@ -11195,13 +11195,11 @@ snapshots:
   '@babel/plugin-transform-react-jsx@7.23.4(@babel/core@7.24.7)':
     dependencies:
       '@babel/core': 7.24.7
-      '@babel/helper-annotate-as-pure': 7.24.7
-      '@babel/helper-module-imports': 7.24.7
-      '@babel/helper-plugin-utils': 7.24.7
+      '@babel/helper-annotate-as-pure': 7.22.5
+      '@babel/helper-module-imports': 7.24.3
+      '@babel/helper-plugin-utils': 7.24.5
       '@babel/plugin-syntax-jsx': 7.24.1(@babel/core@7.24.7)
-      '@babel/types': 7.24.7
-    transitivePeerDependencies:
-      - supports-color
+      '@babel/types': 7.24.5
 
   '@babel/plugin-transform-shorthand-properties@7.24.6(@babel/core@7.24.7)':
     dependencies:
@@ -19292,6 +19290,14 @@ snapshots:
       camelcase-css: 2.0.1
       postcss: 8.4.38
 
+  postcss-load-config@4.0.2(postcss@8.4.38)(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5)):
+    dependencies:
+      lilconfig: 3.1.1
+      yaml: 2.4.2
+    optionalDependencies:
+      postcss: 8.4.38
+      ts-node: 10.9.2(@types/node@20.12.12)(typescript@5.4.5)
+
   postcss-load-config@4.0.2(postcss@8.4.38)(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.5.2)):
     dependencies:
       lilconfig: 3.1.1
@@ -20530,7 +20536,7 @@ snapshots:
       postcss: 8.4.38
       postcss-import: 15.1.0(postcss@8.4.38)
       postcss-js: 4.0.1(postcss@8.4.38)
-      postcss-load-config: 4.0.2(postcss@8.4.38)(ts-node@10.9.2(typescript@5.4.5))
+      postcss-load-config: 4.0.2(postcss@8.4.38)(ts-node@10.9.2(@types/node@20.12.12)(typescript@5.4.5))
       postcss-nested: 6.0.1(postcss@8.4.38)
       postcss-selector-parser: 6.1.0
       resolve: 1.22.8
@@ -20834,32 +20840,32 @@ snapshots:
     dependencies:
       safe-buffer: 5.2.1
 
-  turbo-darwin-64@2.0.5:
+  turbo-darwin-64@2.0.6:
     optional: true
 
-  turbo-darwin-arm64@2.0.5:
+  turbo-darwin-arm64@2.0.6:
     optional: true
 
-  turbo-linux-64@2.0.5:
+  turbo-linux-64@2.0.6:
     optional: true
 
-  turbo-linux-arm64@2.0.5:
+  turbo-linux-arm64@2.0.6:
     optional: true
 
-  turbo-windows-64@2.0.5:
+  turbo-windows-64@2.0.6:
     optional: true
 
-  turbo-windows-arm64@2.0.5:
+  turbo-windows-arm64@2.0.6:
     optional: true
 
-  turbo@2.0.5:
+  turbo@2.0.6:
     optionalDependencies:
-      turbo-darwin-64: 2.0.5
-      turbo-darwin-arm64: 2.0.5
-      turbo-linux-64: 2.0.5
-      turbo-linux-arm64: 2.0.5
-      turbo-windows-64: 2.0.5
-      turbo-windows-arm64: 2.0.5
+      turbo-darwin-64: 2.0.6
+      turbo-darwin-arm64: 2.0.6
+      turbo-linux-64: 2.0.6
+      turbo-linux-arm64: 2.0.6
+      turbo-windows-64: 2.0.6
+      turbo-windows-arm64: 2.0.6
 
   tweetnacl@0.14.5: {}
 

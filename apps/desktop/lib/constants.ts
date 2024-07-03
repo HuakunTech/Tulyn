@@ -3,19 +3,26 @@ import { appDataDir, join } from "@tauri-apps/api/path";
 import { PermissionsEnum } from "tauri-plugin-jarvis-api/models";
 import { loadEnvVarWithNotification } from "./utils/envvar";
 
-const appDataDirPath = await appDataDir();
-export const extensionsFolder = await join(appDataDirPath, "extensions");
-
+// const appDataDirPath = await appDataDir();
+// export const extensionsFolder = await join(appDataDirPath, "extensions");
+export function getExtensionsFolder() {
+  return appDataDir().then((appDataDirPath) => join(appDataDirPath, "extensions"));
+}
+const rtConfig = useRuntimeConfig();
 /* ---------------------------- Get Supabase URL ---------------------------- */
-export const SUPABASE_URL = await loadEnvVarWithNotification("SUPABASE_URL");
+export const SUPABASE_URL = rtConfig.public.SUPABASE_URL;
+// export const SUPABASE_URL = await loadEnvVarWithNotification("SUPABASE_URL");
 
 /* ----------------------- Get Supabase Anonymous Key ----------------------- */
-export const SUPABASE_ANON_KEY = await loadEnvVarWithNotification("SUPABASE_ANON_KEY");
+// export const SUPABASE_ANON_KEY = await loadEnvVarWithNotification("SUPABASE_ANON_KEY");
+export const SUPABASE_ANON_KEY = rtConfig.public.SUPABASE_ANON_KEY;
 
 /* ------------------------ Supabase GraphQL Endpoint ----------------------- */
-export const SUPABASE_GRAPHQL_ENDPOINT = await loadEnvVarWithNotification(
-  "SUPABASE_GRAPHQL_ENDPOINT",
-);
+// export const SUPABASE_GRAPHQL_ENDPOINT = await loadEnvVarWithNotification(
+//   "SUPABASE_GRAPHQL_ENDPOINT",
+// );
+export const SUPABASE_GRAPHQL_ENDPOINT = rtConfig.public.SUPABASE_GRAPHQL_ENDPOINT;
+
 export const DebugWindowLabel = "main-debug";
 export const SettingsWindowLabel = "main-settings";
 export const FileStorageUrl = "";

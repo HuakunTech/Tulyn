@@ -5,44 +5,45 @@ import { dialog } from "jarvis-api/ui";
 import { atom, type ReadableAtom, type WritableAtom } from "nanostores";
 import { ElNotification } from "element-plus";
 
-const systemCommands = await getSystemCommands();
-
-export const systemCommandListItems: TListItem[] = systemCommands.map((cmd) =>
-  TListItem.parse({
-    title: cmd.name,
-    value: cmd.value,
-    description: "System",
-    type: ListItemType.Enum["System Command"],
-    icon: {
-      value: cmd.icon,
-      type: IconType.Enum.iconify,
-    },
-    keywords: cmd.keywords,
-  }),
-);
-
 export class SystemCommandExtension implements IExtensionBase {
   extensionName: string;
   $listItems: WritableAtom<TListItem[]> = atom([]);
+  systemCommands: TCommand[] = [];
+  systemCommandListItems: TListItem[] = [];
 
   constructor() {
     this.extensionName = "System Commands";
   }
 
-  load(): Promise<void> {
+  async load(): Promise<void> {
+    this.systemCommands = await getSystemCommands();
+    this.systemCommandListItems = this.systemCommands.map((cmd) =>
+      TListItem.parse({
+        title: cmd.name,
+        value: cmd.value,
+        description: "System",
+        type: ListItemType.Enum["System Command"],
+        icon: {
+          value: cmd.icon,
+          type: IconType.Enum.iconify,
+        },
+        keywords: cmd.keywords,
+      }),
+    );
+
     setTimeout(() => {
-      this.$listItems.set(systemCommandListItems);
+      this.$listItems.set(this.systemCommandListItems);
     });
     return Promise.resolve();
   }
   default(): TListItem[] {
-    const items = systemCommandListItems.slice(0, 5);
+    const items = this.systemCommandListItems.slice(0, 5);
     console.log("load sys cmds", items);
     // ElNotification(`Loaded ${items.length} system commands`);
-    return systemCommandListItems;
+    return this.systemCommandListItems;
   }
   async onSelect(item: TListItem): Promise<void> {
-    const cmd = systemCommands.find((c) => c.value === item.value) as TCommand;
+    const cmd = this.systemCommands.find((c) => c.value === item.value) as TCommand;
     let confirmed = true;
     if (cmd.confirmRequired) {
       confirmed = await dialog.confirm(`Are you sure you want to "${item.title}"?`);

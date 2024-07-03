@@ -36,21 +36,41 @@ const defaultState: State = {
   devExtLoadUrl: false,
 };
 
-const loadedConfig = await persistAppConfig.get("config");
-
-const parsedConfig = appConfigSchema.safeParse(loadedConfig);
-if (parsedConfig.success) {
-  defaultState.theme = parsedConfig.data.theme;
-  defaultState.radius = parsedConfig.data.radius;
-  defaultState.lightMode = parsedConfig.data.lightMode;
-  defaultState.launchAtLogin = parsedConfig.data.launchAtLogin;
-  defaultState.showInTray = parsedConfig.data.showInTray;
-  defaultState.devExtentionPath = parsedConfig.data.devExtentionPath;
-  defaultState.devExtLoadUrl = parsedConfig.data.devExtLoadUrl;
-}
-
 export const $appConfig = map<State>(defaultState);
 
+async function initAppConfig() {
+  const loadedConfig = await persistAppConfig.get("config");
+
+  const parsedConfig = appConfigSchema.safeParse(loadedConfig);
+  if (parsedConfig.success) {
+    defaultState.theme = parsedConfig.data.theme;
+    defaultState.radius = parsedConfig.data.radius;
+    defaultState.lightMode = parsedConfig.data.lightMode;
+    defaultState.launchAtLogin = parsedConfig.data.launchAtLogin;
+    defaultState.showInTray = parsedConfig.data.showInTray;
+    defaultState.devExtentionPath = parsedConfig.data.devExtentionPath;
+    defaultState.devExtLoadUrl = parsedConfig.data.devExtLoadUrl;
+  }
+
+  $appConfig.subscribe((state, oldState) => {
+    // update color mode
+    if (oldState?.lightMode !== state.lightMode) {
+      colorMode.value = state.lightMode;
+    }
+    if (oldState?.theme !== state.theme) {
+      document.documentElement.classList.remove(...allColors.map((color) => `theme-${color}`));
+      document.documentElement.classList.add(`theme-${state.theme}`);
+    }
+    if (oldState?.radius !== state.radius) {
+      document.documentElement.style.setProperty("--radius", `${state.radius}rem`);
+    }
+
+    // update storage
+    persistAppConfig.set("config", state);
+    persistAppConfig.save();
+  });
+}
+initAppConfig();
 export function setTheme(theme: string) {
   $appConfig.setKey("theme", theme);
 }
@@ -89,21 +109,3 @@ export function themeClass() {
 }
 
 const colorMode = useColorMode();
-
-$appConfig.subscribe((state, oldState) => {
-  // update color mode
-  if (oldState?.lightMode !== state.lightMode) {
-    colorMode.value = state.lightMode;
-  }
-  if (oldState?.theme !== state.theme) {
-    document.documentElement.classList.remove(...allColors.map((color) => `theme-${color}`));
-    document.documentElement.classList.add(`theme-${state.theme}`);
-  }
-  if (oldState?.radius !== state.radius) {
-    document.documentElement.style.setProperty("--radius", `${state.radius}rem`);
-  }
-
-  // update storage
-  persistAppConfig.set("config", state);
-  persistAppConfig.save();
-});
