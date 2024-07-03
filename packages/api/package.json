@@ -21,12 +21,15 @@
   },
   "scripts": {
     "test": "bun test --coverage",
-    "build:doc": "npx typedoc",
-    "build": "tsup",
+    "build:docs": "npx typedoc",
+    "build": "rimraf dist && rollup -c && pnpm build:docs",
+    "format": "prettier --write \"**/*.{ts,tsx,md,vue,json,yaml,yml}\"",
     "develop": "rollup -c --watch"
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "rimraf": "^5.0.7",
+    "tsc-alias": "^1.8.10",
     "tsup": "^8.0.2",
     "typedoc": "^0.25.13",
     "zod-to-json-schema": "^3.23.0"
@@ -35,8 +38,9 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@huakunshen/comlink": "^4.4.1",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@tauri-apps/api": "2.0.0-beta.11",
+    "@tauri-apps/api": "2.0.0-beta.13",
     "@tauri-apps/plugin-dialog": "2.0.0-beta.3",
     "@tauri-apps/plugin-fs": "2.0.0-beta.3",
     "@tauri-apps/plugin-global-shortcut": "2.0.0-beta.3",
@@ -48,9 +52,12 @@
     "@tauri-apps/plugin-updater": "2.0.0-beta.3",
     "@tauri-apps/plugin-upload": "2.0.0-beta.4",
     "rollup": "^4.9.6",
-    "tauri-plugin-clipboard-api": "0.7.0-beta.0",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "tauri-plugin-clipboard-api": "2.1.1",
     "tauri-plugin-jarvis-api": "workspace:*",
+    "tauri-plugin-network-api": "workspace:*",
     "tauri-plugin-shellx-api": "^2.0.7",
+    "tauri-plugin-system-info-api": "workspace:*",
     "zod": "^3.23.8"
   },
   "files": [

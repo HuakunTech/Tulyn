@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - release
-      - nuxt-desktop
     tags:
       - "v*"
   workflow_dispatch:
