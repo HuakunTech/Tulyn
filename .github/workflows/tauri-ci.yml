@@ -82,10 +82,15 @@ jobs:
         env:
           SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
         run: |
           pnpm install # change this to npm or pnpm depending on which one you use.
           pnpm build
-
+      - name: Build radix-vue
+        working-directory: vendors/radix-vue
+        run: |
+          pnpm i
+          pnpm build
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

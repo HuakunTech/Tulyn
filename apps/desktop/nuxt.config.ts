@@ -27,9 +27,15 @@ export default defineNuxtConfig({
   alias: { "@jarvis-plugin": "../../../packages/tauri-plugin-jarvis/guest-js" },
   runtimeConfig: {
     public: {
-      SUPABASE_URL: z.string().parse(process.env.SUPABASE_URL),
-      SUPABASE_ANON_KEY: z.string().parse(process.env.SUPABASE_ANON_KEY),
-      SUPABASE_GRAPHQL_ENDPOINT: z.string().parse(process.env.SUPABASE_GRAPHQL_ENDPOINT),
+      SUPABASE_URL: z.string().describe("SUPABASE_URL").parse(process.env.SUPABASE_URL),
+      SUPABASE_ANON_KEY: z
+        .string()
+        .describe("SUPABASE_ANON_KEY")
+        .parse(process.env.SUPABASE_ANON_KEY),
+      SUPABASE_GRAPHQL_ENDPOINT: z
+        .string()
+        .describe("SUPABASE_GRAPHQL_ENDPOINT")
+        .parse(process.env.SUPABASE_GRAPHQL_ENDPOINT),
       isDev: process.env.NODE_ENV === "development",
     },
   },
