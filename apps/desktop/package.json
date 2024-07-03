@@ -41,6 +41,7 @@
     "lucide-vue-next": "^0.399.0",
     "nanostores": "^0.10.3",
     "nuxt": "^3.12.2",
+    "posthog-js": "^1.144.0",
     "radix-vue": "link:../../vendors/radix-vue/packages/radix-vue/",
     "shadcn-nuxt": "^0.10.4",
     "tailwind-merge": "^2.3.0",
