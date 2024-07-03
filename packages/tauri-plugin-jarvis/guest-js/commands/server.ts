@@ -31,3 +31,7 @@ export function getExtensionFolder(): Promise<string | null> {
 export function getDevExtensionFolder(): Promise<string | null> {
   return invoke("plugin:jarvis|get_dev_extension_folder");
 }
+
+export function getServerPort() {
+  return invoke<number>("plugin:jarvis|get_server_port");
+}

@@ -1,69 +1,69 @@
 {
-    "$schema": "../gen/schemas/desktop-schema.json",
-    "identifier": "default-ext-capability",
-    "description": "Capability for the extension window",
-    "windows": [
-        "ext*"
-    ],
-    "remote": {
-        "urls": [
-            "http://localhost:*",
-            "https://*.huakun.tech*",
-            "https://*"
-        ]
-    },
-    "local": true,
-    "permissions": [
-        {
-            "identifier": "http:default",
-            "allow": [
-                {
-                    "url": "https://*"
-                },
-                {
-                    "url": "http://*"
-                }
-            ]
-        },
-        "http:allow-fetch",
-        "path:default",
-        "event:default",
-        "window:default",
-        "window:allow-start-dragging",
-        "window:allow-destroy",
-        "window:allow-close",
-        "webview:default",
-        "app:default",
-        "resources:default",
-        "image:default",
-        "menu:default",
-        "tray:default",
-        "dialog:default",
-        "dialog:allow-ask",
-        "dialog:allow-confirm",
-        "dialog:allow-message",
-        "dialog:allow-open",
-        "dialog:allow-save",
-        "shell:default",
-        "shell:allow-open",
-        "upload:default",
-        "upload:allow-download",
-        "os:default",
-        "updater:default",
-        "os:default",
-        "notification:default",
-        "notification:allow-is-permission-granted",
-        "notification:allow-notify",
-        "notification:allow-request-permission",
-        "log:allow-log",
-        "fs:allow-exists",
-        "fs:allow-stat",
-        "fs:read-all",
-        "fs:allow-mkdir",
-        "os:allow-platform",
-        "jarvis:allow-all-store",
-        "jarvis:allow-app-is-dev",
-        "jarvis:allow-open-devtools",
-        "jarvis:allow-get-selected-files-in-file-explorer"
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default-ext-capability",
+  "description": "Capability for the extension window",
+  "windows": [
+    "ext*"
+  ],
+  "remote": {
+    "urls": [
+      "http://localhost:*",
+      "https://*.huakun.tech*",
+      "https://*"
     ]
+  },
+  "local": true,
+  "permissions": [
+    {
+      "identifier": "http:default",
+      "allow": [
+        {
+          "url": "https://*"
+        },
+        {
+          "url": "http://*"
+        }
+      ]
+    },
+    "http:allow-fetch",
+    "path:default",
+    "event:default",
+    "window:default",
+    "window:allow-start-dragging",
+    "window:allow-destroy",
+    "window:allow-close",
+    "webview:default",
+    "app:default",
+    "resources:default",
+    "image:default",
+    "menu:default",
+    "tray:default",
+    "dialog:default",
+    "dialog:allow-ask",
+    "dialog:allow-confirm",
+    "dialog:allow-message",
+    "dialog:allow-open",
+    "dialog:allow-save",
+    "shell:default",
+    "shell:allow-open",
+    "upload:default",
+    "upload:allow-download",
+    "os:default",
+    "os:default",
+    "notification:default",
+    "notification:allow-is-permission-granted",
+    "notification:allow-notify",
+    "notification:allow-request-permission",
+    "log:allow-log",
+    "fs:allow-exists",
+    "fs:allow-stat",
+    "fs:read-all",
+    "fs:allow-mkdir",
+    "os:allow-platform",
+    "jarvis:allow-all-store",
+    "jarvis:allow-app-is-dev",
+    "jarvis:allow-open-devtools",
+    "jarvis:allow-get-selected-files-in-file-explorer",
+    "upload:default"
+  ]
 }

@@ -1,5 +1,6 @@
 pub mod apps;
 pub mod dev;
+pub mod discovery;
 pub mod extension;
 pub mod fs;
 pub mod path;

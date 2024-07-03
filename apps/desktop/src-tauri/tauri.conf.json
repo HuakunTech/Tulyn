@@ -1,15 +1,14 @@
 {
   "productName": "Jarvis",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "identifier": "tech.huakun.jarvis",
   "build": {
-    "frontendDist": "../dist",
-    "devUrl": "http://localhost:4321",
-    "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run build"
+    "beforeDevCommand": "pnpm dev",
+    "devUrl": "http://localhost:3000",
+    "beforeBuildCommand": "pnpm generate",
+    "frontendDist": "../.output/public"
   },
   "app": {
-    "macOSPrivateApi": true,
     "windows": [
       {
         "title": "",
@@ -43,17 +42,11 @@
     ]
   },
   "plugins": {
-    "fs": {
-      "scope": [
-        "$APPDATA/**"
-      ]
-    },
     "updater": {
       "endpoints": [
         "https://github.com/HuakunTech/Jarvis/releases/latest/download/latest.json"
       ],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDc1NENCRjZFM0JBOEQ0ODMKUldTRDFLZzdicjlNZFhHS0ZKYk13WkdZUTFUM01LNjkvVW5Bb2x1SnB1R0crbFRuMnlRSlJ0STgK"
     }
-  },
-  "$schema": "../node_modules/@tauri-apps/cli/schema.json"
+  }
 }

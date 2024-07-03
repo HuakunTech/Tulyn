@@ -31,12 +31,26 @@ jobs:
         run: curl -fsSL https://d2lang.com/install.sh | sh -s --
       - uses: oven-sh/setup-bun@v1
         with:
-          bun-version: 1.1.10
-
+          bun-version: 1.1.17
+      - name: Init Environment Variables
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}
+        run: |
+          bun scripts/init-env.ts
       - name: Install Dependencies
         run: pnpm i
+      - name: Build radix-vue
+        working-directory: vendors/radix-vue
+        env:
+          COREPACK_ENABLE_STRICT: 0
+        run: |
+          pnpm i
+          pnpm build
       - name: Build
         env:
           SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: pnpm build
+        # run: pnpm --filter @jarvis/gql build

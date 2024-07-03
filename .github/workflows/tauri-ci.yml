@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - release
+      - nuxt-desktop
     tags:
       - "v*"
   workflow_dispatch:
@@ -75,16 +76,26 @@ jobs:
           workspaces: "./apps/desktop/src-tauri -> target"
       - uses: oven-sh/setup-bun@v1
         with:
-          bun-version: 1.1.10
+          bun-version: 1.1.17
+      - name: Init Environment Variables
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}
+        run: |
+          bun scripts/init-env.ts
+      - name: Build radix-vue
+        working-directory: vendors/radix-vue
+        env: 
+          COREPACK_ENABLE_STRICT: 0
+        run: |
+          pnpm i
+          pnpm build
       - name: Install frontend dependencies
         # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
-        env:
-          SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
           pnpm install # change this to npm or pnpm depending on which one you use.
-          pnpm build # build jarvis-api
-
+          pnpm build
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -97,9 +108,9 @@ jobs:
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
           # Otherwise Page won't load because constant vars cannot be loaded
-          PUBLIC_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-          PUBLIC_SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}     
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}     
         with:
           tagName: Jarvis-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
           releaseName: "Jarvis v__VERSION__"

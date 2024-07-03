@@ -2,7 +2,16 @@
 resolver = "2"
 
 members = [
+    # "apps/desktop-astro/src-tauri",
     "apps/desktop/src-tauri",
-    "apps/cli",
-    "packages/tauri-plugin-jarvis"
+    # "apps/cli",
+    "packages/tauri-plugin-jarvis",
 ]
+
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+anyhow = "1.0.86"
+serde_json = "1"
+tokio = { version = "1.0", features = ["macros", "rt-multi-thread", "signal"] }
+mdns-sd = "0.11.1"
+tauri-plugin-network = { path = "./vendors/tauri-plugin-network" }

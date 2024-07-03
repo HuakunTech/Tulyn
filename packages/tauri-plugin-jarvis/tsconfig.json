@@ -8,12 +8,6 @@
     "noUnusedLocals": true,
     "noImplicitAny": true,
     "noEmit": true,
-    "baseUrl": "guest-js",
-    "paths": {
-      "@/*": [
-        "./*"
-      ]
-    }
   },
   "include": [
     "guest-js/*.ts"

@@ -37,6 +37,10 @@ jobs:
           bun-version: 1.1.10
 
       - name: Install Dependencies
+        env: 
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}
         run: pnpm i
       - name: Upload Extension Manifest Schema
         env:
