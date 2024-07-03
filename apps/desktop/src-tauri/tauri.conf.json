@@ -5,8 +5,8 @@
   "build": {
     "beforeDevCommand": "pnpm dev",
     "devUrl": "http://localhost:3000",
-    "beforeBuildCommand": "pnpm build",
-    "frontendDist": "../dist"
+    "beforeBuildCommand": "pnpm generate",
+    "frontendDist": "../.output/public"
   },
   "app": {
     "windows": [
