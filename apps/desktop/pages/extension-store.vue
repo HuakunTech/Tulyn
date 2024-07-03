@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from "vue";
-import { extensionsFolder, SUPABASE_ANON_KEY, SUPABASE_GRAPHQL_ENDPOINT } from "@/lib/constants";
+import { getExtensionsFolder, SUPABASE_ANON_KEY, SUPABASE_GRAPHQL_ENDPOINT } from "@/lib/constants";
 import { ApolloClient, InMemoryCache, HttpLink, type ApolloQueryResult, gql } from "@apollo/client";
 import { type AllExtensionsQuery, AllExtensionsDocument } from "@jarvis/gql";
 import { ArrowLeftIcon } from "@radix-icons/vue";
@@ -27,7 +27,7 @@ import { $appConfig } from "@/lib/stores/appConfig";
 import type { ExtPackageJsonExtra } from "jarvis-api/models";
 import { type Tables } from "@jarvis/supabase";
 
-const ext = new Extension("Extensions", extensionsFolder);
+const ext = new Extension("Extensions", await getExtensionsFolder());
 const selectedExt = ref<ExtItem>();
 const extDrawerOpen = ref(false);
 const extList = ref<ExtItem[]>([]);

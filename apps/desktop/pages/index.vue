@@ -16,7 +16,7 @@ import type { IExtensionBase } from "@/lib/extension/base";
 import { useStore } from "@nanostores/vue";
 import { Extension } from "@/lib/extension/ext";
 import { $appConfig } from "@/lib/stores/appConfig";
-import { extensionsFolder } from "@/lib/constants";
+import { getExtensionsFolder } from "@/lib/constants";
 import { $appState, setSearchTerm } from "@/lib/stores/appState";
 import { RemoteExtension } from "@/lib/extension/remoteExt";
 
@@ -24,7 +24,7 @@ const appExt = new AppsExtension();
 const sysCmdExt = new SystemCommandExtension();
 const builtinCmdExt = new BuiltinCmds();
 const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath, true);
-const storeExt = new Extension("Extensions", extensionsFolder);
+const storeExt = new Extension("Extensions", await getExtensionsFolder());
 const remoteExt = new RemoteExtension();
 const exts: IExtensionBase[] = [devExt, remoteExt, storeExt, builtinCmdExt, sysCmdExt, appExt];
 

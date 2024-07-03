@@ -5,12 +5,12 @@ import { ElMessage, ElTable, ElTableColumn } from "element-plus";
 import { Icon } from "@iconify/vue";
 import { Extension } from "@/lib/extension/ext";
 import { $appConfig } from "@/lib/stores/appConfig";
-import { extensionsFolder } from "@/lib/constants";
+import { getExtensionsFolder } from "@/lib/constants";
 import { Trash2Icon } from "lucide-vue-next";
 import { RemoteExtension } from "@/lib/extension/remoteExt";
 import IconMultiplexer from "@/components/IconMultiplexer.vue";
 const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath, true);
-const storeExt = new Extension("Extensions", extensionsFolder);
+const storeExt = new Extension("Extensions", await getExtensionsFolder());
 const remoteExt = new RemoteExtension();
 const tableData = ref<TListGroup[]>([]);
 
