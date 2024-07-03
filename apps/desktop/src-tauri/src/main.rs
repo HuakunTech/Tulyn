@@ -18,6 +18,7 @@ pub use tauri_plugin_log::fern::colors::ColoredLevelConfig;
 fn main() {
     let shell_unlocked = true;
     tauri::Builder::default()
+        .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_upload::init())
         .plugin(tauri_plugin_updater::Builder::new().build())
         .plugin(

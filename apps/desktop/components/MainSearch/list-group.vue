@@ -24,11 +24,10 @@ const showListItems = computed(() => {
 </script>
 <template>
   <CommandGroup :heading="ext.extensionName">
-    <!-- <span>{{ ext.extensionName }}: {{ showListItems.length }}</span> -->
     <ListItem
       v-for="(item, idx) in showListItems"
       :item="item as TListItem"
-      :isDevExt="false"
+      :isDevExt="ext.extensionName === 'Dev Extensions'"
       :key="`${ext.extensionName}-${idx}`"
       @select="ext.onSelect(item as TListItem)"
     />

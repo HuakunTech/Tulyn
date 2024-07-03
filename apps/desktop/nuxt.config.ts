@@ -21,12 +21,16 @@ export default defineNuxtConfig({
   //   importStyle: "scss",
   //   themes: ["dark"],
   // },
+  // app: {
+  //   pageTransition: { name: "page", mode: "out-in" },
+  // },
   alias: { "@jarvis-plugin": "../../../packages/tauri-plugin-jarvis/guest-js" },
   runtimeConfig: {
     public: {
       SUPABASE_URL: z.string().parse(process.env.SUPABASE_URL),
       SUPABASE_ANON_KEY: z.string().parse(process.env.SUPABASE_ANON_KEY),
       SUPABASE_GRAPHQL_ENDPOINT: z.string().parse(process.env.SUPABASE_GRAPHQL_ENDPOINT),
+      isDev: process.env.NODE_ENV === "development",
     },
   },
 });

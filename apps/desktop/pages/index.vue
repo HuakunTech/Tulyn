@@ -20,7 +20,6 @@ import { extensionsFolder } from "@/lib/constants";
 import { $appListItems } from "@/lib/stores/apps";
 import { $appState, setSearchTerm } from "@/lib/stores/appState";
 import { RemoteExtension } from "@/lib/extension/remoteExt";
-import axios from "axios";
 
 const appExt = new AppsExtension();
 const sysCmdExt = new SystemCommandExtension();
@@ -28,8 +27,14 @@ const builtinCmdExt = new BuiltinCmds();
 const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath, true);
 const storeExt = new Extension("Extensions", extensionsFolder);
 const remoteExt = new RemoteExtension();
-// const exts: IExtensionBase[] = [appExt];
-const exts: IExtensionBase[] = [devExt, remoteExt, storeExt, builtinCmdExt, sysCmdExt, appExt];
+const exts: IExtensionBase[] = [
+  // devExt,
+  remoteExt,
+  storeExt,
+  builtinCmdExt,
+  sysCmdExt,
+  // appExt
+];
 
 // const config = useRuntimeConfig();
 // search input debouncing
@@ -43,21 +48,18 @@ watch(searchTermInSync, (val) => {
 });
 
 onMounted(async () => {
-  axios.get("http://localhost:1566").then((res) => {
-    console.log("try load from localhost:1566", res.data);
-  }).catch(err => {
-    console.error("fail to load from localhost:1566", err)
-  });
   Promise.all(exts.map((ext) => ext.load()));
 });
 </script>
 <template>
-  <CmdPaletteCommand class="" v-model:searchTerm="searchTermInSync" :identity-filter="true">
-    <CommandInput class="h-12 text-md" placeholder="Search for apps or commands..." />
-    <CommandList class="h-full">
-      <CommandEmpty>No results found.</CommandEmpty>
-      <MainSearchListGroup v-for="ext in exts" :ext="ext" />
-    </CommandList>
-    <CmdPaletteFooter />
-  </CmdPaletteCommand>
+  <div class="h-full">
+    <CmdPaletteCommand class="" v-model:searchTerm="searchTermInSync" :identity-filter="true">
+      <CommandInput class="h-12 text-md" placeholder="Search for apps or commands..." />
+      <CommandList class="h-full">
+        <CommandEmpty>No results found.</CommandEmpty>
+        <MainSearchListGroup v-for="ext in exts" :ext="ext" />
+      </CommandList>
+      <CmdPaletteFooter />
+    </CmdPaletteCommand>
+  </div>
 </template>

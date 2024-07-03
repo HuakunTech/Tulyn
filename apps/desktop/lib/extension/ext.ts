@@ -151,8 +151,8 @@ export class Extension implements IExtensionBase {
           );
         })
         .catch((err) => {
-          ElMessage.error(`Failed to load extensions from ${this.extPath}`);
-          ElMessage.error(err);
+          toast.error(`Failed to loa extensions from ${this.extPath}`);
+          // toast.error(err);
         });
     }
   }

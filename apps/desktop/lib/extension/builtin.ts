@@ -6,6 +6,8 @@ import { ElMessage, ElNotification } from "element-plus";
 import { WebviewWindow, getAll as getAllWindows } from "@tauri-apps/api/webviewWindow";
 import { DebugWindowLabel, SettingsWindowLabel } from "@/lib/constants";
 
+const rtConfig = useRuntimeConfig();
+
 type BuiltinCmd = {
   name: string;
   description: string;
@@ -19,7 +21,7 @@ const builtinCmds: BuiltinCmd[] = [
     iconifyIcon: "streamline:store-2-solid",
     description: "Go to Extension Store",
     function: () => {
-      window.location.href = "/extension-store";
+      navigateTo("/extension-store");
       return Promise.resolve();
     },
   },
@@ -35,6 +37,8 @@ const builtinCmds: BuiltinCmd[] = [
       } else {
         new WebviewWindow(SettingsWindowLabel, {
           url: "/settings",
+          title: "",
+          hiddenTitle: true,
           width: 1000,
           height: 800,
           titleBarStyle: "overlay",
@@ -45,7 +49,7 @@ const builtinCmds: BuiltinCmd[] = [
   },
 ];
 
-if (import.meta.env.DEV) {
+if (rtConfig.public.isDev) {
   builtinCmds.push({
     name: "Open Debug Page",
     iconifyIcon: "carbon:debug",

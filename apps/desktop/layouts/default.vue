@@ -37,8 +37,8 @@ watch(
 </script>
 
 <template>
-  <Toaster :rich-colors="true" :expand="true" />
   <main class="h-screen">
+    <Toaster :rich-colors="true" :expand="true" />
     <slot />
   </main>
 </template>
