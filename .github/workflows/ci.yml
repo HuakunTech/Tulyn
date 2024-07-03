@@ -41,8 +41,10 @@ jobs:
         run: pnpm i
       - name: Build radix-vue
         working-directory: vendors/radix-vue
+        env: 
+          COREPACK_ENABLE_STRICT: 0
         run: |
-          COREPACK_ENABLE_STRICT=0 pnpm i
+          pnpm i
           pnpm build
       - name: Build
         env:

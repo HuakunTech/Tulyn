@@ -88,8 +88,10 @@ jobs:
           pnpm build
       - name: Build radix-vue
         working-directory: vendors/radix-vue
+        env: 
+          COREPACK_ENABLE_STRICT: 0
         run: |
-          COREPACK_ENABLE_STRICT=0 pnpm i
+          pnpm i
           pnpm build
       - uses: tauri-apps/tauri-action@v0
         env:
