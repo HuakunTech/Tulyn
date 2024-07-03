@@ -1,5 +1,5 @@
 use model::extension::Extension;
-pub use models::*;
+use server::Protocol;
 use tauri::{
     plugin::{Builder, TauriPlugin},
     Manager, Runtime,
@@ -7,10 +7,9 @@ use tauri::{
 pub mod commands;
 pub mod model;
 pub mod server;
+pub mod setup;
 pub mod syscmds;
 pub mod utils;
-
-// use commands::{apps::ApplicationsState, server::Server};
 use std::{collections::HashMap, path::PathBuf, sync::Mutex};
 use tauri_plugin_store::StoreBuilder;
 use utils::{path::get_default_extensions_dir, settings::AppSettings};
@@ -57,10 +56,10 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             commands::dev::is_devtools_open,
             commands::dev::toggle_devtools,
             commands::dev::app_is_dev,
-            // path commands
+            // // path commands
             commands::path::get_default_extensions_dir,
             commands::path::get_default_extensions_storage_dir,
-            // system commands
+            // // system commands
             commands::system::open_trash,
             commands::system::empty_trash,
             commands::system::shutdown,
@@ -146,11 +145,20 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
                 Err(_) => AppSettings::default(),
             };
             let ext_folder: Option<PathBuf> = get_default_extensions_dir(app).ok();
-            app.manage(commands::server::Server::new(
+            app.manage(crate::server::http::Server::new(
+                app.clone(),
+                1566,
+                Protocol::Http,
                 ext_folder,
                 app_settings.dev_extention_path,
             ));
-            utils::setup::setup_server(app); // start the server
+            let my_port = tauri_plugin_network::network::scan::find_available_port_from_list(
+                server::CANDIDATE_PORTS.to_vec(),
+            )
+            .unwrap();
+            let mdns = setup::peer_discovery::setup_mdns(my_port)?;
+            setup::peer_discovery::handle_mdns_service_evt(app, mdns.browse()?);
+            // utils::setup::setup_server(app); // start the server
             utils::setup::setup_app_path(app);
             utils::setup::setup_extension_storage(app);
             Ok(())

@@ -2,6 +2,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use tauri::Manager;
+mod setup;
 
 fn main() {
     let shell_unlocked = true;
