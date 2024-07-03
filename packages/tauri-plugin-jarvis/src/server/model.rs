@@ -1,5 +1,5 @@
 use serde::Serialize;
-use tauri::AppHandle;
+use tauri::{AppHandle, Runtime};
 
 #[derive(Serialize)]
 pub struct ServerInfo {

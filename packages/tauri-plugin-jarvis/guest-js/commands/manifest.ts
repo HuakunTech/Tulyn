@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import { ExtPackageJsonExtra } from "@/models/manifest";
+import { ExtPackageJsonExtra } from "../models/manifest";
 import { error, debug } from "@tauri-apps/plugin-log";
 
 export function loadManifest(manifestPath: string): Promise<ExtPackageJsonExtra> {

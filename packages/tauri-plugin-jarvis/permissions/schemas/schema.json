@@ -666,6 +666,20 @@
           ]
         },
         {
+          "description": "allow-get-server-port -> Enables the get_server_port command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-get-server-port"
+          ]
+        },
+        {
+          "description": "deny-get-server-port -> Denies the get_server_port command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-get-server-port"
+          ]
+        },
+        {
           "description": "allow-hide-all-apps-except-frontmost -> Enables the hide_all_apps_except_frontmost command without any pre-configured scope.",
           "type": "string",
           "enum": [

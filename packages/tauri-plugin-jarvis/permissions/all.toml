@@ -40,6 +40,7 @@ commands.allow = [
     "load_all_extensions",
     "path_exists",
     "start_server",
+    "get_server_port",
     "stop_server",
     "restart_server",
     "set_dev_extension_folder",

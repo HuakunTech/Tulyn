@@ -53,6 +53,8 @@
 |`deny-get-extension-folder`|Denies the get_extension_folder command without any pre-configured scope.|
 |`allow-get-selected-files-in-file-explorer`|Enables the get_selected_files_in_file_explorer command without any pre-configured scope.|
 |`deny-get-selected-files-in-file-explorer`|Denies the get_selected_files_in_file_explorer command without any pre-configured scope.|
+|`allow-get-server-port`|Enables the get_server_port command without any pre-configured scope.|
+|`deny-get-server-port`|Denies the get_server_port command without any pre-configured scope.|
 |`allow-hide-all-apps-except-frontmost`|Enables the hide_all_apps_except_frontmost command without any pre-configured scope.|
 |`deny-hide-all-apps-except-frontmost`|Denies the hide_all_apps_except_frontmost command without any pre-configured scope.|
 |`allow-is-devtools-open`|Enables the is_devtools_open command without any pre-configured scope.|

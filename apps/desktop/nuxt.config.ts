@@ -19,4 +19,5 @@ export default defineNuxtConfig({
     importStyle: "scss",
     themes: ["dark"],
   },
+  alias: { "@jarvis-plugin": "../../../packages/tauri-plugin-jarvis/guest-js" },
 });

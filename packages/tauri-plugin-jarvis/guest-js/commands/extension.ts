@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import { ExtensionLabelMap } from "@/models/extension";
+import { ExtensionLabelMap } from "../models/extension";
 
 export function isWindowLabelRegistered(label: string): Promise<boolean> {
   return invoke("plugin:jarvis|is_window_label_registered", { label });

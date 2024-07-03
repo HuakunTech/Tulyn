@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import { TCommand, CommandType, AppInfo } from "@/models";
+import { TCommand, CommandType, AppInfo } from "../models";
 import { platform } from "@tauri-apps/plugin-os";
 
 export function openTrash(): Promise<void> {

@@ -9,9 +9,9 @@ use super::{
 use crate::utils::path::get_default_extensions_dir;
 use axum::routing::get;
 use axum_server::tls_rustls::RustlsConfig;
+use std::sync::Mutex;
 use std::{net::SocketAddr, path::PathBuf, sync::Arc};
 use tauri::AppHandle;
-use tokio::sync::Mutex;
 use tonic::transport::Server as TonicServer;
 use tower_http::services::ServeDir;
 
@@ -28,7 +28,9 @@ async fn start_server(
     options: ServerOptions,
 ) -> Result<(), Box<dyn std::error::Error>> {
     let greeter = MyGreeter::default();
-    let server_state = ServerState { app_handle };
+    let server_state = ServerState {
+        app_handle: app_handle.clone(),
+    };
     let reflection_service = tonic_reflection::server::Builder::configure()
         .register_encoded_file_descriptor_set(
             super::grpc::greeter::hello_world::FILE_DESCRIPTOR_SET,
@@ -79,7 +81,7 @@ pub struct Server {
     pub shtdown_handle: Arc<Mutex<Option<axum_server::Handle>>>,
     pub protocol: Mutex<Protocol>,
     pub port: u16,
-    pub server_handle: Arc<Mutex<Option<tauri::async_runtime::JoinHandle<()>>>>,
+    pub server_handle: Arc<std::sync::Mutex<Option<tauri::async_runtime::JoinHandle<()>>>>,
     pub extension_folder: Arc<Mutex<Option<PathBuf>>>,
     pub dev_extension_folder: Arc<Mutex<Option<PathBuf>>>,
 }
@@ -96,7 +98,7 @@ impl Server {
             app_handle,
             protocol: Mutex::new(protocol),
             port,
-            server_handle: Arc::new(Mutex::new(None)),
+            server_handle: Arc::new(std::sync::Mutex::new(None)),
             shtdown_handle: Arc::new(Mutex::new(None)),
             extension_folder: Arc::new(Mutex::new(ext_folder)),
             dev_extension_folder: Arc::new(Mutex::new(dev_ext_folder)),
@@ -104,13 +106,13 @@ impl Server {
     }
 
     pub async fn set_server_protocol(&self, protocol: Protocol) {
-        let mut p = self.protocol.lock().await;
+        let mut p = self.protocol.lock().unwrap();
         *p = protocol;
     }
 
-    pub async fn start(&self) -> Result<(), Box<dyn std::error::Error>> {
-        let mut server_handle = self.server_handle.lock().await;
-        let mut shtdown_handle = self.shtdown_handle.lock().await;
+    pub fn start(&self) -> Result<(), Box<dyn std::error::Error>> {
+        let mut server_handle = self.server_handle.lock().unwrap();
+        let mut shtdown_handle = self.shtdown_handle.lock().unwrap();
         if server_handle.is_some() {
             return Err("Server is already running".into());
         }
@@ -118,9 +120,9 @@ impl Server {
         let app_handle = self.app_handle.clone();
         let _shutdown_handle = axum_server::Handle::new();
         *shtdown_handle = Some(_shutdown_handle.clone());
-        let protocol = self.protocol.lock().await.clone();
+        let protocol = self.protocol.lock().unwrap().clone();
 
-        let mut ext_folder = self.extension_folder.lock().await;
+        let mut ext_folder = self.extension_folder.lock().unwrap();
         let extension_folder = match ext_folder.to_owned() {
             Some(extension_folder) => extension_folder,
             None => {
@@ -130,7 +132,7 @@ impl Server {
                 path
             }
         };
-        let dev_extension_folder = self.dev_extension_folder.lock().await.to_owned();
+        let dev_extension_folder = self.dev_extension_folder.lock().unwrap().to_owned();
 
         *server_handle = Some(tauri::async_runtime::spawn(async move {
             match start_server(
@@ -154,9 +156,9 @@ impl Server {
         Ok(())
     }
 
-    pub async fn stop(&self) -> Result<(), Box<dyn std::error::Error>> {
-        let mut server_handle = self.server_handle.lock().await;
-        let mut shtdown_handle = self.shtdown_handle.lock().await;
+    pub fn stop(&self) -> Result<(), Box<dyn std::error::Error>> {
+        let mut server_handle = self.server_handle.lock().unwrap();
+        let mut shtdown_handle = self.shtdown_handle.lock().unwrap();
         match shtdown_handle.as_ref() {
             Some(handle) => {
                 handle.shutdown();
@@ -171,7 +173,8 @@ impl Server {
         Ok(())
     }
 
-    pub async fn is_running(&self) -> bool {
-        self.server_handle.lock().await.is_some() && self.shtdown_handle.lock().await.is_some()
+    pub fn is_running(&self) -> bool {
+        self.server_handle.lock().unwrap().is_some()
+            && self.shtdown_handle.lock().unwrap().is_some()
     }
 }
