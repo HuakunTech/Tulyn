@@ -31,7 +31,7 @@ jobs:
         run: curl -fsSL https://d2lang.com/install.sh | sh -s --
       - uses: oven-sh/setup-bun@v1
         with:
-          bun-version: 1.1.10
+          bun-version: 1.1.17
 
       - name: Install Dependencies
         env: 
@@ -50,4 +50,5 @@ jobs:
         env:
           SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-        run: pnpm build
+        run: |
+          pnpm build
