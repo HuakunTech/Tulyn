@@ -1,14 +1,5 @@
 <script setup lang="ts">
 import {
-  CalendarIcon,
-  EnvelopeClosedIcon,
-  FaceIcon,
-  GearIcon,
-  PersonIcon,
-  RocketIcon
-} from "@radix-icons/vue"
-
-import {
   Command,
   CommandEmpty,
   CommandGroup,
@@ -18,6 +9,15 @@ import {
   CommandSeparator,
   CommandShortcut
 } from "@/components/ui/command"
+import {
+  CalendarIcon,
+  EnvelopeClosedIcon,
+  FaceIcon,
+  GearIcon,
+  PersonIcon,
+  RocketIcon
+} from "@radix-icons/vue"
+
 function onSelectedValue(e: any) {
   console.log(e)
 }

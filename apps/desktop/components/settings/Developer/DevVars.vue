@@ -1,15 +1,15 @@
 <script setup lang="ts">
+import { Button } from "@/components/ui/button"
+import { SUPABASE_URL } from "@/lib/constants"
+import { Icon } from "@iconify/vue"
 import {
   getDevExtensionFolder,
   getExtensionFolder,
   getServerPort
 } from "tauri-plugin-jarvis-api/commands"
-import { Button } from "@/components/ui/button"
-import { onMounted, ref } from "vue"
 // import { open } from "jarvis-api/ui";
 import { open } from "tauri-plugin-shellx-api"
-import { Icon } from "@iconify/vue"
-import { SUPABASE_URL } from "@/lib/constants"
+import { onMounted, ref } from "vue"
 
 const extFolder = ref<string | null>()
 const devExtFolder = ref<string | null>()

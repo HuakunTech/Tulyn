@@ -2,5 +2,8 @@
     "printWidth": 100,
     "tabWidth": 2,
     "trailingComma": "none",
-    "semi": false
+    "semi": false,
+    "plugins": [
+        "@ianvs/prettier-plugin-sort-imports"
+    ]
 }

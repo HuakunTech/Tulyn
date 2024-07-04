@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {
   MenubarRadioGroup,
+  useForwardPropsEmits,
   type MenubarRadioGroupEmits,
-  type MenubarRadioGroupProps,
-  useForwardPropsEmits
+  type MenubarRadioGroupProps
 } from "radix-vue"
 
 const props = defineProps<MenubarRadioGroupProps>()

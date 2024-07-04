@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { type HTMLAttributes, computed } from "vue"
+import { cn } from "@/lib/utils"
+import { CheckIcon } from "@radix-icons/vue"
 import type { CheckboxRootEmits, CheckboxRootProps } from "radix-vue"
 import { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits } from "radix-vue"
-import { CheckIcon } from "@radix-icons/vue"
-import { cn } from "@/lib/utils"
+import { computed, type HTMLAttributes } from "vue"
 
 const props = defineProps<CheckboxRootProps & { class?: HTMLAttributes["class"] }>()
 const emits = defineEmits<CheckboxRootEmits>()

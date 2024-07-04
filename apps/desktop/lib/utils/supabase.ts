@@ -1,7 +1,7 @@
-import { z } from "zod"
-import { createClient } from "@supabase/supabase-js"
-import { type Database } from "@jarvis/supabase"
 import { SUPABASE_ANON_KEY, SUPABASE_URL } from "@/lib/constants"
+import { type Database } from "@jarvis/supabase"
+import { createClient } from "@supabase/supabase-js"
+import { z } from "zod"
 
 export const supabaseClient = createClient<Database>(
   z.string().parse(SUPABASE_URL),

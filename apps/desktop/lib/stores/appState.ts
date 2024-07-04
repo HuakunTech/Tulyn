@@ -1,6 +1,6 @@
-import { z } from "zod"
 import { computed, map } from "nanostores"
 import { AppInfo } from "tauri-plugin-jarvis-api/models"
+import { z } from "zod"
 
 export const appStateSchema = z.object({
   searchTerm: z.string(),

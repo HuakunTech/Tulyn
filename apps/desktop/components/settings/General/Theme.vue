@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { Button } from "@/components/ui/button"
 import ThemeCustomizer from "@/components/settings/General/ThemeCustomizer.vue"
+import { Button } from "@/components/ui/button"
 import {
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
   Dialog,
   DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
   DialogTrigger
 } from "@/components/ui/dialog"
 </script>

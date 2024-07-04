@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { computedAsync } from "@vueuse/core"
 import { codeToHtml } from "shikiji"
 import { computed, onMounted, ref, watch } from "vue"
-import { computedAsync } from "@vueuse/core"
 
 const props = defineProps<{
   lang: string

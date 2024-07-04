@@ -1,12 +1,4 @@
 <script setup lang="ts">
-import {
-  FolderCogIcon,
-  AlertCircle,
-  InfoIcon,
-  ExternalLinkIcon,
-  CloudDownloadIcon,
-  FolderDownIcon
-} from "lucide-vue-next"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import {
   AlertDialog,
@@ -18,6 +10,14 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger
 } from "@/components/ui/alert-dialog"
+import {
+  AlertCircle,
+  CloudDownloadIcon,
+  ExternalLinkIcon,
+  FolderCogIcon,
+  FolderDownIcon,
+  InfoIcon
+} from "lucide-vue-next"
 </script>
 <template>
   <Alert variant="destructive" class="dark:text-red-600 dark:border-red-600">

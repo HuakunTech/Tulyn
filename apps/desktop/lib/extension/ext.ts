@@ -1,14 +1,9 @@
-import axios from "axios"
-import { type IExtensionBase } from "./base"
 import { $appConfig } from "@/lib/stores/appConfig"
-import {
-  ExtPackageJsonExtra,
-  UiCmd,
-  InlineCmd,
-  ListItemType,
-  TListItem,
-  TListGroup
-} from "tauri-plugin-jarvis-api/models"
+import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
+import axios from "axios"
+import { ElMessage, ElNotification } from "element-plus"
+import { fs, log } from "jarvis-api/ui"
+import { atom, type ReadableAtom, type WritableAtom } from "nanostores"
 import {
   isWindowLabelRegistered,
   loadAllExtensions,
@@ -16,12 +11,16 @@ import {
   registerExtensionWindow,
   unregisterExtensionWindow
 } from "tauri-plugin-jarvis-api/commands"
-import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
-import { type ReadableAtom, type WritableAtom, atom } from "nanostores"
-import { fs } from "jarvis-api/ui"
-import { log } from "jarvis-api/ui"
-import { ElMessage, ElNotification } from "element-plus"
+import {
+  ExtPackageJsonExtra,
+  InlineCmd,
+  ListItemType,
+  TListGroup,
+  TListItem,
+  UiCmd
+} from "tauri-plugin-jarvis-api/models"
 import { toast } from "vue-sonner"
+import { type IExtensionBase } from "./base"
 
 /**
  * Generate a value (unique identified) for a command in an extension

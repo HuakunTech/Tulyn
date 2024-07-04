@@ -9,17 +9,18 @@ import {
   CommandSeparator,
   CommandShortcut
 } from "@/components/ui/command"
-import { getActiveElementNodeName } from "@/lib/utils/dom"
-import { AppsExtension } from "@/lib/extension/apps"
-import { SystemCommandExtension } from "@/lib/extension/systemCmds"
-import { BuiltinCmds } from "@/lib/extension/builtin"
-import type { IExtensionBase } from "@/lib/extension/base"
-import { useStore } from "@nanostores/vue"
-import { Extension } from "@/lib/extension/ext"
-import { $appConfig } from "@/lib/stores/appConfig"
 import { getExtensionsFolder } from "@/lib/constants"
-import { $appState, setSearchTerm } from "@/lib/stores/appState"
+import { AppsExtension } from "@/lib/extension/apps"
+import type { IExtensionBase } from "@/lib/extension/base"
+import { BuiltinCmds } from "@/lib/extension/builtin"
+import { Extension } from "@/lib/extension/ext"
 import { RemoteExtension } from "@/lib/extension/remoteExt"
+import { SystemCommandExtension } from "@/lib/extension/systemCmds"
+import { $appConfig } from "@/lib/stores/appConfig"
+import { $appState, setSearchTerm } from "@/lib/stores/appState"
+import { getActiveElementNodeName } from "@/lib/utils/dom"
+import sampleWorker from "@/lib/workers/sample-worker?worker"
+import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
 
 const appExt = new AppsExtension()
@@ -40,6 +41,7 @@ watch(searchTermInSync, (val) => {
 })
 
 onMounted(async () => {
+  const w = new sampleWorker()
   Promise.all(exts.map((ext) => ext.load()))
 })
 

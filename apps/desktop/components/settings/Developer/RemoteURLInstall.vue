@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { InfoIcon, ExternalLinkIcon, CloudDownloadIcon, DownloadIcon } from "lucide-vue-next"
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -11,9 +9,8 @@ import {
   DialogTitle,
   DialogTrigger
 } from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { ref } from "vue"
-import { v4 as uuidv4 } from "uuid"
 import {
   TagsInput,
   TagsInputInput,
@@ -23,6 +20,9 @@ import {
 } from "@/components/ui/tags-input"
 import { RemoteExt, RemoteExtension } from "@/lib/extension/remoteExt"
 import { ElMessage } from "element-plus"
+import { CloudDownloadIcon, DownloadIcon, ExternalLinkIcon, InfoIcon } from "lucide-vue-next"
+import { v4 as uuidv4 } from "uuid"
+import { ref } from "vue"
 
 const remoteExt = new RemoteExtension()
 const remoteUrl = ref("")

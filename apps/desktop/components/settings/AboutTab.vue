@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { Card, CardContent } from "@/components/ui/card"
 import { default as TauriLink } from "@/components/tauri/link.vue"
-import { getVersion } from "@tauri-apps/api/app"
-import { onMounted, ref, type HTMLAttributes } from "vue"
-import { Icon } from "@iconify/vue"
-import { cn } from "@/lib/utils"
-import { check } from "@tauri-apps/plugin-updater"
-import { relaunch } from "@tauri-apps/plugin-process"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { cn } from "@/lib/utils"
+import { Icon } from "@iconify/vue"
+import { getVersion } from "@tauri-apps/api/app"
 import { confirm } from "@tauri-apps/plugin-dialog"
+import { relaunch } from "@tauri-apps/plugin-process"
+import { check } from "@tauri-apps/plugin-updater"
 import { ElMessage, ElNotification } from "element-plus"
+import { onMounted, ref, type HTMLAttributes } from "vue"
 
 const appVersion = ref("")
 onMounted(() => {

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { type HTMLAttributes, computed } from "vue"
+import { cn } from "@/lib/utils"
+import { CheckIcon } from "@radix-icons/vue"
 import {
   MenubarCheckboxItem,
-  type MenubarCheckboxItemEmits,
-  type MenubarCheckboxItemProps,
   MenubarItemIndicator,
-  useForwardPropsEmits
+  useForwardPropsEmits,
+  type MenubarCheckboxItemEmits,
+  type MenubarCheckboxItemProps
 } from "radix-vue"
-import { CheckIcon } from "@radix-icons/vue"
-import { cn } from "@/lib/utils"
+import { computed, type HTMLAttributes } from "vue"
 
 const props = defineProps<MenubarCheckboxItemProps & { class?: HTMLAttributes["class"] }>()
 const emits = defineEmits<MenubarCheckboxItemEmits>()

@@ -1,13 +1,13 @@
-import { map } from "nanostores"
-import { z } from "zod"
-import { allColors } from "../themes/themes"
-import { useColorMode } from "@vueuse/core"
+import { attachConsole, debug, error, info, trace } from "@tauri-apps/plugin-log"
 import { Store } from "@tauri-apps/plugin-store"
+import { useColorMode } from "@vueuse/core"
+import { map } from "nanostores"
 import {
   restartServer,
   setDevExtensionFolder as setDevExtensionFolderForServer
 } from "tauri-plugin-jarvis-api/commands"
-import { trace, info, error, attachConsole, debug } from "@tauri-apps/plugin-log"
+import { z } from "zod"
+import { allColors } from "../themes/themes"
 
 const persistAppConfig = new Store("appConfig.bin")
 

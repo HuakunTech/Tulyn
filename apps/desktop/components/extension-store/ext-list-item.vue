@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue"
-import { humanReadableNumber } from "@/lib/utils/format"
-import { CircleCheckBigIcon } from "lucide-vue-next"
-import { CommandItem } from "@/components/ui/command"
-import { ExtItem } from "./types"
 import IconMultiplexer from "@/components/IconMultiplexer.vue"
+import { CommandItem } from "@/components/ui/command"
+import { humanReadableNumber } from "@/lib/utils/format"
+import { Icon } from "@iconify/vue"
+import { CircleCheckBigIcon } from "lucide-vue-next"
+import { ExtItem } from "./types"
 
 const props = defineProps<{
   data: ExtItem

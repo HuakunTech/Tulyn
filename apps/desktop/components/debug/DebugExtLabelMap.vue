@@ -1,16 +1,16 @@
 <script setup lang="ts">
+import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import CodeEditor from "./CodeEditor.vue"
-import CodeEditorHtml from "./CodeEditorHtml.vue"
+import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import {
   getExtLabelMap,
-  registerExtensionWindow,
   isWindowLabelRegistered,
+  registerExtensionWindow,
   unregisterExtensionWindow
 } from "tauri-plugin-jarvis-api/commands"
 import { onMounted, ref } from "vue"
-import { Button } from "@/components/ui/button"
-import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
+import CodeEditor from "./CodeEditor.vue"
+import CodeEditorHtml from "./CodeEditorHtml.vue"
 
 const extLabelMapping = ref("")
 

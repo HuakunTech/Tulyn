@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {
-  type AlertDialogEmits,
-  type AlertDialogProps,
   AlertDialogRoot,
-  useForwardPropsEmits
+  useForwardPropsEmits,
+  type AlertDialogEmits,
+  type AlertDialogProps
 } from "radix-vue"
 
 const props = defineProps<AlertDialogProps>()

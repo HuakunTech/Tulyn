@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { TListItem } from "jarvis-api"
 import { Button } from "@/components/ui/button"
+import type { TListItem } from "jarvis-api"
 import { TrashIcon } from "lucide-vue-next"
 
 const props = defineProps<{ item: TListItem }>()

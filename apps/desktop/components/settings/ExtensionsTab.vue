@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
-import { type TListItem, TListGroup } from "tauri-plugin-jarvis-api/models"
-import { ElMessage, ElTable, ElTableColumn } from "element-plus"
-import { Icon } from "@iconify/vue"
-import { Extension } from "@/lib/extension/ext"
-import { $appConfig } from "@/lib/stores/appConfig"
-import { getExtensionsFolder } from "@/lib/constants"
-import { Trash2Icon } from "lucide-vue-next"
-import { RemoteExtension } from "@/lib/extension/remoteExt"
 import IconMultiplexer from "@/components/IconMultiplexer.vue"
+import { getExtensionsFolder } from "@/lib/constants"
+import { Extension } from "@/lib/extension/ext"
+import { RemoteExtension } from "@/lib/extension/remoteExt"
+import { $appConfig } from "@/lib/stores/appConfig"
+import { Icon } from "@iconify/vue"
+import { ElMessage, ElTable, ElTableColumn } from "element-plus"
+import { Trash2Icon } from "lucide-vue-next"
+import { TListGroup, type TListItem } from "tauri-plugin-jarvis-api/models"
+import { onMounted, ref } from "vue"
+
 const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath, true)
 const storeExt = new Extension("Extensions", await getExtensionsFolder())
 const remoteExt = new RemoteExtension()

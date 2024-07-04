@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Checkbox } from "@/components/ui/checkbox"
-import { useStore } from "@nanostores/vue"
 import { $appConfig, setDevExtLoadUrl, setShowInTray } from "@/lib/stores/appConfig"
+import { useStore } from "@nanostores/vue"
 import { computed, ref, watch } from "vue"
 
 const appConfig = useStore($appConfig)

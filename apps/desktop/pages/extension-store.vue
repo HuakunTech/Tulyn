@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from "vue"
-import { getExtensionsFolder, SUPABASE_ANON_KEY, SUPABASE_GRAPHQL_ENDPOINT } from "@/lib/constants"
-import { ApolloClient, InMemoryCache, HttpLink, type ApolloQueryResult, gql } from "@apollo/client"
-import { type AllExtensionsQuery, AllExtensionsDocument } from "@jarvis/gql"
-import { ArrowLeftIcon } from "@radix-icons/vue"
+import CommandInput from "@/components/cmd-palette/CommandInput.vue"
 import ExtListItem from "@/components/extension-store/ext-list-item.vue"
+import ExtDrawer from "@/components/extension-store/ExtDrawer.vue"
+// import Command from "@/components/extension-store/Command.vue";
+import { ExtItem, ExtItemParser } from "@/components/extension-store/types"
+import { Button } from "@/components/ui/button"
 import {
   Command,
   CommandDialog,
@@ -15,17 +15,17 @@ import {
   CommandSeparator,
   CommandShortcut
 } from "@/components/ui/command"
-import CommandInput from "@/components/cmd-palette/CommandInput.vue"
-import ExtDrawer from "@/components/extension-store/ExtDrawer.vue"
-import { Button } from "@/components/ui/button"
-// import Command from "@/components/extension-store/Command.vue";
-import { ExtItem, ExtItemParser } from "@/components/extension-store/types"
+import { getExtensionsFolder, SUPABASE_ANON_KEY, SUPABASE_GRAPHQL_ENDPOINT } from "@/lib/constants"
 import { Extension } from "@/lib/extension/ext"
-import { gqlClient } from "@/lib/utils/graphql"
-import { ElMessage } from "element-plus"
 import { $appConfig } from "@/lib/stores/appConfig"
-import type { ExtPackageJsonExtra } from "jarvis-api/models"
+import { gqlClient } from "@/lib/utils/graphql"
+import { ApolloClient, gql, HttpLink, InMemoryCache, type ApolloQueryResult } from "@apollo/client"
+import { AllExtensionsDocument, type AllExtensionsQuery } from "@jarvis/gql"
 import { type Tables } from "@jarvis/supabase"
+import { ArrowLeftIcon } from "@radix-icons/vue"
+import { ElMessage } from "element-plus"
+import type { ExtPackageJsonExtra } from "jarvis-api/models"
+import { computed, onMounted, ref, watch } from "vue"
 
 const ext = new Extension("Extensions", await getExtensionsFolder())
 const selectedExt = ref<ExtItem>()

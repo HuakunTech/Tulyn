@@ -1,8 +1,8 @@
-import { z } from "zod"
-import { window } from "jarvis-api/ui"
+import { $toasts, enqueueToast } from "@/lib/stores/toast"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { currentMonitor } from "@tauri-apps/api/window"
-import { enqueueToast, $toasts } from "@/lib/stores/toast"
+import { window } from "jarvis-api/ui"
+import { z } from "zod"
 
 export const TauriToast = z.object({
   variant: z

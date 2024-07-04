@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useGoToSettingShortcuts } from "@/composables/useShortcuts"
-import type { UnlistenFn } from "@tauri-apps/api/event"
-import { allColors } from "@/lib/themes/themes"
-import { attachConsole } from "@tauri-apps/plugin-log"
-import { useStore } from "@nanostores/vue"
-import { $appConfig, LightMode, setLightMode, setTheme, setRadius } from "@/lib/stores/appConfig"
 import { Toaster } from "@/components/ui/sonner"
+import { useGoToSettingShortcuts } from "@/composables/useShortcuts"
+import { $appConfig, LightMode, setLightMode, setRadius, setTheme } from "@/lib/stores/appConfig"
+import { allColors } from "@/lib/themes/themes"
+import { useStore } from "@nanostores/vue"
+import type { UnlistenFn } from "@tauri-apps/api/event"
+import { attachConsole } from "@tauri-apps/plugin-log"
 
 const colorMode = useColorMode() // auto set html class to dark is in dark mode
 const appConfig = useStore($appConfig)

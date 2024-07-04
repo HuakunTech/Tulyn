@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import * as monaco from "monaco-editor-core"
 import { getHighlighter } from "shikiji"
 import { shikijiToMonaco } from "shikiji-monaco"
-import * as monaco from "monaco-editor-core"
 import { onMounted, ref, watch } from "vue"
 
 const themes = ["vitesse-dark", "github-dark", "one-dark-pro", "dark-plus"]

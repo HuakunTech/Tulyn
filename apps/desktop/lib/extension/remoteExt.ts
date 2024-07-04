@@ -1,12 +1,12 @@
-import { z } from "zod"
-import { atom, computed, type ReadableAtom, type WritableAtom, task } from "nanostores"
-import type { IExtensionBase } from "./base"
-import { TListItem, ListItemType, IconType, TListGroup, Icon } from "tauri-plugin-jarvis-api/models"
-import { Store } from "@tauri-apps/plugin-store"
-import { ElMessage } from "element-plus"
-import axios from "axios"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { info } from "@tauri-apps/plugin-log"
+import { Store } from "@tauri-apps/plugin-store"
+import axios from "axios"
+import { ElMessage } from "element-plus"
+import { atom, computed, task, type ReadableAtom, type WritableAtom } from "nanostores"
+import { Icon, IconType, ListItemType, TListGroup, TListItem } from "tauri-plugin-jarvis-api/models"
+import { z } from "zod"
+import type { IExtensionBase } from "./base"
 
 export const RemoteExt = z.object({
   name: z.string().min(1),

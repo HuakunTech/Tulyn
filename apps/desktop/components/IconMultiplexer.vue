@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { type IconSchema } from "jarvis-api/models"
-import { Icon } from "@iconify/vue"
-import type { HTMLAttributes } from "vue"
 import { cn } from "@/lib/utils"
+import { Icon } from "@iconify/vue"
+import { type IconSchema } from "jarvis-api/models"
+import type { HTMLAttributes } from "vue"
 
 const props = defineProps<{ icon: IconSchema; class?: HTMLAttributes["class"] }>()
 </script>

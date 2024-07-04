@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue"
+import { Badge } from "@/components/ui/badge"
 import {
   Command,
   CommandEmpty,
@@ -10,10 +10,10 @@ import {
   CommandSeparator,
   CommandShortcut
 } from "@/components/ui/command"
-import type { TListItem } from "jarvis-api/models"
-import { Badge } from "@/components/ui/badge"
 import { $appConfig, setDevExtLoadUrl, setShowInTray } from "@/lib/stores/appConfig"
+import { Icon } from "@iconify/vue"
 import { useStore } from "@nanostores/vue"
+import type { TListItem } from "jarvis-api/models"
 
 const appConfig = useStore($appConfig)
 const props = defineProps<{ item: TListItem; isDevExt: boolean }>()

@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue"
-import { Icon } from "@iconify/vue"
-import { exists } from "@tauri-apps/plugin-fs"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/toast"
+import { Extension } from "@/lib/extension/ext"
 import { $appConfig, setDevExtentionPath } from "@/lib/stores/appConfig"
+import { Icon } from "@iconify/vue"
 import { useStore } from "@nanostores/vue"
-import { pathExists } from "tauri-plugin-jarvis-api/commands"
-import { onMount } from "nanostores"
 // import { loadDevExtManifests, loadExtManifests, $extensionsStore } from "@/lib/stores/extensions";
 import { open } from "@tauri-apps/plugin-dialog"
-import { Extension } from "@/lib/extension/ext"
+import { exists } from "@tauri-apps/plugin-fs"
+import { onMount } from "nanostores"
+import { pathExists } from "tauri-plugin-jarvis-api/commands"
+import { onMounted, ref } from "vue"
 
 const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath, true)
 const { toast } = useToast()

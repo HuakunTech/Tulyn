@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { cn } from "@/lib/utils"
 import { open } from "tauri-plugin-shellx-api"
 import type { HTMLAttributes } from "vue"
-import { cn } from "@/lib/utils"
 
 const props = defineProps<{
   href: string

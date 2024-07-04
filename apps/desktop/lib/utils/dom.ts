@@ -1,3 +1,3 @@
 export function getActiveElementNodeName() {
-  return document.activeElement?.nodeName;
+  return document.activeElement?.nodeName
 }

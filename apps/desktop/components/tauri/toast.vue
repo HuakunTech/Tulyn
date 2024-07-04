@@ -2,10 +2,10 @@
 import { onMounted, onUnmounted, ref } from "vue"
 import "@/styles/globals.css"
 import "@/styles/toast.css"
-import { useColorMode } from "@vueuse/core"
-import { $toasts, dequeueToast } from "@/lib/stores/toast"
 import { $appConfig } from "@/lib/stores/appConfig"
+import { $toasts, dequeueToast } from "@/lib/stores/toast"
 import { useStore } from "@nanostores/vue"
+import { useColorMode } from "@vueuse/core"
 
 const toasts = useStore($toasts)
 const message = ref()

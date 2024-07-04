@@ -1,10 +1,10 @@
-import { type IExtensionBase } from "./base"
+import { convertFileSrc } from "@tauri-apps/api/core"
+import { ElNotification } from "element-plus"
+import { open } from "jarvis-api/ui"
+import { atom, computed, type WritableAtom } from "nanostores"
 import { getAllApps, refreshApplicationsList } from "tauri-plugin-jarvis-api/commands"
 import { AppInfo, TListItem } from "tauri-plugin-jarvis-api/models"
-import { convertFileSrc } from "@tauri-apps/api/core"
-import { open } from "jarvis-api/ui"
-import { ElNotification } from "element-plus"
-import { atom, type WritableAtom, computed } from "nanostores"
+import { type IExtensionBase } from "./base"
 
 export function appInfoToListItem(app: AppInfo): TListItem {
   return {

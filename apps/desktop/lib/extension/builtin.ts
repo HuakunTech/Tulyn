@@ -1,10 +1,10 @@
-import type { ReadableAtom, WritableAtom } from "nanostores"
-import type { IExtensionBase } from "./base"
-import { TListItem, ListItemType } from "tauri-plugin-jarvis-api/models"
-import { atom } from "nanostores"
-import { ElMessage, ElNotification } from "element-plus"
-import { WebviewWindow, getAll as getAllWindows } from "@tauri-apps/api/webviewWindow"
 import { DebugWindowLabel, SettingsWindowLabel } from "@/lib/constants"
+import { getAll as getAllWindows, WebviewWindow } from "@tauri-apps/api/webviewWindow"
+import { ElMessage, ElNotification } from "element-plus"
+import type { ReadableAtom, WritableAtom } from "nanostores"
+import { atom } from "nanostores"
+import { ListItemType, TListItem } from "tauri-plugin-jarvis-api/models"
+import type { IExtensionBase } from "./base"
 
 const rtConfig = useRuntimeConfig()
 

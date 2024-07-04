@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type UnlistenFn, listen } from "@tauri-apps/api/event"
+import { listen, type UnlistenFn } from "@tauri-apps/api/event"
 import { onMounted, onUnmounted } from "vue"
 import { z } from "zod"
 

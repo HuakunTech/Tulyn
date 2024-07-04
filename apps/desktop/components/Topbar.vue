@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import {
-  WrenchIcon,
-  RefreshCwIcon,
-  HomeIcon,
-  CogIcon,
-  FlaskConicalIcon,
-  UserCogIcon,
-  TestTubesIcon
-} from "lucide-vue-next"
-import { Icon } from "@iconify/vue"
 import ModeToggle from "@/components/theme/ModeToggle.vue"
 import { Button } from "@/components/ui/button"
-import { toggleDevTools, appIsDev } from "tauri-plugin-jarvis-api/commands"
+import { Icon } from "@iconify/vue"
+import {
+  CogIcon,
+  FlaskConicalIcon,
+  HomeIcon,
+  RefreshCwIcon,
+  TestTubesIcon,
+  UserCogIcon,
+  WrenchIcon
+} from "lucide-vue-next"
+import { appIsDev, toggleDevTools } from "tauri-plugin-jarvis-api/commands"
 import { onMounted, ref } from "vue"
 
 const isDev = ref(false)

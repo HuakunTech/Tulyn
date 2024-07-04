@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { useColorMode, useDark } from "@vueuse/core"
-import { Icon } from "@iconify/vue"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import { cn } from "@/lib/utils"
 import { setLightMode, type LightMode } from "@/lib/stores/appConfig"
+import { cn } from "@/lib/utils"
+import { Icon } from "@iconify/vue"
+import { useColorMode, useDark } from "@vueuse/core"
 
 const props = defineProps<{
   class?: string

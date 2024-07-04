@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { CommandGroup, CommandItem } from "@/components/ui/command"
 import ListItem from "@/components/MainSearch/list-item.vue"
+import { CommandGroup, CommandItem } from "@/components/ui/command"
 import type { IExtensionBase } from "@/lib/extension/base"
 import { $appState } from "@/lib/stores/appState"
 import { useStore } from "@nanostores/vue"
-import { computed } from "vue"
 import type { TListItem } from "jarvis-api/models"
+import { computed } from "vue"
 import { extractRuntimeEmits } from "vue/compiler-sfc"
 
 const appState = useStore($appState)

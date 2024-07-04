@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { Card } from "@/components/ui/card"
-import { StrikeSeparator } from "@/components/ui/separator"
 import {
-  Startup,
+  LoadDevUrl,
   MenuBar,
+  Startup,
   Theme,
   ThemeCustomizer,
-  TriggerHotkey,
-  LoadDevUrl
+  TriggerHotkey
 } from "@/components/settings/General"
+import { Card } from "@/components/ui/card"
+import { StrikeSeparator } from "@/components/ui/separator"
 </script>
 <template>
   <Card class="py-5 flex flex-col space-y-4 border-none h-full shadow-none bg-transparent">

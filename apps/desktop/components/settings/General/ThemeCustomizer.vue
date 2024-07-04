@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { allColors } from "@/lib/themes/themes"
-import { colors } from "@/lib/themes/colors"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import { $appConfig, LightMode, setLightMode, setTheme, setRadius } from "@/lib/stores/appConfig"
+import { $appConfig, LightMode, setLightMode, setRadius, setTheme } from "@/lib/stores/appConfig"
+import { colors } from "@/lib/themes/colors"
+import { allColors } from "@/lib/themes/themes"
 import { useStore } from "@nanostores/vue"
+import { CheckIcon, MoonIcon, SunIcon } from "@radix-icons/vue"
 import { useColorMode, useDark } from "@vueuse/core"
-import { SunIcon, MoonIcon, CheckIcon } from "@radix-icons/vue"
 
 const appConfig = useStore($appConfig)
 

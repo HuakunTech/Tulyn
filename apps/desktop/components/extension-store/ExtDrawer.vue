@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { Icon as Iconify } from "@iconify/vue"
-import { z } from "zod"
+import { Button } from "@/components/ui/button"
 import {
   Drawer,
   DrawerClose,
@@ -11,32 +10,33 @@ import {
   DrawerTitle,
   DrawerTrigger
 } from "@/components/ui/drawer"
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Separator } from "@/components/ui/separator"
+import { PERMISSIONS_EXPLANATION } from "@/lib/constants"
+import { GlobalEventBus } from "@/lib/utils/events"
+import { gqlClient } from "@/lib/utils/graphql"
+import * as supabase from "@/lib/utils/supabase"
+import { supabaseClient } from "@/lib/utils/supabase"
+import { installTarballUrl } from "@/lib/utils/tarball"
+import { ApolloClient, HttpLink, InMemoryCache, type ApolloQueryResult } from "@apollo/client"
+import { Icon as Iconify } from "@iconify/vue"
+import {
+  FindLatestExtDocument,
+  type FindLatestExtQuery,
+  type FindLatestExtQueryVariables
+} from "@jarvis/gql"
+import { type Tables } from "@jarvis/supabase"
+import { compareVersions } from "compare-versions"
+import { ElMessage } from "element-plus"
+import { CircleCheckBigIcon, Trash2Icon } from "lucide-vue-next"
+import { getDevExtensionFolder, getExtensionFolder } from "tauri-plugin-jarvis-api/commands"
+import { JarvisExtManifest } from "tauri-plugin-jarvis-api/models"
+import { computed, onMounted, onUnmounted, ref, watch } from "vue"
+import { z } from "zod"
 import DialogImage from "./DialogImage.vue"
 import ExtStoreDrawer from "./ExtStoreDrawer.vue"
-import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { ExtItem } from "./types"
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
-import { computed, onMounted, onUnmounted, ref, watch } from "vue"
-import { ApolloClient, HttpLink, InMemoryCache, type ApolloQueryResult } from "@apollo/client"
-import { PERMISSIONS_EXPLANATION } from "@/lib/constants"
-import {
-  type FindLatestExtQuery,
-  type FindLatestExtQueryVariables,
-  FindLatestExtDocument
-} from "@jarvis/gql"
-import { gqlClient } from "@/lib/utils/graphql"
-import { compareVersions } from "compare-versions"
-import { type Tables } from "@jarvis/supabase"
-import * as supabase from "@/lib/utils/supabase"
-import { JarvisExtManifest } from "tauri-plugin-jarvis-api/models"
-import { Separator } from "@/components/ui/separator"
-import { CircleCheckBigIcon, Trash2Icon } from "lucide-vue-next"
-import { GlobalEventBus } from "@/lib/utils/events"
-import { installTarballUrl } from "@/lib/utils/tarball"
-import { getDevExtensionFolder, getExtensionFolder } from "tauri-plugin-jarvis-api/commands"
-import { ElMessage } from "element-plus"
-import { supabaseClient } from "@/lib/utils/supabase"
 
 const props = defineProps<{
   open: boolean

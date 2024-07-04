@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { z } from "zod"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { useToast } from "@/components/ui/toast/use-toast"
 import {
-  startServer,
-  restartServer,
-  stopServer,
   getDevExtensionFolder,
   getExtensionFolder,
-  serverIsRunning
+  restartServer,
+  serverIsRunning,
+  startServer,
+  stopServer
 } from "tauri-plugin-jarvis-api/commands"
-import { Badge } from "@/components/ui/badge"
-import { onMounted, onUnmounted, ref } from "vue"
-import { useToast } from "@/components/ui/toast/use-toast"
 import { open } from "tauri-plugin-shellx-api"
+import { onMounted, onUnmounted, ref } from "vue"
+import { z } from "zod"
 
 const { toast } = useToast()
 const serverRunning = ref(false)
