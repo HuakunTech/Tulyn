@@ -9,6 +9,7 @@ import {
   CommandSeparator,
   CommandShortcut
 } from "@/components/ui/command"
+import { getActiveElementNodeName } from "@/lib/utils/dom"
 import { AppsExtension } from "@/lib/extension/apps"
 import { SystemCommandExtension } from "@/lib/extension/systemCmds"
 import { BuiltinCmds } from "@/lib/extension/builtin"
@@ -19,6 +20,7 @@ import { $appConfig } from "@/lib/stores/appConfig"
 import { getExtensionsFolder } from "@/lib/constants"
 import { $appState, setSearchTerm } from "@/lib/stores/appState"
 import { RemoteExtension } from "@/lib/extension/remoteExt"
+import { getCurrent } from "@tauri-apps/api/window"
 
 const appExt = new AppsExtension()
 const sysCmdExt = new SystemCommandExtension()
@@ -39,6 +41,30 @@ watch(searchTermInSync, (val) => {
 
 onMounted(async () => {
   Promise.all(exts.map((ext) => ext.load()))
+})
+
+// when close window if not focused on input. If input element has content, clear the content
+onKeyStroke("Escape", (e) => {
+  console.log("escape pressed")
+  if (getActiveElementNodeName() === "INPUT") {
+    if (searchTermInSync.value !== "") {
+      searchTermInSync.value = ""
+    } else {
+      getCurrent().close()
+    }
+  } else {
+    getCurrent().close()
+  }
+})
+
+// focus on input element when slash is pressed
+onKeyStroke("/", (e) => {
+  if (getActiveElementNodeName() !== "INPUT") {
+    const inputsEle = document.getElementsByTagName("input")
+    if (inputsEle.length > 0) {
+      inputsEle[0].focus()
+    }
+  }
 })
 </script>
 <template>

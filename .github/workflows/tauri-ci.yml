@@ -51,6 +51,10 @@ jobs:
         run: |
           curl -fsSL https://d2lang.com/install.sh | sh -s --
           sudo apt install -y protobuf-compiler
+      - name: Install protoc for windows
+        if: matrix.settings.platform == 'windows-latest'
+        run: |
+          choco install protoc
       - uses: pnpm/action-setup@v4
       - name: setup node
         uses: actions/setup-node@v4
