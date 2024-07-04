@@ -1,6 +1,7 @@
 {
   "name": "jarvis",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -8,11 +9,16 @@
     "lint": "turbo run lint",
     "format:apps": "prettier --write \"./apps/**/*.{ts,tsx,md,vue,json,yaml,yml}\"",
     "format:packages": "prettier --write \"./packages/**/*.{ts,tsx,md,vue,json,yaml,yml}\"",
-    "format": "npm run format:apps && npm run format:packages"
+    "format": "npm run format:apps && npm run format:packages",
+    "prepare": "husky",
+    "commitlint": "commitlint --edit"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
     "@ianvs/prettier-plugin-sort-imports": "^4.3.0",
     "eslint": "^8.48.0",
+    "husky": "^9.0.11",
     "prettier": "^3.2.5",
     "turbo": "^2.0.6",
     "typescript": "^5.4.5"
