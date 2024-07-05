@@ -1,5 +1,5 @@
+import { PermissionsEnum } from "@jarvis/schema"
 import { appDataDir, join } from "@tauri-apps/api/path"
-import { PermissionsEnum } from "tauri-plugin-jarvis-api/models"
 import { z } from "zod"
 import { loadEnvVarWithNotification } from "./utils/envvar"
 

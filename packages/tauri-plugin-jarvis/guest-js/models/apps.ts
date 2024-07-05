@@ -1,9 +1,9 @@
-import { z } from "zod"
+import * as v from "valibot"
 
-export const AppInfo = z.object({
-  name: z.string(),
-  icon_path: z.string().nullable(),
-  app_path_exe: z.string().nullable(),
-  app_desktop_path: z.string()
+export const AppInfo = v.object({
+  name: v.string(),
+  icon_path: v.nullable(v.string()),
+  app_path_exe: v.nullable(v.string()),
+  app_desktop_path: v.string()
 })
-export type AppInfo = z.infer<typeof AppInfo>
+export type AppInfo = v.InferOutput<typeof AppInfo>

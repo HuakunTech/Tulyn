@@ -1,15 +1,21 @@
-import { z } from "zod"
+import * as v from "valibot"
 
 // TODO: Kind of Duplicate for ListItemType, consider remove one
-export const CommandType = z.enum(["system", "ui-cmd", "inline-cmd", "app"])
+export enum CommandTypeEnum {
+  "system",
+  "ui-cmd",
+  "inline-cmd",
+  "app"
+}
+export const CommandType = v.enum(CommandTypeEnum)
 
-export const TCommand = z.object({
-  name: z.string(),
-  value: z.string(),
-  icon: z.string().nullable(),
-  keywords: z.array(z.string()).nullable(),
+export const TCommand = v.object({
+  name: v.string(),
+  value: v.string(),
+  icon: v.nullable(v.string()),
+  keywords: v.nullable(v.array(v.string())),
   commandType: CommandType,
-  function: z.function(),
-  confirmRequired: z.boolean()
+  function: v.function(),
+  confirmRequired: v.boolean()
 })
-export type TCommand = z.infer<typeof TCommand>
+export type TCommand = v.InferOutput<typeof TCommand>

@@ -57,6 +57,9 @@ importers:
       '@jarvis/gql':
         specifier: workspace:*
         version: link:../../packages/gql
+      '@jarvis/schema':
+        specifier: workspace:*
+        version: link:../../packages/schema
       '@jarvis/supabase':
         specifier: workspace:*
         version: link:../../packages/supabase
@@ -520,6 +523,9 @@ importers:
 
   packages/tauri-plugin-jarvis:
     dependencies:
+      '@jarvis/schema':
+        specifier: workspace:*
+        version: link:../schema
       '@tauri-apps/api':
         specifier: '>=2.0.0-beta.6'
         version: 2.0.0-beta.11
@@ -529,9 +535,9 @@ importers:
       '@tauri-apps/plugin-os':
         specifier: 2.0.0-beta.3
         version: 2.0.0-beta.3
-      zod:
-        specifier: ^3.23.8
-        version: 3.23.8
+      valibot:
+        specifier: ^0.35.0
+        version: 0.35.0
     devDependencies:
       '@rollup/plugin-typescript':
         specifier: ^11.1.6

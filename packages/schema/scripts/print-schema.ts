@@ -4,9 +4,8 @@ import {
   PutObjectCommand,
   S3Client
 } from "@aws-sdk/client-s3"
-import { ExtPackageJson } from "jarvis-api/models"
-import { z } from "zod"
 import { zodToJsonSchema } from "zod-to-json-schema"
+import { ExtPackageJson } from "../src/manifest"
 
 const jsonSchema = zodToJsonSchema(ExtPackageJson, {})
 // @ts-ignore

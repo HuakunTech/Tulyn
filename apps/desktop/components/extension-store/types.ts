@@ -1,4 +1,4 @@
-import { Icon } from "tauri-plugin-jarvis-api/models"
+import { Icon } from "@jarvis/schema"
 import { z } from "zod"
 
 export const ExtItemParser = z.object({

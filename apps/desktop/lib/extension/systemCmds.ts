@@ -1,8 +1,9 @@
+import { IconType, ListItemType, TListItem } from "@jarvis/schema"
 import * as dialog from "@tauri-apps/plugin-dialog"
 import { ElNotification } from "element-plus"
 import { atom, type ReadableAtom, type WritableAtom } from "nanostores"
 import { getSystemCommands } from "tauri-plugin-jarvis-api/commands"
-import { IconType, ListItemType, TCommand, TListItem } from "tauri-plugin-jarvis-api/models"
+import { TCommand } from "tauri-plugin-jarvis-api/models"
 import { type IExtensionBase } from "./base"
 
 export class SystemCommandExtension implements IExtensionBase {

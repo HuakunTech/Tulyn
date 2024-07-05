@@ -1,9 +1,9 @@
 import { DebugWindowLabel, SettingsWindowLabel } from "@/lib/constants"
+import { ListItemType, TListItem } from "@jarvis/schema"
 import { getAll as getAllWindows, WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { ElMessage, ElNotification } from "element-plus"
 import type { ReadableAtom, WritableAtom } from "nanostores"
 import { atom } from "nanostores"
-import { ListItemType, TListItem } from "tauri-plugin-jarvis-api/models"
 import type { IExtensionBase } from "./base"
 
 const rtConfig = useRuntimeConfig()

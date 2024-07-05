@@ -1,4 +1,12 @@
 import { $appConfig } from "@/lib/stores/appConfig"
+import {
+  ExtPackageJsonExtra,
+  InlineCmd,
+  ListItemType,
+  TListGroup,
+  TListItem,
+  UiCmd
+} from "@jarvis/schema"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import * as fs from "@tauri-apps/plugin-fs"
 import axios from "axios"
@@ -11,14 +19,6 @@ import {
   registerExtensionWindow,
   unregisterExtensionWindow
 } from "tauri-plugin-jarvis-api/commands"
-import {
-  ExtPackageJsonExtra,
-  InlineCmd,
-  ListItemType,
-  TListGroup,
-  TListItem,
-  UiCmd
-} from "tauri-plugin-jarvis-api/models"
 import { toast } from "vue-sonner"
 import { type IExtensionBase } from "./base"
 

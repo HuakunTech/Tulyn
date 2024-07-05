@@ -26,12 +26,12 @@ import {
   type FindLatestExtQuery,
   type FindLatestExtQueryVariables
 } from "@jarvis/gql"
+import { JarvisExtManifest } from "@jarvis/schema"
 import { type Tables } from "@jarvis/supabase"
 import { compareVersions } from "compare-versions"
 import { ElMessage } from "element-plus"
 import { CircleCheckBigIcon, Trash2Icon } from "lucide-vue-next"
 import { getDevExtensionFolder, getExtensionFolder } from "tauri-plugin-jarvis-api/commands"
-import { JarvisExtManifest } from "tauri-plugin-jarvis-api/models"
 import { computed, onMounted, onUnmounted, ref, watch } from "vue"
 import { z } from "zod"
 import DialogImage from "./DialogImage.vue"

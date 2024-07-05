@@ -1,5 +1,6 @@
 import { invoke } from "@tauri-apps/api/core"
 import { platform } from "@tauri-apps/plugin-os"
+import * as v from "valibot"
 import { AppInfo, CommandType, TCommand } from "../models"
 
 export function openTrash(): Promise<void> {
@@ -103,7 +104,7 @@ export function unmute(): Promise<void> {
 }
 
 export function getFrontmostApp(): Promise<AppInfo> {
-  return invoke("plugin:jarvis|get_frontmost_app").then((app) => AppInfo.parse(app))
+  return invoke("plugin:jarvis|get_frontmost_app").then((app) => v.parse(AppInfo, app))
 }
 
 export function hideAllAppsExceptFrontmost(): Promise<void> {
@@ -300,7 +301,7 @@ export async function getSystemCommands(): Promise<TCommand[]> {
       value: "system-cmd" + cmd.name.split(" ").join("-").toLowerCase(),
       icon: cmd.icon,
       keywords: cmd.name.split(" "),
-      commandType: CommandType.Enum.system,
+      commandType: CommandType.enum.system,
       function: cmd.function,
       confirmRequired: cmd.confirmRequired
     }))
