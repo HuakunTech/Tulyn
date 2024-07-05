@@ -23,6 +23,7 @@ import SampleWorker from "@/lib/workers/sample-worker?worker"
 import { wrap } from "@huakunshen/comlink"
 import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
+import * as fs from "@tauri-apps/plugin-fs"
 import {
   constructJarvisServerAPIWithPermissions,
   exposeApiToWindow,
@@ -49,16 +50,20 @@ watch(searchTermInSync, (val) => {
 })
 
 onMounted(async () => {
-  const worker = new SampleWorker()
+  // const worker = new SampleWorker()
   const serverAPI = constructJarvisServerAPIWithPermissions(["clipboard:read-text"])
-  exposeApiToWorker(worker, serverAPI)
-  const workerAPI = wrap<IWorkerExtensionBase>(worker)
-  await workerAPI.load()
-  console.log("default()", await workerAPI.default())
-  // console.log("expose API to iframe", iframeEle.value)
-  // const api = constructJarvisServerAPIWithPermissions(["clipboard:read-text", "system:volumn"])
-  // document.querySelector("")
-  // exposeApiToWindow(iframeEle.value.contentWindow, api)
+  // exposeApiToWorker(worker, serverAPI)
+  // const workerAPI = wrap<IWorkerExtensionBase>(worker)
+  // await workerAPI.load()
+  // console.log("default()", await workerAPI.default())
+  const workerScript = await fs.readTextFile(
+    "/Users/hacker/Dev/projects/Jarvis/extensions/hacker-news/dist/index.js"
+  )
+
+  const worker2 = new Worker(
+    URL.createObjectURL(new Blob([workerScript], { type: "application/javascript" }))
+  )
+  exposeApiToWorker(worker2, serverAPI)
   Promise.all(exts.map((ext) => ext.load()))
 })
 
@@ -89,16 +94,7 @@ onKeyStroke("/", (e) => {
 <template>
   <div class="h-full">
     <!-- <iframe ref="iframeEle" src="/iframe" frameborder="0"></iframe> -->
-    <CmdPaletteCommand
-      class=""
-      v-model:searchTerm="searchTermInSync"
-      :identity-filter="true"
-      @update:selected-value="
-        (e) => {
-          console.log(e)
-        }
-      "
-    >
+    <CmdPaletteCommand class="" v-model:searchTerm="searchTermInSync" :identity-filter="true">
       <CommandInput class="h-12 text-md" placeholder="Search for apps or commands..." />
       <CommandList class="h-full">
         <CommandEmpty>No results found.</CommandEmpty>

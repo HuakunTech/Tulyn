@@ -4,7 +4,7 @@ import { clipboard, type IWorkerExtensionBase } from "jarvis-api/ui/worker"
 
 class SampleWorkerExt implements IWorkerExtensionBase {
   name = "sample-worker"
-  
+
   onSearchTermChange(term: string): Promise<void> {
     this.count++
     return Promise.resolve()

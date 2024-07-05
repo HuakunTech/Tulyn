@@ -4,19 +4,29 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./index.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./ui": {
-      "import": "./ui/index.ts"
+      "import": "./dist/ui/index.js",
+      "require": "./dist/ui/index.cjs",
+      "types": "./dist/ui/index.d.ts"
     },
     "./ui/iframe": {
-      "import": "./ui/iframe.ts"
+      "import": "./dist/ui/iframe.js",
+      "require": "./dist/ui/iframe.cjs",
+      "types": "./dist/ui/iframe.d.ts"
     },
     "./ui/worker": {
-      "import": "./ui/worker.ts"
+      "import": "./dist/ui/worker.js",
+      "require": "./dist/ui/worker.cjs",
+      "types": "./dist/ui/worker.d.ts"
     },
     "./models": {
-      "import": "./models/index.ts"
+      "import": "./dist/models/index.js",
+      "require": "./dist/models/index.cjs",
+      "types": "./dist/models/index.d.ts"
     }
   },
   "scripts": {
@@ -54,8 +64,7 @@
     "rollup-plugin-typescript2": "^0.36.0",
     "tauri-plugin-jarvis-api": "workspace:*",
     "tauri-plugin-network-api": "workspace:*",
-    "tauri-plugin-system-info-api": "workspace:*",
-    "zod": "^3.23.8"
+    "tauri-plugin-system-info-api": "workspace:*"
   },
   "files": [
     "dist"

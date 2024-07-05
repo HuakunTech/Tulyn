@@ -14,8 +14,11 @@
     "baseUrl": ".",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": false,
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
-  "include": ["src", "ui", "modles"],
+  "include": ["."],
   "exclude": ["dist", "node_modules"]
 }

@@ -1,8 +1,8 @@
 import { readFileSync } from "fs"
 import { join } from "path"
 import { cwd } from "process"
-// import typescript from "@rollup/plugin-typescript";
-import typescript from "rollup-plugin-typescript2"
+import typescript from "@rollup/plugin-typescript";
+// import typescript from "rollup-plugin-typescript2"
 
 const pkg = JSON.parse(readFileSync(join(cwd(), "package.json"), "utf8"))
 
@@ -13,9 +13,11 @@ const config = {
     // "src/native.ts",
     // "src/worker.ts",
     // "src/iframe.ts",
-    "index.ts",
-    "ui/index.ts",
-    "models/index.ts"
+    "src/index.ts",
+    "src/ui/index.ts",
+    "src/ui/iframe.ts",
+    "src/ui/worker.ts",
+    "src/models/index.ts"
   ],
   output: [
     {

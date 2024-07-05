@@ -1,0 +1,23 @@
+{
+  "name": "hacker-news",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "build": "bun build index.ts --outdir dist",
+    "build:rollup": "rollup -c"
+  },
+  "dependencies": {
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "jarvis-api": "workspace:*",
+    "rollup": "^4.18.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/bun": "latest",
+    "rollup-plugin-web-worker-loader": "^1.6.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

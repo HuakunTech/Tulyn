@@ -1,5 +1,3 @@
-import type { TListItem } from "tauri-plugin-jarvis-api/models"
-
 export {
   clipboard,
   dialog,
