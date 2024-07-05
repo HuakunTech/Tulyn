@@ -5,3 +5,4 @@ packages:
   - "vendors/tauri-plugin-clipboard"
   - "vendors/tauri-plugin-network"
   - "vendors/tauri-plugin-system-info"
+  - "vendors/tauri-api-adapter/packages/tauri-api-adapter"

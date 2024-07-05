@@ -1,81 +1,18 @@
-import { readFileSync } from "fs";
-import { join } from "path";
-import { cwd } from "process";
+import { readFileSync } from "fs"
+import { join } from "path"
+import { cwd } from "process"
 // import typescript from "@rollup/plugin-typescript";
-import typescript from "rollup-plugin-typescript2";
+import typescript from "rollup-plugin-typescript2"
 
-const pkg = JSON.parse(readFileSync(join(cwd(), "package.json"), "utf8"));
-
-// export default [
-//   {
-//     input: "index.ts",
-//     output: [
-//       {
-//         file: "./dist/index.js",
-//         format: "esm",
-//       },
-//     ],
-//     plugins: [
-//       typescript({
-//         declaration: true,
-//         declarationDir: `./.`,
-//       }),
-//     ],
-//     external: [
-//       /^@tauri-apps\/api/,
-//       ...Object.keys(pkg.dependencies || {}),
-//       ...Object.keys(pkg.peerDependencies || {}),
-//     ],
-//   },
-//   {
-//     input: "ui/index.ts",
-//     output: [
-//       {
-//         file: "./dist/ui.js",
-//         format: "esm",
-//       },
-//     ],
-//     plugins: [
-//       typescript({
-//         declaration: true,
-//         declarationDir: `./.`,
-//       }),
-//     ],
-//     external: [
-//       /^@tauri-apps\/api/,
-//       ...Object.keys(pkg.dependencies || {}),
-//       ...Object.keys(pkg.peerDependencies || {}),
-//     ],
-//   },
-//   {
-//     input: "models/index.ts",
-//     output: [
-//       {
-//         file: "./dist/models.js",
-//         format: "esm",
-//       },
-//     ],
-//     plugins: [
-//       typescript({
-//         declaration: true,
-//         declarationDir: `./.`,
-//       }),
-//     ],
-//     external: [
-//       /^@tauri-apps\/api/,
-//       ...Object.keys(pkg.dependencies || {}),
-//       ...Object.keys(pkg.peerDependencies || {}),
-//     ],
-//   },
-// ];
+const pkg = JSON.parse(readFileSync(join(cwd(), "package.json"), "utf8"))
 
 /** @type {import('rollup').RollupOptions} */
 const config = {
   input: [
-    "src/index.ts",
-    "src/native.ts",
-    "src/worker.ts",
-    "src/iframe.ts",
+    // "src/index.ts",
+    // "src/native.ts",
+    // "src/worker.ts",
+    // "src/iframe.ts",
     "index.ts",
     "ui/index.ts",
     "models/index.ts"
@@ -100,6 +37,6 @@ const config = {
   ],
   treeshake: true,
   plugins: [typescript()]
-};
+}
 
-export default config;
+export default config

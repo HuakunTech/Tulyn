@@ -62,7 +62,6 @@ fn main() {
             setup::window::setup_window(app.handle());
             // #[cfg(all(target_os = "macos", debug_assertions))]
             // app.set_activation_policy(ActivationPolicy::Accessory);
-
             let mut store = StoreBuilder::new("appConfig.bin").build(app.handle().clone());
             let _ = store.load();
 

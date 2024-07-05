@@ -53,6 +53,7 @@
     "@tauri-apps/plugin-upload": "2.0.0-beta.4",
     "rollup": "^4.9.6",
     "rollup-plugin-typescript2": "^0.36.0",
+    "tauri-api-adapter": "workspace:*",
     "tauri-plugin-clipboard-api": "2.1.1",
     "tauri-plugin-jarvis-api": "workspace:*",
     "tauri-plugin-network-api": "workspace:*",
