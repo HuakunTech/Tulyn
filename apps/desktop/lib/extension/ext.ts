@@ -1,8 +1,8 @@
 import { $appConfig } from "@/lib/stores/appConfig"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
+import * as fs from "@tauri-apps/plugin-fs"
 import axios from "axios"
 import { ElMessage, ElNotification } from "element-plus"
-import { fs, log } from "jarvis-api/ui"
 import { atom, type ReadableAtom, type WritableAtom } from "nanostores"
 import {
   isWindowLabelRegistered,

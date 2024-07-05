@@ -19,9 +19,16 @@ import { SystemCommandExtension } from "@/lib/extension/systemCmds"
 import { $appConfig } from "@/lib/stores/appConfig"
 import { $appState, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
+import SampleWorker from "@/lib/workers/sample-worker?worker"
+import { wrap } from "@huakunshen/comlink"
 import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
-import { constructJarvisServerAPIWithPermissions, exposeApiToWindow } from "jarvis-api/ui"
+import {
+  constructJarvisServerAPIWithPermissions,
+  exposeApiToWindow,
+  exposeApiToWorker
+} from "jarvis-api/ui"
+import type { IWorkerExtensionBase } from "jarvis-api/ui/worker"
 import clipboard from "tauri-plugin-clipboard-api"
 
 const appExt = new AppsExtension()
@@ -42,9 +49,15 @@ watch(searchTermInSync, (val) => {
 })
 
 onMounted(async () => {
-  // console.log("expose API to iframe", iframeEle.value);
+  const worker = new SampleWorker()
+  const serverAPI = constructJarvisServerAPIWithPermissions(["clipboard:read-text"])
+  exposeApiToWorker(worker, serverAPI)
+  const workerAPI = wrap<IWorkerExtensionBase>(worker)
+  await workerAPI.load()
+  console.log("default()", await workerAPI.default())
+  // console.log("expose API to iframe", iframeEle.value)
   // const api = constructJarvisServerAPIWithPermissions(["clipboard:read-text", "system:volumn"])
-  // // document.querySelector("")
+  // document.querySelector("")
   // exposeApiToWindow(iframeEle.value.contentWindow, api)
   Promise.all(exts.map((ext) => ext.load()))
 })

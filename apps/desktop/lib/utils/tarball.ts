@@ -1,7 +1,9 @@
 import { downloadDir, join as pathJoin, tempDir } from "@tauri-apps/api/path"
+import * as dialog from "@tauri-apps/plugin-dialog"
+import * as fs from "@tauri-apps/plugin-fs"
 import { download } from "@tauri-apps/plugin-upload"
-import { dialog, fs, path } from "jarvis-api/ui"
 import {
+  decompressTarball,
   getDevExtensionFolder,
   getExtensionFolder,
   loadManifest
@@ -19,9 +21,9 @@ export async function installTarball(tarballPath: string, targetDir: string) {
     return Promise.reject("Extension Folder Not Set")
   }
   // decompress tarball to tempDir
-  const decompressDest = await fs.decompressTarball(
+  const decompressDest = await decompressTarball(
     tarballPath,
-    await path.join(tempDirPath, uuidv4()),
+    await pathJoin(tempDirPath, uuidv4()),
     {
       overwrite: true
     }

@@ -25,6 +25,8 @@
   },
   "packageManager": "pnpm@9.4.0",
   "dependencies": {
+    "@huakunshen/comlink": "^4.4.1",
+    "tauri-api-adapter": "^0.0.8",
     "tauri-plugin-clipboard-api": "^2.1.1",
     "tauri-plugin-shellx-api": "^2.0.7"
   }

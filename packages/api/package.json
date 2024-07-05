@@ -12,6 +12,9 @@
     "./ui/iframe": {
       "import": "./ui/iframe.ts"
     },
+    "./ui/worker": {
+      "import": "./ui/worker.ts"
+    },
     "./models": {
       "import": "./models/index.ts"
     }
@@ -35,7 +38,6 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@huakunshen/comlink": "^4.4.1",
     "@rollup/plugin-typescript": "^11.1.6",
     "@tauri-apps/api": "2.0.0-beta.13",
     "@tauri-apps/plugin-dialog": "2.0.0-beta.3",
@@ -50,7 +52,6 @@
     "@tauri-apps/plugin-upload": "2.0.0-beta.4",
     "rollup": "^4.9.6",
     "rollup-plugin-typescript2": "^0.36.0",
-    "tauri-api-adapter": "workspace:*",
     "tauri-plugin-jarvis-api": "workspace:*",
     "tauri-plugin-network-api": "workspace:*",
     "tauri-plugin-system-info-api": "workspace:*",

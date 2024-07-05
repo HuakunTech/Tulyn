@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { clipboard, system } from "jarvis-api/ui/iframe"
 import { isMain } from "tauri-api-adapter"
 
@@ -18,7 +18,7 @@ onMounted(() => {
       console.error("fail to open trash", err)
     })
 })
-</script>
+</script>-->
 <template>
   <h1>iframe</h1>
-</template>
+</template> 

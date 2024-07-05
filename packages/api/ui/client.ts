@@ -1,3 +1,4 @@
+import { type Remote } from "@huakunshen/comlink"
 import { getWindowApiClient, getWorkerApiClient, isInIframe } from "tauri-api-adapter"
 import { AppInfo } from "tauri-plugin-jarvis-api/models"
 import type { IJarvisFullAPI } from "./server"
@@ -35,4 +36,6 @@ export interface ISystem {
 
 const getWorkerApi = () => getWorkerApiClient<IJarvisFullAPI>()
 const getIframeApi = () => getWindowApiClient<IJarvisFullAPI>(window.parent)
-export const defaultClientAPI = isInIframe() ? getIframeApi() : getWorkerApi()
+export const defaultClientAPI: Remote<IJarvisFullAPI> = isInIframe()
+  ? getIframeApi()
+  : getWorkerApi()

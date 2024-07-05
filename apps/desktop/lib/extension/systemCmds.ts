@@ -1,7 +1,6 @@
+import * as dialog from "@tauri-apps/plugin-dialog"
 import { ElNotification } from "element-plus"
-import { dialog } from "jarvis-api/ui"
 import { atom, type ReadableAtom, type WritableAtom } from "nanostores"
-import { isMain } from "tauri-api-adapter"
 import { getSystemCommands } from "tauri-plugin-jarvis-api/commands"
 import { IconType, ListItemType, TCommand, TListItem } from "tauri-plugin-jarvis-api/models"
 import { type IExtensionBase } from "./base"

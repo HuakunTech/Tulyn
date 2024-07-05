@@ -13,4 +13,4 @@ export {
   updownload,
   fetch
 } from "tauri-api-adapter/iframe"
-export { system } from "./api/system"
+export { comlinkSystem as system } from "./api/system"
