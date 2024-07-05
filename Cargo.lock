@@ -5762,7 +5762,7 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-network"
-version = "2.0.3-beta.0"
+version = "2.0.3-beta.1"
 dependencies = [
  "futures",
  "gethostname",

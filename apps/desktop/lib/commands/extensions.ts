@@ -1,3 +1,8 @@
+/**
+ * This file was originally in tauri-plugin-jarvis, but I couldn't avoid bundling zod from @jarvis/schema in extension code
+ * because the extension API package depends on tauri-plugin-jarvis. So I moved this file to desktop to make sure no dependencies
+ * of extension API package are bundled in extension code.
+ */
 import { ExtPackageJsonExtra } from "@jarvis/schema"
 import { invoke } from "@tauri-apps/api/core"
 import { debug, error } from "@tauri-apps/plugin-log"

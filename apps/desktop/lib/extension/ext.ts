@@ -1,3 +1,4 @@
+import { loadAllExtensions } from "@/lib/commands/extensions"
 import { $appConfig } from "@/lib/stores/appConfig"
 import {
   ExtPackageJsonExtra,
@@ -9,12 +10,9 @@ import {
 } from "@jarvis/schema"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import * as fs from "@tauri-apps/plugin-fs"
-import axios from "axios"
-import { ElMessage, ElNotification } from "element-plus"
 import { atom, type ReadableAtom, type WritableAtom } from "nanostores"
 import {
   isWindowLabelRegistered,
-  loadAllExtensions,
   pathExists,
   registerExtensionWindow,
   unregisterExtensionWindow

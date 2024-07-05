@@ -1,3 +1,4 @@
+import { loadManifest } from "@/lib/commands/extensions"
 import { downloadDir, join as pathJoin, tempDir } from "@tauri-apps/api/path"
 import * as dialog from "@tauri-apps/plugin-dialog"
 import * as fs from "@tauri-apps/plugin-fs"
@@ -5,8 +6,7 @@ import { download } from "@tauri-apps/plugin-upload"
 import {
   decompressTarball,
   getDevExtensionFolder,
-  getExtensionFolder,
-  loadManifest
+  getExtensionFolder
 } from "tauri-plugin-jarvis-api/commands"
 import { v4 as uuidv4 } from "uuid"
 import { ZodError } from "zod"
