@@ -1,7 +1,7 @@
-import { expect, test } from "bun:test"
 import fs from "fs"
-import { ExtPackageJson } from "../manifest"
 import { join } from "path"
+import { expect, test } from "bun:test"
+import { ExtPackageJson } from "../manifest"
 
 test("Load extension manifest in this repo", () => {
   const extensionsDir = join(__dirname, "../../../../../vendors/extensions/extensions")

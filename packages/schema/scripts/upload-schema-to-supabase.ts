@@ -1,9 +1,8 @@
-import { z } from "zod"
-import { createClient } from "@supabase/supabase-js"
 import { type Database } from "@jarvis/supabase"
-
-import { zodToJsonSchema } from "zod-to-json-schema"
+import { createClient } from "@supabase/supabase-js"
 import { ExtPackageJson } from "jarvis-api/models"
+import { z } from "zod"
+import { zodToJsonSchema } from "zod-to-json-schema"
 
 const supabase = createClient<Database>(
   z.string().parse(process.env.SUPABASE_URL),

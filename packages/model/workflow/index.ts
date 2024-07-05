@@ -1,9 +1,9 @@
 import { z } from "zod"
+import { OpenFileName, OpenFileNode } from "./actions/open-file"
 import { uuid } from "./common"
 import { FileFilterName, FileFilterNode } from "./inputs/file-filter"
-import { OpenFileNode, OpenFileName } from "./actions/open-file"
-import { ScriptFilterName, ScriptFilterNode } from "./inputs/script-filter"
 import { KeywordTriggerNode } from "./inputs/keyword-trigger"
+import { ScriptFilterName, ScriptFilterNode } from "./inputs/script-filter"
 
 export const NodeType = z.enum([FileFilterName.value, OpenFileName.value, ScriptFilterName.value])
 export const InputsNodes = ScriptFilterNode.or(FileFilterNode).or(KeywordTriggerNode)

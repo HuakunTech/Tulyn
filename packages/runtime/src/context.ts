@@ -1,9 +1,9 @@
 import {
+  BaseJarvisExtension,
+  TListItem,
   type IAppsAPI,
   type IClipboardAPI,
-  type IJarvisAPIContext,
-  BaseJarvisExtension,
-  TListItem
+  type IJarvisAPIContext
 } from "jarvis-api"
 
 export class ClipboardAPI implements IClipboardAPI {

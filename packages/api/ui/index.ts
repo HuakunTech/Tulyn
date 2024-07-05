@@ -21,11 +21,11 @@
 //   appIsDev
 // } from "tauri-plugin-jarvis-api/commands"
 
+export { constructJarvisServerAPIWithPermissions } from "./server"
 export {
   clipboard,
   dialog,
   event,
-  fs,
   network,
   notification,
   os,
@@ -34,5 +34,7 @@ export {
   path,
   log,
   updownload,
-  fetch
-} from "tauri-api-adapter/worker"
+  fetch,
+  exposeApiToWindow,
+  exposeApiToWorker
+} from "tauri-api-adapter"

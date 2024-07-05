@@ -1,6 +1,6 @@
-import * as _windowApis from "@tauri-apps/api/window"
-import * as _webviewWindowApis from "@tauri-apps/api/webviewWindow"
 import * as _webviewApis from "@tauri-apps/api/webview"
+import * as _webviewWindowApis from "@tauri-apps/api/webviewWindow"
+import * as _windowApis from "@tauri-apps/api/window"
 
 export { getCurrent, getAll, currentMonitor } from "@tauri-apps/api/window"
 export { WebviewWindow } from "@tauri-apps/api/webviewWindow"

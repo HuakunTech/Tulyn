@@ -7,6 +7,13 @@ settings:
 importers:
 
   .:
+    dependencies:
+      tauri-plugin-clipboard-api:
+        specifier: ^2.1.1
+        version: 2.1.1
+      tauri-plugin-shellx-api:
+        specifier: ^2.0.7
+        version: 2.0.7
     devDependencies:
       '@commitlint/cli':
         specifier: ^19.3.0
@@ -143,6 +150,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.3)
+      tauri-api-adapter:
+        specifier: workspace:*
+        version: link:../../vendors/tauri-api-adapter/packages/tauri-api-adapter
       tauri-plugin-clipboard-api:
         specifier: 0.7.0-beta.0
         version: 0.7.0-beta.0
@@ -152,9 +162,6 @@ importers:
       tauri-plugin-network-api:
         specifier: workspace:*
         version: link:../../vendors/tauri-plugin-network
-      tauri-plugin-shellx-api:
-        specifier: ^2.0.7
-        version: 2.0.7
       tauri-plugin-system-info-api:
         specifier: workspace:*
         version: link:../../vendors/tauri-plugin-system-info
@@ -328,18 +335,12 @@ importers:
       tauri-api-adapter:
         specifier: workspace:*
         version: link:../../vendors/tauri-api-adapter/packages/tauri-api-adapter
-      tauri-plugin-clipboard-api:
-        specifier: 2.1.1
-        version: 2.1.1
       tauri-plugin-jarvis-api:
         specifier: workspace:*
         version: link:../tauri-plugin-jarvis
       tauri-plugin-network-api:
         specifier: workspace:*
         version: link:../../vendors/tauri-plugin-network
-      tauri-plugin-shellx-api:
-        specifier: ^2.0.7
-        version: 2.0.7
       tauri-plugin-system-info-api:
         specifier: workspace:*
         version: link:../../vendors/tauri-plugin-system-info
@@ -537,6 +538,9 @@ importers:
       '@tauri-apps/plugin-http':
         specifier: 2.0.0-beta.6
         version: 2.0.0-beta.6
+      '@tauri-apps/plugin-log':
+        specifier: 2.0.0-beta.7
+        version: 2.0.0-beta.7
       '@tauri-apps/plugin-notification':
         specifier: 2.0.0-beta.5
         version: 2.0.0-beta.5
@@ -546,6 +550,9 @@ importers:
       '@tauri-apps/plugin-shell':
         specifier: 2.0.0-beta.6
         version: 2.0.0-beta.6
+      '@tauri-apps/plugin-upload':
+        specifier: 2.0.0-beta.7
+        version: 2.0.0-beta.7
       tauri-plugin-clipboard-api:
         specifier: ^2.0.2
         version: 2.1.1
@@ -3417,6 +3424,10 @@ packages:
     resolution: {integrity: sha512-Np1opKANzRMF3lgJ9gDquBCB9SxlE2lRmNpVx1+L6RyzAmigkuh0ZulT5jMnDA3JLsuSDU135r/s4t/Pmx4atg==}
     engines: {node: '>= 18', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
 
+  '@tauri-apps/api@2.0.0-beta.14':
+    resolution: {integrity: sha512-YLYgHqdwWswr4Y70+hRzaLD6kLIUgHhE3shLXNquPiTaQ9+cX3Q2dB0AFfqsua6NXYFNe7LfkmMzaqEzqv3yQg==}
+    engines: {node: '>= 18.18', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
+
   '@tauri-apps/cli-darwin-arm64@2.0.0-beta.17':
     resolution: {integrity: sha512-N69Udn+Kw7QqhOMOmlmuhG/0WPz7g5LNOGRAvDEaBJLUneu2o3iUAC1HIMDF/MffTiJClcCPmDtbcSkr6glf9w==}
     engines: {node: '>= 10'}
@@ -3506,6 +3517,9 @@ packages:
   '@tauri-apps/plugin-log@2.0.0-beta.4':
     resolution: {integrity: sha512-QE5oZO6S3LU+VkhhZzvTIjEVC9J1I8R70DqYEC2UUF4zSEblOM0rxkGXfD4oUIG5OW6/xoks3zmFL18vWbsK3w==}
 
+  '@tauri-apps/plugin-log@2.0.0-beta.7':
+    resolution: {integrity: sha512-rdwvmIWv0alRGvG5mxUvSCeT4ovVp5zRaUhtd2372mPPQgYKpHk2nxlRFiGtpcP/MCv0cwXh+MDsceVJpQLtZQ==}
+
   '@tauri-apps/plugin-notification@2.0.0-beta.3':
     resolution: {integrity: sha512-OCwvX10JrOgJh50HXIGD9EHgGUMtdYAZ+Q5peGCSS3/aA8XWL1GOENtC7CNb0P+W7HjRAj2N8jtEApgV0kD6Gg==}
 
@@ -3532,6 +3546,9 @@ packages:
 
   '@tauri-apps/plugin-upload@2.0.0-beta.4':
     resolution: {integrity: sha512-nToNaeA7NqDteIOBkjVeqqVDVniWjjGxpIIux3/PdFZwUivJGL50WXlu8n5ad/0B80t+dDjMdCYfF3tdb5j00g==}
+
+  '@tauri-apps/plugin-upload@2.0.0-beta.7':
+    resolution: {integrity: sha512-9rRO2J1qr+PlyecnJZLBIp5e41KKuJpoyb+RgJblD8HdF0+Ha4h/lHp94brK1Pr0CB6YuC5j7ozr2GK3Kc5Y4g==}
 
   '@trysound/sax@0.2.0':
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
@@ -13268,6 +13285,8 @@ snapshots:
 
   '@tauri-apps/api@2.0.0-beta.13': {}
 
+  '@tauri-apps/api@2.0.0-beta.14': {}
+
   '@tauri-apps/cli-darwin-arm64@2.0.0-beta.17':
     optional: true
 
@@ -13343,6 +13362,10 @@ snapshots:
     dependencies:
       '@tauri-apps/api': 2.0.0-beta.11
 
+  '@tauri-apps/plugin-log@2.0.0-beta.7':
+    dependencies:
+      '@tauri-apps/api': 2.0.0-beta.14
+
   '@tauri-apps/plugin-notification@2.0.0-beta.3':
     dependencies:
       '@tauri-apps/api': 2.0.0-beta.11
@@ -13378,6 +13401,10 @@ snapshots:
   '@tauri-apps/plugin-upload@2.0.0-beta.4':
     dependencies:
       '@tauri-apps/api': 2.0.0-beta.11
+
+  '@tauri-apps/plugin-upload@2.0.0-beta.7':
+    dependencies:
+      '@tauri-apps/api': 2.0.0-beta.14
 
   '@trysound/sax@0.2.0': {}
 

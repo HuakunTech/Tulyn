@@ -4,19 +4,13 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": "./index.ts"
     },
     "./ui": {
-      "types": "./dist/ui/index.d.ts",
-      "import": "./dist/ui/index.js",
-      "require": "./dist/ui/index.cjs"
+      "import": "./ui/index.ts"
     },
     "./models": {
-      "types": "./dist/models/index.d.ts",
-      "import": "./dist/models/index.js",
-      "require": "./dist/models/index.cjs"
+      "import": "./models/index.ts"
     }
   },
   "scripts": {
@@ -54,10 +48,8 @@
     "rollup": "^4.9.6",
     "rollup-plugin-typescript2": "^0.36.0",
     "tauri-api-adapter": "workspace:*",
-    "tauri-plugin-clipboard-api": "2.1.1",
     "tauri-plugin-jarvis-api": "workspace:*",
     "tauri-plugin-network-api": "workspace:*",
-    "tauri-plugin-shellx-api": "^2.0.7",
     "tauri-plugin-system-info-api": "workspace:*",
     "zod": "^3.23.8"
   },

@@ -1,12 +1,10 @@
-
-### Permission Table 
+### Permission Table
 
 <table>
 <tr>
 <th>Identifier</th>
 <th>Description</th>
 </tr>
-
 
 <tr>
 <td>

@@ -1,6 +1,6 @@
-import { AllExtensionsDocument, type AllExtensionsQuery } from "./index"
-import { ApolloClient, InMemoryCache, HttpLink, type ApolloQueryResult } from "@apollo/client"
+import { ApolloClient, HttpLink, InMemoryCache, type ApolloQueryResult } from "@apollo/client"
 import { z } from "zod"
+import { AllExtensionsDocument, type AllExtensionsQuery } from "./index"
 
 const endpoint = z.string().parse(process.env.SUPABASE_GRAPHQL_ENDPOINT)
 const apiKey = z.string().parse(process.env.SUPABASE_ANON_KEY)

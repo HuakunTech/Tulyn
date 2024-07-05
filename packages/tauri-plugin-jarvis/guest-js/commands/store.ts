@@ -1,5 +1,5 @@
-import { listen, type UnlistenFn } from "@tauri-apps/api/event"
 import { invoke } from "@tauri-apps/api/core"
+import { listen, type UnlistenFn } from "@tauri-apps/api/event"
 
 const pluginPrefix = `plugin:jarvis|`
 const storageCmdPrefix = `ext_store_wrapper_`

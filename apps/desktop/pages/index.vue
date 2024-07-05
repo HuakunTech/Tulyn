@@ -19,9 +19,9 @@ import { SystemCommandExtension } from "@/lib/extension/systemCmds"
 import { $appConfig } from "@/lib/stores/appConfig"
 import { $appState, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
-import sampleWorker from "@/lib/workers/sample-worker?worker"
 import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
+import { constructJarvisServerAPIWithPermissions, exposeApiToWindow } from "jarvis-api/ui"
 
 const appExt = new AppsExtension()
 const sysCmdExt = new SystemCommandExtension()
@@ -30,7 +30,7 @@ const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath
 const storeExt = new Extension("Extensions", await getExtensionsFolder())
 const remoteExt = new RemoteExtension()
 const exts: IExtensionBase[] = [devExt, remoteExt, storeExt, builtinCmdExt, sysCmdExt, appExt]
-
+const iframeEle = ref()
 const searchTermInSync = ref("")
 let updateSearchTermTimeout: ReturnType<typeof setTimeout>
 watch(searchTermInSync, (val) => {
@@ -41,7 +41,9 @@ watch(searchTermInSync, (val) => {
 })
 
 onMounted(async () => {
-  const w = new sampleWorker()
+  // const api = constructJarvisServerAPIWithPermissions(["clipboard:read-text"])
+  // document.querySelector("")
+  // exposeApiToWindow(iframeEle.value, api)
   Promise.all(exts.map((ext) => ext.load()))
 })
 
@@ -71,13 +73,14 @@ onKeyStroke("/", (e) => {
 </script>
 <template>
   <div class="h-full">
-    <CmdPaletteCommand class="" v-model:searchTerm="searchTermInSync" :identity-filter="true">
+    <!-- <iframe ref="iframeEle" src="/iframe" frameborder="0" class="border border-red-500"></iframe> -->
+    <!-- <CmdPaletteCommand class="" v-model:searchTerm="searchTermInSync" :identity-filter="true">
       <CommandInput class="h-12 text-md" placeholder="Search for apps or commands..." />
       <CommandList class="h-full">
         <CommandEmpty>No results found.</CommandEmpty>
         <MainSearchListGroup v-for="ext in exts" :ext="ext" />
       </CommandList>
       <CmdPaletteFooter />
-    </CmdPaletteCommand>
+    </CmdPaletteCommand> -->
   </div>
 </template>
