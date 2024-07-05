@@ -1,6 +1,7 @@
 import { ElNotification } from "element-plus"
 import { dialog } from "jarvis-api/ui"
 import { atom, type ReadableAtom, type WritableAtom } from "nanostores"
+import { isMain } from "tauri-api-adapter"
 import { getSystemCommands } from "tauri-plugin-jarvis-api/commands"
 import { IconType, ListItemType, TCommand, TListItem } from "tauri-plugin-jarvis-api/models"
 import { type IExtensionBase } from "./base"
@@ -38,11 +39,12 @@ export class SystemCommandExtension implements IExtensionBase {
   }
   default(): TListItem[] {
     const items = this.systemCommandListItems.slice(0, 5)
-    console.log("load sys cmds", items)
     // ElNotification(`Loaded ${items.length} system commands`);
     return this.systemCommandListItems
   }
   async onSelect(item: TListItem): Promise<void> {
+    console.log(item)
+
     const cmd = this.systemCommands.find((c) => c.value === item.value) as TCommand
     let confirmed = true
     if (cmd.confirmRequired) {

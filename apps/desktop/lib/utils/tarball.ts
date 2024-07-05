@@ -22,7 +22,9 @@ export async function installTarball(tarballPath: string, targetDir: string) {
   const decompressDest = await fs.decompressTarball(
     tarballPath,
     await path.join(tempDirPath, uuidv4()),
-    { overwrite: true }
+    {
+      overwrite: true
+    }
   )
   return loadManifest(decompressDest)
     .then(async (manifest) => {

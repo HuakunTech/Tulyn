@@ -51,7 +51,17 @@ impl CommonSystemCmds for SystemCmds {
     }
 
     fn toggle_mute() -> anyhow::Result<()> {
-        run_apple_script("set volume output muted not (output muted of (get volume settings))")?;
+        run_apple_script(
+            r#"
+            -- set volume output muted not (output muted of (get volume settings))
+            set curVolume to get volume settings
+            if output muted of curVolume is false then
+                set volume with output muted
+            else
+                set volume without output muted
+            end if
+        "#,
+        )?;
         Ok(())
     }
 
