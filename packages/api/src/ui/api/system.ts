@@ -1,4 +1,4 @@
-import { isMain } from "tauri-api-adapter"
+import { getDefaultClientAPI, isMain } from "tauri-api-adapter"
 import {
   ejectAllDisks,
   emptyTrash,
@@ -29,7 +29,10 @@ import {
   turnVolumeUp,
   unmute
 } from "tauri-plugin-jarvis-api/commands"
-import { defaultClientAPI, type ISystem } from "../client"
+import { type ISystem } from "../client"
+import type { ISystemServer } from "../server"
+
+const defaultClientAPI = getDefaultClientAPI<ISystemServer>()
 
 export const comlinkSystem: ISystem = {
   openTrash: defaultClientAPI.systemOpenTrash,

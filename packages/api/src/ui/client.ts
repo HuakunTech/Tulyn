@@ -34,8 +34,8 @@ export interface ISystem {
   getSelectedFilesInFileExplorer(): Promise<string[]>
 }
 
-const getWorkerApi = () => getWorkerApiClient<IJarvisFullAPI>()
-const getIframeApi = () => getWindowApiClient<IJarvisFullAPI>(window.parent)
-export const defaultClientAPI: Remote<IJarvisFullAPI> = isInIframe()
-  ? getIframeApi()
-  : getWorkerApi()
+// const getWorkerApi = () => getWorkerApiClient<IJarvisFullAPI>()
+// const getIframeApi = () => getWindowApiClient<IJarvisFullAPI>(window.parent)
+// export const defaultClientAPI: Remote<IJarvisFullAPI> = isInIframe()
+//   ? getIframeApi()
+//   : getWorkerApi()
