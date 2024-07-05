@@ -4,3 +4,4 @@ export type SystemPermission =
   | "system:disk"
   | "system:apps"
   | "system:fs"
+  | "system:ui"

@@ -39,6 +39,11 @@ const defaultState: State = {
 export const $appConfig = map<State>(defaultState)
 
 async function initAppConfig() {
+  console.log("window.__TAURI_INTERNALS__", window.__TAURI_INTERNALS__)
+  setTimeout(() => {
+    console.log("window.__TAURI_INTERNALS__", window.__TAURI_INTERNALS__)
+  }, 1000)
+
   const loadedConfig = await persistAppConfig.get("config")
 
   const parsedConfig = appConfigSchema.safeParse(loadedConfig)
@@ -70,7 +75,7 @@ async function initAppConfig() {
     persistAppConfig.save()
   })
 }
-initAppConfig()
+// initAppConfig()
 export function setTheme(theme: string) {
   $appConfig.setKey("theme", theme)
 }

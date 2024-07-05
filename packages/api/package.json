@@ -9,6 +9,9 @@
     "./ui": {
       "import": "./ui/index.ts"
     },
+    "./ui/iframe": {
+      "import": "./ui/iframe.ts"
+    },
     "./models": {
       "import": "./models/index.ts"
     }

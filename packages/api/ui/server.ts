@@ -92,43 +92,76 @@ export type IJarvisFullAPI = IFullAPI & ISystemServer
 export function constructSystemApi(permissions: SystemPermission[]): ISystemServer {
   return {
     systemOpenTrash: checkPermission<SystemPermission>([], permissions)(openTrash),
-    systemEmptyTrash: checkPermission<SystemPermission>([], permissions)(emptyTrash),
-    systemShutdown: checkPermission<SystemPermission>([], permissions)(shutdown),
-    systemReboot: checkPermission<SystemPermission>([], permissions)(reboot),
-    systemSleep: checkPermission<SystemPermission>([], permissions)(sleep),
+    systemEmptyTrash: checkPermission<SystemPermission>(["system:fs"], permissions)(emptyTrash),
+    systemShutdown: checkPermission<SystemPermission>(["system:boot"], permissions)(shutdown),
+    systemReboot: checkPermission<SystemPermission>(["system:boot"], permissions)(reboot),
+    systemSleep: checkPermission<SystemPermission>(["system:boot"], permissions)(sleep),
     systemToggleSystemAppearance: checkPermission<SystemPermission>(
-      [],
+      ["system:ui"],
       permissions
     )(toggleSystemAppearance),
-    systemShowDesktop: checkPermission<SystemPermission>([], permissions)(showDesktop),
-    systemQuitAllApps: checkPermission<SystemPermission>([], permissions)(quitAllApps),
-    systemSleepDisplays: checkPermission<SystemPermission>([], permissions)(sleepDisplays),
-    systemSetVolume: checkPermission<SystemPermission>([], permissions)(setVolume),
-    systemSetVolumeTo0: checkPermission<SystemPermission>([], permissions)(setVolumeTo0),
-    systemSetVolumeTo25: checkPermission<SystemPermission>([], permissions)(setVolumeTo25),
-    systemSetVolumeTo50: checkPermission<SystemPermission>([], permissions)(setVolumeTo50),
-    systemSetVolumeTo75: checkPermission<SystemPermission>([], permissions)(setVolumeTo75),
-    systemSetVolumeTo100: checkPermission<SystemPermission>([], permissions)(setVolumeTo100),
-    systemTurnVolumeUp: checkPermission<SystemPermission>([], permissions)(turnVolumeUp),
-    systemTurnVolumeDown: checkPermission<SystemPermission>([], permissions)(turnVolumeDown),
+    systemShowDesktop: checkPermission<SystemPermission>(["system:ui"], permissions)(showDesktop),
+    systemQuitAllApps: checkPermission<SystemPermission>(["system:apps"], permissions)(quitAllApps),
+    systemSleepDisplays: checkPermission<SystemPermission>(
+      ["system:boot"],
+      permissions
+    )(sleepDisplays),
+    systemSetVolume: checkPermission<SystemPermission>(["system:volumn"], permissions)(setVolume),
+    systemSetVolumeTo0: checkPermission<SystemPermission>(
+      ["system:volumn"],
+      permissions
+    )(setVolumeTo0),
+    systemSetVolumeTo25: checkPermission<SystemPermission>(
+      ["system:volumn"],
+      permissions
+    )(setVolumeTo25),
+    systemSetVolumeTo50: checkPermission<SystemPermission>(
+      ["system:volumn"],
+      permissions
+    )(setVolumeTo50),
+    systemSetVolumeTo75: checkPermission<SystemPermission>(
+      ["system:volumn"],
+      permissions
+    )(setVolumeTo75),
+    systemSetVolumeTo100: checkPermission<SystemPermission>(
+      ["system:volumn"],
+      permissions
+    )(setVolumeTo100),
+    systemTurnVolumeUp: checkPermission<SystemPermission>(
+      ["system:volumn"],
+      permissions
+    )(turnVolumeUp),
+    systemTurnVolumeDown: checkPermission<SystemPermission>(
+      ["system:volumn"],
+      permissions
+    )(turnVolumeDown),
     systemToggleStageManager: checkPermission<SystemPermission>(
-      [],
+      ["system:ui"],
       permissions
     )(toggleStageManager),
     systemToggleBluetooth: checkPermission<SystemPermission>([], permissions)(toggleBluetooth),
-    systemToggleHiddenFiles: checkPermission<SystemPermission>([], permissions)(toggleHiddenFiles),
-    systemEjectAllDisks: checkPermission<SystemPermission>([], permissions)(ejectAllDisks),
-    systemLogoutUser: checkPermission<SystemPermission>([], permissions)(logoutUser),
-    systemToggleMute: checkPermission<SystemPermission>([], permissions)(toggleMute),
-    systemMute: checkPermission<SystemPermission>([], permissions)(mute),
-    systemUnmute: checkPermission<SystemPermission>([], permissions)(unmute),
-    systemGetFrontmostApp: checkPermission<SystemPermission>([], permissions)(getFrontmostApp),
+    systemToggleHiddenFiles: checkPermission<SystemPermission>(
+      ["system:ui"],
+      permissions
+    )(toggleHiddenFiles),
+    systemEjectAllDisks: checkPermission<SystemPermission>(
+      ["system:disk"],
+      permissions
+    )(ejectAllDisks),
+    systemLogoutUser: checkPermission<SystemPermission>(["system:boot"], permissions)(logoutUser),
+    systemToggleMute: checkPermission<SystemPermission>(["system:volumn"], permissions)(toggleMute),
+    systemMute: checkPermission<SystemPermission>(["system:volumn"], permissions)(mute),
+    systemUnmute: checkPermission<SystemPermission>(["system:volumn"], permissions)(unmute),
+    systemGetFrontmostApp: checkPermission<SystemPermission>(
+      ["system:apps"],
+      permissions
+    )(getFrontmostApp),
     systemHideAllAppsExceptFrontmost: checkPermission<SystemPermission>(
-      [],
+      ["system:apps"],
       permissions
     )(hideAllAppsExceptFrontmost),
     systemGetSelectedFilesInFileExplorer: checkPermission<SystemPermission>(
-      [],
+      ["system:fs"],
       permissions
     )(getSelectedFilesInFileExplorer)
   }

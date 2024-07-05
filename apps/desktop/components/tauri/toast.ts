@@ -1,7 +1,7 @@
 import { $toasts, enqueueToast } from "@/lib/stores/toast"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { currentMonitor } from "@tauri-apps/api/window"
-import { window } from "jarvis-api/ui"
+// import { window } from "jarvis-api/ui"
 import { z } from "zod"
 
 export const TauriToast = z.object({
@@ -13,26 +13,26 @@ export const TauriToast = z.object({
 })
 export type TauriToast = z.infer<typeof TauriToast>
 
-export async function tauriToast(toastPayload: TauriToast) {
-  const mon = await currentMonitor()
-  if (!mon?.size) {
-    return
-  }
+// export async function tauriToast(toastPayload: TauriToast) {
+//   const mon = await currentMonitor()
+//   if (!mon?.size) {
+//     return
+//   }
 
-  enqueueToast(toastPayload)
-  console.log($toasts.get())
+//   enqueueToast(toastPayload)
+//   console.log($toasts.get())
 
-  if (window.windowLabelExists("toast")) {
-    return
-  }
-  const { width, height } = mon?.size
-  new WebviewWindow("toast", {
-    url: "/toast",
-    decorations: true,
-    transparent: true,
-    width: 300,
-    x: width / 2 - 150,
-    y: height - 100,
-    alwaysOnTop: true
-  })
-}
+//   if (window.windowLabelExists("toast")) {
+//     return
+//   }
+//   const { width, height } = mon?.size
+//   new WebviewWindow("toast", {
+//     url: "/toast",
+//     decorations: true,
+//     transparent: true,
+//     width: 300,
+//     x: width / 2 - 150,
+//     y: height - 100,
+//     alwaysOnTop: true
+//   })
+// }

@@ -27,6 +27,7 @@ export {
   dialog,
   event,
   network,
+  fs,
   notification,
   os,
   shell,

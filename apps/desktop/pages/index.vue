@@ -22,6 +22,7 @@ import { getActiveElementNodeName } from "@/lib/utils/dom"
 import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
 import { constructJarvisServerAPIWithPermissions, exposeApiToWindow } from "jarvis-api/ui"
+import clipboard from "tauri-plugin-clipboard-api"
 
 const appExt = new AppsExtension()
 const sysCmdExt = new SystemCommandExtension()
@@ -41,9 +42,10 @@ watch(searchTermInSync, (val) => {
 })
 
 onMounted(async () => {
-  // const api = constructJarvisServerAPIWithPermissions(["clipboard:read-text"])
-  // document.querySelector("")
-  // exposeApiToWindow(iframeEle.value, api)
+  // console.log("expose API to iframe", iframeEle.value);
+  // const api = constructJarvisServerAPIWithPermissions(["clipboard:read-text", "system:volumn"])
+  // // document.querySelector("")
+  // exposeApiToWindow(iframeEle.value.contentWindow, api)
   Promise.all(exts.map((ext) => ext.load()))
 })
 
@@ -73,14 +75,14 @@ onKeyStroke("/", (e) => {
 </script>
 <template>
   <div class="h-full">
-    <!-- <iframe ref="iframeEle" src="/iframe" frameborder="0" class="border border-red-500"></iframe> -->
-    <!-- <CmdPaletteCommand class="" v-model:searchTerm="searchTermInSync" :identity-filter="true">
+    <!-- <iframe ref="iframeEle" src="/iframe" frameborder="0"></iframe> -->
+    <CmdPaletteCommand class="" v-model:searchTerm="searchTermInSync" :identity-filter="true">
       <CommandInput class="h-12 text-md" placeholder="Search for apps or commands..." />
       <CommandList class="h-full">
         <CommandEmpty>No results found.</CommandEmpty>
         <MainSearchListGroup v-for="ext in exts" :ext="ext" />
       </CommandList>
       <CmdPaletteFooter />
-    </CmdPaletteCommand> -->
+    </CmdPaletteCommand>
   </div>
 </template>
