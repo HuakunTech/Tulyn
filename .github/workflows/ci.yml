@@ -33,13 +33,6 @@ jobs:
           bun scripts/init-env.ts
       - name: Install Dependencies
         run: pnpm i
-      - name: Build radix-vue
-        working-directory: vendors/radix-vue
-        env:
-          COREPACK_ENABLE_STRICT: 0
-        run: |
-          pnpm i
-          pnpm build
       - name: Build
         env:
           SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}

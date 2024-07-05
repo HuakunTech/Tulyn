@@ -89,7 +89,16 @@ onKeyStroke("/", (e) => {
 <template>
   <div class="h-full">
     <!-- <iframe ref="iframeEle" src="/iframe" frameborder="0"></iframe> -->
-    <CmdPaletteCommand class="" v-model:searchTerm="searchTermInSync" :identity-filter="true">
+    <CmdPaletteCommand
+      class=""
+      v-model:searchTerm="searchTermInSync"
+      :identity-filter="true"
+      @update:selected-value="
+        (e) => {
+          console.log(e)
+        }
+      "
+    >
       <CommandInput class="h-12 text-md" placeholder="Search for apps or commands..." />
       <CommandList class="h-full">
         <CommandEmpty>No results found.</CommandEmpty>

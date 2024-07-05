@@ -87,13 +87,6 @@ jobs:
           SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}
         run: |
           bun scripts/init-env.ts
-      - name: Build radix-vue
-        working-directory: vendors/radix-vue
-        env:
-          COREPACK_ENABLE_STRICT: 0
-        run: |
-          pnpm i
-          pnpm build
       - name: Install frontend dependencies
         # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
         run: |
