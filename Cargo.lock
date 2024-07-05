@@ -5884,7 +5884,7 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-system-info"
-version = "2.0.1"
+version = "2.0.2"
 dependencies = [
  "serde",
  "starship-battery",

@@ -27,7 +27,7 @@
   "dependencies": {
     "@huakunshen/comlink": "^4.4.1",
     "tauri-api-adapter": "workspace:*",
-    "tauri-plugin-clipboard-api": "^2.1.1",
+    "tauri-plugin-clipboard-api": "^2.1.2",
     "tauri-plugin-shellx-api": "^2.0.7"
   }
 }

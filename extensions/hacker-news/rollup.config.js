@@ -1,3 +1,4 @@
+import commonjs from "@rollup/plugin-commonjs"
 import nodeResolve from "@rollup/plugin-node-resolve"
 import terser from "@rollup/plugin-terser"
 import typescript from "@rollup/plugin-typescript"
@@ -20,16 +21,17 @@ const config = {
       format: "esm",
       entryFileNames: "[name].js",
       chunkFileNames: "[name]-[hash].js",
-      preserveModules: true,
+      preserveModules: true
     }
   ],
   // treeshake: true,
   treeshake: true,
   plugins: [
-    typescript(),
+    // typescript(),
+    nodeResolve(),
+    commonjs()
     // terser(),
-    webWorkerLoader(),
-    // nodeResolve()
+    // webWorkerLoader(),
   ]
 }
 

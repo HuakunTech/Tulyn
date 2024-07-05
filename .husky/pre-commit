@@ -1,2 +1,3 @@
 cargo fmt --all -- --check
-npm run format
+pnpx prettier --check "./packages/**/*.{ts,tsx,md,vue,json,yaml,yml}"
+pnpx prettier --check "./apps/**/*.{ts,tsx,md,vue,json,yaml,yml}"
