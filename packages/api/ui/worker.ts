@@ -17,13 +17,9 @@ export {
 } from "tauri-api-adapter/worker"
 export { comlinkSystem as system } from "./api/system"
 
-export abstract class IWorkerExtensionBase {
+export interface IWorkerExtensionBase {
   name: string
-  constructor(name: string) {
-    this.name = name
-  }
-
-  abstract load(): Promise<void>
-
-  abstract default(): Promise<string>
+  load(): Promise<void>
+  default(): Promise<string>
+  onSearchTermChange(term: string): Promise<void>
 }

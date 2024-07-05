@@ -12,8 +12,8 @@ importers:
         specifier: ^4.4.1
         version: 4.4.1
       tauri-api-adapter:
-        specifier: ^0.0.8
-        version: 0.0.8(typescript@5.4.5)
+        specifier: workspace:*
+        version: link:vendors/tauri-api-adapter/packages/tauri-api-adapter
       tauri-plugin-clipboard-api:
         specifier: ^2.1.1
         version: 2.1.1
@@ -8461,11 +8461,6 @@ packages:
   tar@7.1.0:
     resolution: {integrity: sha512-ENhg4W6BmjYxl8GTaE7/h99f0aXiSWv4kikRZ9n2/JRxypZniE84ILZqimAhxxX7Zb8Px6pFdheW3EeHfhnXQQ==}
     engines: {node: '>=18'}
-
-  tauri-api-adapter@0.0.8:
-    resolution: {integrity: sha512-D/z2IPMhV1Vqn8IfkCIdLO7cJqmKLDa86Y7hTXRxS1oxzcHsB4apkc6+xA5z0Ps/jbIkFqtDagU02CtvNqvihw==}
-    peerDependencies:
-      typescript: ^5.0.0
 
   tauri-plugin-clipboard-api@2.1.1:
     resolution: {integrity: sha512-l7wa9n5c7rre2qGizoihosqOSqqv9FZC9WhnTUvzJjskPFI62OjLdQt4o9siGHgkqqiL73iRfw7eGcN6qUA/Fw==}
@@ -19849,25 +19844,6 @@ snapshots:
       minizlib: 3.0.1
       mkdirp: 3.0.1
       yallist: 5.0.0
-
-  tauri-api-adapter@0.0.8(typescript@5.4.5):
-    dependencies:
-      '@huakunshen/comlink': 4.4.1
-      '@tauri-apps/api': 2.0.0-beta.13
-      '@tauri-apps/plugin-dialog': 2.0.0-beta.5
-      '@tauri-apps/plugin-fs': 2.0.0-beta.5
-      '@tauri-apps/plugin-http': 2.0.0-beta.6
-      '@tauri-apps/plugin-log': 2.0.0-beta.7
-      '@tauri-apps/plugin-notification': 2.0.0-beta.5
-      '@tauri-apps/plugin-os': 2.0.0-beta.5
-      '@tauri-apps/plugin-shell': 2.0.0-beta.6
-      '@tauri-apps/plugin-upload': 2.0.0-beta.7
-      tauri-plugin-clipboard-api: 2.1.1
-      tauri-plugin-network-api: 2.0.2
-      tauri-plugin-shellx-api: 2.0.7
-      tauri-plugin-system-info-api: 2.0.1
-      typescript: 5.4.5
-      zod: 3.23.8
 
   tauri-plugin-clipboard-api@2.1.1:
     dependencies:
