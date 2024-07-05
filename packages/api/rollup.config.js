@@ -9,10 +9,6 @@ const pkg = JSON.parse(readFileSync(join(cwd(), "package.json"), "utf8"))
 /** @type {import('rollup').RollupOptions} */
 const config = {
   input: [
-    // "src/index.ts",
-    // "src/native.ts",
-    // "src/worker.ts",
-    // "src/iframe.ts",
     "src/index.ts",
     "src/ui/index.ts",
     "src/ui/iframe.ts",

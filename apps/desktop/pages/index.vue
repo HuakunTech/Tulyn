@@ -51,7 +51,7 @@ watch(searchTermInSync, (val) => {
 
 onMounted(async () => {
   // const worker = new SampleWorker()
-  const serverAPI = constructJarvisServerAPIWithPermissions(["clipboard:read-text"])
+  const serverAPI = constructJarvisServerAPIWithPermissions(["clipboard:read-text", "notification:all"])
   // exposeApiToWorker(worker, serverAPI)
   // const workerAPI = wrap<IWorkerExtensionBase>(worker)
   // await workerAPI.load()

@@ -1,4 +1,4 @@
-import { clipboard } from "jarvis-api/ui/worker"
+import { notification } from "jarvis-api/ui/worker"
 
 fetch("https://hacker-news.firebaseio.com/v0/topstories.json")
   .then((response) => response.json())
@@ -14,7 +14,8 @@ fetch("https://hacker-news.firebaseio.com/v0/topstories.json")
     console.log(items)
   })
 ;(async () => {
-  const text = await clipboard.readText()
-  console.log("Clipboard Text from hacker news", text)
+  notification.sendNotification("Hello from hacker news")
+  // const text = await clipboard.readText()
+  // console.log("Clipboard Text from hacker news", text)
   // fs.exists("foo.txt").then(console.log)
 })()
