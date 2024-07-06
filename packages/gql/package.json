@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@graphql-codegen/client-preset": "^4.2.6",
+    "dotenv": "^16.4.5",
     "graphql": "^16.8.1",
     "prettier": "^3.2.5",
     "zod": "^3.23.8"

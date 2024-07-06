@@ -1,6 +1,9 @@
 import type { CodegenConfig } from "@graphql-codegen/cli"
 import { addTypenameSelectionDocumentTransform } from "@graphql-codegen/client-preset"
+import dotenv from "dotenv"
 import { z } from "zod"
+
+dotenv.config()
 
 if (!process.env.SUPABASE_GRAPHQL_ENDPOINT) {
   console.error("SUPABASE_GRAPHQL_ENDPOINT is not set")
