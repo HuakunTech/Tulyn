@@ -1,4 +1,4 @@
-import { DebugWindowLabel, SettingsWindowLabel } from "@/lib/constants"
+import { DebugWindowLabel, DevWindowLabel, SettingsWindowLabel } from "@/lib/constants"
 import { ListItemType, TListItem } from "@jarvis/schema"
 import { getAll as getAllWindows, WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { ElMessage, ElNotification } from "element-plus"
@@ -51,6 +51,25 @@ const builtinCmds: BuiltinCmd[] = [
 
 if (rtConfig.public.isDev) {
   builtinCmds.push({
+    name: "Open Dev Page",
+    iconifyIcon: "fa6-brands:dev",
+    description: "Open Dev Page",
+    function: () => {
+      const windows = getAllWindows()
+      const found = windows.find((w) => w.label === DevWindowLabel)
+      if (found) {
+        ElNotification.error("Debug Page is already open")
+      } else {
+        new WebviewWindow(DevWindowLabel, {
+          url: "/dev",
+          width: 1000,
+          height: 800
+        })
+      }
+      return Promise.resolve()
+    }
+  })
+  builtinCmds.push({
     name: "Open Debug Page",
     iconifyIcon: "carbon:debug",
     description: "Open Debug Page",
@@ -99,7 +118,7 @@ export class BuiltinCmds implements IExtensionBase {
     this.$listItems = atom([])
     setTimeout(() => {
       this.$listItems.set(buildinCmdsListItems)
-    })
+    }, 50)
   }
 
   load(): Promise<void> {

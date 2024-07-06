@@ -19,18 +19,7 @@ import { SystemCommandExtension } from "@/lib/extension/systemCmds"
 import { $appConfig } from "@/lib/stores/appConfig"
 import { $appState, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
-import SampleWorker from "@/lib/workers/sample-worker?worker"
-import { wrap } from "@huakunshen/comlink"
-import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
-import * as fs from "@tauri-apps/plugin-fs"
-import {
-  constructJarvisServerAPIWithPermissions,
-  exposeApiToWindow,
-  exposeApiToWorker
-} from "jarvis-api/ui"
-import type { IWorkerExtensionBase } from "jarvis-api/ui/worker"
-import clipboard from "tauri-plugin-clipboard-api"
 
 const appExt = new AppsExtension()
 const sysCmdExt = new SystemCommandExtension()
@@ -39,7 +28,6 @@ const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath
 const storeExt = new Extension("Extensions", await getExtensionsFolder())
 const remoteExt = new RemoteExtension()
 const exts: IExtensionBase[] = [devExt, remoteExt, storeExt, builtinCmdExt, sysCmdExt, appExt]
-const iframeEle = ref()
 const searchTermInSync = ref("")
 let updateSearchTermTimeout: ReturnType<typeof setTimeout>
 watch(searchTermInSync, (val) => {
@@ -50,24 +38,6 @@ watch(searchTermInSync, (val) => {
 })
 
 onMounted(async () => {
-  // const worker = new SampleWorker()
-  const serverAPI = constructJarvisServerAPIWithPermissions([
-    "clipboard:read-text",
-    "notification:all",
-    "fs:exists"
-  ])
-  // exposeApiToWorker(worker, serverAPI)
-  // const workerAPI = wrap<IWorkerExtensionBase>(worker)
-  // await workerAPI.load()
-  // console.log("default()", await workerAPI.default())
-  const workerScript = await fs.readTextFile(
-    "/Users/hacker/Dev/projects/Jarvis/extensions/hacker-news/dist/index.js"
-  )
-
-  const worker2 = new Worker(
-    URL.createObjectURL(new Blob([workerScript], { type: "application/javascript" }))
-  )
-  exposeApiToWorker(worker2, serverAPI)
   Promise.all(exts.map((ext) => ext.load()))
 })
 

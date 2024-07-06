@@ -1,4 +1,4 @@
-import type { TListItem } from "jarvis-api/models"
+import { TListItem } from "@jarvis/schema"
 import type { ReadableAtom } from "nanostores"
 
 export interface IExtensionBase {

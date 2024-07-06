@@ -3,35 +3,36 @@ import ListItem from "@/components/MainSearch/list-item.vue"
 import { CommandGroup, CommandItem } from "@/components/ui/command"
 import type { IExtensionBase } from "@/lib/extension/base"
 import { $appState } from "@/lib/stores/appState"
+import type { TListItem } from "@jarvis/schema"
 import { useStore } from "@nanostores/vue"
-import type { TListItem } from "jarvis-api/models"
 import { computed } from "vue"
-import { extractRuntimeEmits } from "vue/compiler-sfc"
 
 const appState = useStore($appState)
 const props = defineProps<{ ext: IExtensionBase }>()
 const listItems = useStore(props.ext.$listItems)
 
 const showListItems = computed(() => {
-  if (!appState.value.searchTerm || appState.value.searchTerm.length < 3)
+  if (!appState.value.searchTerm || appState.value.searchTerm.length < 2)
     return listItems.value?.slice(0, 10)
   return listItems.value.filter((item) => {
     const titleMatch = item.title.toLowerCase().includes(appState.value.searchTerm.toLowerCase())
     const keywordMatch = item.keywords
       .map((keyword) => keyword.toLowerCase().includes(appState.value.searchTerm.toLowerCase()))
       .some((x) => x)
-    return [titleMatch, keywordMatch].some((x) => x)
+    return titleMatch || keywordMatch
   })
 })
 </script>
 <template>
-  <CommandGroup :heading="ext.extensionName">
-    <ListItem
-      v-for="(item, idx) in showListItems"
-      :item="item as TListItem"
-      :isDevExt="ext.extensionName === 'Dev Extensions'"
-      :key="`${ext.extensionName}-${idx}`"
-      @select="ext.onSelect(item as TListItem)"
-    />
-  </CommandGroup>
+  <div>
+    <CommandGroup :heading="ext.extensionName">
+      <ListItem
+        v-for="(item, idx) in showListItems"
+        :item="item"
+        :isDevExt="ext.extensionName === 'Dev Extensions'"
+        :key="`${ext.extensionName}-${item.title}-${item.value}`"
+        @select="ext.onSelect(item as TListItem)"
+      />
+    </CommandGroup>
+  </div>
 </template>

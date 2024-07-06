@@ -23,6 +23,7 @@ export const SUPABASE_ANON_KEY = rtConfig.public.SUPABASE_ANON_KEY
 // );
 export const SUPABASE_GRAPHQL_ENDPOINT = rtConfig.public.SUPABASE_GRAPHQL_ENDPOINT
 
+export const DevWindowLabel = "main-dev"
 export const DebugWindowLabel = "main-debug"
 export const SettingsWindowLabel = "main-settings"
 export const FileStorageUrl = ""

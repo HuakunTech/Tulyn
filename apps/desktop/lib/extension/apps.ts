@@ -1,8 +1,9 @@
+import { TListItem } from "@jarvis/schema"
 import { convertFileSrc } from "@tauri-apps/api/core"
 import { ElNotification } from "element-plus"
 import { atom, computed, type WritableAtom } from "nanostores"
 import { getAllApps, refreshApplicationsList } from "tauri-plugin-jarvis-api/commands"
-import { AppInfo, TListItem } from "tauri-plugin-jarvis-api/models"
+import { AppInfo } from "tauri-plugin-jarvis-api/models"
 import { open } from "tauri-plugin-shellx-api"
 import { type IExtensionBase } from "./base"
 
