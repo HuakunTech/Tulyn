@@ -1,5 +1,5 @@
 import Editor, { type OnChange, type OnMount, type Monaco } from "@monaco-editor/react"
-import { ExtPackageJson } from "jarvis-api/models"
+import { ExtPackageJson } from "@jarvis/schema"
 import { useEffect, useMemo, useRef, useState } from "react"
 
 const defaultJson = `{

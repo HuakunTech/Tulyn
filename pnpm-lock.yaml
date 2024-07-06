@@ -235,6 +235,9 @@ importers:
       '@astrojs/vue':
         specifier: ^4.2.0
         version: 4.3.0(astro@4.9.1(@types/node@20.12.12)(sass@1.77.6)(terser@5.31.1)(typescript@5.4.5))(rollup@4.18.0)(vite@5.2.11(@types/node@20.12.12)(sass@1.77.6)(terser@5.31.1))(vue@3.4.27(typescript@5.4.5))
+      '@jarvis/schema':
+        specifier: workspace:*
+        version: link:../packages/schema
       '@monaco-editor/react':
         specifier: ^4.6.0
         version: 4.6.0(monaco-editor@0.48.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -256,9 +259,6 @@ importers:
       element-plus:
         specifier: ^2.7.3
         version: 2.7.3(vue@3.4.27(typescript@5.4.5))
-      jarvis-api:
-        specifier: workspace:*
-        version: link:../packages/api
       monaco-editor:
         specifier: ^0.48.0
         version: 0.48.0
