@@ -1,8 +1,8 @@
 import { readFileSync } from "fs"
 import { join } from "path"
 import { cwd } from "process"
-import typescript from "@rollup/plugin-typescript";
-// import typescript from "rollup-plugin-typescript2"
+import typescript from "@rollup/plugin-typescript"
+import { visualizer } from "rollup-plugin-visualizer"
 
 const pkg = JSON.parse(readFileSync(join(cwd(), "package.json"), "utf8"))
 
@@ -34,7 +34,7 @@ const config = {
     }
   ],
   treeshake: true,
-  plugins: [typescript()]
+  plugins: [typescript(), visualizer()]
 }
 
 export default config

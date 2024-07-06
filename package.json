@@ -17,6 +17,7 @@
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@ianvs/prettier-plugin-sort-imports": "^4.3.0",
+    "esbuild": "^0.23.0",
     "eslint": "^8.48.0",
     "husky": "^9.0.11",
     "prettier": "^3.2.5",
@@ -28,6 +29,7 @@
     "@huakunshen/comlink": "^4.4.1",
     "tauri-api-adapter": "workspace:*",
     "tauri-plugin-clipboard-api": "^2.1.2",
-    "tauri-plugin-shellx-api": "^2.0.7"
+    "tauri-plugin-shellx-api": "^2.0.7",
+    "valibot": "^0.35.0"
   }
 }

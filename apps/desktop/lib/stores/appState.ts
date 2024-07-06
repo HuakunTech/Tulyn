@@ -1,12 +1,13 @@
 import { computed, map } from "nanostores"
 import { AppInfo } from "tauri-plugin-jarvis-api/models"
+import * as v from "valibot"
 import { z } from "zod"
 
-export const appStateSchema = z.object({
-  searchTerm: z.string(),
-  allApps: AppInfo.array()
+export const appStateSchema = v.object({
+  searchTerm: v.string(),
+  allApps: v.array(AppInfo)
 })
-export type AppState = z.infer<typeof appStateSchema>
+export type AppState = v.InferOutput<typeof appStateSchema>
 
 export const $appState = map<AppState>({
   searchTerm: "",

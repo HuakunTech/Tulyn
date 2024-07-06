@@ -53,7 +53,8 @@ onMounted(async () => {
   // const worker = new SampleWorker()
   const serverAPI = constructJarvisServerAPIWithPermissions([
     "clipboard:read-text",
-    "notification:all"
+    "notification:all",
+    "fs:exists"
   ])
   // exposeApiToWorker(worker, serverAPI)
   // const workerAPI = wrap<IWorkerExtensionBase>(worker)

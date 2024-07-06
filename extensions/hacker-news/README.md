@@ -1,15 +1,9 @@
-# hacker-news
-
-To install dependencies:
+## Build
 
 ```bash
-bun install
+
+pnpm esbuild index.ts --bundle --outdir=dist --minify
+bun build index.ts --outdir dist --minify
+
+hyperfine --warmup 3   'bun build index.ts --outdir dist --minify'  'pnpm esbuild index.ts --bundle --outdir=dist --minify'
 ```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.1.18. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
