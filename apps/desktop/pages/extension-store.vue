@@ -21,10 +21,10 @@ import { $appConfig } from "@/lib/stores/appConfig"
 import { gqlClient } from "@/lib/utils/graphql"
 import { ApolloClient, gql, HttpLink, InMemoryCache, type ApolloQueryResult } from "@apollo/client"
 import { AllExtensionsDocument, type AllExtensionsQuery } from "@jarvis/gql"
+import type { ExtPackageJsonExtra } from "@jarvis/schema"
 import { type Tables } from "@jarvis/supabase"
 import { ArrowLeftIcon } from "@radix-icons/vue"
 import { ElMessage } from "element-plus"
-import type { ExtPackageJsonExtra } from "jarvis-api/models"
 import { computed, onMounted, ref, watch } from "vue"
 
 const ext = new Extension("Extensions", await getExtensionsFolder())

@@ -12,6 +12,7 @@ import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import * as fs from "@tauri-apps/plugin-fs"
 import { atom, type ReadableAtom, type WritableAtom } from "nanostores"
 import {
+  getServerPort,
   isWindowLabelRegistered,
   pathExists,
   registerExtensionWindow,
@@ -184,7 +185,7 @@ export class Extension implements IExtensionBase {
   onSelect(item: TListItem): Promise<void> {
     this.manifests.forEach((manifest) => {
       if (item.type == "UI Command") {
-        manifest.jarvis.uiCmds.forEach((cmd) => {
+        manifest.jarvis.uiCmds.forEach(async (cmd) => {
           if (item.value === generateItemValue(manifest, cmd, this.isDev)) {
             let url = cmd.main
             if ($appConfig.value?.devExtLoadUrl && this.isDev && cmd.devMain) {
@@ -193,8 +194,9 @@ export class Extension implements IExtensionBase {
               if (cmd.main.startsWith("http")) {
                 url = cmd.main
               } else {
+                const port = await getServerPort()
                 const postfix = !cmd.main.endsWith(".html") && !cmd.main.endsWith("/") ? "/" : ""
-                url = `http://localhost:1566/${this.isDev ? "dev-" : ""}extensions/${manifest.extFolderName}/${cmd.main}${postfix}`
+                url = `http://localhost:${port}/${this.isDev ? "dev-" : ""}extensions/${manifest.extFolderName}/${cmd.main}${postfix}`
               }
             }
             createNewExtWindowForUiCmd(manifest, cmd, url)
