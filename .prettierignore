@@ -2,3 +2,6 @@
 target/
 packages/tauri-plugin-jarvis/permissions/**
 apps/desktop/src-tauri/gen/**
+packages/tauri-plugin-jarvis/dist-js/**
+packages/api/dist/**
+
