@@ -1,10 +1,12 @@
 import { TListItem } from "@jarvis/schema"
 import { convertFileSrc } from "@tauri-apps/api/core"
+import { warn } from "@tauri-apps/plugin-log"
 import { ElNotification } from "element-plus"
+import { os } from "jarvis-api/ui"
 import { atom, computed, type WritableAtom } from "nanostores"
 import { getAllApps, refreshApplicationsList } from "tauri-plugin-jarvis-api/commands"
 import { AppInfo } from "tauri-plugin-jarvis-api/models"
-import { open } from "tauri-plugin-shellx-api"
+import { executeBashScript, open } from "tauri-plugin-shellx-api"
 import { type IExtensionBase } from "./base"
 
 export function appInfoToListItem(app: AppInfo): TListItem {
@@ -49,8 +51,24 @@ export class AppsExtension implements IExtensionBase {
       })
       return Promise.resolve()
     } else {
-      open(foundApp.app_desktop_path)
-      return Promise.resolve()
+      return os.platform().then((platform) => {
+        if (platform === "macos") {
+          open(foundApp.app_desktop_path)
+        } else if (platform === "linux") {
+          if (foundApp.app_path_exe) {
+            console.log("Opening", foundApp.app_path_exe)
+            executeBashScript(foundApp.app_path_exe)
+            // open(foundApp.app_path_exe)
+          } else {
+            ElNotification({
+              title: "Not Executable",
+              type: "warning",
+              message: "This application has no executable"
+            })
+            warn(`App has no executable: ${JSON.stringify(foundApp)}`)
+          }
+        }
+      })
     }
   }
 }
