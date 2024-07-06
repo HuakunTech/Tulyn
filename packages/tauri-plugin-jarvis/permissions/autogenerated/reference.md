@@ -102,6 +102,58 @@ Denies the compress_tarball command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-create-extension`
+
+</td>
+<td>
+
+Enables the create_extension command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-create-extension`
+
+</td>
+<td>
+
+Denies the create_extension command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-create-extension-data`
+
+</td>
+<td>
+
+Enables the create_extension_data command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-create-extension-data`
+
+</td>
+<td>
+
+Denies the create_extension_data command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-decompress-tarball`
 
 </td>
@@ -121,6 +173,58 @@ Enables the decompress_tarball command without any pre-configured scope.
 <td>
 
 Denies the decompress_tarball command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-delete-extension-by-identifier`
+
+</td>
+<td>
+
+Enables the delete_extension_by_identifier command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-delete-extension-by-identifier`
+
+</td>
+<td>
+
+Denies the delete_extension_by_identifier command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-delete-extension-data-by-id`
+
+</td>
+<td>
+
+Enables the delete_extension_data_by_id command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-delete-extension-data-by-id`
+
+</td>
+<td>
+
+Denies the delete_extension_data_by_id command without any pre-configured scope.
 
 </td>
 </tr>
@@ -173,32 +277,6 @@ Enables the empty_trash command without any pre-configured scope.
 <td>
 
 Denies the empty_trash command without any pre-configured scope.
-
-</td>
-</tr>
-
-<tr>
-<td>
-
-`jarvis:allow-execute`
-
-</td>
-<td>
-
-Enables the execute command without any pre-configured scope.
-
-</td>
-</tr>
-
-<tr>
-<td>
-
-`jarvis:deny-execute`
-
-</td>
-<td>
-
-Denies the execute command without any pre-configured scope.
 
 </td>
 </tr>
@@ -518,6 +596,32 @@ Denies the ext_store_wrapper_values command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-get-all-extensions`
+
+</td>
+<td>
+
+Enables the get_all_extensions command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-get-all-extensions`
+
+</td>
+<td>
+
+Denies the get_all_extensions command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-get-applications`
 
 </td>
@@ -641,6 +745,58 @@ Enables the get_ext_label_map command without any pre-configured scope.
 <td>
 
 Denies the get_ext_label_map command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-get-extension-by-identifier`
+
+</td>
+<td>
+
+Enables the get_extension_by_identifier command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-get-extension-by-identifier`
+
+</td>
+<td>
+
+Denies the get_extension_by_identifier command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-get-extension-data-by-id`
+
+</td>
+<td>
+
+Enables the get_extension_data_by_id command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-get-extension-data-by-id`
+
+</td>
+<td>
+
+Denies the get_extension_data_by_id command without any pre-configured scope.
 
 </td>
 </tr>
@@ -986,32 +1142,6 @@ Denies the path_exists command without any pre-configured scope.
 <tr>
 <td>
 
-`jarvis:allow-ping`
-
-</td>
-<td>
-
-Enables the ping command without any pre-configured scope.
-
-</td>
-</tr>
-
-<tr>
-<td>
-
-`jarvis:deny-ping`
-
-</td>
-<td>
-
-Denies the ping command without any pre-configured scope.
-
-</td>
-</tr>
-
-<tr>
-<td>
-
 `jarvis:allow-quit-all-apps`
 
 </td>
@@ -1213,6 +1343,32 @@ Enables the run_powershell command without any pre-configured scope.
 <td>
 
 Denies the run_powershell command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-search-extension-data`
+
+</td>
+<td>
+
+Enables the search_extension_data command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-search-extension-data`
+
+</td>
+<td>
+
+Denies the search_extension_data command without any pre-configured scope.
 
 </td>
 </tr>
@@ -1733,6 +1889,32 @@ Enables the unregister_extension_window command without any pre-configured scope
 <td>
 
 Denies the unregister_extension_window command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-update-extension-data-by-id`
+
+</td>
+<td>
+
+Enables the update_extension_data_by_id command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-update-extension-data-by-id`
+
+</td>
+<td>
+
+Denies the update_extension_data_by_id command without any pre-configured scope.
 
 </td>
 </tr>

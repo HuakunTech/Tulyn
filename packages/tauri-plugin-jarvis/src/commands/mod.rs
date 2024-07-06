@@ -1,4 +1,5 @@
 pub mod apps;
+pub mod db;
 pub mod dev;
 pub mod discovery;
 pub mod extension;

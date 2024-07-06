@@ -32,6 +32,7 @@ prost = "0.12"
 tokio = { workspace = true }
 mdns-sd = { workspace = true }
 tauri-plugin-network = { workspace = true }
+db = { path = "../db" }
 
 
 [build-dependencies]

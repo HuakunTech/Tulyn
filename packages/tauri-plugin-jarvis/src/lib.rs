@@ -127,6 +127,16 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             commands::storage::ext_store_wrapper_length,
             commands::storage::ext_store_wrapper_load,
             commands::storage::ext_store_wrapper_save,
+            /* -------------------------------- database -------------------------------- */
+            commands::db::create_extension,
+            commands::db::get_all_extensions,
+            commands::db::get_extension_by_identifier,
+            commands::db::delete_extension_by_identifier,
+            commands::db::create_extension_data,
+            commands::db::get_extension_data_by_id,
+            commands::db::search_extension_data,
+            commands::db::delete_extension_data_by_id,
+            commands::db::update_extension_data_by_id,
         ])
         .setup(|app, api| {
             // #[cfg(mobile)]
@@ -138,6 +148,8 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             // manage state so it is accessible by the commands
             app.manage(JarvisState::default());
             app.manage(commands::apps::ApplicationsState::default());
+            let db_path = app.path().app_data_dir()?.join("jarvis.db");
+            app.manage(commands::db::DBState::new(db_path, None)?);
             // let app_settings = match AppSettings::load_from_store(&store) {
             //     Ok(settings) => settings,
             //     Err(_) => AppSettings::default(),

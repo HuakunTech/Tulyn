@@ -63,6 +63,16 @@ const COMMANDS: &[&str] = &[
     "ext_store_wrapper_load",
     "ext_store_wrapper_save",
     "get_server_port",
+    /* ----------------------------- sqlite database ---------------------------- */
+    "create_extension",
+    "get_all_extensions",
+    "get_extension_by_identifier",
+    "delete_extension_by_identifier",
+    "create_extension_data",
+    "get_extension_data_by_id",
+    "search_extension_data",
+    "delete_extension_data_by_id",
+    "update_extension_data_by_id",
 ];
 
 fn main() {

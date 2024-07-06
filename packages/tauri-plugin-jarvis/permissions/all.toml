@@ -57,4 +57,13 @@ commands.allow = [
     "unregister_extension_window",
     "get_ext_label_map",
     "get_frontmost_app",
+    "create_extension",
+    "get_all_extensions",
+    "get_extension_by_identifier",
+    "delete_extension_by_identifier",
+    "create_extension_data",
+    "get_extension_data_by_id",
+    "search_extension_data",
+    "delete_extension_data_by_id",
+    "update_extension_data_by_id",
 ]

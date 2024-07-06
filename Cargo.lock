@@ -5787,6 +5787,7 @@ dependencies = [
  "axum",
  "axum-extra",
  "axum-server",
+ "db",
  "flate2",
  "mdns-sd",
  "prost",

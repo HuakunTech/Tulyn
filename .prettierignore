@@ -1,3 +1,4 @@
 .nuxt/
 target/
 packages/tauri-plugin-jarvis/permissions/**
+apps/desktop/src-tauri/gen/**

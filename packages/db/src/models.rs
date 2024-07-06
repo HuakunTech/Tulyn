@@ -1,8 +1,8 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct Plugin {
-    pub plugin_id: i32,
+pub struct Ext {
+    pub ext_id: i32,
     pub identifier: String,
     pub version: String,
     pub alias: Option<String>,
@@ -12,9 +12,9 @@ pub struct Plugin {
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
-pub struct PluginData {
+pub struct ExtData {
     pub data_id: i32,
-    pub plugin_id: i32,
+    pub ext_id: i32,
     pub data_type: String,
     pub data: String,
     pub search_text: Option<String>,

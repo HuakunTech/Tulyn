@@ -14,6 +14,7 @@ pub fn get_connection<P: AsRef<Path>>(
     Ok(conn)
 }
 
+#[derive(Debug)]
 pub struct JarvisDB {
     pub conn: Connection,
 }
@@ -31,10 +32,10 @@ impl JarvisDB {
     }
 
     /* -------------------------------------------------------------------------- */
-    /*                                 Plugin CRUD                                */
+    /*                               Extensions CRUD                              */
     /* -------------------------------------------------------------------------- */
 
-    pub fn create_plugin(
+    pub fn create_extension(
         &self,
         identifier: &str,
         version: &str,
@@ -42,19 +43,19 @@ impl JarvisDB {
         hotkey: Option<&str>,
     ) -> Result<()> {
         self.conn.execute(
-            "INSERT INTO plugins (identifier, version, alias, hotkey) VALUES (?1, ?2, ?3, ?4)",
+            "INSERT INTO extensions (identifier, version, alias, hotkey) VALUES (?1, ?2, ?3, ?4)",
             params![identifier, version, alias, hotkey],
         )?;
         Ok(())
     }
 
-    pub fn get_all_plugins(&self) -> Result<Vec<models::Plugin>> {
+    pub fn get_all_extensions(&self) -> Result<Vec<models::Ext>> {
         let mut stmt = self.conn.prepare(
-            "SELECT plugin_id, identifier, version, alias, hotkey, is_enabled, installed_at FROM plugins",
+            "SELECT ext_id, identifier, version, alias, hotkey, is_enabled, installed_at FROM extensions",
         )?;
-        let plugin_iter = stmt.query_map(params![], |row| {
-            Ok(models::Plugin {
-                plugin_id: row.get(0)?,
+        let ext_iter = stmt.query_map(params![], |row| {
+            Ok(models::Ext {
+                ext_id: row.get(0)?,
                 identifier: row.get(1)?,
                 version: row.get(2)?,
                 alias: row.get(3)?,
@@ -63,20 +64,20 @@ impl JarvisDB {
                 installed_at: row.get(6)?,
             })
         })?;
-        let mut plugins = Vec::new();
-        for plugin in plugin_iter {
-            plugins.push(plugin?);
+        let mut exts = Vec::new();
+        for ext in ext_iter {
+            exts.push(ext?);
         }
-        Ok(plugins)
+        Ok(exts)
     }
 
-    pub fn get_plugin_by_identifier(&self, identifier: &str) -> Result<Option<models::Plugin>> {
+    pub fn get_extension_by_identifier(&self, identifier: &str) -> Result<Option<models::Ext>> {
         let mut stmt = self.conn.prepare(
-            "SELECT plugin_id, identifier, version, alias, hotkey, is_enabled, installed_at FROM plugins WHERE identifier = ?1",
+            "SELECT ext_id, identifier, version, alias, hotkey, is_enabled, installed_at FROM extensions WHERE identifier = ?1",
         )?;
-        let plugin_iter = stmt.query_map(params![identifier], |row| {
-            Ok(models::Plugin {
-                plugin_id: row.get(0)?,
+        let ext_iter = stmt.query_map(params![identifier], |row| {
+            Ok(models::Ext {
+                ext_id: row.get(0)?,
                 identifier: row.get(1)?,
                 version: row.get(2)?,
                 alias: row.get(3)?,
@@ -85,46 +86,46 @@ impl JarvisDB {
                 installed_at: row.get(6)?,
             })
         })?;
-        let mut plugins = Vec::new();
-        for plugin in plugin_iter {
-            plugins.push(plugin?);
+        let mut exts = Vec::new();
+        for ext in ext_iter {
+            exts.push(ext?);
         }
-        Ok(plugins.first().cloned())
+        Ok(exts.first().cloned())
     }
 
-    pub fn delete_plugin_by_identifier(&self, identifier: &str) -> Result<()> {
+    pub fn delete_extension_by_identifier(&self, identifier: &str) -> Result<()> {
         self.conn.execute(
-            "DELETE FROM plugins WHERE identifier = ?1",
+            "DELETE FROM extensions WHERE identifier = ?1",
             params![identifier],
         )?;
         Ok(())
     }
 
     /* -------------------------------------------------------------------------- */
-    /*                              Plugin Data CRUD                              */
+    /*                            Extension Data CRUD                            */
     /* -------------------------------------------------------------------------- */
-    pub fn create_plugin_data(
+    pub fn create_extension_data(
         &self,
-        plugin_id: i32,
+        ext_id: i32,
         data_type: &str,
         data: &str,
         search_text: Option<&str>,
     ) -> Result<()> {
         self.conn.execute(
-            "INSERT INTO plugin_data (plugin_id, data_type, data, search_text) VALUES (?1, ?2, ?3, ?4)",
-            params![plugin_id, data_type, data, search_text],
+            "INSERT INTO extension_data (ext_id, data_type, data, search_text) VALUES (?1, ?2, ?3, ?4)",
+            params![ext_id, data_type, data, search_text],
         )?;
         Ok(())
     }
 
-    pub fn get_plugin_data_by_id(&self, data_id: i32) -> Result<Option<models::PluginData>> {
+    pub fn get_extension_data_by_id(&self, data_id: i32) -> Result<Option<models::ExtData>> {
         let mut stmt = self.conn.prepare(
-            "SELECT data_id, plugin_id, data_type, data, search_text, created_at, updated_at FROM plugin_data WHERE data_id = ?1",
+            "SELECT data_id, ext_id, data_type, data, search_text, created_at, updated_at FROM extension_data WHERE data_id = ?1",
         )?;
-        let plugin_data_iter = stmt.query_map(params![data_id], |row| {
-            Ok(models::PluginData {
+        let ext_data_iter = stmt.query_map(params![data_id], |row| {
+            Ok(models::ExtData {
                 data_id: row.get(0)?,
-                plugin_id: row.get(1)?,
+                ext_id: row.get(1)?,
                 data_type: row.get(2)?,
                 data: row.get(3)?,
                 search_text: row.get(4)?,
@@ -132,27 +133,27 @@ impl JarvisDB {
                 updated_at: row.get(6)?,
             })
         })?;
-        let mut plugin_data = Vec::new();
-        for data in plugin_data_iter {
-            plugin_data.push(data?);
+        let mut ext_data = Vec::new();
+        for data in ext_data_iter {
+            ext_data.push(data?);
         }
-        Ok(plugin_data.first().cloned())
+        Ok(ext_data.first().cloned())
     }
 
-    pub fn search_plugin_data(
+    pub fn search_extension_data(
         &self,
-        plugin_id: i32,
+        ext_id: i32,
         data_type: Option<&str>,
         search_text: Option<&str>,
         after_created_at: Option<&str>,
         before_created_at: Option<&str>,
-    ) -> Result<Vec<models::PluginData>> {
+    ) -> Result<Vec<models::ExtData>> {
         let mut query = String::from(
-            "SELECT data_id, plugin_id, data_type, data, search_text, created_at, updated_at 
-             FROM plugin_data 
-             WHERE plugin_id = ?1",
+            "SELECT data_id, ext_id, data_type, data, search_text, created_at, updated_at 
+             FROM extension_data 
+             WHERE ext_id = ?1",
         );
-        let mut params: Vec<Box<dyn ToSql>> = vec![Box::new(plugin_id)];
+        let mut params: Vec<Box<dyn ToSql>> = vec![Box::new(ext_id)];
         let mut param_index = 2;
 
         if let Some(dt) = data_type {
@@ -180,11 +181,11 @@ impl JarvisDB {
 
         let mut stmt = self.conn.prepare(&query)?;
 
-        let plugin_data_iter =
+        let ext_data_iter =
             stmt.query_map(params_from_iter(params.iter().map(|p| p.as_ref())), |row| {
-                Ok(models::PluginData {
+                Ok(models::ExtData {
                     data_id: row.get(0)?,
-                    plugin_id: row.get(1)?,
+                    ext_id: row.get(1)?,
                     data_type: row.get(2)?,
                     data: row.get(3)?,
                     search_text: row.get(4)?,
@@ -193,29 +194,29 @@ impl JarvisDB {
                 })
             })?;
 
-        let mut plugin_data = Vec::new();
-        for data in plugin_data_iter {
-            plugin_data.push(data?);
+        let mut ext_data = Vec::new();
+        for data in ext_data_iter {
+            ext_data.push(data?);
         }
-        Ok(plugin_data)
+        Ok(ext_data)
     }
 
-    pub fn delete_plugin_data_by_id(&self, data_id: i32) -> Result<()> {
+    pub fn delete_extension_data_by_id(&self, data_id: i32) -> Result<()> {
         self.conn.execute(
-            "DELETE FROM plugin_data WHERE data_id = ?1",
+            "DELETE FROM extension_data WHERE data_id = ?1",
             params![data_id],
         )?;
         Ok(())
     }
 
-    pub fn update_plugin_data_by_id(
+    pub fn update_extension_data_by_id(
         &self,
         data_id: i32,
         data: &str,
         search_text: Option<&str>,
     ) -> Result<()> {
         self.conn.execute(
-            "UPDATE plugin_data SET data = ?1, search_text = ?2 WHERE data_id = ?3",
+            "UPDATE extension_data SET data = ?1, search_text = ?2 WHERE data_id = ?3",
             params![data, search_text, data_id],
         )?;
         Ok(())
@@ -238,48 +239,48 @@ mod tests {
     }
 
     #[test]
-    fn test_plugin() {
+    fn test_extension_crud() {
         let dir = tempdir().unwrap();
         let db_path = dir.path().join("test.db");
         // create database and initialize
         let db = JarvisDB::new(&db_path, None).unwrap();
         assert!(fs::metadata(&db_path).is_ok());
         db.init().unwrap();
-        db.create_plugin("test", "0.1.0", Some("test"), Some("test"))
+        db.create_extension("test", "0.1.0", Some("test"), Some("test"))
             .unwrap();
-        let plugins = db.get_all_plugins().unwrap();
-        assert_eq!(plugins.len(), 1);
+        let exts = db.get_all_extensions().unwrap();
+        assert_eq!(exts.len(), 1);
 
         // expect error due to unique identifier constraint
         assert!(db
-            .create_plugin("test", "0.1.0", Some("test"), Some("test"))
+            .create_extension("test", "0.1.0", Some("test"), Some("test"))
             .is_err());
 
-        // get plugin by identifier
-        let plugin = db.get_plugin_by_identifier("test").unwrap();
-        assert!(plugin.is_some());
-        let plugin = plugin.unwrap();
-        assert_eq!(plugin.identifier, "test");
-        assert_eq!(plugin.version, "0.1.0");
-        assert_eq!(plugin.alias, Some("test".to_string()));
-        assert_eq!(plugin.hotkey, Some("test".to_string()));
-        assert_eq!(plugin.is_enabled, true);
-        assert_eq!(plugin.installed_at.len(), 19);
+        // get ext by identifier
+        let ext = db.get_extension_by_identifier("test").unwrap();
+        assert!(ext.is_some());
+        let ext = ext.unwrap();
+        assert_eq!(ext.identifier, "test");
+        assert_eq!(ext.version, "0.1.0");
+        assert_eq!(ext.alias, Some("test".to_string()));
+        assert_eq!(ext.hotkey, Some("test".to_string()));
+        assert_eq!(ext.is_enabled, true);
+        assert_eq!(ext.installed_at.len(), 19);
 
-        // get plugin by identifier that does not exist
-        let plugin = db.get_plugin_by_identifier("test2").unwrap();
-        assert!(plugin.is_none());
+        // get ext by identifier that does not exist
+        let ext = db.get_extension_by_identifier("test2").unwrap();
+        assert!(ext.is_none());
 
-        /* ----------------------- Delete plugin by identifier ---------------------- */
-        db.delete_plugin_by_identifier("test").unwrap();
-        let plugins = db.get_all_plugins().unwrap();
-        assert_eq!(plugins.len(), 0);
+        /* ----------------------- Delete ext by identifier ---------------------- */
+        db.delete_extension_by_identifier("test").unwrap();
+        let exts = db.get_all_extensions().unwrap();
+        assert_eq!(exts.len(), 0);
 
         fs::remove_file(&db_path).unwrap();
     }
 
     #[test]
-    fn test_plugin_data_crud() {
+    fn test_ext_data_crud() {
         // let dir = tempdir().unwrap();
         // let db_path = dir.path().join("test.db");
         let db_path = PathBuf::from("./test.db");
@@ -291,100 +292,96 @@ mod tests {
         let db = JarvisDB::new(&db_path, None).unwrap();
         assert!(fs::metadata(&db_path).is_ok());
         db.init().unwrap();
-        db.create_plugin("test", "0.1.0", Some("test"), Some("test"))
+        db.create_extension("test", "0.1.0", Some("test"), Some("test"))
             .unwrap();
-        let plugin = db.get_plugin_by_identifier("test").unwrap().unwrap();
+        let ext = db.get_extension_by_identifier("test").unwrap().unwrap();
 
-        db.create_plugin_data(plugin.plugin_id, "test", "{}", None)
+        db.create_extension_data(ext.ext_id, "test", "{}", None)
             .unwrap();
-        db.create_plugin_data(plugin.plugin_id, "setting", "{}", None)
+        db.create_extension_data(ext.ext_id, "setting", "{}", None)
             .unwrap();
         /* ---------------------- Search with data_type == test --------------------- */
-        let plugin_data = db
-            .search_plugin_data(plugin.plugin_id, Some("test"), None, None, None)
+        let ext_data = db
+            .search_extension_data(ext.ext_id, Some("test"), None, None, None)
             .unwrap();
-        assert_eq!(plugin_data.len(), 1); // there is only one record with data_type == test
-                                          /* ------------------------ Search without any filter ----------------------- */
-        let plugin_data = db
-            .search_plugin_data(plugin.plugin_id, None, None, None, None)
+        assert_eq!(ext_data.len(), 1); // there is only one record with data_type == test
+
+        /* ------------------------ Search without any filter ----------------------- */
+        let ext_data = db
+            .search_extension_data(ext.ext_id, None, None, None, None)
             .unwrap();
-        assert_eq!(plugin_data.len(), 2); // one test, one setting
+        assert_eq!(ext_data.len(), 2); // one test, one setting
 
         /* -------------------------- Test Full Text Search ------------------------- */
-        db.create_plugin_data(
-            plugin.plugin_id,
-            "data",
-            "{}",
-            Some("hello world from rust"),
-        )
-        .unwrap();
-        db.create_plugin_data(plugin.plugin_id, "data", "{}", Some("world is a mess"))
+        db.create_extension_data(ext.ext_id, "data", "{}", Some("hello world from rust"))
+            .unwrap();
+        db.create_extension_data(ext.ext_id, "data", "{}", Some("world is a mess"))
             .unwrap();
         /* ----------------------- both record contains world ----------------------- */
-        let plugin_data = db
-            .search_plugin_data(plugin.plugin_id, Some("data"), Some("wOrLd"), None, None)
+        let ext_data = db
+            .search_extension_data(ext.ext_id, Some("data"), Some("wOrLd"), None, None)
             .unwrap();
-        assert_eq!(plugin_data.len(), 2);
+        assert_eq!(ext_data.len(), 2);
         /* ------------------------ search for rust with FTS ------------------------ */
-        let plugin_data = db
-            .search_plugin_data(plugin.plugin_id, Some("data"), Some("rust"), None, None)
+        let ext_data = db
+            .search_extension_data(ext.ext_id, Some("data"), Some("rust"), None, None)
             .unwrap();
-        assert_eq!(plugin_data.len(), 1);
+        assert_eq!(ext_data.len(), 1);
 
-        // get plugin data with search text that does not exist
-        let plugin_data = db
-            .search_plugin_data(plugin.plugin_id, Some("test"), Some("test"), None, None)
+        // get ext data with search text that does not exist
+        let ext_data = db
+            .search_extension_data(ext.ext_id, Some("test"), Some("test"), None, None)
             .unwrap();
-        assert_eq!(plugin_data.len(), 0);
+        assert_eq!(ext_data.len(), 0);
 
         /* ---------------- All 4 test records are created after 2021 --------------- */
-        let plugin_data = db
-            .search_plugin_data(plugin.plugin_id, None, None, Some("2021-01-01"), None)
+        let ext_data = db
+            .search_extension_data(ext.ext_id, None, None, Some("2021-01-01"), None)
             .unwrap();
-        assert_eq!(plugin_data.len(), 4);
+        assert_eq!(ext_data.len(), 4);
 
         // I don't think this code(or I) could live long enough to see this test fail 2100
-        let plugin_data = db
-            .search_plugin_data(plugin.plugin_id, None, None, Some("2100-01-01"), None)
+        let ext_data = db
+            .search_extension_data(ext.ext_id, None, None, Some("2100-01-01"), None)
             .unwrap();
-        assert_eq!(plugin_data.len(), 0);
+        assert_eq!(ext_data.len(), 0);
 
         /* --------------- All 4 test records are created before 2030 --------------- */
         // if this code still runs in 2030, I will be very happy to fix this test
-        let plugin_data = db
-            .search_plugin_data(plugin.plugin_id, None, None, None, Some("2030-01-01"))
+        let ext_data = db
+            .search_extension_data(ext.ext_id, None, None, None, Some("2030-01-01"))
             .unwrap();
-        assert_eq!(plugin_data.len(), 4);
+        assert_eq!(ext_data.len(), 4);
 
-        // get plugin data with created_at filter that does not exist
-        let plugin_data = db
-            .search_plugin_data(plugin.plugin_id, None, None, None, Some("2021-01-01"))
+        // get ext data with created_at filter that does not exist
+        let ext_data = db
+            .search_extension_data(ext.ext_id, None, None, None, Some("2021-01-01"))
             .unwrap();
-        assert_eq!(plugin_data.len(), 0);
+        assert_eq!(ext_data.len(), 0);
 
-        /* ---------------------- Delete plugin data by data_id ---------------------- */
+        /* ---------------------- Delete ext data by data_id ---------------------- */
         // there is only one record with data_type == setting
-        let plugin_data = db
-            .search_plugin_data(plugin.plugin_id, Some("setting"), None, None, None)
+        let ext_data = db
+            .search_extension_data(ext.ext_id, Some("setting"), None, None, None)
             .unwrap();
-        let data_id = plugin_data.first().unwrap().data_id;
-        db.delete_plugin_data_by_id(data_id).unwrap();
-        let plugin_data = db
-            .search_plugin_data(plugin.plugin_id, Some("setting"), None, None, None)
+        let data_id = ext_data.first().unwrap().data_id;
+        db.delete_extension_data_by_id(data_id).unwrap();
+        let ext_data = db
+            .search_extension_data(ext.ext_id, Some("setting"), None, None, None)
             .unwrap();
-        assert_eq!(plugin_data.len(), 0);
+        assert_eq!(ext_data.len(), 0);
 
-        /* ---------------------- Update plugin data by data_id ---------------------- */
-        let plugin_data = db
-            .search_plugin_data(plugin.plugin_id, Some("data"), None, None, None)
+        /* ---------------------- Update ext data by data_id ---------------------- */
+        let ext_data = db
+            .search_extension_data(ext.ext_id, Some("data"), None, None, None)
             .unwrap();
-        let data_id = plugin_data.first().unwrap().data_id;
-        db.update_plugin_data_by_id(data_id, "{\"name\": \"huakun\"}", Some("updated"))
+        let data_id = ext_data.first().unwrap().data_id;
+        db.update_extension_data_by_id(data_id, "{\"name\": \"huakun\"}", Some("updated"))
             .unwrap();
-        let plugin_data = db.get_plugin_data_by_id(data_id).unwrap();
-        assert!(plugin_data.is_some());
-        let plugin_data = plugin_data.unwrap();
-        assert_eq!(plugin_data.data, "{\"name\": \"huakun\"}");
+        let ext_data = db.get_extension_data_by_id(data_id).unwrap();
+        assert!(ext_data.is_some());
+        let ext_data = ext_data.unwrap();
+        assert_eq!(ext_data.data, "{\"name\": \"huakun\"}");
 
         fs::remove_file(&db_path).unwrap();
     }

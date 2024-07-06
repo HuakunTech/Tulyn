@@ -344,6 +344,34 @@
           ]
         },
         {
+          "description": "allow-create-extension -> Enables the create_extension command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-create-extension"
+          ]
+        },
+        {
+          "description": "deny-create-extension -> Denies the create_extension command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-create-extension"
+          ]
+        },
+        {
+          "description": "allow-create-extension-data -> Enables the create_extension_data command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-create-extension-data"
+          ]
+        },
+        {
+          "description": "deny-create-extension-data -> Denies the create_extension_data command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-create-extension-data"
+          ]
+        },
+        {
           "description": "allow-decompress-tarball -> Enables the decompress_tarball command without any pre-configured scope.",
           "type": "string",
           "enum": [
@@ -355,6 +383,34 @@
           "type": "string",
           "enum": [
             "deny-decompress-tarball"
+          ]
+        },
+        {
+          "description": "allow-delete-extension-by-identifier -> Enables the delete_extension_by_identifier command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-delete-extension-by-identifier"
+          ]
+        },
+        {
+          "description": "deny-delete-extension-by-identifier -> Denies the delete_extension_by_identifier command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-delete-extension-by-identifier"
+          ]
+        },
+        {
+          "description": "allow-delete-extension-data-by-id -> Enables the delete_extension_data_by_id command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-delete-extension-data-by-id"
+          ]
+        },
+        {
+          "description": "deny-delete-extension-data-by-id -> Denies the delete_extension_data_by_id command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-delete-extension-data-by-id"
           ]
         },
         {
@@ -383,20 +439,6 @@
           "type": "string",
           "enum": [
             "deny-empty-trash"
-          ]
-        },
-        {
-          "description": "allow-execute -> Enables the execute command without any pre-configured scope.",
-          "type": "string",
-          "enum": [
-            "allow-execute"
-          ]
-        },
-        {
-          "description": "deny-execute -> Denies the execute command without any pre-configured scope.",
-          "type": "string",
-          "enum": [
-            "deny-execute"
           ]
         },
         {
@@ -568,6 +610,20 @@
           ]
         },
         {
+          "description": "allow-get-all-extensions -> Enables the get_all_extensions command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-get-all-extensions"
+          ]
+        },
+        {
+          "description": "deny-get-all-extensions -> Denies the get_all_extensions command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-get-all-extensions"
+          ]
+        },
+        {
           "description": "allow-get-applications -> Enables the get_applications command without any pre-configured scope.",
           "type": "string",
           "enum": [
@@ -635,6 +691,34 @@
           "type": "string",
           "enum": [
             "deny-get-ext-label-map"
+          ]
+        },
+        {
+          "description": "allow-get-extension-by-identifier -> Enables the get_extension_by_identifier command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-get-extension-by-identifier"
+          ]
+        },
+        {
+          "description": "deny-get-extension-by-identifier -> Denies the get_extension_by_identifier command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-get-extension-by-identifier"
+          ]
+        },
+        {
+          "description": "allow-get-extension-data-by-id -> Enables the get_extension_data_by_id command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-get-extension-data-by-id"
+          ]
+        },
+        {
+          "description": "deny-get-extension-data-by-id -> Denies the get_extension_data_by_id command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-get-extension-data-by-id"
           ]
         },
         {
@@ -820,20 +904,6 @@
           ]
         },
         {
-          "description": "allow-ping -> Enables the ping command without any pre-configured scope.",
-          "type": "string",
-          "enum": [
-            "allow-ping"
-          ]
-        },
-        {
-          "description": "deny-ping -> Denies the ping command without any pre-configured scope.",
-          "type": "string",
-          "enum": [
-            "deny-ping"
-          ]
-        },
-        {
           "description": "allow-quit-all-apps -> Enables the quit_all_apps command without any pre-configured scope.",
           "type": "string",
           "enum": [
@@ -943,6 +1013,20 @@
           "type": "string",
           "enum": [
             "deny-run-powershell"
+          ]
+        },
+        {
+          "description": "allow-search-extension-data -> Enables the search_extension_data command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-search-extension-data"
+          ]
+        },
+        {
+          "description": "deny-search-extension-data -> Denies the search_extension_data command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-search-extension-data"
           ]
         },
         {
@@ -1223,6 +1307,20 @@
           "type": "string",
           "enum": [
             "deny-unregister-extension-window"
+          ]
+        },
+        {
+          "description": "allow-update-extension-data-by-id -> Enables the update_extension_data_by_id command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-update-extension-data-by-id"
+          ]
+        },
+        {
+          "description": "deny-update-extension-data-by-id -> Denies the update_extension_data_by_id command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-update-extension-data-by-id"
           ]
         },
         {
