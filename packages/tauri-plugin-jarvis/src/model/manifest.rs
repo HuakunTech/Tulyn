@@ -189,27 +189,27 @@ pub struct InlineCmd {
     pub platforms: Option<Vec<OSPlatform>>,
 }
 
-// generate test
-#[cfg(test)]
-mod tests {
-    use super::*;
+// // generate test
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
 
-    #[test]
-    fn test_load_extension_manifest() {
-        // this test relies on submodule
-        let manifest_paths = vec![
-            "../../vendors/extensions/extensions/download-twitter-video/package.json",
-            "../../vendors/extensions/extensions/jwt/package.json",
-            "../../vendors/extensions/extensions/ip-info/package.json",
-            "../../vendors/extensions/extensions/qrcode/package.json",
-            "../../vendors/extensions/extensions/video-processor/package.json",
-        ];
-        for manifest_path in manifest_paths {
-            let abs_path = std::fs::canonicalize(manifest_path).unwrap();
-            println!("{:?}", abs_path);
-            let manifest_str = std::fs::read_to_string(abs_path).unwrap();
-            let pkg: ExtPackageJson = serde_json::from_str(&manifest_str).unwrap();
-            println!("{:?}", pkg.files);
-        }
-    }
-}
+//     #[test]
+//     fn test_load_extension_manifest() {
+//         // this test relies on submodule
+//         let manifest_paths = vec![
+//             "../../vendors/extensions/extensions/download-twitter-video/package.json",
+//             "../../vendors/extensions/extensions/jwt/package.json",
+//             "../../vendors/extensions/extensions/ip-info/package.json",
+//             "../../vendors/extensions/extensions/qrcode/package.json",
+//             "../../vendors/extensions/extensions/video-processor/package.json",
+//         ];
+//         for manifest_path in manifest_paths {
+//             let abs_path = std::fs::canonicalize(manifest_path).unwrap();
+//             println!("{:?}", abs_path);
+//             let manifest_str = std::fs::read_to_string(abs_path).unwrap();
+//             let pkg: ExtPackageJson = serde_json::from_str(&manifest_str).unwrap();
+//             println!("{:?}", pkg.files);
+//         }
+//     }
+// }

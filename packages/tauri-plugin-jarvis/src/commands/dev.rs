@@ -56,8 +56,5 @@ pub fn toggle_devtools<R: Runtime>(window: tauri::Window<R>) -> Result<(), Strin
 
 #[tauri::command]
 pub fn app_is_dev() -> Result<bool, String> {
-    #[cfg(debug_assertions)]
-    return Ok(true);
-    #[cfg(not(debug_assertions))]
-    return Ok(false);
+    Ok(tauri::is_dev())
 }

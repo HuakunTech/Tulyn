@@ -2,7 +2,6 @@ import commonjs from "@rollup/plugin-commonjs"
 import resolve from "@rollup/plugin-node-resolve"
 import terser from "@rollup/plugin-terser"
 import { visualizer } from "rollup-plugin-visualizer"
-import webWorkerLoader from "rollup-plugin-web-worker-loader"
 
 /** @type {import('rollup').RollupOptions} */
 const config = {

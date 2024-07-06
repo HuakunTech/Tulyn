@@ -43,3 +43,8 @@ target/
 
 stats.html
 bun.lockb
+
+# sqlite database
+*.sqlite3
+*.sqlite
+*.db

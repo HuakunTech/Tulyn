@@ -14,8 +14,7 @@
     "@rollup/plugin-terser": "^0.4.4",
     "rimraf": "^5.0.7",
     "rollup": "^4.18.0",
-    "rollup-plugin-visualizer": "^5.12.0",
-    "rollup-plugin-web-worker-loader": "^1.6.1"
+    "rollup-plugin-visualizer": "^5.12.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
