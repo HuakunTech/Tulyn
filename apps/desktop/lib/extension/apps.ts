@@ -69,10 +69,27 @@ export class AppsExtension implements IExtensionBase {
     if (platform === "macos") {
       if (foundApp?.app_desktop_path) {
         return open(foundApp.app_desktop_path)
+      } else {
+        warn(`Cannot find app at ${item.value}`)
+        ElNotification({
+          title: "Error",
+          type: "error",
+          message: `Cannot find app at ${item.value}`
+        })
+        return Promise.resolve()
       }
-      return Promise.resolve()
     } else if (platform === "linux") {
-      return executeBashScript(item.value).then(() => Promise.resolve())
+      if (foundApp?.app_path_exe) {
+        return executeBashScript(foundApp.app_path_exe).then(() => Promise.resolve())
+      } else {
+        warn(`Cannot find app at ${item.value}`)
+        ElNotification({
+          title: "Error",
+          type: "error",
+          message: `Cannot find app at ${item.value}`
+        })
+        return Promise.resolve()
+      }
     } else if (platform === "windows") {
       return open(item.value)
     } else {
