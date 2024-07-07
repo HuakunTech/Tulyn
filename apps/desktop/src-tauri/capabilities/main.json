@@ -26,6 +26,8 @@
     "window:allow-start-dragging",
     "window:allow-close",
     "window:allow-create",
+    "window:allow-set-decorations",
+    "window:allow-show",
     "webview:allow-create-webview-window",
     "app:default",
     "resources:default",

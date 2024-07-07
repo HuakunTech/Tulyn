@@ -1,4 +1,5 @@
 import { DebugWindowLabel, DevWindowLabel, SettingsWindowLabel } from "@/lib/constants"
+import { $appState } from "@/lib/stores/appState"
 import { ListItemType, TListItem } from "@jarvis/schema"
 import { getAll as getAllWindows, WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { ElMessage, ElNotification } from "element-plus"
@@ -35,13 +36,14 @@ const builtinCmds: BuiltinCmd[] = [
       if (found) {
         ElNotification.error("Settings Page is already open")
       } else {
-        new WebviewWindow(SettingsWindowLabel, {
+        const win = new WebviewWindow(SettingsWindowLabel, {
           url: "/settings",
           title: "",
           hiddenTitle: true,
           width: 1000,
           height: 800,
-          titleBarStyle: "overlay"
+          titleBarStyle: $appState.get().platform === "macos" ? "overlay" : undefined,
+          visible: false
         })
       }
       return Promise.resolve()

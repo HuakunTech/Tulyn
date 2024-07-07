@@ -12,7 +12,7 @@ use tauri_plugin_store::StoreBuilder;
 pub mod utils;
 #[cfg(target_os = "macos")]
 use tauri::ActivationPolicy;
-use tauri::{is_dev, LogicalSize, Manager, Runtime, Size, WebviewWindow, Window};
+use tauri::Manager;
 pub use tauri_plugin_log::fern::colors::ColoredLevelConfig;
 
 fn main() {
@@ -93,7 +93,7 @@ fn main() {
             {
                 let window = app.get_webview_window("main").unwrap();
                 window.open_devtools();
-                window.close_devtools();
+                // window.close_devtools();
             }
             Ok(())
         })

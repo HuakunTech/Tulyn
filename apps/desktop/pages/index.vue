@@ -38,6 +38,7 @@ watch(searchTermInSync, (val) => {
 })
 
 onMounted(async () => {
+  getCurrent().setDecorations(false)
   Promise.all(exts.map((ext) => ext.load()))
 })
 
