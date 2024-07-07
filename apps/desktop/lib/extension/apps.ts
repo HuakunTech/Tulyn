@@ -1,18 +1,37 @@
+import { $appState } from "@/lib/stores/appState"
 import { TListItem } from "@jarvis/schema"
 import { convertFileSrc } from "@tauri-apps/api/core"
 import { info, warn } from "@tauri-apps/plugin-log"
 import { ElNotification } from "element-plus"
-import { os } from "jarvis-api/ui"
 import { atom, computed, type WritableAtom } from "nanostores"
 import { getAllApps, refreshApplicationsList } from "tauri-plugin-jarvis-api/commands"
 import { AppInfo } from "tauri-plugin-jarvis-api/models"
 import { executeBashScript, open } from "tauri-plugin-shellx-api"
 import { type IExtensionBase } from "./base"
 
+/**
+ * On MacOS, we use .app folder as unique value to identify an application
+ * On Windows, we use app_path_exe. Sometimes in a single app_desktop_path, there are multiple app_path_exe (e.g. adobe acrobat)
+ * On Linux, we use app_desktop_path, each app should have a single .desktop file
+ * @param app
+ * @returns
+ */
+export function computeItemValue(app: AppInfo & { app_path_exe: string }): string {
+  const platform = $appState.get().platform
+  if (platform === "windows") {
+    return app.app_path_exe
+  } else if (platform === "linux" || platform === "macos") {
+    return app.app_desktop_path
+  } else {
+    warn(`Unsupported platform: ${platform}`)
+    return ""
+  }
+}
+
 export function appInfoToListItem(app: AppInfo & { app_path_exe: string }): TListItem {
   return {
     title: app.name,
-    value: app.app_path_exe,
+    value: computeItemValue(app),
     description: "",
     type: "Application",
     icon: app.icon_path
@@ -27,7 +46,6 @@ export function appInfoToListItem(app: AppInfo & { app_path_exe: string }): TLis
 export class AppsExtension implements IExtensionBase {
   $apps: WritableAtom<AppInfo[]> = atom([])
   extensionName = "Applications"
-  // $listItems = atom<TListItem[]>([]);
   $listItems = computed(this.$apps, (apps) =>
     apps
       .filter((app) => !!app.app_path_exe)
@@ -46,63 +64,25 @@ export class AppsExtension implements IExtensionBase {
     return []
   }
   onSelect(item: TListItem): Promise<void> {
-    return os.platform().then((platform) => {
-      if (platform === "macos") {
-        open(item.value)
-      } else if (platform === "linux") {
-        executeBashScript(item.value)
-      } else if (platform === "windows") {
-        open(item.value)
-      } else {
-        ElNotification({
-          title: "Unsupported Platform",
-          type: "warning",
-          message: `Platform ${platform} is not supported`
-        })
-        warn(`Unsupported platform: ${platform}`)
+    const platform = $appState.get().platform
+    const foundApp = this.$apps.value?.find((app) => app.app_desktop_path === item.value)
+    if (platform === "macos") {
+      if (foundApp?.app_desktop_path) {
+        return open(foundApp.app_desktop_path)
       }
-    })
-
-    // const foundApp = this.$apps.value?.find((app) => app.app_desktop_path === item.value)
-    // if (!foundApp) {
-    //   ElNotification({
-    //     title: "App Not Found",
-    //     type: "warning",
-    //     position: "bottom-right"
-    //   })
-    //   return Promise.resolve()
-    // } else {
-    //   return os.platform().then((platform) => {
-    //     if (platform === "macos") {
-    //       open(foundApp.app_desktop_path)
-    //     } else if (platform === "linux") {
-    //       if (foundApp.app_path_exe) {
-    //         console.log("Opening", foundApp.app_path_exe)
-    //         executeBashScript(foundApp.app_path_exe)
-    //         // open(foundApp.app_path_exe)
-    //       } else {
-    //         ElNotification({
-    //           title: "Not Executable",
-    //           type: "warning",
-    //           message: "This application has no executable"
-    //         })
-    //         warn(`App has no executable: ${JSON.stringify(foundApp)}`)
-    //       }
-    //     } else if (platform === "windows") {
-    //       if (foundApp.app_path_exe) {
-    //         // console.log("Opening", foundApp.app_path_exe)
-    //         open(item.value)
-    //         info(`Launching App ${foundApp.app_path_exe}`)
-    //       }
-    //     } else {
-    //       ElNotification({
-    //         title: "Unsupported Platform",
-    //         type: "warning",
-    //         message: `Platform ${platform} is not supported`
-    //       })
-    //       warn(`Unsupported platform: ${platform}`)
-    //     }
-    //   })
-    // }
+      return Promise.resolve()
+    } else if (platform === "linux") {
+      return executeBashScript(item.value).then(() => Promise.resolve())
+    } else if (platform === "windows") {
+      return open(item.value)
+    } else {
+      ElNotification({
+        title: "Unsupported Platform",
+        type: "warning",
+        message: `Platform ${platform} is not supported`
+      })
+      warn(`Unsupported platform: ${platform}`)
+      return Promise.resolve()
+    }
   }
 }

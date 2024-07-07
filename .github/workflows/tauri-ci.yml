@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - release
-      - dev
     tags:
       - "v*"
   workflow_dispatch:
@@ -17,14 +16,14 @@ jobs:
       fail-fast: false
       matrix:
         settings:
-          # - platform: "macos-14" # for Arm based macs (M1 and above).
-          #   args: "--target aarch64-apple-darwin --verbose"
-          # - platform: "macos-14" # for Intel based macs.
-          #   args: "--target x86_64-apple-darwin --verbose"
-          # - platform: "macos-14" # for Both Arm and Intel based macs.
-          #   args: "--target universal-apple-darwin --verbose"
-          # - platform: "ubuntu-22.04" # for Tauri v1 you could replace this with ubuntu-20.04.
-          #   args: "--verbose"
+          - platform: "macos-14" # for Arm based macs (M1 and above).
+            args: "--target aarch64-apple-darwin --verbose"
+          - platform: "macos-14" # for Intel based macs.
+            args: "--target x86_64-apple-darwin --verbose"
+          - platform: "macos-14" # for Both Arm and Intel based macs.
+            args: "--target universal-apple-darwin --verbose"
+          - platform: "ubuntu-22.04" # for Tauri v1 you could replace this with ubuntu-20.04.
+            args: "--verbose"
           - platform: "windows-latest"
             args: "--verbose"
 
