@@ -28,7 +28,7 @@ const showListItems = computed(() => {
     <CommandGroup :heading="ext.extensionName">
       <ListItem
         v-for="(item, idx) in showListItems"
-        :item="item"
+        :item="item as TListItem"
         :isDevExt="ext.extensionName === 'Dev Extensions'"
         :key="`${ext.extensionName}-${item.title}-${item.value}`"
         @select="ext.onSelect(item as TListItem)"

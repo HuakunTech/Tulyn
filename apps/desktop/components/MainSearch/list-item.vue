@@ -12,8 +12,8 @@ import {
 } from "@/components/ui/command"
 import { $appConfig, setDevExtLoadUrl, setShowInTray } from "@/lib/stores/appConfig"
 import { Icon } from "@iconify/vue"
+import type { TListItem } from "@jarvis/schema"
 import { useStore } from "@nanostores/vue"
-import type { TListItem } from "jarvis-api/models"
 
 const appConfig = useStore($appConfig)
 const props = defineProps<{ item: TListItem; isDevExt: boolean }>()
@@ -23,7 +23,7 @@ const emits = defineEmits<{
 </script>
 
 <template>
-  <CommandItem @select="() => emits('select')" :value="item.value">
+  <CommandItem @select="() => emits('select')" :value="`${item.value}`">
     <img
       width="20"
       class="mr-2"

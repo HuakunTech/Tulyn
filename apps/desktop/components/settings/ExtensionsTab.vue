@@ -7,7 +7,7 @@ import { $appConfig } from "@/lib/stores/appConfig"
 import { Icon } from "@iconify/vue"
 import { ElMessage, ElTable, ElTableColumn } from "element-plus"
 import { Trash2Icon } from "lucide-vue-next"
-import { TListGroup, type TListItem } from "tauri-plugin-jarvis-api/models"
+import { TListGroup, type TListItem } from "@jarvis/schema"
 import { onMounted, ref } from "vue"
 
 const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath, true)

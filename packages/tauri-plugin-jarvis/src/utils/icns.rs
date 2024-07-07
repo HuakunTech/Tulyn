@@ -87,7 +87,19 @@ pub fn load_icon(path: PathBuf) -> tauri::http::Response<Vec<u8>> {
 #[cfg(target_os = "windows")]
 pub fn load_icon(path: PathBuf) -> tauri::http::Response<Vec<u8>> {
     // tauri::http::Response::builder().body(vec![]).unwrap()
-    todo!("load_icon for windows")
+    match path.exists() {
+        true => {
+            let bytes = std::fs::read(&path).expect("Error reading file");
+            tauri::http::Response::builder().body(bytes).unwrap()
+        }
+        false => {
+            let res = tauri::http::Response::builder()
+                .status(tauri::http::StatusCode::NOT_FOUND)
+                .body("file not found".as_bytes().to_vec())
+                .unwrap();
+            return res;
+        }
+    }
 }
 
 #[cfg(all(test, target_os = "macos"))]
