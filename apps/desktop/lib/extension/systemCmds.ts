@@ -43,8 +43,6 @@ export class SystemCommandExtension implements IExtensionBase {
     return this.systemCommandListItems
   }
   async onSelect(item: TListItem): Promise<void> {
-    console.log(item)
-
     const cmd = this.systemCommands.find((c) => c.value === item.value) as TCommand
     let confirmed = true
     if (cmd.confirmRequired) {

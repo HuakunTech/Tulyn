@@ -68,7 +68,6 @@ onKeyStroke("/", (e) => {
 </script>
 <template>
   <div class="h-full">
-    <!-- <iframe ref="iframeEle" src="/iframe" frameborder="0"></iframe> -->
     <CmdPaletteCommand class="" v-model:searchTerm="searchTermInSync" :identity-filter="true">
       <CommandInput class="h-12 text-md" placeholder="Search for apps or commands..." />
       <CommandList class="h-full">

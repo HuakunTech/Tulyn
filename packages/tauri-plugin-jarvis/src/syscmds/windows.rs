@@ -1,47 +1,95 @@
 use super::CommonSystemCmds;
 use crate::utils::script::{run_apple_script, run_powershell};
-
 pub struct SystemCmds;
+
+const SET_VOLUME_PS_FUNCTION: &str = r#"
+    Function Set-Speaker($Volume) { 
+        $wshShell = new-object -com wscript.shell; 
+        1..50 | % { $wshShell.SendKeys([char]174) };
+        if ($Volume -eq 0) {
+            return
+        }
+        1..$Volume | % { $wshShell.SendKeys([char]175) } 
+    }"#;
 
 impl CommonSystemCmds for SystemCmds {
     fn open_trash() -> anyhow::Result<()> {
-        todo!()
+        run_powershell(
+            r#"
+            $shell = New-Object -ComObject Shell.Application
+            $recycleBin = $shell.Namespace(10)
+            $recycleBin.Self.InvokeVerb("open")
+        "#,
+        )?;
+        Ok(())
     }
 
     fn empty_trash() -> anyhow::Result<()> {
-        todo!()
+        run_powershell("Clear-RecycleBin -Force")?;
+        Ok(())
     }
 
     fn shutdown() -> anyhow::Result<()> {
-        todo!()
+        run_powershell("Stop-Computer -Force")?;
+        Ok(())
     }
 
     fn reboot() -> anyhow::Result<()> {
-        todo!()
+        run_powershell("Restart-Computer -Force")?;
+        Ok(())
     }
 
     fn sleep() -> anyhow::Result<()> {
-        todo!()
+        run_powershell("rundll32.exe powrprof.dll,SetSuspendState 0,1,0")?;
+        Ok(())
     }
 
     fn set_volume(percentage: u8) -> anyhow::Result<()> {
-        todo!()
+        run_powershell(&format!(
+            "{}; Set-Speaker {}",
+            SET_VOLUME_PS_FUNCTION,
+            percentage / 2
+        ))?;
+        Ok(())
     }
 
     fn turn_volume_up() -> anyhow::Result<()> {
-        todo!()
+        for _ in 0..5 {
+            run_powershell(
+                r#"
+            $obj = new-object -com wscript.shell
+            $obj.SendKeys([char]175)
+        "#,
+            )?;
+        }
+        Ok(())
     }
 
     fn turn_volume_down() -> anyhow::Result<()> {
-        todo!()
+        for _ in 0..5 {
+            run_powershell(
+                r#"
+                $obj = new-object -com wscript.shell
+                $obj.SendKeys([char]174)
+            "#,
+            )?;
+        }
+        Ok(())
     }
 
     fn logout_user() -> anyhow::Result<()> {
-        todo!()
+        run_powershell("shutdown -l -f")?;
+        Ok(())
     }
 
     fn toggle_mute() -> anyhow::Result<()> {
-        todo!()
+        run_powershell(
+            r#"
+            $obj = new-object -com wscript.shell
+            $obj.SendKeys([char]173)
+        "#,
+        )?;
+        Ok(())
     }
 
     fn mute() -> anyhow::Result<()> {

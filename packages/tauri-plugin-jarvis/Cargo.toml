@@ -17,7 +17,6 @@ applications = { path = "../../vendors/applications-rs" }
 anyhow = { workspace = true }
 tar = "0.4.40"
 flate2 = "1.0.30"
-tauri-icns = "0.1.0"
 window-vibrancy = "0.5.0"
 tauri-plugin-store = "2.0.0-beta"
 axum = { version = "0.6.20" }
@@ -34,6 +33,12 @@ mdns-sd = { workspace = true }
 tauri-plugin-network = { workspace = true }
 db = { path = "../db" }
 
+[target.'cfg(macos)'.dependencies]
+tauri-icns = "0.1.0"
+
+[target.'cfg(windows)'.dependencies]
+tauri-winres = "0.1.1"
+ico = "0.3.0"
 
 [build-dependencies]
 tauri-plugin = { version = "2.0.0-beta", features = ["build"] }

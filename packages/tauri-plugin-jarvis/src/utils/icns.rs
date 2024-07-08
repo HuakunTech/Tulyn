@@ -1,12 +1,16 @@
-use applications::utils::image::{RustImage, RustImageData};
+use anyhow::Ok;
+use applications::utils::image::{self, RustImage, RustImageData};
 use std::{
     ffi::OsStr,
     fs::File,
-    io::{BufReader, Cursor},
-    path::PathBuf,
+    io::{BufReader, Cursor, Write},
+    path::{Path, PathBuf},
 };
+#[cfg(target_os = "macos")]
 use tauri_icns::{IconFamily, IconType};
+use uuid::Uuid;
 
+#[cfg(target_os = "macos")]
 /// Load Apple icns
 pub fn load_icns(icns_path: &PathBuf) -> anyhow::Result<RustImageData> {
     if icns_path
@@ -89,8 +93,34 @@ pub fn load_icon(path: PathBuf) -> tauri::http::Response<Vec<u8>> {
     // tauri::http::Response::builder().body(vec![]).unwrap()
     match path.exists() {
         true => {
-            let bytes = std::fs::read(&path).expect("Error reading file");
-            tauri::http::Response::builder().body(bytes).unwrap()
+            let ico_loaded = load_ico(&path);
+            if ico_loaded.is_err() {
+                let res = tauri::http::Response::builder()
+                    .status(tauri::http::StatusCode::INTERNAL_SERVER_ERROR)
+                    .body("Error loading icon".as_bytes().to_vec())
+                    .unwrap();
+                return res;
+            } else {
+                let ico = ico_loaded.unwrap();
+                // write ico to random file name.png, read it and return
+                // Generate a random file name
+                let id = Uuid::new_v4();
+                let file_name = format!("{}.png", id);
+                // get temp folder
+                let temp_dir = std::env::temp_dir();
+                let file_path = temp_dir.join(file_name);
+                // Write the ico to the random file name.png
+                let file = File::create(&file_path).unwrap();
+                ico.write_png(file).unwrap();
+                // Read the file and return the bytes
+                let bytes = std::fs::read(&file_path).expect("Error reading file");
+                // Delete the file
+                std::fs::remove_file(&file_path).unwrap();
+                tauri::http::Response::builder()
+                    .header("Content-Type", "image/png")
+                    .body(bytes)
+                    .unwrap()
+            }
         }
         false => {
             let res = tauri::http::Response::builder()
@@ -100,6 +130,34 @@ pub fn load_icon(path: PathBuf) -> tauri::http::Response<Vec<u8>> {
             return res;
         }
     }
+}
+
+/// Load .ico image
+pub fn load_ico(path: &Path) -> anyhow::Result<ico::IconImage> {
+    let file = std::fs::File::open(path)?;
+    let icon_dir = ico::IconDir::read(file)?;
+    let image = icon_dir.entries().first();
+    if let Some(image) = image {
+        Ok(image.decode()?)
+    } else {
+        Err(anyhow::anyhow!("No image found"))
+    }
+}
+
+#[cfg(all(test, target_os = "windows"))]
+mod tests {
+    use super::*;
+    use std::io::Write;
+    use std::path::PathBuf;
+
+    // #[test]
+    // fn test_load_icon() {
+    //     let path = PathBuf::from(
+    //         "C:\\Windows\\Installer\\{89C3B1AD-04F9-4A43-940D-51E26BC47942}\\ProductIcon",
+    //     );
+    //     let icon = load_ico(path).unwrap();
+    //     icon.write_png(std::fs::File::create("icon.png").unwrap()).unwrap();
+    // }
 }
 
 #[cfg(all(test, target_os = "macos"))]

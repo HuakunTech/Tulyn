@@ -121,35 +121,35 @@ export const rawSystemCommands = [
     icon: "uil:trash",
     confirmRequired: false,
     function: openTrash,
-    platforms: ["macos", "linux"]
+    platforms: ["macos", "linux", "windows"]
   },
   {
     name: "Empty Trash",
     icon: "uil:trash",
     confirmRequired: true,
     function: emptyTrash,
-    platforms: ["macos", "linux"]
+    platforms: ["macos", "linux", "windows"]
   },
   {
     name: "Shutdown",
     icon: "mdi:shutdown",
     confirmRequired: true,
     function: shutdown,
-    platforms: ["macos", "linux"]
+    platforms: ["macos", "linux", "windows"]
   },
   {
     name: "Reboot",
     icon: "mdi:restart",
     confirmRequired: true,
     function: reboot,
-    platforms: ["macos", "linux"]
+    platforms: ["macos", "linux", "windows"]
   },
   {
     name: "Sleep",
     icon: "carbon:asleep",
     confirmRequired: false,
     function: sleep,
-    platforms: ["macos", "linux"]
+    platforms: ["macos", "linux", "windows"]
   },
   {
     name: "Toggle System Appearance",
@@ -184,56 +184,56 @@ export const rawSystemCommands = [
     icon: "flowbite:volume-mute-outline",
     confirmRequired: false,
     function: setVolumeTo0,
-    platforms: ["macos", "linux"]
+    platforms: ["macos", "linux", "windows"]
   },
   {
     name: "Set Volume to 25%",
     icon: "flowbite:volume-down-solid",
     confirmRequired: false,
     function: setVolumeTo25,
-    platforms: ["macos", "linux"]
+    platforms: ["macos", "linux", "windows"]
   },
   {
     name: "Set Volume to 50%",
     icon: "flowbite:volume-down-solid",
     confirmRequired: false,
     function: setVolumeTo50,
-    platforms: ["macos", "linux"]
+    platforms: ["macos", "linux", "windows"]
   },
   {
     name: "Set Volume to 75%",
     icon: "flowbite:volume-down-solid",
     confirmRequired: false,
     function: setVolumeTo75,
-    platforms: ["macos", "linux"]
+    platforms: ["macos", "linux", "windows"]
   },
   {
     name: "Set Volume to 100%",
     icon: "flowbite:volume-up-solid",
     confirmRequired: false,
     function: setVolumeTo100,
-    platforms: ["macos", "linux"]
+    platforms: ["macos", "linux", "windows"]
   },
   {
     name: "Turn Volume Up",
     icon: "flowbite:volume-down-solid",
     confirmRequired: false,
     function: turnVolumeUp,
-    platforms: ["macos", "linux"]
+    platforms: ["macos", "linux", "windows"]
   },
   {
     name: "Turn Volume Down",
     icon: "flowbite:volume-down-outline",
     confirmRequired: false,
     function: turnVolumeDown,
-    platforms: ["macos", "linux"]
+    platforms: ["macos", "linux", "windows"]
   },
   {
     name: "Toggle Mute",
     icon: "flowbite:volume-down-outline",
     confirmRequired: false,
     function: toggleMute,
-    platforms: ["macos", "linux"]
+    platforms: ["macos", "linux", "windows"]
   },
   {
     name: "Mute",
@@ -282,7 +282,7 @@ export const rawSystemCommands = [
     icon: "ic:baseline-logout",
     confirmRequired: false,
     function: logoutUser,
-    platforms: ["macos", "linux"]
+    platforms: ["macos", "linux", "windows"]
   },
   {
     name: "Hide All Apps Except Frontmost",
