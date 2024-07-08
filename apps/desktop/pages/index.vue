@@ -30,6 +30,16 @@ const remoteExt = new RemoteExtension()
 const exts: IExtensionBase[] = [devExt, remoteExt, storeExt, builtinCmdExt, sysCmdExt, appExt]
 const searchTermInSync = ref("")
 let updateSearchTermTimeout: ReturnType<typeof setTimeout>
+
+const curWin = getCurrent()
+const rtConfig = useRuntimeConfig()
+
+useListenToWindowBlur((e) => {
+  if (!rtConfig.public.isDev) {
+    curWin.hide()
+  }
+})
+
 watch(searchTermInSync, (val) => {
   clearTimeout(updateSearchTermTimeout)
   updateSearchTermTimeout = setTimeout(() => {
@@ -38,7 +48,12 @@ watch(searchTermInSync, (val) => {
 })
 
 onMounted(async () => {
-  getCurrent().setDecorations(false)
+  curWin.setDecorations(false)
+  curWin.onCloseRequested(async (event) => {
+    console.log("Prevent Exit")
+    event.preventDefault()
+    curWin.hide()
+  })
   Promise.all(exts.map((ext) => ext.load()))
 })
 

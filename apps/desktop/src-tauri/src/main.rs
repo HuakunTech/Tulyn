@@ -60,6 +60,7 @@ fn main() {
         })
         .setup(|app| {
             setup::window::setup_window(app.handle());
+            setup::tray::create_tray(app.handle())?;
             // #[cfg(all(target_os = "macos", debug_assertions))]
             // app.set_activation_policy(ActivationPolicy::Accessory);
             let mut store = StoreBuilder::new("appConfig.bin").build(app.handle().clone());

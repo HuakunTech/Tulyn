@@ -117,7 +117,7 @@ dependencies = [
  "cocoa 0.25.0",
  "core-foundation",
  "glob",
- "image",
+ "image 0.25.1",
  "ini",
  "lnk",
  "objc",
@@ -862,7 +862,7 @@ checksum = "93c547618248086cfc855d71ccfbf6cc8f64b7866ebb8616e313dedcfc33b1e2"
 dependencies = [
  "clipboard-win",
  "cocoa 0.25.0",
- "image",
+ "image 0.25.1",
  "x11rb",
 ]
 
@@ -2499,6 +2499,19 @@ checksum = "cabb0019d51a643781ff15c9c8a3e5dedc365c47211270f4e8f82812fedd8f0a"
 dependencies = [
  "libc",
  "windows-sys 0.48.0",
+]
+
+[[package]]
+name = "image"
+version = "0.24.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5690139d2f55868e080017335e4b94cb7414274c74f1669c84fb5feba2c9f69d"
+dependencies = [
+ "bytemuck",
+ "byteorder",
+ "color_quant",
+ "num-traits",
+ "png",
 ]
 
 [[package]]
@@ -5570,6 +5583,7 @@ dependencies = [
  "heck 0.5.0",
  "http 1.1.0",
  "http-range",
+ "image 0.24.9",
  "jni",
  "libc",
  "log",
@@ -5699,7 +5713,7 @@ checksum = "7c5e254e216a408dab19b4ac88c26249b68cbb4f59c18811080a41b91bb222a6"
 dependencies = [
  "base64 0.22.1",
  "clipboard-rs",
- "image",
+ "image 0.25.1",
  "serde",
  "tauri",
  "tauri-plugin",

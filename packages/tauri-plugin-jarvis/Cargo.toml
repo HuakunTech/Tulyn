@@ -33,10 +33,10 @@ mdns-sd = { workspace = true }
 tauri-plugin-network = { workspace = true }
 db = { path = "../db" }
 
-[target.'cfg(macos)'.dependencies]
+[target.'cfg(target_os = "macos")'.dependencies]
 tauri-icns = "0.1.0"
 
-[target.'cfg(windows)'.dependencies]
+[target.'cfg(target_os = "windows")'.dependencies]
 tauri-winres = "0.1.1"
 ico = "0.3.0"
 

@@ -28,6 +28,7 @@
     "window:allow-create",
     "window:allow-set-decorations",
     "window:allow-show",
+    "window:allow-hide",
     "webview:allow-create-webview-window",
     "app:default",
     "resources:default",
