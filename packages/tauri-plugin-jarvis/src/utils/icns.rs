@@ -132,7 +132,7 @@ pub fn load_icon(path: PathBuf) -> tauri::http::Response<Vec<u8>> {
 }
 
 /// Load .ico image
-#[cfg(all(test, target_os = "windows"))]
+#[cfg(target_os = "windows")]
 pub fn load_ico(path: &Path) -> anyhow::Result<ico::IconImage> {
     let file = std::fs::File::open(path)?;
     let icon_dir = ico::IconDir::read(file)?;
