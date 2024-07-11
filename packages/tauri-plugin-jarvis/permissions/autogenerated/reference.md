@@ -24,6 +24,32 @@ This enables all permissions for Jarvis
 <tr>
 <td>
 
+`jarvis:allow-add-to-history`
+
+</td>
+<td>
+
+Enables the add_to_history command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-add-to-history`
+
+</td>
+<td>
+
+Denies the add_to_history command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-app-is-dev`
 
 </td>
@@ -927,6 +953,32 @@ Enables the get_extension_folder command without any pre-configured scope.
 <td>
 
 Denies the get_extension_folder command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-get-history`
+
+</td>
+<td>
+
+Enables the get_history command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-get-history`
+
+</td>
+<td>
+
+Denies the get_history command without any pre-configured scope.
 
 </td>
 </tr>

@@ -1,5 +1,6 @@
 import { invoke } from "@tauri-apps/api/core"
 import * as v from "valibot"
+import { generateJarvisPluginCommand } from "../common"
 
 export const ClipboardContentType = v.union([
   v.literal("Text"),
@@ -20,15 +21,15 @@ export const ClipboardRecords = v.array(ClipboardRecord)
 export type ClipboardRecords = v.InferOutput<typeof ClipboardRecords>
 
 export function addClipboardHistory(value: string) {
-  return invoke<null>("add_to_history", { value })
+  return invoke<null>(generateJarvisPluginCommand("add_to_history"), { value })
 }
 
 export function getClipboardHistory() {
-  return invoke<ClipboardRecord[]>("get_history").then((records) => {
+  return invoke<ClipboardRecord[]>(generateJarvisPluginCommand("get_history")).then((records) => {
     return v.parse(ClipboardRecords, records)
   })
 }
 
-export function setCandidateFilesForServer(files: string[]) {
-  return invoke<null>("set_candidate_files", { files })
-}
+// export function setCandidateFilesForServer(files: string[]) {
+//   return invoke<null>(generateJarvisPluginCommand("set_candidate_files"), { files })
+// }

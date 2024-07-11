@@ -23,6 +23,7 @@ import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
 import { useListenToWindowBlur, usePreventExit } from "~/composables/useEvents"
 import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"
+import { getClipboardHistory } from "tauri-plugin-jarvis-api/commands"
 import { toast } from "vue-sonner"
 
 useRegisterAppShortcuts().then((hotkeyStr) => toast.success(`Shortcuts registered (${hotkeyStr})`))
@@ -59,8 +60,9 @@ watch(searchTermInSync, (val) => {
 })
 
 onMounted(async () => {
-  appWindow.setDecorations(false)
+  console.log(await getClipboardHistory())
 
+  appWindow.setDecorations(false)
   Promise.all(exts.map((ext) => ext.load()))
 })
 

@@ -71,4 +71,6 @@ commands.allow = [
     "search_extension_data",
     "delete_extension_data_by_id",
     "update_extension_data_by_id",
+    "add_to_history",
+    "get_history",
 ]

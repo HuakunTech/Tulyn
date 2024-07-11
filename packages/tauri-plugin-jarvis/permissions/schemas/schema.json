@@ -302,6 +302,20 @@
           ]
         },
         {
+          "description": "allow-add-to-history -> Enables the add_to_history command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-add-to-history"
+          ]
+        },
+        {
+          "description": "deny-add-to-history -> Denies the add_to_history command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-add-to-history"
+          ]
+        },
+        {
           "description": "allow-app-is-dev -> Enables the app_is_dev command without any pre-configured scope.",
           "type": "string",
           "enum": [
@@ -789,6 +803,20 @@
           "type": "string",
           "enum": [
             "deny-get-extension-folder"
+          ]
+        },
+        {
+          "description": "allow-get-history -> Enables the get_history command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-get-history"
+          ]
+        },
+        {
+          "description": "deny-get-history -> Denies the get_history command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-get-history"
           ]
         },
         {

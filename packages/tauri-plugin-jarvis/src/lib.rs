@@ -1,5 +1,4 @@
 use commands::discovery::Peers;
-use constants::JARVIS_CLIPBOARD_IDENTIFIER;
 use db::JarvisDB;
 use model::extension::Extension;
 use server::Protocol;
@@ -17,7 +16,10 @@ pub mod utils;
 pub use db;
 use std::{collections::HashMap, path::PathBuf, sync::Mutex};
 use tauri_plugin_store::StoreBuilder;
-use utils::{path::get_default_extensions_dir, settings::AppSettings};
+use utils::{
+    path::{get_default_extensions_dir, get_jarvis_db_path},
+    settings::AppSettings,
+};
 
 #[cfg(desktop)]
 mod desktop;
@@ -152,25 +154,10 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             // manage state so it is accessible by the commands
             app.manage(JarvisState::default());
             app.manage(commands::apps::ApplicationsState::default());
-            let db_path = app.path().app_data_dir()?.join("jarvis.db");
+            let db_path = get_jarvis_db_path(app)?;
             let db_key: Option<String> = None;
             app.manage(commands::db::DBState::new(db_path.clone(), db_key.clone())?);
             setup::db::setup_db(app)?;
-            /* ---------------------------- Set Up Clipboard ---------------------------- */
-            let jarvis_db = JarvisDB::new(db_path.clone(), db_key.clone())?;
-            // The clipboard extension should be created in setup_db, ext is guaranteed to be Some
-            let ext = jarvis_db.get_extension_by_identifier(JARVIS_CLIPBOARD_IDENTIFIER)?;
-            app.manage(model::clipboard_history::ClipboardHistory::new(
-                jarvis_db,
-                ext.unwrap().ext_id,
-            ));
-            let (clipboard_update_tx, clipboard_update_rx) =
-                tokio::sync::broadcast::channel::<model::clipboard_history::Record>(10);
-            /* --------------------------- Cliipboard Listener -------------------------- */
-            setup::clipboard::setup_clipboard_listener(app, clipboard_update_tx.clone());
-            app.state::<tauri_plugin_clipboard::Clipboard>()
-                .start_monitor(app.clone())?;
-            setup::clipboard::setup_clipboard_update_handler(app, clipboard_update_rx);
 
             // let app_settings = match AppSettings::load_from_store(&store) {s
             //     Ok(settings) => settings,

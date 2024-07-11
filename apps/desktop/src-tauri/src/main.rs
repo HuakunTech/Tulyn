@@ -2,11 +2,15 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use std::path::PathBuf;
-
+pub mod commands;
 mod setup;
 use tauri_plugin_jarvis::{
+    db::JarvisDB,
     server::Protocol,
-    utils::{path::get_default_extensions_dir, settings::AppSettings},
+    utils::{
+        path::{get_default_extensions_dir, get_jarvis_db_path},
+        settings::AppSettings,
+    },
 };
 use tauri_plugin_store::StoreBuilder;
 pub mod utils;
@@ -90,6 +94,35 @@ fn main() {
                 app.handle(),
                 mdns.browse()?,
             );
+
+            /* ----------------------------- Database Setup ----------------------------- */
+            // setup::db::setup_db(app)?;
+            /* ------------------------- Clipboard History Setup ------------------------ */
+            let db_path = get_jarvis_db_path(app.app_handle())?;
+            let db_key: Option<String> = None;
+            let jarvis_db = JarvisDB::new(db_path.clone(), db_key.clone())?;
+            // The clipboard extension should be created in setup_db, ext is guaranteed to be Some
+            let ext = jarvis_db.get_extension_by_identifier(
+                tauri_plugin_jarvis::constants::JARVIS_CLIPBOARD_IDENTIFIER,
+            )?;
+            app.manage(
+                tauri_plugin_jarvis::model::clipboard_history::ClipboardHistory::new(
+                    jarvis_db,
+                    ext.unwrap().ext_id,
+                ),
+            );
+            let (clipboard_update_tx, clipboard_update_rx) = tokio::sync::broadcast::channel::<
+                tauri_plugin_jarvis::model::clipboard_history::Record,
+            >(10);
+            /* --------------------------- Cliipboard Listener -------------------------- */
+            setup::clipboard::setup_clipboard_listener(
+                &app.app_handle(),
+                clipboard_update_tx.clone(),
+            );
+            app.state::<tauri_plugin_clipboard::Clipboard>()
+                .start_monitor(app.app_handle().clone())?;
+            setup::clipboard::setup_clipboard_update_handler(app.app_handle(), clipboard_update_rx);
+
             #[cfg(debug_assertions)] // only include this code on debug builds
             {
                 let window = app.get_webview_window("main").unwrap();

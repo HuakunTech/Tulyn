@@ -1,7 +1,7 @@
-use crate::model::clipboard_history;
 use log::error;
 use std::time::SystemTime;
 use tauri::{AppHandle, Manager, Runtime};
+use tauri_plugin_jarvis::model::clipboard_history;
 use tokio::sync::broadcast::{Receiver, Sender};
 
 pub fn setup_clipboard_listener<R: Runtime>(
@@ -76,7 +76,6 @@ pub fn setup_clipboard_update_handler<R: Runtime>(
         loop {
             let record = clipboard_update_rx.recv().await.unwrap();
             let clipboard_history = app_handle.state::<clipboard_history::ClipboardHistory>();
-            println!("Adding record to clipboard history: {:?}", record);
             clipboard_history.add_record(record).unwrap();
             app_handle.emit("new_clipboard_item_added", ()).unwrap();
         }

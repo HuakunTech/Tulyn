@@ -10,3 +10,7 @@ pub fn get_default_extensions_storage_dir<R: Runtime>(
 ) -> anyhow::Result<PathBuf> {
     Ok(app.path().app_data_dir()?.join("extensions_storage"))
 }
+
+pub fn get_jarvis_db_path<R: Runtime>(app: &AppHandle<R>) -> anyhow::Result<PathBuf> {
+    Ok(app.path().app_data_dir()?.join("jarvis.db"))
+}

@@ -7,12 +7,12 @@ pub async fn get_history(
     state: tauri::State<'_, ClipboardHistory>,
     db: tauri::State<'_, DBState>,
 ) -> Result<Vec<Record>, String> {
+    state.get_all_records().map_err(|err| err.to_string())
     // let mut history = state.history.lock().unwrap().to_vec();
     // history.reverse();
     // // only return the first 100 items
     // history.truncate(100);
     // Ok(history)
-    Ok(vec![])
 }
 
 #[tauri::command]
