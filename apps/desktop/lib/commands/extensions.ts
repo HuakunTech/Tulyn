@@ -18,6 +18,8 @@ export function loadAllExtensions(extensionsFolder: string): Promise<ExtPackageJ
     (res: any) =>
       res
         .map((x: unknown) => {
+          console.log(x)
+
           const parse = ExtPackageJsonExtra.safeParse(x)
           if (parse.error) {
             error(`Fail to load extension ${extensionsFolder}. Error: ${parse.error}`)

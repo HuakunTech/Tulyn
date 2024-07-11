@@ -15,12 +15,28 @@ export const Ext = v.object({
   ext_id: v.number(),
   identifier: v.string(),
   version: v.string(),
-  alias: v.optional(v.string()),
-  hotkey: v.optional(v.string()),
-  is_enabled: v.boolean(),
+  enabled: v.boolean(),
   installed_at: v.string()
 })
 export type Ext = v.InferOutput<typeof Ext>
+export enum CmdTypeEnum {
+  Iframe = "iframe",
+  Worker = "worker",
+  QuickLink = "quick_link"
+}
+export const CmdType = v.enum(CmdTypeEnum)
+export type CmdType = v.InferOutput<typeof CmdType>
+export const ExtCmd = v.object({
+  cmd_id: v.number(),
+  ext_id: v.number(),
+  name: v.string(),
+  type_: CmdType,
+  data: v.string(),
+  alias: v.optional(v.string()),
+  hotkey: v.optional(v.string()),
+  enabled: v.boolean()
+})
+export type ExtCmd = v.InferOutput<typeof ExtCmd>
 
 export const ExtData = v.object({
   data_id: v.number(),

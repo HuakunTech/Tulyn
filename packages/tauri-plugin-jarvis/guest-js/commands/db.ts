@@ -1,12 +1,10 @@
 import { invoke } from "@tauri-apps/api/core"
-import type { Ext, ExtData } from "../models/extension"
+import type { CmdType, Ext, ExtData } from "../models/extension"
 
-export function createExtension(ext: {
-  identifier: string
-  version: string
-  alias?: string
-  hotkey?: string
-}) {
+/* -------------------------------------------------------------------------- */
+/*                               Extension CRUD                               */
+/* -------------------------------------------------------------------------- */
+export function createExtension(ext: { identifier: string; version: string }) {
   return invoke<void>("plugin:jarvis|create_extension", ext)
 }
 
@@ -21,7 +19,47 @@ export function getExtensionByIdentifier(identifier: string) {
 export function deleteExtensionByIdentifier(identifier: string) {
   return invoke<void>("plugin:jarvis|delete_extension_by_identifier", { identifier })
 }
+/* -------------------------------------------------------------------------- */
+/*                           Extension Command CRUD                           */
+/* -------------------------------------------------------------------------- */
+export function createCommand(data: {
+  extId: number
+  name: string
+  type: CmdType
+  data: string
+  alias?: string
+  hotkey?: string
+}) {
+  return invoke<void>("plugin:jarvis|create_command", data)
+}
 
+export function getCommandById(cmdId: number) {
+  return invoke<Ext | undefined>("plugin:jarvis|get_command_by_id", { cmdId })
+}
+
+export function getCommandsByExtId(extId: number) {
+  return invoke<Ext[]>("plugin:jarvis|get_commands_by_ext_id", { extId })
+}
+
+export function deleteCommandById(cmdId: number) {
+  return invoke<void>("plugin:jarvis|delete_command_by_id", { cmdId })
+}
+
+export function updateCommandById(data: {
+  cmdId: number
+  name: string
+  cmdType: CmdType
+  data: string
+  alias?: string
+  hotkey?: string
+  enabled: boolean
+}) {
+  return invoke<void>("plugin:jarvis|update_command_by_id", data)
+}
+
+/* -------------------------------------------------------------------------- */
+/*                             Extension Data CRUD                            */
+/* -------------------------------------------------------------------------- */
 export function createExtensionData(data: {
   extId: number
   dataType: string

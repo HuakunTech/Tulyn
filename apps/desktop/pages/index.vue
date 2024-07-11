@@ -19,16 +19,19 @@ import { SystemCommandExtension } from "@/lib/extension/systemCmds"
 import { $appConfig } from "@/lib/stores/appConfig"
 import { $appState, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
+import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
+import { useListenToWindowBlur, usePreventExit } from "~/composables/useEvents"
 import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"
 import { toast } from "vue-sonner"
 
-useRegisterAppShortcuts().then(() => toast.success("Shortcuts registered"))
-
+useRegisterAppShortcuts().then((hotkeyStr) => toast.success(`Shortcuts registered (${hotkeyStr})`))
+usePreventExit()
+const appConfig = useStore($appConfig)
 const appExt = new AppsExtension()
 const sysCmdExt = new SystemCommandExtension()
 const builtinCmdExt = new BuiltinCmds()
-const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath, true)
+const devExt = new Extension("Dev Extensions", appConfig.value.devExtentionPath, true)
 const storeExt = new Extension("Extensions", await getExtensionsFolder())
 const remoteExt = new RemoteExtension()
 const exts: IExtensionBase[] = [devExt, remoteExt, storeExt, builtinCmdExt, sysCmdExt, appExt]
@@ -36,10 +39,10 @@ const searchTermInSync = ref("")
 let updateSearchTermTimeout: ReturnType<typeof setTimeout>
 
 const appWindow = getCurrent()
-const rtConfig = useRuntimeConfig()
+const runtimeConfig = useRuntimeConfig()
 
 useListenToWindowBlur(() => {
-  if (!rtConfig.public.isDev) {
+  if (!runtimeConfig.public.isDev) {
     appWindow.hide()
   }
 })
@@ -57,11 +60,7 @@ watch(searchTermInSync, (val) => {
 
 onMounted(async () => {
   appWindow.setDecorations(false)
-  appWindow.onCloseRequested(async (event) => {
-    console.log("Prevent Exit")
-    event.preventDefault()
-    appWindow.hide()
-  })
+
   Promise.all(exts.map((ext) => ext.load()))
 })
 

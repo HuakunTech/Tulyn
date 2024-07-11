@@ -15,6 +15,7 @@ export const LightMode = z.union([z.literal("light"), z.literal("dark"), z.liter
 export type LightMode = z.infer<typeof LightMode>
 
 export const appConfigSchema = z.object({
+  isInitialized: z.boolean(),
   theme: z.string(),
   radius: z.number(),
   triggerHotkey: z.string().array().nullable(),
@@ -27,7 +28,8 @@ export const appConfigSchema = z.object({
 
 export type State = z.infer<typeof appConfigSchema>
 
-const defaultState: State = {
+let defaultState: State = {
+  isInitialized: false,
   theme: "zinc",
   radius: 0.5,
   triggerHotkey: null,
@@ -45,14 +47,10 @@ async function initAppConfig() {
 
   const parsedConfig = appConfigSchema.safeParse(loadedConfig)
   if (parsedConfig.success) {
-    defaultState.theme = parsedConfig.data.theme
-    defaultState.radius = parsedConfig.data.radius
-    defaultState.triggerHotkey = parsedConfig.data.triggerHotkey
-    defaultState.lightMode = parsedConfig.data.lightMode
-    defaultState.launchAtLogin = parsedConfig.data.launchAtLogin
-    defaultState.showInTray = parsedConfig.data.showInTray
-    defaultState.devExtentionPath = parsedConfig.data.devExtentionPath
-    defaultState.devExtLoadUrl = parsedConfig.data.devExtLoadUrl
+    defaultState = {
+      ...defaultState,
+      ...parsedConfig.data
+    }
   }
 
   $appConfig.subscribe((state, oldState) => {

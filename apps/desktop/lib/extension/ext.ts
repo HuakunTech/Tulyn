@@ -149,7 +149,7 @@ export class Extension implements IExtensionBase {
           )
         })
         .catch((err) => {
-          toast.error(`Failed to loa extensions from ${this.extPath}`)
+          toast.error(`Failed to load extensions from ${this.extPath}`)
           // toast.error(err);
         })
     }

@@ -1,5 +1,5 @@
 use db::{
-    models::{Ext, ExtData},
+    models::{Cmd, CmdType, Ext, ExtData},
     JarvisDB,
 };
 use std::{path::PathBuf, sync::Mutex};
@@ -19,18 +19,20 @@ impl DBState {
     }
 }
 
+/* -------------------------------------------------------------------------- */
+/*                               Extension CRUD                               */
+/* -------------------------------------------------------------------------- */
 #[tauri::command]
 pub async fn create_extension(
     db: State<'_, DBState>,
     identifier: &str,
     version: &str,
-    alias: Option<&str>,
-    hotkey: Option<&str>,
+    enabled: Option<bool>,
 ) -> Result<(), String> {
     db.db
         .lock()
         .unwrap()
-        .create_extension(identifier, version, alias, hotkey)
+        .create_extension(identifier, version, enabled.unwrap_or(true))
         .map_err(|err| err.to_string())
 }
 
@@ -67,6 +69,79 @@ pub async fn delete_extension_by_identifier(
         .map_err(|err| err.to_string())
 }
 
+/* -------------------------------------------------------------------------- */
+/*                           Extension Command CRUD                           */
+/* -------------------------------------------------------------------------- */
+
+#[tauri::command]
+pub async fn create_command(
+    db: State<'_, DBState>,
+    ext_id: i32,
+    name: &str,
+    cmd_type: CmdType,
+    data: &str,
+    enabled: bool,
+    alias: Option<&str>,
+    hotkey: Option<&str>,
+) -> Result<(), String> {
+    db.db
+        .lock()
+        .unwrap()
+        .create_command(ext_id, name, cmd_type, data, enabled, alias, hotkey)
+        .map_err(|err| err.to_string())
+}
+
+#[tauri::command]
+pub async fn get_command_by_id(db: State<'_, DBState>, cmd_id: i32) -> Result<Option<Cmd>, String> {
+    db.db
+        .lock()
+        .unwrap()
+        .get_command_by_id(cmd_id)
+        .map_err(|err| err.to_string())
+}
+
+#[tauri::command]
+pub async fn get_commands_by_ext_id(
+    db: State<'_, DBState>,
+    ext_id: i32,
+) -> Result<Vec<Cmd>, String> {
+    db.db
+        .lock()
+        .unwrap()
+        .get_commands_by_ext_id(cmd_id)
+        .map_err(|err| err.to_string())
+}
+
+#[tauri::command]
+pub async fn delete_command_by_id(db: State<'_, DBState>, cmd_id: i32) -> Result<(), String> {
+    db.db
+        .lock()
+        .unwrap()
+        .delete_command_by_id(cmd_id)
+        .map_err(|err| err.to_string())
+}
+
+#[tauri::command]
+pub async fn update_command_by_id(
+    db: State<'_, DBState>,
+    cmd_id: i32,
+    name: &str,
+    cmd_type: CmdType,
+    data: &str,
+    enabled: bool,
+    alias: Option<&str>,
+    hotkey: Option<&str>,
+) -> Result<(), String> {
+    db.db
+        .lock()
+        .unwrap()
+        .update_command_by_id(cmd_id, name, cmd_type, data, enabled, alias, hotkey)
+        .map_err(|err| err.to_string())
+}
+
+/* -------------------------------------------------------------------------- */
+/*                             Extension Data CRUD                            */
+/* -------------------------------------------------------------------------- */
 #[tauri::command]
 pub async fn create_extension_data(
     ext_id: i32,

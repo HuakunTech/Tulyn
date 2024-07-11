@@ -1,14 +1,28 @@
 pub const SCHEMA: &str = r#"
     -- Extensions table
-    CREATE TABLE IF NOT EXISTS extensions (
-        ext_id INTEGER PRIMARY KEY AUTOINCREMENT,
-        identifier TEXT UNIQUE NOT NULL,
-        version TEXT NOT NULL,
-        alias TEXT,
-        hotkey TEXT,
-        is_enabled BOOLEAN DEFAULT TRUE,
+    CREATE TABLE IF NOT EXISTS extensions
+    (
+        ext_id       INTEGER PRIMARY KEY AUTOINCREMENT,
+        identifier   TEXT UNIQUE NOT NULL,
+        version      TEXT        NOT NULL,
+        enabled      BOOLEAN   DEFAULT TRUE,
         installed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
+
+    CREATE TABLE commands
+    (
+        cmd_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        ext_id INTEGER NOT NULL,
+        name   TEXT    NOT NULL,
+        enabled      BOOLEAN   DEFAULT TRUE,
+        alias        TEXT,
+        hotkey       TEXT,
+        type   TEXT    NOT NULL CHECK (type IN ('iframe', 'worker', 'quick_link')),
+        data   JSON,
+        FOREIGN KEY (ext_id) REFERENCES extensions (ext_id)
+    );
+
+   
 
     -- Extension Data table
     CREATE TABLE IF NOT EXISTS extension_data (

@@ -1,5 +1,6 @@
 pub mod models;
 pub mod schema;
+use models::CmdType;
 use rusqlite::{params, params_from_iter, Connection, Result, ToSql};
 use std::path::Path;
 
@@ -35,33 +36,25 @@ impl JarvisDB {
     /*                               Extensions CRUD                              */
     /* -------------------------------------------------------------------------- */
 
-    pub fn create_extension(
-        &self,
-        identifier: &str,
-        version: &str,
-        alias: Option<&str>,
-        hotkey: Option<&str>,
-    ) -> Result<()> {
+    pub fn create_extension(&self, identifier: &str, version: &str, enabled: bool) -> Result<()> {
         self.conn.execute(
-            "INSERT INTO extensions (identifier, version, alias, hotkey) VALUES (?1, ?2, ?3, ?4)",
-            params![identifier, version, alias, hotkey],
+            "INSERT INTO extensions (identifier, version, enabled) VALUES (?1, ?2, ?3)",
+            params![identifier, version, enabled],
         )?;
         Ok(())
     }
 
     pub fn get_all_extensions(&self) -> Result<Vec<models::Ext>> {
-        let mut stmt = self.conn.prepare(
-            "SELECT ext_id, identifier, version, alias, hotkey, is_enabled, installed_at FROM extensions",
-        )?;
+        let mut stmt = self
+            .conn
+            .prepare("SELECT ext_id, identifier, version, enabled, installed_at FROM extensions")?;
         let ext_iter = stmt.query_map(params![], |row| {
             Ok(models::Ext {
                 ext_id: row.get(0)?,
                 identifier: row.get(1)?,
                 version: row.get(2)?,
-                alias: row.get(3)?,
-                hotkey: row.get(4)?,
-                is_enabled: row.get(5)?,
-                installed_at: row.get(6)?,
+                enabled: row.get(3)?,
+                installed_at: row.get(4)?,
             })
         })?;
         let mut exts = Vec::new();
@@ -73,17 +66,15 @@ impl JarvisDB {
 
     pub fn get_extension_by_identifier(&self, identifier: &str) -> Result<Option<models::Ext>> {
         let mut stmt = self.conn.prepare(
-            "SELECT ext_id, identifier, version, alias, hotkey, is_enabled, installed_at FROM extensions WHERE identifier = ?1",
+            "SELECT ext_id, identifier, version, enabled, installed_at FROM extensions WHERE identifier = ?1",
         )?;
         let ext_iter = stmt.query_map(params![identifier], |row| {
             Ok(models::Ext {
                 ext_id: row.get(0)?,
                 identifier: row.get(1)?,
                 version: row.get(2)?,
-                alias: row.get(3)?,
-                hotkey: row.get(4)?,
-                is_enabled: row.get(5)?,
-                installed_at: row.get(6)?,
+                enabled: row.get(3)?,
+                installed_at: row.get(4)?,
             })
         })?;
         let mut exts = Vec::new();
@@ -97,6 +88,95 @@ impl JarvisDB {
         self.conn.execute(
             "DELETE FROM extensions WHERE identifier = ?1",
             params![identifier],
+        )?;
+        Ok(())
+    }
+
+    /* -------------------------------------------------------------------------- */
+    /*                                Command CRUD                                */
+    /* -------------------------------------------------------------------------- */
+    pub fn create_command(
+        &self,
+        ext_id: i32,
+        name: &str,
+        cmd_type: CmdType,
+        data: &str,
+        enabled: bool,
+        alias: Option<&str>,
+        hotkey: Option<&str>,
+    ) -> Result<()> {
+        self.conn.execute(
+            "INSERT INTO commands (ext_id, name, type, data, alias, hotkey, enabled) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)",
+            params![ext_id, name, cmd_type.to_string(), data, alias, hotkey, enabled],
+        )?;
+        Ok(())
+    }
+
+    pub fn get_command_by_id(&self, cmd_id: i32) -> Result<Option<models::Cmd>> {
+        let mut stmt = self
+            .conn
+            .prepare("SELECT cmd_id, ext_id, name, type, data, alias, hotkey, enabled FROM commands WHERE cmd_id = ?1")?;
+        let cmd_iter = stmt.query_map(params![cmd_id], |row| {
+            Ok(models::Cmd {
+                cmd_id: row.get(0)?,
+                ext_id: row.get(1)?,
+                name: row.get(2)?,
+                type_: row.get(3)?,
+                data: row.get(4)?,
+                alias: row.get(5)?,
+                hotkey: row.get(6)?,
+                enabled: row.get(7)?,
+            })
+        })?;
+        let mut cmds = Vec::new();
+        for cmd in cmd_iter {
+            cmds.push(cmd?);
+        }
+        Ok(cmds.first().cloned())
+    }
+
+    pub fn get_commands_by_ext_id(&self, ext_id: i32) -> Result<Vec<models::Cmd>> {
+        let mut stmt = self
+            .conn
+            .prepare("SELECT cmd_id, ext_id, name, type, data, alias, hotkey, enabled FROM commands WHERE ext_id = ?1")?;
+        let cmd_iter = stmt.query_map(params![ext_id], |row| {
+            Ok(models::Cmd {
+                cmd_id: row.get(0)?,
+                ext_id: row.get(1)?,
+                name: row.get(2)?,
+                type_: row.get(3)?,
+                data: row.get(4)?,
+                alias: row.get(5)?,
+                hotkey: row.get(6)?,
+                enabled: row.get(7)?,
+            })
+        })?;
+        let mut cmds = Vec::new();
+        for cmd in cmd_iter {
+            cmds.push(cmd?);
+        }
+        Ok(cmds)
+    }
+
+    pub fn delete_command_by_id(&self, cmd_id: i32) -> Result<()> {
+        self.conn
+            .execute("DELETE FROM commands WHERE cmd_id = ?1", params![cmd_id])?;
+        Ok(())
+    }
+
+    pub fn update_command_by_id(
+        &self,
+        cmd_id: i32,
+        name: &str,
+        cmd_type: CmdType,
+        data: &str,
+        enabled: bool,
+        alias: Option<&str>,
+        hotkey: Option<&str>,
+    ) -> Result<()> {
+        self.conn.execute(
+            "UPDATE commands SET name = ?1, type = ?2, data = ?3, alias = ?4, hotkey = ?5, enabled = ?6 WHERE cmd_id = ?7",
+            params![name, cmd_type.to_string(), data, alias, hotkey, enabled, cmd_id],
         )?;
         Ok(())
     }
@@ -246,15 +326,12 @@ mod tests {
         let db = JarvisDB::new(&db_path, None).unwrap();
         assert!(fs::metadata(&db_path).is_ok());
         db.init().unwrap();
-        db.create_extension("test", "0.1.0", Some("test"), Some("test"))
-            .unwrap();
+        db.create_extension("test", "0.1.0", true).unwrap();
         let exts = db.get_all_extensions().unwrap();
         assert_eq!(exts.len(), 1);
 
         // expect error due to unique identifier constraint
-        assert!(db
-            .create_extension("test", "0.1.0", Some("test"), Some("test"))
-            .is_err());
+        assert!(db.create_extension("test", "0.1.0", true).is_err());
 
         // get ext by identifier
         let ext = db.get_extension_by_identifier("test").unwrap();
@@ -262,9 +339,7 @@ mod tests {
         let ext = ext.unwrap();
         assert_eq!(ext.identifier, "test");
         assert_eq!(ext.version, "0.1.0");
-        assert_eq!(ext.alias, Some("test".to_string()));
-        assert_eq!(ext.hotkey, Some("test".to_string()));
-        assert_eq!(ext.is_enabled, true);
+        assert_eq!(ext.enabled, true);
         assert_eq!(ext.installed_at.len(), 19);
 
         // get ext by identifier that does not exist
@@ -292,8 +367,7 @@ mod tests {
         let db = JarvisDB::new(&db_path, None).unwrap();
         assert!(fs::metadata(&db_path).is_ok());
         db.init().unwrap();
-        db.create_extension("test", "0.1.0", Some("test"), Some("test"))
-            .unwrap();
+        db.create_extension("test", "0.1.0", true).unwrap();
         let ext = db.get_extension_by_identifier("test").unwrap().unwrap();
 
         db.create_extension_data(ext.ext_id, "test", "{}", None)
@@ -382,6 +456,71 @@ mod tests {
         assert!(ext_data.is_some());
         let ext_data = ext_data.unwrap();
         assert_eq!(ext_data.data, "{\"name\": \"huakun\"}");
+
+        fs::remove_file(&db_path).unwrap();
+    }
+
+    #[test]
+    fn test_command_crud() {
+        let dir = tempdir().unwrap();
+        let db_path = dir.path().join("test.db");
+        // create database and initialize
+        let db = JarvisDB::new(&db_path, None).unwrap();
+        assert!(fs::metadata(&db_path).is_ok());
+        db.init().unwrap();
+        db.create_extension("test", "0.1.0", true).unwrap();
+        let ext = db.get_extension_by_identifier("test").unwrap().unwrap();
+
+        db.create_command(ext.ext_id, "test", CmdType::Iframe, "{}", true, None, None)
+            .unwrap();
+        db.create_command(
+            ext.ext_id,
+            "test2",
+            CmdType::Worker,
+            "{}",
+            true,
+            Some("t2"),
+            Some("t2"),
+        )
+        .unwrap();
+        /* ---------------------- Get command by id ---------------------- */
+        let cmd = db.get_command_by_id(1).unwrap().unwrap();
+        assert_eq!(cmd.name, "test");
+        assert_eq!(cmd.type_, models::CmdType::Iframe);
+        assert_eq!(cmd.data, "{}");
+
+        /* ---------------------- Get commands by ext_id ---------------------- */
+        let cmds = db.get_commands_by_ext_id(ext.ext_id).unwrap();
+        assert_eq!(cmds.len(), 2);
+
+        // test command test2's alias and hotkey
+        let cmd = db.get_command_by_id(cmds[1].cmd_id).unwrap().unwrap();
+        assert_eq!(cmd.alias.unwrap(), "t2");
+        assert_eq!(cmd.hotkey.unwrap(), "t2");
+
+        /* ---------------------- Delete command by id ---------------------- */
+        db.delete_command_by_id(1).unwrap();
+        let cmds = db.get_commands_by_ext_id(ext.ext_id).unwrap();
+        assert_eq!(cmds.len(), 1);
+
+        /* ---------------------- Update command by id ---------------------- */
+        db.update_command_by_id(
+            cmds[0].cmd_id,
+            "test3",
+            CmdType::Worker,
+            "{}",
+            false,
+            Some("alias"),
+            Some("Command+U"),
+        )
+        .unwrap();
+        let cmd = db.get_command_by_id(cmds[0].cmd_id).unwrap().unwrap();
+        assert_eq!(cmd.name, "test3");
+        assert_eq!(cmd.type_, models::CmdType::Worker);
+        assert_eq!(cmd.data, "{}");
+        assert_eq!(cmd.enabled, false);
+        assert_eq!(cmd.alias.unwrap(), "alias");
+        assert_eq!(cmd.hotkey.unwrap(), "Command+U");
 
         fs::remove_file(&db_path).unwrap();
     }
