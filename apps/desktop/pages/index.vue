@@ -20,6 +20,10 @@ import { $appConfig } from "@/lib/stores/appConfig"
 import { $appState, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
 import { getCurrent } from "@tauri-apps/api/window"
+import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"
+import { toast } from "vue-sonner"
+
+useRegisterAppShortcuts().then(() => toast.success("Shortcuts registered"))
 
 const appExt = new AppsExtension()
 const sysCmdExt = new SystemCommandExtension()
@@ -31,13 +35,17 @@ const exts: IExtensionBase[] = [devExt, remoteExt, storeExt, builtinCmdExt, sysC
 const searchTermInSync = ref("")
 let updateSearchTermTimeout: ReturnType<typeof setTimeout>
 
-const curWin = getCurrent()
+const appWindow = getCurrent()
 const rtConfig = useRuntimeConfig()
 
-useListenToWindowBlur((e) => {
+useListenToWindowBlur(() => {
   if (!rtConfig.public.isDev) {
-    curWin.hide()
+    appWindow.hide()
   }
+})
+
+useListenToWindowFocus(() => {
+  document.getElementById("main-search-input")?.focus()
 })
 
 watch(searchTermInSync, (val) => {
@@ -48,11 +56,11 @@ watch(searchTermInSync, (val) => {
 })
 
 onMounted(async () => {
-  curWin.setDecorations(false)
-  curWin.onCloseRequested(async (event) => {
+  appWindow.setDecorations(false)
+  appWindow.onCloseRequested(async (event) => {
     console.log("Prevent Exit")
     event.preventDefault()
-    curWin.hide()
+    appWindow.hide()
   })
   Promise.all(exts.map((ext) => ext.load()))
 })
@@ -84,7 +92,11 @@ onKeyStroke("/", (e) => {
 <template>
   <div class="h-full">
     <CmdPaletteCommand class="" v-model:searchTerm="searchTermInSync" :identity-filter="true">
-      <CommandInput class="h-12 text-md" placeholder="Search for apps or commands..." />
+      <CommandInput
+        id="main-search-input"
+        class="h-12 text-md"
+        placeholder="Search for apps or commands..."
+      />
       <CommandList class="h-full">
         <CommandEmpty>No results found.</CommandEmpty>
         <MainSearchListGroup v-for="ext in exts" :ext="ext" />

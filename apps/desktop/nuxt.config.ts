@@ -5,7 +5,17 @@ export default defineNuxtConfig({
   ssr: false,
   css: ["@/assets/css/themes.css"],
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "@vueuse/nuxt", "@element-plus/nuxt"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "shadcn-nuxt",
+    "@vueuse/nuxt",
+    "@element-plus/nuxt",
+    "@formkit/auto-animate/nuxt",
+    "@nuxt/image",
+    "@nuxtjs/device"
+    // "dayjs-nuxt",
+    // "@nuxtjs/supabase"
+  ],
   shadcn: {
     /**
      * Prefix for all the imported component
@@ -44,5 +54,9 @@ export default defineNuxtConfig({
         .parse(process.env.POSTHOG_PUBLIC_KEY),
       posthogHost: z.string().describe("POSTHOG_HOST").parse(process.env.POSTHOG_HOST)
     }
+  },
+  supabase: {
+    key: process.env.SUPABASE_ANON_KEY,
+    url: process.env.SUPABASE_URL
   }
 })

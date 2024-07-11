@@ -2,5 +2,9 @@
 definePageMeta({
   layout: "dev"
 })
+
+const recording = ref(true)
 </script>
-<template></template>
+<template>
+  <!-- <SettingsShortcutInput v-model:recording="recording" /> -->
+</template>

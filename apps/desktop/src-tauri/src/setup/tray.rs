@@ -5,7 +5,7 @@
 // pub use tauri_macros::;
 use tauri::{
     menu::{Menu, MenuItem},
-    tray::{TrayIconBuilder, TrayIconEvent},
+    tray::{MouseButtonState, TrayIconBuilder, TrayIconEvent},
     Manager, Runtime,
 };
 
@@ -21,14 +21,20 @@ pub fn create_tray<R: Runtime>(app: &tauri::AppHandle<R>) -> tauri::Result<()> {
         .on_tray_icon_event(move |icon, event: TrayIconEvent| {
             // println!("on tray icon event: {:?}", event);
             match event {
-                TrayIconEvent::Click { .. } => {
-                    println!("left click");
-                    let main_win = icon.app_handle().get_webview_window("main");
-                    if let Some(main_win) = main_win {
-                        main_win.show().unwrap();
-                        main_win.set_focus().unwrap();
+                TrayIconEvent::Click { button_state, .. } => match button_state {
+                    MouseButtonState::Up => {
+                        let main_win = icon.app_handle().get_webview_window("main");
+                        if let Some(main_win) = main_win {
+                            if main_win.is_visible().unwrap() {
+                                main_win.hide().unwrap();
+                            } else {
+                                main_win.show().unwrap();
+                                main_win.set_focus().unwrap();
+                            }
+                        }
                     }
-                }
+                    _ => {}
+                },
                 _ => {}
             }
         })

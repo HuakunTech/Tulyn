@@ -1,6 +1,4 @@
-<script lang="ts" setup>
-useDevWorkerExt()
-</script>
+<script lang="ts" setup></script>
 <template>
   <div>
     <NuxtLink to="/">Home</NuxtLink>

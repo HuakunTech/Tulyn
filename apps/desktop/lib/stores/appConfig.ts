@@ -17,6 +17,7 @@ export type LightMode = z.infer<typeof LightMode>
 export const appConfigSchema = z.object({
   theme: z.string(),
   radius: z.number(),
+  triggerHotkey: z.string().array().nullable(),
   lightMode: LightMode,
   launchAtLogin: z.boolean(),
   showInTray: z.boolean(),
@@ -29,6 +30,7 @@ export type State = z.infer<typeof appConfigSchema>
 const defaultState: State = {
   theme: "zinc",
   radius: 0.5,
+  triggerHotkey: null,
   lightMode: "auto",
   launchAtLogin: true,
   showInTray: true,
@@ -45,6 +47,7 @@ async function initAppConfig() {
   if (parsedConfig.success) {
     defaultState.theme = parsedConfig.data.theme
     defaultState.radius = parsedConfig.data.radius
+    defaultState.triggerHotkey = parsedConfig.data.triggerHotkey
     defaultState.lightMode = parsedConfig.data.lightMode
     defaultState.launchAtLogin = parsedConfig.data.launchAtLogin
     defaultState.showInTray = parsedConfig.data.showInTray
@@ -77,6 +80,10 @@ export function setTheme(theme: string) {
 
 export function setRadius(radius: number) {
   $appConfig.setKey("radius", radius)
+}
+
+export function setTriggerHotkey(triggerHotkey: string[] | null) {
+  $appConfig.setKey("triggerHotkey", triggerHotkey)
 }
 
 export function setLightMode(mode: LightMode) {

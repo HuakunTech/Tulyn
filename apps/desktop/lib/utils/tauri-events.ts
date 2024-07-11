@@ -20,6 +20,10 @@ export function listenToWindowBlur(cb: EventCallback<null>) {
   return listen(TauriEvent.WINDOW_BLUR, cb)
 }
 
+export function listenToWindowFocus(cb: EventCallback<null>) {
+  return listen(TauriEvent.WINDOW_FOCUS, cb)
+}
+
 export function listenToNewClipboardItem(cb: EventCallback<null>) {
   return listen(NewClipboardItemAddedEvent, cb)
 }
