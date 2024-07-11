@@ -12,7 +12,6 @@
     "supabase": ">=1.8.1"
   },
   "peerDependencies": {
-    "jarvis-api": "workspace:*",
     "@jarvis/supabase": "workspace:*",
     "typescript": "^5.0.0"
   },
