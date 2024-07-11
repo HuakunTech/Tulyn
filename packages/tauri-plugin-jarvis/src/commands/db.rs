@@ -108,7 +108,7 @@ pub async fn get_commands_by_ext_id(
     db.db
         .lock()
         .unwrap()
-        .get_commands_by_ext_id(cmd_id)
+        .get_commands_by_ext_id(ext_id)
         .map_err(|err| err.to_string())
 }
 

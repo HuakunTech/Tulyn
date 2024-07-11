@@ -102,6 +102,32 @@ Denies the compress_tarball command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-create-command`
+
+</td>
+<td>
+
+Enables the create_command command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-create-command`
+
+</td>
+<td>
+
+Denies the create_command command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-create-extension`
 
 </td>
@@ -173,6 +199,32 @@ Enables the decompress_tarball command without any pre-configured scope.
 <td>
 
 Denies the decompress_tarball command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-delete-command-by-id`
+
+</td>
+<td>
+
+Enables the delete_command_by_id command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-delete-command-by-id`
+
+</td>
+<td>
+
+Denies the delete_command_by_id command without any pre-configured scope.
 
 </td>
 </tr>
@@ -641,6 +693,58 @@ Enables the get_applications command without any pre-configured scope.
 <td>
 
 Denies the get_applications command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-get-command-by-id`
+
+</td>
+<td>
+
+Enables the get_command_by_id command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-get-command-by-id`
+
+</td>
+<td>
+
+Denies the get_command_by_id command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-get-commands-by-ext-id`
+
+</td>
+<td>
+
+Enables the get_commands_by_ext_id command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-get-commands-by-ext-id`
+
+</td>
+<td>
+
+Denies the get_commands_by_ext_id command without any pre-configured scope.
 
 </td>
 </tr>
@@ -1889,6 +1993,32 @@ Enables the unregister_extension_window command without any pre-configured scope
 <td>
 
 Denies the unregister_extension_window command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-update-command-by-id`
+
+</td>
+<td>
+
+Enables the update_command_by_id command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-update-command-by-id`
+
+</td>
+<td>
+
+Denies the update_command_by_id command without any pre-configured scope.
 
 </td>
 </tr>

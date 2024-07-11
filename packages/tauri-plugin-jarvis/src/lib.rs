@@ -1,4 +1,6 @@
 use commands::discovery::Peers;
+use constants::JARVIS_CLIPBOARD_IDENTIFIER;
+use db::JarvisDB;
 use model::extension::Extension;
 use server::Protocol;
 use tauri::{
@@ -6,11 +8,13 @@ use tauri::{
     Manager, Runtime,
 };
 pub mod commands;
+pub mod constants;
 pub mod model;
 pub mod server;
 pub mod setup;
 pub mod syscmds;
 pub mod utils;
+pub use db;
 use std::{collections::HashMap, path::PathBuf, sync::Mutex};
 use tauri_plugin_store::StoreBuilder;
 use utils::{path::get_default_extensions_dir, settings::AppSettings};
@@ -51,16 +55,16 @@ impl<R: Runtime, T: Manager<R>> crate::JarvisExt<R> for T {
 pub fn init<R: Runtime>() -> TauriPlugin<R> {
     Builder::new("jarvis")
         .invoke_handler(tauri::generate_handler![
-            // dev commands
+            /* ------------------------------ dev commands ------------------------------ */
             commands::dev::open_devtools,
             commands::dev::close_devtools,
             commands::dev::is_devtools_open,
             commands::dev::toggle_devtools,
             commands::dev::app_is_dev,
-            // // path commands
+            /* ------------------------------ path commands ----------------------------- */
             commands::path::get_default_extensions_dir,
             commands::path::get_default_extensions_storage_dir,
-            // // system commands
+            /* ----------------------------- system commands ---------------------------- */
             commands::system::open_trash,
             commands::system::empty_trash,
             commands::system::shutdown,
@@ -84,19 +88,16 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             commands::system::hide_all_apps_except_frontmost,
             commands::system::get_frontmost_app,
             commands::system::get_selected_files_in_file_explorer,
-            // run scripts
-            commands::utils::run_apple_script,
-            commands::utils::run_powershell,
-            // applications
+            /* ------------------------------ applications ------------------------------ */
             commands::apps::get_applications,
             commands::apps::refresh_applications_list,
             commands::apps::refresh_applications_list_in_bg,
-            // extensions
+            /* ------------------------------- extensions ------------------------------- */
             commands::extension::load_manifest,
             commands::extension::load_all_extensions,
-            // utils
+            /* ---------------------------------- utils --------------------------------- */
             commands::fs::path_exists,
-            // server
+            /* --------------------------------- server --------------------------------- */
             commands::server::start_server,
             commands::server::stop_server,
             commands::server::restart_server,
@@ -106,15 +107,15 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             commands::server::get_dev_extension_folder,
             commands::server::server_is_running,
             commands::server::get_server_port,
-            // fs
+            /* ----------------------------------- fs ----------------------------------- */
             commands::fs::decompress_tarball,
             commands::fs::compress_tarball,
-            // extensions
+            /* ------------------------------- extensions ------------------------------- */
             commands::extension::is_window_label_registered,
             commands::extension::register_extension_window,
             commands::extension::unregister_extension_window,
             commands::extension::get_ext_label_map,
-            // extension storage API wrapper
+            /* ---------------------- extension storage API wrapper --------------------- */
             commands::storage::ext_store_wrapper_set,
             commands::storage::ext_store_wrapper_get,
             commands::storage::ext_store_wrapper_has,
@@ -137,6 +138,9 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             commands::db::search_extension_data,
             commands::db::delete_extension_data_by_id,
             commands::db::update_extension_data_by_id,
+            /* -------------------------------- Clipboard ------------------------------- */
+            commands::clipboard::get_history,
+            commands::clipboard::add_to_history,
         ])
         .setup(|app, api| {
             // #[cfg(mobile)]
@@ -149,8 +153,26 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             app.manage(JarvisState::default());
             app.manage(commands::apps::ApplicationsState::default());
             let db_path = app.path().app_data_dir()?.join("jarvis.db");
-            app.manage(commands::db::DBState::new(db_path, None)?);
-            // let app_settings = match AppSettings::load_from_store(&store) {
+            let db_key: Option<String> = None;
+            app.manage(commands::db::DBState::new(db_path.clone(), db_key.clone())?);
+            setup::db::setup_db(app)?;
+            /* ---------------------------- Set Up Clipboard ---------------------------- */
+            let jarvis_db = JarvisDB::new(db_path.clone(), db_key.clone())?;
+            // The clipboard extension should be created in setup_db, ext is guaranteed to be Some
+            let ext = jarvis_db.get_extension_by_identifier(JARVIS_CLIPBOARD_IDENTIFIER)?;
+            app.manage(model::clipboard_history::ClipboardHistory::new(
+                jarvis_db,
+                ext.unwrap().ext_id,
+            ));
+            let (clipboard_update_tx, clipboard_update_rx) =
+                tokio::sync::broadcast::channel::<model::clipboard_history::Record>(10);
+            /* --------------------------- Cliipboard Listener -------------------------- */
+            setup::clipboard::setup_clipboard_listener(app, clipboard_update_tx.clone());
+            app.state::<tauri_plugin_clipboard::Clipboard>()
+                .start_monitor(app.clone())?;
+            setup::clipboard::setup_clipboard_update_handler(app, clipboard_update_rx);
+
+            // let app_settings = match AppSettings::load_from_store(&store) {s
             //     Ok(settings) => settings,
             //     Err(_) => AppSettings::default(),
             // };

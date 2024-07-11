@@ -1,16 +1,17 @@
 import { invoke } from "@tauri-apps/api/core"
+import { generateJarvisPluginCommand } from "../common"
 import { AppInfo } from "../models"
 
 export function getAllApps(): Promise<AppInfo[]> {
-  return invoke("plugin:jarvis|get_applications")
+  return invoke(generateJarvisPluginCommand("get_applications"))
 }
 
 export function refreshApplicationsList(): Promise<void> {
-  return invoke("plugin:jarvis|refresh_applications_list")
+  return invoke(generateJarvisPluginCommand("refresh_applications_list"))
 }
 
 export function refreshApplicationsListInBg(): Promise<void> {
-  return invoke("plugin:jarvis|refresh_applications_list_in_bg")
+  return invoke(generateJarvisPluginCommand("refresh_applications_list_in_bg"))
 }
 
 // export function convertAppToTListItem(app: AppInfo): TListItem {

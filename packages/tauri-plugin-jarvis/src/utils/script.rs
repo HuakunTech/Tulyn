@@ -29,27 +29,3 @@ pub fn run_powershell(script: &str) -> anyhow::Result<String> {
         )),
     }
 }
-
-// #[cfg(test)]
-// mod tests {
-//     use super::*;
-//     use std::process::Command;
-//     #[test]
-//     fn run_shell_script() {
-//         let mut output = Command::new("ls")
-//             .arg("-l")
-//             .arg("-a")
-//             .spawn()
-//             .expect("ls command failed to start");
-//         assert!(output.wait().is_ok());
-
-//         // run a ffmpeg command to compress a video and get stdout stream
-//         let output = Command::new("ffmpeg")
-//             .arg("-i")
-//             .arg("input.mp4")
-//             .arg("output.mp4")
-//             .output()
-//             .expect("failed to execute ffmpeg");
-
-//     }
-// }

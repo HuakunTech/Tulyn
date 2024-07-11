@@ -1,19 +1,20 @@
 import { invoke } from "@tauri-apps/api/core"
+import { generateJarvisPluginCommand } from "../common"
 
 export function openDevTools(): Promise<void> {
-  return invoke("plugin:jarvis|open_devtools")
+  return invoke(generateJarvisPluginCommand("open_devtools"))
 }
 
 export function closeDevTools(): Promise<void> {
-  return invoke("plugin:jarvis|close_devtools")
+  return invoke(generateJarvisPluginCommand("close_devtools"))
 }
 
 export function toggleDevTools(): Promise<void> {
-  return invoke("plugin:jarvis|toggle_devtools")
+  return invoke(generateJarvisPluginCommand("toggle_devtools"))
 }
 
 export function isDevToolsOpen(): Promise<boolean> {
-  return invoke("plugin:jarvis|is_devtools_open")
+  return invoke(generateJarvisPluginCommand("is_devtools_open"))
 }
 
 /**
@@ -21,5 +22,5 @@ export function isDevToolsOpen(): Promise<boolean> {
  * @returns true if the app is running in development mode, false otherwise
  */
 export function appIsDev(): Promise<boolean> {
-  return invoke("plugin:jarvis|app_is_dev")
+  return invoke(generateJarvisPluginCommand("app_is_dev"))
 }

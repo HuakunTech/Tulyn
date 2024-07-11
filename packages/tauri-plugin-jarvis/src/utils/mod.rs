@@ -5,3 +5,4 @@ pub mod path;
 pub mod script;
 pub mod settings;
 pub mod setup;
+pub mod time;

@@ -344,6 +344,20 @@
           ]
         },
         {
+          "description": "allow-create-command -> Enables the create_command command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-create-command"
+          ]
+        },
+        {
+          "description": "deny-create-command -> Denies the create_command command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-create-command"
+          ]
+        },
+        {
           "description": "allow-create-extension -> Enables the create_extension command without any pre-configured scope.",
           "type": "string",
           "enum": [
@@ -383,6 +397,20 @@
           "type": "string",
           "enum": [
             "deny-decompress-tarball"
+          ]
+        },
+        {
+          "description": "allow-delete-command-by-id -> Enables the delete_command_by_id command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-delete-command-by-id"
+          ]
+        },
+        {
+          "description": "deny-delete-command-by-id -> Denies the delete_command_by_id command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-delete-command-by-id"
           ]
         },
         {
@@ -635,6 +663,34 @@
           "type": "string",
           "enum": [
             "deny-get-applications"
+          ]
+        },
+        {
+          "description": "allow-get-command-by-id -> Enables the get_command_by_id command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-get-command-by-id"
+          ]
+        },
+        {
+          "description": "deny-get-command-by-id -> Denies the get_command_by_id command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-get-command-by-id"
+          ]
+        },
+        {
+          "description": "allow-get-commands-by-ext-id -> Enables the get_commands_by_ext_id command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-get-commands-by-ext-id"
+          ]
+        },
+        {
+          "description": "deny-get-commands-by-ext-id -> Denies the get_commands_by_ext_id command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-get-commands-by-ext-id"
           ]
         },
         {
@@ -1307,6 +1363,20 @@
           "type": "string",
           "enum": [
             "deny-unregister-extension-window"
+          ]
+        },
+        {
+          "description": "allow-update-command-by-id -> Enables the update_command_by_id command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-update-command-by-id"
+          ]
+        },
+        {
+          "description": "deny-update-command-by-id -> Denies the update_command_by_id command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-update-command-by-id"
           ]
         },
         {

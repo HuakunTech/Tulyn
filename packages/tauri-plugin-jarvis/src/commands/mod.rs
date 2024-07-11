@@ -1,4 +1,5 @@
 pub mod apps;
+pub mod clipboard;
 pub mod db;
 pub mod dev;
 pub mod discovery;
@@ -8,4 +9,3 @@ pub mod path;
 pub mod server;
 pub mod storage;
 pub mod system;
-pub mod utils;

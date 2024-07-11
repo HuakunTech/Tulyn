@@ -9,7 +9,7 @@ pub const SCHEMA: &str = r#"
         installed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
-    CREATE TABLE commands
+    CREATE TABLE IF NOT EXISTS commands
     (
         cmd_id INTEGER PRIMARY KEY AUTOINCREMENT,
         ext_id INTEGER NOT NULL,

@@ -1,8 +1,6 @@
-use applications::AppInfo;
-
 use crate::syscmds::{CommonSystemCmds, SystemCmds};
-
-use super::utils::run_apple_script;
+use crate::utils::script::run_apple_script;
+use applications::AppInfo;
 
 #[tauri::command]
 pub async fn open_trash() -> Result<(), String> {

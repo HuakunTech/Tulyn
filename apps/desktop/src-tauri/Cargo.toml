@@ -30,14 +30,14 @@ tauri-plugin-dialog = "2.0.0-beta.9"
 tauri-plugin-jarvis = { path = "../../../packages/tauri-plugin-jarvis" }
 tauri-plugin-network = { workspace = true }
 tauri-plugin-system-info = { path = "../../../vendors/tauri-plugin-system-info" }
-tauri-plugin-clipboard = "2.0.4"
+tauri-plugin-clipboard = { workspace = true }
 tauri-plugin-store = "2.0.0-beta.8"
 tauri-plugin-log = { version = "2.0.0-beta", features = ["colored"] }
 anyhow = { workspace = true }
 tokio = { workspace = true }
 mdns-sd = { workspace = true }
-chrono = "0.4.38"
-log = "0.4.22"
+chrono = { workspace = true }
+log = { workspace = true }
 urlencoding = "2.1.3"
 tauri-plugin-upload = "2.0.0-beta.8"
 tauri-plugin-process = "2.0.0-beta.7"

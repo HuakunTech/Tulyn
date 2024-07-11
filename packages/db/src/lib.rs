@@ -456,7 +456,7 @@ mod tests {
         assert!(ext_data.is_some());
         let ext_data = ext_data.unwrap();
         assert_eq!(ext_data.data, "{\"name\": \"huakun\"}");
-
+        println!("{}", ext_data.created_at);
         fs::remove_file(&db_path).unwrap();
     }
 

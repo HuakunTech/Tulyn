@@ -1,23 +1,26 @@
 import { invoke } from "@tauri-apps/api/core"
+import { generateJarvisPluginCommand } from "../common"
 import type { CmdType, Ext, ExtData } from "../models/extension"
 
 /* -------------------------------------------------------------------------- */
 /*                               Extension CRUD                               */
 /* -------------------------------------------------------------------------- */
 export function createExtension(ext: { identifier: string; version: string }) {
-  return invoke<void>("plugin:jarvis|create_extension", ext)
+  return invoke<void>(generateJarvisPluginCommand("create_extension"), ext)
 }
 
 export function getAllExtensions() {
-  return invoke<Ext[]>("plugin:jarvis|get_all_extensions")
+  return invoke<Ext[]>(generateJarvisPluginCommand("get_all_extensions"))
 }
 
 export function getExtensionByIdentifier(identifier: string) {
-  return invoke<Ext | undefined>("plugin:jarvis|get_extension_by_identifier", { identifier })
+  return invoke<Ext | undefined>(generateJarvisPluginCommand("get_extension_by_identifier"), {
+    identifier
+  })
 }
 
 export function deleteExtensionByIdentifier(identifier: string) {
-  return invoke<void>("plugin:jarvis|delete_extension_by_identifier", { identifier })
+  return invoke<void>(generateJarvisPluginCommand("delete_extension_by_identifier"), { identifier })
 }
 /* -------------------------------------------------------------------------- */
 /*                           Extension Command CRUD                           */
@@ -30,19 +33,19 @@ export function createCommand(data: {
   alias?: string
   hotkey?: string
 }) {
-  return invoke<void>("plugin:jarvis|create_command", data)
+  return invoke<void>(generateJarvisPluginCommand("create_command"), data)
 }
 
 export function getCommandById(cmdId: number) {
-  return invoke<Ext | undefined>("plugin:jarvis|get_command_by_id", { cmdId })
+  return invoke<Ext | undefined>(generateJarvisPluginCommand("get_command_by_id"), { cmdId })
 }
 
 export function getCommandsByExtId(extId: number) {
-  return invoke<Ext[]>("plugin:jarvis|get_commands_by_ext_id", { extId })
+  return invoke<Ext[]>(generateJarvisPluginCommand("get_commands_by_ext_id"), { extId })
 }
 
 export function deleteCommandById(cmdId: number) {
-  return invoke<void>("plugin:jarvis|delete_command_by_id", { cmdId })
+  return invoke<void>(generateJarvisPluginCommand("delete_command_by_id"), { cmdId })
 }
 
 export function updateCommandById(data: {
@@ -54,7 +57,7 @@ export function updateCommandById(data: {
   hotkey?: string
   enabled: boolean
 }) {
-  return invoke<void>("plugin:jarvis|update_command_by_id", data)
+  return invoke<void>(generateJarvisPluginCommand("update_command_by_id"), data)
 }
 
 /* -------------------------------------------------------------------------- */
@@ -66,11 +69,13 @@ export function createExtensionData(data: {
   data: string
   searchText?: string
 }) {
-  return invoke<void>("plugin:jarvis|create_extension_data", data)
+  return invoke<void>(generateJarvisPluginCommand("create_extension_data"), data)
 }
 
 export function getExtensionDataById(dataId: number) {
-  return invoke<ExtData | undefined>("plugin:jarvis|get_extension_data_by_id", { dataId })
+  return invoke<ExtData | undefined>(generateJarvisPluginCommand("get_extension_data_by_id"), {
+    dataId
+  })
 }
 
 export function searchExtensionData(data: {
@@ -80,11 +85,11 @@ export function searchExtensionData(data: {
   afterCreatedAt?: string
   beforeCreatedAt?: string
 }) {
-  return invoke<ExtData[]>("plugin:jarvis|search_extension_data", data)
+  return invoke<ExtData[]>(generateJarvisPluginCommand("search_extension_data"), data)
 }
 
 export function deleteExtensionDataById(dataId: number) {
-  return invoke("plugin:jarvis|delete_extension_data_by_id", { dataId })
+  return invoke(generateJarvisPluginCommand("delete_extension_data_by_id"), { dataId })
 }
 
 export function updateExtensionDataById(data: {
@@ -92,5 +97,5 @@ export function updateExtensionDataById(data: {
   data: string
   searchText?: string
 }) {
-  return invoke("plugin:jarvis|update_extension_data_by_id", data)
+  return invoke(generateJarvisPluginCommand("update_extension_data_by_id"), data)
 }

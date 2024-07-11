@@ -1,11 +1,11 @@
 import { invoke } from "@tauri-apps/api/core"
 import { listen, type UnlistenFn } from "@tauri-apps/api/event"
+import { generateJarvisPluginCommand } from "../common"
 
-const pluginPrefix = `plugin:jarvis|`
 const storageCmdPrefix = `ext_store_wrapper_`
 
 function computeCommandName(command: string): string {
-  return `${pluginPrefix}${storageCmdPrefix}${command}`
+  return generateJarvisPluginCommand(`${storageCmdPrefix}${command}`)
 }
 
 interface ChangePayload<T> {
