@@ -8,9 +8,11 @@ import {
   TListItem,
   UiCmd
 } from "@jarvis/schema"
+import { join } from "@tauri-apps/api/path"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import * as fs from "@tauri-apps/plugin-fs"
-import { debug, warn } from "@tauri-apps/plugin-log"
+import { exists } from "@tauri-apps/plugin-fs"
+import { debug, error, warn } from "@tauri-apps/plugin-log"
 import { atom, type ReadableAtom, type WritableAtom } from "nanostores"
 import {
   getServerPort,
@@ -20,6 +22,7 @@ import {
   unregisterExtensionWindow
 } from "tauri-plugin-jarvis-api/commands"
 import { toast } from "vue-sonner"
+import { setCurrentWorkerExt } from "../stores/appState"
 import { type IExtensionBase } from "./base"
 
 /**
@@ -207,6 +210,24 @@ export class Extension implements IExtensionBase {
           }
         })
       } else if (item.type === "Inline Command") {
+        manifest.jarvis.inlineCmds.forEach(async (cmd) => {
+          if (item.value === generateItemValue(manifest, cmd, this.isDev)) {
+            const main = cmd.main
+            const scriptPath = await join(manifest.extPath, main)
+            if (!(await exists(scriptPath))) {
+              error(`Extension Script not found: ${scriptPath}`)
+              return
+            }
+            debug(`Running inline command: ${scriptPath}`)
+            // const script = await fs.readTextFile(scriptPath)
+            // console.log(script)
+            setCurrentWorkerExt({
+              extPath: manifest.extPath,
+              cmdName: cmd.name
+            })
+            navigateTo("/worker-ext")
+          }
+        })
       } else if (item.type === "Remote Command") {
         // const remoteExt = new RemoteExtension();
         // const ext = findRemoteExt(item.value);

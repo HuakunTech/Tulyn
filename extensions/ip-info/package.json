@@ -1,7 +1,45 @@
 {
+  "$schema": "../../packages/schema/manifest-json-schema.json",
   "name": "ip-info",
+  "version": "0.0.3",
   "module": "index.ts",
   "type": "module",
+  "jarvis": {
+    "name": "IP Info",
+    "shortDescription": "Show your current IP Info and Search for IP Address",
+    "longDescription": "Will display you IP Address and more information about this IP address, including Geo Location, ASN, ISP. You can also search for a specific IP.",
+    "identifier": "tech.huakun.jarvis-ext-ip-info",
+    "permissions": [
+      "clipboard-write"
+    ],
+    "demoImages": [
+      "./demo/ip-info.png"
+    ],
+    "icon": {
+      "type": "iconify",
+      "value": "mdi:ip-network"
+    },
+    "uiCmds": [
+      {
+        "main": "dist",
+        "name": "IP Info",
+        "description": "Display your current IP addres and detailed information. Search for other IP address.",
+        "devMain": "http://localhost:5173",
+        "window": {
+          "titleBarStyle": "overlay"
+        },
+        "cmds": [
+          {
+            "type": "text",
+            "value": "ip"
+          }
+        ]
+      }
+    ]
+  },
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "@types/bun": "latest"
   },

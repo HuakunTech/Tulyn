@@ -3,9 +3,15 @@ import { computed, map } from "nanostores"
 import { AppInfo } from "tauri-plugin-jarvis-api/models"
 import * as v from "valibot"
 
+export const WorkerExtMetadata = v.object({
+  extPath: v.string(),
+  cmdName: v.string()
+})
+export type WorkerExtMetadata = v.InferOutput<typeof WorkerExtMetadata>
+
 export const appStateSchema = v.object({
   searchTerm: v.string(),
-  allApps: v.array(AppInfo),
+  // allApps: v.array(AppInfo),
   platform: v.union([
     v.literal("linux"),
     v.literal("macos"),
@@ -17,13 +23,14 @@ export const appStateSchema = v.object({
     v.literal("solaris"),
     v.literal("android"),
     v.literal("windows")
-  ])
+  ]),
+  currentWorkerExt: v.optional(WorkerExtMetadata)
 })
 export type AppState = v.InferOutput<typeof appStateSchema>
 
 export const $appState = map<AppState>({
   searchTerm: "",
-  allApps: [],
+  // allApps: [],
   platform: "macos"
 })
 
@@ -35,9 +42,13 @@ export function setSearchTerm(searchTerm: string) {
   $appState.setKey("searchTerm", searchTerm)
 }
 
-export function setAllApps(allApps: AppInfo[]) {
-  $appState.setKey("allApps", allApps)
+export function setCurrentWorkerExt(ext: WorkerExtMetadata) {
+  $appState.setKey("currentWorkerExt", ext)
 }
+
+// export function setAllApps(allApps: AppInfo[]) {
+//   $appState.setKey("allApps", allApps)
+// }
 
 // export const $filteredApps = computed($appState, (state) => {
 //   if (state.searchTerm.trim().length < 2) return []; // return nothing if no search term

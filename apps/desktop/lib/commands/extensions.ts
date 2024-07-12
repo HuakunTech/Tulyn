@@ -5,20 +5,25 @@
  */
 import { ExtPackageJson, ExtPackageJsonExtra } from "@jarvis/schema"
 import { invoke } from "@tauri-apps/api/core"
-import { join } from "@tauri-apps/api/path"
+import { basename, dirname, join } from "@tauri-apps/api/path"
 import { BaseDirectory, exists, readDir, readTextFile } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
 
 export function loadManifest(manifestPath: string): Promise<ExtPackageJsonExtra> {
-  return readTextFile(manifestPath).then((content) => {
-    const parse = ExtPackageJsonExtra.safeParse(content)
+  return readTextFile(manifestPath).then(async (content) => {
+    const parse = ExtPackageJson.safeParse(JSON.parse(content))
     if (parse.error) {
       error(`Fail to load extension ${manifestPath}. Error: ${parse.error}`)
       console.error(parse.error)
       throw new Error(`Invalid manifest: ${manifestPath} - ${parse.error.message}`)
     } else {
       debug(`Loaded extension ${parse.data.jarvis.identifier} from ${manifestPath}`)
-      return parse.data
+      const extPath = await dirname(manifestPath)
+      const extFolderName = await basename(extPath)
+      return Object.assign(parse.data, {
+        extPath,
+        extFolderName
+      })
     }
   })
   // return invoke("plugin:jarvis|load_manifest", { manifestPath }).then((res) =>
