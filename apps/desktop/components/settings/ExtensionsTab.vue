@@ -10,7 +10,7 @@ import { ElMessage, ElTable, ElTableColumn } from "element-plus"
 import { Trash2Icon } from "lucide-vue-next"
 import { onMounted, ref } from "vue"
 
-const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath, true)
+const devExt = new Extension("Dev Extensions", $appConfig.get().devExtensionPath, true)
 const storeExt = new Extension("Extensions", await getExtensionsFolder())
 const remoteExt = new RemoteExtension()
 const tableData = ref<TListGroup[]>([])

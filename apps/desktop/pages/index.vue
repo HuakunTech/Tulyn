@@ -21,6 +21,7 @@ import { $appState, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
 import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
+import { debug } from "@tauri-apps/plugin-log"
 import { useListenToWindowBlur, usePreventExit } from "~/composables/useEvents"
 import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"
 import { getClipboardHistory } from "tauri-plugin-jarvis-api/commands"
@@ -32,7 +33,7 @@ const appConfig = useStore($appConfig)
 const appExt = new AppsExtension()
 const sysCmdExt = new SystemCommandExtension()
 const builtinCmdExt = new BuiltinCmds()
-const devExt = new Extension("Dev Extensions", appConfig.value.devExtentionPath, true)
+const devExt = new Extension("Dev Extensions", appConfig.value.devExtensionPath, true)
 const storeExt = new Extension("Extensions", await getExtensionsFolder())
 const remoteExt = new RemoteExtension()
 const exts: IExtensionBase[] = [devExt, remoteExt, storeExt, builtinCmdExt, sysCmdExt, appExt]
@@ -60,8 +61,7 @@ watch(searchTermInSync, (val) => {
 })
 
 onMounted(async () => {
-  console.log(await getClipboardHistory())
-
+  // console.log(await getClipboardHistory())
   appWindow.setDecorations(false)
   Promise.all(exts.map((ext) => ext.load()))
 })

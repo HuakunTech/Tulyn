@@ -1,23 +1,22 @@
 <script setup lang="ts">
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { useToast } from "@/components/ui/toast"
 import { Extension } from "@/lib/extension/ext"
-import { $appConfig, setDevExtentionPath } from "@/lib/stores/appConfig"
+import { $appConfig, setDevExtensionPath } from "@/lib/stores/appConfig"
 import { Icon } from "@iconify/vue"
 import { useStore } from "@nanostores/vue"
 // import { loadDevExtManifests, loadExtManifests, $extensionsStore } from "@/lib/stores/extensions";
 import { open } from "@tauri-apps/plugin-dialog"
 import { exists } from "@tauri-apps/plugin-fs"
+import { debug } from "@tauri-apps/plugin-log"
 import { onMount } from "nanostores"
 import { pathExists } from "tauri-plugin-jarvis-api/commands"
 import { onMounted, ref } from "vue"
+import { toast } from "vue-sonner"
 
-const devExt = new Extension("Dev Extensions", $appConfig.get().devExtentionPath, true)
-const { toast } = useToast()
+const devExt = new Extension("Dev Extensions", $appConfig.get().devExtensionPath, true)
 const appConfig = useStore($appConfig)
-const devExtPath = ref(appConfig.value.devExtentionPath)
-
+const devExtPath = ref(appConfig.value.devExtensionPath)
 const lock = ref(true)
 
 async function pickDirectory() {
@@ -25,27 +24,24 @@ async function pickDirectory() {
     multiple: false,
     directory: true
   })
-
+  debug(`dir: ${dir}`)
   if (dir && (await pathExists(dir))) {
     devExtPath.value = dir
-    setDevExtentionPath(devExtPath.value)
+    await setDevExtensionPath(devExtPath.value)
+    console.log($appConfig.get().devExtensionPath)
+
     await devExt.load()
-    toast({
-      title: "Dev Extension Path Set",
+    toast.success("Dev Extension Path Set", {
       description: `${devExt.manifests.length} dev extensions loaded.`
     })
   } else {
-    return toast({
-      title: "Invalid Path",
-      description: "Please enter an existing path",
-      variant: "destructive"
-    })
+    return toast.error("Invalid Path")
   }
 }
 
 function clear() {
   devExtPath.value = undefined
-  return setDevExtentionPath(devExtPath.value)
+  return setDevExtensionPath(devExtPath.value)
     .then(() => {
       return toast({
         title: "Cleared"

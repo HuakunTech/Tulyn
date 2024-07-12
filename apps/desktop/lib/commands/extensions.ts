@@ -3,34 +3,80 @@
  * because the extension API package depends on tauri-plugin-jarvis. So I moved this file to desktop to make sure no dependencies
  * of extension API package are bundled in extension code.
  */
-import { ExtPackageJsonExtra } from "@jarvis/schema"
+import { ExtPackageJson, ExtPackageJsonExtra } from "@jarvis/schema"
 import { invoke } from "@tauri-apps/api/core"
+import { join } from "@tauri-apps/api/path"
+import { BaseDirectory, exists, readDir, readTextFile } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
 
 export function loadManifest(manifestPath: string): Promise<ExtPackageJsonExtra> {
-  return invoke("plugin:jarvis|load_manifest", { manifestPath }).then((res) =>
-    ExtPackageJsonExtra.parse(res)
-  )
+  return readTextFile(manifestPath).then((content) => {
+    const parse = ExtPackageJsonExtra.safeParse(content)
+    if (parse.error) {
+      error(`Fail to load extension ${manifestPath}. Error: ${parse.error}`)
+      console.error(parse.error)
+      throw new Error(`Invalid manifest: ${manifestPath} - ${parse.error.message}`)
+    } else {
+      debug(`Loaded extension ${parse.data.jarvis.identifier} from ${manifestPath}`)
+      return parse.data
+    }
+  })
+  // return invoke("plugin:jarvis|load_manifest", { manifestPath }).then((res) =>
+  //   ExtPackageJsonExtra.parse(res)
+  // )
 }
 
 export function loadAllExtensions(extensionsFolder: string): Promise<ExtPackageJsonExtra[]> {
-  return invoke("plugin:jarvis|load_all_extensions", { extensionsFolder }).then(
-    (res: any) =>
-      res
-        .map((x: unknown) => {
-          console.log(x)
-
-          const parse = ExtPackageJsonExtra.safeParse(x)
-          if (parse.error) {
-            error(`Fail to load extension ${extensionsFolder}. Error: ${parse.error}`)
-            console.error(parse.error)
-
-            return null
-          } else {
-            debug(`Loaded extension ${parse.data.jarvis.identifier} from ${extensionsFolder}`)
-            return parse.data
-          }
+  return readDir(extensionsFolder).then(async (dirEntries) => {
+    const results: ExtPackageJsonExtra[] = []
+    for (const dirEntry of dirEntries) {
+      const extFullPath = await join(extensionsFolder, dirEntry.name)
+      const manifestPath = await join(extFullPath, "package.json")
+      try {
+        if (!(await exists(manifestPath))) {
+          continue
+        }
+      } catch (error) {
+        continue
+      }
+      const content = await readTextFile(manifestPath)
+      let jsonContent = {}
+      try {
+        jsonContent = JSON.parse(content)
+      } catch (error) {
+        console.error(error)
+        continue
+      }
+      const parse = ExtPackageJson.safeParse(jsonContent)
+      if (parse.error) {
+        error(`Fail to load extension ${manifestPath}. Error: ${parse.error}`)
+        continue
+      }
+      results.push(
+        Object.assign(parse.data, {
+          extPath: extFullPath,
+          extFolderName: dirEntry.name
         })
-        .filter((x: ExtPackageJsonExtra | null) => x !== null) as ExtPackageJsonExtra[]
-  )
+      )
+    }
+    return results
+  })
+  // debug(`loadAllExtensions extensions from ${extensionsFolder}`)
+  // return invoke("plugin:jarvis|load_all_extensions", { extensionsFolder }).then(
+  //   (res: any) =>
+  //     res
+  //       .map((x: unknown) => {
+  //         console.log(extensionsFolder, "loaded", x)
+  //         const parse = ExtPackageJsonExtra.safeParse(x)
+  //         if (parse.error) {
+  //           error(`Fail to load extension ${extensionsFolder}. Error: ${parse.error}`)
+  //           console.error(parse.error)
+  //           return null
+  //         } else {
+  //           debug(`Loaded extension ${parse.data.jarvis.identifier} from ${extensionsFolder}`)
+  //           return parse.data
+  //         }
+  //       })
+  //       .filter((x: ExtPackageJsonExtra | null) => x !== null) as ExtPackageJsonExtra[]
+  // )
 }

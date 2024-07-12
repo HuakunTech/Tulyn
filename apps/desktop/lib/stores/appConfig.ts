@@ -22,7 +22,7 @@ export const appConfigSchema = z.object({
   lightMode: LightMode,
   launchAtLogin: z.boolean(),
   showInTray: z.boolean(),
-  devExtentionPath: z.string().optional(),
+  devExtensionPath: z.string().optional(),
   devExtLoadUrl: z.boolean().default(false) // load extension page from dev server
 })
 
@@ -36,7 +36,7 @@ let defaultState: State = {
   lightMode: "auto",
   launchAtLogin: true,
   showInTray: true,
-  devExtentionPath: undefined,
+  devExtensionPath: undefined,
   devExtLoadUrl: false
 }
 
@@ -44,6 +44,7 @@ export const $appConfig = map<State>(defaultState)
 
 async function initAppConfig() {
   const loadedConfig = await persistAppConfig.get("config")
+  // console.log("loadedConfig", loadedConfig)
 
   const parsedConfig = appConfigSchema.safeParse(loadedConfig)
   if (parsedConfig.success) {
@@ -52,6 +53,7 @@ async function initAppConfig() {
       ...parsedConfig.data
     }
   }
+  $appConfig.set(defaultState)
 
   $appConfig.subscribe((state, oldState) => {
     // update color mode
@@ -65,6 +67,7 @@ async function initAppConfig() {
     if (oldState?.radius !== state.radius) {
       document.documentElement.style.setProperty("--radius", `${state.radius}rem`)
     }
+    // console.log("appConfig changed", state, oldState)
 
     // update storage
     persistAppConfig.set("config", state)
@@ -97,10 +100,10 @@ export function setShowInTray(showInTray: boolean) {
   $appConfig.setKey("showInTray", showInTray)
 }
 
-export function setDevExtentionPath(devExtentionPath: string | undefined) {
+export function setDevExtensionPath(devExtensionPath: string | undefined) {
   // set this in server and restart server
-  $appConfig.setKey("devExtentionPath", devExtentionPath)
-  return setDevExtensionFolderForServer(devExtentionPath).then(() => {
+  $appConfig.setKey("devExtensionPath", devExtensionPath)
+  return setDevExtensionFolderForServer(devExtensionPath).then(() => {
     return restartServer()
   })
 }

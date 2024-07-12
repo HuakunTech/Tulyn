@@ -1,7 +1,28 @@
 {
+  "$schema": "../../packages/schema/manifest-json-schema.json",
+  "version": "0.0.1",
   "name": "hacker-news",
   "module": "index.ts",
   "type": "module",
+  "jarvis": {
+    "name": "Hacker News",
+    "identifier": "tech.huakun.jarvis.hacker-news",
+    "shortDescription": "List latest top hacker news",
+    "icon": {
+      "type": "iconify",
+      "value": "fa:hacker-news"
+    },
+    "longDescription": "",
+    "demoImages": [],
+    "inlineCmds": [
+      {
+        "name": "Hacker News",
+        "main": "dist/index.js",
+        "description": "Read the latest Hacker News stories",
+        "cmds": []
+      }
+    ]
+  },
   "scripts": {
     "build": "rimraf dist && rollup -c"
   },

@@ -134,7 +134,7 @@ async function handleDragNDropInstall(paths: string[]) {
       <Label class="text-xl" for="pick">Set Dev Extension Path</Label>
       <DevExtPathForm />
       <!-- Dev Extensions can only be installed when a dev extension path is set -->
-      <div v-if="appConfig.devExtentionPath" class="flex flex-col space-y-2">
+      <div v-if="appConfig.devExtensionPath" class="flex flex-col space-y-2">
         <Label class="text-xl" for="pick"
           >Pick Project Folder to Install
 

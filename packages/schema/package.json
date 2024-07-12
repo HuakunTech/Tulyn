@@ -3,6 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
+    "build": "bun scripts/print-schema.ts > manifest-json-schema.json",
     "upload-schema-to-supabase": "bun scripts/upload-schema-to-supabase.ts",
     "upload-schema-to-s3": "bun scripts/upload-schema-to-s3.ts",
     "print-schema": "bun scripts/print-schema.ts"

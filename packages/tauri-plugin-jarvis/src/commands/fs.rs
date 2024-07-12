@@ -1,10 +1,11 @@
-use std::path::PathBuf;
-
 use crate::utils;
+use log::debug;
+use std::path::PathBuf;
 
 #[tauri::command]
 pub async fn path_exists(path: String) -> Result<bool, String> {
-    Ok(std::path::Path::new(&path).exists())
+    let exists = PathBuf::from(path.clone()).exists();
+    Ok(exists)
 }
 
 #[tauri::command]

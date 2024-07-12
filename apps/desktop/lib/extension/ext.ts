@@ -10,6 +10,7 @@ import {
 } from "@jarvis/schema"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import * as fs from "@tauri-apps/plugin-fs"
+import { debug, warn } from "@tauri-apps/plugin-log"
 import { atom, type ReadableAtom, type WritableAtom } from "nanostores"
 import {
   getServerPort,
@@ -139,8 +140,10 @@ export class Extension implements IExtensionBase {
   }
   async load(): Promise<void> {
     if (!this.extPath || !pathExists(this.extPath)) {
+      warn(`Extension path not found: ${this.extPath}`)
       this.manifests = []
     } else {
+      debug(`Loading extensions from: ${this.extPath}`)
       return loadAllExtensions(this.extPath)
         .then((manifests) => {
           this.manifests = manifests
@@ -149,6 +152,7 @@ export class Extension implements IExtensionBase {
           )
         })
         .catch((err) => {
+          console.error(err)
           toast.error(`Failed to load extensions from ${this.extPath}`)
           // toast.error(err);
         })

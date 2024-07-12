@@ -95,8 +95,8 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             commands::apps::refresh_applications_list,
             commands::apps::refresh_applications_list_in_bg,
             /* ------------------------------- extensions ------------------------------- */
-            commands::extension::load_manifest,
-            commands::extension::load_all_extensions,
+            // commands::extension::load_manifest,
+            // commands::extension::load_all_extensions,
             /* ---------------------------------- utils --------------------------------- */
             commands::fs::path_exists,
             /* --------------------------------- server --------------------------------- */
