@@ -4,16 +4,18 @@ import {
   PutObjectCommand,
   S3Client
 } from "@aws-sdk/client-s3"
-import { z } from "zod"
+import { toJSONSchema } from "@gcornut/valibot-json-schema"
+import * as v from "valibot"
 import { zodToJsonSchema } from "zod-to-json-schema"
 import { ExtPackageJson } from "../src/manifest"
+import { getJsonSchema } from "../src/utils"
 
 const s3Client = new S3Client({
-  endpoint: z.string().parse(process.env.S3_ENDPOINT),
+  endpoint: v.parse(v.string(), process.env.S3_ENDPOINT),
   region: "auto",
   credentials: {
-    accessKeyId: z.string().parse(process.env.S3_ACCESS_KEY_ID),
-    secretAccessKey: z.string().parse(process.env.S3_SECRET_ACCESS_KEY)
+    accessKeyId: v.parse(v.string(), process.env.S3_ACCESS_KEY_ID),
+    secretAccessKey: v.parse(v.string(), process.env.S3_SECRET_ACCESS_KEY)
   }
 })
 /* -------------------------------------------------------------------------- */
@@ -34,10 +36,11 @@ const s3Client = new S3Client({
 /*                             Upload Schema to S3                            */
 /* -------------------------------------------------------------------------- */
 
-const jsonSchema = zodToJsonSchema(ExtPackageJson, {})
+const schemaStr = getJsonSchema(ExtPackageJson)
+// const jsonSchema = zodToJsonSchema(ExtPackageJson, {})
 // @ts-ignore
-jsonSchema["additionalProperties"] = true
-const schemaStr = JSON.stringify(jsonSchema, null, 2)
+// jsonSchema["additionalProperties"] = true
+// const schemaStr = JSON.stringify(jsonSchema, null, 2)
 
 await s3Client.send(
   new PutObjectCommand({

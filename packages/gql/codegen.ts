@@ -1,7 +1,7 @@
 import type { CodegenConfig } from "@graphql-codegen/cli"
 import { addTypenameSelectionDocumentTransform } from "@graphql-codegen/client-preset"
 import dotenv from "dotenv"
-import { z } from "zod"
+import { parse, safeParse, string } from "valibot"
 
 dotenv.config()
 
@@ -12,14 +12,14 @@ if (!process.env.SUPABASE_ANON_KEY) {
   console.error("SUPABASE_ANON_KEY is not set")
 }
 
-const endpoint = z
-  .string()
-  .describe("SUPABASE_GRAPHQL_ENDPOINT Env Var")
-  .parse(process.env.SUPABASE_GRAPHQL_ENDPOINT)
+const endpoint = parse(
+  string("SUPABASE_GRAPHQL_ENDPOINT Env Var"),
+  process.env.SUPABASE_GRAPHQL_ENDPOINT
+)
 const schema: any = {}
 schema[endpoint] = {
   headers: {
-    apiKey: z.string().describe("SUPABASE_ANON_KEY Env Var").parse(process.env.SUPABASE_ANON_KEY)
+    apiKey: parse(string("SUPABASE_ANON_KEY Env Var"), process.env.SUPABASE_ANON_KEY)
   }
 }
 const config: CodegenConfig = {

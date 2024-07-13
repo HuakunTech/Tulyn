@@ -1,18 +1,19 @@
 import { type Database } from "@jarvis/supabase"
 import { createClient } from "@supabase/supabase-js"
-import { z } from "zod"
+import * as v from "valibot"
 import { zodToJsonSchema } from "zod-to-json-schema"
 import { ExtPackageJson } from "../src/manifest"
 
 const supabase = createClient<Database>(
-  z.string().parse(process.env.SUPABASE_URL),
-  z.string().parse(process.env.SUPABASE_SERVICE_ROLE_KEY)
+  v.parse(v.string(), process.env.SUPABASE_URL),
+  v.parse(v.string(), process.env.SUPABASE_SERVICE_ROLE_KEY)
 )
 
-const jsonSchema = zodToJsonSchema(ExtPackageJson, {})
+// const jsonSchema = zodToJsonSchema(ExtPackageJson, {})
 // @ts-ignore
-jsonSchema["additionalProperties"] = true
-const schemaStr = JSON.stringify(jsonSchema, null, 2)
+// jsonSchema["additionalProperties"] = true
+// const schemaStr = JSON.stringify(jsonSchema, null, 2)
+const schemaStr = getJsonSchema(ExtPackageJson)
 
 const { data, error } = await supabase.storage.from("extensions").upload("schema.json", schemaStr, {
   cacheControl: "3600",

@@ -3,6 +3,7 @@ import { $appState } from "@/lib/stores/appState"
 import { useStore } from "@nanostores/vue"
 import { join } from "@tauri-apps/api/path"
 import { exists, readTextFile } from "@tauri-apps/plugin-fs"
+import { onKeyStroke } from "@vueuse/core"
 import { loadManifest } from "~/lib/commands/extensions"
 import {
   constructJarvisServerAPIWithPermissions,
@@ -12,6 +13,8 @@ import {
 import { toast } from "vue-sonner"
 
 const appState = useStore($appState)
+
+onKeyStroke("Escape", () => navigateTo("/"))
 
 onMounted(async () => {
   const currentWorkerExt = appState.value.currentWorkerExt
@@ -57,6 +60,4 @@ onMounted(async () => {
   )
 })
 </script>
-<template>
-  <Button @click="() => navigateTo('/')">Back</Button>
-</template>
+<template></template>

@@ -1,3 +1,9 @@
-import { z } from "zod"
+// import { z } from "zod"
+import { enum_ } from "valibot"
 
-export const IconType = z.enum(["iconify", "asset", "remote-url"])
+export enum IconTypeEnum {
+  "iconify" = "iconify",
+  "asset" = "asset",
+  "remote-url" = "remote-url"
+}
+export const IconType = enum_(IconTypeEnum)
