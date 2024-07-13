@@ -1,3 +1,4 @@
+import { AllJarvisPermissionSchema } from "jarvis-api/ui"
 import {
   array,
   boolean,
@@ -11,8 +12,6 @@ import {
   union,
   type InferOutput
 } from "valibot"
-import * as v from "valibot"
-// import { z } from "zod"
 import { IconType } from "./common"
 
 export enum OSPlatformEnum {
@@ -23,14 +22,6 @@ export enum OSPlatformEnum {
 
 export const OSPlatform = enum_(OSPlatformEnum)
 const allPlatforms = Object.values(OSPlatformEnum)
-export enum PermissionsEnum {
-  "clipboard-read" = "clipboard-read",
-  "clipboard-write" = "clipboard-write",
-  "fs-home" = "fs-home",
-  "fs-basic" = "fs-basic",
-  "shell" = "shell"
-}
-export const PermissionsSchema = enum_(PermissionsEnum)
 export const TriggerCmd = object({
   type: union([literal("text"), literal("regex")]),
   value: string()
@@ -126,7 +117,7 @@ export const JarvisExtManifest = object({
   permissions: optional(
     nullable(
       array(
-        PermissionsSchema,
+        AllJarvisPermissionSchema,
         "Permissions Declared by the extension. e.g. clipboard-all. Not declared APIs will be blocked."
       ),
       []

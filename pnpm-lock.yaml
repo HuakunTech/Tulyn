@@ -528,12 +528,12 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.43.4
         version: 2.43.4
+      jarvis-api:
+        specifier: workspace:*
+        version: link:../api
       typescript:
         specifier: ^5.0.0
         version: 5.4.5
-      zod-to-json-schema:
-        specifier: ^3.23.0
-        version: 3.23.0(zod@3.23.8)
     devDependencies:
       '@types/bun':
         specifier: latest
@@ -554,9 +554,6 @@ importers:
 
   packages/tauri-plugin-jarvis:
     dependencies:
-      '@jarvis/schema':
-        specifier: workspace:*
-        version: link:../schema
       '@tauri-apps/api':
         specifier: '>=2.0.0-beta.6'
         version: 2.0.0-beta.11

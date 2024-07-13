@@ -21,7 +21,11 @@
 //   appIsDev
 // } from "tauri-plugin-jarvis-api/commands"
 
-export { constructJarvisServerAPIWithPermissions, type AllJarvisPermission } from "./server"
+export {
+  constructJarvisServerAPIWithPermissions,
+  type AllJarvisPermission,
+  AllJarvisPermissionSchema
+} from "./server"
 export {
   clipboard,
   dialog,
