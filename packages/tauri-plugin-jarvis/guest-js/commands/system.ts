@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api/core"
 import { platform } from "@tauri-apps/plugin-os"
-import * as v from "valibot"
+import { parse } from "valibot"
 import { generateJarvisPluginCommand } from "../common"
 import { AppInfo, CommandType, TCommand } from "../models"
 
@@ -105,9 +105,7 @@ export function unmute(): Promise<void> {
 }
 
 export function getFrontmostApp(): Promise<AppInfo> {
-  return invoke(generateJarvisPluginCommand("get_frontmost_app")).then((app) =>
-    v.parse(AppInfo, app)
-  )
+  return invoke(generateJarvisPluginCommand("get_frontmost_app")).then((app) => parse(AppInfo, app))
 }
 
 export function hideAllAppsExceptFrontmost(): Promise<void> {

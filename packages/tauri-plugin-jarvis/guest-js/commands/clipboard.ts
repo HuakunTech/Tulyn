@@ -1,24 +1,24 @@
 import { invoke } from "@tauri-apps/api/core"
-import * as v from "valibot"
+import { array, literal, number, object, parse, string, union, type InferOutput } from "valibot"
 import { generateJarvisPluginCommand } from "../common"
 
-export const ClipboardContentType = v.union([
-  v.literal("Text"),
-  v.literal("Image"),
-  v.literal("Html"),
-  v.literal("Rtf")
+export const ClipboardContentType = union([
+  literal("Text"),
+  literal("Image"),
+  literal("Html"),
+  literal("Rtf")
   // z.literal("File"),
 ])
-export type ClipboardContentType = v.InferOutput<typeof ClipboardContentType>
-export const ClipboardRecord = v.object({
-  value: v.string(),
+export type ClipboardContentType = InferOutput<typeof ClipboardContentType>
+export const ClipboardRecord = object({
+  value: string(),
   contentType: ClipboardContentType,
-  timestamp: v.number(),
-  text: v.string()
+  timestamp: number(),
+  text: string()
 })
-export type ClipboardRecord = v.InferOutput<typeof ClipboardRecord>
-export const ClipboardRecords = v.array(ClipboardRecord)
-export type ClipboardRecords = v.InferOutput<typeof ClipboardRecords>
+export type ClipboardRecord = InferOutput<typeof ClipboardRecord>
+export const ClipboardRecords = array(ClipboardRecord)
+export type ClipboardRecords = InferOutput<typeof ClipboardRecords>
 
 export function addClipboardHistory(value: string) {
   return invoke<null>(generateJarvisPluginCommand("add_to_history"), { value })
@@ -26,7 +26,7 @@ export function addClipboardHistory(value: string) {
 
 export function getClipboardHistory() {
   return invoke<ClipboardRecord[]>(generateJarvisPluginCommand("get_history")).then((records) => {
-    return v.parse(ClipboardRecords, records)
+    return parse(ClipboardRecords, records)
   })
 }
 

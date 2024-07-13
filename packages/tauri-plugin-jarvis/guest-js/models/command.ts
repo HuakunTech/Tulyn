@@ -1,4 +1,13 @@
-import * as v from "valibot"
+import {
+  array,
+  boolean,
+  enum_,
+  function_,
+  nullable,
+  object,
+  string,
+  type InferOutput
+} from "valibot"
 
 // TODO: Kind of Duplicate for ListItemType, consider remove one
 export enum CommandTypeEnum {
@@ -7,15 +16,15 @@ export enum CommandTypeEnum {
   "inline-cmd",
   "app"
 }
-export const CommandType = v.enum(CommandTypeEnum)
+export const CommandType = enum_(CommandTypeEnum)
 
-export const TCommand = v.object({
-  name: v.string(),
-  value: v.string(),
-  icon: v.nullable(v.string()),
-  keywords: v.nullable(v.array(v.string())),
+export const TCommand = object({
+  name: string(),
+  value: string(),
+  icon: nullable(string()),
+  keywords: nullable(array(string())),
   commandType: CommandType,
-  function: v.function(),
-  confirmRequired: v.boolean()
+  function: function_(),
+  confirmRequired: boolean()
 })
-export type TCommand = v.InferOutput<typeof TCommand>
+export type TCommand = InferOutput<typeof TCommand>

@@ -1,25 +1,25 @@
 import { os } from "jarvis-api/ui"
 import { computed, map } from "nanostores"
 import { AppInfo } from "tauri-plugin-jarvis-api/models"
-import * as v from "valibot"
+import { literal, object, string, union, type InferOutput } from "valibot"
 
-export const appStateSchema = v.object({
-  searchTerm: v.string(),
-  // allApps: v.array(AppInfo),
-  platform: v.union([
-    v.literal("linux"),
-    v.literal("macos"),
-    v.literal("ios"),
-    v.literal("freebsd"),
-    v.literal("dragonfly"),
-    v.literal("netbsd"),
-    v.literal("openbsd"),
-    v.literal("solaris"),
-    v.literal("android"),
-    v.literal("windows")
+export const appStateSchema = object({
+  searchTerm: string(),
+  // allApps: array(AppInfo),
+  platform: union([
+    literal("linux"),
+    literal("macos"),
+    literal("ios"),
+    literal("freebsd"),
+    literal("dragonfly"),
+    literal("netbsd"),
+    literal("openbsd"),
+    literal("solaris"),
+    literal("android"),
+    literal("windows")
   ])
 })
-export type AppState = v.InferOutput<typeof appStateSchema>
+export type AppState = InferOutput<typeof appStateSchema>
 
 export const $appState = map<AppState>({
   searchTerm: "",

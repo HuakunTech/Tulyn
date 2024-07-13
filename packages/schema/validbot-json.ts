@@ -1,22 +1,23 @@
 import { toJSONSchema } from "@gcornut/valibot-json-schema"
-import * as v from "valibot"
+import { array, literal, object, string, union } from "valibot"
 
-const ClipboardPermissionSchema = v.union([
-  v.literal("clipboard:read-all"),
-  v.literal("clipboard:write-all"),
-  v.literal("clipboard:read-text"),
-  v.literal("clipboard:write-text"),
-  v.literal("clipboard:read-image"),
-  v.literal("clipboard:write-image"),
-  v.literal("clipboard:read-files"),
-  v.literal("clipboard:write-files")
+const ClipboardPermissionSchema = union([
+  literal("clipboard:read-all"),
+  literal("clipboard:write-all"),
+  literal("clipboard:read-text"),
+  literal("clipboard:write-text"),
+  literal("clipboard:read-image"),
+  literal("clipboard:write-image"),
+  literal("clipboard:read-files"),
+  literal("clipboard:write-files")
 ])
 
-const ManifestSchema = v.object({
-  name: v.string(),
-  version: v.string(),
-  description: v.string(),
-  permissions: v.array(ClipboardPermissionSchema)
+const ManifestSchema = object({
+  name: string(),
+  version: string(),
+  description: string(),
+  permissions: array(ClipboardPermissionSchema)
 })
 
+// @ts-ignore
 console.log(toJSONSchema({ schema: ManifestSchema }))

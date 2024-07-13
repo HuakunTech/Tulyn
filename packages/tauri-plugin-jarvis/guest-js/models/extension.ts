@@ -1,50 +1,50 @@
-import * as v from "valibot"
+import { boolean, enum_, number, object, optional, record, string, type InferOutput } from "valibot"
 
 /**
  * Map window label to extension
  */
-export const ExtensionLabelMap = v.record(
-  v.string("Window label"),
-  v.object({
-    path: v.string("Path to the extension")
+export const ExtensionLabelMap = record(
+  string("Window label"),
+  object({
+    path: string("Path to the extension")
   })
 )
-export type ExtensionLabelMap = v.InferOutput<typeof ExtensionLabelMap>
+export type ExtensionLabelMap = InferOutput<typeof ExtensionLabelMap>
 
-export const Ext = v.object({
-  ext_id: v.number(),
-  identifier: v.string(),
-  version: v.string(),
-  enabled: v.boolean(),
-  installed_at: v.string()
+export const Ext = object({
+  ext_id: number(),
+  identifier: string(),
+  version: string(),
+  enabled: boolean(),
+  installed_at: string()
 })
-export type Ext = v.InferOutput<typeof Ext>
+export type Ext = InferOutput<typeof Ext>
 export enum CmdTypeEnum {
   Iframe = "iframe",
   Worker = "worker",
   QuickLink = "quick_link"
 }
-export const CmdType = v.enum(CmdTypeEnum)
-export type CmdType = v.InferOutput<typeof CmdType>
-export const ExtCmd = v.object({
-  cmd_id: v.number(),
-  ext_id: v.number(),
-  name: v.string(),
+export const CmdType = enum_(CmdTypeEnum)
+export type CmdType = InferOutput<typeof CmdType>
+export const ExtCmd = object({
+  cmd_id: number(),
+  ext_id: number(),
+  name: string(),
   type_: CmdType,
-  data: v.string(),
-  alias: v.optional(v.string()),
-  hotkey: v.optional(v.string()),
-  enabled: v.boolean()
+  data: string(),
+  alias: optional(string()),
+  hotkey: optional(string()),
+  enabled: boolean()
 })
-export type ExtCmd = v.InferOutput<typeof ExtCmd>
+export type ExtCmd = InferOutput<typeof ExtCmd>
 
-export const ExtData = v.object({
-  data_id: v.number(),
-  ext_id: v.number(),
-  data_type: v.string(),
-  data: v.string(),
-  search_text: v.optional(v.string()),
-  created_at: v.string(),
-  updated_at: v.string()
+export const ExtData = object({
+  data_id: number(),
+  ext_id: number(),
+  data_type: string(),
+  data: string(),
+  search_text: optional(string()),
+  created_at: string(),
+  updated_at: string()
 })
-export type ExtData = v.InferOutput<typeof ExtData>
+export type ExtData = InferOutput<typeof ExtData>

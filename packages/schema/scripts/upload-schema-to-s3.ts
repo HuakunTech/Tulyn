@@ -5,17 +5,16 @@ import {
   S3Client
 } from "@aws-sdk/client-s3"
 import { toJSONSchema } from "@gcornut/valibot-json-schema"
-import * as v from "valibot"
-import { zodToJsonSchema } from "zod-to-json-schema"
+import { parse, string } from "valibot"
 import { ExtPackageJson } from "../src/manifest"
 import { getJsonSchema } from "../src/utils"
 
 const s3Client = new S3Client({
-  endpoint: v.parse(v.string(), process.env.S3_ENDPOINT),
+  endpoint: parse(string(), process.env.S3_ENDPOINT),
   region: "auto",
   credentials: {
-    accessKeyId: v.parse(v.string(), process.env.S3_ACCESS_KEY_ID),
-    secretAccessKey: v.parse(v.string(), process.env.S3_SECRET_ACCESS_KEY)
+    accessKeyId: parse(string(), process.env.S3_ACCESS_KEY_ID),
+    secretAccessKey: parse(string(), process.env.S3_SECRET_ACCESS_KEY)
   }
 })
 /* -------------------------------------------------------------------------- */

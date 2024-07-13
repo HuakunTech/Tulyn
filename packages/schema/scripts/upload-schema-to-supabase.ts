@@ -1,12 +1,11 @@
 import { type Database } from "@jarvis/supabase"
 import { createClient } from "@supabase/supabase-js"
-import * as v from "valibot"
-import { zodToJsonSchema } from "zod-to-json-schema"
+import { parse, string } from "valibot"
 import { ExtPackageJson } from "../src/manifest"
 
 const supabase = createClient<Database>(
-  v.parse(v.string(), process.env.SUPABASE_URL),
-  v.parse(v.string(), process.env.SUPABASE_SERVICE_ROLE_KEY)
+  parse(string(), process.env.SUPABASE_URL),
+  parse(string(), process.env.SUPABASE_SERVICE_ROLE_KEY)
 )
 
 // const jsonSchema = zodToJsonSchema(ExtPackageJson, {})

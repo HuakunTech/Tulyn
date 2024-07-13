@@ -1,7 +1,7 @@
 import { appDataDir, join } from "@tauri-apps/api/path"
 import { AllJarvisPermissionSchema } from "jarvis-api/ui"
 // import { z } from "zod"
-import * as v from "valibot"
+import { object, record, string, type InferOutput } from "valibot"
 import { loadEnvVarWithNotification } from "./utils/envvar"
 
 // const appDataDirPath = await appDataDir();
@@ -30,11 +30,11 @@ export const SettingsWindowLabel = "main-settings"
 export const FileStorageUrl = ""
 
 // PermissionsEnum.
-const PermissionExplain = v.record(
+const PermissionExplain = record(
   AllJarvisPermissionSchema,
-  v.object({ displayName: v.string(), description: v.string() })
+  object({ displayName: string(), description: string() })
 )
-type PermissionExplain = v.InferOutput<typeof PermissionExplain>
+type PermissionExplain = InferOutput<typeof PermissionExplain>
 export const PERMISSIONS_EXPLANATION: PermissionExplain = {
   "clipboard:read-all": {
     displayName: "Read Clipboard",

@@ -9,19 +9,17 @@
 // }
 
 import { defineStore } from "pinia"
-import * as v from "valibot"
+import { object, optional, string, type InferOutput } from "valibot"
 
-// import { computed, map } from "nanostores"
-
-export const WorkerExtMetadata = v.object({
-  extPath: v.string(),
-  cmdName: v.string()
+export const WorkerExtMetadata = object({
+  extPath: string(),
+  cmdName: string()
 })
-export type WorkerExtMetadata = v.InferOutput<typeof WorkerExtMetadata>
-export const ExtStoreSchema = v.object({
-  currentWorkerExt: v.optional(WorkerExtMetadata)
+export type WorkerExtMetadata = InferOutput<typeof WorkerExtMetadata>
+export const ExtStoreSchema = object({
+  currentWorkerExt: optional(WorkerExtMetadata)
 })
-export type ExtStoreState = v.InferOutput<typeof ExtStoreSchema>
+export type ExtStoreState = InferOutput<typeof ExtStoreSchema>
 
 export const useExtStore = defineStore("extension", {
   state: (): ExtStoreState => ({
