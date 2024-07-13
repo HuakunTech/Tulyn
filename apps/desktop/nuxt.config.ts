@@ -5,6 +5,7 @@ export default defineNuxtConfig({
   ssr: false,
   css: ["@/assets/css/themes.css"],
   devtools: { enabled: true },
+
   modules: [
     "@nuxtjs/tailwindcss",
     "shadcn-nuxt",
@@ -16,6 +17,7 @@ export default defineNuxtConfig({
     // "dayjs-nuxt",
     // "@nuxtjs/supabase"
   ],
+
   shadcn: {
     /**
      * Prefix for all the imported component
@@ -27,6 +29,7 @@ export default defineNuxtConfig({
      */
     componentDir: "./components/ui"
   },
+
   // elementPlus: {
   //   icon: "ElIcon",
   //   importStyle: "scss",
@@ -36,6 +39,7 @@ export default defineNuxtConfig({
   //   pageTransition: { name: "page", mode: "out-in" },
   // },
   alias: { "@jarvis-plugin": "../../../packages/tauri-plugin-jarvis/guest-js" },
+
   runtimeConfig: {
     public: {
       SUPABASE_URL: z.string().describe("SUPABASE_URL").parse(process.env.SUPABASE_URL),
@@ -55,8 +59,11 @@ export default defineNuxtConfig({
       posthogHost: z.string().describe("POSTHOG_HOST").parse(process.env.POSTHOG_HOST)
     }
   },
+
   supabase: {
     key: process.env.SUPABASE_ANON_KEY,
     url: process.env.SUPABASE_URL
-  }
+  },
+
+  compatibilityDate: "2024-04-03"
 })

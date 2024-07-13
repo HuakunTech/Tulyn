@@ -1,6 +1,6 @@
 import { DebugWindowLabel, DevWindowLabel, SettingsWindowLabel } from "@/lib/constants"
 import { newSettingsPage } from "@/lib/utils/router"
-import { ListItemType, TListItem } from "@jarvis/schema"
+import { IconType, ListItemType, TListItem } from "@jarvis/schema"
 import { getAll as getAllWindows, WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { ElMessage, ElNotification } from "element-plus"
 import type { ReadableAtom, WritableAtom } from "nanostores"
@@ -94,10 +94,10 @@ const buildinCmdsListItems: TListItem[] = builtinCmds.map(
     title: cmd.name,
     value: genListItemValue(cmd.name),
     description: cmd.description,
-    type: ListItemType.Enum["Built-In Command"],
+    type: ListItemType.enum["Built-In Command"],
     icon: {
       value: cmd.iconifyIcon,
-      type: "iconify"
+      type: IconType.enum.iconify
     },
     flags: { isDev: false, isRemovable: false },
     keywords: ["builtin"],

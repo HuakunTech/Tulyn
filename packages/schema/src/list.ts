@@ -1,50 +1,60 @@
-import { z } from "zod"
+import {
+  array,
+  boolean,
+  enum_,
+  nullable,
+  object,
+  optional,
+  string,
+  type InferOutput
+} from "valibot"
 import { IconType } from "./common"
 
-export const ListItemType = z.enum([
-  "Remote Command",
-  "Command",
-  "UI Command",
-  "Inline Command",
-  "System Command",
-  "Application",
-  "Built-In Command"
-])
-export type ListItemType = z.infer<typeof ListItemType>
+export enum ListItemTypeEnum {
+  "Remote Command" = "Remote Command",
+  "Command" = "Command",
+  "UI Command" = "UI Command",
+  "Inline Command" = "Inline Command",
+  "System Command" = "System Command",
+  "Application" = "Application",
+  "Built-In Command" = "Built-In Command"
+}
+export const ListItemType = enum_(ListItemTypeEnum)
+export type ListItemType = InferOutput<typeof ListItemType>
 
-export const IconSchema = z.object({
-  value: z.string(),
+export const IconSchema = object({
+  value: string(),
   type: IconType
 })
-export type IconSchema = z.infer<typeof IconSchema>
-export const TListItem = z.object({
-  title: z.string(),
-  value: z.string(),
-  description: z.string(),
+export type IconSchema = InferOutput<typeof IconSchema>
+export const TListItem = object({
+  title: string(),
+  value: string(),
+  description: string(),
   type: ListItemType,
-  flags: z
-    .object({
-      isDev: z.boolean().optional().default(false),
-      isRemovable: z.boolean().optional().default(false)
-    })
-    .optional()
-    .default({}),
-  icon: IconSchema.nullable(),
-  keywords: z.array(z.string()).optional().default([]),
-  identityFilter: z.boolean().optional().default(false)
+  flags: optional(
+    object({
+      isDev: optional(boolean(), false),
+      isRemovable: optional(boolean(), false)
+    }),
+    {}
+  ),
+  icon: nullable(IconSchema),
+  keywords: optional(array(string()), []),
+  identityFilter: optional(boolean(), false)
 })
-export type TListItem = z.infer<typeof TListItem>
-export const TListGroup = z.object({
-  title: z.string(),
-  type: z.string(),
-  identifier: z.string(),
-  icon: IconSchema.optional(),
-  items: z.array(TListItem),
-  flags: z.object({
-    isDev: z.boolean().optional().default(false),
-    isRemovable: z.boolean().optional().default(false)
+export type TListItem = InferOutput<typeof TListItem>
+export const TListGroup = object({
+  title: string(),
+  type: string(),
+  identifier: string(),
+  icon: optional(IconSchema),
+  items: array(TListItem),
+  flags: object({
+    isDev: optional(boolean(), false),
+    isRemovable: optional(boolean(), false)
   })
 })
-export type TListGroup = z.infer<typeof TListGroup>
-// export const TList = z.array(TListGroup);
-// export type TList = z.infer<typeof TList>;
+export type TListGroup = InferOutput<typeof TListGroup>
+// export const TList = array(TListGroup);
+// export type TList = infer<typeof TList>;

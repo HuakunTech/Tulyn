@@ -19,9 +19,9 @@
       "types": "./dist/ui/iframe.d.ts"
     },
     "./ui/worker": {
-      "import": "./dist/ui/worker.js",
-      "require": "./dist/ui/worker.cjs",
-      "types": "./dist/ui/worker.d.ts"
+      "import": "./dist/ui/worker/index.js",
+      "require": "./dist/ui/worker/index.cjs",
+      "types": "./dist/ui/worker/index.d.ts"
     },
     "./models": {
       "import": "./dist/models/index.js",

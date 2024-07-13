@@ -117,10 +117,10 @@ function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: UiCmd, u
  */
 export function manifestToCmdItems(manifest: ExtPackageJsonExtra, isDev: boolean): TListItem[] {
   const uiItems = manifest.jarvis.uiCmds.map((cmd) =>
-    cmdToItem(cmd, manifest, ListItemType.Enum["UI Command"], isDev)
+    cmdToItem(cmd, manifest, ListItemType.enum["UI Command"], isDev)
   )
   const inlineItems = manifest.jarvis.inlineCmds.map((cmd) =>
-    cmdToItem(cmd, manifest, ListItemType.Enum["Inline Command"], isDev)
+    cmdToItem(cmd, manifest, ListItemType.enum["Inline Command"], isDev)
   )
   return [...uiItems, ...inlineItems]
 }

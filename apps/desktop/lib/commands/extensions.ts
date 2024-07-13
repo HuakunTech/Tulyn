@@ -8,19 +8,20 @@ import { invoke } from "@tauri-apps/api/core"
 import { basename, dirname, join } from "@tauri-apps/api/path"
 import { BaseDirectory, exists, readDir, readTextFile } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
+import { safeParse } from "valibot"
 
 export function loadManifest(manifestPath: string): Promise<ExtPackageJsonExtra> {
   return readTextFile(manifestPath).then(async (content) => {
-    const parse = ExtPackageJson.safeParse(JSON.parse(content))
-    if (parse.error) {
-      error(`Fail to load extension ${manifestPath}. Error: ${parse.error}`)
-      console.error(parse.error)
-      throw new Error(`Invalid manifest: ${manifestPath} - ${parse.error.message}`)
+    const parse = safeParse(ExtPackageJson, JSON.parse(content))
+    if (parse.issues) {
+      error(`Fail to load extension ${manifestPath}. Error: ${parse.issues}`)
+      console.error(parse.issues)
+      throw new Error(`Invalid manifest: ${manifestPath} - ${parse.issues}`)
     } else {
-      debug(`Loaded extension ${parse.data.jarvis.identifier} from ${manifestPath}`)
+      debug(`Loaded extension ${parse.output.jarvis.identifier} from ${manifestPath}`)
       const extPath = await dirname(manifestPath)
       const extFolderName = await basename(extPath)
-      return Object.assign(parse.data, {
+      return Object.assign(parse.output, {
         extPath,
         extFolderName
       })
@@ -52,13 +53,17 @@ export function loadAllExtensions(extensionsFolder: string): Promise<ExtPackageJ
         console.error(error)
         continue
       }
-      const parse = ExtPackageJson.safeParse(jsonContent)
-      if (parse.error) {
-        error(`Fail to load extension ${manifestPath}. Error: ${parse.error}`)
+      const parse = safeParse(ExtPackageJson, jsonContent)
+      if (parse.issues) {
+        console.log(parse.issues)
+
+        error(
+          `Fail to load extension (in loadAllExtensions) ${manifestPath}. Error: ${parse.issues}`
+        )
         continue
       }
       results.push(
-        Object.assign(parse.data, {
+        Object.assign(parse.output, {
           extPath: extFullPath,
           extFolderName: dirEntry.name
         })

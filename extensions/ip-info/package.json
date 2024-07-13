@@ -10,7 +10,7 @@
     "longDescription": "Will display you IP Address and more information about this IP address, including Geo Location, ASN, ISP. You can also search for a specific IP.",
     "identifier": "tech.huakun.jarvis-ext-ip-info",
     "permissions": [
-      "clipboard-write"
+      "clipboard:read-all"
     ],
     "demoImages": [
       "./demo/ip-info.png"

@@ -1,5 +1,4 @@
 import { expose } from "@huakunshen/comlink"
-import type { TListItem } from "@jarvis-plugin/models"
 import { clipboard, type IWorkerExtensionBase } from "jarvis-api/ui/worker"
 
 class SampleWorkerExt implements IWorkerExtensionBase {

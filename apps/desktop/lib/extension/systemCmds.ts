@@ -4,6 +4,7 @@ import { ElNotification } from "element-plus"
 import { atom, type ReadableAtom, type WritableAtom } from "nanostores"
 import { getSystemCommands } from "tauri-plugin-jarvis-api/commands"
 import { TCommand } from "tauri-plugin-jarvis-api/models"
+import { parse } from "valibot"
 import { type IExtensionBase } from "./base"
 
 export class SystemCommandExtension implements IExtensionBase {
@@ -19,14 +20,14 @@ export class SystemCommandExtension implements IExtensionBase {
   async load(): Promise<void> {
     this.systemCommands = await getSystemCommands()
     this.systemCommandListItems = this.systemCommands.map((cmd) =>
-      TListItem.parse({
+      parse(TListItem, {
         title: cmd.name,
         value: cmd.value,
         description: "System",
-        type: ListItemType.Enum["System Command"],
+        type: ListItemType.enum["System Command"],
         icon: {
           value: cmd.icon,
-          type: IconType.Enum.iconify
+          type: IconType.enum.iconify
         },
         keywords: cmd.keywords
       })

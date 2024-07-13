@@ -12,7 +12,7 @@ const config = {
     "src/index.ts",
     "src/ui/index.ts",
     "src/ui/iframe.ts",
-    "src/ui/worker.ts",
+    "src/ui/worker/index.ts",
     "src/models/index.ts"
   ],
   output: [

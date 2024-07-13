@@ -1,6 +1,7 @@
-import { PermissionsEnum } from "@jarvis/schema"
 import { appDataDir, join } from "@tauri-apps/api/path"
-import { z } from "zod"
+import { AllJarvisPermissionSchema } from "jarvis-api/ui"
+// import { z } from "zod"
+import * as v from "valibot"
 import { loadEnvVarWithNotification } from "./utils/envvar"
 
 // const appDataDirPath = await appDataDir();
@@ -29,24 +30,28 @@ export const SettingsWindowLabel = "main-settings"
 export const FileStorageUrl = ""
 
 // PermissionsEnum.
-const PermissionExplain = z.record(
-  PermissionsEnum,
-  z.object({ displayName: z.string(), description: z.string() })
+const PermissionExplain = v.record(
+  AllJarvisPermissionSchema,
+  v.object({ displayName: v.string(), description: v.string() })
 )
-type PermissionExplain = z.infer<typeof PermissionExplain>
+type PermissionExplain = v.InferOutput<typeof PermissionExplain>
 export const PERMISSIONS_EXPLANATION: PermissionExplain = {
-  "clipboard-read": {
+  "clipboard:read-all": {
     displayName: "Read Clipboard",
     description:
       "Access to read clipboard data. Including text, html, RTF, image, file paths and monitoring clipboard content update."
   },
-  "clipboard-write": {
+  "clipboard:write-all": {
     displayName: "Write Clipboard",
     description:
       "Access to write clipboard data. Write text, html, RTF, image, file paths to clipboard."
   },
-  "fs-home": {
-    displayName: "Home Directory",
-    description: "Read and Write Access to the home directory"
+  "fs:read": {
+    displayName: "Read File System",
+    description: "Read files and directories from the file system."
+  },
+  "fs:write": {
+    displayName: "Write File System",
+    description: "Write files and directories to the file system."
   }
 }

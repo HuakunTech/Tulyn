@@ -5,6 +5,7 @@ import { Store } from "@tauri-apps/plugin-store"
 import axios from "axios"
 import { ElMessage } from "element-plus"
 import { atom, computed, task, type ReadableAtom, type WritableAtom } from "nanostores"
+import { parse } from "valibot"
 import { z } from "zod"
 import type { IExtensionBase } from "./base"
 
@@ -42,9 +43,9 @@ function convertToListItem(rawExt: RemoteExt): TListItem {
     title: rawExt.name,
     value: rawExt.id, // uuid of command can be used to identify list item
     description: "Remote Extension",
-    type: ListItemType.Enum["Remote Command"],
+    type: ListItemType.enum["Remote Command"],
     icon: {
-      type: IconType.Enum["remote-url"],
+      type: IconType.enum["remote-url"],
       value: rawExt.url + "/favicon.ico"
     },
     // icon: await getFavicon(rawExt.url),
@@ -102,7 +103,7 @@ export class RemoteExtension implements IExtensionBase {
         title: this.extensionName,
         identifier: "remote-ext",
         type: "Remote Extension",
-        icon: Icon.parse({
+        icon: parse(Icon, {
           type: "iconify",
           value: "mdi:remote"
         }),
