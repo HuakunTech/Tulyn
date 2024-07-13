@@ -14,18 +14,24 @@ import {
   exposeApiToWorker,
   getWorkerApiClient
 } from "jarvis-api/ui"
-import { wrap, type IUITemplate, type IWorkerExtensionBase } from "jarvis-api/ui/worker"
+import {
+  wrap,
+  type IListView,
+  type IUITemplate,
+  type IWorkerExtensionBase
+} from "jarvis-api/ui/worker"
 import { toast } from "vue-sonner"
 
 const appState = useStore($appState)
 let workerAPI: Remote<IWorkerExtensionBase> | undefined = undefined
-const viewContent = ref()
+const viewContent = ref<IListView>()
 const extStore = useExtStore()
 
 onKeyStroke("Escape", () => navigateTo("/"))
 
-function render(view: IUITemplate) {
+function render(view: IListView) {
   // viewContent.value = value
+  viewContent.value = view
   console.log("render", view)
 }
 
@@ -83,6 +89,7 @@ const searchTerm = ref("")
     class=""
     v-model:searchTerm="searchTerm"
     @update:search-term="onSearchTermChange"
+    @update:model-value="(v) => workerAPI?.onItemSelected(v as string)"
     :identity-filter="true"
   >
     <CmdInput
@@ -94,7 +101,7 @@ const searchTerm = ref("")
         <ArrowLeftIcon />
       </Button>
     </CmdInput>
-    <ExtTemplateListView />
+    <ExtTemplateListView v-if="viewContent" :model-value="viewContent" />
     <CmdPaletteFooter />
   </CmdPaletteCommand>
 </template>

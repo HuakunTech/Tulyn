@@ -5,6 +5,7 @@ import {
   fs,
   ListView,
   notification,
+  shell,
   toast,
   ui,
   wrap,
@@ -17,7 +18,8 @@ import { array, number, object, parse, string, type InferOutput } from "valibot"
 const HackerNewsItem = object({
   by: string(),
   title: string(),
-  url: string()
+  url: string(),
+  score: number()
 })
 type HackerNewsItem = InferOutput<typeof HackerNewsItem>
 
@@ -25,7 +27,7 @@ function hackerNewsItemToListItem(item: HackerNewsItem): ListItem {
   return {
     title: item.title,
     value: item.url,
-    description: item.by
+    description: `by: ${item.by} Vote: ${item.score}`
   }
 }
 
@@ -37,8 +39,7 @@ class HackerNews implements IWorkerExtensionBase {
     this.listitems = []
   }
   load(): Promise<void> {
-    toast.info("Loading Hacker News")
-    fetch("https://hacker-news.firebaseio.com/v0/topstories.json")
+    return fetch("https://hacker-news.firebaseio.com/v0/topstories.json")
       .then((res) => res.json())
       .then((data) => {
         const storyIds = parse(array(number()), data)
@@ -55,16 +56,20 @@ class HackerNews implements IWorkerExtensionBase {
       .then((stories) => {
         this.items = parse(array(HackerNewsItem), stories)
         this.listitems = this.items.map(hackerNewsItemToListItem)
+        return ui.render(new ListView(this.listitems))
       })
       .catch((err) => {
         console.error(err)
       })
-    return Promise.resolve()
   }
   onSearchTermChange(term: string): Promise<void> {
     console.log("Search term changed", term)
     ui.render(new ListView(this.listitems))
     return Promise.resolve()
+  }
+
+  onItemSelected(value: string): Promise<void> {
+    return shell.open(value)
   }
 }
 

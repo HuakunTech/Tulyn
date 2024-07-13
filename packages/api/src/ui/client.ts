@@ -1,5 +1,5 @@
 import { type AppInfo } from "tauri-plugin-jarvis-api/models"
-import type { IToastServer } from "./server"
+import type { IToastServer, IUiServer } from "./server"
 import type { IUITemplate } from "./worker"
 
 type PromiseWrap<T extends (...args: any[]) => any> = (
@@ -46,7 +46,7 @@ export interface IToast {
 }
 
 export interface IUi {
-  render: (view: IUITemplate) => void
+  render: PromiseWrap<IUiServer["render"]>
 }
 
 // const getWorkerApi = () => getWorkerApiClient<IJarvisFullAPI>()

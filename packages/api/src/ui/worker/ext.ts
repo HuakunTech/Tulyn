@@ -5,4 +5,5 @@ export interface IWorkerExtensionBase {
    */
   load(): Promise<void>
   onSearchTermChange(term: string): Promise<void>
+  onItemSelected(value: string): Promise<void>
 }

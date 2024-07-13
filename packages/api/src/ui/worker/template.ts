@@ -1,7 +1,7 @@
-import { ViewTypeEnum, type IUITemplate } from "./interfaces"
+import { ViewTypeEnum, type IListView, type IUITemplate } from "./interfaces"
 import type { ListItem } from "./types"
 
-export class ListView implements IUITemplate {
+export class ListView implements IListView, IUITemplate {
   viewType = ViewTypeEnum.List
   items: ListItem[] = []
   constructor(items: ListItem[]) {

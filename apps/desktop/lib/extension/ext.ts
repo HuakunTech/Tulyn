@@ -216,6 +216,7 @@ export class Extension implements IExtensionBase {
             const main = cmd.main
             const scriptPath = await join(manifest.extPath, main)
             if (!(await exists(scriptPath))) {
+              toast.error(`Extension Script not found: ${scriptPath}`)
               error(`Extension Script not found: ${scriptPath}`)
               return
             }

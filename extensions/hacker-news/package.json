@@ -14,7 +14,9 @@
     },
     "longDescription": "",
     "demoImages": [],
-    "permissions": [],
+    "permissions": [
+      "shell:open"
+    ],
     "inlineCmds": [
       {
         "name": "Hacker News",

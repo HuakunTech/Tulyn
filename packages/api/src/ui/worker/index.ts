@@ -13,7 +13,7 @@ export {
   updownload,
   fetch
 } from "tauri-api-adapter/worker"
-export { type IUITemplate } from "./interfaces"
+export { type IUITemplate, type IListView } from "./interfaces"
 export { ListView } from "./template"
 export { comlinkSystem as system } from "../api/system"
 export { comlinkUI as ui } from "../api/ui"
