@@ -55,8 +55,17 @@ import {
   unmute
 } from "tauri-plugin-jarvis-api/commands"
 import { union, type InferOutput } from "valibot"
+import { toast } from "vue-sonner"
 import { SystemPermissionSchema, type SystemPermission } from "./api/permissions"
 import type { ISystem } from "./client"
+
+export interface IToastServer {
+  toastMessage: typeof toast.message
+  toastInfo: typeof toast.info
+  toastSuccess: typeof toast.success
+  toastWarning: typeof toast.warning
+  toastError: typeof toast.error
+}
 
 export interface ISystemServer {
   systemOpenTrash: ISystem["openTrash"]
@@ -88,8 +97,6 @@ export interface ISystemServer {
   systemHideAllAppsExceptFrontmost: ISystem["hideAllAppsExceptFrontmost"]
   systemGetSelectedFilesInFileExplorer: ISystem["getSelectedFilesInFileExplorer"]
 }
-
-export type IJarvisFullAPI = IFullAPI & ISystemServer
 
 export function constructSystemApi(permissions: SystemPermission[]): ISystemServer {
   return {
@@ -169,6 +176,16 @@ export function constructSystemApi(permissions: SystemPermission[]): ISystemServ
   }
 }
 
+export function constructToastApi(): IToastServer {
+  return {
+    toastMessage: toast.message,
+    toastInfo: toast.info,
+    toastSuccess: toast.success,
+    toastWarning: toast.warning,
+    toastError: toast.error
+  }
+}
+
 // all enabled by default
 export const defaultSystemApi = constructSystemApi([
   "system:volumn",
@@ -183,6 +200,8 @@ export const AllJarvisPermissionSchema = union([
   SystemPermissionSchema
 ])
 export type AllJarvisPermission = InferOutput<typeof AllJarvisPermissionSchema>
+
+export type IJarvisFullAPI = IFullAPI & ISystemServer & IToastServer
 
 export function constructJarvisServerAPIWithPermissions(
   permissions: AllJarvisPermission[]
@@ -206,7 +225,8 @@ export function constructJarvisServerAPIWithPermissions(
     constructUpdownloadApi(
       permissions.filter((p) => p.startsWith("updownload:")) as UpdownloadPermission[]
     ),
-    constructSystemApi(permissions.filter((p) => p.startsWith("system:")) as SystemPermission[])
+    constructSystemApi(permissions.filter((p) => p.startsWith("system:")) as SystemPermission[]),
+    constructToastApi()
   ]
   return Object.assign({}, ...apis)
 }

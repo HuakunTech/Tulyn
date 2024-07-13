@@ -1,7 +1,10 @@
-import { type Remote } from "@huakunshen/comlink"
-import { getWindowApiClient, getWorkerApiClient, isInIframe } from "tauri-api-adapter"
 import { type AppInfo } from "tauri-plugin-jarvis-api/models"
-import type { IJarvisFullAPI } from "./server"
+import type { IToastServer } from "./server"
+import type { IUITemplate } from "./worker"
+
+type PromiseWrap<T extends (...args: any[]) => any> = (
+  ...args: Parameters<T>
+) => Promise<ReturnType<T>>
 
 export interface ISystem {
   openTrash(): Promise<void>
@@ -32,6 +35,18 @@ export interface ISystem {
   getFrontmostApp(): Promise<AppInfo>
   hideAllAppsExceptFrontmost(): Promise<void>
   getSelectedFilesInFileExplorer(): Promise<string[]>
+}
+
+export interface IToast {
+  message: PromiseWrap<IToastServer["toastMessage"]>
+  info: PromiseWrap<IToastServer["toastInfo"]>
+  success: PromiseWrap<IToastServer["toastSuccess"]>
+  warning: PromiseWrap<IToastServer["toastWarning"]>
+  error: PromiseWrap<IToastServer["toastError"]>
+}
+
+export interface IUi {
+  render: (view: IUITemplate) => void
 }
 
 // const getWorkerApi = () => getWorkerApiClient<IJarvisFullAPI>()

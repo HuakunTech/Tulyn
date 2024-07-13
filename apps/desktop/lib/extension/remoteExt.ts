@@ -43,7 +43,7 @@ function convertToListItem(rawExt: RemoteExt): TListItem {
     title: rawExt.name,
     value: rawExt.id, // uuid of command can be used to identify list item
     description: "Remote Extension",
-    type: ListItemType.enum["Remote Command"],
+    type: ListItemType.enum.RemoteCmd,
     icon: {
       type: IconType.enum["remote-url"],
       value: rawExt.url + "/favicon.ico"

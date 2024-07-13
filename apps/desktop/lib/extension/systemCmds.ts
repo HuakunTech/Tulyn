@@ -24,7 +24,7 @@ export class SystemCommandExtension implements IExtensionBase {
         title: cmd.name,
         value: cmd.value,
         description: "System",
-        type: ListItemType.enum["System Command"],
+        type: ListItemType.enum.SystemCmd,
         icon: {
           value: cmd.icon,
           type: IconType.enum.iconify

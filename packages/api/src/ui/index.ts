@@ -26,6 +26,7 @@ export {
   type AllJarvisPermission,
   AllJarvisPermissionSchema
 } from "./server"
+export { expose, wrap } from "@huakunshen/comlink"
 // export {
 //   clipboard,
 //   dialog,

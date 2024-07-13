@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import CmdInput from "@/components/cmd-palette/CommandInput.vue"
+import ExtTemplateListView from "@/components/ExtTemplate/ListView.vue"
 import { $appState } from "@/lib/stores/appState"
+import { expose, type Remote } from "@huakunshen/comlink"
 import { useStore } from "@nanostores/vue"
+import { ArrowLeftIcon } from "@radix-icons/vue"
 import { join } from "@tauri-apps/api/path"
 import { exists, readTextFile } from "@tauri-apps/plugin-fs"
 import { onKeyStroke } from "@vueuse/core"
@@ -8,18 +12,25 @@ import { loadManifest } from "~/lib/commands/extensions"
 import {
   constructJarvisServerAPIWithPermissions,
   exposeApiToWorker,
-  type AllJarvisPermission
+  getWorkerApiClient
 } from "jarvis-api/ui"
+import { wrap, type IUITemplate, type IWorkerExtensionBase } from "jarvis-api/ui/worker"
 import { toast } from "vue-sonner"
 
 const appState = useStore($appState)
+let workerAPI: Remote<IWorkerExtensionBase> | undefined = undefined
+const viewContent = ref()
+const extStore = useExtStore()
 
 onKeyStroke("Escape", () => navigateTo("/"))
 
-onMounted(async () => {
-  const currentWorkerExt = appState.value.currentWorkerExt
-  console.log("currentWorkerExt", currentWorkerExt)
+function render(view: IUITemplate) {
+  // viewContent.value = value
+  console.log("render", view)
+}
 
+onMounted(async () => {
+  const currentWorkerExt = extStore.currentWorkerExt
   if (!currentWorkerExt) {
     toast.error("No worker extension selected")
     return navigateTo("/")
@@ -51,13 +62,39 @@ onMounted(async () => {
   const blob = new Blob([workerScript], { type: "application/javascript" })
   const blobURL = URL.createObjectURL(blob)
   const worker = new Worker(blobURL)
-  exposeApiToWorker(
-    worker,
-    constructJarvisServerAPIWithPermissions(
-      ["clipboard:read-all", "notification:all", "fs:exists"]
-      // (manifest.jarvis.permissions as unknown as AllJarvisPermission[]) ?? []
-    )
-  )
+  // Expose Jarvis APIs to worker with permissions constraints
+  exposeApiToWorker(worker, {
+    ...constructJarvisServerAPIWithPermissions(manifest.jarvis.permissions),
+    render
+  })
+  // exposeApiToWorker(worker, { render }) // Expose render function to worker
+  workerAPI = wrap<IWorkerExtensionBase>(worker) // Call worker exposed APIs
+  await workerAPI.load()
 })
+
+function onSearchTermChange(searchTerm: string) {
+  workerAPI?.onSearchTermChange(searchTerm)
+}
+
+const searchTerm = ref("")
 </script>
-<template></template>
+<template>
+  <CmdPaletteCommand
+    class=""
+    v-model:searchTerm="searchTerm"
+    @update:search-term="onSearchTermChange"
+    :identity-filter="true"
+  >
+    <CmdInput
+      id="worker-ext-search-input"
+      class="h-12 text-md"
+      placeholder="Search for apps or commands..."
+    >
+      <Button size="icon" variant="outline" @click="() => navigateTo('/')">
+        <ArrowLeftIcon />
+      </Button>
+    </CmdInput>
+    <ExtTemplateListView />
+    <CmdPaletteFooter />
+  </CmdPaletteCommand>
+</template>

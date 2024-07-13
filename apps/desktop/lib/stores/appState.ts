@@ -3,12 +3,6 @@ import { computed, map } from "nanostores"
 import { AppInfo } from "tauri-plugin-jarvis-api/models"
 import * as v from "valibot"
 
-export const WorkerExtMetadata = v.object({
-  extPath: v.string(),
-  cmdName: v.string()
-})
-export type WorkerExtMetadata = v.InferOutput<typeof WorkerExtMetadata>
-
 export const appStateSchema = v.object({
   searchTerm: v.string(),
   // allApps: v.array(AppInfo),
@@ -23,8 +17,7 @@ export const appStateSchema = v.object({
     v.literal("solaris"),
     v.literal("android"),
     v.literal("windows")
-  ]),
-  currentWorkerExt: v.optional(WorkerExtMetadata)
+  ])
 })
 export type AppState = v.InferOutput<typeof appStateSchema>
 
@@ -40,10 +33,6 @@ os.platform().then((platform) => {
 
 export function setSearchTerm(searchTerm: string) {
   $appState.setKey("searchTerm", searchTerm)
-}
-
-export function setCurrentWorkerExt(ext: WorkerExtMetadata) {
-  $appState.setKey("currentWorkerExt", ext)
 }
 
 // export function setAllApps(allApps: AppInfo[]) {

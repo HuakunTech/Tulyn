@@ -11,13 +11,13 @@ import {
 import { IconType } from "./common"
 
 export enum ListItemTypeEnum {
-  "Remote Command" = "Remote Command",
-  "Command" = "Command",
-  "UI Command" = "UI Command",
-  "Inline Command" = "Inline Command",
-  "System Command" = "System Command",
-  "Application" = "Application",
-  "Built-In Command" = "Built-In Command"
+  RemoteCmd = "Remote Command",
+  Command = "Command",
+  UICmd = "UI Command",
+  InlineCmd = "Inline Command",
+  SystemCmd = "System Command",
+  Application = "Application",
+  BuiltInCmd = "Built-In Command"
 }
 export const ListItemType = enum_(ListItemTypeEnum)
 export type ListItemType = InferOutput<typeof ListItemType>

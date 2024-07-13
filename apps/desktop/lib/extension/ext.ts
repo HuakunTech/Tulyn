@@ -1,5 +1,7 @@
 import { loadAllExtensions } from "@/lib/commands/extensions"
 import { $appConfig } from "@/lib/stores/appConfig"
+// import { setCurrentWorkerExt } from "../stores/appState"
+import { useExtStore } from "@/stores/ext"
 import {
   ExtPackageJsonExtra,
   InlineCmd,
@@ -22,7 +24,6 @@ import {
   unregisterExtensionWindow
 } from "tauri-plugin-jarvis-api/commands"
 import { toast } from "vue-sonner"
-import { setCurrentWorkerExt } from "../stores/appState"
 import { type IExtensionBase } from "./base"
 
 /**
@@ -117,10 +118,10 @@ function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: UiCmd, u
  */
 export function manifestToCmdItems(manifest: ExtPackageJsonExtra, isDev: boolean): TListItem[] {
   const uiItems = manifest.jarvis.uiCmds.map((cmd) =>
-    cmdToItem(cmd, manifest, ListItemType.enum["UI Command"], isDev)
+    cmdToItem(cmd, manifest, ListItemType.enum.UICmd, isDev)
   )
   const inlineItems = manifest.jarvis.inlineCmds.map((cmd) =>
-    cmdToItem(cmd, manifest, ListItemType.enum["Inline Command"], isDev)
+    cmdToItem(cmd, manifest, ListItemType.enum.InlineCmd, isDev)
   )
   return [...uiItems, ...inlineItems]
 }
@@ -219,9 +220,8 @@ export class Extension implements IExtensionBase {
               return
             }
             debug(`Running inline command: ${scriptPath}`)
-            // const script = await fs.readTextFile(scriptPath)
-            // console.log(script)
-            setCurrentWorkerExt({
+            const extStore = useExtStore()
+            extStore.setCurrentWorkerExt({
               extPath: manifest.extPath,
               cmdName: cmd.name
             })
@@ -242,7 +242,8 @@ export class Extension implements IExtensionBase {
         //   });
         // }
       } else {
-        console.error("Unknown command type", item.type)
+        toast.error(`Unknown command type: ${item.type}`)
+        error(`Unknown command type: ${item.type}`)
       }
     })
     // const foundExt = this.

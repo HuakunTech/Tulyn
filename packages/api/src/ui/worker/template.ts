@@ -1,8 +1,14 @@
-import { type IUITemplate } from "./interfaces"
+import { ViewTypeEnum, type IUITemplate } from "./interfaces"
+import type { ListItem } from "./types"
 
 export class ListView implements IUITemplate {
-  toJSON(): string {
-    throw new Error("Method not implemented.")
+  viewType = ViewTypeEnum.List
+  items: ListItem[] = []
+  constructor(items: ListItem[]) {
+    this.items = items
   }
-  // items:
+
+  setItems(items: ListItem[]) {
+    this.items = items
+  }
 }

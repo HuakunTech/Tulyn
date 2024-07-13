@@ -94,7 +94,7 @@ const buildinCmdsListItems: TListItem[] = builtinCmds.map(
     title: cmd.name,
     value: genListItemValue(cmd.name),
     description: cmd.description,
-    type: ListItemType.enum["Built-In Command"],
+    type: ListItemType.enum.BuiltInCmd,
     icon: {
       value: cmd.iconifyIcon,
       type: IconType.enum.iconify

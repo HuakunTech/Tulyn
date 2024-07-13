@@ -7,6 +7,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   modules: [
+    "@pinia/nuxt",
+    "@pinia-plugin-persistedstate/nuxt",
     "@nuxtjs/tailwindcss",
     "shadcn-nuxt",
     "@vueuse/nuxt",
@@ -59,11 +61,9 @@ export default defineNuxtConfig({
       posthogHost: z.string().describe("POSTHOG_HOST").parse(process.env.POSTHOG_HOST)
     }
   },
-
-  supabase: {
-    key: process.env.SUPABASE_ANON_KEY,
-    url: process.env.SUPABASE_URL
-  },
-
+  // supabase: {
+  //   key: process.env.SUPABASE_ANON_KEY,
+  //   url: process.env.SUPABASE_URL
+  // },
   compatibilityDate: "2024-04-03"
 })
