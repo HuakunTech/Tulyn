@@ -4,29 +4,19 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "import": "./src/index.ts"
     },
     "./ui": {
-      "import": "./dist/ui/index.js",
-      "require": "./dist/ui/index.cjs",
-      "types": "./dist/ui/index.d.ts"
+      "import": "./src/ui/index.ts"
     },
     "./ui/iframe": {
-      "import": "./dist/ui/iframe.js",
-      "require": "./dist/ui/iframe.cjs",
-      "types": "./dist/ui/iframe.d.ts"
+      "import": "./src/ui/iframe.ts"
     },
     "./ui/worker": {
-      "import": "./dist/ui/worker/index.js",
-      "require": "./dist/ui/worker/index.cjs",
-      "types": "./dist/ui/worker/index.d.ts"
+      "import": "./src/ui/worker/index.ts"
     },
     "./models": {
-      "import": "./dist/models/index.js",
-      "require": "./dist/models/index.cjs",
-      "types": "./dist/models/index.d.ts"
+      "import": "./src/models/index.ts"
     }
   },
   "scripts": {
@@ -62,6 +52,7 @@
     "@tauri-apps/plugin-store": "2.0.0-beta.3",
     "@tauri-apps/plugin-updater": "2.0.0-beta.3",
     "@tauri-apps/plugin-upload": "2.0.0-beta.4",
+    "@jarvis/worker-components": "workspace:*",
     "rollup": "^4.9.6",
     "rollup-plugin-typescript2": "^0.36.0",
     "tauri-api-adapter": "workspace:*",
