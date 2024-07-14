@@ -16,6 +16,7 @@
     "@formkit/auto-animate": "^0.8.2",
     "@jarvis/gql": "workspace:*",
     "@jarvis/schema": "workspace:*",
+    "@jarvis/component-schema": "workspace:*",
     "@jarvis/supabase": "workspace:*",
     "@nanostores/persistent": "^0.10.1",
     "@nanostores/vue": "^0.10.0",

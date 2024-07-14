@@ -63,6 +63,9 @@ importers:
       '@formkit/auto-animate':
         specifier: ^0.8.2
         version: 0.8.2
+      '@jarvis/component-schema':
+        specifier: workspace:*
+        version: link:../../packages/component-schema
       '@jarvis/gql':
         specifier: workspace:*
         version: link:../../packages/gql
@@ -364,9 +367,9 @@ importers:
 
   packages/api:
     dependencies:
-      '@jarvis/worker-components':
+      '@jarvis/component-schema':
         specifier: workspace:*
-        version: link:../worker-components
+        version: link:../component-schema
       '@rollup/plugin-typescript':
         specifier: ^11.1.6
         version: 11.1.6(rollup@4.18.0)(tslib@2.6.2)(typescript@5.5.2)
@@ -449,6 +452,16 @@ importers:
       zod-to-json-schema:
         specifier: ^3.23.0
         version: 3.23.0(zod@3.23.8)
+
+  packages/component-schema:
+    dependencies:
+      typescript:
+        specifier: ^5.0.0
+        version: 5.5.2
+    devDependencies:
+      '@types/bun':
+        specifier: latest
+        version: 1.1.6
 
   packages/gql:
     dependencies:
@@ -594,16 +607,6 @@ importers:
       typescript:
         specifier: ^5.3.3
         version: 5.4.5
-
-  packages/worker-components:
-    dependencies:
-      typescript:
-        specifier: ^5.0.0
-        version: 5.5.2
-    devDependencies:
-      '@types/bun':
-        specifier: latest
-        version: 1.1.6
 
   vendors/tauri-api-adapter/packages/tauri-api-adapter:
     dependencies:

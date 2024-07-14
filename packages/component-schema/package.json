@@ -1,7 +1,12 @@
 {
-  "name": "@jarvis/worker-components",
+  "name": "@jarvis/component-schema",
   "module": "index.ts",
   "type": "module",
+  "exports": {
+    ".": {
+      "import": "./index.ts"
+    }
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },

@@ -13,49 +13,9 @@ import {
   union,
   type InferOutput
 } from "valibot"
-
-export enum NodeNameEnum {
-  ListView = "ListView",
-  ListItem = "ListItem",
-  ListItemAccessory = "ListItemAccessory",
-  ListSection = "ListSection",
-  ListItemDetailMetadataLabel = "ListItemDetailMetadataLabel",
-  ListItemDetailMetadataLink = "ListItemDetailMetadataLink",
-  ListItemDetailMetadataTagList = "ListItemDetailMetadataTagList",
-  ListItemDetailMetadataTagListItem = "ListItemDetailMetadataTagListItem",
-  ListItemDetailMetadataSeparator = "ListItemDetailMetadataSeparator",
-  Icon = "Icon",
-  EmptyView = "EmptyView",
-  Dropdown = "Dropdown",
-  DropdownSection = "DropdownSection",
-  DropdownItem = "DropdownItem"
-}
-export const NodeName = enum_(NodeNameEnum)
-
-/* -------------------------------------------------------------------------- */
-/*                                    Style                                   */
-/* -------------------------------------------------------------------------- */
-export const Color = pipe(string(), hexColor())
-
-/* -------------------------------------------------------------------------- */
-/*                                    Icon                                    */
-/* -------------------------------------------------------------------------- */
-export enum IconEnum {
-  Iconify = "iconify",
-  RemoteUrl = "remote-url",
-  Svg = "svg",
-  Base64PNG = "base64-png",
-  IndexNumber = "index-number"
-}
-export const IconType = enum_(IconEnum)
-export type IconType = InferOutput<typeof IconType>
-
-export const Icon = object({
-  nodeName: literal(NodeNameEnum.Icon),
-  type: IconType,
-  value: string()
-})
-export type Icon = InferOutput<typeof Icon>
+import { Color } from "./color"
+import { NodeNameEnum } from "./constants"
+import { Icon } from "./icon"
 
 /* -------------------------------------------------------------------------- */
 /*                                 Empty View                                 */
