@@ -1,5 +1,5 @@
 const animate = require("tailwindcss-animate")
-const { addIconSelectors } = require("@iconify/tailwind")
+const { addIconSelectors, addDynamicIconSelectors } = require("@iconify/tailwind")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -85,6 +85,7 @@ module.exports = {
   },
   plugins: [
     animate,
+    // addDynamicIconSelectors()
     // addIconSelectors(["mdi", "mdi-light", "vscode-icons", "fa6-brands", "fa", "fa6-solid"])
   ]
 }

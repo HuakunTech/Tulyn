@@ -101,6 +101,8 @@ onKeyStroke("/", (e) => {
 </script>
 <template>
   <div class="h-full">
+    <span class="iconify mdi-light--home"></span>
+    <span class="iconify-color vscode-icons--file-type-tailwind"></span>
     <CmdPaletteCommand class="" v-model:searchTerm="searchTermInSync" :identity-filter="true">
       <CommandInput
         id="main-search-input"

@@ -63,9 +63,6 @@ importers:
       '@formkit/auto-animate':
         specifier: ^0.8.2
         version: 0.8.2
-      '@iconify/tailwind':
-        specifier: ^1.1.1
-        version: 1.1.1
       '@jarvis/gql':
         specifier: workspace:*
         version: link:../../packages/gql
@@ -217,6 +214,9 @@ importers:
       '@iconify/json':
         specifier: ^2.2.227
         version: 2.2.227
+      '@iconify/tailwind':
+        specifier: ^1.1.1
+        version: 1.1.1
       '@iconify/vue':
         specifier: ^4.1.2
         version: 4.1.2(vue@3.4.31(typescript@5.5.2))
@@ -348,9 +348,6 @@ importers:
       '@rollup/plugin-terser':
         specifier: ^0.4.4
         version: 0.4.4(rollup@4.18.0)
-      '@rollup/plugin-typescript':
-        specifier: ^11.1.6
-        version: 11.1.6(rollup@4.18.0)(tslib@2.6.2)(typescript@5.5.2)
       rimraf:
         specifier: ^5.0.7
         version: 5.0.7
