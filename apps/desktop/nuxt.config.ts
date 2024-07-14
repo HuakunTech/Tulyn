@@ -15,9 +15,10 @@ export default defineNuxtConfig({
     "@element-plus/nuxt",
     "@formkit/auto-animate/nuxt",
     "@nuxt/image",
-    "@nuxtjs/device"
     // "dayjs-nuxt",
     // "@nuxtjs/supabase"
+    "@nuxtjs/device",
+    "@nuxt/icon"
   ],
 
   shadcn: {

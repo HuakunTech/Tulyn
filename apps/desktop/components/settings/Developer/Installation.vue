@@ -161,7 +161,7 @@ async function handleDragNDropInstall(paths: string[]) {
                 @click="pickProject"
               >
                 <div :class="cn('flex flex-col items-center', dragging ? 'text-lime-400/70' : '')">
-                  <Icon icon="mdi:folder-cog-outline" class="w-10 h-10" />
+                  <Icon name="mdi:folder-cog-outline" class="w-10 h-10" />
                   <small class="text-xs select-none">Click or Drag and Drop</small>
                 </div>
               </div>
@@ -228,7 +228,7 @@ async function handleDragNDropInstall(paths: string[]) {
                 Read Docs For More Details <ExternalLinkIcon class="inline w-4 -translate-y-0.5" />
               </TauriLink>
               <Alert variant="destructive" class="dark:text-red-600 dark:border-red-600 my-2">
-                <Icon icon="material-symbols:warning-outline" class="h-5 w-5 dark:text-red-600" />
+                <Icon name="material-symbols:warning-outline" class="h-5 w-5 dark:text-red-600" />
                 <AlertTitle>Warning</AlertTitle>
                 <AlertDescription>
                   Installing a remote website as extension is extremely dangerous. Website

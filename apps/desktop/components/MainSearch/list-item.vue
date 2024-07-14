@@ -11,7 +11,7 @@ import {
   CommandShortcut
 } from "@/components/ui/command"
 import { $appConfig, setDevExtLoadUrl, setShowInTray } from "@/lib/stores/appConfig"
-import { Icon } from "@iconify/vue"
+// import { Icon } from "@iconify/vue"
 import type { TListItem } from "@jarvis/schema"
 import { useStore } from "@nanostores/vue"
 
@@ -31,13 +31,13 @@ const emits = defineEmits<{
       :src="item.icon?.value"
       alt=""
     />
-    <Icon v-else-if="item.icon?.type === 'iconify'" :icon="item.icon.value" class="w-5 h-5 mr-2" />
-    <Icon v-else icon="mingcute:appstore-fill" class="w-5 h-5 mr-2" />
+    <Icon v-else-if="item.icon?.type === 'iconify'" :name="item.icon.value" class="w-5 h-5 mr-2" />
+    <Icon v-else name="mingcute:appstore-fill" class="w-5 h-5 mr-2" />
     <span>{{ item.title }}</span>
     <CommandShortcut class="space-x-1">
       <Icon
         v-if="item.flags.isDev"
-        icon="ph:dev-to-logo-fill"
+        name="ph:dev-to-logo-fill"
         class="inline w-6 h-6 text-green-500"
       />
       <Badge

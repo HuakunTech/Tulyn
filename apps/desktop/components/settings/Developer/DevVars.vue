@@ -33,14 +33,14 @@ onMounted(async () => {
         @click="extFolder && open(extFolder)"
       >
         <strong>Extension Path: </strong><span class="">{{ extFolder }}</span
-        ><Icon icon="ion:open-outline" />
+        ><Icon name="ion:open-outline" />
       </li>
       <li
         class="text-muted-foreground cursor-pointer flex space-x-2 items-center"
         @click="devExtFolder && open(devExtFolder)"
       >
         <strong>Dev Extension Path: </strong><span>{{ devExtFolder }}</span
-        ><Icon icon="ion:open-outline" />
+        ><Icon name="ion:open-outline" />
       </li>
 
       <li
@@ -48,12 +48,12 @@ onMounted(async () => {
         @click="devExtFolder && open(`http://localhost:${port}`)"
       >
         <strong>Server Port: </strong><span>{{ port }}</span
-        ><Icon icon="ion:open-outline" />
+        ><Icon name="ion:open-outline" />
       </li>
 
       <!-- <li class="text-muted-foreground cursor-pointer flex space-x-2 items-center">
         <strong>Supabase GraphQL Endpoint</strong><span>{{ SUPABASE_URL }}</span
-        ><Icon icon="ion:open-outline" />
+        ><Icon name="ion:open-outline" />
       </li> -->
     </ul>
     <Button class="" size="xs" @click="refreshFolderFetch">Refresh</Button>

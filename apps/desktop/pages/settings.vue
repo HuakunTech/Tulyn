@@ -24,7 +24,7 @@ onMounted(() => {
         General
       </TabsTrigger>
       <TabsTrigger value="extensions">
-        <Icon icon="fluent:developer-board-lightning-20-regular" class="mr-2 h-5 w-5" />
+        <Icon name="fluent:developer-board-lightning-20-regular" class="mr-2 h-5 w-5" />
         Extensions
       </TabsTrigger>
       <TabsTrigger value="developer">

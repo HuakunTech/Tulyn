@@ -30,7 +30,7 @@ const emits = defineEmits<{
       <div class="flex space-x-4">
         <CircleCheckBigIcon v-if="props.installed" class="w-4 text-green-400" />
         <div class="flex items-center space-x-1">
-          <Icon icon="ic:round-download" class="w-5 h-5 inline" />
+          <Icon name="ic:round-download" class="w-5 h-5 inline" />
           <span class="w-8 text-center">{{ humanReadableNumber(props.data.downloads) }}</span>
         </div>
       </div>

@@ -53,7 +53,7 @@ watch(escape, (val) => {
       <Button variant="ghost" role="combobox" :aria-expanded="open" class="justify-between gap-2">
         Actions
         <span class="flex items-center gap-0.5">
-          <Icon icon="ph:command" />
+          <Icon name="ph:command" />
           <kbd>K</kbd>
         </span>
       </Button>

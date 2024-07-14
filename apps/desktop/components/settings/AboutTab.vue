@@ -47,16 +47,16 @@ async function checkUpdate() {
           <strong class="font-bold">Author: </strong>
           <TauriLink href="https://github.com/HuakunShen">
             @HuakunShen
-            <Icon icon="mdi:github" class="inline text-white -translate-y-0.5" />
+            <Icon name="mdi:github" class="inline text-white -translate-y-0.5" />
           </TauriLink>
         </p>
         <TauriLink href="https://github.com/HuakunTech/Jarvis">
           Jarvis Source Code
-          <Icon icon="mdi:github" class="inline text-white -translate-y-0.5" />
+          <Icon name="mdi:github" class="inline text-white -translate-y-0.5" />
         </TauriLink>
         <TauriLink href="https://github.com/HuakunTech/JarvisExtensions">
           Extensions Source Code
-          <Icon icon="mdi:github" class="inline text-white -translate-y-0.5" />
+          <Icon name="mdi:github" class="inline text-white -translate-y-0.5" />
         </TauriLink>
         <Button @click="checkUpdate" size="xs" variant="secondary">Check Update</Button>
       </div>
