@@ -1,5 +1,4 @@
-import { Icon } from "jarvis-api/models"
-import { AllJarvisPermissionSchema } from "jarvis-api/ui"
+import { AllJarvisPermission, Icon } from "jarvis-api/models"
 import {
   array,
   boolean,
@@ -111,7 +110,7 @@ export const JarvisExtManifest = object({
   permissions: optional(
     nullable(
       array(
-        AllJarvisPermissionSchema,
+        AllJarvisPermission,
         "Permissions Declared by the extension. e.g. clipboard-all. Not declared APIs will be blocked."
       ),
       []

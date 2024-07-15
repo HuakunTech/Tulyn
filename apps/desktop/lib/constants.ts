@@ -1,5 +1,5 @@
 import { appDataDir, join } from "@tauri-apps/api/path"
-import { AllJarvisPermissionSchema } from "jarvis-api/ui"
+import { AllJarvisPermission } from "jarvis-api/models"
 // import { z } from "zod"
 import { object, record, string, type InferOutput } from "valibot"
 import { loadEnvVarWithNotification } from "./utils/envvar"
@@ -31,7 +31,7 @@ export const FileStorageUrl = ""
 
 // PermissionsEnum.
 const PermissionExplain = record(
-  AllJarvisPermissionSchema,
+  AllJarvisPermission,
   object({ displayName: string(), description: string() })
 )
 type PermissionExplain = InferOutput<typeof PermissionExplain>

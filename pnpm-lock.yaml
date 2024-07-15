@@ -11,9 +11,6 @@ importers:
       '@huakunshen/comlink':
         specifier: ^4.4.1
         version: 4.4.1
-      tauri-api-adapter:
-        specifier: workspace:*
-        version: link:vendors/tauri-api-adapter/packages/tauri-api-adapter
       tauri-plugin-clipboard-api:
         specifier: ^2.1.2
         version: 2.1.2

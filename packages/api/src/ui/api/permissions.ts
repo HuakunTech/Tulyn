@@ -1,3 +1,4 @@
+import { AllPermissionSchema as TauriApiAdapterAllPermissionSchema } from "tauri-api-adapter/permissions"
 import { literal, union, type InferOutput } from "valibot"
 
 export const SystemPermissionSchema = union([
@@ -9,3 +10,8 @@ export const SystemPermissionSchema = union([
   literal("system:ui")
 ])
 export type SystemPermission = InferOutput<typeof SystemPermissionSchema>
+export const AllJarvisPermission = union([
+  TauriApiAdapterAllPermissionSchema,
+  SystemPermissionSchema
+])
+export type AllJarvisPermission = InferOutput<typeof AllJarvisPermission>

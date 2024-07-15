@@ -104,7 +104,7 @@ export default function SchemaValidatorEditor() {
     try {
       const parsedRes = safeParse(ExtPackageJson, JSON.parse(manifestStr))
       if (parsedRes.issues) {
-        setErrMsg(parsedRes.issues.toString())
+        setErrMsg(JSON.stringify(parsedRes.issues, null, 2))
         console.error(parsedRes.issues)
       } else {
         setErrMsg("")

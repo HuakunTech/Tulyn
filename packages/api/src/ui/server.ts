@@ -10,7 +10,6 @@ import {
   constructShellApi,
   constructSystemInfoApi,
   constructUpdownloadApi,
-  AllPermissionSchema as TauriApiAdapterAllPermissionSchema,
   type AllPermission,
   type ClipboardPermission,
   type DialogPermission,
@@ -56,7 +55,11 @@ import {
 } from "tauri-plugin-jarvis-api/commands"
 import { union, type InferOutput } from "valibot"
 import { toast } from "vue-sonner"
-import { SystemPermissionSchema, type SystemPermission } from "./api/permissions"
+import {
+  AllJarvisPermission,
+  SystemPermissionSchema,
+  type SystemPermission
+} from "./api/permissions"
 import type { ISystem } from "./client"
 import { ListSchema, type IComponent } from "./worker"
 
@@ -199,12 +202,6 @@ export const defaultSystemApi = constructSystemApi([
   "system:apps",
   "system:fs"
 ])
-
-export const AllJarvisPermissionSchema = union([
-  TauriApiAdapterAllPermissionSchema,
-  SystemPermissionSchema
-])
-export type AllJarvisPermission = InferOutput<typeof AllJarvisPermissionSchema>
 
 export type IJarvisFullAPI = IFullAPI & ISystemServer & IToastServer
 
