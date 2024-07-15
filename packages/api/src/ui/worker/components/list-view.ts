@@ -1,7 +1,7 @@
 import type { Color } from "../../../models/color"
 import { NodeName, NodeNameEnum } from "../../../models/constants"
-import * as ListSchema from "../list"
-import { Icon } from "./Icon"
+import * as ListSchema from "../schema/list"
+import { Icon } from "./icon"
 import { type IComponent } from "./interfaces"
 
 type OmitNodeName<T> = Omit<T, "nodeName">

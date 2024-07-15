@@ -1,5 +1,5 @@
 export * from "tauri-plugin-jarvis-api/models"
-export * as List from "../ui/worker/list"
+export * as List from "../ui/worker/schema/list"
 export * from "./constants"
 export * from "./icon"
 export * from "./color"

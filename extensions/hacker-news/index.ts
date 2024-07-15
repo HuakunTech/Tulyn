@@ -1,8 +1,10 @@
+import { IconEnum } from "jarvis-api/models"
 import { getWorkerApiClient } from "jarvis-api/ui"
 import {
   clipboard,
   expose,
   fs,
+  Icon,
   List,
   ListSchema,
   NodeNameEnum,
@@ -26,7 +28,8 @@ type HackerNewsItem = InferOutput<typeof HackerNewsItem>
 function hackerNewsItemToListItem(item: HackerNewsItem): List.Item {
   return new List.Item({
     title: item.title,
-    subTitle: `by: ${item.by} Vote: ${item.score}`
+    subTitle: `by: ${item.by} Vote: ${item.score}`,
+    icon: new Icon({ type: IconEnum.Iconify, value: "mdi:news" })
   })
 }
 

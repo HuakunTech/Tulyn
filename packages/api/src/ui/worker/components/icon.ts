@@ -1,5 +1,5 @@
 import { NodeName, NodeNameEnum } from "../../../models/constants"
-import type { IconNode, IconType } from "../../../models/icon"
+import type { IconNode, IconType, Icon as TIcon } from "../../../models/icon"
 import { type IComponent } from "./interfaces"
 
 export class Icon implements IconNode, IComponent<IconNode> {
@@ -7,7 +7,7 @@ export class Icon implements IconNode, IComponent<IconNode> {
   type: IconType
   value: string
 
-  constructor(model: IconNode) {
+  constructor(model: TIcon) {
     this.type = model.type
     this.value = model.value
   }
