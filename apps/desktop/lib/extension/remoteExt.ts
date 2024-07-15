@@ -1,9 +1,10 @@
-import { Icon, IconType, ListItemType, TListGroup, TListItem } from "@jarvis/schema"
+import { ListItemType, TListGroup, TListItem } from "@jarvis/schema"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { info } from "@tauri-apps/plugin-log"
 import { Store } from "@tauri-apps/plugin-store"
 import axios from "axios"
 import { ElMessage } from "element-plus"
+import { Icon, IconType } from "jarvis-api/models"
 import { atom, computed, task, type ReadableAtom, type WritableAtom } from "nanostores"
 import { parse } from "valibot"
 import { z } from "zod"
@@ -45,7 +46,7 @@ function convertToListItem(rawExt: RemoteExt): TListItem {
     description: "Remote Extension",
     type: ListItemType.enum.RemoteCmd,
     icon: {
-      type: IconType.enum["remote-url"],
+      type: IconType.enum.RemoteUrl,
       value: rawExt.url + "/favicon.ico"
     },
     // icon: await getFavicon(rawExt.url),

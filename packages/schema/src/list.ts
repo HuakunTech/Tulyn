@@ -1,3 +1,4 @@
+import { IconType } from "jarvis-api/models"
 import {
   array,
   boolean,
@@ -8,7 +9,6 @@ import {
   string,
   type InferOutput
 } from "valibot"
-import { IconType } from "./common"
 
 export enum ListItemTypeEnum {
   RemoteCmd = "Remote Command",

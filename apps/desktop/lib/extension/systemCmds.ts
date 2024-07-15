@@ -1,6 +1,7 @@
-import { IconType, ListItemType, TListItem } from "@jarvis/schema"
+import { ListItemType, TListItem } from "@jarvis/schema"
 import * as dialog from "@tauri-apps/plugin-dialog"
 import { ElNotification } from "element-plus"
+import { IconType } from "jarvis-api/models"
 import { atom, type ReadableAtom, type WritableAtom } from "nanostores"
 import { getSystemCommands } from "tauri-plugin-jarvis-api/commands"
 import { TCommand } from "tauri-plugin-jarvis-api/models"
@@ -27,7 +28,7 @@ export class SystemCommandExtension implements IExtensionBase {
         type: ListItemType.enum.SystemCmd,
         icon: {
           value: cmd.icon,
-          type: IconType.enum.iconify
+          type: IconType.enum.Iconify
         },
         keywords: cmd.keywords
       })

@@ -1,3 +1,4 @@
+import { Icon } from "jarvis-api/models"
 import { AllJarvisPermissionSchema } from "jarvis-api/ui"
 import {
   array,
@@ -12,7 +13,6 @@ import {
   union,
   type InferOutput
 } from "valibot"
-import { IconType } from "./common"
 
 export enum OSPlatformEnum {
   linux = "linux",
@@ -101,12 +101,6 @@ export const InlineCmd = object({
   )
 })
 export type InlineCmd = InferOutput<typeof InlineCmd>
-
-export const Icon = object({
-  type: IconType,
-  value: string()
-})
-export type Icon = InferOutput<typeof Icon>
 
 export const JarvisExtManifest = object({
   name: string("Name of the extension (Human Readable)"),

@@ -1,7 +1,11 @@
 {
   "name": "@jarvis/schema",
-  "module": "index.ts",
   "type": "module",
+  "exports": {
+    ".": {
+      "import": "./index.ts"
+    }
+  },
   "scripts": {
     "build": "bun scripts/print-schema.ts > manifest-json-schema.json",
     "test": "bun test --coverage",

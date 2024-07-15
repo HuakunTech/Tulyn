@@ -1,6 +1,7 @@
-import Editor, { type OnChange, type OnMount, type Monaco } from "@monaco-editor/react"
 import { ExtPackageJson } from "@jarvis/schema"
+import Editor, { type Monaco, type OnChange, type OnMount } from "@monaco-editor/react"
 import { useEffect, useMemo, useRef, useState } from "react"
+import { safeParse } from "valibot"
 
 const defaultJson = `{
   "$schema": "https://extensions.jarvis.huakun.tech/schema.json",
@@ -101,10 +102,10 @@ export default function SchemaValidatorEditor() {
   function parse(manifestStr: string) {
     if (manifestStr.length === 0) return
     try {
-      const parsedRes = ExtPackageJson.safeParse(JSON.parse(manifestStr))
-      if (parsedRes.error) {
-        setErrMsg(parsedRes.error.message)
-        console.error(parsedRes.error)
+      const parsedRes = safeParse(ExtPackageJson, JSON.parse(manifestStr))
+      if (parsedRes.issues) {
+        setErrMsg(parsedRes.issues.toString())
+        console.error(parsedRes.issues)
       } else {
         setErrMsg("")
       }

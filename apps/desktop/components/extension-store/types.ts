@@ -1,15 +1,21 @@
-import { Icon } from "@jarvis/schema"
-import { z } from "zod"
+import { Icon } from "jarvis-api/models"
+import { number, object, pipe, string, transform, type InferOutput } from "valibot"
 
-export const ExtItemParser = z.object({
-  identifier: z.string(),
-  name: z.string(),
-  downloads: z.number(),
-  short_description: z.string(),
-  long_description: z.string(),
-  icon: z.string().transform((val) => JSON.parse(val))
+export const ExtItemParser = object({
+  identifier: string(),
+  name: string(),
+  downloads: number(),
+  short_description: string(),
+  long_description: string(),
+  icon: pipe(
+    string(),
+    transform((val) => JSON.parse(val))
+  )
 })
 
-export const ExtItem = ExtItemParser.merge(z.object({ icon: Icon }))
+export const ExtItem = object({
+  ...ExtItemParser.entries,
+  ...object({ icon: Icon }).entries
+})
 
-export type ExtItem = z.infer<typeof ExtItem>
+export type ExtItem = InferOutput<typeof ExtItem>
