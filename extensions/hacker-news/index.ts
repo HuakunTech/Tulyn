@@ -3,16 +3,16 @@ import {
   clipboard,
   expose,
   fs,
+  List,
   ListView,
+  NodeNameEnum,
   notification,
   shell,
   toast,
   ui,
   wrap,
-  type IUITemplate,
   type IWorkerExtensionBase
 } from "jarvis-api/ui/worker"
-import type { ListItem } from "node_modules/jarvis-api/dist/ui/worker/types"
 import { array, number, object, parse, string, type InferOutput } from "valibot"
 
 const HackerNewsItem = object({
@@ -23,17 +23,19 @@ const HackerNewsItem = object({
 })
 type HackerNewsItem = InferOutput<typeof HackerNewsItem>
 
-function hackerNewsItemToListItem(item: HackerNewsItem): ListItem {
+function hackerNewsItemToListItem(item: HackerNewsItem): List.Item {
   return {
+    nodeName: NodeNameEnum.ListItem,
     title: item.title,
-    value: item.url,
-    description: `by: ${item.by} Vote: ${item.score}`
+    subTitle: `by: ${item.by} Vote: ${item.score}`
+    // value: item.url,
+    // description: `by: ${item.by} Vote: ${item.score}`
   }
 }
 
 class HackerNews implements IWorkerExtensionBase {
   items: HackerNewsItem[]
-  listitems: ListItem[]
+  listitems: List.Item[]
   constructor() {
     this.items = []
     this.listitems = []
@@ -56,7 +58,7 @@ class HackerNews implements IWorkerExtensionBase {
       .then((stories) => {
         this.items = parse(array(HackerNewsItem), stories)
         this.listitems = this.items.map(hackerNewsItemToListItem)
-        return ui.render(new ListView(this.listitems))
+        return ui.render(new ListView({ items: this.listitems, nodeName: NodeNameEnum.List }))
       })
       .catch((err) => {
         console.error(err)
@@ -64,7 +66,7 @@ class HackerNews implements IWorkerExtensionBase {
   }
   onSearchTermChange(term: string): Promise<void> {
     console.log("Search term changed", term)
-    ui.render(new ListView(this.listitems))
+    ui.render(new ListView({ items: this.listitems, nodeName: NodeNameEnum.List }))
     return Promise.resolve()
   }
 

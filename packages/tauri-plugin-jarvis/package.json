@@ -6,24 +6,21 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist-js/index.js",
-      "types": "./dist-js/index.d.ts"
+      "import": "./guest-js/index.ts"
     },
     "./commands": {
-      "import": "./dist-js/commands.js",
-      "types": "./dist-js/commands/index.d.ts"
+      "import": "./guest-js/commands/index.ts"
     },
     "./models": {
-      "import": "./dist-js/models.js",
-      "types": "./dist-js/models/index.d.ts"
+      "import": "./guest-js/models/index.ts"
     }
   },
   "files": [
-    "dist-js",
+    "guest-js",
     "README.md"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "build:rollup": "rollup -c",
     "prepublishOnly": "pnpm build",
     "pretest": "pnpm build",
     "develop": "rollup -c --watch"

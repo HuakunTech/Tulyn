@@ -14,22 +14,17 @@ import {
   exposeApiToWorker,
   getWorkerApiClient
 } from "jarvis-api/ui"
-import {
-  wrap,
-  type IListView,
-  type IUITemplate,
-  type IWorkerExtensionBase
-} from "jarvis-api/ui/worker"
+import { ListView, wrap, type IWorkerExtensionBase } from "jarvis-api/ui/worker"
 import { toast } from "vue-sonner"
 
 const appState = useStore($appState)
 let workerAPI: Remote<IWorkerExtensionBase> | undefined = undefined
-const viewContent = ref<IListView>()
+const viewContent = ref<ListView>()
 const extStore = useExtStore()
 
 onKeyStroke("Escape", () => navigateTo("/"))
 
-function render(view: IListView) {
+function render(view: ListView) {
   // viewContent.value = value
   viewContent.value = view
   console.log("render", view)
