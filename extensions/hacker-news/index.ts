@@ -25,11 +25,12 @@ const HackerNewsItem = object({
 })
 type HackerNewsItem = InferOutput<typeof HackerNewsItem>
 
-function hackerNewsItemToListItem(item: HackerNewsItem): List.Item {
+function hackerNewsItemToListItem(item: HackerNewsItem, idx: number): List.Item {
   return new List.Item({
     title: item.title,
-    subTitle: `by: ${item.by} Vote: ${item.score}`,
-    icon: new Icon({ type: IconEnum.Iconify, value: "mdi:news" })
+    value: item.title,
+    subTitle: `by: ${item.by}; Vote: ${item.score}`,
+    icon: new Icon({ type: IconEnum.Text, value: idx.toString() })
   })
 }
 
@@ -71,7 +72,12 @@ class HackerNews implements IWorkerExtensionBase {
   }
 
   onItemSelected(value: string): Promise<void> {
-    return shell.open(value)
+    const target = this.items.find((item) => item.title === value)
+    if (target) {
+      return shell.open(target.url)
+    }
+    toast.error("Item not found")
+    return Promise.resolve()
   }
 }
 

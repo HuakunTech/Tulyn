@@ -9,7 +9,7 @@ export enum IconEnum {
   RemoteUrl = "remote-url",
   Svg = "svg",
   Base64PNG = "base64-png",
-  IndexNumber = "index-number"
+  Text = "text"
 }
 export const IconType = enum_(IconEnum)
 export type IconType = InferOutput<typeof IconType>

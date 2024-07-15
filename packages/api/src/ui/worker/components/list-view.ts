@@ -294,6 +294,7 @@ export class ItemDetail implements ListSchema.ItemDetail, IComponent<ListSchema.
 export class Item implements ListSchema.Item, IComponent<ListSchema.Item> {
   nodeName: NodeName = NodeNameEnum.ListItem
   title: string
+  value: string
   subTitle?: string
   accessories?: ItemAccessory[]
   detail?: ItemDetail
@@ -308,6 +309,7 @@ export class Item implements ListSchema.Item, IComponent<ListSchema.Item> {
     }
   ) {
     this.title = model.title
+    this.value = model.value
     this.subTitle = model.subTitle
     this.accessories = model.accessories
     this.detail = model.detail
@@ -319,6 +321,7 @@ export class Item implements ListSchema.Item, IComponent<ListSchema.Item> {
     return {
       nodeName: this.nodeName,
       title: this.title,
+      value: this.value,
       subTitle: this.subTitle,
       accessories: this.accessories?.map((accessory) => accessory.toModel()),
       detail: this.detail?.toModel(),

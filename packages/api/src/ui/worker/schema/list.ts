@@ -143,6 +143,7 @@ export const Item = object({
   title: string(),
   subTitle: optional(string()),
   accessories: optional(array(ItemAccessory)),
+  value: string(),
   // actions:
   detail: optional(ItemDetail),
   icon: optional(Icon),
