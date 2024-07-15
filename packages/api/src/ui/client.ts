@@ -1,6 +1,5 @@
 import { type AppInfo } from "tauri-plugin-jarvis-api/models"
 import type { IToastServer, IUiServer } from "./server"
-import type { IUITemplate } from "./worker"
 
 type PromiseWrap<T extends (...args: any[]) => any> = (
   ...args: Parameters<T>
