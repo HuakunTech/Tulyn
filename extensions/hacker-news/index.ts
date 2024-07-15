@@ -4,7 +4,7 @@ import {
   expose,
   fs,
   List,
-  ListView,
+  ListSchema,
   NodeNameEnum,
   notification,
   shell,
@@ -24,13 +24,10 @@ const HackerNewsItem = object({
 type HackerNewsItem = InferOutput<typeof HackerNewsItem>
 
 function hackerNewsItemToListItem(item: HackerNewsItem): List.Item {
-  return {
-    nodeName: NodeNameEnum.ListItem,
+  return new List.Item({
     title: item.title,
     subTitle: `by: ${item.by} Vote: ${item.score}`
-    // value: item.url,
-    // description: `by: ${item.by} Vote: ${item.score}`
-  }
+  })
 }
 
 class HackerNews implements IWorkerExtensionBase {
@@ -58,7 +55,7 @@ class HackerNews implements IWorkerExtensionBase {
       .then((stories) => {
         this.items = parse(array(HackerNewsItem), stories)
         this.listitems = this.items.map(hackerNewsItemToListItem)
-        return ui.render(new ListView({ items: this.listitems, nodeName: NodeNameEnum.List }))
+        return ui.render(new List.List({ items: this.listitems }))
       })
       .catch((err) => {
         console.error(err)
@@ -66,7 +63,7 @@ class HackerNews implements IWorkerExtensionBase {
   }
   onSearchTermChange(term: string): Promise<void> {
     console.log("Search term changed", term)
-    ui.render(new ListView({ items: this.listitems, nodeName: NodeNameEnum.List }))
+    ui.render(new List.List({ items: this.listitems }))
     return Promise.resolve()
   }
 

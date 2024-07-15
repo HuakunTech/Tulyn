@@ -58,10 +58,10 @@ import { union, type InferOutput } from "valibot"
 import { toast } from "vue-sonner"
 import { SystemPermissionSchema, type SystemPermission } from "./api/permissions"
 import type { ISystem } from "./client"
-import { List, type IComponent } from "./worker"
+import { ListSchema, type IComponent } from "./worker"
 
 export interface IUiServer {
-  render: (view: IComponent<List.List>) => void
+  render: (view: IComponent<ListSchema.List>) => void
 }
 
 export interface IToastServer {

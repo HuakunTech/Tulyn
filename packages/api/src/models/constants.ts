@@ -3,8 +3,10 @@ import { enum_, type InferOutput } from "valibot"
 export enum NodeNameEnum {
   List = "List",
   ListItem = "ListItem",
+  ListItemDetail = "ListItemDetail",
   ListItemAccessory = "ListItemAccessory",
   ListSection = "ListSection",
+  ListItemDetailMetadata = "ListItemDetailMetadata",
   ListItemDetailMetadataLabel = "ListItemDetailMetadataLabel",
   ListItemDetailMetadataLink = "ListItemDetailMetadataLink",
   ListItemDetailMetadataTagList = "ListItemDetailMetadataTagList",

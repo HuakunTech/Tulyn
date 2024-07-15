@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { CommandGroup, CommandItem, CommandList } from "@/components/ui/command"
-import { List, ListView } from "jarvis-api/ui/worker"
+import { List, ListSchema } from "jarvis-api/ui/worker"
 
-const props = defineProps<{ modelValue: ListView }>()
+const props = defineProps<{ modelValue: ListSchema.List }>()
 </script>
 <template>
   <CommandList class="h-full">

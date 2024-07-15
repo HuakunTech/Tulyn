@@ -1,5 +1,5 @@
 import { enum_, literal, object, string, type InferOutput } from "valibot"
-import { NodeNameEnum } from "./constants"
+import { NodeName, NodeNameEnum } from "./constants"
 
 /* -------------------------------------------------------------------------- */
 /*                                    Icon                                    */
@@ -20,7 +20,7 @@ export const Icon = object({
 })
 export type Icon = InferOutput<typeof Icon>
 export const IconNode = object({
-  nodeName: literal(NodeNameEnum.Icon),
+  nodeName: NodeName,
   ...Icon.entries
 })
 export type IconNode = InferOutput<typeof IconNode>
