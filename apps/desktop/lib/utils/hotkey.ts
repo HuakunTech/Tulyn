@@ -37,10 +37,14 @@ export async function registerAppHotkey(hotkeyStr: string) {
  * Run this in main window, will show current window
  */
 export const useRegisterAppShortcuts = () => {
-  const hotkey = $appConfig.get().triggerHotkey
-  if (!hotkey) {
-    return Promise.reject(warn("No hotkey set in app config"))
-  }
-  const hotkeyStr = hotkey.map(mapKeyToTauriKey).join("+")
-  return registerAppHotkey(hotkeyStr).then(() => hotkeyStr)
+  return new Promise<string>((resolve, reject) => {
+    const hotkey = $appConfig.get().triggerHotkey
+    if (!hotkey) {
+      return reject(new Error("No hotkey set in app config"))
+    }
+    const hotkeyStr = hotkey.map(mapKeyToTauriKey).join("+")
+    registerAppHotkey(hotkeyStr)
+      .then(() => resolve(hotkeyStr))
+      .catch(reject)
+  })
 }

@@ -22,14 +22,19 @@ import { getActiveElementNodeName } from "@/lib/utils/dom"
 import { useExtStore } from "@/stores/ext"
 import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
-import { debug } from "@tauri-apps/plugin-log"
+import { debug, warn } from "@tauri-apps/plugin-log"
 import { useListenToWindowBlur, usePreventExit } from "~/composables/useEvents"
 import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"
 import { os } from "jarvis-api/ui"
 import { getClipboardHistory } from "tauri-plugin-jarvis-api/commands"
 import { toast } from "vue-sonner"
 
-useRegisterAppShortcuts().then((hotkeyStr) => toast.success(`Shortcuts registered (${hotkeyStr})`))
+useRegisterAppShortcuts()
+  .then((hotkeyStr) => toast.success(`Shortcuts registered (${hotkeyStr})`))
+  .catch((err) => {
+    console.warn(err)
+    warn(err.message)
+  })
 usePreventExit()
 const appConfig = useStore($appConfig)
 const appExt = new AppsExtension()
