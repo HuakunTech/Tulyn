@@ -17,8 +17,8 @@ export const devProgressRawData: DevProgressData[] = [
     label: "Desktop",
     children: [
       { label: "Global Toast in A Separate Window", finished: true },
-      { label: "Keyboard Shortcut To Open", finished: false },
-      { label: "Main window close on focus lose", finished: false },
+      { label: "Keyboard Shortcut To Open", finished: true },
+      { label: "Main window close on focus lose", finished: true },
       { label: "Pin Window", finished: false }
     ]
   },
@@ -26,7 +26,7 @@ export const devProgressRawData: DevProgressData[] = [
     label: "Extensions",
     children: [
       { label: "UI Extension", finished: true },
-      { label: "Inline Extension", finished: false },
+      { label: "Inline Extension", children: [{ label: "List View", finished: true }] },
       { label: "GUI Extension Editor (like Alfred)", finished: false },
       { label: "Quick Link", finished: false },
       {
@@ -40,8 +40,8 @@ export const devProgressRawData: DevProgressData[] = [
           { label: "Dialog", finished: true },
           { label: "Window", finished: true },
           { label: "Shell", finished: true },
-          { label: "System Info (CPU, Battery, etc.)", finished: false },
-          { label: "Network", finished: false },
+          { label: "System Info (CPU, Battery, etc.)", finished: true },
+          { label: "Network", finished: true },
           { label: "Global Toast", finished: false }
         ]
       },
@@ -69,7 +69,13 @@ export const devProgressRawData: DevProgressData[] = [
       { label: "Sort by use frequency", finished: false },
       { label: "Unit Conversion", finished: false },
       { label: "Currency Conversion", finished: false },
-      { label: "File Search", finished: false }
+      {
+        label: "File Search",
+        children: [
+          { label: "Search", finished: false },
+          { label: "File System Index", finished: false }
+        ]
+      }
     ]
   },
   {
