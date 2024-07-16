@@ -118,6 +118,8 @@ class HackerNews implements IWorkerExtensionBase {
   }
 
   onItemSelected(value: string): Promise<void> {
+    console.log(value);
+    
     const target = this.items.find((item) => item.title === value)
     if (target) {
       if (target.url) {

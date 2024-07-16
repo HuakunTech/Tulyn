@@ -110,7 +110,7 @@ function filterFunction(items: ListSchema.Item[], searchTerm: string) {
     class=""
     v-model:searchTerm="searchTerm"
     @update:search-term="onSearchTermChange"
-    @update:model-value="(v) => workerAPI?.onItemSelected(v as string)"
+    @update:model-value="(v) => workerAPI?.onItemSelected((v as ListSchema.Item).value)"
     :identity-filter="false"
     :filterFunction="(items, term) => filterFunction(items as ListSchema.Item[], term)"
   >
