@@ -26,6 +26,7 @@ import { toast } from "vue-sonner"
 
 const appState = useStore($appState)
 let workerAPI: Remote<IWorkerExtensionBase> | undefined = undefined
+const loading = ref(false)
 const viewContent = ref<ListSchema.List>()
 // const items = ref<ListSchema.Item[]>([])
 const extStore = useExtStore()
@@ -34,8 +35,10 @@ onKeyStroke("Escape", () => navigateTo("/"))
 
 function render(view: ListSchema.List) {
   viewContent.value = view
-  // items.value = view.items ?? []
-  console.log("render", view)
+}
+
+function setScrollLoading(_loading: boolean) {
+  loading.value = _loading
 }
 
 onMounted(async () => {
@@ -74,7 +77,8 @@ onMounted(async () => {
   // Expose Jarvis APIs to worker with permissions constraints
   exposeApiToWorker(worker, {
     ...constructJarvisServerAPIWithPermissions(manifest.jarvis.permissions),
-    render
+    render,
+    setScrollLoading
   })
   // exposeApiToWorker(worker, { render }) // Expose render function to worker
   workerAPI = wrap<IWorkerExtensionBase>(worker) // Call worker exposed APIs
@@ -119,7 +123,12 @@ function filterFunction(items: ListSchema.Item[], searchTerm: string) {
         <ArrowLeftIcon />
       </Button>
     </CmdInput>
-    <ExtTemplateListView v-if="viewContent" :model-value="viewContent" :workerAPI="workerAPI!" />
+    <ExtTemplateListView
+      v-if="viewContent"
+      :model-value="viewContent"
+      :workerAPI="workerAPI!"
+      :loading="loading"
+    />
     <CmdPaletteFooter />
   </Command>
 </template>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import IconMultiplexer from "@/components/IconMultiplexer.vue"
 import { CommandGroup, CommandItem, CommandList } from "@/components/ui/command"
+import StrikeSeparator from "@/components/ui/separator/StrikeSeparator.vue"
 import { expose, type Remote } from "@huakunshen/comlink"
 import { IconEnum } from "jarvis-api/models"
 import { List, ListSchema, type IWorkerExtensionBase } from "jarvis-api/ui/worker"
@@ -8,6 +9,7 @@ import { List, ListSchema, type IWorkerExtensionBase } from "jarvis-api/ui/worke
 const props = defineProps<{
   modelValue: ListSchema.List
   workerAPI: Remote<IWorkerExtensionBase>
+  loading: boolean
 }>()
 function onScroll(e: Event) {
   const element = e.target as HTMLElement
@@ -25,5 +27,6 @@ function onScroll(e: Event) {
       <span class="truncate">{{ item.title }}</span>
       <CommandShortcut>{{ item.subTitle }}</CommandShortcut>
     </CommandItem>
+    <StrikeSeparator v-if="loading" class="h-20"><span>Loading</span></StrikeSeparator>
   </CommandList>
 </template>

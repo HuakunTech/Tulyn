@@ -53,27 +53,30 @@ class HackerNews implements IWorkerExtensionBase {
     this.listitems = []
     this.storyIds = []
   }
-  onScrolledToBottom(): Promise<void> {
+  async onScrolledToBottom(): Promise<void> {
+    await ui.setScrollLoading(true)
     return Promise.all(
       this.storyIds
         .slice(this.items.length, this.items.length + 20)
         .map((id) =>
           fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then((res) => res.json())
         )
-    ).then((stories) => {
-      const parsed = safeParse(array(HackerNewsItem), stories)
-      if (parsed.issues) {
-        for (const issue of parsed.issues) {
-          toast.error(issue.message)
+    )
+      .then((stories) => {
+        const parsed = safeParse(array(HackerNewsItem), stories)
+        if (parsed.issues) {
+          for (const issue of parsed.issues) {
+            toast.error(issue.message)
+          }
+          return
         }
-        return
-      }
-      this.items = this.items.concat(parsed.output)
-      this.listitems = this.items.map(hackerNewsItemToListItem)
-      return ui.render(new List.List({ items: this.listitems }))
-    })
+        this.items = this.items.concat(parsed.output)
+        this.listitems = this.items.map(hackerNewsItemToListItem)
+        return ui.render(new List.List({ items: this.listitems }))
+      })
+      .then(() => ui.setScrollLoading(false))
   }
-  load(): Promise<void> {
+  async load(): Promise<void> {
     return fetch("https://hacker-news.firebaseio.com/v0/topstories.json")
       .then((res) => res.json())
       .then((data) => {

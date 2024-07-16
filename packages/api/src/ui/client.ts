@@ -46,6 +46,7 @@ export interface IToast {
 
 export interface IUi {
   render: PromiseWrap<IUiServer["render"]>
+  setScrollLoading: PromiseWrap<IUiServer["setScrollLoading"]>
 }
 
 // const getWorkerApi = () => getWorkerApiClient<IJarvisFullAPI>()

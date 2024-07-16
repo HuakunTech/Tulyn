@@ -1,9 +1,13 @@
 <script setup lang="ts">
+import { cn } from "@/lib/utils"
+import type { HTMLAttributes } from "vue"
 import Separator from "./Separator.vue"
+
+const props = defineProps<{ class?: HTMLAttributes["class"] }>()
 </script>
 
 <template>
-  <div class="flex justify-center items-center space-x-5">
+  <div :class="cn('flex justify-center items-center space-x-5', props.class)">
     <span class="w-full">
       <Separator />
     </span>

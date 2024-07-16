@@ -65,6 +65,7 @@ import { ListSchema, type IComponent } from "./worker"
 
 export interface IUiServer {
   render: (view: IComponent<ListSchema.List>) => void
+  setScrollLoading: (loading: boolean) => void
 }
 
 export interface IToastServer {
