@@ -1,6 +1,7 @@
 import { IconEnum } from "jarvis-api/models"
 import { getWorkerApiClient } from "jarvis-api/ui"
 import {
+  Action,
   clipboard,
   expose,
   fs,
@@ -38,9 +39,23 @@ function hackerNewsItemToListItem(item: HackerNewsItem, idx: number): List.Item 
   return new List.Item({
     title: item.title,
     value: item.title,
-    subTitle: `by: ${item.by}; Vote: ${item.score}`,
+    subTitle: `${item.by}`,
     icon: new Icon({ type: IconEnum.Text, value: idx.toString() }),
-    keywords: [item.by]
+    keywords: [item.by],
+    accessories: [
+      new List.ItemAccessory({
+        icon: new Icon({ type: IconEnum.Iconify, value: "fa6-regular:circle-up" }),
+        text: `${item.score}`
+      })
+    ],
+    actions: new Action.ActionPanel({
+      items: [
+        new Action.Action({
+          title: "Open",
+          icon: new Icon({ type: IconEnum.Iconify, value: "mdi:web" })
+        })
+      ]
+    })
   })
 }
 
@@ -52,6 +67,10 @@ class HackerNews implements IWorkerExtensionBase {
     this.items = []
     this.listitems = []
     this.storyIds = []
+  }
+  onHighlightedItemChanged(value: string): Promise<void> {
+    // console.log("On Highlighted Item Change", value)
+    return Promise.resolve()
   }
   async onScrolledToBottom(): Promise<void> {
     await ui.setScrollLoading(true)
@@ -118,8 +137,6 @@ class HackerNews implements IWorkerExtensionBase {
   }
 
   onItemSelected(value: string): Promise<void> {
-    console.log(value);
-    
     const target = this.items.find((item) => item.title === value)
     if (target) {
       if (target.url) {

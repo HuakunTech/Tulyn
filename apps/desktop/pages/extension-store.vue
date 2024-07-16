@@ -25,6 +25,7 @@ import type { ExtPackageJsonExtra } from "@jarvis/schema"
 import { type Tables } from "@jarvis/supabase"
 import { ArrowLeftIcon } from "@radix-icons/vue"
 import { ElMessage } from "element-plus"
+import { parse } from "valibot"
 import { computed, onMounted, ref, watch } from "vue"
 
 const ext = new Extension("Extensions", await getExtensionsFolder())
@@ -52,9 +53,9 @@ onMounted(async () => {
   })
   extList.value =
     response.data.extensionsCollection?.edges.map((x) =>
-      ExtItem.parse(ExtItemParser.parse(x.node))
+      parse(ExtItem, parse(ExtItemParser, x.node))
     ) ?? []
-  console.log(extList.value)
+  // console.log(extList.value)
 })
 
 function select(item: ExtItem) {

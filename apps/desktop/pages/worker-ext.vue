@@ -28,10 +28,10 @@ const appState = useStore($appState)
 let workerAPI: Remote<IWorkerExtensionBase> | undefined = undefined
 const loading = ref(false)
 const viewContent = ref<ListSchema.List>()
-// const items = ref<ListSchema.Item[]>([])
 const extStore = useExtStore()
 
 onKeyStroke("Escape", () => navigateTo("/"))
+const appUiStore = useAppUiStore()
 
 function render(view: ListSchema.List) {
   viewContent.value = view
@@ -104,12 +104,19 @@ function filterFunction(items: ListSchema.Item[], searchTerm: string) {
     return false
   })
 }
+
+function onHighlightedItemChanged(itemValue: string) {
+  workerAPI?.onHighlightedItemChanged(itemValue)
+  const itemActions = viewContent.value?.items?.find((item) => item.value === itemValue)?.actions
+  appUiStore.setActionPanel(itemActions)
+}
 </script>
 <template>
   <Command
     class=""
     v-model:searchTerm="searchTerm"
     @update:search-term="onSearchTermChange"
+    @update:selected-value="(v) => onHighlightedItemChanged((v as ListSchema.Item).value)"
     @update:model-value="(v) => workerAPI?.onItemSelected((v as ListSchema.Item).value)"
     :identity-filter="false"
     :filterFunction="(items, term) => filterFunction(items as ListSchema.Item[], term)"

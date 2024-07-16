@@ -16,7 +16,12 @@ export enum NodeNameEnum {
   EmptyView = "EmptyView",
   Dropdown = "Dropdown",
   DropdownSection = "DropdownSection",
-  DropdownItem = "DropdownItem"
+  DropdownItem = "DropdownItem",
+  /* --------------------------------- Action --------------------------------- */
+  ActionPanel = "ActionPanel",
+  Action = "Action",
+  ActionPanelSection = "ActionPanelSection",
+  ActionPanelSubmenu = "ActionPanelSubmenu"
 }
 export const NodeName = enum_(NodeNameEnum)
 export type NodeName = InferOutput<typeof NodeName>

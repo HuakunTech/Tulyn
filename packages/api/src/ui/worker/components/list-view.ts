@@ -1,12 +1,10 @@
 import type { Color } from "../../../models/color"
 import { NodeName, NodeNameEnum } from "../../../models/constants"
 import * as ListSchema from "../schema/list"
+import * as Action from "./action"
+import type { IconConstructorPatch, OmitNodeName, ReplaceIcon } from "./common"
 import { Icon } from "./icon"
 import { type IComponent } from "./interfaces"
-
-type OmitNodeName<T> = Omit<T, "nodeName">
-type ReplaceIcon<T> = T & { icon?: Icon }
-type IconConstructorPatch<T> = ReplaceIcon<OmitNodeName<T>>
 
 export class EmptyView implements ListSchema.EmptyView, IComponent<ListSchema.EmptyView> {
   nodeName: NodeName = NodeNameEnum.EmptyView
@@ -300,16 +298,19 @@ export class Item implements ListSchema.Item, IComponent<ListSchema.Item> {
   detail?: ItemDetail
   icon?: Icon
   keywords?: string[]
+  actions?: Action.ActionPanel
 
   constructor(
     model: OmitNodeName<ListSchema.Item> & {
       accessories?: ItemAccessory[]
       detail?: ItemDetail
       icon?: Icon
+      actions?: Action.ActionPanel
     }
   ) {
     this.title = model.title
     this.value = model.value
+    this.actions = model.actions
     this.subTitle = model.subTitle
     this.accessories = model.accessories
     this.detail = model.detail

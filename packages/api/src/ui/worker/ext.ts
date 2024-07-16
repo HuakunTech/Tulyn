@@ -7,5 +7,6 @@ export interface IWorkerExtensionBase {
   onSearchTermChange(term: string): Promise<void>
   onItemSelected(value: string): Promise<void>
   onScrolledToBottom(): Promise<void>
+  onHighlightedItemChanged(value: string): Promise<void>
   // filter(items: any[], term: string): Promise<any[]>
 }

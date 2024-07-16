@@ -27,7 +27,7 @@ export { expose, wrap } from "@huakunshen/comlink"
 /* -------------------------------------------------------------------------- */
 export { type IComponent } from "./components"
 export * as ListSchema from "./schema/list"
-export * as List from "./components/list-view"
+export { List, Action } from "./components"
 export { Icon } from "./components/icon"
 export * from "../../models/color"
 export { IconEnum, IconType, IconNode } from "../../models/icon"

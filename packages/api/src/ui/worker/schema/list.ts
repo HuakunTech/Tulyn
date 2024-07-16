@@ -16,6 +16,7 @@ import {
 import { Color } from "../../../models/color"
 import { NodeName, NodeNameEnum } from "../../../models/constants"
 import { Icon } from "../../../models/icon"
+import * as ActionSchema from "./action"
 
 /* -------------------------------------------------------------------------- */
 /*                                 Empty View                                 */
@@ -144,7 +145,7 @@ export const Item = object({
   subTitle: optional(string()),
   accessories: optional(array(ItemAccessory)),
   value: string(),
-  // actions:
+  actions: optional(ActionSchema.ActionPanel),
   detail: optional(ItemDetail),
   icon: optional(Icon),
   keywords: optional(array(string()))

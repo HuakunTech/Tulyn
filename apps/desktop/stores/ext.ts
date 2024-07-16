@@ -1,13 +1,3 @@
-// export type ExtState = v.InferOutput<typeof ExtStoreSchema>
-
-// export const $appState = map<ExtState>({
-//   currentWorkerExt: undefined
-// })
-
-// export function setCurrentWorkerExt(ext: WorkerExtMetadata) {
-//   $appState.setKey("currentWorkerExt", ext)
-// }
-
 import { defineStore } from "pinia"
 import { object, optional, string, type InferOutput } from "valibot"
 
