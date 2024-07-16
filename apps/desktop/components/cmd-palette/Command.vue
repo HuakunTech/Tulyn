@@ -21,19 +21,18 @@ const delegatedProps = computed(() => {
   return delegated
 })
 
+function customFilter(data: any) {
+  // console.log("data", data)
+  // do not filter, filtering is done elsewhere
+  return data
+}
+
 const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 <template>
   <ComboboxRoot
     v-bind="forwarded"
-    :filterFunction="
-      props.identityFilter
-        ? (data) => {
-            // do not filter, filtering is done elsewhere
-            return data
-          }
-        : undefined
-    "
+    :filterFunction="props.identityFilter ? customFilter : undefined"
     :resetSearchTermOnBlur="false"
     :class="
       cn(

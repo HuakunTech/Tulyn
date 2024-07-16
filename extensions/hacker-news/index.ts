@@ -15,12 +15,21 @@ import {
   wrap,
   type IWorkerExtensionBase
 } from "jarvis-api/ui/worker"
-import { array, number, object, parse, string, type InferOutput } from "valibot"
+import {
+  array,
+  number,
+  object,
+  optional,
+  parse,
+  safeParse,
+  string,
+  type InferOutput
+} from "valibot"
 
 const HackerNewsItem = object({
   by: string(),
   title: string(),
-  url: string(),
+  url: optional(string()),
   score: number()
 })
 type HackerNewsItem = InferOutput<typeof HackerNewsItem>
@@ -30,24 +39,48 @@ function hackerNewsItemToListItem(item: HackerNewsItem, idx: number): List.Item 
     title: item.title,
     value: item.title,
     subTitle: `by: ${item.by}; Vote: ${item.score}`,
-    icon: new Icon({ type: IconEnum.Text, value: idx.toString() })
+    icon: new Icon({ type: IconEnum.Text, value: idx.toString() }),
+    keywords: [item.by]
   })
 }
 
 class HackerNews implements IWorkerExtensionBase {
   items: HackerNewsItem[]
   listitems: List.Item[]
+  storyIds: number[]
   constructor() {
     this.items = []
     this.listitems = []
+    this.storyIds = []
+  }
+  onScrolledToBottom(): Promise<void> {
+    return Promise.all(
+      this.storyIds
+        .slice(this.items.length, this.items.length + 20)
+        .map((id) =>
+          fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then((res) => res.json())
+        )
+    ).then((stories) => {
+      const parsed = safeParse(array(HackerNewsItem), stories)
+      if (parsed.issues) {
+        for (const issue of parsed.issues) {
+          toast.error(issue.message)
+        }
+        return
+      }
+      this.items = this.items.concat(parsed.output)
+      this.listitems = this.items.map(hackerNewsItemToListItem)
+      return ui.render(new List.List({ items: this.listitems }))
+    })
   }
   load(): Promise<void> {
     return fetch("https://hacker-news.firebaseio.com/v0/topstories.json")
       .then((res) => res.json())
       .then((data) => {
         const storyIds = parse(array(number()), data)
+        this.storyIds = storyIds
         return Promise.all(
-          storyIds
+          this.storyIds
             .slice(0, 20)
             .map((id) =>
               fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`).then((res) =>
@@ -57,7 +90,14 @@ class HackerNews implements IWorkerExtensionBase {
         )
       })
       .then((stories) => {
-        this.items = parse(array(HackerNewsItem), stories)
+        const parsed = safeParse(array(HackerNewsItem), stories)
+        if (parsed.issues) {
+          for (const issue of parsed.issues) {
+            toast.error(issue.message)
+          }
+          return
+        }
+        this.items = parsed.output
         this.listitems = this.items.map(hackerNewsItemToListItem)
         return ui.render(new List.List({ items: this.listitems }))
       })
@@ -66,15 +106,20 @@ class HackerNews implements IWorkerExtensionBase {
       })
   }
   onSearchTermChange(term: string): Promise<void> {
-    console.log("Search term changed", term)
-    ui.render(new List.List({ items: this.listitems }))
+    const filtered = this.items.filter((item) =>
+      item.title.toLowerCase().includes(term.toLowerCase())
+    )
+    this.listitems = filtered.map(hackerNewsItemToListItem)
+    // return ui.render(new List.List({ items: this.listitems })).then(() => Promise.resolve())
     return Promise.resolve()
   }
 
   onItemSelected(value: string): Promise<void> {
     const target = this.items.find((item) => item.title === value)
     if (target) {
-      return shell.open(target.url)
+      if (target.url) {
+        return shell.open(target.url)
+      }
     }
     toast.error("Item not found")
     return Promise.resolve()
