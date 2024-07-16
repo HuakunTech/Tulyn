@@ -208,6 +208,9 @@ importers:
         specifier: ^3.23.8
         version: 3.23.8
     devDependencies:
+      '@iconify/vue':
+        specifier: ^4.1.2
+        version: 4.1.2(vue@3.4.31(typescript@5.5.2))
       '@nuxtjs/device':
         specifier: ^3.1.1
         version: 3.1.1(magicast@0.3.4)(rollup@4.18.0)

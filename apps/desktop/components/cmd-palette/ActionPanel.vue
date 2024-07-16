@@ -10,11 +10,8 @@ import {
 } from "@/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { useAppUiStore } from "@/stores/ui"
-import { CaretSortIcon, CheckIcon } from "@radix-icons/vue"
-import clipboard from "tauri-plugin-clipboard-api"
+import { Icon } from "@iconify/vue"
 import { ref } from "vue"
-import { toast } from "vue-sonner"
-import { Item } from "../../../../packages/api/src/ui/worker/schema/list"
 
 const appUiStore = useAppUiStore()
 const { meta, k, escape } = useMagicKeys()
@@ -37,11 +34,11 @@ function onActionSelected(val: string) {
 
 <template>
   <Popover v-model:open="open">
-    <PopoverTrigger as-child>
+    <PopoverTrigger>
       <Button variant="ghost" role="combobox" :aria-expanded="open" class="justify-between gap-2">
-        Actions
+        <span>Action</span>
         <span class="flex items-center gap-0.5">
-          <Icon name="ph:command" />
+          <Icon icon="ph-command" />
           <kbd>K</kbd>
         </span>
       </Button>

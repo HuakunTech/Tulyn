@@ -1,4 +1,4 @@
-import { IconType } from "jarvis-api/models"
+import { Icon, IconType } from "jarvis-api/models"
 import {
   array,
   boolean,
@@ -22,11 +22,6 @@ export enum ListItemTypeEnum {
 export const ListItemType = enum_(ListItemTypeEnum)
 export type ListItemType = InferOutput<typeof ListItemType>
 
-export const IconSchema = object({
-  value: string(),
-  type: IconType
-})
-export type IconSchema = InferOutput<typeof IconSchema>
 export const TListItem = object({
   title: string(),
   value: string(),
@@ -39,7 +34,7 @@ export const TListItem = object({
     }),
     {}
   ),
-  icon: nullable(IconSchema),
+  icon: nullable(Icon),
   keywords: optional(array(string()), []),
   identityFilter: optional(boolean(), false)
 })
@@ -48,7 +43,7 @@ export const TListGroup = object({
   title: string(),
   type: string(),
   identifier: string(),
-  icon: optional(IconSchema),
+  icon: optional(Icon),
   items: array(TListItem),
   flags: object({
     isDev: optional(boolean(), false),
