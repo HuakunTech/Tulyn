@@ -11,10 +11,16 @@ const props = defineProps<{
   workerAPI: Remote<IWorkerExtensionBase>
   loading: boolean
 }>()
+let isScrolling = false
+
 function onScroll(e: Event) {
   const element = e.target as HTMLElement
-  if (element?.scrollHeight - element?.scrollTop === element?.clientHeight) {
+  if (!isScrolling && element?.scrollHeight - element?.scrollTop === element?.clientHeight) {
+    isScrolling = true
     props.workerAPI.onScrolledToBottom()
+    setTimeout(() => {
+      isScrolling = false
+    }, 500)
   }
 }
 </script>
