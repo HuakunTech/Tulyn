@@ -42,8 +42,15 @@ const COMMANDS: &[&str] = &[
     "get_extension_folder",
     "get_dev_extension_folder",
     "server_is_running",
+    /* -------------------------------------------------------------------------- */
+    /*                                     FS                                     */
+    /* -------------------------------------------------------------------------- */
     "decompress_tarball",
     "compress_tarball",
+    "unzip",
+    /* -------------------------------------------------------------------------- */
+    /*                                    Path                                    */
+    /* -------------------------------------------------------------------------- */
     "get_default_extensions_dir",
     "get_default_extensions_storage_dir",
     "is_window_label_registered",

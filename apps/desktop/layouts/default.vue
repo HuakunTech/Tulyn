@@ -7,15 +7,17 @@ import { useStore } from "@nanostores/vue"
 import type { UnlistenFn } from "@tauri-apps/api/event"
 import { attachConsole, debug, error, info, warn } from "@tauri-apps/plugin-log"
 import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"
-import { installBun } from "~/lib/utils/runtime"
-import { toast } from "vue-sonner"
+import { getBunVersion, installBun } from "~/lib/utils/runtime"
+import { Command } from "tauri-plugin-shellx-api"
 
 const colorMode = useColorMode() // auto set html class to dark is in dark mode
 const appConfig = useStore($appConfig)
 let detach: UnlistenFn
 useGoToSettingShortcuts()
 useRegisterAppShortcuts()
-  .then((hotkeyStr) => toast.success(`Shortcuts registered (${hotkeyStr})`))
+  .then((hotkeyStr) => {
+    info(`Shortcuts registered (${hotkeyStr})`)
+  })
   .catch((err) => {
     console.warn(err)
   })

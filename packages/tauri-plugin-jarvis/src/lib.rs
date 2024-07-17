@@ -112,6 +112,7 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             /* ----------------------------------- fs ----------------------------------- */
             commands::fs::decompress_tarball,
             commands::fs::compress_tarball,
+            commands::fs::unzip,
             /* ------------------------------- extensions ------------------------------- */
             commands::extension::is_window_label_registered,
             commands::extension::register_extension_window,

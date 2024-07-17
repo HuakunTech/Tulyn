@@ -1,5 +1,4 @@
 use crate::utils;
-use log::debug;
 use std::path::PathBuf;
 
 #[tauri::command]
@@ -14,7 +13,7 @@ pub async fn decompress_tarball(
     destination_folder: PathBuf,
     overwrite: bool,
 ) -> Result<PathBuf, String> {
-    utils::fs::decompress_tarball(path, destination_folder, overwrite).map_err(|e| e.to_string())
+    utils::fs::decompress_tarball(&path, &destination_folder, overwrite).map_err(|e| e.to_string())
 }
 
 /// Compress a directory into a tarball
@@ -25,5 +24,14 @@ pub async fn compress_tarball(
     dest_file: PathBuf,
     overwrite: bool,
 ) -> Result<PathBuf, String> {
-    utils::fs::compress_tarball(src_dir, dest_file, overwrite).map_err(|e| e.to_string())
+    utils::fs::compress_tarball(&src_dir, &dest_file, overwrite).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+pub async fn unzip(
+    path: PathBuf,
+    destination_folder: PathBuf,
+    overwrite: bool,
+) -> Result<(), String> {
+    utils::fs::unzip(&path, &destination_folder, overwrite).map_err(|err| err.to_string())
 }

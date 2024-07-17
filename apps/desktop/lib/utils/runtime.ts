@@ -4,6 +4,7 @@ import { debug, error, info } from "@tauri-apps/plugin-log"
 import { arch, platform } from "@tauri-apps/plugin-os"
 import { download } from "@tauri-apps/plugin-upload"
 import { verifyUrlAlive } from "~/lib/utils/request"
+import { unzip } from "tauri-plugin-jarvis-api/commands"
 import { Command, executeBashScript, type ChildProcess } from "tauri-plugin-shellx-api"
 
 export function getInferredBunDownloadFilenameStem() {
@@ -19,6 +20,7 @@ export function getInferredBunDownloadFilename(): string {
 }
 
 export function getInferredBunDownloadUrl() {
+  // TODO: Use a proxy or CDN to serve the download, people in China can't access GitHub :(
   return `https://github.com/oven-sh/bun/releases/latest/download/${getInferredBunDownloadFilename()}`
 }
 
@@ -40,6 +42,7 @@ export async function bunExists(): Promise<boolean> {
 
 export async function getBunVersion(): Promise<string> {
   let bunExePath = await getBunExePath()
+  console.log(`bunExePath: ${bunExePath}`)
   let output: ChildProcess<string> = await Command.create(bunExePath, ["--version"]).execute()
   if (output.code !== 0) {
     throw new Error(`Fail to get bun version, error: ${output.stderr}`)
@@ -76,13 +79,9 @@ export async function installBun(
     await info(`Downloading bun from ${bunDownloadUrl} to ${downloadPath}`)
     await download(bunDownloadUrl, downloadPath)
     await info(`Downloaded bun zip file to ${downloadPath}`)
-    const output = await executeBashScript(
-      `unzip ${downloadPath} -d "${await getAppRuntimePath()}"`
-    )
-    if (output.code !== 0) {
-      await error(`Fail to unzip bun, error: ${output.stderr}`)
-      throw new Error(`Fail to unzip bun, error: ${output.stderr}`)
-    }
+    // TODO: bash unzip only works on Linux and MacOS, need to support Windows powershell
+    // TODO: mac comes with unzip, but Linux doesn't, need to install unzip
+    await unzip(downloadPath, await getAppRuntimePath())
     await info(`Unzipped bun to ${await getAppRuntimePath()}`)
     // verify installation
     if (!(await bunExists())) {

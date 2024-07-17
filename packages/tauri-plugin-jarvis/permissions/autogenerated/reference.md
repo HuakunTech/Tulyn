@@ -2052,6 +2052,32 @@ Denies the unregister_extension_window command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-unzip`
+
+</td>
+<td>
+
+Enables the unzip command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-unzip`
+
+</td>
+<td>
+
+Denies the unzip command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-update-command-by-id`
 
 </td>

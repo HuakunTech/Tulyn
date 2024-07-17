@@ -37,7 +37,6 @@ let updateSearchTermTimeout: ReturnType<typeof setTimeout>
 const appWindow = getCurrent()
 const runtimeConfig = useRuntimeConfig()
 const cmdInputRef = ref<InstanceType<typeof ComboboxInput> | null>(null)
-const cmdInputEle = computed(() => cmdInputRef.value?.$el.querySelector("input"))
 
 useListenToWindowBlur(() => {
   if (!runtimeConfig.public.isDev) {
@@ -46,7 +45,7 @@ useListenToWindowBlur(() => {
 })
 
 useListenToWindowFocus(() => {
-  cmdInputEle.value.focus()
+  cmdInputRef.value?.$el.querySelector("input").focus()
 })
 
 watch(searchTermInSync, (val) => {

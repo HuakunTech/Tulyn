@@ -1394,6 +1394,20 @@
           ]
         },
         {
+          "description": "allow-unzip -> Enables the unzip command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-unzip"
+          ]
+        },
+        {
+          "description": "deny-unzip -> Denies the unzip command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-unzip"
+          ]
+        },
+        {
           "description": "allow-update-command-by-id -> Enables the update_command_by_id command without any pre-configured scope.",
           "type": "string",
           "enum": [

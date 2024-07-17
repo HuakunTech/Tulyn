@@ -47,3 +47,24 @@ export function compressTarball(
     overwrite: options?.overwrite ?? false
   })
 }
+
+/**
+ *
+ * @param path Path of file to unzip
+ * @param destinationFolder where to unzip the file
+ * @param options use overwrite to overwrite existing files
+ * @returns
+ */
+export function unzip(
+  path: string,
+  destinationFolder: string,
+  options?: {
+    overwrite?: boolean
+  }
+): Promise<void> {
+  return invoke(generateJarvisPluginCommand("unzip"), {
+    path,
+    destinationFolder,
+    overwrite: options?.overwrite ?? false
+  })
+}
