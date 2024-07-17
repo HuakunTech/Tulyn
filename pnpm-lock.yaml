@@ -24,6 +24,9 @@ importers:
       '@ianvs/prettier-plugin-sort-imports':
         specifier: ^4.3.0
         version: 4.3.0(@vue/compiler-sfc@3.4.31)(prettier@3.2.5)
+      '@types/bun':
+        specifier: latest
+        version: 1.1.6
       esbuild:
         specifier: ^0.23.0
         version: 0.23.0

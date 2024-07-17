@@ -21,7 +21,8 @@
     "husky": "^9.0.11",
     "prettier": "^3.2.5",
     "turbo": "^2.0.7",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "@types/bun": "latest"
   },
   "packageManager": "pnpm@9.5.0",
   "dependencies": {
