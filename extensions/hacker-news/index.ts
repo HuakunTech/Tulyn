@@ -63,13 +63,31 @@ class HackerNews implements IWorkerExtensionBase {
   items: HackerNewsItem[]
   listitems: List.Item[]
   storyIds: number[]
+  value?: string
+
   constructor() {
     this.items = []
     this.listitems = []
     this.storyIds = []
   }
+  onActionSelected(actionValue: string): Promise<void> {
+    switch (actionValue) {
+      case "Open":
+        const target = this.items.find((item) => item.title === this.value)
+        if (target) {
+          if (target.url) {
+            return shell.open(target.url)
+          }
+        }
+        toast.error("Item not found")
+        break
+      default:
+        break
+    }
+    return Promise.resolve()
+  }
   onHighlightedItemChanged(value: string): Promise<void> {
-    // console.log("On Highlighted Item Change", value)
+    this.value = value
     return Promise.resolve()
   }
   async onScrolledToBottom(): Promise<void> {

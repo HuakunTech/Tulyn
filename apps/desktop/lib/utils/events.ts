@@ -2,6 +2,7 @@
  * Global event bus for the desktop app.
  * Events such as keydown events and combination events can be shared across components with this global event bus.
  */
+import { Action } from "jarvis-api/models"
 import mitt from "mitt"
 import { setsEqual } from "./js"
 import { SettingsKeyComb } from "./keycomb"
@@ -9,11 +10,13 @@ import { SettingsKeyComb } from "./keycomb"
 export const EVENT_SEARCH_BAR_KEYDOWN = "searchBarKeyDown"
 export const EVENT_KEY_DOWN = "keyDown"
 export const EVENT_KEY_COMBINATION = "keyCombination"
+export const EVENT_ACTION_SELECTED = "actionSelected"
 
 type Events = {
   searchBarKeyDown: KeyboardEvent
   keyCombination: Set<string>
   keyDown: KeyboardEvent
+  actionSelected: string
 }
 
 export function keyCombToSetting(keyComb: Set<string>) {
@@ -82,5 +85,20 @@ export class GlobalEventBus {
 
   static removeSettingsKeyComb() {
     GlobalEventBus.offKeyCombination(keyCombToSetting)
+  }
+
+  /* -------------------------------------------------------------------------- */
+  /*                                   Actions                                  */
+  /* -------------------------------------------------------------------------- */
+  static emitActionSelected(action: string) {
+    GlobalEventBus.emitter.emit(EVENT_ACTION_SELECTED, action)
+  }
+
+  static onActionSelected(handler: (action: string) => void) {
+    GlobalEventBus.emitter.on(EVENT_ACTION_SELECTED, handler)
+  }
+
+  static offActionSelected(handler: (action: string) => void) {
+    GlobalEventBus.emitter.off(EVENT_ACTION_SELECTED, handler)
   }
 }

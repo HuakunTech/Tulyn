@@ -1,4 +1,5 @@
 import { appDataDir, join } from "@tauri-apps/api/path"
+import WorkerExt from "~/pages/worker-ext.vue"
 import { AllJarvisPermission } from "jarvis-api/models"
 // import { z } from "zod"
 import { object, record, string, type InferOutput } from "valibot"
@@ -54,4 +55,10 @@ export const PERMISSIONS_EXPLANATION: PermissionExplain = {
     displayName: "Write File System",
     description: "Write files and directories to the file system."
   }
+}
+
+export const HTMLElementId = {
+  MainSearchInput: "main-search-input",
+  ActionPanelInputId: "action-panel-input",
+  WorkerExtInputId: "worker-ext-input"
 }

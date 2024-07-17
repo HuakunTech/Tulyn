@@ -2,6 +2,7 @@
 import CmdInput from "@/components/cmd-palette/CommandInput.vue"
 import ExtTemplateListView from "@/components/ExtTemplate/ListView.vue"
 import { Command } from "@/components/ui/command"
+import { HTMLElementId } from "@/lib/constants"
 import { $appState } from "@/lib/stores/appState"
 import { expose, type Remote } from "@huakunshen/comlink"
 import { useStore } from "@nanostores/vue"
@@ -10,6 +11,7 @@ import { join } from "@tauri-apps/api/path"
 import { exists, readTextFile } from "@tauri-apps/plugin-fs"
 import { onKeyStroke } from "@vueuse/core"
 import { loadManifest } from "~/lib/commands/extensions"
+import { GlobalEventBus } from "~/lib/utils/events"
 import {
   constructJarvisServerAPIWithPermissions,
   exposeApiToWorker,
@@ -29,9 +31,20 @@ let workerAPI: Remote<IWorkerExtensionBase> | undefined = undefined
 const loading = ref(false)
 const viewContent = ref<ListSchema.List>()
 const extStore = useExtStore()
-
-onKeyStroke("Escape", () => navigateTo("/"))
+const cmdInputRef = ref<null | HTMLInputElement>(null)
 const appUiStore = useAppUiStore()
+const searchTerm = ref("")
+
+onKeyStroke("Escape", () => {
+  if (document.activeElement?.nodeName === "INPUT") {
+    if (document.activeElement.id === HTMLElementId.WorkerExtInputId) {
+      return navigateTo("/")
+    } else if (document.activeElement.id === HTMLElementId.ActionPanelInputId) {
+      // if this escape is used to close action panel actions combobox, then focus back to worker extension search input box
+      cmdInputRef.value?.focus()
+    }
+  }
+})
 
 function render(view: ListSchema.List) {
   viewContent.value = view
@@ -39,6 +52,11 @@ function render(view: ListSchema.List) {
 
 function setScrollLoading(_loading: boolean) {
   loading.value = _loading
+}
+
+function onActionSelected(actionVal: string) {
+  workerAPI?.onActionSelected(actionVal)
+  cmdInputRef.value?.focus() // Focus back to worker extension search input box
 }
 
 onMounted(async () => {
@@ -83,13 +101,21 @@ onMounted(async () => {
   // exposeApiToWorker(worker, { render }) // Expose render function to worker
   workerAPI = wrap<IWorkerExtensionBase>(worker) // Call worker exposed APIs
   await workerAPI.load()
+
+  cmdInputRef.value = document.getElementById(
+    HTMLElementId.WorkerExtInputId
+  ) as HTMLInputElement | null
+
+  GlobalEventBus.onActionSelected(onActionSelected)
+})
+
+onUnmounted(() => {
+  GlobalEventBus.offActionSelected(onActionSelected)
 })
 
 function onSearchTermChange(searchTerm: string) {
   workerAPI?.onSearchTermChange(searchTerm)
 }
-
-const searchTerm = ref("")
 
 function filterFunction(items: ListSchema.Item[], searchTerm: string) {
   return items.filter((item) => {
@@ -135,7 +161,7 @@ watch(highlightedItemValue, (newVal, oldVal) => {
     :filterFunction="(items, term) => filterFunction(items as ListSchema.Item[], term)"
   >
     <CmdInput
-      id="worker-ext-search-input"
+      :id="HTMLElementId.WorkerExtInputId"
       class="h-12 text-md"
       placeholder="Search for apps or commands..."
     >

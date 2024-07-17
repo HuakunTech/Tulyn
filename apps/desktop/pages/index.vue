@@ -9,7 +9,7 @@ import {
   CommandSeparator,
   CommandShortcut
 } from "@/components/ui/command"
-import { getExtensionsFolder } from "@/lib/constants"
+import { getExtensionsFolder, HTMLElementId } from "@/lib/constants"
 import { AppsExtension } from "@/lib/extension/apps"
 import type { IExtensionBase } from "@/lib/extension/base"
 import { BuiltinCmds } from "@/lib/extension/builtin"
@@ -28,15 +28,7 @@ import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"
 import { os } from "jarvis-api/ui"
 import { getClipboardHistory } from "tauri-plugin-jarvis-api/commands"
 import { optional, parse, string } from "valibot"
-import { toast } from "vue-sonner"
 
-useRegisterAppShortcuts()
-  .then((hotkeyStr) => toast.success(`Shortcuts registered (${hotkeyStr})`))
-  .catch((err) => {
-    console.warn(err)
-    warn(err.message)
-  })
-usePreventExit()
 const appConfig = useStore($appConfig)
 const appExt = new AppsExtension()
 const sysCmdExt = new SystemCommandExtension()
@@ -126,7 +118,7 @@ watch(highlightedItemValue, (newVal, oldVal) => {
       v-model:selected-value="highlightedItemValue"
     >
       <CommandInput
-        id="main-search-input"
+        :id="HTMLElementId.MainSearchInput"
         class="h-12 text-md"
         placeholder="Search for apps or commands..."
       />

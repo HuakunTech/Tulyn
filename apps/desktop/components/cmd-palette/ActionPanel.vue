@@ -9,8 +9,10 @@ import {
   CommandList
 } from "@/components/ui/command"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { HTMLElementId } from "@/lib/constants"
 import { useAppUiStore } from "@/stores/ui"
 import { Icon } from "@iconify/vue"
+import { GlobalEventBus } from "~/lib/utils/events"
 import { ref } from "vue"
 
 const appUiStore = useAppUiStore()
@@ -28,7 +30,8 @@ watch(escape, (val) => {
   }
 })
 function onActionSelected(val: string) {
-  console.log("select action", val)
+  GlobalEventBus.emitActionSelected(val)
+  open.value = false
 }
 </script>
 
@@ -45,7 +48,11 @@ function onActionSelected(val: string) {
     </PopoverTrigger>
     <PopoverContent class="w-[200px] p-0">
       <Command @update:model-value="(v) => onActionSelected(v as string)">
-        <CommandInput class="h-9" placeholder="Pick Action..." id="action-panel-input" />
+        <CommandInput
+          class="h-9"
+          placeholder="Pick Action..."
+          :id="HTMLElementId.ActionPanelInputId"
+        />
         <CommandEmpty>No action found.</CommandEmpty>
         <CommandList>
           <CommandItem

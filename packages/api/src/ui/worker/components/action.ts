@@ -8,10 +8,12 @@ export class Action implements ActionSchema.Action, IComponent<ActionSchema.Acti
   nodeName: NodeName = NodeNameEnum.Action
   icon?: Icon
   title: string
+  value?: string
 
   constructor(model: IconConstructorPatch<ActionSchema.Action>) {
     this.icon = model.icon
     this.title = model.title
+    this.value = model.value
   }
 
   toModel(): {

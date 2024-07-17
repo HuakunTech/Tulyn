@@ -20,7 +20,8 @@ import { Icon } from "../../../models/icon"
 export const Action = object({
   nodeName: NodeName,
   icon: optional(Icon),
-  title: string()
+  title: string(),
+  value: optional(string())
   //   shortcut: optional(string())
 })
 export type Action = InferOutput<typeof Action>
