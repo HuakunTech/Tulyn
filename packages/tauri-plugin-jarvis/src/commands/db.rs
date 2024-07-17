@@ -172,6 +172,7 @@ pub async fn get_extension_data_by_id(
 #[tauri::command]
 pub async fn search_extension_data(
     ext_id: i32,
+    search_exact_match: bool,
     data_type: Option<&str>,
     search_text: Option<&str>,
     after_created_at: Option<&str>,
@@ -183,6 +184,7 @@ pub async fn search_extension_data(
         .unwrap()
         .search_extension_data(
             ext_id,
+            search_exact_match,
             data_type,
             search_text,
             after_created_at,

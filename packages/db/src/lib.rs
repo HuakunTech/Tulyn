@@ -223,6 +223,7 @@ impl JarvisDB {
     pub fn search_extension_data(
         &self,
         ext_id: i32,
+        search_exact_match: bool,
         data_type: Option<&str>,
         search_text: Option<&str>,
         after_created_at: Option<&str>,
@@ -242,10 +243,18 @@ impl JarvisDB {
             param_index += 1;
         }
 
-        if let Some(st) = search_text {
-            query.push_str(&format!(" AND search_text LIKE ?{}", param_index));
-            params.push(Box::new(format!("%{}%", st)));
-            param_index += 1;
+        if search_exact_match {
+            if let Some(st) = search_text {
+                query.push_str(&format!(" AND search_text = ?{}", param_index));
+                params.push(Box::new(st));
+                param_index += 1;
+            }
+        } else {
+            if let Some(st) = search_text {
+                query.push_str(&format!(" AND search_text LIKE ?{}", param_index));
+                params.push(Box::new(format!("%{}%", st)));
+                param_index += 1;
+            }
         }
 
         if let Some(after) = after_created_at {

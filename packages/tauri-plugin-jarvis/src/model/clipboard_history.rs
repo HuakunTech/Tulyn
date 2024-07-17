@@ -51,7 +51,7 @@ impl ClipboardHistory {
     pub fn get_all_records(&self) -> anyhow::Result<Vec<Record>> {
         let jdb = self.jarvis_db.lock().unwrap();
         let db_records =
-            jdb.search_extension_data(self.clipboard_ext_id, None, None, None, None)?;
+            jdb.search_extension_data(self.clipboard_ext_id, false, None, None, None, None)?;
         let mut records = vec![];
         for r in db_records {
             match crate::utils::time::sqlite_timestamp_to_unix_timestamp(&r.created_at) {

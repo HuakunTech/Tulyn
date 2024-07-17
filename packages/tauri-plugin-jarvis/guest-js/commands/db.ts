@@ -109,8 +109,9 @@ export function getExtensionDataById(dataId: number) {
   }).then(convertRawExtDataToExtData)
 }
 
-export function searchExtensionData(data: {
+export function searchExtensionData(searchParams: {
   extId: number
+  searchExactMatch: boolean
   dataType?: string
   searchText?: string
   afterCreatedAt?: string
@@ -121,7 +122,7 @@ export function searchExtensionData(data: {
       createdAt: string
       updatedAt: string
     })[]
-  >(generateJarvisPluginCommand("search_extension_data"), data).then((items) =>
+  >(generateJarvisPluginCommand("search_extension_data"), searchParams).then((items) =>
     items.map(convertRawExtDataToExtData)
   )
 }

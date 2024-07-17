@@ -25,8 +25,9 @@ export async function testDBCommands() {
   // await db.updateExtensionDataById({ dataId: data?.dataId, data: "huakun chao ji shuai 66666", searchText: "haoshuai a 6666" })
   const searchRes = await db.searchExtensionData({
     extId: ext.extId,
+    searchExactMatch: true,
     // dataType: "Html",
-    searchText: "created"
+    searchText: "createdAt"
     // afterCreatedAt?: string
     // beforeCreatedAt?: string
   })
