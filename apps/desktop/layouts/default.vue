@@ -5,8 +5,9 @@ import { $appConfig, LightMode, setLightMode, setRadius, setTheme } from "@/lib/
 import { allColors } from "@/lib/themes/themes"
 import { useStore } from "@nanostores/vue"
 import type { UnlistenFn } from "@tauri-apps/api/event"
-import { attachConsole, debug, warn } from "@tauri-apps/plugin-log"
+import { attachConsole, debug, error, info, warn } from "@tauri-apps/plugin-log"
 import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"
+import { installBun } from "~/lib/utils/runtime"
 import { toast } from "vue-sonner"
 
 const colorMode = useColorMode() // auto set html class to dark is in dark mode
@@ -21,6 +22,14 @@ useRegisterAppShortcuts()
 usePreventExit()
 
 onMounted(async () => {
+  installBun()
+    .then((bunVersion) => {
+      info(`Bun installed (${bunVersion})`)
+    })
+    .catch((err) => {
+      warn(err.message)
+      // toast.error(err.message)
+    })
   detach = await attachConsole()
   /* -------------------------------------------------------------------------- */
   /*                            Theme and Style Init                            */

@@ -76,6 +76,8 @@ export interface IToastServer {
   toastError: typeof toast.error
 }
 
+export interface IDbServer {}
+
 export interface ISystemServer {
   systemOpenTrash: ISystem["openTrash"]
   systemEmptyTrash: ISystem["emptyTrash"]

@@ -1,4 +1,5 @@
 import { invoke } from "@tauri-apps/api/core"
+import { date, number, object, string, type InferOutput } from "valibot"
 import { generateJarvisPluginCommand } from "../common"
 import type { CmdType, Ext, ExtData } from "../models/extension"
 
@@ -98,4 +99,37 @@ export function updateExtensionDataById(data: {
   searchText?: string
 }) {
   return invoke(generateJarvisPluginCommand("update_extension_data_by_id"), data)
+}
+
+export const ExtDataItem = object({
+  dataId: number(),
+  extId: number(),
+  dataType: string(),
+  data: string(),
+  searchText: string(),
+  createdAt: date(),
+  updatedAt: date()
+})
+export type ExtDataItem = InferOutput<typeof ExtDataItem>
+
+export class JarvisExtDB {
+  async add(searchText: string, value: string, dataType: string): Promise<void> {
+    return
+  }
+
+  async get<T>(key: string): Promise<T | null> {
+    return null
+  }
+
+  async delete(key: string): Promise<boolean> {
+    return false
+  }
+
+  async entries<T>(): Promise<Array<[key: string, value: T]>> {
+    return []
+  }
+
+  async length(): Promise<number> {
+    return 0
+  }
 }

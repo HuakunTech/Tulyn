@@ -12,8 +12,8 @@ import { setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
 import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
+import { arch, platform } from "@tauri-apps/plugin-os"
 import { useListenToWindowBlur } from "~/composables/useEvents"
-import { os } from "jarvis-api/ui"
 import { ComboboxInput } from "radix-vue"
 
 const appConfig = useStore($appConfig)
@@ -57,11 +57,9 @@ watch(searchTermInSync, (val) => {
 })
 
 onMounted(() => {
-  os.platform().then((platform) => {
-    if (platform !== "macos") {
-      appWindow.setDecorations(false)
-    }
-  })
+  if (platform() !== "macos") {
+    appWindow.setDecorations(false)
+  }
   Promise.all(exts.map((ext) => ext.load()))
 })
 

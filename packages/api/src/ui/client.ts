@@ -49,6 +49,8 @@ export interface IUi {
   setScrollLoading: PromiseWrap<IUiServer["setScrollLoading"]>
 }
 
+export interface IDb {}
+
 // const getWorkerApi = () => getWorkerApiClient<IJarvisFullAPI>()
 // const getIframeApi = () => getWindowApiClient<IJarvisFullAPI>(window.parent)
 // export const defaultClientAPI: Remote<IJarvisFullAPI> = isInIframe()
