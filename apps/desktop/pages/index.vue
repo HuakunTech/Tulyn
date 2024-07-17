@@ -23,6 +23,7 @@ import { useExtStore } from "@/stores/ext"
 import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
 import { debug, warn } from "@tauri-apps/plugin-log"
+import { sendNotification } from "@tauri-apps/plugin-notification"
 import { useListenToWindowBlur, usePreventExit } from "~/composables/useEvents"
 import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"
 import { os } from "jarvis-api/ui"
@@ -67,11 +68,12 @@ watch(searchTermInSync, (val) => {
   }, 100)
 })
 
-onMounted(async () => {
-  const platform = await os.platform()
-  if (platform !== "macos") {
-    appWindow.setDecorations(false)
-  }
+onMounted(() => {
+  os.platform().then((platform) => {
+    if (platform !== "macos") {
+      appWindow.setDecorations(false)
+    }
+  })
   Promise.all(exts.map((ext) => ext.load()))
 })
 

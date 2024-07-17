@@ -1,6 +1,6 @@
 use log::error;
 use std::time::SystemTime;
-use tauri::{AppHandle, Manager, Runtime};
+use tauri::{AppHandle, Emitter, Listener, Manager, Runtime};
 use tauri_plugin_jarvis::model::clipboard_history;
 use tokio::sync::broadcast::{Receiver, Sender};
 

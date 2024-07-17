@@ -1,3 +1,4 @@
+import { platform } from "@tauri-apps/plugin-os"
 import { os } from "jarvis-api/ui"
 import { computed, map } from "nanostores"
 import { AppInfo } from "tauri-plugin-jarvis-api/models"
@@ -27,7 +28,7 @@ export const $appState = map<AppState>({
   platform: "macos"
 })
 
-os.platform().then((platform) => {
+platform().then((platform) => {
   $appState.setKey("platform", platform)
 })
 
