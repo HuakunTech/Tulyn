@@ -48,11 +48,12 @@ function hackerNewsItemToListItem(item: HackerNewsItem, idx: number): List.Item 
         text: `${item.score}`
       })
     ],
+    defaultAction: "Open",
     actions: new Action.ActionPanel({
       items: [
         new Action.Action({
           title: "Open",
-          icon: new Icon({ type: IconEnum.Iconify, value: "mdi:web" })
+          icon: new Icon({ type: IconEnum.Iconify, value: "ion:open-outline" })
         })
       ]
     })

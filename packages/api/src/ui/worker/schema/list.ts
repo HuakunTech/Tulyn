@@ -145,6 +145,7 @@ export const Item = object({
   subTitle: optional(string()),
   accessories: optional(array(ItemAccessory)),
   value: string(),
+  defaultAction: optional(string()),
   actions: optional(ActionSchema.ActionPanel),
   detail: optional(ItemDetail),
   icon: optional(Icon),

@@ -24,6 +24,7 @@ import {
   wrap,
   type IWorkerExtensionBase
 } from "jarvis-api/ui/worker"
+import type { ComboboxInput } from "radix-vue"
 import { toast } from "vue-sonner"
 
 const appState = useStore($appState)
@@ -31,18 +32,20 @@ let workerAPI: Remote<IWorkerExtensionBase> | undefined = undefined
 const loading = ref(false)
 const viewContent = ref<ListSchema.List>()
 const extStore = useExtStore()
-const cmdInputRef = ref<null | HTMLInputElement>(null)
+const cmdInputRef = ref<InstanceType<typeof ComboboxInput> | null>(null)
 const appUiStore = useAppUiStore()
 const searchTerm = ref("")
+const workerExtInputEle = computed(() => cmdInputRef.value?.$el.querySelector("input"))
+
+useListenToWindowFocus(() => {
+  workerExtInputEle.value.focus()
+})
 
 onKeyStroke("Escape", () => {
-  if (document.activeElement?.nodeName === "INPUT") {
-    if (document.activeElement.id === HTMLElementId.WorkerExtInputId) {
-      return navigateTo("/")
-    } else if (document.activeElement.id === HTMLElementId.ActionPanelInputId) {
-      // if this escape is used to close action panel actions combobox, then focus back to worker extension search input box
-      cmdInputRef.value?.focus()
-    }
+  if (document.activeElement === workerExtInputEle.value) {
+    return navigateTo("/")
+  } else {
+    workerExtInputEle.value.focus()
   }
 })
 
@@ -55,8 +58,8 @@ function setScrollLoading(_loading: boolean) {
 }
 
 function onActionSelected(actionVal: string) {
+  workerExtInputEle.value.focus() // Focus back to worker extension search input box
   workerAPI?.onActionSelected(actionVal)
-  cmdInputRef.value?.focus() // Focus back to worker extension search input box
 }
 
 onMounted(async () => {
@@ -102,10 +105,7 @@ onMounted(async () => {
   workerAPI = wrap<IWorkerExtensionBase>(worker) // Call worker exposed APIs
   await workerAPI.load()
 
-  cmdInputRef.value = document.getElementById(
-    HTMLElementId.WorkerExtInputId
-  ) as HTMLInputElement | null
-
+  // cmdInputRef.value = document.getElementById(HTMLElementId.WorkerExtInputId) as HTMLElement | null
   GlobalEventBus.onActionSelected(onActionSelected)
 })
 
@@ -133,8 +133,9 @@ function filterFunction(items: ListSchema.Item[], searchTerm: string) {
 
 function onHighlightedItemChanged(itemValue: string) {
   workerAPI?.onHighlightedItemChanged(itemValue)
-  const itemActions = viewContent.value?.items?.find((item) => item.value === itemValue)?.actions
-  appUiStore.setActionPanel(itemActions)
+  const item = viewContent.value?.items?.find((item) => item.value === itemValue)
+  appUiStore.setActionPanel(item?.actions)
+  appUiStore.setDefaultAction(item?.defaultAction)
 }
 
 /* ------ Preserve highlighted item when mouse moves away from the list ----- */
@@ -162,6 +163,7 @@ watch(highlightedItemValue, (newVal, oldVal) => {
   >
     <CmdInput
       :id="HTMLElementId.WorkerExtInputId"
+      ref="cmdInputRef"
       class="h-12 text-md"
       placeholder="Search for apps or commands..."
     >

@@ -4,7 +4,7 @@ import { object, optional, string, type InferOutput } from "valibot"
 
 export const UiStateSchema = object({
   actionPanel: optional(ActionSchema.ActionPanel),
-  defaultAction: optional(ActionSchema.Action)
+  defaultAction: optional(string())
 })
 export type UiState = InferOutput<typeof UiStateSchema>
 
@@ -17,7 +17,7 @@ export const useAppUiStore = defineStore("app-ui-store", {
     setActionPanel(actionPanel?: ActionSchema.ActionPanel) {
       this.actionPanel = actionPanel
     },
-    setDefaultAction(defaultAction?: ActionSchema.Action) {
+    setDefaultAction(defaultAction?: string) {
       this.defaultAction = defaultAction
     }
   }

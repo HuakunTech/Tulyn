@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Kbd from "@/components/Kbd.vue"
 import { Button } from "@/components/ui/button"
 import {
   Command,
@@ -41,8 +42,8 @@ function onActionSelected(val: string) {
       <Button variant="ghost" role="combobox" :aria-expanded="open" class="justify-between gap-2">
         <span>Action</span>
         <span class="flex items-center gap-0.5">
-          <Icon icon="ph-command" />
-          <kbd>K</kbd>
+          <Kbd><Icon icon="ph-command" class="h-4 w-4 shrink-0" /></Kbd>
+          <Kbd>K</Kbd>
         </span>
       </Button>
     </PopoverTrigger>
