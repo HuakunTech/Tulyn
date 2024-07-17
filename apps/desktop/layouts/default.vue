@@ -17,7 +17,6 @@ useRegisterAppShortcuts()
   .then((hotkeyStr) => toast.success(`Shortcuts registered (${hotkeyStr})`))
   .catch((err) => {
     console.warn(err)
-    warn(err.message)
   })
 usePreventExit()
 

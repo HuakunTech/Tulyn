@@ -296,7 +296,7 @@ export const rawSystemCommands = [
 
 export async function getSystemCommands(): Promise<TCommand[]> {
   return rawSystemCommands
-    .filter(async (cmd) => cmd.platforms.includes(await platform())) // Filter out system commands that are not supported on the current platform
+    .filter(async (cmd) => cmd.platforms.includes(platform())) // Filter out system commands that are not supported on the current platform
     .map((cmd) => ({
       name: cmd.name,
       value: "system-cmd" + cmd.name.split(" ").join("-").toLowerCase(),

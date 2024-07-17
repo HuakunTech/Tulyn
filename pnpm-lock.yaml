@@ -103,8 +103,8 @@ importers:
         specifier: 2.0.0-beta.3
         version: 2.0.0-beta.3
       '@tauri-apps/plugin-global-shortcut':
-        specifier: 2.0.0-beta.3
-        version: 2.0.0-beta.3
+        specifier: 2.0.0-beta.7
+        version: 2.0.0-beta.7
       '@tauri-apps/plugin-http':
         specifier: 2.0.0-beta.3
         version: 2.0.0-beta.3
@@ -115,8 +115,8 @@ importers:
         specifier: 2.0.0-beta.3
         version: 2.0.0-beta.3
       '@tauri-apps/plugin-os':
-        specifier: 2.0.0-beta.3
-        version: 2.0.0-beta.3
+        specifier: 2.0.0-beta.7
+        version: 2.0.0-beta.7
       '@tauri-apps/plugin-process':
         specifier: 2.0.0-beta.4
         version: 2.0.0-beta.4
@@ -386,8 +386,8 @@ importers:
         specifier: 2.0.0-beta.3
         version: 2.0.0-beta.3
       '@tauri-apps/plugin-os':
-        specifier: 2.0.0-beta.3
-        version: 2.0.0-beta.3
+        specifier: 2.0.0-beta.7
+        version: 2.0.0-beta.7
       '@tauri-apps/plugin-store':
         specifier: 2.0.0-beta.3
         version: 2.0.0-beta.3
@@ -573,8 +573,8 @@ importers:
         specifier: 2.0.0-beta.4
         version: 2.0.0-beta.4
       '@tauri-apps/plugin-os':
-        specifier: 2.0.0-beta.3
-        version: 2.0.0-beta.3
+        specifier: 2.0.0-beta.7
+        version: 2.0.0-beta.7
     devDependencies:
       '@rollup/plugin-typescript':
         specifier: ^11.1.6
@@ -613,8 +613,8 @@ importers:
         specifier: 2.0.0-beta.5
         version: 2.0.0-beta.5
       '@tauri-apps/plugin-os':
-        specifier: 2.0.0-beta.5
-        version: 2.0.0-beta.5
+        specifier: 2.0.0-beta.7
+        version: 2.0.0-beta.7
       '@tauri-apps/plugin-shell':
         specifier: 2.0.0-beta.6
         version: 2.0.0-beta.6
@@ -3517,6 +3517,10 @@ packages:
     resolution: {integrity: sha512-YLYgHqdwWswr4Y70+hRzaLD6kLIUgHhE3shLXNquPiTaQ9+cX3Q2dB0AFfqsua6NXYFNe7LfkmMzaqEzqv3yQg==}
     engines: {node: '>= 18.18', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
 
+  '@tauri-apps/api@2.0.0-beta.15':
+    resolution: {integrity: sha512-H9w6iISmR+NvH4XuyCZB4zDN10tf9RFt6i/9JHEjaRhAowdAaJ+oiXq/3kedizNClHMtbTQ5j0oqDVPkZDAI8g==}
+    engines: {node: '>= 18.18', npm: '>= 6.6.0', yarn: '>= 1.19.1'}
+
   '@tauri-apps/cli-darwin-arm64@2.0.0-beta.17':
     resolution: {integrity: sha512-N69Udn+Kw7QqhOMOmlmuhG/0WPz7g5LNOGRAvDEaBJLUneu2o3iUAC1HIMDF/MffTiJClcCPmDtbcSkr6glf9w==}
     engines: {node: '>= 10'}
@@ -3597,6 +3601,9 @@ packages:
   '@tauri-apps/plugin-global-shortcut@2.0.0-beta.3':
     resolution: {integrity: sha512-oPb5Ey0OcVjRbfE6l7GiUxSgHDNcGbOLWfk3N/ASGGWiCCvLqCzVsUrCQD+npmbS7Aey94pIXEEvbx4UgmwZKA==}
 
+  '@tauri-apps/plugin-global-shortcut@2.0.0-beta.7':
+    resolution: {integrity: sha512-DKBBygn/QzqpVGD0yoy13t/oP8kV7AqnUOnVZ8X3rw+J2xdBhkPbhVDZDP0uws2Wdrh3jsHqAPHbyVbgVe3y9w==}
+
   '@tauri-apps/plugin-http@2.0.0-beta.3':
     resolution: {integrity: sha512-TsSFQje2F3Sy5FYuOV+TcgtlvpO9FVdODGT/dJQa+kq/a8Ocel6V57Emj2FiCIyhOJ84us+MiMbQWR1GTfa+mQ==}
 
@@ -3615,11 +3622,8 @@ packages:
   '@tauri-apps/plugin-notification@2.0.0-beta.5':
     resolution: {integrity: sha512-5zYK2aT1ZvR+LnuwsnTvg28iEhI7FiZSPvBqQ8y6fj28T4oIHVox19Pk4YRyTyfyJN1nZclXxVAqWLSXLI9SKQ==}
 
-  '@tauri-apps/plugin-os@2.0.0-beta.3':
-    resolution: {integrity: sha512-kuTfns6z7z/RKAqij3293fnSsgRHlogO/SzNWziFDGHpijGUm/peH70Cv45LKvHw+7kEMX+nfHFWOZm8UEVy/w==}
-
-  '@tauri-apps/plugin-os@2.0.0-beta.5':
-    resolution: {integrity: sha512-Qfs/clZ9R05J+OVOGkko+9OaYaL+xJaGICeQ1G5CnLFpUdTfMV10D+1nBBauxDdiLU4ay5I0iprJ5aG5GJBunQ==}
+  '@tauri-apps/plugin-os@2.0.0-beta.7':
+    resolution: {integrity: sha512-CHo09ecxUU0NFkAqctXeQzdaXw02EXulqcaZnbjrBfRJ2ulmGq7zaUCsHihfcqWcdnmNwmP9Wh/gyznMc1JF9Q==}
 
   '@tauri-apps/plugin-process@2.0.0-beta.4':
     resolution: {integrity: sha512-VAmUISa8rntcWl0Ci3GjjAPBymrzP5HqQSm9Qf3rjqhDcJMPpqis8PqLKjw1j7L0b836TdRYcw3vgWp6bDjjKw==}
@@ -13766,6 +13770,8 @@ snapshots:
 
   '@tauri-apps/api@2.0.0-beta.14': {}
 
+  '@tauri-apps/api@2.0.0-beta.15': {}
+
   '@tauri-apps/cli-darwin-arm64@2.0.0-beta.17':
     optional: true
 
@@ -13829,6 +13835,10 @@ snapshots:
     dependencies:
       '@tauri-apps/api': 2.0.0-beta.11
 
+  '@tauri-apps/plugin-global-shortcut@2.0.0-beta.7':
+    dependencies:
+      '@tauri-apps/api': 2.0.0-beta.15
+
   '@tauri-apps/plugin-http@2.0.0-beta.3':
     dependencies:
       '@tauri-apps/api': 2.0.0-beta.11
@@ -13853,13 +13863,9 @@ snapshots:
     dependencies:
       '@tauri-apps/api': 2.0.0-beta.13
 
-  '@tauri-apps/plugin-os@2.0.0-beta.3':
+  '@tauri-apps/plugin-os@2.0.0-beta.7':
     dependencies:
-      '@tauri-apps/api': 2.0.0-beta.11
-
-  '@tauri-apps/plugin-os@2.0.0-beta.5':
-    dependencies:
-      '@tauri-apps/api': 2.0.0-beta.13
+      '@tauri-apps/api': 2.0.0-beta.15
 
   '@tauri-apps/plugin-process@2.0.0-beta.4':
     dependencies:

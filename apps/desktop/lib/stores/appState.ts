@@ -25,11 +25,7 @@ export type AppState = InferOutput<typeof appStateSchema>
 export const $appState = map<AppState>({
   searchTerm: "",
   // allApps: [],
-  platform: "macos"
-})
-
-platform().then((platform) => {
-  $appState.setKey("platform", platform)
+  platform: platform()
 })
 
 export function setSearchTerm(searchTerm: string) {
