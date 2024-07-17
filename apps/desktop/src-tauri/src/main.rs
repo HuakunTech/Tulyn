@@ -103,7 +103,7 @@ fn main() {
             let jarvis_db = JarvisDB::new(db_path.clone(), db_key.clone())?;
             // The clipboard extension should be created in setup_db, ext is guaranteed to be Some
             let ext = jarvis_db.get_extension_by_identifier(
-                tauri_plugin_jarvis::constants::JARVIS_CLIPBOARD_IDENTIFIER,
+                tauri_plugin_jarvis::constants::JARVIS_CLIPBOARD_EXT_IDENTIFIER,
             )?;
             app.manage(
                 tauri_plugin_jarvis::model::clipboard_history::ClipboardHistory::new(

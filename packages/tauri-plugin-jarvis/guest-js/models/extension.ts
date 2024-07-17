@@ -1,4 +1,14 @@
-import { boolean, enum_, number, object, optional, record, string, type InferOutput } from "valibot"
+import {
+  boolean,
+  date,
+  enum_,
+  number,
+  object,
+  optional,
+  record,
+  string,
+  type InferOutput
+} from "valibot"
 
 /**
  * Map window label to extension
@@ -12,25 +22,27 @@ export const ExtensionLabelMap = record(
 export type ExtensionLabelMap = InferOutput<typeof ExtensionLabelMap>
 
 export const Ext = object({
-  ext_id: number(),
+  extId: number(),
   identifier: string(),
   version: string(),
   enabled: boolean(),
   installed_at: string()
 })
 export type Ext = InferOutput<typeof Ext>
+
 export enum CmdTypeEnum {
   Iframe = "iframe",
   Worker = "worker",
   QuickLink = "quick_link"
 }
+
 export const CmdType = enum_(CmdTypeEnum)
 export type CmdType = InferOutput<typeof CmdType>
 export const ExtCmd = object({
-  cmd_id: number(),
-  ext_id: number(),
+  cmdId: number(),
+  extId: number(),
   name: string(),
-  type_: CmdType,
+  type: CmdType,
   data: string(),
   alias: optional(string()),
   hotkey: optional(string()),
@@ -39,12 +51,12 @@ export const ExtCmd = object({
 export type ExtCmd = InferOutput<typeof ExtCmd>
 
 export const ExtData = object({
-  data_id: number(),
-  ext_id: number(),
-  data_type: string(),
+  dataId: number(),
+  extId: number(),
+  dataType: string(),
   data: string(),
-  search_text: optional(string()),
-  created_at: string(),
-  updated_at: string()
+  searchText: string(),
+  createdAt: date(),
+  updatedAt: date()
 })
 export type ExtData = InferOutput<typeof ExtData>

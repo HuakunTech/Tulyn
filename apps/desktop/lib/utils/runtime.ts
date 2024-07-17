@@ -42,7 +42,6 @@ export async function bunExists(): Promise<boolean> {
 
 export async function getBunVersion(): Promise<string> {
   let bunExePath = await getBunExePath()
-  console.log(`bunExePath: ${bunExePath}`)
   let output: ChildProcess<string> = await Command.create(bunExePath, ["--version"]).execute()
   if (output.code !== 0) {
     throw new Error(`Fail to get bun version, error: ${output.stderr}`)
@@ -60,7 +59,6 @@ export async function installBun(
 ): Promise<string> {
   const bunInstallPath = await getBunInstallPath()
   const bunExePath = await getBunExePath()
-  await debug(`getBunExePath: ${getBunExePath}`)
   if (await exists(bunExePath)) {
     if (options.overwrite) {
       await remove(bunInstallPath, { recursive: true })

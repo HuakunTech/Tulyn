@@ -41,7 +41,6 @@ export default defineNuxtConfig({
   // app: {
   //   pageTransition: { name: "page", mode: "out-in" },
   // },
-  alias: { "@jarvis-plugin": "../../../packages/tauri-plugin-jarvis/guest-js" },
 
   runtimeConfig: {
     public: {

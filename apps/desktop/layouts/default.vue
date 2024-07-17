@@ -6,6 +6,7 @@ import { allColors } from "@/lib/themes/themes"
 import { useStore } from "@nanostores/vue"
 import type { UnlistenFn } from "@tauri-apps/api/event"
 import { attachConsole, debug, error, info, warn } from "@tauri-apps/plugin-log"
+import { testDBCommands } from "~/lib/dev/exp"
 import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"
 import { getBunVersion, installBun } from "~/lib/utils/runtime"
 import { Command } from "tauri-plugin-shellx-api"
@@ -24,6 +25,7 @@ useRegisterAppShortcuts()
 usePreventExit()
 
 onMounted(async () => {
+  testDBCommands()
   installBun()
     .then((bunVersion) => {
       info(`Bun installed (${bunVersion})`)

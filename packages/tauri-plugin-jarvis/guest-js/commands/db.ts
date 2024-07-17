@@ -1,10 +1,11 @@
 import { invoke } from "@tauri-apps/api/core"
-import { date, number, object, string, type InferOutput } from "valibot"
+import { safeParse } from "valibot"
 import { generateJarvisPluginCommand } from "../common"
-import type { CmdType, Ext, ExtData } from "../models/extension"
+import { CmdType, Ext, ExtData } from "../models/extension"
 
 /* -------------------------------------------------------------------------- */
 /*                               Extension CRUD                               */
+
 /* -------------------------------------------------------------------------- */
 export function createExtension(ext: { identifier: string; version: string }) {
   return invoke<void>(generateJarvisPluginCommand("create_extension"), ext)
@@ -23,8 +24,10 @@ export function getExtensionByIdentifier(identifier: string) {
 export function deleteExtensionByIdentifier(identifier: string) {
   return invoke<void>(generateJarvisPluginCommand("delete_extension_by_identifier"), { identifier })
 }
+
 /* -------------------------------------------------------------------------- */
 /*                           Extension Command CRUD                           */
+
 /* -------------------------------------------------------------------------- */
 export function createCommand(data: {
   extId: number
@@ -63,7 +66,28 @@ export function updateCommandById(data: {
 
 /* -------------------------------------------------------------------------- */
 /*                             Extension Data CRUD                            */
+
 /* -------------------------------------------------------------------------- */
+function convertRawExtDataToExtData(rawData?: {
+  createdAt: string
+  updatedAt: string
+}): ExtData | undefined {
+  if (!rawData) {
+    return rawData
+  }
+  const parsedRes = safeParse(ExtData, {
+    ...rawData,
+    createdAt: new Date(rawData.createdAt),
+    updatedAt: new Date(rawData.updatedAt)
+  })
+  if (parsedRes.success) {
+    return parsedRes.output
+  } else {
+    console.error("Extension Data Parse Failure", parsedRes.issues)
+    throw new Error("Fail to parse extension data")
+  }
+}
+
 export function createExtensionData(data: {
   extId: number
   dataType: string
@@ -74,9 +98,15 @@ export function createExtensionData(data: {
 }
 
 export function getExtensionDataById(dataId: number) {
-  return invoke<ExtData | undefined>(generateJarvisPluginCommand("get_extension_data_by_id"), {
+  return invoke<
+    | (ExtData & {
+        createdAt: string
+        updatedAt: string
+      })
+    | undefined
+  >(generateJarvisPluginCommand("get_extension_data_by_id"), {
     dataId
-  })
+  }).then(convertRawExtDataToExtData)
 }
 
 export function searchExtensionData(data: {
@@ -86,7 +116,14 @@ export function searchExtensionData(data: {
   afterCreatedAt?: string
   beforeCreatedAt?: string
 }) {
-  return invoke<ExtData[]>(generateJarvisPluginCommand("search_extension_data"), data)
+  return invoke<
+    (ExtData & {
+      createdAt: string
+      updatedAt: string
+    })[]
+  >(generateJarvisPluginCommand("search_extension_data"), data).then((items) =>
+    items.map(convertRawExtDataToExtData)
+  )
 }
 
 export function deleteExtensionDataById(dataId: number) {
@@ -100,17 +137,6 @@ export function updateExtensionDataById(data: {
 }) {
   return invoke(generateJarvisPluginCommand("update_extension_data_by_id"), data)
 }
-
-export const ExtDataItem = object({
-  dataId: number(),
-  extId: number(),
-  dataType: string(),
-  data: string(),
-  searchText: string(),
-  createdAt: date(),
-  updatedAt: date()
-})
-export type ExtDataItem = InferOutput<typeof ExtDataItem>
 
 export class JarvisExtDB {
   async add(searchText: string, value: string, dataType: string): Promise<void> {
