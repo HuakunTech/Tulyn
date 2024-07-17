@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "bun scripts/print-schema.ts > manifest-json-schema.json",
+    "postinstall": "npm run build",
     "test": "bun test --coverage",
     "upload-schema-to-supabase": "bun scripts/upload-schema-to-supabase.ts",
     "upload-schema-to-s3": "bun scripts/upload-schema-to-s3.ts",

@@ -27,6 +27,7 @@ import { useListenToWindowBlur, usePreventExit } from "~/composables/useEvents"
 import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"
 import { os } from "jarvis-api/ui"
 import { getClipboardHistory } from "tauri-plugin-jarvis-api/commands"
+import { optional, parse, string } from "valibot"
 import { toast } from "vue-sonner"
 
 useRegisterAppShortcuts()
@@ -105,12 +106,25 @@ onKeyStroke("/", (e) => {
     }
   }
 })
+const highlightedItemValue = ref<string | undefined>()
+watch(highlightedItemValue, (newVal, oldVal) => {
+  if ((!newVal || newVal.length === 0) && oldVal) {
+    setTimeout(() => {
+      highlightedItemValue.value = oldVal
+    }, 1)
+  }
+})
 </script>
 <template>
   <div class="h-full">
     <span class="iconify mdi-light--home"></span>
     <span class="iconify-color vscode-icons--file-type-tailwind"></span>
-    <CmdPaletteCommand class="" v-model:searchTerm="searchTermInSync" :identity-filter="true">
+    <CmdPaletteCommand
+      class=""
+      v-model:searchTerm="searchTermInSync"
+      :identity-filter="true"
+      v-model:selected-value="highlightedItemValue"
+    >
       <CommandInput
         id="main-search-input"
         class="h-12 text-md"

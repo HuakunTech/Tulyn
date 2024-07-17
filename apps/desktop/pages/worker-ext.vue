@@ -110,14 +110,27 @@ function onHighlightedItemChanged(itemValue: string) {
   const itemActions = viewContent.value?.items?.find((item) => item.value === itemValue)?.actions
   appUiStore.setActionPanel(itemActions)
 }
+
+/* ------ Preserve highlighted item when mouse moves away from the list ----- */
+const highlightedItemValue = ref<ListSchema.Item | undefined>()
+watch(highlightedItemValue, (newVal, oldVal) => {
+  if (!newVal && oldVal) {
+    setTimeout(() => {
+      highlightedItemValue.value = oldVal
+    }, 1)
+  }
+  if (newVal) {
+    onHighlightedItemChanged(newVal.value)
+  }
+})
 </script>
 <template>
   <Command
     class=""
     v-model:searchTerm="searchTerm"
     @update:search-term="onSearchTermChange"
-    @update:selected-value="(v) => onHighlightedItemChanged((v as ListSchema.Item).value)"
     @update:model-value="(v) => workerAPI?.onItemSelected((v as ListSchema.Item).value)"
+    v-model:selected-value="highlightedItemValue"
     :identity-filter="false"
     :filterFunction="(items, term) => filterFunction(items as ListSchema.Item[], term)"
   >

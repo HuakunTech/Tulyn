@@ -3,17 +3,22 @@ import { defineStore } from "pinia"
 import { object, optional, string, type InferOutput } from "valibot"
 
 export const UiStateSchema = object({
-  actionPanel: optional(ActionSchema.ActionPanel)
+  actionPanel: optional(ActionSchema.ActionPanel),
+  defaultAction: optional(ActionSchema.Action)
 })
 export type UiState = InferOutput<typeof UiStateSchema>
 
 export const useAppUiStore = defineStore("app-ui-store", {
   state: (): UiState => ({
-    actionPanel: undefined
+    actionPanel: undefined,
+    defaultAction: undefined
   }),
   actions: {
     setActionPanel(actionPanel?: ActionSchema.ActionPanel) {
       this.actionPanel = actionPanel
+    },
+    setDefaultAction(defaultAction?: ActionSchema.Action) {
+      this.defaultAction = defaultAction
     }
   }
 })

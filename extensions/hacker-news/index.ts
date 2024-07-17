@@ -40,7 +40,7 @@ function hackerNewsItemToListItem(item: HackerNewsItem, idx: number): List.Item 
     title: item.title,
     value: item.title,
     subTitle: `${item.by}`,
-    icon: new Icon({ type: IconEnum.Text, value: idx.toString() }),
+    icon: new Icon({ type: IconEnum.Text, value: (idx + 1).toString() }),
     keywords: [item.by],
     accessories: [
       new List.ItemAccessory({
