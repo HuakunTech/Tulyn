@@ -1,6 +1,7 @@
 packages:
   - "apps/*"
   - "packages/*"
+  - "dev/docs"
   - "docs"
   - "vendors/tauri-plugin-clipboard"
   - "vendors/tauri-plugin-network"
