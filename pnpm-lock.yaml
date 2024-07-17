@@ -447,16 +447,6 @@ importers:
         specifier: ^3.23.0
         version: 3.23.0(zod@3.23.8)
 
-  packages/component-schema:
-    dependencies:
-      typescript:
-        specifier: ^5.0.0
-        version: 5.5.2
-    devDependencies:
-      '@types/bun':
-        specifier: latest
-        version: 1.1.6
-
   packages/gql:
     dependencies:
       '@graphql-codegen/client-preset':
