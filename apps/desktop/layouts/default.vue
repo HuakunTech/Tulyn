@@ -22,9 +22,9 @@ useRegisterAppShortcuts()
     console.warn(err)
   })
 usePreventExit()
+useTestDB()
 
 onMounted(async () => {
-  useTestDB()
   installBun()
     .then((bunVersion) => {
       info(`Bun installed (${bunVersion})`)

@@ -19,9 +19,10 @@ export {
 export { comlinkSystem as system } from "../api/system"
 export { comlinkUI as ui } from "../api/ui"
 export { toast } from "../api/toast"
+export { db, convertJarvisExtDBToServerDbAPI } from "../api/db"
 export * from "./ext"
 export { expose, wrap } from "@huakunshen/comlink"
-
+export { type IDbServer } from "../server"
 /* -------------------------------------------------------------------------- */
 /*                             UI Component Schema                            */
 /* -------------------------------------------------------------------------- */

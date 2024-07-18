@@ -139,7 +139,6 @@ export async function searchExtensionData(searchParams: {
   fields?: ExtDataField[]
 }): Promise<ExtData[]> {
   const fields = parse(optional(array(ExtDataField), []), searchParams.fields)
-  console.log("fields", fields)
   let items = await invoke<
     (ExtData & {
       createdAt: string
@@ -177,11 +176,11 @@ export class JarvisExtDB {
     this.extId = extId
   }
 
-  async add(data: string, dataType: string = "default", searchText?: string) {
+  async add(data: { data: string; dataType?: string; searchText?: string }) {
     return createExtensionData({
-      data,
-      dataType,
-      searchText,
+      data: data.data,
+      dataType: data.dataType ?? "default",
+      searchText: data.searchText,
       extId: this.extId
     })
   }
@@ -222,14 +221,29 @@ export class JarvisExtDB {
     })
   }
 
-  retrieveAll(): Promise<ExtData[]> {
-    return this.search({})
+  /**
+   * Retrieve all data of this extension.
+   * Use `search()` method for more advanced search.
+   * @param options optional fields to retrieve. By default, data and searchText are not returned.
+   * @returns
+   */
+  retrieveAll(options: { fields?: ExtDataField[] }): Promise<ExtData[]> {
+    return this.search({ fields: options.fields })
   }
 
+  /**
+   * Retrieve all data of this extension by type.
+   * Use `search()` method for more advanced search.
+   * @param dataType
+   * @returns
+   */
   retrieveAllByType(dataType: string): Promise<ExtData[]> {
     return this.search({ dataType })
   }
 
+  /**
+   * Delete all data of this extension.
+   */
   deleteAll(): Promise<void> {
     return this.search({})
       .then((items) => {
@@ -238,11 +252,18 @@ export class JarvisExtDB {
       .then(() => {})
   }
 
-  async update(dataId: number, data: string, searchText?: string): Promise<void> {
-    const d = await getExtensionDataById(dataId)
+  /**
+   * Update data and searchText of this extension.
+   * @param dataId unique id of the data
+   * @param data
+   * @param searchText
+   * @returns
+   */
+  async update(data: { dataId: number; data: string; searchText?: string }): Promise<void> {
+    const d = await getExtensionDataById(data.dataId)
     if (!d || d.extId !== this.extId) {
       throw new Error("Extension Data not found")
     }
-    return updateExtensionDataById({ dataId, data, searchText })
+    return updateExtensionDataById(data)
   }
 }

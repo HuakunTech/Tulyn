@@ -1,5 +1,8 @@
+import { type JarvisExtDB } from "tauri-plugin-jarvis-api/commands"
 import { type AppInfo } from "tauri-plugin-jarvis-api/models"
-import type { IToastServer, IUiServer } from "./server"
+import { toast } from "vue-sonner"
+import type { IUiServer } from "./server"
+import { ListSchema, type IComponent } from "./worker"
 
 type PromiseWrap<T extends (...args: any[]) => any> = (
   ...args: Parameters<T>
@@ -37,22 +40,24 @@ export interface ISystem {
 }
 
 export interface IToast {
-  message: PromiseWrap<IToastServer["toastMessage"]>
-  info: PromiseWrap<IToastServer["toastInfo"]>
-  success: PromiseWrap<IToastServer["toastSuccess"]>
-  warning: PromiseWrap<IToastServer["toastWarning"]>
-  error: PromiseWrap<IToastServer["toastError"]>
+  message: PromiseWrap<typeof toast.message>
+  info: PromiseWrap<typeof toast.info>
+  success: PromiseWrap<typeof toast.success>
+  warning: PromiseWrap<typeof toast.warning>
+  error: PromiseWrap<typeof toast.error>
 }
 
 export interface IUi {
-  render: PromiseWrap<IUiServer["render"]>
-  setScrollLoading: PromiseWrap<IUiServer["setScrollLoading"]>
+  render: (view: IComponent<ListSchema.List>) => void
+  setScrollLoading: (loading: boolean) => void
 }
 
-export interface IDb {}
-
-// const getWorkerApi = () => getWorkerApiClient<IJarvisFullAPI>()
-// const getIframeApi = () => getWindowApiClient<IJarvisFullAPI>(window.parent)
-// export const defaultClientAPI: Remote<IJarvisFullAPI> = isInIframe()
-//   ? getIframeApi()
-//   : getWorkerApi()
+export interface IDb {
+  add: typeof JarvisExtDB.prototype.add
+  delete: typeof JarvisExtDB.prototype.delete
+  search: typeof JarvisExtDB.prototype.search
+  retrieveAll: typeof JarvisExtDB.prototype.retrieveAll
+  retrieveAllByType: typeof JarvisExtDB.prototype.retrieveAllByType
+  deleteAll: typeof JarvisExtDB.prototype.deleteAll
+  update: typeof JarvisExtDB.prototype.update
+}

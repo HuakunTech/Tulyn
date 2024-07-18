@@ -23,7 +23,7 @@
     "test": "bun test --coverage",
     "build:docs": "npx typedoc",
     "dev": "rollup -c --watch",
-    "build:rollup": "rimraf dist && rollup -c && pnpm build:docs",
+    "build": "rimraf dist && rollup -c && pnpm build:docs",
     "format": "prettier --write \"**/*.{ts,tsx,md,vue,json,yaml,yml}\"",
     "develop": "rollup -c --watch"
   },
@@ -34,10 +34,12 @@
     "tsc-alias": "^1.8.10",
     "tsup": "^8.0.2",
     "typedoc": "^0.26.4",
+    "valibot": "^0.35.0",
     "zod-to-json-schema": "^3.23.0"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "valibot": "^0.35.0"
   },
   "dependencies": {
     "@rollup/plugin-typescript": "^11.1.6",

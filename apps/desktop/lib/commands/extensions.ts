@@ -8,6 +8,7 @@ import { invoke } from "@tauri-apps/api/core"
 import { basename, dirname, join } from "@tauri-apps/api/path"
 import { BaseDirectory, exists, readDir, readTextFile } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
+import { db } from "tauri-plugin-jarvis-api/commands"
 import { safeParse } from "valibot"
 
 export function loadManifest(manifestPath: string): Promise<ExtPackageJsonExtra> {
@@ -62,8 +63,17 @@ export function loadAllExtensions(extensionsFolder: string): Promise<ExtPackageJ
         )
         continue
       }
+      const extPkgJson = parse.output
+      const foundExt = await db.getExtensionByIdentifier(extPkgJson.jarvis.identifier)
+      if (!foundExt) {
+        // create this extension in database
+        await db.createExtension({
+          identifier: extPkgJson.jarvis.identifier,
+          version: extPkgJson.version
+        })
+      }
       results.push(
-        Object.assign(parse.output, {
+        Object.assign(extPkgJson, {
           extPath: extFullPath,
           extFolderName: dirEntry.name
         })

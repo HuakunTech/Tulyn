@@ -3,6 +3,7 @@ import { getWorkerApiClient } from "jarvis-api/ui"
 import {
   Action,
   clipboard,
+  db,
   expose,
   fs,
   Icon,

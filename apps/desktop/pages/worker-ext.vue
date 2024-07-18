@@ -18,13 +18,16 @@ import {
   getWorkerApiClient
 } from "jarvis-api/ui"
 import {
+  convertJarvisExtDBToServerDbAPI,
   List,
   ListSchema,
   NodeNameEnum,
   wrap,
+  type IDbServer,
   type IWorkerExtensionBase
 } from "jarvis-api/ui/worker"
 import type { ComboboxInput } from "radix-vue"
+import { db, JarvisExtDB } from "tauri-plugin-jarvis-api/commands"
 import { toast } from "vue-sonner"
 
 const appState = useStore($appState)
@@ -90,16 +93,28 @@ onMounted(async () => {
     toast.error(`Worker extension script ${cmd.main} not found`)
     return navigateTo("/")
   }
+  const extInfoInDB = await db.getExtensionByIdentifier(manifest.jarvis.identifier)
+  if (!extInfoInDB) {
+    toast.error("Unexpected Error", {
+      description: `Worker extension ${manifest.jarvis.identifier} not found in database. Run Troubleshooter.`
+    })
+    return navigateTo("/")
+  }
 
   const workerScript = await readTextFile(scriptPath)
   const blob = new Blob([workerScript], { type: "application/javascript" })
   const blobURL = URL.createObjectURL(blob)
   const worker = new Worker(blobURL)
   // Expose Jarvis APIs to worker with permissions constraints
+  console.log("extInfoInDB", extInfoInDB)
+
+  const dbAPI = new db.JarvisExtDB(extInfoInDB.extId)
+  const extDBApi: IDbServer = convertJarvisExtDBToServerDbAPI(dbAPI)
   exposeApiToWorker(worker, {
     ...constructJarvisServerAPIWithPermissions(manifest.jarvis.permissions),
     render,
-    setScrollLoading
+    setScrollLoading,
+    ...extDBApi
   })
   // exposeApiToWorker(worker, { render }) // Expose render function to worker
   workerAPI = wrap<IWorkerExtensionBase>(worker) // Call worker exposed APIs

@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Extension } from "@/lib/extension/ext"
 import { $appConfig, setDevExtensionPath } from "@/lib/stores/appConfig"
-import { Icon } from "@iconify/vue"
 import { useStore } from "@nanostores/vue"
 // import { loadDevExtManifests, loadExtManifests, $extensionsStore } from "@/lib/stores/extensions";
 import { open } from "@tauri-apps/plugin-dialog"

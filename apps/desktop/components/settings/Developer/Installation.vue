@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import DragNDrop from "@/components/DragNDrop.vue"
+import IconMultiplexer from "@/components/IconMultiplexer.vue"
 import DevExtPathForm from "@/components/settings/Developer/DevExtPathForm.vue"
 import DeveloperWarning from "@/components/settings/Developer/Warning.vue"
 import { default as TauriLink } from "@/components/tauri/link.vue"
@@ -18,6 +19,7 @@ import { downloadDir, join as pathJoin, tempDir } from "@tauri-apps/api/path"
 import { open as openFileSelector } from "@tauri-apps/plugin-dialog"
 import axios from "axios"
 import { ElMessage, ElNotification } from "element-plus"
+import { IconEnum } from "jarvis-api/models"
 import { CloudDownloadIcon, DownloadIcon, ExternalLinkIcon, InfoIcon } from "lucide-vue-next"
 import { getDevExtensionFolder, getExtensionFolder } from "tauri-plugin-jarvis-api/commands"
 import { ref, type HTMLAttributes } from "vue"
@@ -161,7 +163,10 @@ async function handleDragNDropInstall(paths: string[]) {
                 @click="pickProject"
               >
                 <div :class="cn('flex flex-col items-center', dragging ? 'text-lime-400/70' : '')">
-                  <Icon name="mdi:folder-cog-outline" class="w-10 h-10" />
+                  <IconMultiplexer
+                    :icon="{ value: 'mdi:folder-cog-outline', type: IconEnum.Iconify }"
+                    class="w-10 h-10"
+                  />
                   <small class="text-xs select-none">Click or Drag and Drop</small>
                 </div>
               </div>
@@ -228,7 +233,10 @@ async function handleDragNDropInstall(paths: string[]) {
                 Read Docs For More Details <ExternalLinkIcon class="inline w-4 -translate-y-0.5" />
               </TauriLink>
               <Alert variant="destructive" class="dark:text-red-600 dark:border-red-600 my-2">
-                <Icon name="material-symbols:warning-outline" class="h-5 w-5 dark:text-red-600" />
+                <IconMultiplexer
+                  :icon="{ value: 'material-symbols:warning-outline', type: IconEnum.Iconify }"
+                  class="h-5 w-5 dark:text-red-600"
+                />
                 <AlertTitle>Warning</AlertTitle>
                 <AlertDescription>
                   Installing a remote website as extension is extremely dangerous. Website

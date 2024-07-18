@@ -53,30 +53,37 @@ import {
   turnVolumeUp,
   unmute
 } from "tauri-plugin-jarvis-api/commands"
-import { union, type InferOutput } from "valibot"
 import { toast } from "vue-sonner"
-import {
-  AllJarvisPermission,
-  SystemPermissionSchema,
-  type SystemPermission
-} from "./api/permissions"
-import type { ISystem } from "./client"
-import { ListSchema, type IComponent } from "./worker"
+import { AllJarvisPermission, type SystemPermission } from "./api/permissions"
+import type { IDb, ISystem, IToast, IUi } from "./client"
 
 export interface IUiServer {
-  render: (view: IComponent<ListSchema.List>) => void
-  setScrollLoading: (loading: boolean) => void
+  render: IUi["render"]
+  setScrollLoading: IUi["setScrollLoading"]
 }
 
 export interface IToastServer {
-  toastMessage: typeof toast.message
-  toastInfo: typeof toast.info
-  toastSuccess: typeof toast.success
-  toastWarning: typeof toast.warning
-  toastError: typeof toast.error
+  toastMessage: IToast["message"]
+  toastInfo: IToast["info"]
+  toastSuccess: IToast["success"]
+  toastWarning: IToast["warning"]
+  toastError: IToast["error"]
 }
 
-export interface IDbServer {}
+/**
+ * The server-side API for the database will not be implemented in this file/package
+ * It will be constructed with JarvisExtDB in the main thread and exposed to the extension
+ * We don't know extension ID here, so we can't construct the API here
+ */
+export interface IDbServer {
+  dbAdd: IDb["add"]
+  dbDelete: IDb["delete"]
+  dbSearch: IDb["search"]
+  dbRetrieveAll: IDb["retrieveAll"]
+  dbRetrieveAllByType: IDb["retrieveAllByType"]
+  dbDeleteAll: IDb["deleteAll"]
+  dbUpdate: IDb["update"]
+}
 
 export interface ISystemServer {
   systemOpenTrash: ISystem["openTrash"]
@@ -189,13 +196,21 @@ export function constructSystemApi(permissions: SystemPermission[]): ISystemServ
 
 export function constructToastApi(): IToastServer {
   return {
-    toastMessage: toast.message,
-    toastInfo: toast.info,
-    toastSuccess: toast.success,
-    toastWarning: toast.warning,
-    toastError: toast.error
+    toastMessage: (...args: Parameters<typeof toast.message>) =>
+      Promise.resolve(toast.message(...args)),
+    toastInfo: (...args: Parameters<typeof toast.message>) => Promise.resolve(toast.info(...args)),
+    toastSuccess: (...args: Parameters<typeof toast.message>) =>
+      Promise.resolve(toast.success(...args)),
+    toastWarning: (...args: Parameters<typeof toast.message>) =>
+      Promise.resolve(toast.warning(...args)),
+    toastError: (...args: Parameters<typeof toast.message>) => Promise.resolve(toast.error(...args))
   }
 }
+
+// export function constructDbApi(): IDbServer {
+//   return {
+//   }
+// }
 
 // all enabled by default
 export const defaultSystemApi = constructSystemApi([
@@ -206,11 +221,11 @@ export const defaultSystemApi = constructSystemApi([
   "system:fs"
 ])
 
-export type IJarvisFullAPI = IFullAPI & ISystemServer & IToastServer
+export type IJarvisFullAPI = IFullAPI & ISystemServer & IToastServer & IDbServer & IUiServer
 
 export function constructJarvisServerAPIWithPermissions(
   permissions: AllJarvisPermission[]
-): IFullAPI {
+): IJarvisFullAPI {
   const apis = [
     constructClipboardApi(
       permissions.filter((p) => p.startsWith("clipboard:")) as ClipboardPermission[]

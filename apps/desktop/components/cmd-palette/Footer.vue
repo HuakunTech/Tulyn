@@ -10,7 +10,7 @@ const appUiStore = useAppUiStore()
     <img class="h-6 w-6" src="/img/128x128.png" alt="logo" />
     <span class="flex">
       <Button v-if="appUiStore.defaultAction" variant="ghost" class="gap-2">
-        {{ appUiStore.defaultAction.title }}
+        {{ appUiStore.defaultAction }}
         <Kbd><Icon name="tdesign:enter" /></Kbd>
       </Button>
       <ActionPanel />
