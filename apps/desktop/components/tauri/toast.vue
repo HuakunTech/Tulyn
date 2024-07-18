@@ -48,11 +48,11 @@ onUnmounted(() => {
 </script>
 <template>
   <div
-    class="h-16 bg-transparent flex justify-center items-center select-none cursor-default"
+    class="flex h-16 cursor-default select-none items-center justify-center bg-transparent"
     data-tauri-drag-region
   >
     <div
-      class="bg-muted/80 backdrop-blur-2xl px-5 py-3 rounded-full border-none"
+      class="bg-muted/80 rounded-full border-none px-5 py-3 backdrop-blur-2xl"
       data-tauri-drag-region
     >
       <span data-tauri-drag-region class="text-foreground">{{ message }}</span>

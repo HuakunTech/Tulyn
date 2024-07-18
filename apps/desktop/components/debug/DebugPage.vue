@@ -3,7 +3,7 @@ import CodeEditor from "./CodeEditor.vue"
 import DebugExtLabelMap from "./DebugExtLabelMap.vue"
 </script>
 <template>
-  <div class="px-3 flex flex-col space-y-4 overflow-x-clip">
+  <div class="flex flex-col space-y-4 overflow-x-clip px-3">
     <DebugExtLabelMap />
     <Separator />
     <!-- <CodeEditor language="javascript" /> -->

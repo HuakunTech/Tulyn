@@ -35,7 +35,7 @@ function changeLightMode(mode: LightMode) {
           @click="setTheme(color)"
         >
           <span
-            class="h-5 w-5 rounded-full flex items-center justify-center"
+            class="flex h-5 w-5 items-center justify-center rounded-full"
             :style="{ backgroundColor: colors[color][7].rgb }"
           >
             <CheckIcon v-if="color === appConfig.theme" class="h-3 w-3 text-white" />
@@ -70,28 +70,28 @@ function changeLightMode(mode: LightMode) {
         <Button
           class="h-8"
           variant="outline"
-          :class="{ 'border-2 border-foreground': appConfig.lightMode == 'light' }"
+          :class="{ 'border-foreground border-2': appConfig.lightMode == 'light' }"
           @click="changeLightMode('light')"
         >
-          <SunIcon class="w-4 h-4 mr-2" />
+          <SunIcon class="mr-2 h-4 w-4" />
           <span class="text-xs">Light</span>
         </Button>
         <Button
           class="h-8"
           variant="outline"
-          :class="{ 'border-2 border-foreground': appConfig.lightMode == 'dark' }"
+          :class="{ 'border-foreground border-2': appConfig.lightMode == 'dark' }"
           @click="changeLightMode('dark')"
         >
-          <MoonIcon class="w-4 h-4 mr-2" />
+          <MoonIcon class="mr-2 h-4 w-4" />
           <span class="text-xs">Dark</span>
         </Button>
         <Button
           class="h-8"
           variant="outline"
-          :class="{ 'border-2 border-foreground': appConfig.lightMode == 'auto' }"
+          :class="{ 'border-foreground border-2': appConfig.lightMode == 'auto' }"
           @click="changeLightMode('auto')"
         >
-          <MoonIcon class="w-4 h-4 mr-2" />
+          <MoonIcon class="mr-2 h-4 w-4" />
           <span class="text-xs">System</span>
         </Button>
       </div>

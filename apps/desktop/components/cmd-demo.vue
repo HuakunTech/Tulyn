@@ -24,7 +24,7 @@ function onSelectedValue(e: any) {
 </script>
 
 <template>
-  <Command class="rounded-lg border shadow-md max-w-96" @update:selected-value="onSelectedValue">
+  <Command class="max-w-96 rounded-lg border shadow-md" @update:selected-value="onSelectedValue">
     <CommandInput placeholder="Type a command or search..." />
     <CommandList>
       <CommandEmpty>No results found.</CommandEmpty>

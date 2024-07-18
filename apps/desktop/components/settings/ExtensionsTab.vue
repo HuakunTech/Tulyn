@@ -62,7 +62,7 @@ function handleDeleteExtension(index: number, item: TListGroup) {
             <el-table-column label="Command">
               <template #default="scope">
                 <div class="flex items-center space-x-2">
-                  <IconMultiplexer :icon="scope.row.icon" class="w-4 h-4" />
+                  <IconMultiplexer :icon="scope.row.icon" class="h-4 w-4" />
                   <span>{{ scope.row.title }}</span>
                 </div>
               </template>
@@ -87,19 +87,19 @@ function handleDeleteExtension(index: number, item: TListGroup) {
     <el-table-column label="Name">
       <template #default="scope">
         <div class="flex items-center space-x-2">
-          <IconMultiplexer :icon="scope.row.icon" class="w-4 h-4" />
+          <IconMultiplexer :icon="scope.row.icon" class="h-4 w-4" />
           <span class="">{{ scope.row.title }}</span>
         </div>
       </template>
     </el-table-column>
     <el-table-column label="Type">
       <template #default="props">
-        <div class="flex space-x-2 items-center">
+        <div class="flex items-center space-x-2">
           <span class="font-mono">{{ props.row.type }}</span>
           <Icon
             v-if="props.row.flags.isDev"
             icon="ph:dev-to-logo-fill"
-            class="inline w-5 h-6 text-green-500"
+            class="inline h-6 w-5 text-green-500"
           />
         </div>
       </template>

@@ -20,18 +20,18 @@ import {
 } from "lucide-vue-next"
 </script>
 <template>
-  <Alert variant="destructive" class="dark:text-red-600 dark:border-red-600">
-    <AlertCircle class="w-4 h-4 dark:text-red-600" />
+  <Alert variant="destructive" class="dark:border-red-600 dark:text-red-600">
+    <AlertCircle class="h-4 w-4 dark:text-red-600" />
     <AlertTitle>
       <span>Warning: Powerful Extensions, Potential Security Risks</span>
 
       <AlertDialog>
         <AlertDialogTrigger as-child>
           <button class="float-right">
-            <InfoIcon class="inline w-5 h-5" />
+            <InfoIcon class="inline h-5 w-5" />
           </button>
         </AlertDialogTrigger>
-        <AlertDialogContent class="sm:max-w-[40em] overflow-auto max-h-[30em]">
+        <AlertDialogContent class="max-h-[30em] overflow-auto sm:max-w-[40em]">
           <AlertDialogHeader>
             <AlertDialogTitle class="prose dark:prose-invert">
               <h2 class="text-red-600/90">

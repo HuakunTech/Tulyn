@@ -7,7 +7,7 @@ const props = defineProps<{ class?: HTMLAttributes["class"] }>()
 </script>
 
 <template>
-  <div :class="cn('flex justify-center items-center space-x-5', props.class)">
+  <div :class="cn('flex items-center justify-center space-x-5', props.class)">
     <span class="w-full">
       <Separator />
     </span>

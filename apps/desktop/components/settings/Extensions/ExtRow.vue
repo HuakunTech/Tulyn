@@ -9,7 +9,7 @@ const emits = defineEmits<{
 }>()
 </script>
 <template>
-  <div class="text-sm flex justify-between">
+  <div class="flex justify-between text-sm">
     <span>{{ props.item.title }}</span>
     <Button size="icon" variant="outline" @click="emits('delete', props.item)"
       ><TrashIcon

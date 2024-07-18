@@ -53,7 +53,7 @@ function onSave() {
 <template>
   <div class="flex w-full items-center gap-1.5">
     <Dialog v-model:open="open">
-      <div class="flex justify-center w-full">
+      <div class="flex w-full justify-center">
         <DialogTrigger as-child>
           <Button type="submit" size="sm"
             >Add A Remote URL Command<CloudDownloadIcon class="ml-2 h-4 w-4"

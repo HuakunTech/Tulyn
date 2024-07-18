@@ -139,29 +139,29 @@ const imageSrcs = computed(() => {
 <template>
   <ExtStoreDrawer :open="props.open" @update:open="(open) => emits('update:open', open)">
     <DrawerContent>
-      <DrawerHeader class="flex space-x-5 items-center">
+      <DrawerHeader class="flex items-center space-x-5">
         <IconMultiplexer
           v-if="props.selectedExt"
           :icon="props.selectedExt?.icon"
-          class="w-12 h-12"
+          class="h-12 w-12"
         />
         <div>
           <DrawerTitle class="flex items-center">
             <strong class="text-xl">{{ selectedExt?.name }}</strong>
-            <CircleCheckBigIcon v-if="props.installed" class="inline ml-2 text-green-400" />
+            <CircleCheckBigIcon v-if="props.installed" class="ml-2 inline text-green-400" />
           </DrawerTitle>
           <DrawerDescription>{{ selectedExt?.short_description }}</DrawerDescription>
-          <pre class="text-xs text-muted-foreground">{{ currentExt?.identifier }}</pre>
-          <pre class="text-xs text-muted-foreground">Version: {{ currentExt?.version }}</pre>
+          <pre class="text-muted-foreground text-xs">{{ currentExt?.identifier }}</pre>
+          <pre class="text-muted-foreground text-xs">Version: {{ currentExt?.version }}</pre>
         </div>
       </DrawerHeader>
       <ScrollArea class="h-[60vh] px-4">
-        <div class="flex space-x-4 snap-x snap-mandatory w-full mx:auto overflow-x-scroll">
+        <div class="mx:auto flex w-full snap-x snap-mandatory space-x-4 overflow-x-scroll">
           <DialogImage v-model:open="imageDialogOpen" :img-src="imageSrcs" />
           <img
             v-for="src in imageSrcs"
             :src="src"
-            class="h-32 inline cursor-pointer"
+            class="inline h-32 cursor-pointer"
             @click="imageDialogOpen = true"
             alt=""
           />
@@ -169,7 +169,7 @@ const imageSrcs = computed(() => {
         <Separator class="my-5" />
 
         <DrawerDescription class="text-md">Security and Privacy</DrawerDescription>
-        <li v-for="perm in manifest?.permissions" class="flex space-x-2 items-center">
+        <li v-for="perm in manifest?.permissions" class="flex items-center space-x-2">
           <span>{{ PERMISSIONS_EXPLANATION[perm]?.displayName }}</span>
           <HoverCard>
             <HoverCardTrigger>
@@ -197,7 +197,7 @@ const imageSrcs = computed(() => {
               <IconMultiplexer
                 v-if="props.selectedExt"
                 :icon="props.selectedExt?.icon"
-                class="w-6 h-6 inline"
+                class="inline h-6 w-6"
               />
               <div>
                 <span class="text-dm">{{ cmd.name }}</span>
@@ -210,11 +210,11 @@ const imageSrcs = computed(() => {
       </ScrollArea>
       <DrawerFooter>
         <Button v-if="!props.installed" @click="installExt">
-          Install <Iconify icon="mi:enter" class="w-5 h-5 ml-2" />
+          Install <Iconify icon="mi:enter" class="ml-2 h-5 w-5" />
         </Button>
         <Button v-else @click="emits('uninstall', currentExt)" variant="destructive">
           Uninstall
-          <Trash2Icon class="w-5 h-5 ml-2" />
+          <Trash2Icon class="ml-2 h-5 w-5" />
         </Button>
       </DrawerFooter>
     </DrawerContent>

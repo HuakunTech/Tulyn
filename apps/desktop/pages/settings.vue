@@ -17,8 +17,8 @@ onMounted(() => {
 })
 </script>
 <template>
-  <Tabs default-value="general" class="w-full h-full flex flex-col px-1">
-    <TabsList class="grid w-full grid-cols-4 select-none">
+  <Tabs default-value="general" class="flex h-full w-full flex-col px-1">
+    <TabsList class="grid w-full select-none grid-cols-4">
       <TabsTrigger value="general">
         <CogIcon class="mr-2 h-5 w-5" />
         General
@@ -28,24 +28,24 @@ onMounted(() => {
         Extensions
       </TabsTrigger>
       <TabsTrigger value="developer">
-        <SquareTerminalIcon class="h-5 w-5 mr-2" />
+        <SquareTerminalIcon class="mr-2 h-5 w-5" />
         Developer
       </TabsTrigger>
       <TabsTrigger value="about">
-        <InfoIcon class="h-5 w-5 mr-2" />
+        <InfoIcon class="mr-2 h-5 w-5" />
         About
       </TabsTrigger>
     </TabsList>
-    <TabsContent value="general" class="grow min-h-0">
+    <TabsContent value="general" class="min-h-0 grow">
       <GeneralTab />
     </TabsContent>
-    <TabsContent value="extensions" class="grow min-h-0">
+    <TabsContent value="extensions" class="min-h-0 grow">
       <ExtensionsTab />
     </TabsContent>
-    <TabsContent value="developer" class="grow min-h-0">
+    <TabsContent value="developer" class="min-h-0 grow">
       <DeveloperTab />
     </TabsContent>
-    <TabsContent value="about" class="grow min-h-0">
+    <TabsContent value="about" class="min-h-0 grow">
       <AboutTab class="" />
     </TabsContent>
   </Tabs>

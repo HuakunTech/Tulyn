@@ -105,7 +105,7 @@ const filterFunc = (items: ExtItem[], searchTerm: string) => {
       @uninstall="uninstall"
     />
     <Command :filterFunction="(val, searchTerm) => filterFunc(val as ExtItem[], searchTerm)">
-      <CommandInput placeholder="Type to search..." class="h-12 text-md">
+      <CommandInput placeholder="Type to search..." class="text-md h-12">
         <Button size="icon" variant="outline" @click="() => navigateTo('/')">
           <ArrowLeftIcon class="h-5 w-5 shrink-0" />
         </Button>

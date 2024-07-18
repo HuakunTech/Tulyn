@@ -21,7 +21,7 @@ const checked = computed({
       <Checkbox id="startup" v-model:checked="checked" />
       <label
         for="startup"
-        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 select-none"
+        class="select-none text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
       >
         Launch at login
       </label>

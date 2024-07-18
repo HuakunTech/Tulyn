@@ -21,7 +21,7 @@ const checked = computed({
       <Checkbox id="dev-ext-load-url" v-model:checked="checked" />
       <label
         for="dev-ext-load-url"
-        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 select-none"
+        class="select-none text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
       >
         <span v-if="checked">Live Load UI from Dev Server</span>
         <span v-else>Load from Compiled Static Assets</span>

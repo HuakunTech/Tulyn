@@ -43,13 +43,13 @@ async function updateHotkey(keys: string[]) {
 }
 </script>
 <template>
-  <Card class="py-5 flex flex-col space-y-4 border-none h-full shadow-none bg-transparent">
+  <Card class="flex h-full flex-col space-y-4 border-none bg-transparent py-5 shadow-none">
     <Startup />
     <TriggerHotkey :saved-hotkey="savedHotkey" @update:saved-hotkey="updateHotkey" />
     <MenuBar />
     <Theme />
     <StrikeSeparator>
-      <span class="break-normal whitespace-nowrap">Developer Setting</span>
+      <span class="whitespace-nowrap break-normal">Developer Setting</span>
     </StrikeSeparator>
     <LoadDevUrl />
   </Card>

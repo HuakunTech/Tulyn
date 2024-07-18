@@ -179,7 +179,7 @@ watch(highlightedItemValue, (newVal, oldVal) => {
     <CmdInput
       :id="HTMLElementId.WorkerExtInputId"
       ref="cmdInputRef"
-      class="h-12 text-md"
+      class="text-md h-12"
       placeholder="Search for apps or commands..."
     >
       <Button size="icon" variant="outline" @click="() => navigateTo('/')">

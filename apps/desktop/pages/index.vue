@@ -107,7 +107,7 @@ watch(highlightedItemValue, (newVal, oldVal) => {
       <CommandInput
         :id="HTMLElementId.MainSearchInput"
         ref="cmdInputRef"
-        class="h-12 text-md"
+        class="text-md h-12"
         placeholder="Search for apps or commands..."
       />
       <CommandList class="h-full">

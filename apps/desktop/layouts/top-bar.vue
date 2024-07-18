@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/sonner"
 </script>
 
 <template>
-  <main class="h-screen flex flex-col">
+  <main class="flex h-screen flex-col">
     <Toaster :rich-colors="true" />
     <Topbar />
     <slot />

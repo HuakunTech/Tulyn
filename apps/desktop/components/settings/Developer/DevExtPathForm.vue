@@ -66,11 +66,11 @@ function clear() {
     />
     <Button size="sm" type="button" @click="clear">
       Clear
-      <Icon name="material-symbols:delete-outline" class="w-5 h-5 ml-1" />
+      <Icon name="material-symbols:delete-outline" class="ml-1 h-5 w-5" />
     </Button>
     <Button size="sm" type="button" @click="pickDirectory">
       Edit
-      <Icon name="flowbite:edit-outline" class="w-5 h-5 ml-1" />
+      <Icon name="flowbite:edit-outline" class="ml-1 h-5 w-5" />
     </Button>
   </div>
 </template>

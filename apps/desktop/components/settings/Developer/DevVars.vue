@@ -29,14 +29,14 @@ onMounted(async () => {
   <div class="flex flex-col space-y-3 pr-5">
     <ul>
       <li
-        class="text-muted-foreground cursor-pointer flex space-x-2 items-center"
+        class="text-muted-foreground flex cursor-pointer items-center space-x-2"
         @click="extFolder && open(extFolder)"
       >
         <strong>Extension Path: </strong><span class="">{{ extFolder }}</span
         ><Icon name="ion:open-outline" />
       </li>
       <li
-        class="text-muted-foreground cursor-pointer flex space-x-2 items-center"
+        class="text-muted-foreground flex cursor-pointer items-center space-x-2"
         @click="devExtFolder && open(devExtFolder)"
       >
         <strong>Dev Extension Path: </strong><span>{{ devExtFolder }}</span
@@ -44,7 +44,7 @@ onMounted(async () => {
       </li>
 
       <li
-        class="text-muted-foreground cursor-pointer flex space-x-2 items-center"
+        class="text-muted-foreground flex cursor-pointer items-center space-x-2"
         @click="devExtFolder && open(`http://localhost:${port}`)"
       >
         <strong>Server Port: </strong><span>{{ port }}</span

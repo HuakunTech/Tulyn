@@ -31,18 +31,18 @@ const emits = defineEmits<{
       :src="item.icon?.value"
       alt=""
     />
-    <Icon v-else-if="item.icon?.type === 'iconify'" :name="item.icon.value" class="w-5 h-5 mr-2" />
-    <Icon v-else name="mingcute:appstore-fill" class="w-5 h-5 mr-2" />
+    <Icon v-else-if="item.icon?.type === 'iconify'" :name="item.icon.value" class="mr-2 h-5 w-5" />
+    <Icon v-else name="mingcute:appstore-fill" class="mr-2 h-5 w-5" />
     <span>{{ item.title }}</span>
     <CommandShortcut class="space-x-1">
       <Icon
         v-if="item.flags.isDev"
         name="ph:dev-to-logo-fill"
-        class="inline w-6 h-6 text-green-500"
+        class="inline h-6 w-6 text-green-500"
       />
       <Badge
         v-if="appConfig.devExtLoadUrl && isDevExt"
-        class="rounded-sm py-0.5 px-1"
+        class="rounded-sm px-1 py-0.5"
         variant="outline"
         >Live</Badge
       >

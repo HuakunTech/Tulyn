@@ -31,12 +31,12 @@ function changeLightMode(mode: LightMode) {
           <Icon
             v-if="!isDark"
             icon="fxemoji:sunrays"
-            class="rotate-0 scale-100 transition-all dark:-rotate-90 h-4 w-4"
+            class="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90"
           />
           <Icon
             v-if="isDark"
             icon="fluent-emoji-flat:crescent-moon"
-            class="rotate-0 scale-100 transition-all h-4 w-4"
+            class="h-4 w-4 rotate-0 scale-100 transition-all"
           />
         </button>
       </DropdownMenuTrigger>

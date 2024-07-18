@@ -28,13 +28,13 @@ function onScroll(e: Event) {
   <CommandList class="h-full" @scroll="onScroll">
     <CommandEmpty>No results found.</CommandEmpty>
     <CommandItem v-for="item in modelValue.items" :value="item" class="gap-2">
-      <IconMultiplexer v-if="item.icon" :icon="item.icon" class="w-5 h-5" />
+      <IconMultiplexer v-if="item.icon" :icon="item.icon" class="h-5 w-5" />
       <span class="truncate">{{ item.title }}</span>
       <span class="text-muted-foreground">{{ item.subTitle }}</span>
       <CommandShortcut>
         <div class="flex gap-2">
           <span v-for="acc in item.accessories" class="flex items-center gap-1">
-            <IconMultiplexer v-if="acc.icon" :icon="acc.icon" class="w-4 h-4" />
+            <IconMultiplexer v-if="acc.icon" :icon="acc.icon" class="h-4 w-4" />
             <span>{{ acc.text }}</span>
           </span>
         </div>

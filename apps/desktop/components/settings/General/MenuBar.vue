@@ -21,7 +21,7 @@ const checked = computed({
       <Checkbox id="menu-bar" v-model:checked="checked" />
       <label
         for="menu-bar"
-        class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 select-none"
+        class="select-none text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
       >
         Show in Menu Bar
       </label>

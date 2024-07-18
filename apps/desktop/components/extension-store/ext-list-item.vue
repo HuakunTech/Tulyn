@@ -17,12 +17,12 @@ const emits = defineEmits<{
 </script>
 <template>
   <CommandItem :value="props.data" class="" @select="emits('select')">
-    <div class="flex justify-between items-center w-full">
+    <div class="flex w-full items-center justify-between">
       <div class="flex items-center space-x-4">
-        <IconMultiplexer :icon="props.data.icon" class="w-6 h-6" />
+        <IconMultiplexer :icon="props.data.icon" class="h-6 w-6" />
         <div>
           <div class="font-semibold">{{ props.data.name }}</div>
-          <div class="text-xs text-muted-foreground font-mono">
+          <div class="text-muted-foreground font-mono text-xs">
             {{ props.data.short_description }}
           </div>
         </div>
@@ -30,7 +30,7 @@ const emits = defineEmits<{
       <div class="flex space-x-4">
         <CircleCheckBigIcon v-if="props.installed" class="w-4 text-green-400" />
         <div class="flex items-center space-x-1">
-          <Icon name="ic:round-download" class="w-5 h-5 inline" />
+          <Icon name="ic:round-download" class="inline h-5 w-5" />
           <span class="w-8 text-center">{{ humanReadableNumber(props.data.downloads) }}</span>
         </div>
       </div>

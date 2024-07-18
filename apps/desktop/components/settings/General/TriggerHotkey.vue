@@ -23,7 +23,7 @@ function onRecordClick() {
           {{ keyCombToDisplay(savedHotkey) }}
         </Button>
       </PopoverTrigger>
-      <PopoverContent class="flex justify-center w-fit">
+      <PopoverContent class="flex w-fit justify-center">
         <SettingsShortcutInput
           :recording="recording"
           @update:recording="

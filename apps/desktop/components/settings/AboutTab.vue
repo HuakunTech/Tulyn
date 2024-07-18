@@ -37,8 +37,8 @@ async function checkUpdate() {
 }
 </script>
 <template>
-  <Card :class="cn('h-full border-none flex justify-center items-center', props.class)">
-    <CardContent class="flex space-x-5 items-center">
+  <Card :class="cn('flex h-full items-center justify-center border-none', props.class)">
+    <CardContent class="flex items-center space-x-5">
       <img src="/img/128x128.png" class="w-44" />
       <div class="flex flex-col space-y-1">
         <p class="text-3xl font-bold">Jarvis</p>
@@ -47,16 +47,16 @@ async function checkUpdate() {
           <strong class="font-bold">Author: </strong>
           <TauriLink href="https://github.com/HuakunShen">
             @HuakunShen
-            <Icon name="mdi:github" class="inline text-white -translate-y-0.5" />
+            <Icon name="mdi:github" class="inline -translate-y-0.5 text-white" />
           </TauriLink>
         </p>
         <TauriLink href="https://github.com/HuakunTech/Jarvis">
           Jarvis Source Code
-          <Icon name="mdi:github" class="inline text-white -translate-y-0.5" />
+          <Icon name="mdi:github" class="inline -translate-y-0.5 text-white" />
         </TauriLink>
         <TauriLink href="https://github.com/HuakunTech/JarvisExtensions">
           Extensions Source Code
-          <Icon name="mdi:github" class="inline text-white -translate-y-0.5" />
+          <Icon name="mdi:github" class="inline -translate-y-0.5 text-white" />
         </TauriLink>
         <Button @click="checkUpdate" size="xs" variant="secondary">Check Update</Button>
       </div>

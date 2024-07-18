@@ -86,7 +86,7 @@ function restart() {
 }
 </script>
 <template>
-  <div class="flex justify-between items-center">
+  <div class="flex items-center justify-between">
     <div class="flex space-x-2">
       <Button size="xs" @click="start">Start Server</Button>
       <Button size="xs" @click="stop">Stop Server</Button>
@@ -96,10 +96,10 @@ function restart() {
       <Badge
         v-if="serverRunning"
         variant="secondary"
-        class="select-none cursor-default bg-green-700 text-white"
+        class="cursor-default select-none bg-green-700 text-white"
         >On</Badge
       >
-      <Badge v-else variant="destructive" class="select-none cursor-default">Off</Badge>
+      <Badge v-else variant="destructive" class="cursor-default select-none">Off</Badge>
     </span>
   </div>
   <div class="my-2">

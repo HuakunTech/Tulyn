@@ -8,7 +8,7 @@ const props = defineProps<{ class?: HtmlHTMLAttributes["class"] }>()
   <kbd
     :class="
       cn(
-        'border min-w-5 h-5 w-5 rounded-sm text-md font-mono bg-muted flex justify-center items-center p-1',
+        'text-md bg-muted flex h-5 w-5 min-w-5 items-center justify-center rounded-sm border p-1 font-mono',
         props.class
       )
     "

@@ -12,7 +12,7 @@ const props = defineProps<{
   <a
     :class="
       cn(
-        'font-medium text-blue-600 dark:text-blue-500 hover:underline hover:cursor-pointer',
+        'font-medium text-blue-600 hover:cursor-pointer hover:underline dark:text-blue-500',
         props.class
       )
     "

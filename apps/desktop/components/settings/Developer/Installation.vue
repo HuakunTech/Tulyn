@@ -157,17 +157,17 @@ async function handleDragNDropInstall(paths: string[]) {
             @drag="dragging = true"
             @drag-cancelled="dragging = false"
           >
-            <Card :class="cn('w-96 h-36', dragging ? 'border-lime-400/30' : 'text-blue')">
+            <Card :class="cn('h-36 w-96', dragging ? 'border-lime-400/30' : 'text-blue')">
               <div
-                class="flex justify-center items-center h-full cursor-pointer"
+                class="flex h-full cursor-pointer items-center justify-center"
                 @click="pickProject"
               >
                 <div :class="cn('flex flex-col items-center', dragging ? 'text-lime-400/70' : '')">
                   <IconMultiplexer
                     :icon="{ value: 'mdi:folder-cog-outline', type: IconEnum.Iconify }"
-                    class="w-10 h-10"
+                    class="h-10 w-10"
                   />
-                  <small class="text-xs select-none">Click or Drag and Drop</small>
+                  <small class="select-none text-xs">Click or Drag and Drop</small>
                 </div>
               </div>
             </Card>
@@ -221,7 +221,7 @@ async function handleDragNDropInstall(paths: string[]) {
                 <InfoIcon class="inline w-4 cursor-pointer" />
               </button>
             </PopoverTrigger>
-            <PopoverContent class="w-[45em] ml-5 text-xs">
+            <PopoverContent class="ml-5 w-[45em] text-xs">
               <!-- TODO: Fix the Links -->
               Jarvis allows you to install a remote url as a command. Instead of loading UI from
               locally-installed extension, Jarvis will load UI from the remote website. The website
@@ -232,7 +232,7 @@ async function handleDragNDropInstall(paths: string[]) {
               >
                 Read Docs For More Details <ExternalLinkIcon class="inline w-4 -translate-y-0.5" />
               </TauriLink>
-              <Alert variant="destructive" class="dark:text-red-600 dark:border-red-600 my-2">
+              <Alert variant="destructive" class="my-2 dark:border-red-600 dark:text-red-600">
                 <IconMultiplexer
                   :icon="{ value: 'material-symbols:warning-outline', type: IconEnum.Iconify }"
                   class="h-5 w-5 dark:text-red-600"
