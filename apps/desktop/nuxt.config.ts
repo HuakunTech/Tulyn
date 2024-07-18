@@ -15,7 +15,7 @@ export default defineNuxtConfig({
     "@element-plus/nuxt",
     "@formkit/auto-animate/nuxt",
     "@nuxt/image",
-    // "dayjs-nuxt",
+    "dayjs-nuxt",
     // "@nuxtjs/supabase"
     "@nuxtjs/device",
     "@nuxt/icon"

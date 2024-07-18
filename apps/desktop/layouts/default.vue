@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Toaster } from "@/components/ui/sonner"
 import { useGoToSettingShortcuts } from "@/composables/useShortcuts"
-import { testDB } from "@/lib/dev/exp"
+import { useTestDB } from "@/lib/dev/exp"
 import { $appConfig, LightMode, setLightMode, setRadius, setTheme } from "@/lib/stores/appConfig"
 import { allColors } from "@/lib/themes/themes"
 import { installBun } from "@/lib/utils/runtime"
@@ -24,7 +24,7 @@ useRegisterAppShortcuts()
 usePreventExit()
 
 onMounted(async () => {
-  testDB()
+  useTestDB()
   installBun()
     .then((bunVersion) => {
       info(`Bun installed (${bunVersion})`)

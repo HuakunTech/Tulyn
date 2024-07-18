@@ -2,7 +2,7 @@ import { db } from "tauri-plugin-jarvis-api/commands"
 import { constants, ExtData } from "tauri-plugin-jarvis-api/models"
 import { parse, safeParse } from "valibot"
 
-export async function testDB() {
+export async function useTestDB() {
   // const allExts = await db.getAllExtensions()
   // console.log(allExts)
   //
