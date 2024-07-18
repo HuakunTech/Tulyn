@@ -54,8 +54,8 @@ export const ExtData = object({
   dataId: number(),
   extId: number(),
   dataType: string(),
-  data: string(),
-  searchText: string(),
+  data: optional(string()),
+  searchText: optional(string()),
   createdAt: date(),
   updatedAt: date()
 })

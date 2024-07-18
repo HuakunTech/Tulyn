@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { Toaster } from "@/components/ui/sonner"
 import { useGoToSettingShortcuts } from "@/composables/useShortcuts"
+import { testDB } from "@/lib/dev/exp"
 import { $appConfig, LightMode, setLightMode, setRadius, setTheme } from "@/lib/stores/appConfig"
 import { allColors } from "@/lib/themes/themes"
+import { installBun } from "@/lib/utils/runtime"
 import { useStore } from "@nanostores/vue"
 import type { UnlistenFn } from "@tauri-apps/api/event"
 import { attachConsole, debug, error, info, warn } from "@tauri-apps/plugin-log"
-import { testDBCommands } from "~/lib/dev/exp"
 import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"
-import { getBunVersion, installBun } from "~/lib/utils/runtime"
-import { Command } from "tauri-plugin-shellx-api"
 
 const colorMode = useColorMode() // auto set html class to dark is in dark mode
 const appConfig = useStore($appConfig)
@@ -25,7 +24,7 @@ useRegisterAppShortcuts()
 usePreventExit()
 
 onMounted(async () => {
-  testDBCommands()
+  testDB()
   installBun()
     .then((bunVersion) => {
       info(`Bun installed (${bunVersion})`)

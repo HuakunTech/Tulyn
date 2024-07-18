@@ -1,7 +1,8 @@
 import { invoke } from "@tauri-apps/api/core"
-import { safeParse } from "valibot"
+import { array, literal, optional, parse, safeParse, union, type InferOutput } from "valibot"
 import { generateJarvisPluginCommand } from "../common"
 import { CmdType, Ext, ExtData } from "../models/extension"
+import { convertDateToSqliteString, SQLSortOrder } from "../models/sql"
 
 /* -------------------------------------------------------------------------- */
 /*                               Extension CRUD                               */
@@ -68,9 +69,14 @@ export function updateCommandById(data: {
 /*                             Extension Data CRUD                            */
 
 /* -------------------------------------------------------------------------- */
+export const ExtDataField = union([literal("data"), literal("search_text")])
+export type ExtDataField = InferOutput<typeof ExtDataField>
+
 function convertRawExtDataToExtData(rawData?: {
   createdAt: string
   updatedAt: string
+  data: null | string
+  searchText: null | string
 }): ExtData | undefined {
   if (!rawData) {
     return rawData
@@ -78,7 +84,9 @@ function convertRawExtDataToExtData(rawData?: {
   const parsedRes = safeParse(ExtData, {
     ...rawData,
     createdAt: new Date(rawData.createdAt),
-    updatedAt: new Date(rawData.updatedAt)
+    updatedAt: new Date(rawData.updatedAt),
+    data: rawData.data ?? undefined,
+    searchText: rawData.searchText ?? undefined
   })
   if (parsedRes.success) {
     return parsedRes.output
@@ -102,6 +110,8 @@ export function getExtensionDataById(dataId: number) {
     | (ExtData & {
         createdAt: string
         updatedAt: string
+        data: null | string
+        searchText: null | string
       })
     | undefined
   >(generateJarvisPluginCommand("get_extension_data_by_id"), {
@@ -109,26 +119,41 @@ export function getExtensionDataById(dataId: number) {
   }).then(convertRawExtDataToExtData)
 }
 
-export function searchExtensionData(searchParams: {
+/**
+ * Fields option can be used to select optional fields. By default, if left empty, data and searchText are not returned.
+ * This is because data and searchText can be large and we don't want to return them by default.
+ * If you just want to get data ids in order to delete them, retrieving all data is not necessary.
+ * @param searchParams
+ */
+export async function searchExtensionData(searchParams: {
   extId: number
   searchExactMatch: boolean
+  dataId?: number
   dataType?: string
   searchText?: string
   afterCreatedAt?: string
   beforeCreatedAt?: string
-}) {
-  return invoke<
+  limit?: number
+  orderByCreatedAt?: SQLSortOrder
+  orderByUpdatedAt?: SQLSortOrder
+  fields?: ExtDataField[]
+}): Promise<ExtData[]> {
+  const fields = parse(optional(array(ExtDataField), []), searchParams.fields)
+  console.log("fields", fields)
+  let items = await invoke<
     (ExtData & {
       createdAt: string
       updatedAt: string
+      data: null | string
+      searchText: null | string
     })[]
-  >(generateJarvisPluginCommand("search_extension_data"), searchParams).then((items) =>
-    items.map(convertRawExtDataToExtData)
-  )
+  >(generateJarvisPluginCommand("search_extension_data"), { ...searchParams, fields })
+
+  return items.map(convertRawExtDataToExtData).filter((item) => item) as ExtData[]
 }
 
 export function deleteExtensionDataById(dataId: number) {
-  return invoke(generateJarvisPluginCommand("delete_extension_data_by_id"), { dataId })
+  return invoke<void>(generateJarvisPluginCommand("delete_extension_data_by_id"), { dataId })
 }
 
 export function updateExtensionDataById(data: {
@@ -136,27 +161,88 @@ export function updateExtensionDataById(data: {
   data: string
   searchText?: string
 }) {
-  return invoke(generateJarvisPluginCommand("update_extension_data_by_id"), data)
+  return invoke<void>(generateJarvisPluginCommand("update_extension_data_by_id"), data)
 }
 
+/**
+ * Database API for extensions.
+ * Extensions shouldn't have full access to the database, they can only access their own data.
+ * When an extension is loaded, the main thread will create an instance of this class and
+ * expose it to the extension.
+ */
 export class JarvisExtDB {
-  async add(searchText: string, value: string, dataType: string): Promise<void> {
-    return
+  extId: number
+
+  constructor(extId: number) {
+    this.extId = extId
   }
 
-  async get<T>(key: string): Promise<T | null> {
-    return null
+  async add(data: string, dataType: string = "default", searchText?: string) {
+    return createExtensionData({
+      data,
+      dataType,
+      searchText,
+      extId: this.extId
+    })
   }
 
-  async delete(key: string): Promise<boolean> {
-    return false
+  async delete(dataId: number): Promise<void> {
+    // Verify if this data belongs to this extension
+    const d = await getExtensionDataById(dataId)
+    if (!d || d.extId !== this.extId) {
+      throw new Error("Extension Data not found")
+    }
+    return await deleteExtensionDataById(dataId)
   }
 
-  async entries<T>(): Promise<Array<[key: string, value: T]>> {
-    return []
+  async search(searchParams: {
+    dataId?: number
+    fullTextSearch?: boolean
+    dataType?: string
+    searchText?: string
+    afterCreatedAt?: Date
+    beforeCreatedAt?: Date
+    limit?: number
+    orderByCreatedAt?: SQLSortOrder
+    orderByUpdatedAt?: SQLSortOrder
+    fields?: ExtDataField[]
+  }): Promise<ExtData[]> {
+    const beforeCreatedAt = searchParams.beforeCreatedAt
+      ? convertDateToSqliteString(searchParams.beforeCreatedAt)
+      : undefined
+    const afterCreatedAt = searchParams.afterCreatedAt
+      ? convertDateToSqliteString(searchParams.afterCreatedAt)
+      : undefined
+    return searchExtensionData({
+      ...searchParams,
+      searchExactMatch: searchParams.fullTextSearch ?? true,
+      extId: this.extId,
+      beforeCreatedAt,
+      afterCreatedAt
+    })
   }
 
-  async length(): Promise<number> {
-    return 0
+  retrieveAll(): Promise<ExtData[]> {
+    return this.search({})
+  }
+
+  retrieveAllByType(dataType: string): Promise<ExtData[]> {
+    return this.search({ dataType })
+  }
+
+  deleteAll(): Promise<void> {
+    return this.search({})
+      .then((items) => {
+        return Promise.all(items.map((item) => this.delete(item.dataId)))
+      })
+      .then(() => {})
+  }
+
+  async update(dataId: number, data: string, searchText?: string): Promise<void> {
+    const d = await getExtensionDataById(dataId)
+    if (!d || d.extId !== this.extId) {
+      throw new Error("Extension Data not found")
+    }
+    return updateExtensionDataById({ dataId, data, searchText })
   }
 }

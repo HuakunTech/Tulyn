@@ -17,7 +17,7 @@ pub struct ExtData {
     pub data_id: i32,
     pub ext_id: i32,
     pub data_type: String,
-    pub data: String,
+    pub data: Option<String>,
     pub search_text: Option<String>,
     pub created_at: String,
     pub updated_at: String,
