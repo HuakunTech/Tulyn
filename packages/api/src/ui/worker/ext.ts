@@ -12,7 +12,7 @@
 //   onEnterPressedOnSearchBar(): Promise<void>
 // }
 
-export class WorkerExtension {
+export abstract class WorkerExtension {
   searchTerm: string = ""
   highlightedItemValue?: string
 
@@ -20,9 +20,7 @@ export class WorkerExtension {
    * Load the extension. Initialize the extension.
    * Will be called once when the extension is first loaded.
    */
-  load(): Promise<void> {
-    return Promise.resolve()
-  }
+  abstract load(): Promise<void>
   onSearchTermChange(term: string): Promise<void> {
     this.searchTerm = term
     return Promise.resolve()

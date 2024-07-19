@@ -28,7 +28,7 @@ async function pickDirectory() {
     devExtPath.value = dir
     await setDevExtensionPath(devExtPath.value)
     console.log($appConfig.get().devExtensionPath)
-
+    devExt.extPath = devExtPath.value
     await devExt.load()
     toast.success("Dev Extension Path Set", {
       description: `${devExt.manifests.length} dev extensions loaded.`

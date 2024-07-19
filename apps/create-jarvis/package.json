@@ -1,0 +1,30 @@
+{
+  "name": "create-jarvis",
+  "module": "index.ts",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "rimraf dist && rollup -c"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.7",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/bun": "latest",
+    "@types/fs-extra": "^11.0.4",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.18.1",
+    "rollup-plugin-visualizer": "^5.12.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@inquirer/select": "^2.4.1",
+    "commander": "^12.1.0",
+    "fs-extra": "^11.2.0"
+  }
+}
