@@ -167,4 +167,16 @@ export const List = object({
   sections: optional(array(Section)),
   items: optional(array(Item))
 })
-export type List = InferOutput<typeof List>
+// export type List = InferOutput<typeof List>
+/**
+ * Manually define type of List to avoid TypeScript error
+ * `Type instantiation is excessively deep and possibly infinite.`
+ * This happens when this type is used in another package.
+ * This doesn't seem to happen when this package is published as TypeScript,
+ * but only when it's packaged and published as JavaScript.
+ */
+export type List = {
+  nodeName: NodeName
+  sections?: Section[]
+  items?: Item[]
+}

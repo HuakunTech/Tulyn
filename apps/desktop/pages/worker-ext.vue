@@ -33,6 +33,7 @@ import { toast } from "vue-sonner"
 const appState = useStore($appState)
 let workerAPI: Remote<IWorkerExtensionBase> | undefined = undefined
 const loading = ref(false)
+// const item = ref<ListSchema.Section>()
 const viewContent = ref<ListSchema.List>()
 const extStore = useExtStore()
 const cmdInputRef = ref<InstanceType<typeof ComboboxInput> | null>(null)

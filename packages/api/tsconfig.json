@@ -18,6 +18,6 @@
     "verbatimModuleSyntax": true,
     "rootDir": "."
   },
-  "include": ["src", "ui", "modles"],
+  "include": ["src", "ui", "models", "commands"],
   "exclude": ["dist", "node_modules"]
 }
