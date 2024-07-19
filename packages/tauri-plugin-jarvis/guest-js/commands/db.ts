@@ -1,6 +1,7 @@
 import { invoke } from "@tauri-apps/api/core"
 import { array, literal, optional, parse, safeParse, union, type InferOutput } from "valibot"
 import { generateJarvisPluginCommand } from "../common"
+import { JARVIS_EXT_IDENTIFIER } from "../constants"
 import { CmdType, Ext, ExtData } from "../models/extension"
 import { convertDateToSqliteString, SQLSortOrder } from "../models/sql"
 
@@ -19,6 +20,20 @@ export function getAllExtensions() {
 export function getExtensionByIdentifier(identifier: string) {
   return invoke<Ext | undefined>(generateJarvisPluginCommand("get_extension_by_identifier"), {
     identifier
+  })
+}
+
+/**
+ * Use this function when you expect the extension to exist. Such as builtin extensions.
+ * @param identifier
+ * @returns
+ */
+export function getExtensionByIdentifierExpectExists(identifier: string): Promise<Ext> {
+  return getExtensionByIdentifier(identifier).then((ext) => {
+    if (!ext) {
+      throw new Error(`Extension ${identifier} not found`)
+    }
+    return ext
   })
 }
 
@@ -161,6 +176,30 @@ export function updateExtensionDataById(data: {
   searchText?: string
 }) {
   return invoke<void>(generateJarvisPluginCommand("update_extension_data_by_id"), data)
+}
+
+/* -------------------------------------------------------------------------- */
+/*                             Built-in Extensions                            */
+/* -------------------------------------------------------------------------- */
+
+export function getExtClipboard() {
+  return getExtensionByIdentifierExpectExists(JARVIS_EXT_IDENTIFIER.JARVIS_CLIPBOARD_EXT_IDENTIFIER)
+}
+export function getExtQuickLinks() {
+  return getExtensionByIdentifierExpectExists(
+    JARVIS_EXT_IDENTIFIER.JARVIS_QUICK_LINKS_EXT_IDENTIFIER
+  )
+}
+export function getExtRemote() {
+  return getExtensionByIdentifierExpectExists(JARVIS_EXT_IDENTIFIER.JARVIS_REMOTE_EXT_IDENTIFIER)
+}
+export function getExtScriptCmd() {
+  return getExtensionByIdentifierExpectExists(
+    JARVIS_EXT_IDENTIFIER.JARVIS_SCRIPT_CMD_EXT_IDENTIFIER
+  )
+}
+export function getExtDev() {
+  return getExtensionByIdentifierExpectExists(JARVIS_EXT_IDENTIFIER.JARVIS_DEV_EXT_IDENTIFIER)
 }
 
 /**

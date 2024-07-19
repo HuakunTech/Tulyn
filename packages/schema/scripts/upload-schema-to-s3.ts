@@ -36,10 +36,6 @@ const s3Client = new S3Client({
 /* -------------------------------------------------------------------------- */
 
 const schemaStr = getJsonSchema(ExtPackageJson)
-// const jsonSchema = zodToJsonSchema(ExtPackageJson, {})
-// @ts-ignore
-// jsonSchema["additionalProperties"] = true
-// const schemaStr = JSON.stringify(jsonSchema, null, 2)
 
 await s3Client.send(
   new PutObjectCommand({
