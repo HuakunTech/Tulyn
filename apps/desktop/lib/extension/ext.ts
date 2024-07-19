@@ -1,3 +1,4 @@
+import { loadAllExtensionsFromDisk } from "@/lib/commands/extensions"
 import { $appConfig } from "@/lib/stores/appConfig"
 import { useExtStore } from "@/stores/ext"
 import {
@@ -16,7 +17,6 @@ import { debug, error, warn } from "@tauri-apps/plugin-log"
 import { atom, type WritableAtom } from "nanostores"
 import {
   getServerPort,
-  loadAllExtensionsFromDisk,
   pathExists,
   registerExtensionWindow,
   unregisterExtensionWindow

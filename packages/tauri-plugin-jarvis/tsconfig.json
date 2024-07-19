@@ -9,7 +9,8 @@
     "noImplicitAny": true,
     "noEmit": true,
     "declaration": true,
-    "declarationMap": true
+    "declarationMap": true,
+    "rootDir": "."
   },
   "include": ["guest-js/*.ts"],
   "exclude": ["dist-js", "node_modules"]

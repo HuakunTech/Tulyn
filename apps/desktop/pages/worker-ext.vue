@@ -10,7 +10,7 @@ import { ArrowLeftIcon } from "@radix-icons/vue"
 import { join } from "@tauri-apps/api/path"
 import { exists, readTextFile } from "@tauri-apps/plugin-fs"
 import { onKeyStroke } from "@vueuse/core"
-import { loadManifest } from "~/lib/commands/extensions"
+import { loadExtensionManifestFromDisk } from "~/lib/commands/extensions"
 import { GlobalEventBus } from "~/lib/utils/events"
 import {
   constructJarvisServerAPIWithPermissions,
@@ -81,7 +81,7 @@ onMounted(async () => {
     return navigateTo("/")
   }
 
-  const manifest = await loadManifest(manifestPath)
+  const manifest = await loadExtensionManifestFromDisk(manifestPath)
 
   const cmd = manifest.jarvis.inlineCmds.find((cmd) => cmd.name === currentWorkerExt.cmdName)
   if (!cmd) {

@@ -71,7 +71,7 @@ export const WindowConfig = object({
 })
 export const UiCmd = object({
   main: string("HTML file to load, e.g. dist/index.html"),
-  description: nullable(string("Description of the Command"), ""),
+  description: optional(nullable(string("Description of the Command"), ""), ""),
   devMain: string("URL to load in development to support live reload, e.g. http://localhost:5173/"),
   name: string("Name of the command"),
   window: optional(nullable(WindowConfig)),
@@ -89,7 +89,7 @@ export type UiCmd = InferOutput<typeof UiCmd>
 export const InlineCmd = object({
   main: string(),
   name: string(),
-  description: nullable(string("Description of the Command"), ""),
+  description: optional(nullable(string("Description of the Command"), ""), ""),
   cmds: array(TriggerCmd),
   platforms: optional(
     nullable(
