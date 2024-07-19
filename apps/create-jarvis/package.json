@@ -4,7 +4,8 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "build": "rimraf dist && rollup -c"
+    "build": "rimraf dist && rollup -c",
+    "postbuild": "shx cp -r ../../templates dist/templates && bun scripts/clean-dist.ts"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^26.0.1",
@@ -17,13 +18,15 @@
     "@types/fs-extra": "^11.0.4",
     "rimraf": "^6.0.1",
     "rollup": "^4.18.1",
-    "rollup-plugin-visualizer": "^5.12.0"
+    "rollup-plugin-visualizer": "^5.12.0",
+    "shx": "^0.3.4"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
   "dependencies": {
     "@inquirer/select": "^2.4.1",
+    "chalk": "^5.3.0",
     "commander": "^12.1.0",
     "fs-extra": "^11.2.0"
   }

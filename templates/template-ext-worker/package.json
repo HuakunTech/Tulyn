@@ -33,8 +33,10 @@
     "dev": "rollup -c --watch",
     "build": "rimraf dist && rollup -c"
   },
+  "dependencies": {
+    "jarvis-api": "workspace:*"
+  },
   "devDependencies": {
-    "jarvis-api": "workspace:*",
     "@types/bun": "latest",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",

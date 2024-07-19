@@ -20,9 +20,7 @@ const config = {
     }),
     json(),
     typescript(),
-    resolve({
-      browser: true
-    }),
+    resolve({}),
     commonjs(),
     terser(),
     visualizer()
