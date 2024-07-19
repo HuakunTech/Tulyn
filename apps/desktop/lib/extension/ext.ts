@@ -1,6 +1,4 @@
-import { loadAllExtensions } from "@/lib/commands/extensions"
 import { $appConfig } from "@/lib/stores/appConfig"
-// import { setCurrentWorkerExt } from "../stores/appState"
 import { useExtStore } from "@/stores/ext"
 import {
   ExtPackageJsonExtra,
@@ -15,10 +13,10 @@ import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import * as fs from "@tauri-apps/plugin-fs"
 import { exists } from "@tauri-apps/plugin-fs"
 import { debug, error, warn } from "@tauri-apps/plugin-log"
-import { atom, type ReadableAtom, type WritableAtom } from "nanostores"
+import { atom, type WritableAtom } from "nanostores"
 import {
   getServerPort,
-  isWindowLabelRegistered,
+  loadAllExtensionsFromDisk,
   pathExists,
   registerExtensionWindow,
   unregisterExtensionWindow
@@ -148,7 +146,7 @@ export class Extension implements IExtensionBase {
       this.manifests = []
     } else {
       debug(`Loading extensions from: ${this.extPath}`)
-      return loadAllExtensions(this.extPath)
+      return loadAllExtensionsFromDisk(this.extPath)
         .then((manifests) => {
           this.manifests = manifests
           this.$listItems.set(

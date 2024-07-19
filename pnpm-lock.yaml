@@ -476,9 +476,6 @@ importers:
       valibot:
         specifier: ^0.35.0
         version: 0.35.0
-      zod-to-json-schema:
-        specifier: ^3.23.0
-        version: 3.23.0(zod@3.23.8)
 
   packages/gql:
     dependencies:
@@ -602,14 +599,20 @@ importers:
 
   packages/tauri-plugin-jarvis:
     dependencies:
+      '@jarvis/schema':
+        specifier: workspace:*
+        version: link:../schema
       '@tauri-apps/api':
-        specifier: '>=2.0.0-beta.6'
-        version: 2.0.0-beta.11
+        specifier: ~2.0.0-beta.15
+        version: 2.0.0-beta.15
+      '@tauri-apps/plugin-fs':
+        specifier: ~2.0.0-beta.7
+        version: 2.0.0-beta.7
       '@tauri-apps/plugin-log':
-        specifier: 2.0.0-beta.4
-        version: 2.0.0-beta.4
+        specifier: ~2.0.0-beta.8
+        version: 2.0.0-beta.8
       '@tauri-apps/plugin-os':
-        specifier: 2.0.0-beta.7
+        specifier: ~2.0.0-beta.7
         version: 2.0.0-beta.7
     devDependencies:
       '@rollup/plugin-typescript':
