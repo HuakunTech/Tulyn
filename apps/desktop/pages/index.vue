@@ -24,7 +24,14 @@ const builtinCmdExt = new BuiltinCmds()
 const devExt = new Extension("Dev Extensions", appConfig.value.devExtensionPath, true)
 const storeExt = new Extension("Extensions", await getExtensionsFolder())
 const remoteExt = new RemoteExtension()
-const exts: IExtensionBase[] = [devExt, remoteExt, storeExt, builtinCmdExt, sysCmdExt, appExt]
+const exts: IExtensionBase[] = [
+  devExt,
+  remoteExt,
+  // storeExt,
+  builtinCmdExt,
+  sysCmdExt
+  // appExt
+]
 const searchTermInSync = ref("")
 let updateSearchTermTimeout: ReturnType<typeof setTimeout>
 

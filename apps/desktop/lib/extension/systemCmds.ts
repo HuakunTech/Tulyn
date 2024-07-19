@@ -5,7 +5,7 @@ import { ElNotification } from "element-plus"
 import { getSystemCommands } from "jarvis-api/commands"
 import { IconType, SysCommand } from "jarvis-api/models"
 import { atom, type ReadableAtom, type WritableAtom } from "nanostores"
-import { parse } from "valibot"
+import { parse, safeParse } from "valibot"
 import { type IExtensionBase } from "./base"
 
 export class SystemCommandExtension implements IExtensionBase {
@@ -20,19 +20,27 @@ export class SystemCommandExtension implements IExtensionBase {
 
   async load(): Promise<void> {
     this.systemCommands = await getSystemCommands()
-    this.systemCommandListItems = this.systemCommands.map((cmd) =>
-      parse(TListItem, {
-        title: cmd.name,
-        value: cmd.value,
-        description: "System",
-        type: ListItemType.enum.SystemCmd,
-        icon: {
-          value: cmd.icon,
-          type: IconType.enum.Iconify
-        },
-        keywords: cmd.keywords
+    this.systemCommandListItems = this.systemCommands
+      .map((cmd) => {
+        const candidate = {
+          title: cmd.name,
+          value: cmd.value,
+          description: "System",
+          type: ListItemType.enum.SystemCmd,
+          icon: cmd.icon,
+          keywords: cmd.keywords
+        }
+        const parseRes = safeParse(TListItem, candidate)
+        if (parseRes.success) {
+          return parseRes.output
+        } else {
+          error(`Failed to parse system command: ${cmd.name}; See console for more details`)
+          console.error(`Failed to parse system command: ${cmd.name}`, candidate)
+          console.error(parseRes.issues)
+          return null
+        }
       })
-    )
+      .filter((item) => item !== null)
 
     setTimeout(() => {
       this.$listItems.set(this.systemCommandListItems)
