@@ -23,8 +23,9 @@ pub struct AppSettings {
     pub light_mode: LightMode,
     pub launch_at_login: bool,
     pub show_in_tray: bool,
-    pub dev_extention_path: Option<PathBuf>,
+    pub dev_extension_path: Option<PathBuf>,
     pub dev_ext_load_url: bool,
+    pub trigger_hotkey: Option<Vec<String>>,
 }
 
 impl Default for AppSettings {
@@ -35,8 +36,9 @@ impl Default for AppSettings {
             light_mode: LightMode::Auto,
             launch_at_login: true,
             show_in_tray: true,
-            dev_extention_path: None,
+            dev_extension_path: None,
             dev_ext_load_url: false,
+            trigger_hotkey: None,
         }
     }
 }

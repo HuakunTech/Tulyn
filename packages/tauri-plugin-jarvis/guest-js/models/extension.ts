@@ -33,7 +33,8 @@ export type Ext = InferOutput<typeof Ext>
 export enum CmdTypeEnum {
   Iframe = "iframe",
   Worker = "worker",
-  QuickLink = "quick_link"
+  QuickLink = "quick_link",
+  Remote = "remote"
 }
 
 export const CmdType = enum_(CmdTypeEnum)

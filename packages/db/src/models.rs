@@ -29,6 +29,7 @@ pub enum CmdType {
     Iframe,
     Worker,
     QuickLink,
+    Remote,
 }
 
 impl CmdType {
@@ -46,6 +47,7 @@ impl FromSql for CmdType {
             "iframe" => Ok(CmdType::Iframe),
             "worker" => Ok(CmdType::Worker),
             "quick_link" => Ok(CmdType::QuickLink),
+            "remote" => Ok(CmdType::Remote),
             _ => Err(rusqlite::types::FromSqlError::InvalidType),
         }
     }

@@ -141,6 +141,8 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             commands::db::search_extension_data,
             commands::db::delete_extension_data_by_id,
             commands::db::update_extension_data_by_id,
+            commands::db::get_commands_by_ext_id,
+            commands::db::create_command,
             /* -------------------------------- Clipboard ------------------------------- */
             commands::clipboard::get_history,
             commands::clipboard::add_to_history,

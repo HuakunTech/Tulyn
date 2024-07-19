@@ -17,7 +17,7 @@ pub const SCHEMA: &str = r#"
         enabled      BOOLEAN   DEFAULT TRUE,
         alias        TEXT,
         hotkey       TEXT,
-        type   TEXT    NOT NULL CHECK (type IN ('iframe', 'worker', 'quick_link')),
+        type   TEXT    NOT NULL CHECK (type IN ('iframe', 'worker', 'quick_link', 'remote')),
         data   JSON,
         FOREIGN KEY (ext_id) REFERENCES extensions (ext_id)
     );

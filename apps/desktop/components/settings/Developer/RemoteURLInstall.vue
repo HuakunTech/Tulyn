@@ -18,26 +18,27 @@ import {
   TagsInputItemDelete,
   TagsInputItemText
 } from "@/components/ui/tags-input"
-import { RemoteExt, RemoteExtension } from "@/lib/extension/remoteExt"
+import { RemoteCmd, RemoteExtension } from "@/lib/extension/remoteExt"
 import { ElMessage } from "element-plus"
 import { CloudDownloadIcon, DownloadIcon, ExternalLinkIcon, InfoIcon } from "lucide-vue-next"
 import { v4 as uuidv4 } from "uuid"
+import { parse } from "valibot"
 import { ref } from "vue"
 
 const remoteExt = new RemoteExtension()
 const remoteUrl = ref("")
 const name = ref("")
-const triggerKeywords = ref(["remote"])
 const open = ref(false)
 
 function onSave() {
   try {
-    const remoteExtPayload = RemoteExt.parse({
+    const remoteExtPayload = {
       name: name.value,
-      id: uuidv4(),
       url: remoteUrl.value,
-      triggerCmds: triggerKeywords.value
-    })
+      triggerCmds: [name.value, "remote"]
+    }
+    console.log("remoteExtPayload", remoteExtPayload)
+
     remoteExt
       .addRemoteExt(remoteExtPayload)
       .then(() => {
@@ -71,17 +72,6 @@ function onSave() {
           <div class="grid grid-cols-4 items-center gap-4">
             <Label for="name" class="text-right">Name</Label>
             <Input id="name" v-model="name" class="col-span-3" />
-          </div>
-          <div class="grid grid-cols-4 items-center gap-4">
-            <Label for="name" class="text-right">Keywords</Label>
-            <TagsInput v-model="triggerKeywords" class="col-span-3">
-              <TagsInputItem v-for="item in triggerKeywords" :key="item" :value="item">
-                <TagsInputItemText />
-                <TagsInputItemDelete />
-              </TagsInputItem>
-
-              <TagsInputInput placeholder="Keywords..." />
-            </TagsInput>
           </div>
           <div class="grid grid-cols-4 items-center gap-4">
             <Label for="url" class="text-right">Remote URL</Label>

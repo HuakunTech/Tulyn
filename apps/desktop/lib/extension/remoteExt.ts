@@ -1,55 +1,54 @@
 import { ListItemType, TListGroup, TListItem } from "@jarvis/schema"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { info } from "@tauri-apps/plugin-log"
-import { Store } from "@tauri-apps/plugin-store"
-import axios from "axios"
 import { ElMessage } from "element-plus"
-import { Icon, IconType } from "jarvis-api/models"
+import { CmdType, ExtCmd, Icon, IconType } from "jarvis-api/models"
 import { atom, computed, task, type ReadableAtom, type WritableAtom } from "nanostores"
-import { parse } from "valibot"
-import { z } from "zod"
+import { db } from "tauri-plugin-jarvis-api/commands"
+import {
+  array,
+  minLength,
+  number,
+  object,
+  parse,
+  pipe,
+  safeParse,
+  string,
+  url,
+  uuid,
+  type InferOutput
+} from "valibot"
 import type { IExtensionBase } from "./base"
 
-export const RemoteExt = z.object({
-  name: z.string().min(1),
-  id: z.string().uuid(),
-  url: z.string().url(),
-  triggerCmds: z.array(z.string()).min(1)
+export const RemoteCmd = object({
+  name: pipe(string(), minLength(1)),
+  id: number(),
+  url: pipe(string(), url()),
+  triggerCmds: pipe(array(string()), minLength(1))
 })
-export type RemoteExt = z.infer<typeof RemoteExt>
-export const RemoteExtState = RemoteExt.array()
-export type RemoteExtState = z.infer<typeof RemoteExtState>
+export type RemoteCmd = InferOutput<typeof RemoteCmd>
+export const RemoteExtState = array(RemoteCmd)
+export type RemoteExtState = InferOutput<typeof RemoteExtState>
 
-// async function getFavicon(url: string): Promise<Icon> {
-//   return axios
-//     .get(url + "/favicon.ico")
-//     .then((res) => {
-//       return Icon.parse({
-//         type: "remote-url",
-//         value: url + "/favicon.ico",
-//       });
-//     })
-//     .catch((err) => {
-//       console.log(url, err);
+function convertRawCmdToRemoteExt(rawExt: ExtCmd): RemoteCmd {
+  return {
+    name: rawExt.name,
+    id: rawExt.cmdId,
+    url: rawExt.data,
+    triggerCmds: rawExt.alias ? [rawExt.alias, "remote"] : ["remote"]
+  }
+}
 
-//       return Icon.parse({
-//         type: "iconify",
-//         value: "mdi:web",
-//       });
-//     });
-// }
-
-function convertToListItem(rawExt: RemoteExt): TListItem {
+function convertToListItem(rawExt: RemoteCmd): TListItem {
   return {
     title: rawExt.name,
-    value: rawExt.id, // uuid of command can be used to identify list item
+    value: rawExt.id.toString(),
     description: "Remote Extension",
     type: ListItemType.enum.RemoteCmd,
     icon: {
       type: IconType.enum.RemoteUrl,
       value: rawExt.url + "/favicon.ico"
     },
-    // icon: await getFavicon(rawExt.url),
     keywords: ["remote", ...rawExt.triggerCmds],
     identityFilter: false,
     flags: { isDev: true, isRemovable: true }
@@ -58,12 +57,11 @@ function convertToListItem(rawExt: RemoteExt): TListItem {
 
 export class RemoteExtension implements IExtensionBase {
   extensionName: string = "Remote Extensions"
-  $remoteExtensions: WritableAtom<RemoteExt[]>
+  $remoteExtensions: WritableAtom<RemoteCmd[]>
   $listItems: ReadableAtom<TListItem[]>
-  persistAppConfig: Store
+  remoteExtDbId: number | undefined
 
   constructor() {
-    this.persistAppConfig = new Store("remoteExt.bin")
     this.$remoteExtensions = atom<RemoteExtState>([])
     this.$listItems = computed(this.$remoteExtensions, (state): TListItem[] => {
       return state.map((x) => convertToListItem(x))
@@ -71,29 +69,13 @@ export class RemoteExtension implements IExtensionBase {
   }
 
   async load(): Promise<void> {
-    const defaultState: RemoteExtState = []
-    const loadedConfig = await this.persistAppConfig.get("remoteExts")
-    info(`Loaded remote extensions: ${JSON.stringify(loadedConfig, null, 2)}`)
-
-    if (loadedConfig !== null) {
-      // not null means config is initialized, if parse error is thrown then it's a problem
-      const parsedConfig = RemoteExtState.safeParse(loadedConfig)
-      if (parsedConfig.success) {
-        defaultState.push(...parsedConfig.data)
-      } else {
-        console.error(parsedConfig.error)
-        ElMessage.error(`Failed to load remote extensions: ${parsedConfig.error.message}`)
-      }
-    }
-    this.$remoteExtensions.set(defaultState)
-    // !Subscribe is replaced by save(). save() is called in addRemoteExt() and removeRemoteCmd().
-    // !Subscribe could have problem when this class is used in multiple places (instanciated multiple times), data could be erased.
-    // this.$remoteExtensions.subscribe((state, oldState) => {
-    //   console.log("Subscribe", state);
-    //   this.persistAppConfig.set("remoteExts", state);
-    //   this.persistAppConfig.save();
-    // });
+    const dbRemoteExt = await db.getExtRemote()
+    this.remoteExtDbId = dbRemoteExt.extId
+    const cmds = await db.getCommandsByExtId(dbRemoteExt.extId)
+    const remoteCmds = cmds.map(convertRawCmdToRemoteExt)
+    this.$remoteExtensions.set(remoteCmds)
   }
+
   default(): TListItem[] {
     return this.$listItems.get()
   }
@@ -113,34 +95,42 @@ export class RemoteExtension implements IExtensionBase {
       }
     ]
   }
-  findRemoteExt(uuid: string): RemoteExt | undefined {
-    return this.$remoteExtensions.get().find((ext) => ext.id === uuid)
+
+  findRemoteExt(cmdId: number): RemoteCmd | undefined {
+    return this.$remoteExtensions.get().find((ext) => ext.id === cmdId)
   }
 
-  async addRemoteExt(ext: RemoteExt) {
-    await this.load()
-    console.log("addRemoteExt", ext)
-    this.$remoteExtensions.set([...this.$remoteExtensions.get(), ext])
-    console.log("Save ", this.$remoteExtensions.get())
-    this.save()
+  async addRemoteExt(ext: Omit<RemoteCmd, "id">) {
+    if (!this.remoteExtDbId) {
+      await this.load() // remoteExtDbId should be set in load()
+    }
+    // Allow duplicate remote extension, there is no unique identifier.
+    // User can always remove the duplicate in settings.
+    console.log({
+      extId: parse(number(), this.remoteExtDbId),
+      name: ext.name,
+      type: CmdType.enum.Remote,
+      data: ext.url
+    })
+
+    await db.createCommand({
+      extId: parse(number(), this.remoteExtDbId),
+      name: ext.name,
+      cmdType: CmdType.enum.Remote,
+      data: ext.url
+    })
   }
 
-  save() {
-    this.persistAppConfig.set("remoteExts", this.$remoteExtensions.get())
-    this.persistAppConfig.save()
-  }
-
-  async removeRemoteCmd(uuid: string) {
-    await this.load()
-    this.$remoteExtensions.set(this.$remoteExtensions.get().filter((ext) => ext.id !== uuid))
-    this.save()
+  removeRemoteCmd(cmdId: number) {
+    return db.deleteCommandById(cmdId)
   }
 
   onSelect(item: TListItem): Promise<void> {
-    const ext = this.findRemoteExt(item.value)
+    const ext = this.findRemoteExt(parseInt(item.value))
     if (!ext) {
       return Promise.reject("Remote Extension not found")
     }
+    // TODO: rethink the design of remote extension, how it works
     new WebviewWindow("ext-remote", {
       url: ext.url
     })

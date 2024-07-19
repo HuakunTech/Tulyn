@@ -14,6 +14,7 @@ use tauri_plugin_jarvis::{
 };
 use tauri_plugin_store::StoreBuilder;
 pub mod utils;
+use log;
 #[cfg(target_os = "macos")]
 use tauri::ActivationPolicy;
 use tauri::Manager;
@@ -79,13 +80,18 @@ fn main() {
                 tauri_plugin_jarvis::server::CANDIDATE_PORTS.to_vec(),
             )
             .unwrap();
-            println!("Jarvis Server Port: {}", my_port);
+            log::info!("Jarvis Server Port: {}", my_port);
+            log::info!(
+                "App Settings Dev Extension Path: {:?}",
+                app_settings.dev_extension_path,
+            );
+            log::info!("Extension Folder: {:?}", ext_folder);
             app.manage(tauri_plugin_jarvis::server::http::Server::new(
                 app.handle().clone(),
                 my_port,
                 Protocol::Http,
                 ext_folder,
-                app_settings.dev_extention_path,
+                app_settings.dev_extension_path,
             ));
             tauri_plugin_jarvis::setup::server::setup_server(app.handle())?; // start the server
 

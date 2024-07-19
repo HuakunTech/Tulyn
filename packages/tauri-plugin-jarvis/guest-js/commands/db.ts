@@ -2,12 +2,11 @@ import { invoke } from "@tauri-apps/api/core"
 import { array, literal, optional, parse, safeParse, union, type InferOutput } from "valibot"
 import { generateJarvisPluginCommand } from "../common"
 import { JARVIS_EXT_IDENTIFIER } from "../constants"
-import { CmdType, Ext, ExtData } from "../models/extension"
+import { CmdType, Ext, ExtCmd, ExtData } from "../models/extension"
 import { convertDateToSqliteString, SQLSortOrder } from "../models/sql"
 
 /* -------------------------------------------------------------------------- */
 /*                               Extension CRUD                               */
-
 /* -------------------------------------------------------------------------- */
 export function createExtension(ext: { identifier: string; version: string }) {
   return invoke<void>(generateJarvisPluginCommand("create_extension"), ext)
@@ -48,20 +47,24 @@ export function deleteExtensionByIdentifier(identifier: string) {
 export function createCommand(data: {
   extId: number
   name: string
-  type: CmdType
+  cmdType: CmdType
   data: string
   alias?: string
   hotkey?: string
+  enabled?: boolean
 }) {
-  return invoke<void>(generateJarvisPluginCommand("create_command"), data)
+  return invoke<void>(generateJarvisPluginCommand("create_command"), {
+    ...data,
+    enabled: data.enabled ?? false
+  })
 }
 
 export function getCommandById(cmdId: number) {
-  return invoke<Ext | undefined>(generateJarvisPluginCommand("get_command_by_id"), { cmdId })
+  return invoke<ExtCmd | undefined>(generateJarvisPluginCommand("get_command_by_id"), { cmdId })
 }
 
 export function getCommandsByExtId(extId: number) {
-  return invoke<Ext[]>(generateJarvisPluginCommand("get_commands_by_ext_id"), { extId })
+  return invoke<ExtCmd[]>(generateJarvisPluginCommand("get_commands_by_ext_id"), { extId })
 }
 
 export function deleteCommandById(cmdId: number) {
