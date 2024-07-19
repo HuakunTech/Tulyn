@@ -34,8 +34,7 @@
     "tsc-alias": "^1.8.10",
     "tsup": "^8.0.2",
     "typedoc": "^0.26.4",
-    "valibot": "^0.35.0",
-    "zod-to-json-schema": "^3.23.0"
+    "valibot": "^0.35.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0",

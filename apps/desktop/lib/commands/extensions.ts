@@ -4,9 +4,8 @@
  * of extension API package are bundled in extension code.
  */
 import { ExtPackageJson, ExtPackageJsonExtra } from "@jarvis/schema"
-import { invoke } from "@tauri-apps/api/core"
 import { basename, dirname, join } from "@tauri-apps/api/path"
-import { BaseDirectory, exists, readDir, readTextFile } from "@tauri-apps/plugin-fs"
+import { readDir, readTextFile } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
 import { db } from "tauri-plugin-jarvis-api/commands"
 import { safeParse } from "valibot"
@@ -15,7 +14,7 @@ export function loadManifest(manifestPath: string): Promise<ExtPackageJsonExtra>
   return readTextFile(manifestPath).then(async (content) => {
     const parse = safeParse(ExtPackageJson, JSON.parse(content))
     if (parse.issues) {
-      error(`Fail to load extension ${manifestPath}. Error: ${parse.issues}`)
+      error(`Fail to load extension from ${manifestPath}. See console for parse error.`)
       console.error(parse.issues)
       throw new Error(`Invalid manifest: ${manifestPath} - ${parse.issues}`)
     } else {
@@ -28,9 +27,6 @@ export function loadManifest(manifestPath: string): Promise<ExtPackageJsonExtra>
       })
     }
   })
-  // return invoke("plugin:jarvis|load_manifest", { manifestPath }).then((res) =>
-  //   ExtPackageJsonExtra.parse(res)
-  // )
 }
 
 export function loadAllExtensions(extensionsFolder: string): Promise<ExtPackageJsonExtra[]> {
@@ -39,32 +35,9 @@ export function loadAllExtensions(extensionsFolder: string): Promise<ExtPackageJ
     for (const dirEntry of dirEntries) {
       const extFullPath = await join(extensionsFolder, dirEntry.name)
       const manifestPath = await join(extFullPath, "package.json")
-      try {
-        if (!(await exists(manifestPath))) {
-          continue
-        }
-      } catch (error) {
-        continue
-      }
-      const content = await readTextFile(manifestPath)
-      let jsonContent = {}
-      try {
-        jsonContent = JSON.parse(content)
-      } catch (error) {
-        console.error(error)
-        continue
-      }
-      const parse = safeParse(ExtPackageJson, jsonContent)
-      if (parse.issues) {
-        console.warn(parse.issues)
-        error(
-          `Fail to load extension (in loadAllExtensions) ${manifestPath}. See console for parse error.`
-        )
-        continue
-      }
-      const extPkgJson = parse.output
-      const foundExt = await db.getExtensionByIdentifier(extPkgJson.jarvis.identifier)
-      if (!foundExt) {
+      const extPkgJson = await loadManifest(manifestPath)
+      const extInDb = await db.getExtensionByIdentifier(extPkgJson.jarvis.identifier)
+      if (!extInDb) {
         // create this extension in database
         await db.createExtension({
           identifier: extPkgJson.jarvis.identifier,
@@ -80,22 +53,4 @@ export function loadAllExtensions(extensionsFolder: string): Promise<ExtPackageJ
     }
     return results
   })
-  // debug(`loadAllExtensions extensions from ${extensionsFolder}`)
-  // return invoke("plugin:jarvis|load_all_extensions", { extensionsFolder }).then(
-  //   (res: any) =>
-  //     res
-  //       .map((x: unknown) => {
-  //         console.log(extensionsFolder, "loaded", x)
-  //         const parse = ExtPackageJsonExtra.safeParse(x)
-  //         if (parse.error) {
-  //           error(`Fail to load extension ${extensionsFolder}. Error: ${parse.error}`)
-  //           console.error(parse.error)
-  //           return null
-  //         } else {
-  //           debug(`Loaded extension ${parse.data.jarvis.identifier} from ${extensionsFolder}`)
-  //           return parse.data
-  //         }
-  //       })
-  //       .filter((x: ExtPackageJsonExtra | null) => x !== null) as ExtPackageJsonExtra[]
-  // )
 }
