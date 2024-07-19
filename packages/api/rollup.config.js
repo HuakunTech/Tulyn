@@ -4,19 +4,13 @@ import { cwd } from "process"
 // import typescript from "@rollup/plugin-typescript"
 import typescript from "@rollup/plugin-typescript"
 import { visualizer } from "rollup-plugin-visualizer"
+import { buildEntries } from "./src/common-config.js"
 
 const pkg = JSON.parse(readFileSync(join(cwd(), "package.json"), "utf8"))
 
 /** @type {import('rollup').RollupOptions} */
 const config = {
-  input: [
-    "src/index.ts",
-    "src/ui/index.ts",
-    "src/ui/iframe.ts",
-    "src/ui/worker/index.ts",
-    "src/models/index.ts",
-    "src/commands/index.ts"
-  ],
+  input: buildEntries,
   output: [
     {
       dir: "dist",

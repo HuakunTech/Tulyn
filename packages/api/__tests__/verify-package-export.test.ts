@@ -1,6 +1,19 @@
 import path from "path"
 import { expect, test } from "bun:test"
+import madge from "madge"
 import * as v from "valibot"
+import { buildEntries } from "../src/common-config.js"
+
+test("Test Circular Dependency", async () => {
+  const pkgRoot = path.join(__dirname, "..")
+  const paths = buildEntries.map((p) => path.join(pkgRoot, p)).map((p) => path.resolve(p))
+  // expect each paths to exist
+  paths.forEach(async (p) => {
+    expect(await Bun.file(p).exists()).toBe(true)
+    const madgeRes = await madge(p)
+    expect(madgeRes.circular()).toEqual([])
+  })
+})
 
 test("Verify Package Export Path", async () => {
   const pkgRoot = path.join(__dirname, "..")

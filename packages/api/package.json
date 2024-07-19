@@ -47,6 +47,8 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/madge": "^5.0.3",
+    "madge": "^7.0.0",
     "rimraf": "^5.0.7",
     "rollup-plugin-visualizer": "^5.12.0",
     "tsc-alias": "^1.8.10",
