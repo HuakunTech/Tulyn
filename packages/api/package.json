@@ -39,7 +39,6 @@
     "build:docs": "npx typedoc",
     "dev": "rollup -c --watch",
     "build": "rimraf dist && pnpm build:rollup && pnpm build:docs",
-    "postbuild": "bun test __tests__",
     "build:rollup": "rollup -c",
     "build:tsup": "tsup",
     "format": "prettier --write \"**/*.{ts,tsx,md,vue,json,yaml,yml}\"",
