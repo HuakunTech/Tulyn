@@ -48,9 +48,10 @@ export interface IToast {
 }
 
 export interface IUi {
-  render: (view: IComponent<ListSchema.List>) => void
-  setScrollLoading: (loading: boolean) => void
-  setSearchTerm: (term: string) => void
+  render: (view: IComponent<ListSchema.List>) => Promise<void>
+  setScrollLoading: (loading: boolean) => Promise<void>
+  setSearchTerm: (term: string) => Promise<void>
+  setSearchBarPlaceholder: (placeholder: string) => Promise<void>
 }
 
 export interface IDb {

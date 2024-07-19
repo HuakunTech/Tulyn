@@ -9,6 +9,7 @@ import { useStore } from "@nanostores/vue"
 import { ArrowLeftIcon } from "@radix-icons/vue"
 import { join } from "@tauri-apps/api/path"
 import { exists, readTextFile } from "@tauri-apps/plugin-fs"
+import { debug } from "@tauri-apps/plugin-log"
 import { onKeyStroke } from "@vueuse/core"
 import { loadExtensionManifestFromDisk } from "~/lib/commands/extensions"
 import { GlobalEventBus } from "~/lib/utils/events"
@@ -16,32 +17,34 @@ import { db, JarvisExtDB } from "jarvis-api/commands"
 import {
   constructJarvisServerAPIWithPermissions,
   exposeApiToWorker,
-  getWorkerApiClient
+  getWorkerApiClient,
+  type IUi
 } from "jarvis-api/ui"
 import {
   convertJarvisExtDBToServerDbAPI,
   List,
   NodeNameEnum,
   wrap,
+  type IComponent,
   type IDbServer,
-  type IWorkerExtension,
-  type ListSchema
+  type ListSchema,
+  type WorkerExtension
 } from "jarvis-api/ui/worker"
 import type { ComboboxInput } from "radix-vue"
 import { toast } from "vue-sonner"
 
 const appState = useStore($appState)
-let workerAPI: Remote<IWorkerExtension> | undefined = undefined
+let workerAPI: Remote<WorkerExtension> | undefined = undefined
 const loading = ref(false)
 const viewContent = ref<ListSchema.List>()
 const extStore = useExtStore()
 const cmdInputRef = ref<InstanceType<typeof ComboboxInput> | null>(null)
 const appUiStore = useAppUiStore()
 const searchTerm = ref("")
+const searchBarPlaceholder = ref("")
 function getWorkerExtInputEle(): HTMLInputElement | null {
   return cmdInputRef.value?.$el.querySelector("input")
 }
-// const workerExtInputEle = computed(() => cmdInputRef.value?.$el.querySelector("input"))
 
 useListenToWindowFocus(() => {
   getWorkerExtInputEle()?.focus()
@@ -55,21 +58,33 @@ onKeyStroke("Escape", () => {
   }
 })
 
-function setSearchTerm(term: string) {
-  searchTerm.value = term
-}
-
-function render(view: ListSchema.List) {
-  viewContent.value = view
-}
-
-function setScrollLoading(_loading: boolean) {
-  loading.value = _loading
+const extUiAPI: IUi = {
+  async render(view: IComponent<ListSchema.List>) {
+    viewContent.value = view
+  },
+  async setScrollLoading(_loading: boolean) {
+    loading.value = _loading
+  },
+  async setSearchTerm(term: string) {
+    searchTerm.value = term
+  },
+  async setSearchBarPlaceholder(placeholder: string) {
+    searchBarPlaceholder.value = placeholder
+  }
 }
 
 function onActionSelected(actionVal: string) {
   getWorkerExtInputEle()?.focus() // Focus back to worker extension search input box
-  workerAPI?.onActionSelected(actionVal)
+  if (workerAPI && workerAPI.onActionSelected) {
+    workerAPI.onActionSelected(actionVal)
+  }
+}
+
+function onEnterKeyPressed() {
+  if (workerAPI) {
+    debug("Enter key pressed")
+    workerAPI.onEnterPressedOnSearchBar()
+  }
 }
 
 onMounted(async () => {
@@ -116,13 +131,11 @@ onMounted(async () => {
   const extDBApi: IDbServer = convertJarvisExtDBToServerDbAPI(dbAPI)
   exposeApiToWorker(worker, {
     ...constructJarvisServerAPIWithPermissions(manifest.jarvis.permissions),
-    render,
-    setScrollLoading,
-    setSearchTerm,
+    ...extUiAPI,
     ...extDBApi
   })
   // exposeApiToWorker(worker, { render }) // Expose render function to worker
-  workerAPI = wrap<IWorkerExtension>(worker) // Call worker exposed APIs
+  workerAPI = wrap<WorkerExtension>(worker) // Call worker exposed APIs
   await workerAPI.load()
 
   // cmdInputRef.value = document.getElementById(HTMLElementId.WorkerExtInputId) as HTMLElement | null
@@ -185,7 +198,8 @@ watch(highlightedItemValue, (newVal, oldVal) => {
       :id="HTMLElementId.WorkerExtInputId"
       ref="cmdInputRef"
       class="text-md h-12"
-      placeholder="Search for apps or commands..."
+      :placeholder="searchBarPlaceholder ?? 'Search...'"
+      @keydown.enter="onEnterKeyPressed"
     >
       <Button size="icon" variant="outline" @click="() => navigateTo('/')">
         <ArrowLeftIcon />

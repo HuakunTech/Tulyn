@@ -61,6 +61,7 @@ export interface IUiServer {
   render: IUi["render"]
   setScrollLoading: IUi["setScrollLoading"]
   setSearchTerm: IUi["setSearchTerm"]
+  setSearchBarPlaceholder: IUi["setSearchBarPlaceholder"]
 }
 
 export interface IToastServer {

@@ -6,11 +6,12 @@ import {
   Icon,
   IconEnum,
   List,
+  log,
   shell,
   toast,
   ui,
-  wrap,
-  type IWorkerExtension
+  WorkerExtension,
+  wrap
 } from "jarvis-api/ui/worker"
 import { boolean, number, object, parse, safeParse, string, type InferOutput } from "valibot"
 
@@ -64,17 +65,24 @@ function mapIpInfoToListItem(ip: IpListItem): List.Item {
   })
 }
 
-class IpInfo implements IWorkerExtension {
+class IpInfo extends WorkerExtension {
   ip?: InferOutput<typeof IpApiJsonSchema>
   listitems: List.Item[] = []
 
-  load(): Promise<void> {
-    return this.searchIp().then(() => {
-      ui.render(new List.List({ items: this.listitems }))
-    })
+  onEnterPressedOnSearchBar(): Promise<void> {
+    return this.searchIp(this.searchTerm)
+      .then(() => {
+        return ui.render(new List.List({ items: this.listitems }))
+      })
+      .then(() => {
+        return ui.setSearchTerm("")
+      })
   }
-  onSearchTermChange(term: string): Promise<void> {
-    return Promise.resolve()
+
+  load(): Promise<void> {
+    return ui
+      .setSearchBarPlaceholder("Enter an IPv4 address, and press enter to search")
+      .then(() => this.searchIp().then(() => ui.render(new List.List({ items: this.listitems }))))
   }
   onItemSelected(value: string): Promise<void> {
     return clipboard
@@ -101,13 +109,13 @@ class IpInfo implements IWorkerExtension {
     const apiUrl = `http://ip-api.com/json${
       ipv4 ? "/" + ipv4 : ""
     }?fields=status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,offset,currency,isp,org,as,asname,reverse,proxy,hosting,query`
+    log.debug(`API URL: ${apiUrl}`)
     return fetch(apiUrl, {
       method: "GET"
     })
       .then((res) => res.json())
       .then((data) => {
         this.ip = parse(IpApiJsonSchema, data)
-        ui.setSearchTerm(this.ip.query)
         const items: IpListItem[] = [
           {
             icon: "mdi:web",
