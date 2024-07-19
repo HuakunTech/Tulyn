@@ -82,10 +82,6 @@ class HackerNews extends WorkerExtension {
     }
     return Promise.resolve()
   }
-  onHighlightedItemChanged(value: string): Promise<void> {
-    this.value = value
-    return Promise.resolve()
-  }
   async onScrolledToBottom(): Promise<void> {
     await ui.setScrollLoading(true)
     return Promise.all(

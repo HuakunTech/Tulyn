@@ -14,6 +14,7 @@
 
 export class WorkerExtension {
   searchTerm: string = ""
+  highlightedItemValue?: string
 
   /**
    * Load the extension. Initialize the extension.
@@ -33,6 +34,7 @@ export class WorkerExtension {
     return Promise.resolve()
   }
   onHighlightedItemChanged(value: string): Promise<void> {
+    this.highlightedItemValue = value
     return Promise.resolve()
   }
   onActionSelected(value: string): Promise<void> {

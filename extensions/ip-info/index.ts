@@ -46,6 +46,10 @@ type IpListItem = {
   icon: string
 }
 
+const Actions = {
+  CopyToClipboard: "Copy to Clipboard"
+}
+
 function mapIpInfoToListItem(ip: IpListItem): List.Item {
   return new List.Item({
     title: ip.title,
@@ -57,7 +61,7 @@ function mapIpInfoToListItem(ip: IpListItem): List.Item {
     actions: new Action.ActionPanel({
       items: [
         new Action.Action({
-          title: "Copy to Clipboard",
+          title: Actions.CopyToClipboard,
           icon: new Icon({ type: IconEnum.Iconify, value: "tabler:copy" })
         })
       ]
@@ -70,6 +74,10 @@ class IpInfo extends WorkerExtension {
   listitems: List.Item[] = []
 
   onEnterPressedOnSearchBar(): Promise<void> {
+    // check if this.searchTerm is ipv4
+    if (!/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(this.searchTerm)) {
+      return Promise.resolve()
+    }
     return this.searchIp(this.searchTerm)
       .then(() => {
         return ui.render(new List.List({ items: this.listitems }))
@@ -80,11 +88,9 @@ class IpInfo extends WorkerExtension {
   }
 
   load(): Promise<void> {
-    return ui.setSearchBarPlaceholder("Enter an IPv4 address, and press enter to search").then(() =>
-      this.searchIp().then(() => {
-        // return ui.render(new List.List({ items: this.listitems }))
-      })
-    )
+    return ui
+      .setSearchBarPlaceholder("Enter an IPv4 address, and press enter to search")
+      .then(() => this.searchIp())
   }
   onItemSelected(value: string): Promise<void> {
     return clipboard
@@ -96,14 +102,14 @@ class IpInfo extends WorkerExtension {
         return
       })
   }
-  onScrolledToBottom(): Promise<void> {
-    return Promise.resolve()
-  }
-  onHighlightedItemChanged(value: string): Promise<void> {
-    return Promise.resolve()
-  }
   onActionSelected(value: string): Promise<void> {
-    console.log("onActionSelected", value)
+    if (value === Actions.CopyToClipboard) {
+      if (this.highlightedItemValue) {
+        return this.onItemSelected(this.highlightedItemValue)
+      } else {
+        return toast.warning("No item selected").then(() => {})
+      }
+    }
     return Promise.resolve()
   }
 
