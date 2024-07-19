@@ -8,8 +8,6 @@
     "noUnusedLocals": false,
     "noImplicitAny": true,
     "noEmit": true,
-    "declaration": true,
-    "declarationMap": true,
     "outDir": "dist",
     "baseUrl": ".",
     "esModuleInterop": true,

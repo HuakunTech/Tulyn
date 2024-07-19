@@ -50,6 +50,7 @@ export interface IToast {
 export interface IUi {
   render: (view: IComponent<ListSchema.List>) => void
   setScrollLoading: (loading: boolean) => void
+  setSearchTerm: (term: string) => void
 }
 
 export interface IDb {

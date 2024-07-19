@@ -1,7 +1,7 @@
 import { expose } from "@huakunshen/comlink"
-import { clipboard, type IWorkerExtensionBase } from "jarvis-api/ui/worker"
+import { clipboard, type IWorkerExtension } from "jarvis-api/ui/worker"
 
-class SampleWorkerExt implements IWorkerExtensionBase {
+class SampleWorkerExt implements IWorkerExtension {
   name = "sample-worker"
 
   onSearchTermChange(term: string): Promise<void> {

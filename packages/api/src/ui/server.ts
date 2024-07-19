@@ -60,6 +60,7 @@ import type { IDb, ISystem, IToast, IUi } from "./client"
 export interface IUiServer {
   render: IUi["render"]
   setScrollLoading: IUi["setScrollLoading"]
+  setSearchTerm: IUi["setSearchTerm"]
 }
 
 export interface IToastServer {

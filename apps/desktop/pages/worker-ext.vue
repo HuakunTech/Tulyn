@@ -24,34 +24,40 @@ import {
   NodeNameEnum,
   wrap,
   type IDbServer,
-  type IWorkerExtensionBase,
+  type IWorkerExtension,
   type ListSchema
 } from "jarvis-api/ui/worker"
 import type { ComboboxInput } from "radix-vue"
 import { toast } from "vue-sonner"
 
 const appState = useStore($appState)
-let workerAPI: Remote<IWorkerExtensionBase> | undefined = undefined
+let workerAPI: Remote<IWorkerExtension> | undefined = undefined
 const loading = ref(false)
-// const item = ref<ListSchema.Section>()
 const viewContent = ref<ListSchema.List>()
 const extStore = useExtStore()
 const cmdInputRef = ref<InstanceType<typeof ComboboxInput> | null>(null)
 const appUiStore = useAppUiStore()
 const searchTerm = ref("")
-const workerExtInputEle = computed(() => cmdInputRef.value?.$el.querySelector("input"))
+function getWorkerExtInputEle(): HTMLInputElement | null {
+  return cmdInputRef.value?.$el.querySelector("input")
+}
+// const workerExtInputEle = computed(() => cmdInputRef.value?.$el.querySelector("input"))
 
 useListenToWindowFocus(() => {
-  workerExtInputEle.value.focus()
+  getWorkerExtInputEle()?.focus()
 })
 
 onKeyStroke("Escape", () => {
-  if (document.activeElement === workerExtInputEle.value) {
+  if (document.activeElement === getWorkerExtInputEle()) {
     return navigateTo("/")
   } else {
-    workerExtInputEle.value.focus()
+    getWorkerExtInputEle()?.focus()
   }
 })
+
+function setSearchTerm(term: string) {
+  searchTerm.value = term
+}
 
 function render(view: ListSchema.List) {
   viewContent.value = view
@@ -62,7 +68,7 @@ function setScrollLoading(_loading: boolean) {
 }
 
 function onActionSelected(actionVal: string) {
-  workerExtInputEle.value.focus() // Focus back to worker extension search input box
+  getWorkerExtInputEle()?.focus() // Focus back to worker extension search input box
   workerAPI?.onActionSelected(actionVal)
 }
 
@@ -83,7 +89,6 @@ onMounted(async () => {
   }
 
   const manifest = await loadExtensionManifestFromDisk(manifestPath)
-
   const cmd = manifest.jarvis.inlineCmds.find((cmd) => cmd.name === currentWorkerExt.cmdName)
   if (!cmd) {
     toast.error(`Worker extension command ${currentWorkerExt.cmdName} not found`)
@@ -107,18 +112,17 @@ onMounted(async () => {
   const blobURL = URL.createObjectURL(blob)
   const worker = new Worker(blobURL)
   // Expose Jarvis APIs to worker with permissions constraints
-  console.log("extInfoInDB", extInfoInDB)
-
   const dbAPI = new db.JarvisExtDB(extInfoInDB.extId)
   const extDBApi: IDbServer = convertJarvisExtDBToServerDbAPI(dbAPI)
   exposeApiToWorker(worker, {
     ...constructJarvisServerAPIWithPermissions(manifest.jarvis.permissions),
     render,
     setScrollLoading,
+    setSearchTerm,
     ...extDBApi
   })
   // exposeApiToWorker(worker, { render }) // Expose render function to worker
-  workerAPI = wrap<IWorkerExtensionBase>(worker) // Call worker exposed APIs
+  workerAPI = wrap<IWorkerExtension>(worker) // Call worker exposed APIs
   await workerAPI.load()
 
   // cmdInputRef.value = document.getElementById(HTMLElementId.WorkerExtInputId) as HTMLElement | null

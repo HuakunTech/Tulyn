@@ -4,11 +4,11 @@ import { CommandGroup, CommandItem, CommandList } from "@/components/ui/command"
 import StrikeSeparator from "@/components/ui/separator/StrikeSeparator.vue"
 import { expose, type Remote } from "@huakunshen/comlink"
 import { IconEnum } from "jarvis-api/models"
-import { List, ListSchema, type IWorkerExtensionBase } from "jarvis-api/ui/worker"
+import { List, ListSchema, type IWorkerExtension } from "jarvis-api/ui/worker"
 
 const props = defineProps<{
   modelValue: ListSchema.List
-  workerAPI: Remote<IWorkerExtensionBase>
+  workerAPI: Remote<IWorkerExtension>
   loading: boolean
 }>()
 let isScrolling = false

@@ -8,7 +8,7 @@ import {
   toast,
   ui,
   wrap,
-  type IWorkerExtensionBase
+  type IWorkerExtension
 } from "jarvis-api/ui/worker"
 import {
   array,
@@ -54,7 +54,7 @@ function hackerNewsItemToListItem(item: HackerNewsItem, idx: number): List.Item 
   })
 }
 
-class HackerNews implements IWorkerExtensionBase {
+class HackerNews implements IWorkerExtension {
   items: HackerNewsItem[]
   listitems: List.Item[]
   storyIds: number[]

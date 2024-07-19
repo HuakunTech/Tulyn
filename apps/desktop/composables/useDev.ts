@@ -9,7 +9,7 @@ export const useDevWorkerExt = () => {
       "fs:exists"
     ])
     // exposeApiToWorker(worker, serverAPI)
-    // const workerAPI = wrap<IWorkerExtensionBase>(worker)
+    // const workerAPI = wrap<IWorkerExtension>(worker)
     // await workerAPI.load()
     // console.log("default()", await workerAPI.default())
     const workerScript = await fs.readTextFile(

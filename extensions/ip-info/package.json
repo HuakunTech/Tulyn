@@ -10,7 +10,8 @@
     "longDescription": "Will display you IP Address and more information about this IP address, including Geo Location, ASN, ISP. You can also search for a specific IP.",
     "identifier": "tech.huakun.jarvis-ext-ip-info",
     "permissions": [
-      "clipboard:read-all"
+      "clipboard:write-text",
+      "fetch:all"
     ],
     "demoImages": [
       "./demo/ip-info.png"
@@ -19,29 +20,36 @@
       "type": "iconify",
       "value": "mdi:ip-network"
     },
-    "uiCmds": [
+    "inlineCmds": [
       {
-        "main": "dist",
         "name": "IP Info",
+        "main": "dist/index.js",
         "description": "Display your current IP addres and detailed information. Search for other IP address.",
-        "devMain": "http://localhost:5173",
-        "window": {
-          "titleBarStyle": "overlay"
-        },
-        "cmds": [
-          {
-            "type": "text",
-            "value": "ip"
-          }
-        ]
+        "cmds": []
       }
     ]
+  },
+  "scripts": {
+    "dev": "rollup -c --watch",
+    "build": "rimraf dist && rollup -c"
   },
   "files": [
     "dist"
   ],
+  "dependencies": {
+    "jarvis-api": "workspace:*",
+    "valibot": "^0.36.0"
+  },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.18.1",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "rollup-plugin-visualizer": "^5.12.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
