@@ -1,9 +1,9 @@
 import { invoke } from "@tauri-apps/api/core"
 import { array, literal, optional, parse, safeParse, union, type InferOutput } from "valibot"
-import { generateJarvisPluginCommand } from "../common"
 import { JARVIS_EXT_IDENTIFIER } from "../constants"
 import { CmdType, Ext, ExtCmd, ExtData } from "../models/extension"
 import { convertDateToSqliteString, SQLSortOrder } from "../models/sql"
+import { generateJarvisPluginCommand } from "./common"
 
 /* -------------------------------------------------------------------------- */
 /*                               Extension CRUD                               */

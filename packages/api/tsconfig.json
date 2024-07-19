@@ -10,11 +10,13 @@
     "noEmit": true,
     "declaration": true,
     "declarationMap": true,
+    "declarationDir": "dist",
     "outDir": "dist",
     "baseUrl": ".",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": false,
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    "rootDir": "."
   },
   "include": ["src", "ui", "modles"],
   "exclude": ["dist", "node_modules"]

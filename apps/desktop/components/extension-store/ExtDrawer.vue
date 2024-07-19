@@ -28,8 +28,8 @@ import { JarvisExtManifest } from "@jarvis/schema"
 import { type Tables } from "@jarvis/supabase"
 import { compareVersions } from "compare-versions"
 import { ElMessage } from "element-plus"
+import { getDevExtensionFolder, getExtensionFolder } from "jarvis-api/commands"
 import { CircleCheckBigIcon, Trash2Icon } from "lucide-vue-next"
-import { getDevExtensionFolder, getExtensionFolder } from "tauri-plugin-jarvis-api/commands"
 import { computed, onMounted, onUnmounted, ref, watch } from "vue"
 import { z } from "zod"
 import DialogImage from "./DialogImage.vue"
@@ -169,15 +169,15 @@ const imageSrcs = computed(() => {
         <DrawerDescription class="text-md">Security and Privacy</DrawerDescription>
         <li v-for="perm in manifest?.permissions" class="flex items-center space-x-2">
           <!-- TODO: Fix Type Error -->
-          <span>{{ PERMISSIONS_EXPLANATION[perm]?.displayName }}</span>
+          <!-- <span>{{ PERMISSIONS_EXPLANATION[perm]?.displayName }}</span> -->
           <HoverCard>
             <HoverCardTrigger>
-              <IconMultiplexer
+              <!-- <IconMultiplexer
                 :icon="{ type: 'iconify', value: 'material-symbols:info-outline' }"
-              />
+              /> -->
             </HoverCardTrigger>
             <HoverCardContent class="w-96">
-              {{ PERMISSIONS_EXPLANATION[perm]?.description }}
+              <!-- {{ PERMISSIONS_EXPLANATION[perm]?.description }} -->
             </HoverCardContent>
           </HoverCard>
         </li>

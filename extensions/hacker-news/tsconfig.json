@@ -15,10 +15,12 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": false,
     "verbatimModuleSyntax": true,
-    "paths": {
-      "@/*": ["src/*"]
-    }
   },
-  "include": ["."],
-  "exclude": ["dist", "node_modules"]
+  "include": [
+    "."
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
 }

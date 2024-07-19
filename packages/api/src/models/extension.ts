@@ -1,7 +1,10 @@
 import {
+  array,
   boolean,
   date,
   enum_,
+  function_,
+  nullable,
   number,
   object,
   optional,
@@ -9,6 +12,7 @@ import {
   string,
   type InferOutput
 } from "valibot"
+import { Icon } from "./icon"
 
 /**
  * Map window label to extension
@@ -61,3 +65,13 @@ export const ExtData = object({
   updatedAt: date()
 })
 export type ExtData = InferOutput<typeof ExtData>
+
+export const SysCommand = object({
+  name: string(),
+  value: string(),
+  icon: nullable(Icon),
+  keywords: nullable(array(string())),
+  function: function_(),
+  confirmRequired: boolean()
+})
+export type SysCommand = InferOutput<typeof SysCommand>

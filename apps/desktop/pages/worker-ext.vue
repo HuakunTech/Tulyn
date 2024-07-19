@@ -12,6 +12,7 @@ import { exists, readTextFile } from "@tauri-apps/plugin-fs"
 import { onKeyStroke } from "@vueuse/core"
 import { loadExtensionManifestFromDisk } from "~/lib/commands/extensions"
 import { GlobalEventBus } from "~/lib/utils/events"
+import { db, JarvisExtDB } from "jarvis-api/commands"
 import {
   constructJarvisServerAPIWithPermissions,
   exposeApiToWorker,
@@ -20,14 +21,13 @@ import {
 import {
   convertJarvisExtDBToServerDbAPI,
   List,
-  ListSchema,
   NodeNameEnum,
   wrap,
   type IDbServer,
-  type IWorkerExtensionBase
+  type IWorkerExtensionBase,
+  type ListSchema
 } from "jarvis-api/ui/worker"
 import type { ComboboxInput } from "radix-vue"
-import { db, JarvisExtDB } from "tauri-plugin-jarvis-api/commands"
 import { toast } from "vue-sonner"
 
 const appState = useStore($appState)

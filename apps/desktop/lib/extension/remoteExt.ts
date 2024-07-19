@@ -2,9 +2,9 @@ import { ListItemType, TListGroup, TListItem } from "@jarvis/schema"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { info } from "@tauri-apps/plugin-log"
 import { ElMessage } from "element-plus"
+import { db } from "jarvis-api/commands"
 import { CmdType, ExtCmd, Icon, IconType } from "jarvis-api/models"
 import { atom, computed, task, type ReadableAtom, type WritableAtom } from "nanostores"
-import { db } from "tauri-plugin-jarvis-api/commands"
 import {
   array,
   minLength,

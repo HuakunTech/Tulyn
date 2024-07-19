@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api/core"
 import { listen, type UnlistenFn } from "@tauri-apps/api/event"
-import { generateJarvisPluginCommand } from "../common"
+import { generateJarvisPluginCommand } from "./common"
 
 const storageCmdPrefix = `ext_store_wrapper_`
 

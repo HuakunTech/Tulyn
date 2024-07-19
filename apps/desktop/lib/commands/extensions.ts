@@ -2,7 +2,7 @@ import { ExtPackageJson, ExtPackageJsonExtra } from "@jarvis/schema"
 import { basename, dirname, join } from "@tauri-apps/api/path"
 import { readDir, readTextFile } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
-import { db } from "tauri-plugin-jarvis-api/commands"
+import { db } from "jarvis-api/commands"
 import { safeParse } from "valibot"
 
 export function loadExtensionManifestFromDisk(manifestPath: string): Promise<ExtPackageJsonExtra> {

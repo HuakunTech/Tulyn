@@ -1,4 +1,4 @@
-import { db } from "tauri-plugin-jarvis-api/commands"
+import { db } from "jarvis-api/commands"
 import { constants, ExtData } from "tauri-plugin-jarvis-api/models"
 import { parse, safeParse } from "valibot"
 

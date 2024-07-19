@@ -1,11 +1,7 @@
 <script setup lang="ts">
 import { Button } from "@/components/ui/button"
 import { SUPABASE_URL } from "@/lib/constants"
-import {
-  getDevExtensionFolder,
-  getExtensionFolder,
-  getServerPort
-} from "tauri-plugin-jarvis-api/commands"
+import { getDevExtensionFolder, getExtensionFolder, getServerPort } from "jarvis-api/commands"
 // import { open } from "jarvis-api/ui";
 import { open } from "tauri-plugin-shellx-api"
 import { onMounted, ref } from "vue"

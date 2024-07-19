@@ -7,12 +7,6 @@
   "exports": {
     ".": {
       "import": "./guest-js/index.ts"
-    },
-    "./commands": {
-      "import": "./guest-js/commands/index.ts"
-    },
-    "./models": {
-      "import": "./guest-js/models/index.ts"
     }
   },
   "files": [
@@ -30,6 +24,9 @@
     "@tauri-apps/plugin-fs": "~2.0.0-beta.7",
     "@tauri-apps/plugin-log": "~2.0.0-beta.8",
     "@tauri-apps/plugin-os": "~2.0.0-beta.7"
+  },
+  "dependencies": {
+    "jarvis-api": "workspace:*"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^11.1.6",

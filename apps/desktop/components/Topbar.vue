@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import ModeToggle from "@/components/theme/ModeToggle.vue"
 import { Button } from "@/components/ui/button"
+import { appIsDev, toggleDevTools } from "jarvis-api/commands"
 import {
   CogIcon,
   FlaskConicalIcon,
@@ -10,7 +11,6 @@ import {
   UserCogIcon,
   WrenchIcon
 } from "lucide-vue-next"
-import { appIsDev, toggleDevTools } from "tauri-plugin-jarvis-api/commands"
 import { onMounted, ref } from "vue"
 
 const isDev = ref(false)

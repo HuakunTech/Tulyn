@@ -15,3 +15,7 @@ For now, only `jarvis-api/ui` is useful. This subpackage is designed for UI exte
 - etc.
 
 Read more details in documentation at https://docs.jarvis.huakun.tech.
+
+## Note
+
+This package should not have any internal dependencies (e.g. `workspace:*`). Otherwise, the package cannot be published to NPM.

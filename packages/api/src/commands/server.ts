@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core"
-import { generateJarvisPluginCommand } from "../common"
+import { generateJarvisPluginCommand } from "./common"
 
 export function startServer(): Promise<void> {
   return invoke(generateJarvisPluginCommand("start_server"))

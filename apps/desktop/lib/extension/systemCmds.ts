@@ -1,17 +1,17 @@
 import { ListItemType, TListItem } from "@jarvis/schema"
 import * as dialog from "@tauri-apps/plugin-dialog"
+import { error } from "@tauri-apps/plugin-log"
 import { ElNotification } from "element-plus"
-import { IconType } from "jarvis-api/models"
+import { getSystemCommands } from "jarvis-api/commands"
+import { IconType, SysCommand } from "jarvis-api/models"
 import { atom, type ReadableAtom, type WritableAtom } from "nanostores"
-import { getSystemCommands } from "tauri-plugin-jarvis-api/commands"
-import { TCommand } from "tauri-plugin-jarvis-api/models"
 import { parse } from "valibot"
 import { type IExtensionBase } from "./base"
 
 export class SystemCommandExtension implements IExtensionBase {
   extensionName: string
   $listItems: WritableAtom<TListItem[]> = atom([])
-  systemCommands: TCommand[] = []
+  systemCommands: SysCommand[] = []
   systemCommandListItems: TListItem[] = []
 
   constructor() {
@@ -40,18 +40,25 @@ export class SystemCommandExtension implements IExtensionBase {
     return Promise.resolve()
   }
   default(): TListItem[] {
-    const items = this.systemCommandListItems.slice(0, 5)
-    // ElNotification(`Loaded ${items.length} system commands`);
     return this.systemCommandListItems
   }
   async onSelect(item: TListItem): Promise<void> {
-    const cmd = this.systemCommands.find((c) => c.value === item.value) as TCommand
-    let confirmed = true
-    if (cmd.confirmRequired) {
-      confirmed = await dialog.confirm(`Are you sure you want to "${item.title}"?`)
-    }
-    if (confirmed) {
-      cmd.function()
+    const cmd = this.systemCommands.find((c) => c.value === item.value)
+    if (!cmd) {
+      ElNotification({
+        title: "Unexpected Error",
+        message: `Command not found: ${item.value}`,
+        type: "error"
+      })
+      return error(`Unexpected Error: Command not found: ${item.value}`)
+    } else {
+      let confirmed = true
+      if (cmd.confirmRequired) {
+        confirmed = await dialog.confirm(`Are you sure you want to "${item.title}"?`)
+      }
+      if (confirmed) {
+        cmd.function()
+      }
     }
   }
 }

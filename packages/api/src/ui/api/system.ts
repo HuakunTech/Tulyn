@@ -28,7 +28,7 @@ import {
   turnVolumeDown,
   turnVolumeUp,
   unmute
-} from "tauri-plugin-jarvis-api/commands"
+} from "../../commands/system"
 import { type ISystem } from "../client"
 import type { ISystemServer } from "../server"
 

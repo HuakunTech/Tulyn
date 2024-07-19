@@ -1,6 +1,7 @@
 import { readFileSync } from "fs"
 import { join } from "path"
 import { cwd } from "process"
+// import typescript from "@rollup/plugin-typescript"
 import typescript from "@rollup/plugin-typescript"
 import { visualizer } from "rollup-plugin-visualizer"
 
@@ -13,7 +14,8 @@ const config = {
     "src/ui/index.ts",
     "src/ui/iframe.ts",
     "src/ui/worker/index.ts",
-    "src/models/index.ts"
+    "src/models/index.ts",
+    "src/commands/index.ts"
   ],
   output: [
     {
@@ -34,7 +36,15 @@ const config = {
     }
   ],
   treeshake: true,
-  plugins: [typescript(), visualizer()]
+  plugins: [
+    typescript({
+      // compilerOptions: {
+      //   declaration: true,
+      //   declarationMap: true
+      // }
+    }),
+    visualizer()
+  ]
 }
 
 export default config

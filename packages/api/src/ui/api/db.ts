@@ -1,5 +1,5 @@
 import { getDefaultClientAPI } from "tauri-api-adapter"
-import type { JarvisExtDB } from "tauri-plugin-jarvis-api/commands"
+import type { JarvisExtDB } from "../../commands"
 import { type IDb } from "../client"
 import type { IDbServer } from "../server"
 

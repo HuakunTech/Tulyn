@@ -7,12 +7,13 @@ import {
   isWindowLabelRegistered,
   registerExtensionWindow,
   unregisterExtensionWindow
-} from "tauri-plugin-jarvis-api/commands"
+} from "jarvis-api/commands"
+import type { ExtensionLabelMap } from "jarvis-api/models"
 import { onMounted, ref } from "vue"
 import CodeEditor from "./CodeEditor.vue"
 import CodeEditorHtml from "./CodeEditorHtml.vue"
 
-const extLabelMapping = ref("")
+const extLabelMapping = ref<ExtensionLabelMap>({})
 
 onMounted(async () => {
   //   await unregisterExtensionWindow("xyz");

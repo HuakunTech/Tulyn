@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api/core"
 import { array, literal, number, object, parse, string, union, type InferOutput } from "valibot"
-import { generateJarvisPluginCommand } from "../common"
+import { generateJarvisPluginCommand } from "./common"
 
 export const ClipboardContentType = union([
   literal("Text"),

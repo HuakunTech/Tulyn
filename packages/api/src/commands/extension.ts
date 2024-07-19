@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api/core"
-import { generateJarvisPluginCommand } from "../common"
 import { ExtensionLabelMap } from "../models/extension"
+import { generateJarvisPluginCommand } from "./common"
 
 export function isWindowLabelRegistered(label: string): Promise<boolean> {
   return invoke(generateJarvisPluginCommand("is_window_label_registered"), { label })

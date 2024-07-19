@@ -1,6 +1,6 @@
-import { type JarvisExtDB } from "tauri-plugin-jarvis-api/commands"
-import { type AppInfo } from "tauri-plugin-jarvis-api/models"
 import { toast } from "vue-sonner"
+import { type JarvisExtDB } from "../commands/db"
+import { type AppInfo } from "../models/apps"
 import type { IUiServer } from "./server"
 import { ListSchema, type IComponent } from "./worker"
 

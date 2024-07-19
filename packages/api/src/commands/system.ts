@@ -1,8 +1,8 @@
 import { invoke } from "@tauri-apps/api/core"
 import { platform } from "@tauri-apps/plugin-os"
 import { parse } from "valibot"
-import { generateJarvisPluginCommand } from "../common"
-import { AppInfo, CommandType, TCommand } from "../models"
+import { AppInfo, IconEnum, SysCommand } from "../models"
+import { generateJarvisPluginCommand } from "./common"
 
 export function openTrash(): Promise<void> {
   return invoke(generateJarvisPluginCommand("open_trash"))
@@ -294,15 +294,17 @@ export const rawSystemCommands = [
   }
 ]
 
-export async function getSystemCommands(): Promise<TCommand[]> {
+export async function getSystemCommands(): Promise<SysCommand[]> {
   return rawSystemCommands
     .filter(async (cmd) => cmd.platforms.includes(platform())) // Filter out system commands that are not supported on the current platform
     .map((cmd) => ({
       name: cmd.name,
       value: "system-cmd" + cmd.name.split(" ").join("-").toLowerCase(),
-      icon: cmd.icon,
+      icon: {
+        value: cmd.icon,
+        type: IconEnum.Iconify
+      },
       keywords: cmd.name.split(" "),
-      commandType: CommandType.enum.system,
       function: cmd.function,
       confirmRequired: cmd.confirmRequired
     }))

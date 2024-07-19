@@ -4,26 +4,43 @@
   "type": "module",
   "exports": {
     ".": {
-      "import": "./src/index.ts"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
     },
     "./ui": {
-      "import": "./src/ui/index.ts"
+      "import": "./dist/ui/index.js",
+      "require": "./dist/ui/index.cjs",
+      "types": "./dist/ui/index.d.ts"
     },
     "./ui/iframe": {
-      "import": "./src/ui/iframe.ts"
+      "import": "./dist/ui/iframe.js",
+      "require": "./dist/ui/iframe.cjs",
+      "types": "./dist/ui/iframe.d.ts"
     },
     "./ui/worker": {
-      "import": "./src/ui/worker/index.ts"
+      "import": "./dist/ui/worker/index.js",
+      "require": "./dist/ui/worker/index.cjs",
+      "types": "./dist/ui/worker/index.d.ts"
     },
     "./models": {
-      "import": "./src/models/index.ts"
+      "import": "./dist/models/index.js",
+      "require": "./dist/models/index.cjs",
+      "types": "./dist/models/index.d.ts"
+    },
+    "./commands": {
+      "import": "./dist/commands/index.js",
+      "require": "./dist/commands/index.cjs",
+      "types": "./dist/commands/index.d.ts"
     }
   },
   "scripts": {
     "test": "bun test --coverage",
     "build:docs": "npx typedoc",
     "dev": "rollup -c --watch",
-    "build": "rimraf dist && rollup -c && pnpm build:docs",
+    "build": "rimraf dist && pnpm build:tsup && pnpm build:docs",
+    "build:rollup": "rollup -c",
+    "build:tsup": "tsup",
     "format": "prettier --write \"**/*.{ts,tsx,md,vue,json,yaml,yml}\"",
     "develop": "rollup -c --watch"
   },
@@ -32,7 +49,7 @@
     "rimraf": "^5.0.7",
     "rollup-plugin-visualizer": "^5.12.0",
     "tsc-alias": "^1.8.10",
-    "tsup": "^8.0.2",
+    "tsup": "^8.1.2",
     "typedoc": "^0.26.4",
     "valibot": "^0.35.0"
   },
@@ -56,7 +73,6 @@
     "rollup": "^4.9.6",
     "rollup-plugin-typescript2": "^0.36.0",
     "tauri-api-adapter": "workspace:*",
-    "tauri-plugin-jarvis-api": "workspace:*",
     "tauri-plugin-network-api": "workspace:*",
     "tauri-plugin-system-info-api": "workspace:*",
     "vue-sonner": "^1.1.3"

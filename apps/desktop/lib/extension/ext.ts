@@ -14,13 +14,13 @@ import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import * as fs from "@tauri-apps/plugin-fs"
 import { exists } from "@tauri-apps/plugin-fs"
 import { debug, error, warn } from "@tauri-apps/plugin-log"
-import { atom, type WritableAtom } from "nanostores"
 import {
   getServerPort,
   pathExists,
   registerExtensionWindow,
   unregisterExtensionWindow
-} from "tauri-plugin-jarvis-api/commands"
+} from "jarvis-api/commands"
+import { atom, type WritableAtom } from "nanostores"
 import { toast } from "vue-sonner"
 import { type IExtensionBase } from "./base"
 

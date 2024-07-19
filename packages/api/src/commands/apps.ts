@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api/core"
-import { generateJarvisPluginCommand } from "../common"
 import { AppInfo } from "../models"
+import { generateJarvisPluginCommand } from "./common"
 
 export function getAllApps(): Promise<AppInfo[]> {
   return invoke(generateJarvisPluginCommand("get_applications"))

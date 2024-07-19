@@ -23,6 +23,7 @@ import {
   type SystemInfoPermission,
   type UpdownloadPermission
 } from "tauri-api-adapter"
+import { toast } from "vue-sonner"
 import {
   ejectAllDisks,
   emptyTrash,
@@ -52,8 +53,7 @@ import {
   turnVolumeDown,
   turnVolumeUp,
   unmute
-} from "tauri-plugin-jarvis-api/commands"
-import { toast } from "vue-sonner"
+} from "../commands/system"
 import { AllJarvisPermission, type SystemPermission } from "./api/permissions"
 import type { IDb, ISystem, IToast, IUi } from "./client"
 
