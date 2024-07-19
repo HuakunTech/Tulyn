@@ -7,7 +7,7 @@
     "strict": true,
     "noUnusedLocals": false,
     "noImplicitAny": true,
-    "noEmit": true,
+    "noEmit": false,
     "declaration": true,
     "declarationMap": true,
     "declarationDir": "dist",
@@ -16,7 +16,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": false,
     "verbatimModuleSyntax": true,
-    "rootDir": "."
+    "rootDir": "./src"
   },
   "include": ["src", "ui", "models", "commands"],
   "exclude": ["dist", "node_modules"]

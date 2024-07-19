@@ -19,3 +19,12 @@ Read more details in documentation at https://docs.jarvis.huakun.tech.
 ## Note
 
 This package should not have any internal dependencies (e.g. `workspace:*`). Otherwise, the package cannot be published to NPM.
+
+## Dev
+
+### Dependency Graph
+
+```bash
+p madge ./src/ui/worker/index.ts --circular # detect circular dependencies
+pnpm dep-tree ./src/ui/worker/index.ts
+```

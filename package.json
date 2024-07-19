@@ -14,12 +14,14 @@
     "prepare": "husky"
   },
   "devDependencies": {
+    "@dep-tree/cli": "^0.23.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.3.0",
     "@types/bun": "latest",
     "esbuild": "^0.23.0",
     "eslint": "^8.48.0",
     "gitmoji-cli": "^9.4.0",
     "husky": "^9.0.11",
+    "madge": "^7.0.0",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "turbo": "^2.0.7",

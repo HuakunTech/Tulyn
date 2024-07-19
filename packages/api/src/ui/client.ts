@@ -1,8 +1,8 @@
 import { toast } from "vue-sonner"
 import { type JarvisExtDB } from "../commands/db"
 import { type AppInfo } from "../models/apps"
-import type { IUiServer } from "./server"
-import { ListSchema, type IComponent } from "./worker"
+import { type IComponent } from "./worker/components/interfaces"
+import * as ListSchema from "./worker/schema/list"
 
 type PromiseWrap<T extends (...args: any[]) => any> = (
   ...args: Parameters<T>
