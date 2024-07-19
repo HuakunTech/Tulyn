@@ -34,7 +34,7 @@ export const TListItem = object({
     }),
     {}
   ),
-  icon: nullable(Icon),
+  icon: optional(nullable(Icon)),
   keywords: optional(array(string()), []),
   identityFilter: optional(boolean(), false)
 })

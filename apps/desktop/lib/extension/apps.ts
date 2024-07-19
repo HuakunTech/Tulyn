@@ -1,11 +1,11 @@
 import { $appState } from "@/lib/stores/appState"
-import { TListItem } from "@jarvis/schema"
+import { ListItemTypeEnum, TListItem } from "@jarvis/schema"
 import { convertFileSrc } from "@tauri-apps/api/core"
 import { info, warn } from "@tauri-apps/plugin-log"
 import { ElNotification } from "element-plus"
 import { getAllApps, refreshApplicationsList } from "jarvis-api/commands"
+import { AppInfo, IconEnum } from "jarvis-api/models"
 import { atom, computed, type WritableAtom } from "nanostores"
-import { AppInfo } from "tauri-plugin-jarvis-api/models"
 import { executeBashScript, open } from "tauri-plugin-shellx-api"
 import { type IExtensionBase } from "./base"
 
@@ -33,9 +33,9 @@ export function appInfoToListItem(app: AppInfo & { app_path_exe: string }): TLis
     title: app.name,
     value: computeItemValue(app),
     description: "",
-    type: "Application",
+    type: ListItemTypeEnum.Application,
     icon: app.icon_path
-      ? { type: "remote-url", value: convertFileSrc(app.icon_path, "appicon") }
+      ? { type: IconEnum.RemoteUrl, value: convertFileSrc(app.icon_path, "appicon") }
       : null,
     keywords: app.name.split(" "),
     identityFilter: false,
@@ -44,20 +44,24 @@ export function appInfoToListItem(app: AppInfo & { app_path_exe: string }): TLis
 }
 
 export class AppsExtension implements IExtensionBase {
-  $apps: WritableAtom<AppInfo[]> = atom([])
+  apps: AppInfo[] = []
   extensionName = "Applications"
-  $listItems = computed(this.$apps, (apps) =>
-    apps
-      .filter((app) => !!app.app_path_exe)
-      .map((app) => appInfoToListItem(app as AppInfo & { app_path_exe: string }))
-  )
+  $listItems: WritableAtom<TListItem[]> = atom([])
+
+  setApps(apps: AppInfo[]): void {
+    this.apps = apps
+    this.$listItems.set(
+      apps
+        .filter((app) => !!app.app_path_exe)
+        .map((app) => appInfoToListItem(app as AppInfo & { app_path_exe: string }))
+    )
+  }
 
   load(): Promise<void> {
     return refreshApplicationsList()
       .then(() => getAllApps())
       .then((apps) => {
-        this.$apps.set(apps)
-        // this.$listItems.set(apps.map((app) => appInfoToListItem(app)));
+        this.setApps(apps)
       })
   }
   default(): TListItem[] {
@@ -65,7 +69,7 @@ export class AppsExtension implements IExtensionBase {
   }
   onSelect(item: TListItem): Promise<void> {
     const platform = $appState.get().platform
-    const foundApp = this.$apps.value?.find((app) => app.app_desktop_path === item.value)
+    const foundApp = this.apps.find((app) => app.app_desktop_path === item.value)
     if (platform === "macos") {
       if (foundApp?.app_desktop_path) {
         return open(foundApp.app_desktop_path)

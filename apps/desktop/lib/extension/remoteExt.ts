@@ -57,15 +57,18 @@ function convertToListItem(rawExt: RemoteCmd): TListItem {
 
 export class RemoteExtension implements IExtensionBase {
   extensionName: string = "Remote Extensions"
-  $remoteExtensions: WritableAtom<RemoteCmd[]>
-  $listItems: ReadableAtom<TListItem[]>
+  remoteExtensions: RemoteCmd[]
+  $listItems: WritableAtom<TListItem[]>
   remoteExtDbId: number | undefined
 
   constructor() {
-    this.$remoteExtensions = atom<RemoteExtState>([])
-    this.$listItems = computed(this.$remoteExtensions, (state): TListItem[] => {
-      return state.map((x) => convertToListItem(x))
-    })
+    this.remoteExtensions = []
+    this.$listItems = atom([])
+  }
+
+  setRemoteExtensions(remoteCmds: RemoteCmd[]) {
+    this.remoteExtensions = remoteCmds
+    this.$listItems.set(remoteCmds.map(convertToListItem))
   }
 
   async load(): Promise<void> {
@@ -73,7 +76,7 @@ export class RemoteExtension implements IExtensionBase {
     this.remoteExtDbId = dbRemoteExt.extId
     const cmds = await db.getCommandsByExtId(dbRemoteExt.extId)
     const remoteCmds = cmds.map(convertRawCmdToRemoteExt)
-    this.$remoteExtensions.set(remoteCmds)
+    this.setRemoteExtensions(remoteCmds)
   }
 
   default(): TListItem[] {
@@ -97,7 +100,7 @@ export class RemoteExtension implements IExtensionBase {
   }
 
   findRemoteExt(cmdId: number): RemoteCmd | undefined {
-    return this.$remoteExtensions.get().find((ext) => ext.id === cmdId)
+    return this.remoteExtensions.find((ext) => ext.id === cmdId)
   }
 
   async addRemoteExt(ext: Omit<RemoteCmd, "id">) {

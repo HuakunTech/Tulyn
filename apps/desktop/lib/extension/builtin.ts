@@ -111,12 +111,12 @@ export class BuiltinCmds implements IExtensionBase {
   $listItems: WritableAtom<TListItem[]>
   constructor() {
     this.$listItems = atom([])
-    setTimeout(() => {
-      this.$listItems.set(buildinCmdsListItems)
-    }, 50)
   }
 
   load(): Promise<void> {
+    setTimeout(() => {
+      this.$listItems.set(buildinCmdsListItems)
+    }, 50)
     return Promise.resolve()
   }
 

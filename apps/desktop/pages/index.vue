@@ -29,8 +29,8 @@ const exts: IExtensionBase[] = [
   remoteExt,
   // storeExt,
   builtinCmdExt,
-  sysCmdExt
-  // appExt
+  sysCmdExt,
+  appExt
 ]
 const searchTermInSync = ref("")
 let updateSearchTermTimeout: ReturnType<typeof setTimeout>
@@ -57,7 +57,8 @@ watch(searchTermInSync, (val) => {
 })
 
 onMounted(() => {
-  console.log($dayjs().format("YYYY-MM-DD HH:mm:ss"))
+  console.log("Index Page on Mounted")
+
   if (platform() !== "macos") {
     appWindow.setDecorations(false)
   }
