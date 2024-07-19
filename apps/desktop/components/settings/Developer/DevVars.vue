@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Button } from "@/components/ui/button"
 import { SUPABASE_URL } from "@/lib/constants"
-import { Icon } from "@iconify/vue"
 import {
   getDevExtensionFolder,
   getExtensionFolder,

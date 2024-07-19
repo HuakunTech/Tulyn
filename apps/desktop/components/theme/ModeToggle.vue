@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { setLightMode, type LightMode } from "@/lib/stores/appConfig"
 import { cn } from "@/lib/utils"
-import { Icon } from "@iconify/vue"
 import { useColorMode, useDark } from "@vueuse/core"
 
 const props = defineProps<{
@@ -30,12 +29,12 @@ function changeLightMode(mode: LightMode) {
         <button :class="cn('', props.class)">
           <Icon
             v-if="!isDark"
-            icon="fxemoji:sunrays"
+            name="fxemoji:sunrays"
             class="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90"
           />
           <Icon
             v-if="isDark"
-            icon="fluent-emoji-flat:crescent-moon"
+            name="fluent-emoji-flat:crescent-moon"
             class="h-4 w-4 rotate-0 scale-100 transition-all"
           />
         </button>

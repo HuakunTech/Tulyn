@@ -6,7 +6,8 @@ import type { HTMLAttributes } from "vue"
 const props = defineProps<{ icon: TIcon; class?: HTMLAttributes["class"] }>()
 </script>
 <template>
-  <img
+  <NuxtImg
+    loading="lazy"
     :class="cn('', props.class)"
     v-if="icon.type === IconEnum.RemoteUrl"
     :src="icon.value"
@@ -17,7 +18,8 @@ const props = defineProps<{ icon: TIcon; class?: HTMLAttributes["class"] }>()
     :name="icon.value"
     :class="cn('', props.class)"
   />
-  <img
+  <NuxtImg
+    loading="lazy"
     v-else-if="icon.type === IconEnum.Base64PNG"
     :src="`data:image/png;base64, ${icon.value}`"
     alt=""

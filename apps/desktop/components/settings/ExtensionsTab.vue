@@ -4,7 +4,6 @@ import { getExtensionsFolder } from "@/lib/constants"
 import { Extension } from "@/lib/extension/ext"
 import { RemoteExtension } from "@/lib/extension/remoteExt"
 import { $appConfig } from "@/lib/stores/appConfig"
-import { Icon } from "@iconify/vue"
 import { TListGroup, type TListItem } from "@jarvis/schema"
 import { ElMessage, ElTable, ElTableColumn } from "element-plus"
 import { Trash2Icon } from "lucide-vue-next"
@@ -98,7 +97,7 @@ function handleDeleteExtension(index: number, item: TListGroup) {
           <span class="font-mono">{{ props.row.type }}</span>
           <Icon
             v-if="props.row.flags.isDev"
-            icon="ph:dev-to-logo-fill"
+            name="ph:dev-to-logo-fill"
             class="inline h-6 w-5 text-green-500"
           />
         </div>

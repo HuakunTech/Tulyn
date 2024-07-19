@@ -181,7 +181,6 @@ export function updateExtensionDataById(data: {
 /* -------------------------------------------------------------------------- */
 /*                             Built-in Extensions                            */
 /* -------------------------------------------------------------------------- */
-
 export function getExtClipboard() {
   return getExtensionByIdentifierExpectExists(JARVIS_EXT_IDENTIFIER.JARVIS_CLIPBOARD_EXT_IDENTIFIER)
 }

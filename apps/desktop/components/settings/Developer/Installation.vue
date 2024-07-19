@@ -13,7 +13,6 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { $appConfig } from "@/lib/stores/appConfig"
 import { cn } from "@/lib/utils"
 import { installTarball, installTarballUrl } from "@/lib/utils/tarball"
-import { Icon } from "@iconify/vue"
 import { useStore } from "@nanostores/vue"
 import { downloadDir, join as pathJoin, tempDir } from "@tauri-apps/api/path"
 import { open as openFileSelector } from "@tauri-apps/plugin-dialog"
@@ -24,10 +23,7 @@ import { CloudDownloadIcon, DownloadIcon, ExternalLinkIcon, InfoIcon } from "luc
 import { getDevExtensionFolder, getExtensionFolder } from "tauri-plugin-jarvis-api/commands"
 import { ref, type HTMLAttributes } from "vue"
 import { z } from "zod"
-// import { useToast } from "@/components/ui/toast";
 import RemoteURLInstall from "./RemoteURLInstall.vue"
-
-// const { toast } = useToast();
 
 const props = defineProps<{
   class?: HTMLAttributes["class"]

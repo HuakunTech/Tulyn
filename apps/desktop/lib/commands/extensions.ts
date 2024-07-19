@@ -56,10 +56,9 @@ export function loadAllExtensions(extensionsFolder: string): Promise<ExtPackageJ
       }
       const parse = safeParse(ExtPackageJson, jsonContent)
       if (parse.issues) {
-        console.log(parse.issues)
-
+        console.warn(parse.issues)
         error(
-          `Fail to load extension (in loadAllExtensions) ${manifestPath}. Error: ${parse.issues}`
+          `Fail to load extension (in loadAllExtensions) ${manifestPath}. See console for parse error.`
         )
         continue
       }

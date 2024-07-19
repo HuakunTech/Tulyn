@@ -11,7 +11,6 @@ import {
   CommandShortcut
 } from "@/components/ui/command"
 import { $appConfig, setDevExtLoadUrl, setShowInTray } from "@/lib/stores/appConfig"
-// import { Icon } from "@iconify/vue"
 import type { TListItem } from "@jarvis/schema"
 import { useStore } from "@nanostores/vue"
 

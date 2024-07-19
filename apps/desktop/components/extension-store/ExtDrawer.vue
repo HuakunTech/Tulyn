@@ -19,8 +19,6 @@ import { gqlClient } from "@/lib/utils/graphql"
 import * as supabase from "@/lib/utils/supabase"
 import { supabaseClient } from "@/lib/utils/supabase"
 import { installTarballUrl } from "@/lib/utils/tarball"
-import { ApolloClient, HttpLink, InMemoryCache, type ApolloQueryResult } from "@apollo/client"
-import { Icon as Iconify } from "@iconify/vue"
 import {
   FindLatestExtDocument,
   type FindLatestExtQuery,
@@ -170,6 +168,7 @@ const imageSrcs = computed(() => {
 
         <DrawerDescription class="text-md">Security and Privacy</DrawerDescription>
         <li v-for="perm in manifest?.permissions" class="flex items-center space-x-2">
+          <!-- TODO: Fix Type Error -->
           <span>{{ PERMISSIONS_EXPLANATION[perm]?.displayName }}</span>
           <HoverCard>
             <HoverCardTrigger>
@@ -210,7 +209,7 @@ const imageSrcs = computed(() => {
       </ScrollArea>
       <DrawerFooter>
         <Button v-if="!props.installed" @click="installExt">
-          Install <Iconify icon="mi:enter" class="ml-2 h-5 w-5" />
+          Install <Icon name="mi:enter" class="ml-2 h-5 w-5" />
         </Button>
         <Button v-else @click="emits('uninstall', currentExt)" variant="destructive">
           Uninstall

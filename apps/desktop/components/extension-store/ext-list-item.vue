@@ -2,7 +2,6 @@
 import IconMultiplexer from "@/components/IconMultiplexer.vue"
 import { CommandItem } from "@/components/ui/command"
 import { humanReadableNumber } from "@/lib/utils/format"
-import { Icon } from "@iconify/vue"
 import { CircleCheckBigIcon } from "lucide-vue-next"
 import { ExtItem } from "./types"
 
