@@ -57,8 +57,6 @@ watch(searchTermInSync, (val) => {
 })
 
 onMounted(() => {
-  console.log("Index Page on Mounted")
-
   if (platform() !== "macos") {
     appWindow.setDecorations(false)
   }
