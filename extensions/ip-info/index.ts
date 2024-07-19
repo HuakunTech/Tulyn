@@ -80,9 +80,11 @@ class IpInfo extends WorkerExtension {
   }
 
   load(): Promise<void> {
-    return ui
-      .setSearchBarPlaceholder("Enter an IPv4 address, and press enter to search")
-      .then(() => this.searchIp().then(() => ui.render(new List.List({ items: this.listitems }))))
+    return ui.setSearchBarPlaceholder("Enter an IPv4 address, and press enter to search").then(() =>
+      this.searchIp().then(() => {
+        // return ui.render(new List.List({ items: this.listitems }))
+      })
+    )
   }
   onItemSelected(value: string): Promise<void> {
     return clipboard

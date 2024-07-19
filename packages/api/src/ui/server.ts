@@ -2,11 +2,14 @@ import {
   checkPermission,
   constructClipboardApi,
   constructDialogApi,
+  constructEventApi,
   constructFetchApi,
   constructFsApi,
+  constructLoggerApi,
   constructNetworkApi,
   constructNotificationApi,
   constructOsApi,
+  constructPathApi,
   constructShellApi,
   constructSystemInfoApi,
   constructUpdownloadApi,
@@ -209,11 +212,6 @@ export function constructToastApi(): IToastServer {
   }
 }
 
-// export function constructDbApi(): IDbServer {
-//   return {
-//   }
-// }
-
 // all enabled by default
 export const defaultSystemApi = constructSystemApi([
   "system:volumn",
@@ -247,6 +245,9 @@ export function constructJarvisServerAPIWithPermissions(
     constructUpdownloadApi(
       permissions.filter((p) => p.startsWith("updownload:")) as UpdownloadPermission[]
     ),
+    constructEventApi(),
+    constructLoggerApi(),
+    constructPathApi(),
     constructSystemApi(permissions.filter((p) => p.startsWith("system:")) as SystemPermission[]),
     constructToastApi()
   ]
