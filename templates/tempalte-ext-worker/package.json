@@ -1,0 +1,50 @@
+{
+  "$schema": "../../packages/schema/manifest-json-schema.json",
+  "name": "tempalte-ext-worker",
+  "version": "0.0.1",
+  "type": "module",
+  "jarvis": {
+    "name": "Extension Template Worker",
+    "shortDescription": "A Worker Extension Template",
+    "longDescription": "A Worker Extension Template",
+    "identifier": "tech.huakun.jarvis-ext-template-worker",
+    "permissions": [
+      "clipboard:read-text",
+      "clipboard:write-text",
+      "fetch:all"
+    ],
+    "demoImages": [],
+    "icon": {
+      "type": "iconify",
+      "value": "material-symbols:extension"
+    },
+    "inlineCmds": [
+      {
+        "name": "Worker Template",
+        "main": "dist/index.js",
+        "cmds": []
+      }
+    ]
+  },
+  "files": [
+    "./dist"
+  ],
+  "scripts": {
+    "dev": "rollup -c --watch",
+    "build": "rimraf dist && rollup -c"
+  },
+  "devDependencies": {
+    "jarvis-api": "workspace:*",
+    "@types/bun": "latest",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.18.1",
+    "rollup-plugin-visualizer": "^5.12.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
