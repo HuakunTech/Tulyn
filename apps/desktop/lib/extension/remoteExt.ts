@@ -1,9 +1,9 @@
-import { ListItemType, TListGroup, TListItem } from "@jarvis/schema"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { info } from "@tauri-apps/plugin-log"
+import { db } from "@tulyn/api/commands"
+import { CmdType, ExtCmd, Icon, IconType } from "@tulyn/api/models"
+import { ListItemType, TListGroup, TListItem } from "@tulyn/schema"
 import { ElMessage } from "element-plus"
-import { db } from "jarvis-api/commands"
-import { CmdType, ExtCmd, Icon, IconType } from "jarvis-api/models"
 import { atom, computed, task, type ReadableAtom, type WritableAtom } from "nanostores"
 import {
   array,

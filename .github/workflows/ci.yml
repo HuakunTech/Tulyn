@@ -38,4 +38,4 @@ jobs:
           SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: pnpm build
-        # run: pnpm --filter @jarvis/gql build
+        # run: pnpm --filter @tulyn/gql build

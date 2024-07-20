@@ -3,7 +3,7 @@ import { downloadDir, join as pathJoin, tempDir } from "@tauri-apps/api/path"
 import * as dialog from "@tauri-apps/plugin-dialog"
 import * as fs from "@tauri-apps/plugin-fs"
 import { download } from "@tauri-apps/plugin-upload"
-import { decompressTarball, getDevExtensionFolder, getExtensionFolder } from "jarvis-api/commands"
+import { decompressTarball, getDevExtensionFolder, getExtensionFolder } from "@tulyn/api/commands"
 import { v4 as uuidv4 } from "uuid"
 import { ZodError } from "zod"
 

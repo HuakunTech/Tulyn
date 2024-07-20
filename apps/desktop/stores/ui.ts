@@ -1,4 +1,4 @@
-import { Action as ActionSchema } from "jarvis-api/models"
+import { Action as ActionSchema } from "@tulyn/api/models"
 import { defineStore } from "pinia"
 import { object, optional, string, type InferOutput } from "valibot"
 

@@ -12,7 +12,7 @@ import {
   ui,
   WorkerExtension,
   wrap
-} from "jarvis-api/ui/worker"
+} from "@tulyn/api/ui/worker"
 import { boolean, number, object, parse, safeParse, string, type InferOutput } from "valibot"
 
 const IpApiJsonSchema = object({

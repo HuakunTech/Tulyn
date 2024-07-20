@@ -11,8 +11,8 @@ import {
   CommandShortcut
 } from "@/components/ui/command"
 import { $appConfig, setDevExtLoadUrl, setShowInTray } from "@/lib/stores/appConfig"
-import type { TListItem } from "@jarvis/schema"
 import { useStore } from "@nanostores/vue"
+import type { TListItem } from "@tulyn/schema"
 
 const appConfig = useStore($appConfig)
 const props = defineProps<{ item: TListItem; isDevExt: boolean }>()

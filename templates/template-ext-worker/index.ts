@@ -1,4 +1,4 @@
-import { expose, toast, ui, WorkerExtension } from "jarvis-api/ui/worker"
+import { expose, toast, ui, WorkerExtension } from "@tulyn/api/ui/worker"
 
 class ExtensionTemplate extends WorkerExtension {
   load() {

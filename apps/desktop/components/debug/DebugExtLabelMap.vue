@@ -7,8 +7,8 @@ import {
   isWindowLabelRegistered,
   registerExtensionWindow,
   unregisterExtensionWindow
-} from "jarvis-api/commands"
-import type { ExtensionLabelMap } from "jarvis-api/models"
+} from "@tulyn/api/commands"
+import type { ExtensionLabelMap } from "@tulyn/api/models"
 import { onMounted, ref } from "vue"
 import CodeEditor from "./CodeEditor.vue"
 import CodeEditorHtml from "./CodeEditorHtml.vue"

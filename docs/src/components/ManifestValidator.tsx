@@ -1,4 +1,4 @@
-import { ExtPackageJson } from "@jarvis/schema"
+import { ExtPackageJson } from "@tulyn/schema"
 import Editor, { type Monaco, type OnChange, type OnMount } from "@monaco-editor/react"
 import { useEffect, useMemo, useRef, useState } from "react"
 import { safeParse } from "valibot"
@@ -37,7 +37,7 @@ const defaultJson = `{
     "build": "rimraf dist && rollup -c"
   },
   "dependencies": {
-    "jarvis-api": "workspace:*",
+    "@tulyn/api": "workspace:*",
     "valibot": "^0.36.0"
   },
   "devDependencies": {

@@ -1,10 +1,10 @@
 import { attachConsole, debug, error, info, trace } from "@tauri-apps/plugin-log"
 import { Store } from "@tauri-apps/plugin-store"
-import { useColorMode } from "@vueuse/core"
 import {
   restartServer,
   setDevExtensionFolder as setDevExtensionFolderForServer
-} from "jarvis-api/commands"
+} from "@tulyn/api/commands"
+import { useColorMode } from "@vueuse/core"
 import { map } from "nanostores"
 import { z } from "zod"
 import { allColors } from "../themes/themes"

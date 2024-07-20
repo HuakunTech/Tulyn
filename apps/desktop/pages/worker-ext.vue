@@ -10,16 +10,13 @@ import { ArrowLeftIcon } from "@radix-icons/vue"
 import { join } from "@tauri-apps/api/path"
 import { exists, readTextFile } from "@tauri-apps/plugin-fs"
 import { debug } from "@tauri-apps/plugin-log"
-import { onKeyStroke } from "@vueuse/core"
-import { loadExtensionManifestFromDisk } from "~/lib/commands/extensions"
-import { GlobalEventBus } from "~/lib/utils/events"
-import { db, JarvisExtDB } from "jarvis-api/commands"
+import { db, JarvisExtDB } from "@tulyn/api/commands"
 import {
   constructJarvisServerAPIWithPermissions,
   exposeApiToWorker,
   getWorkerApiClient,
   type IUi
-} from "jarvis-api/ui"
+} from "@tulyn/api/ui"
 import {
   convertJarvisExtDBToServerDbAPI,
   List,
@@ -29,7 +26,10 @@ import {
   type IDbServer,
   type ListSchema,
   type WorkerExtension
-} from "jarvis-api/ui/worker"
+} from "@tulyn/api/ui/worker"
+import { onKeyStroke } from "@vueuse/core"
+import { loadExtensionManifestFromDisk } from "~/lib/commands/extensions"
+import { GlobalEventBus } from "~/lib/utils/events"
 import type { ComboboxInput } from "radix-vue"
 import { toast } from "vue-sonner"
 

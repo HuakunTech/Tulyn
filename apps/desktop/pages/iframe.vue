@@ -1,5 +1,5 @@
 <!-- <script setup lang="ts">
-import { clipboard, system } from "jarvis-api/ui/iframe"
+import { clipboard, system } from "@tulyn/api/ui/iframe"
 import { isMain } from "tauri-api-adapter"
 
 onMounted(() => {

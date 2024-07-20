@@ -1,4 +1,4 @@
-import { IconEnum } from "jarvis-api/models"
+import { IconEnum } from "@tulyn/api/models"
 import {
   Action,
   expose,
@@ -9,7 +9,7 @@ import {
   ui,
   WorkerExtension,
   wrap
-} from "jarvis-api/ui/worker"
+} from "@tulyn/api/ui/worker"
 import {
   array,
   number,

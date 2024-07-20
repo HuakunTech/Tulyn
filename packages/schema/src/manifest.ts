@@ -1,4 +1,4 @@
-import { AllJarvisPermission, Icon } from "jarvis-api/models"
+import { AllJarvisPermission, Icon } from "@tulyn/api/models"
 import {
   array,
   boolean,

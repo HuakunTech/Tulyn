@@ -1,4 +1,4 @@
-import { Icon, IconType } from "jarvis-api/models"
+import { Icon, IconType } from "@tulyn/api/models"
 import {
   array,
   boolean,

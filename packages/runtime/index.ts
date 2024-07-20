@@ -1,4 +1,4 @@
-import { BaseJarvisExtension, TListItem, type IJarvisAPIContext } from "jarvis-api"
+import { BaseJarvisExtension, TListItem, type IJarvisAPIContext } from "@tulyn/api"
 import { APIContext } from "./src/context"
 
 // const ext = new VSCodeProjectManagerExt();

@@ -1,4 +1,4 @@
-import { Icon } from "jarvis-api/models"
+import { Icon } from "@tulyn/api/models"
 import { number, object, pipe, string, transform, type InferOutput } from "valibot"
 
 export const ExtItemParser = object({

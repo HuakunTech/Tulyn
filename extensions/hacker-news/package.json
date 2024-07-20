@@ -32,7 +32,7 @@
     "build": "rimraf dist && rollup -c"
   },
   "dependencies": {
-    "jarvis-api": "workspace:*",
+    "@tulyn/api": "workspace:*",
     "valibot": "^0.36.0"
   },
   "devDependencies": {

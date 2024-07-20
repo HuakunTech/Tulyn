@@ -1,5 +1,5 @@
 {
-  "name": "@jarvis/supabase",
+  "name": "@tulyn/supabase",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {

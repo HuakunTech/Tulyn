@@ -35,7 +35,7 @@
     "build": "rimraf dist && rollup -c"
   },
   "dependencies": {
-    "jarvis-api": "workspace:*"
+    "@tulyn/api": "workspace:*"
   },
   "devDependencies": {
     "@types/bun": "latest",

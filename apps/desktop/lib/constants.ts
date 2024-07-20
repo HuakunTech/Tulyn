@@ -1,6 +1,6 @@
 import { appDataDir, join } from "@tauri-apps/api/path"
+import { AllJarvisPermission } from "@tulyn/api/models"
 import WorkerExt from "~/pages/worker-ext.vue"
-import { AllJarvisPermission } from "jarvis-api/models"
 // import { z } from "zod"
 import { object, record, string, type InferOutput } from "valibot"
 import { loadEnvVarWithNotification } from "./utils/envvar"

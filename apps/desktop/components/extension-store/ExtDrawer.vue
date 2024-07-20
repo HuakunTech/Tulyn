@@ -19,16 +19,16 @@ import { gqlClient } from "@/lib/utils/graphql"
 import * as supabase from "@/lib/utils/supabase"
 import { supabaseClient } from "@/lib/utils/supabase"
 import { installTarballUrl } from "@/lib/utils/tarball"
+import { getDevExtensionFolder, getExtensionFolder } from "@tulyn/api/commands"
 import {
   FindLatestExtDocument,
   type FindLatestExtQuery,
   type FindLatestExtQueryVariables
-} from "@jarvis/gql"
-import { JarvisExtManifest } from "@jarvis/schema"
-import { type Tables } from "@jarvis/supabase"
+} from "@tulyn/gql"
+import { JarvisExtManifest } from "@tulyn/schema"
+import { type Tables } from "@tulyn/supabase"
 import { compareVersions } from "compare-versions"
 import { ElMessage } from "element-plus"
-import { getDevExtensionFolder, getExtensionFolder } from "jarvis-api/commands"
 import { CircleCheckBigIcon, Trash2Icon } from "lucide-vue-next"
 import { computed, onMounted, onUnmounted, ref, watch } from "vue"
 import { z } from "zod"

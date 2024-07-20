@@ -2,7 +2,7 @@
  * Global event bus for the desktop app.
  * Events such as keydown events and combination events can be shared across components with this global event bus.
  */
-import { Action } from "jarvis-api/models"
+import { Action } from "@tulyn/api/models"
 import mitt from "mitt"
 import { setsEqual } from "./js"
 import { SettingsKeyComb } from "./keycomb"

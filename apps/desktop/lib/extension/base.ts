@@ -1,4 +1,4 @@
-import { TListItem } from "@jarvis/schema"
+import { TListItem } from "@tulyn/schema"
 import type { ReadableAtom } from "nanostores"
 
 export interface IExtensionBase {

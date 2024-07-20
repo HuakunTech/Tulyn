@@ -3,8 +3,8 @@ import { exists, remove } from "@tauri-apps/plugin-fs"
 import { debug, error, info } from "@tauri-apps/plugin-log"
 import { arch, platform } from "@tauri-apps/plugin-os"
 import { download } from "@tauri-apps/plugin-upload"
+import { unzip } from "@tulyn/api/commands"
 import { verifyUrlAlive } from "~/lib/utils/request"
-import { unzip } from "jarvis-api/commands"
 import { Command, executeBashScript, type ChildProcess } from "tauri-plugin-shellx-api"
 
 export function getInferredBunDownloadFilenameStem() {

@@ -1,5 +1,5 @@
 {
-  "name": "@jarvis/gql",
+  "name": "@tulyn/gql",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {

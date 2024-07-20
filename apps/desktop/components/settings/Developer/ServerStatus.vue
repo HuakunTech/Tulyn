@@ -9,7 +9,7 @@ import {
   serverIsRunning,
   startServer,
   stopServer
-} from "jarvis-api/commands"
+} from "@tulyn/api/commands"
 import { open } from "tauri-plugin-shellx-api"
 import { onMounted, onUnmounted, ref } from "vue"
 import { z } from "zod"

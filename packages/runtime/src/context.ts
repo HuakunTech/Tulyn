@@ -4,7 +4,7 @@ import {
   type IAppsAPI,
   type IClipboardAPI,
   type IJarvisAPIContext
-} from "jarvis-api"
+} from "@tulyn/api"
 
 export class ClipboardAPI implements IClipboardAPI {
   writeText(text: string): void {

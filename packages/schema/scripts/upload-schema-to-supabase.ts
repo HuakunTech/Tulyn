@@ -1,5 +1,5 @@
-import { type Database } from "@jarvis/supabase"
 import { createClient } from "@supabase/supabase-js"
+import { type Database } from "@tulyn/supabase"
 import { parse, string } from "valibot"
 import { ExtPackageJson } from "../src/manifest"
 import { getJsonSchema } from "../src/utils"

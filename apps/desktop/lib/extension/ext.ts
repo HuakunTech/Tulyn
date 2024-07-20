@@ -1,14 +1,6 @@
 import { loadAllExtensionsFromDisk } from "@/lib/commands/extensions"
 import { $appConfig } from "@/lib/stores/appConfig"
 import { useExtStore } from "@/stores/ext"
-import {
-  CustomUiCmd,
-  ExtPackageJsonExtra,
-  ListItemType,
-  TemplateUiCmd,
-  TListGroup,
-  TListItem
-} from "@jarvis/schema"
 import { join } from "@tauri-apps/api/path"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import * as fs from "@tauri-apps/plugin-fs"
@@ -19,7 +11,15 @@ import {
   pathExists,
   registerExtensionWindow,
   unregisterExtensionWindow
-} from "jarvis-api/commands"
+} from "@tulyn/api/commands"
+import {
+  CustomUiCmd,
+  ExtPackageJsonExtra,
+  ListItemType,
+  TemplateUiCmd,
+  TListGroup,
+  TListItem
+} from "@tulyn/schema"
 import { atom, type WritableAtom } from "nanostores"
 import { toast } from "vue-sonner"
 import { type IExtensionBase } from "./base"

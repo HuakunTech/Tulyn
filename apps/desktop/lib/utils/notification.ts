@@ -1,4 +1,4 @@
-import { notification } from "jarvis-api/ui"
+import { notification } from "@tulyn/api/ui"
 
 export async function getNotificationPermission() {
   let permissionGranted = await notification.isPermissionGranted()
