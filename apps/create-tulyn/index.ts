@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import path from "path"
 import { input, select } from "@inquirer/prompts"
 import chalk from "chalk"

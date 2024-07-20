@@ -1,12 +1,12 @@
 {
   "name": "create-tulyn",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "bin": {
-    "create-tulyn": "dist/index.cjs"
+    "create-tulyn": "dist/index.js"
   },
   "scripts": {
-    "build": "rimraf dist && rollup -c",
+    "build": "rimraf dist && bun build index.ts --outdir dist --target node",
     "postbuild": "shx cp -r ../../templates dist/templates && bun scripts/clean-dist.ts"
   },
   "devDependencies": {
