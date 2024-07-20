@@ -1,4 +1,4 @@
-import { AllJarvisPermission, Icon } from "@tulyn/api/models"
+import { AllTulynPermission, Icon } from "@tulyn/api/models"
 import {
   array,
   boolean,
@@ -101,32 +101,32 @@ export const TemplateUiCmd = object({
 })
 export type TemplateUiCmd = InferOutput<typeof TemplateUiCmd>
 
-export const JarvisExtManifest = object({
+export const TulynExtManifest = object({
   name: string("Name of the extension (Human Readable)"),
   shortDescription: string("Description of the extension (Will be displayed in store)"),
   longDescription: string("Long description of the extension (Will be displayed in store)"),
   identifier: string("Unique identifier for the extension"),
   icon: Icon,
   permissions: array(
-    AllJarvisPermission,
+    AllTulynPermission,
     "Permissions Declared by the extension. e.g. clipboard-all. Not declared APIs will be blocked."
   ),
   demoImages: array(string("Demo images for the extension")),
   customUiCmds: array(CustomUiCmd, "UI Commands"),
   templateUiCmds: array(TemplateUiCmd, "Inline Commands")
 })
-export type JarvisExtManifest = InferOutput<typeof JarvisExtManifest>
+export type TulynExtManifest = InferOutput<typeof TulynExtManifest>
 
 export const ExtPackageJson = object({
   name: string("Package name for the extension (just a regular npm package name)"),
   version: string("Version of the extension"),
-  jarvis: JarvisExtManifest,
+  tulyn: TulynExtManifest,
   files: array(string("Files to include in the extension. e.g. ['dist']"))
 })
 export type ExtPackageJson = InferOutput<typeof ExtPackageJson>
 
 /**
- * Extra fields for JarvisExtJson
+ * Extra fields for ExtPackageJson
  * e.g. path to the extension
  */
 export const ExtPackageJsonExtra = object({

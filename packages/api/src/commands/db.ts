@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api/core"
 import { array, literal, optional, parse, safeParse, union, type InferOutput } from "valibot"
-import { JARVIS_EXT_IDENTIFIER } from "../constants"
+import { TULYN_EXT_IDENTIFIER } from "../constants"
 import { CmdType, Ext, ExtCmd, ExtData } from "../models/extension"
 import { convertDateToSqliteString, SQLSortOrder } from "../models/sql"
 import { generateJarvisPluginCommand } from "./common"
@@ -30,7 +30,7 @@ export function getExtensionByIdentifier(identifier: string) {
 export function getExtensionByIdentifierExpectExists(identifier: string): Promise<Ext> {
   return getExtensionByIdentifier(identifier).then((ext) => {
     if (!ext) {
-      throw new Error(`Extension ${identifier} not found`)
+      throw new Error(`Unexpexted Error: Extension ${identifier} not found`)
     }
     return ext
   })
@@ -185,23 +185,19 @@ export function updateExtensionDataById(data: {
 /*                             Built-in Extensions                            */
 /* -------------------------------------------------------------------------- */
 export function getExtClipboard() {
-  return getExtensionByIdentifierExpectExists(JARVIS_EXT_IDENTIFIER.JARVIS_CLIPBOARD_EXT_IDENTIFIER)
+  return getExtensionByIdentifierExpectExists(TULYN_EXT_IDENTIFIER.TULYN_CLIPBOARD_EXT_IDENTIFIER)
 }
 export function getExtQuickLinks() {
-  return getExtensionByIdentifierExpectExists(
-    JARVIS_EXT_IDENTIFIER.JARVIS_QUICK_LINKS_EXT_IDENTIFIER
-  )
+  return getExtensionByIdentifierExpectExists(TULYN_EXT_IDENTIFIER.TULYN_QUICK_LINKS_EXT_IDENTIFIER)
 }
 export function getExtRemote() {
-  return getExtensionByIdentifierExpectExists(JARVIS_EXT_IDENTIFIER.JARVIS_REMOTE_EXT_IDENTIFIER)
+  return getExtensionByIdentifierExpectExists(TULYN_EXT_IDENTIFIER.TULYN_REMOTE_EXT_IDENTIFIER)
 }
 export function getExtScriptCmd() {
-  return getExtensionByIdentifierExpectExists(
-    JARVIS_EXT_IDENTIFIER.JARVIS_SCRIPT_CMD_EXT_IDENTIFIER
-  )
+  return getExtensionByIdentifierExpectExists(TULYN_EXT_IDENTIFIER.TULYN_SCRIPT_CMD_EXT_IDENTIFIER)
 }
 export function getExtDev() {
-  return getExtensionByIdentifierExpectExists(JARVIS_EXT_IDENTIFIER.JARVIS_DEV_EXT_IDENTIFIER)
+  return getExtensionByIdentifierExpectExists(TULYN_EXT_IDENTIFIER.TULYN_DEV_EXT_IDENTIFIER)
 }
 
 /**

@@ -16,7 +16,6 @@ import { arch, platform } from "@tauri-apps/plugin-os"
 import { useListenToWindowBlur } from "~/composables/useEvents"
 import { ComboboxInput } from "radix-vue"
 
-const { $dayjs } = useNuxtApp()
 const appConfig = useStore($appConfig)
 const appExt = new AppsExtension()
 const sysCmdExt = new SystemCommandExtension()

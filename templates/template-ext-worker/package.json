@@ -3,11 +3,11 @@
   "name": "tempalte-ext-worker",
   "version": "0.0.1",
   "type": "module",
-  "jarvis": {
+  "tulyn": {
     "name": "Extension Template Worker",
     "shortDescription": "A Worker Extension Template",
     "longDescription": "A Worker Extension Template",
-    "identifier": "tech.huakun.jarvis-ext-template-worker",
+    "identifier": "tech.huakun.tulyn-ext-template-worker",
     "permissions": [
       "clipboard:read-text",
       "clipboard:write-text",

@@ -25,7 +25,7 @@ import {
   type FindLatestExtQuery,
   type FindLatestExtQueryVariables
 } from "@tulyn/gql"
-import { JarvisExtManifest } from "@tulyn/schema"
+import { TulynExtManifest } from "@tulyn/schema"
 import { type Tables } from "@tulyn/supabase"
 import { compareVersions } from "compare-versions"
 import { ElMessage } from "element-plus"
@@ -74,10 +74,10 @@ watch(
   }
 )
 
-const manifest = computed<JarvisExtManifest>(() => {
+const manifest = computed<TulynExtManifest>(() => {
   if (currentExt.value) {
     // @ts-ignore
-    return JarvisExtManifest.parse(JSON.parse(currentExt.value?.manifest as string))
+    return TulynExtManifest.parse(JSON.parse(currentExt.value?.manifest as string))
   } else {
     return null
   }

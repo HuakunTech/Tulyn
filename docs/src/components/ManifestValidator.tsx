@@ -11,7 +11,7 @@ const defaultJson = `{
   "type": "module",
   "jarvis": {
     "name": "Hacker News",
-    "identifier": "tech.huakun.jarvis.hacker-news",
+    "identifier": "tech.huakun.tulyn.hacker-news",
     "shortDescription": "List latest top hacker news",
     "icon": {
       "type": "iconify",

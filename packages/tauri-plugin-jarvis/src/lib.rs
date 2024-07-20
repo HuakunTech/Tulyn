@@ -17,7 +17,7 @@ pub use db;
 use std::{collections::HashMap, path::PathBuf, sync::Mutex};
 use tauri_plugin_store::StoreBuilder;
 use utils::{
-    path::{get_default_extensions_dir, get_jarvis_db_path},
+    path::{get_default_extensions_dir, get_tulyn_db_path},
     settings::AppSettings,
 };
 
@@ -153,37 +153,18 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             #[cfg(desktop)]
             let jarvis = desktop::init(app, api)?;
             app.manage(jarvis);
+            utils::setup::setup_app_path(app);
+            utils::setup::setup_extension_storage(app);
 
             // manage state so it is accessible by the commands
             app.manage(JarvisState::default());
             app.manage(commands::apps::ApplicationsState::default());
-            let db_path = get_jarvis_db_path(app)?;
+            let db_path = get_tulyn_db_path(app)?;
             let db_key: Option<String> = None;
             app.manage(commands::db::DBState::new(db_path.clone(), db_key.clone())?);
             setup::db::setup_db(app)?;
-
-            // let app_settings = match AppSettings::load_from_store(&store) {s
-            //     Ok(settings) => settings,
-            //     Err(_) => AppSettings::default(),
-            // };
-            // let ext_folder: Option<PathBuf> = get_default_extensions_dir(app).ok();
-            // app.manage(crate::server::http::Server::new(
-            //     app.app_handle().clone(),
-            //     1566,
-            //     Protocol::Http,
-            //     ext_folder,
-            //     app_settings.dev_extention_path,
-            // ));
-            // let my_port = tauri_plugin_network::network::scan::find_available_port_from_list(
-            //     server::CANDIDATE_PORTS.to_vec(),
-            // )
-            // .unwrap();
-            // let mdns = setup::peer_discovery::setup_mdns(my_port)?;
-            // setup::peer_discovery::handle_mdns_service_evt(app, mdns.browse()?);
-            // utils::setup::setup_server(app); // start the server
+            println!("Jarvis Plugin Initialized");
             app.manage(Peers::default());
-            utils::setup::setup_app_path(app);
-            utils::setup::setup_extension_storage(app);
             Ok(())
         })
         .build()

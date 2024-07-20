@@ -8,7 +8,7 @@ use tauri_plugin_jarvis::{
     db::JarvisDB,
     server::Protocol,
     utils::{
-        path::{get_default_extensions_dir, get_jarvis_db_path},
+        path::{get_default_extensions_dir, get_tulyn_db_path},
         settings::AppSettings,
     },
 };
@@ -104,12 +104,12 @@ fn main() {
             /* ----------------------------- Database Setup ----------------------------- */
             // setup::db::setup_db(app)?;
             /* ------------------------- Clipboard History Setup ------------------------ */
-            let db_path = get_jarvis_db_path(app.app_handle())?;
+            let db_path = get_tulyn_db_path(app.app_handle())?;
             let db_key: Option<String> = None;
             let jarvis_db = JarvisDB::new(db_path.clone(), db_key.clone())?;
             // The clipboard extension should be created in setup_db, ext is guaranteed to be Some
             let ext = jarvis_db.get_extension_by_identifier(
-                tauri_plugin_jarvis::constants::JARVIS_CLIPBOARD_EXT_IDENTIFIER,
+                tauri_plugin_jarvis::constants::TULYN_CLIPBOARD_EXT_IDENTIFIER,
             )?;
             app.manage(
                 tauri_plugin_jarvis::model::clipboard_history::ClipboardHistory::new(

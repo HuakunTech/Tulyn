@@ -1,7 +1,7 @@
 [package]
-name = "jarvis-desktop"
+name = "tulyn-desktop"
 version = "0.0.0"
-description = "Jarvis Desktop App"
+description = "Tulyn Desktop App"
 authors = ["Huakun Shen"]
 edition = "2021"
 

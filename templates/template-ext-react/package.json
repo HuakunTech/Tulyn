@@ -4,11 +4,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "jarvis": {
+  "tulyn": {
     "name": "template-ext-react",
     "shortDescription": "A Custom UI template for react",
     "longDescription": "A Custom UI template for react",
-    "identifier": "tech.huakun.jarvis-ext-custom-react",
+    "identifier": "tech.huakun.tulyn-ext-custom-react",
     "icon": {
       "type": "iconify",
       "value": "logos:react"

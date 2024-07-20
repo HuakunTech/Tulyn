@@ -13,7 +13,7 @@ export function loadExtensionManifestFromDisk(manifestPath: string): Promise<Ext
       console.error(parse.issues)
       throw new Error(`Invalid manifest: ${manifestPath} - ${parse.issues}`)
     } else {
-      debug(`Loaded extension ${parse.output.jarvis.identifier} from ${manifestPath}`)
+      debug(`Loaded extension ${parse.output.tulyn.identifier} from ${manifestPath}`)
       const extPath = await dirname(manifestPath)
       const extFolderName = await basename(extPath)
       return Object.assign(parse.output, {
@@ -38,11 +38,11 @@ export function loadAllExtensionsFromDisk(
       } catch (error) {
         continue
       }
-      const extInDb = await db.getExtensionByIdentifier(extPkgJson.jarvis.identifier)
+      const extInDb = await db.getExtensionByIdentifier(extPkgJson.tulyn.identifier)
       if (!extInDb) {
         // create this extension in database
         await db.createExtension({
-          identifier: extPkgJson.jarvis.identifier,
+          identifier: extPkgJson.tulyn.identifier,
           version: extPkgJson.version
         })
       }

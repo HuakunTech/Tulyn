@@ -219,9 +219,9 @@ async function handleDragNDropInstall(paths: string[]) {
             </PopoverTrigger>
             <PopoverContent class="ml-5 w-[45em] text-xs">
               <!-- TODO: Fix the Links -->
-              Jarvis allows you to install a remote url as a command. Instead of loading UI from
-              locally-installed extension, Jarvis will load UI from the remote website. The website
-              may call Jarvis API to access native APIs and file system.
+              Tulyn allows you to install a remote url as a command. Instead of loading UI from
+              locally-installed extension, Tulyn will load UI from the remote website. The website
+              may call Tulyn API to access native APIs and file system.
               <TauriLink
                 class="block"
                 href="https://docs.jarvis.huakun.tech/design/extensions/installation/"

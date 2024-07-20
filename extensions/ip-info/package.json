@@ -4,11 +4,11 @@
   "version": "0.0.3",
   "module": "index.ts",
   "type": "module",
-  "jarvis": {
+  "tulyn": {
     "name": "IP Info",
     "shortDescription": "Show your current IP Info and Search for IP Address",
     "longDescription": "Will display you IP Address and more information about this IP address, including Geo Location, ASN, ISP. You can also search for a specific IP.",
-    "identifier": "tech.huakun.jarvis-ext-ip-info",
+    "identifier": "tech.huakun.tulyn-ext-ip-info",
     "permissions": [
       "clipboard:write-text",
       "fetch:all"

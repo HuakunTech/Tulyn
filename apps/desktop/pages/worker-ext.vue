@@ -104,7 +104,7 @@ onMounted(async () => {
   }
 
   const manifest = await loadExtensionManifestFromDisk(manifestPath)
-  const cmd = manifest.jarvis.templateUiCmds.find((cmd) => cmd.name === currentWorkerExt.cmdName)
+  const cmd = manifest.tulyn.templateUiCmds.find((cmd) => cmd.name === currentWorkerExt.cmdName)
   if (!cmd) {
     toast.error(`Worker extension command ${currentWorkerExt.cmdName} not found`)
     return navigateTo("/")
@@ -114,10 +114,10 @@ onMounted(async () => {
     toast.error(`Worker extension script ${cmd.main} not found`)
     return navigateTo("/")
   }
-  const extInfoInDB = await db.getExtensionByIdentifier(manifest.jarvis.identifier)
+  const extInfoInDB = await db.getExtensionByIdentifier(manifest.tulyn.identifier)
   if (!extInfoInDB) {
     toast.error("Unexpected Error", {
-      description: `Worker extension ${manifest.jarvis.identifier} not found in database. Run Troubleshooter.`
+      description: `Worker extension ${manifest.tulyn.identifier} not found in database. Run Troubleshooter.`
     })
     return navigateTo("/")
   }
@@ -130,7 +130,7 @@ onMounted(async () => {
   const dbAPI = new db.JarvisExtDB(extInfoInDB.extId)
   const extDBApi: IDbServer = convertJarvisExtDBToServerDbAPI(dbAPI)
   exposeApiToWorker(worker, {
-    ...constructJarvisServerAPIWithPermissions(manifest.jarvis.permissions),
+    ...constructJarvisServerAPIWithPermissions(manifest.tulyn.permissions),
     ...extUiAPI,
     ...extDBApi
   })

@@ -1,7 +1,7 @@
-export enum JARVIS_EXT_IDENTIFIER {
-  JARVIS_CLIPBOARD_EXT_IDENTIFIER = "tech.huakun.jarvis.ext.clipboard",
-  JARVIS_QUICK_LINKS_EXT_IDENTIFIER = "tech.huakun.jarvis.ext.quick-links",
-  JARVIS_REMOTE_EXT_IDENTIFIER = "tech.huakun.jarvis.ext.remote",
-  JARVIS_SCRIPT_CMD_EXT_IDENTIFIER = "tech.huakun.jarvis.ext.script-cmd",
-  JARVIS_DEV_EXT_IDENTIFIER = "tech.huakun.jarvis.ext.dev"
+export enum TULYN_EXT_IDENTIFIER {
+  TULYN_CLIPBOARD_EXT_IDENTIFIER = "tech.huakun.tulyn.ext.clipboard",
+  TULYN_QUICK_LINKS_EXT_IDENTIFIER = "tech.huakun.tulyn.ext.quick-links",
+  TULYN_REMOTE_EXT_IDENTIFIER = "tech.huakun.tulyn.ext.remote",
+  TULYN_SCRIPT_CMD_EXT_IDENTIFIER = "tech.huakun.tulyn.ext.script-cmd",
+  TULYN_DEV_EXT_IDENTIFIER = "tech.huakun.tulyn.ext.dev"
 }

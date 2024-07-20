@@ -35,7 +35,7 @@ export function generateItemValue(
   cmd: CustomUiCmd | TemplateUiCmd,
   isDev: boolean
 ) {
-  return `${ext.jarvis.identifier}/${cmd.name}/${isDev ? "dev" : ""}`
+  return `${ext.tulyn.identifier}/${cmd.name}/${isDev ? "dev" : ""}`
 }
 
 export function cmdToItem(
@@ -50,7 +50,7 @@ export function cmdToItem(
     description: cmd.description ?? "",
     flags: { isDev, isRemovable: false },
     type,
-    icon: manifest.jarvis.icon,
+    icon: manifest.tulyn.icon,
     keywords: cmd.cmds.map((c) => c.value), // TODO: handle regex as well
     identityFilter: true
   }
@@ -115,10 +115,10 @@ function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: CustomUi
  * @returns
  */
 export function manifestToCmdItems(manifest: ExtPackageJsonExtra, isDev: boolean): TListItem[] {
-  const uiItems = manifest.jarvis.customUiCmds.map((cmd) =>
+  const uiItems = manifest.tulyn.customUiCmds.map((cmd) =>
     cmdToItem(cmd, manifest, ListItemType.enum.UICmd, isDev)
   )
-  const inlineItems = manifest.jarvis.templateUiCmds.map((cmd) =>
+  const inlineItems = manifest.tulyn.templateUiCmds.map((cmd) =>
     cmdToItem(cmd, manifest, ListItemType.enum.InlineCmd, isDev)
   )
   return [...uiItems, ...inlineItems]
@@ -166,17 +166,17 @@ export class Extension implements IExtensionBase {
 
   groups(): TListGroup[] {
     return this.manifests.map((manifest) => ({
-      title: manifest.jarvis.name,
-      identifier: manifest.jarvis.identifier,
+      title: manifest.tulyn.name,
+      identifier: manifest.tulyn.identifier,
       type: "Extension",
-      icon: manifest.jarvis.icon,
+      icon: manifest.tulyn.icon,
       items: manifestToCmdItems(manifest, this.isDev),
       flags: { isDev: this.isDev, isRemovable: true }
     }))
   }
 
   uninstallExt(identifier: string): Promise<ExtPackageJsonExtra> {
-    const found = this.manifests.find((m) => m.jarvis.identifier === identifier)
+    const found = this.manifests.find((m) => m.tulyn.identifier === identifier)
     console.log(found)
     if (found) {
       return fs.remove(found.extPath, { recursive: true }).then(() => {
@@ -191,7 +191,7 @@ export class Extension implements IExtensionBase {
   onSelect(item: TListItem): Promise<void> {
     this.manifests.forEach((manifest) => {
       if (item.type == "UI Command") {
-        manifest.jarvis.customUiCmds.forEach(async (cmd) => {
+        manifest.tulyn.customUiCmds.forEach(async (cmd) => {
           if (item.value === generateItemValue(manifest, cmd, this.isDev)) {
             let url = cmd.main
             if ($appConfig.value?.devExtLoadUrl && this.isDev && cmd.devMain) {
@@ -209,7 +209,7 @@ export class Extension implements IExtensionBase {
           }
         })
       } else if (item.type === "Inline Command") {
-        manifest.jarvis.templateUiCmds.forEach(async (cmd) => {
+        manifest.tulyn.templateUiCmds.forEach(async (cmd) => {
           if (item.value === generateItemValue(manifest, cmd, this.isDev)) {
             const main = cmd.main
             const scriptPath = await join(manifest.extPath, main)
