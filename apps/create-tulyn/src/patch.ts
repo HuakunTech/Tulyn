@@ -6,7 +6,7 @@ import fs from "fs-extra"
 /*                              Worker Extension                              */
 /* -------------------------------------------------------------------------- */
 export function cleanExtension(dir: string) {
-  let toRemove = ["node_modules", "bun.lockb", "dist", "stats.html"]
+  let toRemove = ["node_modules", "bun.lockb", "dist", "stats.html", ".turbo"]
   toRemove = toRemove.map((folder) => path.join(dir, folder))
   toRemove.forEach((dir) => {
     if (fs.existsSync(dir)) {
@@ -25,6 +25,7 @@ export function patchManifestSchema(pkgJsonPath: string) {
 export function patchApiPkg(pkgJsonPath: string) {
   const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, "utf-8"))
   delete pkgJson.dependencies["@tulyn/react"]
+  delete pkgJson.dependencies["@tulyn/api"]
   fs.writeFileSync(pkgJsonPath, JSON.stringify(pkgJson, null, 2))
 }
 

@@ -1,15 +1,5 @@
-# tempalte-ext-worker
-
-To install dependencies:
+# Tulyn Initializer
 
 ```bash
-bun install
+npm init tulyn
 ```
-
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.1.20. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.

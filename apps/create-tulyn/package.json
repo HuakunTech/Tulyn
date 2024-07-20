@@ -1,8 +1,10 @@
 {
   "name": "create-tulyn",
-  "module": "index.ts",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "bin": {
+    "create-tulyn": "dist/index.cjs"
+  },
   "scripts": {
     "build": "rimraf dist && rollup -c",
     "postbuild": "shx cp -r ../../templates dist/templates && bun scripts/clean-dist.ts"
@@ -29,5 +31,8 @@
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
     "fs-extra": "^11.2.0"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
