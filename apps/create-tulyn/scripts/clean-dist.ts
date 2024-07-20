@@ -1,9 +1,9 @@
 import path from "path"
 import fs from "fs-extra"
-import { rootDir } from "../src/constants"
+import { getRootDir } from "../src/constants"
 import { cleanExtension } from "../src/patch"
 
-const distPath = path.join(rootDir, "dist")
+const distPath = path.join(getRootDir(), "dist")
 /* -------------------------------------------------------------------------- */
 /*                              Worker Extension                              */
 /* -------------------------------------------------------------------------- */

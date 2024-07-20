@@ -5,10 +5,11 @@ import chalk from "chalk"
 import { Command, Option } from "commander"
 import fs from "fs-extra"
 import pkgJson from "./package.json"
-import { rootDir, templateRoot } from "./src/constants"
+import { getTemplateRoot } from "./src/constants"
 import { cleanExtension, patchApiPkg, patchInstallAPI, patchManifestSchema } from "./src/patch"
 
 const cwd = process.cwd()
+const templateRoot = getTemplateRoot()
 console.info(`${chalk.blue("Current Working Directory")}: ${cwd}`)
 console.info(`${chalk.blue("Template Root:")}`, templateRoot)
 if (!fs.existsSync(templateRoot)) {
