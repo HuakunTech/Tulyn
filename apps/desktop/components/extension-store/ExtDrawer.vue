@@ -74,7 +74,7 @@ watch(
   }
 )
 
-const manifest = computed(() => {
+const manifest = computed<JarvisExtManifest>(() => {
   if (currentExt.value) {
     // @ts-ignore
     return JarvisExtManifest.parse(JSON.parse(currentExt.value?.manifest as string))
@@ -191,7 +191,7 @@ const imageSrcs = computed(() => {
         <DrawerDescription class="text-mg my-3">Commands</DrawerDescription>
 
         <ul>
-          <li v-if="manifest" v-for="cmd in manifest.uiCmds">
+          <li v-if="manifest" v-for="cmd in manifest.customUiCmds">
             <div class="flex items-center space-x-3">
               <IconMultiplexer
                 v-if="props.selectedExt"

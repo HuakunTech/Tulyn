@@ -18,7 +18,8 @@
       "type": "iconify",
       "value": "material-symbols:extension"
     },
-    "inlineCmds": [
+    "customUiCmds": [],
+    "templateUiCmds": [
       {
         "name": "Worker Template",
         "main": "dist/index.js",

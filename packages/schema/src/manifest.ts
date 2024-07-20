@@ -69,7 +69,7 @@ export const WindowConfig = object({
   parent: optional(nullable(string())),
   visibleOnAllWorkspaces: optional(nullable(boolean()))
 })
-export const UiCmd = object({
+export const CustomUiCmd = object({
   main: string("HTML file to load, e.g. dist/index.html"),
   description: optional(nullable(string("Description of the Command"), ""), ""),
   devMain: string("URL to load in development to support live reload, e.g. http://localhost:5173/"),
@@ -84,9 +84,9 @@ export const UiCmd = object({
     allPlatforms
   )
 })
-export type UiCmd = InferOutput<typeof UiCmd>
+export type CustomUiCmd = InferOutput<typeof CustomUiCmd>
 
-export const InlineCmd = object({
+export const TemplateUiCmd = object({
   main: string(),
   name: string(),
   description: optional(nullable(string("Description of the Command"), ""), ""),
@@ -99,7 +99,7 @@ export const InlineCmd = object({
     allPlatforms
   )
 })
-export type InlineCmd = InferOutput<typeof InlineCmd>
+export type TemplateUiCmd = InferOutput<typeof TemplateUiCmd>
 
 export const JarvisExtManifest = object({
   name: string("Name of the extension (Human Readable)"),
@@ -107,19 +107,13 @@ export const JarvisExtManifest = object({
   longDescription: string("Long description of the extension (Will be displayed in store)"),
   identifier: string("Unique identifier for the extension"),
   icon: Icon,
-  permissions: optional(
-    nullable(
-      array(
-        AllJarvisPermission,
-        "Permissions Declared by the extension. e.g. clipboard-all. Not declared APIs will be blocked."
-      ),
-      []
-    ),
-    []
+  permissions: array(
+    AllJarvisPermission,
+    "Permissions Declared by the extension. e.g. clipboard-all. Not declared APIs will be blocked."
   ),
   demoImages: array(string("Demo images for the extension")),
-  uiCmds: optional(array(UiCmd, "UI Commands"), []),
-  inlineCmds: optional(array(InlineCmd, "Inline Commands"), [])
+  customUiCmds: array(CustomUiCmd, "UI Commands"),
+  templateUiCmds: array(TemplateUiCmd, "Inline Commands")
 })
 export type JarvisExtManifest = InferOutput<typeof JarvisExtManifest>
 

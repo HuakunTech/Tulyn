@@ -141,27 +141,27 @@ For the following example, Jarvis tries to load `dist/index.html`. So you have t
   "name": "jarvis-ext-jwt",
   "description": "JWT Inspector",
   "jarvis": {
-    "identifier": "tech.huakun.jarvis-jwt-inspector",
+    "name": "Hacker News",
+    "identifier": "tech.huakun.jarvis.hacker-news",
+    "shortDescription": "List latest top hacker news",
     "icon": {
       "type": "iconify",
-      "icon": "logos:jwt-icon"
+      "value": "fa:hacker-news"
     },
-    "uiCmds": [
+    "longDescription": "",
+    "demoImages": [],
+    "permissions": [
+      "shell:open"
+    ],
+    "templateUiCmds": [
       {
-        "main": "dist/index.html", # loaded in production
-        "name": "View Decoded JWT",
-        "devMain": "http://localhost:5173", # devMain is used for hot reload
-        "window": {
-          "titleBarStyle": "overlay"
-        },
-        "cmds": [
-          {
-            "type": "text",
-            "value": "jwt"
-          }
-        ]
+        "name": "Hacker News",
+        "main": "dist/index.js",
+        "description": "Read the latest Hacker News stories",
+        "cmds": []
       }
-    ]
+    ],
+    "customUiCmds": []
   },
   "files": ["dist"]
   ...
@@ -189,7 +189,7 @@ In `Sample Package JSON`, in a UI Command, type double quote in a window object.
 
 ```json
 ...
-    "uiCmds": [
+    "customUiCmds": [
         "window": {
           "titleBarStyle": "overlay"
         },

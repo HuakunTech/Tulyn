@@ -104,7 +104,7 @@ onMounted(async () => {
   }
 
   const manifest = await loadExtensionManifestFromDisk(manifestPath)
-  const cmd = manifest.jarvis.inlineCmds.find((cmd) => cmd.name === currentWorkerExt.cmdName)
+  const cmd = manifest.jarvis.templateUiCmds.find((cmd) => cmd.name === currentWorkerExt.cmdName)
   if (!cmd) {
     toast.error(`Worker extension command ${currentWorkerExt.cmdName} not found`)
     return navigateTo("/")

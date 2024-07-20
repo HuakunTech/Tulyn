@@ -4,92 +4,58 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { safeParse } from "valibot"
 
 const defaultJson = `{
-  "$schema": "https://extensions.jarvis.huakun.tech/schema.json",
-  "name": "jarvis-ext-jwt",
-  "private": true,
-  "version": "0.0.0",
+  "$schema": "../../packages/schema/manifest-json-schema.json",
+  "version": "0.0.1",
+  "name": "hacker-news",
+  "module": "index.ts",
   "type": "module",
-  "description": "JWT Inspector",
   "jarvis": {
-    "name": "JWT Inspector",
-    "shortDescription": "JWT Inspector",
-    "longDescription": "JWT Inspector",
-    "identifier": "tech.huakun.jarvis-jwt-inspector",
-    "demoImages": [],
+    "name": "Hacker News",
+    "identifier": "tech.huakun.jarvis.hacker-news",
+    "shortDescription": "List latest top hacker news",
     "icon": {
       "type": "iconify",
-      "value": "logos:jwt-icon"
+      "value": "fa:hacker-news"
     },
-    "uiCmds": [
+    "longDescription": "",
+    "demoImages": [],
+    "permissions": [
+      "shell:open"
+    ],
+    "templateUiCmds": [
       {
-        "main": "dist/index.html",
-        "name": "View Decoded JWT",
-        "devMain": "http://localhost:5173",
-        "window": {
-          "width": 800,
-          "height": 500,
-          "titleBarStyle": "overlay"
-        },
-        "cmds": [
-          {
-            "type": "text",
-            "value": "jwt"
-          }
-        ]
-      },
-      {
-        "main": "dist/search.html",
-        "name": "Search Decoded JWT",
-        "devMain": "http://localhost:5173/search",
-        "window": {
-          "width": 800,
-          "height": 500,
-          "titleBarStyle": "overlay"
-        },
-        "cmds": [
-          {
-            "type": "text",
-            "value": "search-jwt"
-          }
-        ]
+        "name": "Hacker News",
+        "main": "dist/index.js",
+        "description": "Read the latest Hacker News stories",
+        "cmds": []
       }
     ],
-    "inlineCmds": []
+    "customUiCmds": []
   },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
-  },
-  "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^3.0.2",
-    "@tsconfig/svelte": "^5.0.2",
-    "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.33",
-    "svelte": "^4.2.12",
-    "svelte-check": "^3.6.7",
-    "tailwindcss": "^3.4.1",
-    "tslib": "^2.6.2",
-    "typescript": "^5.2.2",
-    "vite": "^5.2.0"
+    "dev": "rollup -c --watch",
+    "build": "rimraf dist && rollup -c"
   },
   "dependencies": {
     "jarvis-api": "workspace:*",
-    "bits-ui": "^0.21.7",
-    "clsx": "^2.1.1",
-    "cmdk-sv": "^0.0.17",
-    "dayjs": "^1.11.11",
-    "jose": "^5.3.0",
-    "lucide-svelte": "^0.378.0",
-    "mode-watcher": "^0.3.0",
-    "paneforge": "^0.0.4",
-    "svelte-radix": "^1.1.0",
-    "svelte-sonner": "^0.3.24",
-    "tailwind-merge": "^2.3.0",
-    "tailwind-variants": "^0.2.1",
-    "zod": "^3.23.8"
-  }
+    "valibot": "^0.36.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.18.1",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "rollup-plugin-visualizer": "^5.12.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "dist"
+  ]
 }`
 
 export default function SchemaValidatorEditor() {
@@ -145,7 +111,7 @@ export default function SchemaValidatorEditor() {
     <>
       <div className="text-xl">
         <strong>Is Valid: </strong>
-        <span className="dark:text-yellow-400 text-blue-700 font-extrabold">
+        <span className="font-extrabold text-blue-700 dark:text-yellow-400">
           {isValid ? "true" : "false"}
         </span>
       </div>

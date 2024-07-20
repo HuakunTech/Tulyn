@@ -106,7 +106,9 @@ class HackerNews extends WorkerExtension {
       .then(() => ui.setScrollLoading(false))
   }
   async load(): Promise<void> {
-    return fetch("https://hacker-news.firebaseio.com/v0/topstories.json")
+    return ui
+      .setSearchBarPlaceholder("Scroll down to load more...")
+      .then(() => fetch("https://hacker-news.firebaseio.com/v0/topstories.json"))
       .then((res) => res.json())
       .then((data) => {
         const storyIds = parse(array(number()), data)

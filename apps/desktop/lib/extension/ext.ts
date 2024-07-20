@@ -2,12 +2,12 @@ import { loadAllExtensionsFromDisk } from "@/lib/commands/extensions"
 import { $appConfig } from "@/lib/stores/appConfig"
 import { useExtStore } from "@/stores/ext"
 import {
+  CustomUiCmd,
   ExtPackageJsonExtra,
-  InlineCmd,
   ListItemType,
+  TemplateUiCmd,
   TListGroup,
-  TListItem,
-  UiCmd
+  TListItem
 } from "@jarvis/schema"
 import { join } from "@tauri-apps/api/path"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
@@ -32,21 +32,21 @@ import { type IExtensionBase } from "./base"
  */
 export function generateItemValue(
   ext: ExtPackageJsonExtra,
-  cmd: UiCmd | InlineCmd,
+  cmd: CustomUiCmd | TemplateUiCmd,
   isDev: boolean
 ) {
   return `${ext.jarvis.identifier}/${cmd.name}/${isDev ? "dev" : ""}`
 }
 
 export function cmdToItem(
-  cmd: UiCmd | InlineCmd,
+  cmd: CustomUiCmd | TemplateUiCmd,
   manifest: ExtPackageJsonExtra,
   type: ListItemType,
   isDev: boolean
 ): TListItem {
   return {
     title: cmd.name,
-    value: generateItemValue(manifest, cmd as UiCmd, isDev),
+    value: generateItemValue(manifest, cmd as CustomUiCmd, isDev),
     description: cmd.description ?? "",
     flags: { isDev, isRemovable: false },
     type,
@@ -56,7 +56,7 @@ export function cmdToItem(
   }
 }
 
-function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: UiCmd, url: string) {
+function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: CustomUiCmd, url: string) {
   return registerExtensionWindow(manifest.extPath).then(async (windowLabel) => {
     // try {
     //   console.log("Loading extension UI at", url);
@@ -115,10 +115,10 @@ function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: UiCmd, u
  * @returns
  */
 export function manifestToCmdItems(manifest: ExtPackageJsonExtra, isDev: boolean): TListItem[] {
-  const uiItems = manifest.jarvis.uiCmds.map((cmd) =>
+  const uiItems = manifest.jarvis.customUiCmds.map((cmd) =>
     cmdToItem(cmd, manifest, ListItemType.enum.UICmd, isDev)
   )
-  const inlineItems = manifest.jarvis.inlineCmds.map((cmd) =>
+  const inlineItems = manifest.jarvis.templateUiCmds.map((cmd) =>
     cmdToItem(cmd, manifest, ListItemType.enum.InlineCmd, isDev)
   )
   return [...uiItems, ...inlineItems]
@@ -191,7 +191,7 @@ export class Extension implements IExtensionBase {
   onSelect(item: TListItem): Promise<void> {
     this.manifests.forEach((manifest) => {
       if (item.type == "UI Command") {
-        manifest.jarvis.uiCmds.forEach(async (cmd) => {
+        manifest.jarvis.customUiCmds.forEach(async (cmd) => {
           if (item.value === generateItemValue(manifest, cmd, this.isDev)) {
             let url = cmd.main
             if ($appConfig.value?.devExtLoadUrl && this.isDev && cmd.devMain) {
@@ -209,7 +209,7 @@ export class Extension implements IExtensionBase {
           }
         })
       } else if (item.type === "Inline Command") {
-        manifest.jarvis.inlineCmds.forEach(async (cmd) => {
+        manifest.jarvis.templateUiCmds.forEach(async (cmd) => {
           if (item.value === generateItemValue(manifest, cmd, this.isDev)) {
             const main = cmd.main
             const scriptPath = await join(manifest.extPath, main)

@@ -17,14 +17,15 @@
     "permissions": [
       "shell:open"
     ],
-    "inlineCmds": [
+    "templateUiCmds": [
       {
         "name": "Hacker News",
         "main": "dist/index.js",
         "description": "Read the latest Hacker News stories",
         "cmds": []
       }
-    ]
+    ],
+    "customUiCmds": []
   },
   "scripts": {
     "dev": "rollup -c --watch",

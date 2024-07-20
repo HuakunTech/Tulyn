@@ -14,14 +14,16 @@
       "value": "logos:react"
     },
     "demoImages": [],
-    "uiCmds": [
+    "permissions": [],
+    "customUiCmds": [
       {
         "main": "dist",
         "devMain": "http://localhost:5173",
         "name": "React Extension Template",
         "cmds": []
       }
-    ]
+    ],
+    "templateUiCmds": []
   },
   "files": [
     "dist"

@@ -20,14 +20,15 @@
       "type": "iconify",
       "value": "mdi:ip-network"
     },
-    "inlineCmds": [
+    "templateUiCmds": [
       {
         "name": "IP Info",
         "main": "dist/index.js",
         "description": "Display your current IP addres and detailed information. Search for other IP address.",
         "cmds": []
       }
-    ]
+    ],
+    "customUiCmds": []
   },
   "scripts": {
     "dev": "rollup -c --watch",
