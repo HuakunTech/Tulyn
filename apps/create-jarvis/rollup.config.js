@@ -20,7 +20,9 @@ const config = {
     }),
     json(),
     typescript(),
-    resolve({}),
+    resolve({
+      preferBuiltins: true
+    }),
     commonjs(),
     terser(),
     visualizer()

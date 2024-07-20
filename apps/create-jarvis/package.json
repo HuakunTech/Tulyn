@@ -25,7 +25,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@inquirer/select": "^2.4.1",
+    "@inquirer/prompts": "^5.2.1",
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
     "fs-extra": "^11.2.0"
