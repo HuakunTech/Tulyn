@@ -17,7 +17,7 @@ pub use db;
 use std::{collections::HashMap, path::PathBuf, sync::Mutex};
 use tauri_plugin_store::StoreBuilder;
 use utils::{
-    path::{get_default_extensions_dir, get_akun_db_path},
+    path::{get_akun_db_path, get_default_extensions_dir},
     settings::AppSettings,
 };
 

@@ -8,7 +8,7 @@ use tauri_plugin_jarvis::{
     db::JarvisDB,
     server::Protocol,
     utils::{
-        path::{get_default_extensions_dir, get_akun_db_path},
+        path::{get_akun_db_path, get_default_extensions_dir},
         settings::AppSettings,
     },
 };
