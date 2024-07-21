@@ -68,7 +68,7 @@ pub async fn register_extension_window<R: Runtime>(
     extension_path: PathBuf,
 ) -> Result<String, String> {
     let manifest = load_jarvis_ext_manifest(extension_path.clone()).map_err(|e| e.to_string())?;
-    let permissions = manifest.tulyn.permissions.unwrap_or_default();
+    let permissions = manifest.akun.permissions.unwrap_or_default();
     let permissions_str: Vec<String> = permissions
         .iter()
         .map(|p| p.to_owned().to_string())
@@ -83,7 +83,7 @@ pub async fn register_extension_window<R: Runtime>(
     }
     let ext = Extension {
         path: extension_path,
-        identifier: manifest.tulyn.identifier,
+        identifier: manifest.akun.identifier,
         permissions,
     };
     label_ext_map.insert(window_label.clone(), ext);

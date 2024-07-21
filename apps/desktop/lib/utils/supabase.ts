@@ -1,6 +1,6 @@
 import { SUPABASE_ANON_KEY, SUPABASE_URL } from "@/lib/constants"
+import { type Database } from "@akun/supabase"
 import { createClient } from "@supabase/supabase-js"
-import { type Database } from "@tulyn/supabase"
 import { z } from "zod"
 
 export const supabaseClient = createClient<Database>(

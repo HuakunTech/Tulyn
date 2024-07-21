@@ -1,8 +1,8 @@
+import { db } from "@akun/api/commands"
+import { ExtPackageJson, ExtPackageJsonExtra } from "@akun/schema"
 import { basename, dirname, join } from "@tauri-apps/api/path"
 import { readDir, readTextFile } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
-import { db } from "@tulyn/api/commands"
-import { ExtPackageJson, ExtPackageJsonExtra } from "@tulyn/schema"
 import { safeParse } from "valibot"
 
 export function loadExtensionManifestFromDisk(manifestPath: string): Promise<ExtPackageJsonExtra> {
@@ -13,7 +13,7 @@ export function loadExtensionManifestFromDisk(manifestPath: string): Promise<Ext
       console.error(parse.issues)
       throw new Error(`Invalid manifest: ${manifestPath} - ${parse.issues}`)
     } else {
-      debug(`Loaded extension ${parse.output.tulyn.identifier} from ${manifestPath}`)
+      debug(`Loaded extension ${parse.output.akun.identifier} from ${manifestPath}`)
       const extPath = await dirname(manifestPath)
       const extFolderName = await basename(extPath)
       return Object.assign(parse.output, {
@@ -38,11 +38,11 @@ export function loadAllExtensionsFromDisk(
       } catch (error) {
         continue
       }
-      const extInDb = await db.getExtensionByIdentifier(extPkgJson.tulyn.identifier)
+      const extInDb = await db.getExtensionByIdentifier(extPkgJson.akun.identifier)
       if (!extInDb) {
         // create this extension in database
         await db.createExtension({
-          identifier: extPkgJson.tulyn.identifier,
+          identifier: extPkgJson.akun.identifier,
           version: extPkgJson.version
         })
       }

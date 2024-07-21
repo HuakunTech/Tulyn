@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api/core"
 import { array, literal, optional, parse, safeParse, union, type InferOutput } from "valibot"
-import { TULYN_EXT_IDENTIFIER } from "../constants"
+import { AKUN_EXT_IDENTIFIER } from "../constants"
 import { CmdType, Ext, ExtCmd, ExtData } from "../models/extension"
 import { convertDateToSqliteString, SQLSortOrder } from "../models/sql"
 import { generateJarvisPluginCommand } from "./common"
@@ -185,19 +185,19 @@ export function updateExtensionDataById(data: {
 /*                             Built-in Extensions                            */
 /* -------------------------------------------------------------------------- */
 export function getExtClipboard() {
-  return getExtensionByIdentifierExpectExists(TULYN_EXT_IDENTIFIER.TULYN_CLIPBOARD_EXT_IDENTIFIER)
+  return getExtensionByIdentifierExpectExists(AKUN_EXT_IDENTIFIER.AKUN_CLIPBOARD_EXT_IDENTIFIER)
 }
 export function getExtQuickLinks() {
-  return getExtensionByIdentifierExpectExists(TULYN_EXT_IDENTIFIER.TULYN_QUICK_LINKS_EXT_IDENTIFIER)
+  return getExtensionByIdentifierExpectExists(AKUN_EXT_IDENTIFIER.AKUN_QUICK_LINKS_EXT_IDENTIFIER)
 }
 export function getExtRemote() {
-  return getExtensionByIdentifierExpectExists(TULYN_EXT_IDENTIFIER.TULYN_REMOTE_EXT_IDENTIFIER)
+  return getExtensionByIdentifierExpectExists(AKUN_EXT_IDENTIFIER.AKUN_REMOTE_EXT_IDENTIFIER)
 }
 export function getExtScriptCmd() {
-  return getExtensionByIdentifierExpectExists(TULYN_EXT_IDENTIFIER.TULYN_SCRIPT_CMD_EXT_IDENTIFIER)
+  return getExtensionByIdentifierExpectExists(AKUN_EXT_IDENTIFIER.AKUN_SCRIPT_CMD_EXT_IDENTIFIER)
 }
 export function getExtDev() {
-  return getExtensionByIdentifierExpectExists(TULYN_EXT_IDENTIFIER.TULYN_DEV_EXT_IDENTIFIER)
+  return getExtensionByIdentifierExpectExists(AKUN_EXT_IDENTIFIER.AKUN_DEV_EXT_IDENTIFIER)
 }
 
 /**

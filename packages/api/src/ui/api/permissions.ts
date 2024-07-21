@@ -10,8 +10,5 @@ export const SystemPermissionSchema = union([
   literal("system:ui")
 ])
 export type SystemPermission = InferOutput<typeof SystemPermissionSchema>
-export const AllTulynPermission = union([
-  TauriApiAdapterAllPermissionSchema,
-  SystemPermissionSchema
-])
-export type AllTulynPermission = InferOutput<typeof AllTulynPermission>
+export const AllAkunPermission = union([TauriApiAdapterAllPermissionSchema, SystemPermissionSchema])
+export type AllAkunPermission = InferOutput<typeof AllAkunPermission>

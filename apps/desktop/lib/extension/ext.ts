@@ -1,17 +1,12 @@
 import { loadAllExtensionsFromDisk } from "@/lib/commands/extensions"
 import { $appConfig } from "@/lib/stores/appConfig"
 import { useExtStore } from "@/stores/ext"
-import { join } from "@tauri-apps/api/path"
-import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
-import * as fs from "@tauri-apps/plugin-fs"
-import { exists } from "@tauri-apps/plugin-fs"
-import { debug, error, warn } from "@tauri-apps/plugin-log"
 import {
   getServerPort,
   pathExists,
   registerExtensionWindow,
   unregisterExtensionWindow
-} from "@tulyn/api/commands"
+} from "@akun/api/commands"
 import {
   CustomUiCmd,
   ExtPackageJsonExtra,
@@ -19,7 +14,12 @@ import {
   TemplateUiCmd,
   TListGroup,
   TListItem
-} from "@tulyn/schema"
+} from "@akun/schema"
+import { join } from "@tauri-apps/api/path"
+import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
+import * as fs from "@tauri-apps/plugin-fs"
+import { exists } from "@tauri-apps/plugin-fs"
+import { debug, error, warn } from "@tauri-apps/plugin-log"
 import { atom, type WritableAtom } from "nanostores"
 import { toast } from "vue-sonner"
 import { type IExtensionBase } from "./base"
@@ -35,7 +35,7 @@ export function generateItemValue(
   cmd: CustomUiCmd | TemplateUiCmd,
   isDev: boolean
 ) {
-  return `${ext.tulyn.identifier}/${cmd.name}/${isDev ? "dev" : ""}`
+  return `${ext.akun.identifier}/${cmd.name}/${isDev ? "dev" : ""}`
 }
 
 export function cmdToItem(
@@ -50,7 +50,7 @@ export function cmdToItem(
     description: cmd.description ?? "",
     flags: { isDev, isRemovable: false },
     type,
-    icon: manifest.tulyn.icon,
+    icon: manifest.akun.icon,
     keywords: cmd.cmds.map((c) => c.value), // TODO: handle regex as well
     identityFilter: true
   }
@@ -115,10 +115,10 @@ function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: CustomUi
  * @returns
  */
 export function manifestToCmdItems(manifest: ExtPackageJsonExtra, isDev: boolean): TListItem[] {
-  const uiItems = manifest.tulyn.customUiCmds.map((cmd) =>
+  const uiItems = manifest.akun.customUiCmds.map((cmd) =>
     cmdToItem(cmd, manifest, ListItemType.enum.UICmd, isDev)
   )
-  const inlineItems = manifest.tulyn.templateUiCmds.map((cmd) =>
+  const inlineItems = manifest.akun.templateUiCmds.map((cmd) =>
     cmdToItem(cmd, manifest, ListItemType.enum.InlineCmd, isDev)
   )
   return [...uiItems, ...inlineItems]
@@ -166,17 +166,17 @@ export class Extension implements IExtensionBase {
 
   groups(): TListGroup[] {
     return this.manifests.map((manifest) => ({
-      title: manifest.tulyn.name,
-      identifier: manifest.tulyn.identifier,
+      title: manifest.akun.name,
+      identifier: manifest.akun.identifier,
       type: "Extension",
-      icon: manifest.tulyn.icon,
+      icon: manifest.akun.icon,
       items: manifestToCmdItems(manifest, this.isDev),
       flags: { isDev: this.isDev, isRemovable: true }
     }))
   }
 
   uninstallExt(identifier: string): Promise<ExtPackageJsonExtra> {
-    const found = this.manifests.find((m) => m.tulyn.identifier === identifier)
+    const found = this.manifests.find((m) => m.akun.identifier === identifier)
     console.log(found)
     if (found) {
       return fs.remove(found.extPath, { recursive: true }).then(() => {
@@ -191,7 +191,7 @@ export class Extension implements IExtensionBase {
   onSelect(item: TListItem): Promise<void> {
     this.manifests.forEach((manifest) => {
       if (item.type == "UI Command") {
-        manifest.tulyn.customUiCmds.forEach(async (cmd) => {
+        manifest.akun.customUiCmds.forEach(async (cmd) => {
           if (item.value === generateItemValue(manifest, cmd, this.isDev)) {
             let url = cmd.main
             if ($appConfig.value?.devExtLoadUrl && this.isDev && cmd.devMain) {
@@ -209,7 +209,7 @@ export class Extension implements IExtensionBase {
           }
         })
       } else if (item.type === "Inline Command") {
-        manifest.tulyn.templateUiCmds.forEach(async (cmd) => {
+        manifest.akun.templateUiCmds.forEach(async (cmd) => {
           if (item.value === generateItemValue(manifest, cmd, this.isDev)) {
             const main = cmd.main
             const scriptPath = await join(manifest.extPath, main)

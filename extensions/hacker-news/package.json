@@ -4,9 +4,9 @@
   "name": "hacker-news",
   "module": "index.ts",
   "type": "module",
-  "tulyn": {
+  "akun": {
     "name": "Hacker News",
-    "identifier": "tech.huakun.tulyn.hacker-news",
+    "identifier": "tech.huakun.akun.hacker-news",
     "shortDescription": "List latest top hacker news",
     "icon": {
       "type": "iconify",
@@ -32,7 +32,7 @@
     "build": "rimraf dist && rollup -c"
   },
   "dependencies": {
-    "@tulyn/api": "workspace:*",
+    "@akun/api": "workspace:*",
     "valibot": "^0.36.0"
   },
   "devDependencies": {

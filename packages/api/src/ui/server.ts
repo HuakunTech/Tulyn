@@ -57,7 +57,7 @@ import {
   turnVolumeUp,
   unmute
 } from "../commands/system"
-import { AllTulynPermission, type SystemPermission } from "./api/permissions"
+import { AllAkunPermission, type SystemPermission } from "./api/permissions"
 import type { IDb, ISystem, IToast, IUi } from "./client"
 
 export interface IUiServer {
@@ -224,7 +224,7 @@ export const defaultSystemApi = constructSystemApi([
 export type IJarvisFullAPI = IFullAPI & ISystemServer & IToastServer & IDbServer & IUiServer
 
 export function constructJarvisServerAPIWithPermissions(
-  permissions: AllTulynPermission[]
+  permissions: AllAkunPermission[]
 ): IJarvisFullAPI {
   const apis = [
     constructClipboardApi(

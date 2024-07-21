@@ -1,5 +1,5 @@
+import { os } from "@akun/api/ui"
 import { platform } from "@tauri-apps/plugin-os"
-import { os } from "@tulyn/api/ui"
 import { computed, map } from "nanostores"
 import { AppInfo } from "tauri-plugin-jarvis-api/models"
 import { literal, object, string, union, type InferOutput } from "valibot"

@@ -3,11 +3,11 @@
   "name": "tempalte-ext-worker",
   "version": "0.0.1",
   "type": "module",
-  "tulyn": {
+  "akun": {
     "name": "Extension Template Worker",
     "shortDescription": "A Worker Extension Template",
     "longDescription": "A Worker Extension Template",
-    "identifier": "tech.huakun.tulyn-ext-template-worker",
+    "identifier": "tech.huakun.akun-ext-template-worker",
     "permissions": [
       "clipboard:read-text",
       "clipboard:write-text",
@@ -35,7 +35,7 @@
     "build": "rimraf dist && rollup -c"
   },
   "dependencies": {
-    "@tulyn/api": "workspace:*"
+    "@akun/api": "workspace:*"
   },
   "devDependencies": {
     "@types/bun": "latest",

@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import {
   getExtLabelMap,
   isWindowLabelRegistered,
   registerExtensionWindow,
   unregisterExtensionWindow
-} from "@tulyn/api/commands"
-import type { ExtensionLabelMap } from "@tulyn/api/models"
+} from "@akun/api/commands"
+import type { ExtensionLabelMap } from "@akun/api/models"
+import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { onMounted, ref } from "vue"
 import CodeEditor from "./CodeEditor.vue"
 import CodeEditorHtml from "./CodeEditorHtml.vue"

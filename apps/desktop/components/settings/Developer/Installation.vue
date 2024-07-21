@@ -13,11 +13,11 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { $appConfig } from "@/lib/stores/appConfig"
 import { cn } from "@/lib/utils"
 import { installTarball, installTarballUrl } from "@/lib/utils/tarball"
+import { getDevExtensionFolder, getExtensionFolder } from "@akun/api/commands"
+import { IconEnum } from "@akun/api/models"
 import { useStore } from "@nanostores/vue"
 import { downloadDir, join as pathJoin, tempDir } from "@tauri-apps/api/path"
 import { open as openFileSelector } from "@tauri-apps/plugin-dialog"
-import { getDevExtensionFolder, getExtensionFolder } from "@tulyn/api/commands"
-import { IconEnum } from "@tulyn/api/models"
 import axios from "axios"
 import { ElMessage, ElNotification } from "element-plus"
 import { CloudDownloadIcon, DownloadIcon, ExternalLinkIcon, InfoIcon } from "lucide-vue-next"
@@ -219,9 +219,9 @@ async function handleDragNDropInstall(paths: string[]) {
             </PopoverTrigger>
             <PopoverContent class="ml-5 w-[45em] text-xs">
               <!-- TODO: Fix the Links -->
-              Tulyn allows you to install a remote url as a command. Instead of loading UI from
-              locally-installed extension, Tulyn will load UI from the remote website. The website
-              may call Tulyn API to access native APIs and file system.
+              Akun allows you to install a remote url as a command. Instead of loading UI from
+              locally-installed extension, Akun will load UI from the remote website. The website
+              may call Akun API to access native APIs and file system.
               <TauriLink
                 class="block"
                 href="https://docs.jarvis.huakun.tech/design/extensions/installation/"

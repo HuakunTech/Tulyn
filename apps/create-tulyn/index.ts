@@ -90,7 +90,7 @@ function copyTemplate(templateDir: string, targetFolderName: string) {
   if (!name) {
     name = await input({
       message: "Enter Extension Name",
-      default: "tulyn-extension"
+      default: "akun-extension"
     })
   }
 

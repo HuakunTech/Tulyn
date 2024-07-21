@@ -1,8 +1,8 @@
 use crate::{
     commands,
     constants::{
-        TULYN_CLIPBOARD_EXT_IDENTIFIER, TULYN_DEV_EXT_IDENTIFIER, TULYN_QUICK_LINKS_EXT_IDENTIFIER,
-        TULYN_REMOTE_EXT_IDENTIFIER, TULYN_SCRIPT_CMD_EXT_IDENTIFIER,
+        AKUN_CLIPBOARD_EXT_IDENTIFIER, AKUN_DEV_EXT_IDENTIFIER, AKUN_QUICK_LINKS_EXT_IDENTIFIER,
+        AKUN_REMOTE_EXT_IDENTIFIER, AKUN_SCRIPT_CMD_EXT_IDENTIFIER,
     },
 };
 use tauri::{AppHandle, Manager, Runtime};
@@ -19,10 +19,10 @@ fn create_ext_if_not_exist(identifier: &str, db: &db::JarvisDB) -> anyhow::Resul
 pub fn setup_db<R: Runtime>(app_handle: &AppHandle<R>) -> anyhow::Result<()> {
     let db = app_handle.state::<commands::db::DBState>();
     let db = db.db.lock().unwrap();
-    create_ext_if_not_exist(TULYN_CLIPBOARD_EXT_IDENTIFIER, &db)?;
-    create_ext_if_not_exist(TULYN_QUICK_LINKS_EXT_IDENTIFIER, &db)?;
-    create_ext_if_not_exist(TULYN_REMOTE_EXT_IDENTIFIER, &db)?;
-    create_ext_if_not_exist(TULYN_SCRIPT_CMD_EXT_IDENTIFIER, &db)?;
-    create_ext_if_not_exist(TULYN_DEV_EXT_IDENTIFIER, &db)?;
+    create_ext_if_not_exist(AKUN_CLIPBOARD_EXT_IDENTIFIER, &db)?;
+    create_ext_if_not_exist(AKUN_QUICK_LINKS_EXT_IDENTIFIER, &db)?;
+    create_ext_if_not_exist(AKUN_REMOTE_EXT_IDENTIFIER, &db)?;
+    create_ext_if_not_exist(AKUN_SCRIPT_CMD_EXT_IDENTIFIER, &db)?;
+    create_ext_if_not_exist(AKUN_DEV_EXT_IDENTIFIER, &db)?;
     Ok(())
 }

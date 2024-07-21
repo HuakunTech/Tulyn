@@ -1,9 +1,9 @@
-import { attachConsole, debug, error, info, trace } from "@tauri-apps/plugin-log"
-import { Store } from "@tauri-apps/plugin-store"
 import {
   restartServer,
   setDevExtensionFolder as setDevExtensionFolderForServer
-} from "@tulyn/api/commands"
+} from "@akun/api/commands"
+import { attachConsole, debug, error, info, trace } from "@tauri-apps/plugin-log"
+import { Store } from "@tauri-apps/plugin-store"
 import { useColorMode } from "@vueuse/core"
 import { map } from "nanostores"
 import { z } from "zod"

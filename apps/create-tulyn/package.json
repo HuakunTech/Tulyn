@@ -1,9 +1,9 @@
 {
-  "name": "create-tulyn",
+  "name": "create-akun",
   "type": "module",
   "version": "0.1.0",
   "bin": {
-    "create-tulyn": "dist/index.mjs"
+    "create-akun": "dist/index.mjs"
   },
   "scripts": {
     "build": "rimraf dist && NODE_ENV=production bun build index.ts --outfile=dist/index.mjs --target node",

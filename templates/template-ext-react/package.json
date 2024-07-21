@@ -4,11 +4,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "tulyn": {
+  "akun": {
     "name": "template-ext-react",
     "shortDescription": "A Custom UI template for react",
     "longDescription": "A Custom UI template for react",
-    "identifier": "tech.huakun.tulyn-ext-custom-react",
+    "identifier": "tech.huakun.akun-ext-custom-react",
     "icon": {
       "type": "iconify",
       "value": "logos:react"
@@ -35,7 +35,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tulyn/react": "workspace:*",
+    "@akun/react": "workspace:*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

@@ -50,4 +50,4 @@ BEGIN
 END;
 $$;
 
-select * from increment_downloads('tech.huakun.tulyn-jwt-inspector', '0.0.1');
+select * from increment_downloads('tech.huakun.akun-jwt-inspector', '0.0.1');

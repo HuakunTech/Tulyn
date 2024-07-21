@@ -32,11 +32,11 @@ pub fn setup_mac_transparent_bg(handle: &AppHandle) {
 
 /**
  * On MacOS
- * app_config: "/Users/<user>/Library/Application Support/tech.huakun.tulyn"
- * app_data: "/Users/<user>/Library/Application Support/tech.huakun.tulyn"
- * app_local_data: "/Users/<user>/Library/Application Support/tech.huakun.tulyn"
- * app_cache: "/Users/<user>/Library/Caches/tech.huakun.tulyn"
- * app_log: "/Users/<user>/Library/Logs/tech.huakun.tulyn"
+ * app_config: "/Users/<user>/Library/Application Support/tech.huakun.akun"
+ * app_data: "/Users/<user>/Library/Application Support/tech.huakun.akun"
+ * app_local_data: "/Users/<user>/Library/Application Support/tech.huakun.akun"
+ * app_cache: "/Users/<user>/Library/Caches/tech.huakun.akun"
+ * app_log: "/Users/<user>/Library/Logs/tech.huakun.akun"
  */
 pub fn setup_extension_storage<R: Runtime>(handle: &AppHandle<R>) {
     let app_data_dir = handle.path().app_data_dir().unwrap();

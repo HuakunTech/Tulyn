@@ -3,8 +3,8 @@ import ListItem from "@/components/MainSearch/list-item.vue"
 import { CommandGroup, CommandItem } from "@/components/ui/command"
 import type { IExtensionBase } from "@/lib/extension/base"
 import { $appState } from "@/lib/stores/appState"
+import type { TListItem } from "@akun/schema"
 import { useStore } from "@nanostores/vue"
-import type { TListItem } from "@tulyn/schema"
 import { computed } from "vue"
 
 const appState = useStore($appState)

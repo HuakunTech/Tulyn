@@ -1,5 +1,5 @@
-# Tulyn Initializer
+# Akun Extension Initializer
 
 ```bash
-npm init tulyn
+npm init akun
 ```

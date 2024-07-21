@@ -1,5 +1,5 @@
+import { AllAkunPermission } from "@akun/api/models"
 import { appDataDir, join } from "@tauri-apps/api/path"
-import { AllTulynPermission } from "@tulyn/api/models"
 import WorkerExt from "~/pages/worker-ext.vue"
 // import { z } from "zod"
 import { object, record, string, type InferOutput } from "valibot"
@@ -32,7 +32,7 @@ export const FileStorageUrl = ""
 
 // PermissionsEnum.
 const PermissionExplain = record(
-  AllTulynPermission,
+  AllAkunPermission,
   object({ displayName: string(), description: string() })
 )
 type PermissionExplain = InferOutput<typeof PermissionExplain>

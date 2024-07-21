@@ -9,7 +9,7 @@ import {
   serverIsRunning,
   startServer,
   stopServer
-} from "@tulyn/api/commands"
+} from "@akun/api/commands"
 import { open } from "tauri-plugin-shellx-api"
 import { onMounted, onUnmounted, ref } from "vue"
 import { z } from "zod"

@@ -11,6 +11,6 @@ pub fn get_default_extensions_storage_dir<R: Runtime>(
     Ok(app.path().app_data_dir()?.join("extensions_storage"))
 }
 
-pub fn get_tulyn_db_path<R: Runtime>(app: &AppHandle<R>) -> anyhow::Result<PathBuf> {
-    Ok(app.path().app_data_dir()?.join("tulyn.db"))
+pub fn get_akun_db_path<R: Runtime>(app: &AppHandle<R>) -> anyhow::Result<PathBuf> {
+    Ok(app.path().app_data_dir()?.join("akun.db"))
 }

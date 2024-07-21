@@ -40,7 +40,7 @@ async function checkUpdate() {
     <CardContent class="flex items-center space-x-5">
       <img src="/img/128x128.png" class="w-44" />
       <div class="flex flex-col space-y-1">
-        <p class="text-3xl font-bold">Tulyn</p>
+        <p class="text-3xl font-bold">Akun</p>
         <p class="text-xs">Version: {{ appVersion }}</p>
         <p>
           <strong class="font-bold">Author: </strong>
@@ -50,7 +50,7 @@ async function checkUpdate() {
           </TauriLink>
         </p>
         <TauriLink href="https://github.com/HuakunTech/Jarvis">
-          Tulyn Source Code
+          Akun Source Code
           <Icon name="mdi:github" class="inline -translate-y-0.5 text-white" />
         </TauriLink>
         <TauriLink href="https://github.com/HuakunTech/JarvisExtensions">

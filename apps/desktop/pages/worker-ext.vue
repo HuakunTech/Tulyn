@@ -4,19 +4,13 @@ import ExtTemplateListView from "@/components/ExtTemplate/ListView.vue"
 import { Command } from "@/components/ui/command"
 import { HTMLElementId } from "@/lib/constants"
 import { $appState } from "@/lib/stores/appState"
-import { expose, type Remote } from "@huakunshen/comlink"
-import { useStore } from "@nanostores/vue"
-import { ArrowLeftIcon } from "@radix-icons/vue"
-import { join } from "@tauri-apps/api/path"
-import { exists, readTextFile } from "@tauri-apps/plugin-fs"
-import { debug } from "@tauri-apps/plugin-log"
-import { db, JarvisExtDB } from "@tulyn/api/commands"
+import { db, JarvisExtDB } from "@akun/api/commands"
 import {
   constructJarvisServerAPIWithPermissions,
   exposeApiToWorker,
   getWorkerApiClient,
   type IUi
-} from "@tulyn/api/ui"
+} from "@akun/api/ui"
 import {
   convertJarvisExtDBToServerDbAPI,
   List,
@@ -26,7 +20,13 @@ import {
   type IDbServer,
   type ListSchema,
   type WorkerExtension
-} from "@tulyn/api/ui/worker"
+} from "@akun/api/ui/worker"
+import { expose, type Remote } from "@huakunshen/comlink"
+import { useStore } from "@nanostores/vue"
+import { ArrowLeftIcon } from "@radix-icons/vue"
+import { join } from "@tauri-apps/api/path"
+import { exists, readTextFile } from "@tauri-apps/plugin-fs"
+import { debug } from "@tauri-apps/plugin-log"
 import { onKeyStroke } from "@vueuse/core"
 import { loadExtensionManifestFromDisk } from "~/lib/commands/extensions"
 import { GlobalEventBus } from "~/lib/utils/events"
@@ -104,7 +104,7 @@ onMounted(async () => {
   }
 
   const manifest = await loadExtensionManifestFromDisk(manifestPath)
-  const cmd = manifest.tulyn.templateUiCmds.find((cmd) => cmd.name === currentWorkerExt.cmdName)
+  const cmd = manifest.akun.templateUiCmds.find((cmd) => cmd.name === currentWorkerExt.cmdName)
   if (!cmd) {
     toast.error(`Worker extension command ${currentWorkerExt.cmdName} not found`)
     return navigateTo("/")
@@ -114,10 +114,10 @@ onMounted(async () => {
     toast.error(`Worker extension script ${cmd.main} not found`)
     return navigateTo("/")
   }
-  const extInfoInDB = await db.getExtensionByIdentifier(manifest.tulyn.identifier)
+  const extInfoInDB = await db.getExtensionByIdentifier(manifest.akun.identifier)
   if (!extInfoInDB) {
     toast.error("Unexpected Error", {
-      description: `Worker extension ${manifest.tulyn.identifier} not found in database. Run Troubleshooter.`
+      description: `Worker extension ${manifest.akun.identifier} not found in database. Run Troubleshooter.`
     })
     return navigateTo("/")
   }
@@ -130,7 +130,7 @@ onMounted(async () => {
   const dbAPI = new db.JarvisExtDB(extInfoInDB.extId)
   const extDBApi: IDbServer = convertJarvisExtDBToServerDbAPI(dbAPI)
   exposeApiToWorker(worker, {
-    ...constructJarvisServerAPIWithPermissions(manifest.tulyn.permissions),
+    ...constructJarvisServerAPIWithPermissions(manifest.akun.permissions),
     ...extUiAPI,
     ...extDBApi
   })

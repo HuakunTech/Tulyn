@@ -1,7 +1,7 @@
 {
-  "productName": "Tulyn",
+  "productName": "Akun",
   "version": "0.1.2",
-  "identifier": "tech.huakun.tulyn",
+  "identifier": "tech.huakun.akun",
   "build": {
     "beforeDevCommand": "pnpm dev",
     "devUrl": "http://localhost:3000",

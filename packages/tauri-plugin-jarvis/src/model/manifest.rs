@@ -69,7 +69,7 @@ impl Display for Permissions {
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct TulynExtManifest {
+pub struct AkunExtManifest {
     pub name: String,
     pub short_description: String,
     pub long_description: String,
@@ -87,7 +87,7 @@ pub struct TulynExtManifest {
 pub struct ExtPackageJson {
     pub name: String,
     pub version: String,
-    pub tulyn: TulynExtManifest,
+    pub akun: AkunExtManifest,
     pub files: Vec<String>,
 }
 
@@ -96,7 +96,7 @@ pub struct ExtPackageJson {
 pub struct ExtPackageJsonExtra {
     pub name: String,
     pub version: String,
-    pub tulyn: TulynExtManifest,
+    pub akun: AkunExtManifest,
     pub files: Vec<String>,
     // extra fields
     pub ext_path: PathBuf,
@@ -108,7 +108,7 @@ impl ExtPackageJsonExtra {
         Self {
             name: manifest.name,
             version: manifest.version,
-            tulyn: manifest.tulyn,
+            akun: manifest.akun,
             files: manifest.files,
             ext_folder_name: ext_path.file_name().unwrap().to_str().unwrap().to_string(),
             ext_path,

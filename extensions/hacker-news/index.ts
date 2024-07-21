@@ -1,4 +1,4 @@
-import { IconEnum } from "@tulyn/api/models"
+import { IconEnum } from "@akun/api/models"
 import {
   Action,
   expose,
@@ -9,7 +9,7 @@ import {
   ui,
   WorkerExtension,
   wrap
-} from "@tulyn/api/ui/worker"
+} from "@akun/api/ui/worker"
 import {
   array,
   number,

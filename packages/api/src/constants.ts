@@ -1,7 +1,7 @@
-export enum TULYN_EXT_IDENTIFIER {
-  TULYN_CLIPBOARD_EXT_IDENTIFIER = "tech.huakun.tulyn.ext.clipboard",
-  TULYN_QUICK_LINKS_EXT_IDENTIFIER = "tech.huakun.tulyn.ext.quick-links",
-  TULYN_REMOTE_EXT_IDENTIFIER = "tech.huakun.tulyn.ext.remote",
-  TULYN_SCRIPT_CMD_EXT_IDENTIFIER = "tech.huakun.tulyn.ext.script-cmd",
-  TULYN_DEV_EXT_IDENTIFIER = "tech.huakun.tulyn.ext.dev"
+export enum AKUN_EXT_IDENTIFIER {
+  AKUN_CLIPBOARD_EXT_IDENTIFIER = "tech.huakun.akun.ext.clipboard",
+  AKUN_QUICK_LINKS_EXT_IDENTIFIER = "tech.huakun.akun.ext.quick-links",
+  AKUN_REMOTE_EXT_IDENTIFIER = "tech.huakun.akun.ext.remote",
+  AKUN_SCRIPT_CMD_EXT_IDENTIFIER = "tech.huakun.akun.ext.script-cmd",
+  AKUN_DEV_EXT_IDENTIFIER = "tech.huakun.akun.ext.dev"
 }

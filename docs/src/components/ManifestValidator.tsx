@@ -1,4 +1,4 @@
-import { ExtPackageJson } from "@tulyn/schema"
+import { ExtPackageJson } from "@akun/schema"
 import Editor, { type Monaco, type OnChange, type OnMount } from "@monaco-editor/react"
 import { useEffect, useMemo, useRef, useState } from "react"
 import { safeParse } from "valibot"
@@ -11,7 +11,7 @@ const defaultJson = `{
   "type": "module",
   "jarvis": {
     "name": "Hacker News",
-    "identifier": "tech.huakun.tulyn.hacker-news",
+    "identifier": "tech.huakun.akun.hacker-news",
     "shortDescription": "List latest top hacker news",
     "icon": {
       "type": "iconify",
@@ -37,7 +37,7 @@ const defaultJson = `{
     "build": "rimraf dist && rollup -c"
   },
   "dependencies": {
-    "@tulyn/api": "workspace:*",
+    "@akun/api": "workspace:*",
     "valibot": "^0.36.0"
   },
   "devDependencies": {

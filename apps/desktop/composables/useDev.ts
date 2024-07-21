@@ -1,4 +1,4 @@
-import { constructJarvisServerAPIWithPermissions, exposeApiToWorker, fs } from "@tulyn/api/ui"
+import { constructJarvisServerAPIWithPermissions, exposeApiToWorker, fs } from "@akun/api/ui"
 
 export const useDevWorkerExt = () => {
   onMounted(async () => {
