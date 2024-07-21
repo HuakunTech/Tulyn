@@ -38,18 +38,18 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.0-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
-          curl -fsSL https://d2lang.com/install.sh | sh -s --
+          # curl -fsSL https://d2lang.com/install.sh | sh -s --
         # webkitgtk 4.0 is for Tauri v1 - webkitgtk 4.1 is for Tauri v2.
         # You can remove the one that doesn't apply to your app to speed up the workflow a bit.
       - name: Install D2 and protobuf (Mac)
         if: matrix.settings.platform == 'macos-14'
         run: |
-          brew install d2
+          # brew install d2
           brew install protobuf
       - name: Install D2 and Protobuf (Ubuntu)
         if: matrix.settings.platform == 'ubuntu-22.04'
         run: |
-          curl -fsSL https://d2lang.com/install.sh | sh -s --
+          # curl -fsSL https://d2lang.com/install.sh | sh -s --
           sudo apt install -y protobuf-compiler
       - name: Install protoc and openssl for windows
         if: matrix.settings.platform == 'windows-latest'
