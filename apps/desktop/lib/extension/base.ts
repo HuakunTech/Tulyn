@@ -1,4 +1,4 @@
-import { TListItem } from "@kunkun/schema"
+import { TListItem } from "@kunkunsh/schema"
 import type { ReadableAtom } from "nanostores"
 
 export interface IExtensionBase {

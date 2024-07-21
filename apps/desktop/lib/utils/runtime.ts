@@ -1,4 +1,4 @@
-import { unzip } from "@kunkun/api/commands"
+import { unzip } from "@kunkunsh/api/commands"
 import { appDataDir, join, tempDir } from "@tauri-apps/api/path"
 import { exists, remove } from "@tauri-apps/plugin-fs"
 import { debug, error, info } from "@tauri-apps/plugin-log"

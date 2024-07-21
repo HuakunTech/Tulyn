@@ -4,7 +4,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "akun": {
+  "kunkun": {
     "name": "template-ext-react",
     "shortDescription": "A Custom UI template for react",
     "longDescription": "A Custom UI template for react",
@@ -35,7 +35,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@kunkun/react": "workspace:*",
+    "@kunkunsh/react": "workspace:*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

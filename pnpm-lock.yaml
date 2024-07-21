@@ -130,16 +130,16 @@ importers:
       '@formkit/auto-animate':
         specifier: ^0.8.2
         version: 0.8.2
-      '@kunkun/api':
+      '@kunkunsh/api':
         specifier: workspace:*
         version: link:../../packages/api
-      '@kunkun/gql':
+      '@kunkunsh/gql':
         specifier: workspace:*
         version: link:../../packages/gql
-      '@kunkun/schema':
+      '@kunkunsh/schema':
         specifier: workspace:*
         version: link:../../packages/schema
-      '@kunkun/supabase':
+      '@kunkunsh/supabase':
         specifier: workspace:*
         version: link:../../packages/supabase
       '@nanostores/persistent':
@@ -356,7 +356,7 @@ importers:
       '@astrojs/vue':
         specifier: ^4.2.0
         version: 4.3.0(astro@4.9.1(@types/node@20.14.11)(sass@1.77.6)(terser@5.31.1)(typescript@5.4.5))(rollup@4.18.1)(vite@5.3.4(@types/node@20.14.11)(sass@1.77.6)(terser@5.31.1))(vue@3.4.27(typescript@5.4.5))
-      '@kunkun/schema':
+      '@kunkunsh/schema':
         specifier: workspace:*
         version: link:../packages/schema
       '@monaco-editor/react':
@@ -417,7 +417,7 @@ importers:
 
   extensions/hacker-news:
     dependencies:
-      '@kunkun/api':
+      '@kunkunsh/api':
         specifier: workspace:*
         version: link:../../packages/api
       typescript:
@@ -454,7 +454,7 @@ importers:
 
   extensions/ip-info:
     dependencies:
-      '@kunkun/api':
+      '@kunkunsh/api':
         specifier: workspace:*
         version: link:../../packages/api
       typescript:
@@ -736,7 +736,7 @@ importers:
 
   packages/runtime:
     dependencies:
-      '@kunkun/api':
+      '@kunkunsh/api':
         specifier: workspace:*
         version: link:../api
       typescript:
@@ -755,10 +755,10 @@ importers:
       '@gcornut/valibot-json-schema':
         specifier: ^0.36.0
         version: 0.36.0(esbuild@0.23.0)
-      '@kunkun/api':
+      '@kunkunsh/api':
         specifier: workspace:*
         version: link:../api
-      '@kunkun/supabase':
+      '@kunkunsh/supabase':
         specifier: workspace:*
         version: link:../supabase
       '@supabase/supabase-js':
@@ -787,7 +787,7 @@ importers:
 
   packages/tauri-plugin-jarvis:
     dependencies:
-      '@kunkun/api':
+      '@kunkunsh/api':
         specifier: workspace:*
         version: link:../api
       '@tauri-apps/api':
@@ -818,7 +818,7 @@ importers:
 
   templates/template-ext-react:
     dependencies:
-      '@kunkun/react':
+      '@kunkunsh/react':
         specifier: workspace:*
         version: link:../../packages/component-lib/react
       react:
@@ -861,7 +861,7 @@ importers:
 
   templates/template-ext-worker:
     dependencies:
-      '@kunkun/api':
+      '@kunkunsh/api':
         specifier: workspace:*
         version: link:../../packages/api
       typescript:

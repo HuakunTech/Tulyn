@@ -1,7 +1,7 @@
 import { $toasts, enqueueToast } from "@/lib/stores/toast"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { currentMonitor } from "@tauri-apps/api/window"
-// import { window } from "@kunkun/api/ui"
+// import { window } from "@kunkunsh/api/ui"
 import { z } from "zod"
 
 export const TauriToast = z.object({

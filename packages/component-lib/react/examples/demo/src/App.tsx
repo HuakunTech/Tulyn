@@ -1,4 +1,4 @@
-import { CommandDemo, ThemeProvider, ModeToggle } from "@kunkun/react"
+import { CommandDemo, ThemeProvider, ModeToggle } from "@kunkunsh/react"
 
 export default function App() {
   return (

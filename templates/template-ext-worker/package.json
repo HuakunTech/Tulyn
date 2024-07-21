@@ -3,7 +3,7 @@
   "name": "tempalte-ext-worker",
   "version": "0.0.1",
   "type": "module",
-  "akun": {
+  "kunkun": {
     "name": "Extension Template Worker",
     "shortDescription": "A Worker Extension Template",
     "longDescription": "A Worker Extension Template",
@@ -35,7 +35,7 @@
     "build": "rimraf dist && rollup -c"
   },
   "dependencies": {
-    "@kunkun/api": "workspace:*"
+    "@kunkunsh/api": "workspace:*"
   },
   "devDependencies": {
     "@types/bun": "latest",

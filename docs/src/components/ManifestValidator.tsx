@@ -1,4 +1,4 @@
-import { ExtPackageJson } from "@kunkun/schema"
+import { ExtPackageJson } from "@kunkunsh/schema"
 import Editor, { type Monaco, type OnChange, type OnMount } from "@monaco-editor/react"
 import { useEffect, useMemo, useRef, useState } from "react"
 import { safeParse } from "valibot"
@@ -9,7 +9,7 @@ const defaultJson = `{
   "name": "hacker-news",
   "module": "index.ts",
   "type": "module",
-  "akun": {
+  "kunkun": {
     "name": "Hacker News",
     "identifier": "sh.kunkun.hacker-news",
     "shortDescription": "List latest top hacker news",
@@ -37,7 +37,7 @@ const defaultJson = `{
     "build": "rimraf dist && rollup -c"
   },
   "dependencies": {
-    "@kunkun/api": "workspace:*",
+    "@kunkunsh/api": "workspace:*",
     "valibot": "^0.36.0"
   },
   "devDependencies": {

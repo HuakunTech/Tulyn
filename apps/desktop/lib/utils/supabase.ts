@@ -1,5 +1,5 @@
 import { SUPABASE_ANON_KEY, SUPABASE_URL } from "@/lib/constants"
-import { type Database } from "@kunkun/supabase"
+import { type Database } from "@kunkunsh/supabase"
 import { createClient } from "@supabase/supabase-js"
 import { z } from "zod"
 

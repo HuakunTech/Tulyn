@@ -19,14 +19,14 @@ import { gqlClient } from "@/lib/utils/graphql"
 import * as supabase from "@/lib/utils/supabase"
 import { supabaseClient } from "@/lib/utils/supabase"
 import { installTarballUrl } from "@/lib/utils/tarball"
-import { getDevExtensionFolder, getExtensionFolder } from "@kunkun/api/commands"
+import { getDevExtensionFolder, getExtensionFolder } from "@kunkunsh/api/commands"
 import {
   FindLatestExtDocument,
   type FindLatestExtQuery,
   type FindLatestExtQueryVariables
-} from "@kunkun/gql"
-import { KunkunExtManifest } from "@kunkun/schema"
-import { type Tables } from "@kunkun/supabase"
+} from "@kunkunsh/gql"
+import { KunkunExtManifest } from "@kunkunsh/schema"
+import { type Tables } from "@kunkunsh/supabase"
 import { compareVersions } from "compare-versions"
 import { ElMessage } from "element-plus"
 import { CircleCheckBigIcon, Trash2Icon } from "lucide-vue-next"

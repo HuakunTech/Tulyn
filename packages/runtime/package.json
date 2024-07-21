@@ -6,7 +6,7 @@
     "@types/bun": "latest"
   },
   "dependencies": {
-    "@kunkun/api": "workspace:*"
+    "@kunkunsh/api": "workspace:*"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"

@@ -1,5 +1,5 @@
 {
-  "name": "@kunkun/supabase",
+  "name": "@kunkunsh/supabase",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {

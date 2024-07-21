@@ -1,5 +1,5 @@
 {
-  "name": "@kunkun/gql",
+  "name": "@kunkunsh/gql",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {

@@ -5,13 +5,13 @@ import { Command } from "@/components/ui/command"
 import { HTMLElementId } from "@/lib/constants"
 import { $appState } from "@/lib/stores/appState"
 import { expose, type Remote } from "@huakunshen/comlink"
-import { db, JarvisExtDB } from "@kunkun/api/commands"
+import { db, JarvisExtDB } from "@kunkunsh/api/commands"
 import {
   constructJarvisServerAPIWithPermissions,
   exposeApiToWorker,
   getWorkerApiClient,
   type IUi
-} from "@kunkun/api/ui"
+} from "@kunkunsh/api/ui"
 import {
   convertJarvisExtDBToServerDbAPI,
   List,
@@ -21,7 +21,7 @@ import {
   type IDbServer,
   type ListSchema,
   type WorkerExtension
-} from "@kunkun/api/ui/worker"
+} from "@kunkunsh/api/ui/worker"
 import { useStore } from "@nanostores/vue"
 import { ArrowLeftIcon } from "@radix-icons/vue"
 import { join } from "@tauri-apps/api/path"
