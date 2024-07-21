@@ -1,4 +1,4 @@
-import { db } from "@akun/api/commands"
+import { db } from "@kunkun/api/commands"
 import { constants, ExtData } from "tauri-plugin-jarvis-api/models"
 import { parse, safeParse } from "valibot"
 

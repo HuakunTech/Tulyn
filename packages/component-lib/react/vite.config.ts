@@ -8,7 +8,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, "./src/index.ts"),
-      name: "@akun/react",
+      name: "@kunkun/react",
       fileName: (format) => `index.${format}.js`
     },
     rollupOptions: {

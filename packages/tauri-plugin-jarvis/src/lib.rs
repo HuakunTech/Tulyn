@@ -17,7 +17,7 @@ pub use db;
 use std::{collections::HashMap, path::PathBuf, sync::Mutex};
 use tauri_plugin_store::StoreBuilder;
 use utils::{
-    path::{get_akun_db_path, get_default_extensions_dir},
+    path::{get_default_extensions_dir, get_kunkun_db_path},
     settings::AppSettings,
 };
 
@@ -159,7 +159,7 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             // manage state so it is accessible by the commands
             app.manage(JarvisState::default());
             app.manage(commands::apps::ApplicationsState::default());
-            let db_path = get_akun_db_path(app)?;
+            let db_path = get_kunkun_db_path(app)?;
             let db_key: Option<String> = None;
             app.manage(commands::db::DBState::new(db_path.clone(), db_key.clone())?);
             setup::db::setup_db(app)?;

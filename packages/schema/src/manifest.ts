@@ -1,4 +1,4 @@
-import { AllAkunPermission, Icon } from "@akun/api/models"
+import { AllKunkunPermission, Icon } from "@kunkun/api/models"
 import {
   array,
   boolean,
@@ -101,26 +101,26 @@ export const TemplateUiCmd = object({
 })
 export type TemplateUiCmd = InferOutput<typeof TemplateUiCmd>
 
-export const AkunExtManifest = object({
+export const KunkunExtManifest = object({
   name: string("Name of the extension (Human Readable)"),
   shortDescription: string("Description of the extension (Will be displayed in store)"),
   longDescription: string("Long description of the extension (Will be displayed in store)"),
   identifier: string("Unique identifier for the extension"),
   icon: Icon,
   permissions: array(
-    AllAkunPermission,
+    AllKunkunPermission,
     "Permissions Declared by the extension. e.g. clipboard-all. Not declared APIs will be blocked."
   ),
   demoImages: array(string("Demo images for the extension")),
   customUiCmds: array(CustomUiCmd, "UI Commands"),
   templateUiCmds: array(TemplateUiCmd, "Inline Commands")
 })
-export type AkunExtManifest = InferOutput<typeof AkunExtManifest>
+export type KunkunExtManifest = InferOutput<typeof KunkunExtManifest>
 
 export const ExtPackageJson = object({
   name: string("Package name for the extension (just a regular npm package name)"),
   version: string("Version of the extension"),
-  akun: AkunExtManifest,
+  kunkun: KunkunExtManifest,
   files: array(string("Files to include in the extension. e.g. ['dist']"))
 })
 export type ExtPackageJson = InferOutput<typeof ExtPackageJson>

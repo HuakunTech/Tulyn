@@ -2,9 +2,9 @@
 import IconMultiplexer from "@/components/IconMultiplexer.vue"
 import { CommandGroup, CommandItem, CommandList } from "@/components/ui/command"
 import StrikeSeparator from "@/components/ui/separator/StrikeSeparator.vue"
-import { IconEnum } from "@akun/api/models"
-import { List, ListSchema, type IWorkerExtension } from "@akun/api/ui/worker"
 import { expose, type Remote } from "@huakunshen/comlink"
+import { IconEnum } from "@kunkun/api/models"
+import { List, ListSchema, type IWorkerExtension } from "@kunkun/api/ui/worker"
 
 const props = defineProps<{
   modelValue: ListSchema.List

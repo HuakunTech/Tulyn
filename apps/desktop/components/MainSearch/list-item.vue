@@ -11,7 +11,7 @@ import {
   CommandShortcut
 } from "@/components/ui/command"
 import { $appConfig, setDevExtLoadUrl, setShowInTray } from "@/lib/stores/appConfig"
-import type { TListItem } from "@akun/schema"
+import type { TListItem } from "@kunkun/schema"
 import { useStore } from "@nanostores/vue"
 
 const appConfig = useStore($appConfig)

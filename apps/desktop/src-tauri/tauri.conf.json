@@ -1,7 +1,7 @@
 {
-  "productName": "Akun",
+  "productName": "Kunkun",
   "version": "0.1.2",
-  "identifier": "tech.huakun.akun",
+  "identifier": "sh.kunkun.desktop",
   "build": {
     "beforeDevCommand": "pnpm dev",
     "devUrl": "http://localhost:3000",
@@ -42,7 +42,7 @@
   },
   "plugins": {
     "updater": {
-      "endpoints": ["https://github.com/HuakunTech/Akun/releases/latest/download/latest.json"],
+      "endpoints": ["https://github.com/HuakunTech/kunkun/releases/latest/download/latest.json"],
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDc1NENCRjZFM0JBOEQ0ODMKUldTRDFLZzdicjlNZFhHS0ZKYk13WkdZUTFUM01LNjkvVW5Bb2x1SnB1R0crbFRuMnlRSlJ0STgK"
     }
   }

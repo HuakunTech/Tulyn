@@ -1,5 +1,5 @@
 {
-  "name": "@akun/desktop",
+  "name": "@kunkun/desktop",
   "private": true,
   "type": "module",
   "scripts": {
@@ -14,9 +14,9 @@
     "@apollo/client": "^3.10.4",
     "@element-plus/nuxt": "^1.0.9",
     "@formkit/auto-animate": "^0.8.2",
-    "@akun/gql": "workspace:*",
-    "@akun/schema": "workspace:*",
-    "@akun/supabase": "workspace:*",
+    "@kunkun/gql": "workspace:*",
+    "@kunkun/schema": "workspace:*",
+    "@kunkun/supabase": "workspace:*",
     "@nanostores/persistent": "^0.10.1",
     "@nanostores/vue": "^0.10.0",
     "@nuxt/icon": "^1.0.0",
@@ -45,7 +45,7 @@
     "dayjs": "^1.11.11",
     "element-plus": "^2.7.3",
     "embla-carousel-vue": "^8.1.3",
-    "@akun/api": "workspace:*",
+    "@kunkun/api": "workspace:*",
     "lucide-vue-next": "^0.399.0",
     "mitt": "^3.0.1",
     "nanostores": "^0.10.3",

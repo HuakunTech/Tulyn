@@ -7,7 +7,7 @@
     "name": "Extension Template Worker",
     "shortDescription": "A Worker Extension Template",
     "longDescription": "A Worker Extension Template",
-    "identifier": "tech.huakun.akun-ext-template-worker",
+    "identifier": "sh.kunkun-ext-template-worker",
     "permissions": [
       "clipboard:read-text",
       "clipboard:write-text",
@@ -35,7 +35,7 @@
     "build": "rimraf dist && rollup -c"
   },
   "dependencies": {
-    "@akun/api": "workspace:*"
+    "@kunkun/api": "workspace:*"
   },
   "devDependencies": {
     "@types/bun": "latest",

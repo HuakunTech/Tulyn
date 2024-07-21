@@ -8,7 +8,7 @@
     "name": "template-ext-react",
     "shortDescription": "A Custom UI template for react",
     "longDescription": "A Custom UI template for react",
-    "identifier": "tech.huakun.akun-ext-custom-react",
+    "identifier": "sh.kunkun-ext-custom-react",
     "icon": {
       "type": "iconify",
       "value": "logos:react"
@@ -35,7 +35,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@akun/react": "workspace:*",
+    "@kunkun/react": "workspace:*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

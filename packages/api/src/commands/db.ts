@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api/core"
 import { array, literal, optional, parse, safeParse, union, type InferOutput } from "valibot"
-import { AKUN_EXT_IDENTIFIER } from "../constants"
+import { KUNKUN_EXT_IDENTIFIER } from "../constants"
 import { CmdType, Ext, ExtCmd, ExtData } from "../models/extension"
 import { convertDateToSqliteString, SQLSortOrder } from "../models/sql"
 import { generateJarvisPluginCommand } from "./common"
@@ -185,19 +185,23 @@ export function updateExtensionDataById(data: {
 /*                             Built-in Extensions                            */
 /* -------------------------------------------------------------------------- */
 export function getExtClipboard() {
-  return getExtensionByIdentifierExpectExists(AKUN_EXT_IDENTIFIER.AKUN_CLIPBOARD_EXT_IDENTIFIER)
+  return getExtensionByIdentifierExpectExists(KUNKUN_EXT_IDENTIFIER.KUNKUN_CLIPBOARD_EXT_IDENTIFIER)
 }
 export function getExtQuickLinks() {
-  return getExtensionByIdentifierExpectExists(AKUN_EXT_IDENTIFIER.AKUN_QUICK_LINKS_EXT_IDENTIFIER)
+  return getExtensionByIdentifierExpectExists(
+    KUNKUN_EXT_IDENTIFIER.KUNKUN_QUICK_LINKS_EXT_IDENTIFIER
+  )
 }
 export function getExtRemote() {
-  return getExtensionByIdentifierExpectExists(AKUN_EXT_IDENTIFIER.AKUN_REMOTE_EXT_IDENTIFIER)
+  return getExtensionByIdentifierExpectExists(KUNKUN_EXT_IDENTIFIER.KUNKUN_REMOTE_EXT_IDENTIFIER)
 }
 export function getExtScriptCmd() {
-  return getExtensionByIdentifierExpectExists(AKUN_EXT_IDENTIFIER.AKUN_SCRIPT_CMD_EXT_IDENTIFIER)
+  return getExtensionByIdentifierExpectExists(
+    KUNKUN_EXT_IDENTIFIER.KUNKUN_SCRIPT_CMD_EXT_IDENTIFIER
+  )
 }
 export function getExtDev() {
-  return getExtensionByIdentifierExpectExists(AKUN_EXT_IDENTIFIER.AKUN_DEV_EXT_IDENTIFIER)
+  return getExtensionByIdentifierExpectExists(KUNKUN_EXT_IDENTIFIER.KUNKUN_DEV_EXT_IDENTIFIER)
 }
 
 /**

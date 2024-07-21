@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Button } from "@/components/ui/button"
-import type { TListItem } from "@akun/schema"
+import type { TListItem } from "@kunkun/schema"
 import { TrashIcon } from "lucide-vue-next"
 
 const props = defineProps<{ item: TListItem }>()

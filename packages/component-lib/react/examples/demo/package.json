@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@akun/react": "link:../../",
+    "@kunkun/react": "link:../../",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

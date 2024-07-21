@@ -1,4 +1,4 @@
-import { notification } from "@akun/api/ui"
+import { notification } from "@kunkun/api/ui"
 
 export async function getNotificationPermission() {
   let permissionGranted = await notification.isPermissionGranted()

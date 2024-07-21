@@ -1,4 +1,4 @@
-import { Icon } from "@akun/api/models"
+import { Icon } from "@kunkun/api/models"
 import { number, object, pipe, string, transform, type InferOutput } from "valibot"
 
 export const ExtItemParser = object({

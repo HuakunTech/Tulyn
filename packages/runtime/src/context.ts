@@ -4,7 +4,7 @@ import {
   type IAppsAPI,
   type IClipboardAPI,
   type IJarvisAPIContext
-} from "@akun/api"
+} from "@kunkun/api"
 
 export class ClipboardAPI implements IClipboardAPI {
   writeText(text: string): void {

@@ -1,4 +1,4 @@
-import { os } from "@akun/api/ui"
+import { os } from "@kunkun/api/ui"
 import { platform } from "@tauri-apps/plugin-os"
 import { computed, map } from "nanostores"
 import { AppInfo } from "tauri-plugin-jarvis-api/models"

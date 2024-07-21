@@ -19,14 +19,14 @@ import { gqlClient } from "@/lib/utils/graphql"
 import * as supabase from "@/lib/utils/supabase"
 import { supabaseClient } from "@/lib/utils/supabase"
 import { installTarballUrl } from "@/lib/utils/tarball"
-import { getDevExtensionFolder, getExtensionFolder } from "@akun/api/commands"
+import { getDevExtensionFolder, getExtensionFolder } from "@kunkun/api/commands"
 import {
   FindLatestExtDocument,
   type FindLatestExtQuery,
   type FindLatestExtQueryVariables
-} from "@akun/gql"
-import { AkunExtManifest } from "@akun/schema"
-import { type Tables } from "@akun/supabase"
+} from "@kunkun/gql"
+import { KunkunExtManifest } from "@kunkun/schema"
+import { type Tables } from "@kunkun/supabase"
 import { compareVersions } from "compare-versions"
 import { ElMessage } from "element-plus"
 import { CircleCheckBigIcon, Trash2Icon } from "lucide-vue-next"
@@ -74,10 +74,10 @@ watch(
   }
 )
 
-const manifest = computed<AkunExtManifest>(() => {
+const manifest = computed<KunkunExtManifest>(() => {
   if (currentExt.value) {
     // @ts-ignore
-    return AkunExtManifest.parse(JSON.parse(currentExt.value?.manifest as string))
+    return KunkunExtManifest.parse(JSON.parse(currentExt.value?.manifest as string))
   } else {
     return null
   }

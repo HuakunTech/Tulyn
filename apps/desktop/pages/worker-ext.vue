@@ -4,13 +4,14 @@ import ExtTemplateListView from "@/components/ExtTemplate/ListView.vue"
 import { Command } from "@/components/ui/command"
 import { HTMLElementId } from "@/lib/constants"
 import { $appState } from "@/lib/stores/appState"
-import { db, JarvisExtDB } from "@akun/api/commands"
+import { expose, type Remote } from "@huakunshen/comlink"
+import { db, JarvisExtDB } from "@kunkun/api/commands"
 import {
   constructJarvisServerAPIWithPermissions,
   exposeApiToWorker,
   getWorkerApiClient,
   type IUi
-} from "@akun/api/ui"
+} from "@kunkun/api/ui"
 import {
   convertJarvisExtDBToServerDbAPI,
   List,
@@ -20,8 +21,7 @@ import {
   type IDbServer,
   type ListSchema,
   type WorkerExtension
-} from "@akun/api/ui/worker"
-import { expose, type Remote } from "@huakunshen/comlink"
+} from "@kunkun/api/ui/worker"
 import { useStore } from "@nanostores/vue"
 import { ArrowLeftIcon } from "@radix-icons/vue"
 import { join } from "@tauri-apps/api/path"
@@ -104,7 +104,7 @@ onMounted(async () => {
   }
 
   const manifest = await loadExtensionManifestFromDisk(manifestPath)
-  const cmd = manifest.akun.templateUiCmds.find((cmd) => cmd.name === currentWorkerExt.cmdName)
+  const cmd = manifest.kunkun.templateUiCmds.find((cmd) => cmd.name === currentWorkerExt.cmdName)
   if (!cmd) {
     toast.error(`Worker extension command ${currentWorkerExt.cmdName} not found`)
     return navigateTo("/")
@@ -114,10 +114,10 @@ onMounted(async () => {
     toast.error(`Worker extension script ${cmd.main} not found`)
     return navigateTo("/")
   }
-  const extInfoInDB = await db.getExtensionByIdentifier(manifest.akun.identifier)
+  const extInfoInDB = await db.getExtensionByIdentifier(manifest.kunkun.identifier)
   if (!extInfoInDB) {
     toast.error("Unexpected Error", {
-      description: `Worker extension ${manifest.akun.identifier} not found in database. Run Troubleshooter.`
+      description: `Worker extension ${manifest.kunkun.identifier} not found in database. Run Troubleshooter.`
     })
     return navigateTo("/")
   }
@@ -130,7 +130,7 @@ onMounted(async () => {
   const dbAPI = new db.JarvisExtDB(extInfoInDB.extId)
   const extDBApi: IDbServer = convertJarvisExtDBToServerDbAPI(dbAPI)
   exposeApiToWorker(worker, {
-    ...constructJarvisServerAPIWithPermissions(manifest.akun.permissions),
+    ...constructJarvisServerAPIWithPermissions(manifest.kunkun.permissions),
     ...extUiAPI,
     ...extDBApi
   })

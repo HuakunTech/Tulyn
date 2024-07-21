@@ -1,5 +1,5 @@
-import { db } from "@akun/api/commands"
-import { ExtPackageJson, ExtPackageJsonExtra } from "@akun/schema"
+import { db } from "@kunkun/api/commands"
+import { ExtPackageJson, ExtPackageJsonExtra } from "@kunkun/schema"
 import { basename, dirname, join } from "@tauri-apps/api/path"
 import { readDir, readTextFile } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
@@ -13,7 +13,7 @@ export function loadExtensionManifestFromDisk(manifestPath: string): Promise<Ext
       console.error(parse.issues)
       throw new Error(`Invalid manifest: ${manifestPath} - ${parse.issues}`)
     } else {
-      debug(`Loaded extension ${parse.output.akun.identifier} from ${manifestPath}`)
+      debug(`Loaded extension ${parse.output.kunkun.identifier} from ${manifestPath}`)
       const extPath = await dirname(manifestPath)
       const extFolderName = await basename(extPath)
       return Object.assign(parse.output, {
@@ -38,11 +38,11 @@ export function loadAllExtensionsFromDisk(
       } catch (error) {
         continue
       }
-      const extInDb = await db.getExtensionByIdentifier(extPkgJson.akun.identifier)
+      const extInDb = await db.getExtensionByIdentifier(extPkgJson.kunkun.identifier)
       if (!extInDb) {
         // create this extension in database
         await db.createExtension({
-          identifier: extPkgJson.akun.identifier,
+          identifier: extPkgJson.kunkun.identifier,
           version: extPkgJson.version
         })
       }

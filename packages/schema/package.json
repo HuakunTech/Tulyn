@@ -1,5 +1,5 @@
 {
-  "name": "@akun/schema",
+  "name": "@kunkun/schema",
   "type": "module",
   "exports": {
     ".": {
@@ -18,13 +18,13 @@
     "supabase": ">=1.8.1"
   },
   "peerDependencies": {
-    "@akun/supabase": "workspace:*",
+    "@kunkun/supabase": "workspace:*",
     "typescript": "^5.0.0"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.583.0",
     "@gcornut/valibot-json-schema": "^0.36.0",
     "@supabase/supabase-js": "^2.43.4",
-    "@akun/api": "workspace:*"
+    "@kunkun/api": "workspace:*"
   }
 }
