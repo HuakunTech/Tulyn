@@ -56,7 +56,7 @@ fn main() {
         .plugin(tauri_plugin_clipboard::init())
         .plugin(tauri_plugin_network::init())
         .plugin(tauri_plugin_system_info::init())
-        .invoke_handler(tauri::generate_handler![])
+        // .invoke_handler(tauri::generate_handler![])
         .register_uri_scheme_protocol("appicon", |_app, request| {
             let url = &request.uri().path()[1..];
             let url = urlencoding::decode(url).unwrap().to_string();

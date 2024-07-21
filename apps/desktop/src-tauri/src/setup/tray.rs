@@ -14,7 +14,7 @@ pub fn create_tray<R: Runtime>(app: &tauri::AppHandle<R>) -> tauri::Result<()> {
     let quit_i = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
     let menu1 = Menu::with_items(app, &[&toggle_i, &quit_i])?;
     let _ = TrayIconBuilder::with_id("tray-1")
-        .tooltip("Jarvis")
+        .tooltip("Akun")
         .icon(app.default_window_icon().unwrap().clone())
         // .menu(&menu1)
         // .menu_on_left_click(true)

@@ -39,17 +39,20 @@ pub fn load_all_extensions(extensions_folder: &Path) -> anyhow::Result<Vec<ExtPa
     Ok(extensions_with_path)
 }
 
-#[cfg(test)]
-mod test {
-    use super::*;
+// ! Disable test for now as we now load manifest directly with TypeScript
+// ! Keeping rust and ts manifest schema in place is troublesome.
+// ! In the future, after the schema is stable, and if there is need to load manifest in Rust, we can re-enable this test.
+// #[cfg(test)]
+// mod test {
+//     use super::*;
 
-    #[test]
-    fn test_load_jarvis_ext_manifest() {
-        let x = PathBuf::from(".");
-        let abs_x = x.canonicalize().unwrap();
-        println!("{:?}", abs_x);
-        let manifest =
-            load_jarvis_ext_manifest(PathBuf::from("../../extensions/hacker-news")).unwrap();
-        assert_eq!(manifest.name, "hacker-news");
-    }
-}
+//     #[test]
+//     fn test_load_jarvis_ext_manifest() {
+//         let x = PathBuf::from(".");
+//         let abs_x = x.canonicalize().unwrap();
+//         println!("{:?}", abs_x);
+//         let manifest =
+//             load_jarvis_ext_manifest(PathBuf::from("../../extensions/hacker-news")).unwrap();
+//         assert_eq!(manifest.name, "hacker-news");
+//     }
+// }

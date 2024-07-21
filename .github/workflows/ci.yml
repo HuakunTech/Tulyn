@@ -33,9 +33,10 @@ jobs:
           bun scripts/init-env.ts
       - name: Install Dependencies
         run: pnpm i
-      - name: Build
+      - name: Build and Test
         env:
           SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-        run: pnpm build
-        # run: pnpm --filter @akun/gql build
+        run: |
+          pnpm build
+          pnpm test

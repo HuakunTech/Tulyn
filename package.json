@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "turbo run build",
+    "test": "turbo run test",
     "dev": "turbo run dev",
     "develop": "turbo run develop",
     "commit": "pnpm gitmoji -c",
@@ -26,7 +27,7 @@
     "madge": "^7.0.0",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.6.5",
-    "turbo": "^2.0.7",
+    "turbo": "^2.0.9",
     "typescript": "^5.4.5"
   },
   "packageManager": "pnpm@9.5.0",
