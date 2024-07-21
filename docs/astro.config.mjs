@@ -11,7 +11,7 @@ import { visualizer } from "rollup-plugin-visualizer"
 export default defineConfig({
   integrations: [
     starlight({
-      title: "Jarvis",
+      title: "Akun",
       customCss: ["./src/tailwind.css"],
       lastUpdated: true,
       logo: {
@@ -21,7 +21,7 @@ export default defineConfig({
         Header: "./src/components/overrides/Header.astro"
       },
       social: {
-        github: "https://github.com/HuakunTech/Jarvis",
+        github: "https://github.com/HuakunTech/Akun",
         discord: "https://discord.gg/bvf6GwxKWX"
       },
       sidebar: [

@@ -9,7 +9,7 @@ const defaultJson = `{
   "name": "hacker-news",
   "module": "index.ts",
   "type": "module",
-  "jarvis": {
+  "akun": {
     "name": "Hacker News",
     "identifier": "tech.huakun.akun.hacker-news",
     "shortDescription": "List latest top hacker news",
