@@ -45,7 +45,9 @@ jobs:
         run: |
           bun scripts/init-env.ts
       - name: Install Dependencies
-        run: pnpm i
+        run: |
+          pnpm i
+          pnpm build
       - name: Upload Extension Manifest Schema
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
