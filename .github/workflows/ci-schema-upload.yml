@@ -35,12 +35,16 @@ jobs:
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: 1.1.10
-
-      - name: Install Dependencies
+      - name: Init Environment Variables
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}
+          POSTHOG_PUBLIC_KEY: ${{ secrets.POSTHOG_PUBLIC_KEY }}
+          POSTHOG_HOST: ${{ secrets.POSTHOG_HOST }}
+        run: |
+          bun scripts/init-env.ts
+      - name: Install Dependencies
         run: pnpm i
       - name: Upload Extension Manifest Schema
         env:
