@@ -6,7 +6,7 @@
 
 > Jarvis is a cross-platform extensible app launcher like Raycast or Alfred.
 
-## Documentation: https://jarvis.huakun.tech/
+## Documentation: https://kunkun.sh/
 
 ## Platforms
 

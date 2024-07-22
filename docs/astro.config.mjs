@@ -13,6 +13,7 @@ export default defineConfig({
     starlight({
       title: "Kunkun",
       customCss: ["./src/tailwind.css"],
+      // tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 2 },
       lastUpdated: true,
       logo: {
         src: "./src/assets/logo.png"
@@ -35,25 +36,36 @@ export default defineConfig({
           label: "Development",
           autogenerate: {
             directory: "development"
-          }
+          },
+          collapsed: true
         },
         {
           label: "Extensions",
           autogenerate: {
             directory: "extensions"
-          }
+          },
+          collapsed: true
         },
         {
           label: "Developer",
           autogenerate: {
             directory: "developer"
-          }
+          },
+          collapsed: true
         },
         {
           label: "Reference",
           autogenerate: {
             directory: "reference"
-          }
+          },
+          collapsed: true
+        },
+        {
+          label: "Blog",
+          autogenerate: {
+            directory: "blog"
+          },
+          collapsed: true
         }
       ]
     }),

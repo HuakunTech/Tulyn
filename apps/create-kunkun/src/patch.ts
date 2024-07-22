@@ -18,7 +18,7 @@ export function cleanExtension(dir: string) {
 
 export function patchManifestSchema(pkgJsonPath: string) {
   const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, "utf-8"))
-  pkgJson["$schema"] = "https://extensions.jarvis.huakun.tech/schema.json"
+  pkgJson["$schema"] = "https://schema.kunkun.sh"
   fs.writeFileSync(pkgJsonPath, JSON.stringify(pkgJson, null, 2))
 }
 

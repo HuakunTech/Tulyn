@@ -97,7 +97,7 @@ export default function SchemaValidatorEditor() {
       validate: true,
       schemas: [
         // TODO: this schema is not working, I have to use $schema in the json file
-        { uri: "https://extensions.jarvis.huakun.tech/schema.json" }
+        { uri: "https://schema.kunkun.sh" }
       ]
     })
   }
