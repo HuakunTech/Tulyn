@@ -4,11 +4,12 @@ import { CommandGroup, CommandItem, CommandList } from "@/components/ui/command"
 import StrikeSeparator from "@/components/ui/separator/StrikeSeparator.vue"
 import { expose, type Remote } from "@huakunshen/comlink"
 import { IconEnum } from "@kunkunsh/api/models"
-import { List, ListSchema, type IWorkerExtension } from "@kunkunsh/api/ui/worker"
+import { List, ListSchema, WorkerExtension } from "@kunkunsh/api/ui/worker"
+import ListItem from "./ListItem.vue"
 
 const props = defineProps<{
   modelValue: ListSchema.List
-  workerAPI: Remote<IWorkerExtension>
+  workerAPI: Remote<WorkerExtension>
   loading: boolean
 }>()
 let isScrolling = false
@@ -27,19 +28,10 @@ function onScroll(e: Event) {
 <template>
   <CommandList class="h-full" @scroll="onScroll">
     <CommandEmpty>No results found.</CommandEmpty>
-    <CommandItem v-for="item in modelValue.items" :value="item" class="gap-2">
-      <IconMultiplexer v-if="item.icon" :icon="item.icon" class="h-5 w-5" />
-      <span class="truncate">{{ item.title }}</span>
-      <span class="text-muted-foreground">{{ item.subTitle }}</span>
-      <CommandShortcut>
-        <div class="flex gap-2">
-          <span v-for="acc in item.accessories" class="flex items-center gap-1">
-            <IconMultiplexer v-if="acc.icon" :icon="acc.icon" class="h-4 w-4" />
-            <span>{{ acc.text }}</span>
-          </span>
-        </div>
-      </CommandShortcut>
-    </CommandItem>
+    <CommandGroup v-for="section in modelValue.sections" :heading="section.title">
+      <ListItem v-for="item in section.items" :item="item" />
+    </CommandGroup>
+    <ListItem v-for="item in modelValue.items" :item="item" />
     <StrikeSeparator v-if="loading" class="h-20"><span>Loading</span></StrikeSeparator>
   </CommandList>
 </template>

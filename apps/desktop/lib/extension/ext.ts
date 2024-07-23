@@ -13,7 +13,8 @@ import {
   ListItemType,
   TemplateUiCmd,
   TListGroup,
-  TListItem
+  TListItem,
+  WindowConfig
 } from "@kunkunsh/schema"
 import { join } from "@tauri-apps/api/path"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
@@ -21,6 +22,7 @@ import * as fs from "@tauri-apps/plugin-fs"
 import { exists } from "@tauri-apps/plugin-fs"
 import { debug, error, warn } from "@tauri-apps/plugin-log"
 import { atom, type WritableAtom } from "nanostores"
+import { v4 as uuidv4 } from "uuid"
 import { toast } from "vue-sonner"
 import { type IExtensionBase } from "./base"
 
@@ -57,56 +59,46 @@ export function cmdToItem(
 }
 
 function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: CustomUiCmd, url: string) {
-  return registerExtensionWindow(manifest.extPath).then(async (windowLabel) => {
-    // try {
-    //   console.log("Loading extension UI at", url);
-    //   await axios.get(url);
-    // } catch (error) {
-    //   log.error(`Failed to load extension UI at ${url}: ${error}`);
-    //   return ElNotification.error({
-    //     title: "Failed to load extension UI",
-    //     message: "Consider Running the TroubleShooter",
-    //   });
-    // }
-
-    const window = new WebviewWindow(windowLabel, {
-      center: cmd.window?.center ?? undefined,
-      x: cmd.window?.x ?? undefined,
-      y: cmd.window?.y ?? undefined,
-      width: cmd.window?.width ?? undefined,
-      height: cmd.window?.height ?? undefined,
-      minWidth: cmd.window?.minWidth ?? undefined,
-      minHeight: cmd.window?.minHeight ?? undefined,
-      maxWidth: cmd.window?.maxWidth ?? undefined,
-      maxHeight: cmd.window?.maxHeight ?? undefined,
-      resizable: cmd.window?.resizable ?? undefined,
-      title: cmd.window?.title ?? cmd.name,
-      fullscreen: cmd.window?.fullscreen ?? undefined,
-      focus: cmd.window?.focus ?? undefined,
-      transparent: cmd.window?.transparent ?? undefined,
-      maximized: cmd.window?.maximized ?? undefined,
-      visible: cmd.window?.visible ?? undefined,
-      decorations: cmd.window?.decorations ?? undefined,
-      alwaysOnTop: cmd.window?.alwaysOnTop ?? undefined,
-      alwaysOnBottom: cmd.window?.alwaysOnBottom ?? undefined,
-      contentProtected: cmd.window?.contentProtected ?? undefined,
-      skipTaskbar: cmd.window?.skipTaskbar ?? undefined,
-      shadow: cmd.window?.shadow ?? undefined,
-      theme: cmd.window?.theme ?? undefined,
-      titleBarStyle: cmd.window?.titleBarStyle ?? undefined,
-      hiddenTitle: cmd.window?.hiddenTitle ?? undefined,
-      tabbingIdentifier: cmd.window?.tabbingIdentifier ?? undefined,
-      maximizable: cmd.window?.maximizable ?? undefined,
-      minimizable: cmd.window?.minimizable ?? undefined,
-      closable: cmd.window?.closable ?? undefined,
-      parent: cmd.window?.parent ?? undefined,
-      visibleOnAllWorkspaces: cmd.window?.visibleOnAllWorkspaces ?? undefined,
-      url
-    })
-    window.onCloseRequested(async (event) => {
-      await unregisterExtensionWindow(window.label)
-    })
+  // return registerExtensionWindow(manifest.extPath).then(async (windowLabel) => {
+  const windowLabel = `main:ext:${uuidv4()}`
+  const window = new WebviewWindow(windowLabel, {
+    center: cmd.window?.center ?? undefined,
+    x: cmd.window?.x ?? undefined,
+    y: cmd.window?.y ?? undefined,
+    width: cmd.window?.width ?? undefined,
+    height: cmd.window?.height ?? undefined,
+    minWidth: cmd.window?.minWidth ?? undefined,
+    minHeight: cmd.window?.minHeight ?? undefined,
+    maxWidth: cmd.window?.maxWidth ?? undefined,
+    maxHeight: cmd.window?.maxHeight ?? undefined,
+    resizable: cmd.window?.resizable ?? undefined,
+    title: cmd.window?.title ?? cmd.name,
+    fullscreen: cmd.window?.fullscreen ?? undefined,
+    focus: cmd.window?.focus ?? undefined,
+    transparent: cmd.window?.transparent ?? undefined,
+    maximized: cmd.window?.maximized ?? undefined,
+    visible: cmd.window?.visible ?? undefined,
+    decorations: cmd.window?.decorations ?? undefined,
+    alwaysOnTop: cmd.window?.alwaysOnTop ?? undefined,
+    alwaysOnBottom: cmd.window?.alwaysOnBottom ?? undefined,
+    contentProtected: cmd.window?.contentProtected ?? undefined,
+    skipTaskbar: cmd.window?.skipTaskbar ?? undefined,
+    shadow: cmd.window?.shadow ?? undefined,
+    // theme: cmd.window?.theme ?? undefined,
+    titleBarStyle: cmd.window?.titleBarStyle ?? undefined,
+    hiddenTitle: cmd.window?.hiddenTitle ?? undefined,
+    tabbingIdentifier: cmd.window?.tabbingIdentifier ?? undefined,
+    maximizable: cmd.window?.maximizable ?? undefined,
+    minimizable: cmd.window?.minimizable ?? undefined,
+    closable: cmd.window?.closable ?? undefined,
+    parent: cmd.window?.parent ?? undefined,
+    visibleOnAllWorkspaces: cmd.window?.visibleOnAllWorkspaces ?? undefined,
+    url
   })
+  window.onCloseRequested(async (event) => {
+    // await unregisterExtensionWindow(window.label)
+  })
+  // })
 }
 
 /**
@@ -216,9 +208,12 @@ export class Extension implements IExtensionBase {
                 message: "Consider Running the TroubleShooter or turn off dev mode"
               })
             }
-            extStore.setCurrentCustomUiExt({ url, cmd, manifest })
-            navigateTo("/iframe-ext")
-            // createNewExtWindowForUiCmd(manifest, cmd, url)
+            if (cmd.window) {
+              createNewExtWindowForUiCmd(manifest, cmd, url)
+            } else {
+              extStore.setCurrentCustomUiExt({ url, cmd, manifest })
+              navigateTo("/iframe-ext")
+            }
           }
         })
       } else if (item.type === "Inline Command") {

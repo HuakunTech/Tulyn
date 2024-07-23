@@ -59,7 +59,7 @@ export const WindowConfig = object({
   contentProtected: optional(nullable(boolean())),
   skipTaskbar: optional(nullable(boolean())),
   shadow: optional(nullable(boolean())),
-  theme: optional(nullable(union([literal("light"), literal("dark")]))),
+  // theme: optional(nullable(union([literal("light"), literal("dark")]))), // changing theme of one window will change theme of all windows
   titleBarStyle: optional(nullable(TitleBarStyle)),
   hiddenTitle: optional(nullable(boolean())),
   tabbingIdentifier: optional(nullable(string())),
@@ -69,6 +69,7 @@ export const WindowConfig = object({
   parent: optional(nullable(string())),
   visibleOnAllWorkspaces: optional(nullable(boolean()))
 })
+export type WindowConfig = InferOutput<typeof WindowConfig>
 export const CustomUiCmd = object({
   main: string("HTML file to load, e.g. dist/index.html"),
   description: optional(nullable(string("Description of the Command"), ""), ""),

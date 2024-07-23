@@ -20,7 +20,10 @@
         "main": "dist",
         "devMain": "http://localhost:5173",
         "name": "React Extension Template",
-        "cmds": []
+        "cmds": [],
+        "window": {
+          "title": "React Extension Template in new Window"
+        }
       }
     ],
     "templateUiCmds": []

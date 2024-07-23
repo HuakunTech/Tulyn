@@ -339,12 +339,10 @@ export class Item implements ListSchema.Item, IComponent<ListSchema.Item> {
 export class Section implements ListSchema.Section, IComponent<ListSchema.Section> {
   nodeName: NodeName = NodeNameEnum.ListSection
   title?: string
-  subtitle?: string
   items: Item[]
 
   constructor(model: OmitNodeName<ListSchema.Section> & { items: Item[] }) {
     this.title = model.title
-    this.subtitle = model.subtitle
     this.items = model.items
   }
 
@@ -352,7 +350,6 @@ export class Section implements ListSchema.Section, IComponent<ListSchema.Sectio
     return {
       nodeName: this.nodeName,
       title: this.title,
-      subtitle: this.subtitle,
       items: this.items.map((item) => item.toModel())
     }
   }
