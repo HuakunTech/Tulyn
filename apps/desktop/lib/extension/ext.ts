@@ -189,6 +189,7 @@ export class Extension implements IExtensionBase {
   }
 
   onSelect(item: TListItem): Promise<void> {
+    const extStore = useExtStore()
     this.manifests.forEach((manifest) => {
       if (item.type == "UI Command") {
         manifest.kunkun.customUiCmds.forEach(async (cmd) => {
@@ -205,7 +206,9 @@ export class Extension implements IExtensionBase {
                 url = `http://localhost:${port}/${this.isDev ? "dev-" : ""}extensions/${manifest.extFolderName}/${cmd.main}${postfix}`
               }
             }
-            createNewExtWindowForUiCmd(manifest, cmd, url)
+            extStore.setCurrentCustomUiExt({ url, cmd, manifest })
+            navigateTo("/iframe-ext")
+            // createNewExtWindowForUiCmd(manifest, cmd, url)
           }
         })
       } else if (item.type === "Inline Command") {
@@ -219,9 +222,8 @@ export class Extension implements IExtensionBase {
               return
             }
             debug(`Running inline command: ${scriptPath}`)
-            const extStore = useExtStore()
             extStore.setCurrentWorkerExt({
-              extPath: manifest.extPath,
+              manifest,
               cmdName: cmd.name
             })
             navigateTo("/worker-ext")

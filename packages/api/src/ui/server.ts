@@ -58,13 +58,18 @@ import {
   unmute
 } from "../commands/system"
 import { AllKunkunPermission, type SystemPermission } from "./api/permissions"
-import type { IDb, ISystem, IToast, IUi } from "./client"
+import type { IDb, ISystem, IToast, IUiIframe, IUiWorker } from "./client"
 
-export interface IUiServer {
-  render: IUi["render"]
-  setScrollLoading: IUi["setScrollLoading"]
-  setSearchTerm: IUi["setSearchTerm"]
-  setSearchBarPlaceholder: IUi["setSearchBarPlaceholder"]
+export interface IUiWorkerServer {
+  render: IUiWorker["render"]
+  setScrollLoading: IUiWorker["setScrollLoading"]
+  setSearchTerm: IUiWorker["setSearchTerm"]
+  setSearchBarPlaceholder: IUiWorker["setSearchBarPlaceholder"]
+}
+
+export interface IUiIframeServer {
+  goHome: IUiIframe["goHome"]
+  goBack: IUiIframe["goBack"]
 }
 
 export interface IToastServer {
@@ -221,7 +226,12 @@ export const defaultSystemApi = constructSystemApi([
   "system:fs"
 ])
 
-export type IJarvisFullAPI = IFullAPI & ISystemServer & IToastServer & IDbServer & IUiServer
+export type IJarvisFullAPI = IFullAPI &
+  ISystemServer &
+  IToastServer &
+  IDbServer &
+  IUiWorkerServer &
+  IUiIframeServer
 
 export function constructJarvisServerAPIWithPermissions(
   permissions: AllKunkunPermission[]

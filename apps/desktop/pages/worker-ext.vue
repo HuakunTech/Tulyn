@@ -10,7 +10,7 @@ import {
   constructJarvisServerAPIWithPermissions,
   exposeApiToWorker,
   getWorkerApiClient,
-  type IUi
+  type IUiWorker
 } from "@kunkunsh/api/ui"
 import {
   convertJarvisExtDBToServerDbAPI,
@@ -58,7 +58,7 @@ onKeyStroke("Escape", () => {
   }
 })
 
-const extUiAPI: IUi = {
+const extUiAPI: IUiWorker = {
   async render(view: IComponent<ListSchema.List>) {
     viewContent.value = view
   },
@@ -93,31 +93,27 @@ onMounted(async () => {
     toast.error("No worker extension selected")
     return navigateTo("/")
   }
-  if (!exists(currentWorkerExt.extPath)) {
+  if (!exists(currentWorkerExt.manifest.extPath)) {
     toast.error("Worker extension not found")
     return navigateTo("/")
   }
-  const manifestPath = await join(currentWorkerExt.extPath, "package.json")
-  if (!exists(manifestPath)) {
-    toast.error("Worker extension manifest not found")
-    return navigateTo("/")
-  }
 
-  const manifest = await loadExtensionManifestFromDisk(manifestPath)
-  const cmd = manifest.kunkun.templateUiCmds.find((cmd) => cmd.name === currentWorkerExt.cmdName)
+  const cmd = currentWorkerExt.manifest.kunkun.templateUiCmds.find(
+    (cmd) => cmd.name === currentWorkerExt.cmdName
+  )
   if (!cmd) {
     toast.error(`Worker extension command ${currentWorkerExt.cmdName} not found`)
     return navigateTo("/")
   }
-  const scriptPath = await join(manifest.extPath, cmd.main)
+  const scriptPath = await join(currentWorkerExt.manifest.extPath, cmd.main)
   if (!exists(scriptPath)) {
     toast.error(`Worker extension script ${cmd.main} not found`)
     return navigateTo("/")
   }
-  const extInfoInDB = await db.getExtensionByIdentifier(manifest.kunkun.identifier)
+  const extInfoInDB = await db.getExtensionByIdentifier(currentWorkerExt.manifest.kunkun.identifier)
   if (!extInfoInDB) {
     toast.error("Unexpected Error", {
-      description: `Worker extension ${manifest.kunkun.identifier} not found in database. Run Troubleshooter.`
+      description: `Worker extension ${currentWorkerExt.manifest.kunkun.identifier} not found in database. Run Troubleshooter.`
     })
     return navigateTo("/")
   }
@@ -130,7 +126,7 @@ onMounted(async () => {
   const dbAPI = new db.JarvisExtDB(extInfoInDB.extId)
   const extDBApi: IDbServer = convertJarvisExtDBToServerDbAPI(dbAPI)
   exposeApiToWorker(worker, {
-    ...constructJarvisServerAPIWithPermissions(manifest.kunkun.permissions),
+    ...constructJarvisServerAPIWithPermissions(currentWorkerExt.manifest.kunkun.permissions),
     ...extUiAPI,
     ...extDBApi
   })

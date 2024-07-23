@@ -17,7 +17,7 @@ export {
   fetch
 } from "tauri-api-adapter/worker"
 export { comlinkSystem as system } from "../api/system"
-export { comlinkUI as ui } from "../api/ui"
+export { comlinkUI as ui } from "../api/worker-ui"
 export { toast } from "../api/toast"
 export { db, convertJarvisExtDBToServerDbAPI } from "../api/db"
 export * from "./ext"

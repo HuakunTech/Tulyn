@@ -45,7 +45,7 @@ export function CommandDemo({ className }: { className?: string }) {
       }}
     >
       <CommandInput placeholder="Type a command or search..." />
-      <CommandList>
+      <CommandList className="h-full">
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading="Suggestions">
           <CommandItem>

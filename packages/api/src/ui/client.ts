@@ -47,11 +47,16 @@ export interface IToast {
   error: PromiseWrap<typeof toast.error>
 }
 
-export interface IUi {
+export interface IUiWorker {
   render: (view: IComponent<ListSchema.List>) => Promise<void>
   setScrollLoading: (loading: boolean) => Promise<void>
   setSearchTerm: (term: string) => Promise<void>
   setSearchBarPlaceholder: (placeholder: string) => Promise<void>
+}
+
+export interface IUiIframe {
+  goHome: () => Promise<void>
+  goBack: () => Promise<void>
 }
 
 export interface IDb {
