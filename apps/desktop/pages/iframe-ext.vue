@@ -24,6 +24,7 @@ const iframeUiAPI: IUiIframe = {
 }
 
 onMounted(async () => {
+  // navigateTo("/")
   if (!extStore.currentCustomUiExt) {
     return navigateTo("/")
   }
@@ -62,10 +63,11 @@ function onIframeLoad() {
       @load="onIframeLoad"
       ref="iframeRef"
       class="h-full"
-      :src="extStore.currentCustomUiExt?.url"
       width="100%"
       heigh="100%"
       frameborder="0"
-    ></iframe>
+      :src="extStore.currentCustomUiExt?.url"
+    />
+    <FunDance v-show="!iframeLoaded" />
   </main>
 </template>

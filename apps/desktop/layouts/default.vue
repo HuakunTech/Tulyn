@@ -59,7 +59,7 @@ watch(
 </script>
 
 <template>
-  <main class="h-screen">
+  <main class="z-10 h-screen">
     <Toaster :rich-colors="true" :expand="true" />
     <slot />
   </main>

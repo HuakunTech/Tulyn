@@ -46,6 +46,7 @@
     "element-plus": "^2.7.3",
     "embla-carousel-vue": "^8.1.3",
     "@kunkunsh/api": "workspace:*",
+    "@kunkunsh/dance": "workspace:*",
     "lucide-vue-next": "^0.399.0",
     "mitt": "^3.0.1",
     "nanostores": "^0.10.3",

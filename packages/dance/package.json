@@ -1,5 +1,5 @@
 {
-  "name": "@kunkunsh/json-serde",
+  "name": "@kunkunsh/dance",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {

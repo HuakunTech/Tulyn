@@ -16,6 +16,7 @@ import { arch, platform } from "@tauri-apps/plugin-os"
 import { useListenToWindowBlur } from "~/composables/useEvents"
 import { ComboboxInput } from "radix-vue"
 
+const loadDance = ref(false)
 const appConfig = useStore($appConfig)
 const appExt = new AppsExtension()
 const sysCmdExt = new SystemCommandExtension()
@@ -60,6 +61,9 @@ onMounted(() => {
     appWindow.setDecorations(false)
   }
   Promise.all(exts.map((ext) => ext.load()))
+  setTimeout(() => {
+    loadDance.value = true
+  }, 100)
 })
 
 // when close window if not focused on input. If input element has content, clear the content
@@ -95,6 +99,10 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 })
 </script>
 <template>
+  <div v-if="loadDance" class="absolute z-0 h-screen w-full opacity-10">
+    <FunDance />
+  </div>
+
   <div class="h-full">
     <CmdPaletteCommand
       class=""
