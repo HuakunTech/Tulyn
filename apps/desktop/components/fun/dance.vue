@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { cn } from "@/lib/utils"
 import { decompressFrame, deserializeFrame } from "@kunkunsh/dance"
+import type { HTMLAttributes } from "vue"
 
 const interval = ref<NodeJS.Timeout | null>(null)
 const frames = ref<number[][][]>([])
@@ -12,7 +13,7 @@ const height = computed(() => (frame.value ? frame.value.length : 0))
 const width = computed(() => (frame.value && frame.value.length ? frame.value[0].length : 0))
 
 const { data } = await useFetch<Blob>("https://dance.kunkun.sh/api/data")
-
+const props = defineProps<{ class?: HTMLAttributes["class"] }>()
 onMounted(async () => {
   // turn data blob into string and parse it as JSON
   // const json = JSON.parse(new TextDecoder().decode(data.value))
@@ -34,8 +35,8 @@ onUnmounted(() => {
 })
 </script>
 <template>
-  <main className="flex justify-center items-center h-full">
-    <div class="">
+  <main :class="cn('flex h-full items-center justify-center', props.class)">
+    <div>
       <div v-for="row in frame" class="flex">
         <div
           v-for="cell in row"

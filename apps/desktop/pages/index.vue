@@ -99,11 +99,9 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 })
 </script>
 <template>
-  <div v-if="loadDance" class="absolute z-0 h-screen w-full opacity-10">
-    <FunDance />
-  </div>
+  <FunDance v-if="loadDance" class="absolute z-0 h-screen w-full opacity-10" />
 
-  <div class="h-full">
+  <div class="z-10 h-full">
     <CmdPaletteCommand
       class=""
       v-model:searchTerm="searchTermInSync"
