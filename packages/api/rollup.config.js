@@ -38,7 +38,7 @@ const config = {
       //   declarationMap: true
       // }
     }),
-    terser(),
+    // terser(),
     visualizer()
   ]
 }
