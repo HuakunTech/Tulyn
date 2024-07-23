@@ -16,7 +16,7 @@ export default defineConfig({
       // tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 2 },
       lastUpdated: true,
       logo: {
-        src: "./src/assets/logo.png"
+        src: "./src/assets/kunkun-logo-gray.svg"
       },
       components: {
         Header: "./src/components/overrides/Header.astro"
