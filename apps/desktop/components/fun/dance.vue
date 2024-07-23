@@ -34,7 +34,7 @@ onUnmounted(() => {
 })
 </script>
 <template>
-  <main className="flex justify-center items-center h-full border-2 border-blue-500">
+  <main className="flex justify-center items-center h-full">
     <div class="">
       <div v-for="row in frame" class="flex">
         <div

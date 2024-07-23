@@ -10,11 +10,9 @@
 
 ## Platforms
 
-Linux now has partial support, windows support is under development.
-
 - [x] MacOS
-- [ ] Linux
-- [ ] Windows
+- [x] Linux
+- [x] Windows
 
 ## Demo
 

@@ -206,6 +206,16 @@ export class Extension implements IExtensionBase {
                 url = `http://localhost:${port}/${this.isDev ? "dev-" : ""}extensions/${manifest.extFolderName}/${cmd.main}${postfix}`
               }
             }
+            try {
+              console.log("Loading extension UI at", url)
+              await fetch(url)
+            } catch (err) {
+              error(`Failed to load extension UI at ${url}: ${err}`)
+              return ElNotification.error({
+                title: "Failed to load extension UI",
+                message: "Consider Running the TroubleShooter or turn off dev mode"
+              })
+            }
             extStore.setCurrentCustomUiExt({ url, cmd, manifest })
             navigateTo("/iframe-ext")
             // createNewExtWindowForUiCmd(manifest, cmd, url)
