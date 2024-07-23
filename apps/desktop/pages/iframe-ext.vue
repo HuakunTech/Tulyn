@@ -3,13 +3,13 @@ import { db, JarvisExtDB } from "@kunkunsh/api/commands"
 import { constructJarvisServerAPIWithPermissions, exposeApiToWindow } from "@kunkunsh/api/ui"
 import {
   convertJarvisExtDBToServerDbAPI,
-  expose,
   type IDbServer,
   type IUiIframe
 } from "@kunkunsh/api/ui/iframe"
 import { toast } from "vue-sonner"
 import { useExtStore } from "../stores/ext"
 
+const iframeLoaded = ref(false)
 const iframeRef = ref<HTMLIFrameElement | null>(null)
 const extStore = useExtStore()
 const iframeUiAPI: IUiIframe = {
@@ -24,7 +24,6 @@ const iframeUiAPI: IUiIframe = {
 }
 
 onMounted(async () => {
-  // navigateTo("/")
   if (!extStore.currentCustomUiExt) {
     return navigateTo("/")
   }
@@ -48,11 +47,19 @@ onMounted(async () => {
     })
   }
 })
+
+function onIframeLoad() {
+  setTimeout(() => {
+    // avoid flickering, especially on slow connections and dark mode
+    iframeLoaded.value = true
+  }, 200)
+}
 </script>
 <template>
   <main class="h-screen">
-    <!-- <Button @click="iframeUiAPI.goHome()">Back</Button> -->
     <iframe
+      v-show="iframeLoaded"
+      @load="onIframeLoad"
       ref="iframeRef"
       class="h-full"
       :src="extStore.currentCustomUiExt?.url"
