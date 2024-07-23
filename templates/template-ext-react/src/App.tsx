@@ -11,7 +11,6 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-  Input,
   ThemeProvider,
   VertifcalSeparator
 } from "@kunkunsh/react"
@@ -27,21 +26,20 @@ import {
   RocketIcon,
   TwitterLogoIcon
 } from "@radix-ui/react-icons"
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 
 export default function App() {
   const [value, setValue] = useState("linear")
   const actionInputRef = useRef<HTMLInputElement | null>(null)
-  const [searchInput, setSearchInput] = useState("")
+  const [input, setInput] = useState("")
   const listRef = useRef(null)
   const seachInputEle = useRef<HTMLInputElement | null>(null)
   function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Escape") {
-      setSearchInput("")
-      if (seachInputEle.current!.value.length > 0) {
-        seachInputEle.current!.value = ""
+      if (input.length === 0) {
+        ui.goHome()
       } else {
-        // ui.goHome()
+        setInput("")
       }
     }
   }
@@ -49,29 +47,28 @@ export default function App() {
   return (
     <ThemeProvider>
       <main className="h-screen">
-        <span>{searchInput}</span>
+        <span>{input}</span>
         <Command
           onValueChange={(v) => {
             setValue(v)
           }}
         >
           <CommandInput
+            autoFocus
             ref={seachInputEle}
             placeholder="Type a command or search..."
             className="h-12"
-            onValueChange={(v) => {
-              console.log(`onValueChange: ${v}`)
-              setSearchInput(v)
+            onInput={(e) => {
+              setInput((e.target as HTMLInputElement).value)
             }}
-            // value={searchInput}
-            onKeyDown={(e) => onKeyDown(e)}
+            value={input}
+            onKeyDown={onKeyDown}
           >
             <Button
               size="icon"
               variant="outline"
               onClick={() => {
-                setSearchInput("")
-                // ui.goHome()
+                ui.goHome()
               }}
             >
               <ArrowLeftIcon />
