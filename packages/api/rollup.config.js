@@ -1,6 +1,7 @@
 import { readFileSync } from "fs"
 import { join } from "path"
 import { cwd } from "process"
+import terser from "@rollup/plugin-terser"
 // import typescript from "@rollup/plugin-typescript"
 import typescript from "@rollup/plugin-typescript"
 import { visualizer } from "rollup-plugin-visualizer"
@@ -37,6 +38,7 @@ const config = {
       //   declarationMap: true
       // }
     }),
+    terser(),
     visualizer()
   ]
 }

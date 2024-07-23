@@ -45,6 +45,7 @@
     "develop": "rollup -c --watch"
   },
   "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
     "@types/bun": "latest",
     "@types/madge": "^5.0.3",
     "madge": "^7.0.0",
