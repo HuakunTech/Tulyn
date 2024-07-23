@@ -38,7 +38,7 @@ async function checkUpdate() {
 <template>
   <Card :class="cn('flex h-full items-center justify-center border-none', props.class)">
     <CardContent class="flex items-center space-x-5">
-      <img src="/img/128x128.png" class="w-44" />
+      <img src="/img/logo-w-bg.png" class="w-44" />
       <div class="flex flex-col space-y-1">
         <p class="text-3xl font-bold">Akun</p>
         <p class="text-xs">Version: {{ appVersion }}</p>
