@@ -64,7 +64,7 @@ function select(item: ExtItem) {
 }
 
 function isInstalled(identifier: string) {
-  return !!installedManifests.value.find((x) => x.jarvis.identifier === identifier)
+  return !!installedManifests.value.find((x) => x.kunkun.identifier === identifier)
 }
 
 function onInstalled(downloads: number) {

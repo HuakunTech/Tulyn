@@ -1,7 +1,7 @@
 import { $appState } from "@/lib/stores/appState"
+import { ListItemTypeEnum, TListItem } from "@/lib/types/list"
 import { getAllApps, refreshApplicationsList } from "@kksh/api/commands"
 import { AppInfo, IconEnum } from "@kksh/api/models"
-import { ListItemTypeEnum, TListItem } from "@kksh/schema"
 import { convertFileSrc } from "@tauri-apps/api/core"
 import { info, warn } from "@tauri-apps/plugin-log"
 import { ElNotification } from "element-plus"

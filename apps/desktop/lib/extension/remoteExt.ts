@@ -1,6 +1,6 @@
+import { ListItemType, TListGroup, TListItem } from "@/lib/types/list"
 import { db } from "@kksh/api/commands"
 import { CmdType, ExtCmd, Icon, IconType } from "@kksh/api/models"
-import { ListItemType, TListGroup, TListItem } from "@kksh/schema"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { info } from "@tauri-apps/plugin-log"
 import { ElMessage } from "element-plus"

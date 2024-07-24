@@ -4,7 +4,7 @@ import { getExtensionsFolder } from "@/lib/constants"
 import { Extension } from "@/lib/extension/ext"
 import { RemoteExtension } from "@/lib/extension/remoteExt"
 import { $appConfig } from "@/lib/stores/appConfig"
-import { TListGroup, type TListItem } from "@kksh/schema"
+import { TListGroup, type TListItem } from "@/lib/types/list"
 import { ElMessage, ElTable, ElTableColumn } from "element-plus"
 import { Trash2Icon } from "lucide-vue-next"
 import { onMounted, ref } from "vue"
@@ -27,7 +27,7 @@ onMounted(() => {
 function handleDeleteCommand(index: number, item: TListItem) {
   if (item.type === "Remote Command") {
     remoteExt
-      .removeRemoteCmd(item.value)
+      .removeRemoteCmd(parseInt(item.value))
       .then(() => {
         ElMessage.success(`Removed Remote Command: ${item.title}`)
         refreshListing()

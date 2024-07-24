@@ -1,6 +1,6 @@
+import { ListItemType, TListItem } from "@/lib/types/list"
 import { getSystemCommands } from "@kksh/api/commands"
 import { IconType, SysCommand } from "@kksh/api/models"
-import { ListItemType, TListItem } from "@kksh/schema"
 import * as dialog from "@tauri-apps/plugin-dialog"
 import { error } from "@tauri-apps/plugin-log"
 import { ElNotification } from "element-plus"

@@ -1,7 +1,7 @@
 import { DebugWindowLabel, DevWindowLabel, SettingsWindowLabel } from "@/lib/constants"
+import { ListItemType, TListItem } from "@/lib/types/list"
 import { newSettingsPage } from "@/lib/utils/router"
 import { IconType } from "@kksh/api/models"
-import { ListItemType, TListItem } from "@kksh/schema"
 import { getAll as getAllWindows, WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { ElMessage, ElNotification } from "element-plus"
 import type { ReadableAtom, WritableAtom } from "nanostores"

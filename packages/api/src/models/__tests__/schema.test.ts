@@ -4,7 +4,7 @@ import { expect, test } from "bun:test"
 import { safeParse } from "valibot"
 import { ExtPackageJson } from "../manifest"
 
-const extensionsDir = path.join(__dirname, "../../../../extensions")
+const extensionsDir = path.join(__dirname, "../../../../../extensions")
 
 test("Load and parse every extension in this repo", () => {
   // iterate over all extensions in extensionsDir, parse package.json

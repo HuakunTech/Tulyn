@@ -26,6 +26,7 @@ describe("Verify Bundled Package", () => {
       const exportPaths = v.parse(v.record(v.string(), v.string()), value)
       Object.values(exportPaths).forEach(async (_path: string) => {
         const resolvedPath = path.join(pkgRoot, _path)
+        console.log(resolvedPath)
         expect(await Bun.file(resolvedPath).exists()).toBe(true)
       })
     })

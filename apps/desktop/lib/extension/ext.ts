@@ -1,5 +1,6 @@
 import { loadAllExtensionsFromDisk } from "@/lib/commands/extensions"
 import { $appConfig } from "@/lib/stores/appConfig"
+import { ListItemType, TListGroup, TListItem } from "@/lib/types/list"
 import { useExtStore } from "@/stores/ext"
 import {
   getServerPort,
@@ -14,7 +15,6 @@ import {
   TemplateUiCmd,
   WindowConfig
 } from "@kksh/api/models"
-import { ListItemType, TListGroup, TListItem } from "@kksh/schema"
 import { join } from "@tauri-apps/api/path"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import * as fs from "@tauri-apps/plugin-fs"

@@ -15,7 +15,6 @@
     "@element-plus/nuxt": "^1.0.9",
     "@formkit/auto-animate": "^0.8.2",
     "@kksh/gql": "workspace:*",
-    "@kksh/schema": "workspace:*",
     "@kksh/supabase": "workspace:*",
     "@nanostores/persistent": "^0.10.1",
     "@nanostores/vue": "^0.10.0",

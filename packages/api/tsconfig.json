@@ -1,22 +1,33 @@
 {
   "compilerOptions": {
-    "target": "es2021",
-    "module": "esnext",
-    "moduleResolution": "Bundler",
-    "skipLibCheck": true,
-    "strict": true,
-    "noUnusedLocals": false,
-    "noImplicitAny": true,
-    "noEmit": false,
+    // Enable latest features
+    "lib": ["ESNext", "DOM"],
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleDetection": "force",
+    "jsx": "react-jsx",
+    "allowJs": true,
+
+    // Bundler mode
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
     "declaration": true,
     "declarationMap": true,
     "declarationDir": "dist",
     "outDir": "dist",
     "baseUrl": ".",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": false,
-    "verbatimModuleSyntax": true,
-    "rootDir": "./src"
+
+    // Best practices
+    "strict": true,
+    "skipLibCheck": true,
+    "noFallthroughCasesInSwitch": true,
+
+    // Some stricter flags (disabled by default)
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noPropertyAccessFromIndexSignature": false
   },
   "include": ["src", "ui", "models", "commands"],
   "exclude": ["dist", "node_modules"]
