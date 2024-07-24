@@ -1,47 +1,36 @@
-import path, { resolve } from "path"
-import react from "@vitejs/plugin-react-swc"
+import path from "path"
+import react from "@vitejs/plugin-react"
 import { defineConfig } from "vite"
 import dts from "vite-plugin-dts"
 import tailwindcss from "tailwindcss"
-import terser from "@rollup/plugin-terser"
 import { visualizer } from "rollup-plugin-visualizer"
+import { peerDependencies, dependencies } from "./package.json"
 
 export default defineConfig({
   build: {
     lib: {
-      entry: [
-        // resolve(__dirname, "./src/index.ts")
-        "./src/index.ts",
-        "./src/button.ts"
-      ],
+      entry: ["./src/index.ts"],
       name: "@kksh/react",
-      // fileName: (format) => `index.${format}.js`,
-      formats: ["es"]
+      formats: ["es", "cjs"]
     },
     rollupOptions: {
-      external: ["react", "react-dom", "tailwindcss"],
-      output: {
-        globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
-          tailwindcss: "tailwindcss"
-        }
-      },
-      plugins: [terser(), visualizer()]
+      external: [
+        ...Object.keys(peerDependencies),
+        ...Object.keys(dependencies)
+      ],
+      output: { preserveModules: true, exports: "named" },
+      plugins: [visualizer()]
     },
     sourcemap: true,
     emptyOutDir: true,
     chunkSizeWarningLimit: 500
   },
   plugins: [
-    react(),
+    react({
+      jsxRuntime: "classic"
+    }),
     dts({
-      rollupTypes: true,
-      compilerOptions: {
-        declaration: true,
-        declarationMap: true,
-        outDir: "dist"
-      }
+      include: ["src/**/*"]
     })
   ],
   resolve: {
