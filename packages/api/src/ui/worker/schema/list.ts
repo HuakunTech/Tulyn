@@ -147,7 +147,6 @@ export const Item = object({
   value: string(),
   defaultAction: optional(string()),
   actions: optional(ActionSchema.ActionPanel),
-  detail: optional(ItemDetail),
   icon: optional(Icon),
   keywords: optional(array(string()))
   // id: optional(string('')),

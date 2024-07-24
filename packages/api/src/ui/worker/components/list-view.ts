@@ -295,7 +295,6 @@ export class Item implements ListSchema.Item, IComponent<ListSchema.Item> {
   value: string
   subTitle?: string
   accessories?: ItemAccessory[]
-  detail?: ItemDetail
   icon?: Icon
   keywords?: string[]
   defaultAction?: string
@@ -304,7 +303,6 @@ export class Item implements ListSchema.Item, IComponent<ListSchema.Item> {
   constructor(
     model: OmitNodeName<ListSchema.Item> & {
       accessories?: ItemAccessory[]
-      detail?: ItemDetail
       icon?: Icon
       actions?: Action.ActionPanel
     }
@@ -315,7 +313,6 @@ export class Item implements ListSchema.Item, IComponent<ListSchema.Item> {
     this.defaultAction = model.defaultAction
     this.subTitle = model.subTitle
     this.accessories = model.accessories
-    this.detail = model.detail
     this.icon = model.icon
     this.keywords = model.keywords
   }
@@ -329,7 +326,6 @@ export class Item implements ListSchema.Item, IComponent<ListSchema.Item> {
       actions: this.actions?.toModel(),
       subTitle: this.subTitle,
       accessories: this.accessories?.map((accessory) => accessory.toModel()),
-      detail: this.detail?.toModel(),
       icon: this.icon?.toModel(),
       keywords: this.keywords
     }

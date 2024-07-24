@@ -3,13 +3,16 @@ import react from "@vitejs/plugin-react-swc"
 import { defineConfig } from "vite"
 import dts from "vite-plugin-dts"
 import tailwindcss from "tailwindcss"
+import terser from "@rollup/plugin-terser"
+import { visualizer } from "rollup-plugin-visualizer"
 
 export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, "./src/index.ts"),
       name: "@kksh/react",
-      fileName: (format) => `index.${format}.js`
+      fileName: (format) => `index.${format}.js`,
+      formats: ["es", "cjs"]
     },
     rollupOptions: {
       external: ["react", "react-dom", "tailwindcss"],
@@ -19,10 +22,12 @@ export default defineConfig({
           "react-dom": "ReactDOM",
           tailwindcss: "tailwindcss"
         }
-      }
+      },
+      plugins: [terser(), visualizer()]
     },
     sourcemap: true,
-    emptyOutDir: true
+    emptyOutDir: true,
+    chunkSizeWarningLimit: 500
   },
   plugins: [
     react(),
@@ -44,5 +49,8 @@ export default defineConfig({
     postcss: {
       plugins: [tailwindcss]
     }
+  },
+  optimizeDeps: {
+    include: ["react", "react-dom"]
   }
 })
