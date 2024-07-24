@@ -1,4 +1,3 @@
-import { AllKunkunPermission, Icon } from "@kksh/api/models"
 import {
   array,
   boolean,
@@ -12,6 +11,8 @@ import {
   union,
   type InferOutput
 } from "valibot"
+import { AllKunkunPermission } from "../ui/api/permissions"
+import { Icon } from "./icon"
 
 export enum OSPlatformEnum {
   linux = "linux",

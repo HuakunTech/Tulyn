@@ -5,8 +5,8 @@ import {
   S3Client
 } from "@aws-sdk/client-s3"
 import { toJSONSchema } from "@gcornut/valibot-json-schema"
+import { ExtPackageJson } from "@kksh/api/models"
 import { parse, string } from "valibot"
-import { ExtPackageJson } from "../src/manifest"
 import { getJsonSchema } from "../src/utils"
 
 const s3Client = new S3Client({

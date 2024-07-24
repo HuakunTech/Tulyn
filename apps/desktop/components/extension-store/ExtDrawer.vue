@@ -20,12 +20,12 @@ import * as supabase from "@/lib/utils/supabase"
 import { supabaseClient } from "@/lib/utils/supabase"
 import { installTarballUrl } from "@/lib/utils/tarball"
 import { getDevExtensionFolder, getExtensionFolder } from "@kksh/api/commands"
+import { KunkunExtManifest } from "@kksh/api/models"
 import {
   FindLatestExtDocument,
   type FindLatestExtQuery,
   type FindLatestExtQueryVariables
 } from "@kksh/gql"
-import { KunkunExtManifest } from "@kksh/schema"
 import { type Tables } from "@kksh/supabase"
 import { compareVersions } from "compare-versions"
 import { ElMessage } from "element-plus"

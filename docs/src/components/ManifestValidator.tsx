@@ -1,10 +1,10 @@
-import { ExtPackageJson } from "@kksh/schema"
+import { ExtPackageJson } from "@kksh/api/models"
 import Editor, { type Monaco, type OnChange, type OnMount } from "@monaco-editor/react"
 import { useEffect, useMemo, useRef, useState } from "react"
-import { safeParse } from "valibot"
+import { flatten, safeParse } from "valibot"
 
 const defaultJson = `{
-  "$schema": "../../packages/schema/manifest-json-schema.json",
+  "$schema": "https://schema.kunkun.sh",
   "version": "0.0.1",
   "name": "hacker-news",
   "module": "index.ts",
@@ -70,8 +70,7 @@ export default function SchemaValidatorEditor() {
     try {
       const parsedRes = safeParse(ExtPackageJson, JSON.parse(manifestStr))
       if (parsedRes.issues) {
-        setErrMsg(JSON.stringify(parsedRes.issues, null, 2))
-        console.error(parsedRes.issues)
+        setErrMsg(JSON.stringify(flatten<typeof ExtPackageJson>(parsedRes.issues), null, 2))
       } else {
         setErrMsg("")
       }

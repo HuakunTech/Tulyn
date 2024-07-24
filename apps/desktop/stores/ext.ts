@@ -1,4 +1,4 @@
-import { CustomUiCmd, ExtPackageJsonExtra } from "@kksh/schema"
+import { CustomUiCmd, ExtPackageJsonExtra } from "@kksh/api/models"
 import { defineStore } from "pinia"
 import { object, optional, string, type InferOutput } from "valibot"
 

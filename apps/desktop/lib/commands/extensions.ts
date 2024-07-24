@@ -1,5 +1,5 @@
 import { db } from "@kksh/api/commands"
-import { ExtPackageJson, ExtPackageJsonExtra } from "@kksh/schema"
+import { ExtPackageJson, ExtPackageJsonExtra } from "@kksh/api/models"
 import { basename, dirname, join } from "@tauri-apps/api/path"
 import { readDir, readTextFile } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
