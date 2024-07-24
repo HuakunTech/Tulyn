@@ -49,11 +49,11 @@ async function checkUpdate() {
             <Icon name="mdi:github" class="inline -translate-y-0.5 text-white" />
           </TauriLink>
         </p>
-        <TauriLink href="https://github.com/HuakunTech/Jarvis">
+        <TauriLink href="https://github.com/HuakunTech/kunkun">
           Akun Source Code
           <Icon name="mdi:github" class="inline -translate-y-0.5 text-white" />
         </TauriLink>
-        <TauriLink href="https://github.com/HuakunTech/JarvisExtensions">
+        <TauriLink href="https://github.com/HuakunTech/kunkunExtensions">
           Extensions Source Code
           <Icon name="mdi:github" class="inline -translate-y-0.5 text-white" />
         </TauriLink>

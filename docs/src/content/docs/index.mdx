@@ -3,7 +3,7 @@ title: Kunkun
 description: Cross-platform Extensible App Launcher
 template: splash
 hero:
-  tagline: An open source, extensible, cross-platform alternative to Alfred and Raycast
+  tagline: An open source, extensible, cross-platform app launcher. Alternative to Alfred and Raycast.
   image:
     file: ../../assets/kunkun-logo-gray.svg
   actions:
@@ -26,13 +26,15 @@ import { Card, CardGrid } from "@astrojs/starlight/components";
 
 <CardGrid stagger>
   <Card title="Cross-Platform" icon="linux">
-    Support MacOS, Windows (`WIP`), Linux.
+    Supports macOS, Windows, and Linux.
+    Extensions are designed to be write-once, run-anywhere.
   </Card>
   <Card title="Extensible" icon="puzzle">
-    Write your own extension in JavaScript. Install extensons from a store.
+    Create custom extensions using JavaScript. An extension store is available for sharing and discovering extensions. 
+    You can also install extensions freely from any source.
   </Card>
   <Card title="Extension Permission Management">
-    Extensions have limited access to system resource. Only declared permissions are granted.
+    Extensions are designed with controlled access to your system, requesting only the permissions necessary for their operation.
   </Card>
-  <Card title="Open Source">All extensions and the App itself are open source.</Card>
+  <Card title="Open Source">You have the ability to examine both application and extension code.</Card>
 </CardGrid>

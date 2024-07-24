@@ -5,9 +5,9 @@ sidebar:
   order: 2
 ---
 
-Jarvis includes built-in system commands for essential tasks such as emptying the trash, restarting, shutting down, and adjusting the volume.
+KK includes built-in system commands for essential tasks such as emptying the trash, restarting, shutting down, and adjusting the volume.
 
-Here is a list of system commands that Jarvis supports and their status. I aim to support all commands provided by Raycast and Alfred. While some commands may be platform specific, I will try to implement them for all platforms.
+Here is a list of system commands that KK supports and their status. I aim to support all commands provided by Raycast and Alfred. While some commands may be platform specific, I will try to implement them for all platforms.
 
 ## Raycast System Commands
 

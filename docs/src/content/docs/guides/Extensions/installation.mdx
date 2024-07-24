@@ -2,10 +2,10 @@
 title: Extension Installation
 description: Installation of Extensions
 sidebar:
-  order: 0
+  order: 1
 ---
 
-> Multiple methods are available for installing extensions in Jarvis.
+> Multiple methods are available for installing extensions in Kunkun.
 
 ## Extension Store
 
@@ -15,6 +15,8 @@ In the settings, under extensions tab, you can delete extensions.
 
 ## For Developers
 
+> This section is for developers and advanced users.
+
 Regular users are recommanded to use the Extension Store to install extensions.
 
 The following methods are designed for developers and more advanced users who may want to install extensions from other sources or develop an extension.
@@ -23,7 +25,7 @@ The installation interface is under settings page, developer tab.
 
 ### Remote Tarball URL
 
-Provide a URL to the tarball `.tgz` file of the extension. It can be hosted on any server, such as asset in a GitHub release, or NPM package.
+Provide an URL to the tarball `.tgz` file of the extension. It can be hosted on any server, such as asset in a GitHub release, or NPM package.
 
 - e.g. https://registry.npmjs.org/@huakunshen/jarvis-ext-qrcode/-/jarvis-ext-qrcode-0.0.0.tgz
 
@@ -31,17 +33,21 @@ Provide a URL to the tarball `.tgz` file of the extension. It can be hosted on a
 
 NPM is one of the most successful package manager in the world. It is used by millions of developers to share their code.
 
-It makes sense to use it to share Jarvis extensions.
+It makes sense to use it to share KK extensions.
 
-However, I don't want to use `npm` command to install extensions, as that will requires end users to have `npm` installed on their system, or Jarvis to have a `npm` binary embedded. Moreover, this will download the development dependencies of the extension.
+However, I don't want to use `npm` command to install extensions, as that will requires end users to have `npm` installed on their system, or KK to have an `npm` binary embedded. 
+Moreover, this will download unnecessary development dependencies of the extension.
 
-NPM's API `https://registry.npmjs.org/{package-name}/{version}` provides a link to the tarball `.tgz` file of the package. This is what we will use to download the extension. We can set `version` to latest to get the latest version of the package.
-
-You can enter the pacakge name (e.g. @huakunshen/jarvis-ext-qrcode), Jarvis will download the latest version of the package.
+NPM's API `https://registry.npmjs.org/{package-name}/{version}` provides a link to the tarball `.tgz` file of the package. This is what we will use to download the extension. 
+We can set `version` to latest to get the latest version of the package.
 
 ### Manual
 
-There are two directories in Jarvis for extensions, one of them is for developing extensions, the other is for extensions installed from store.
+Manual mode is used to develop an extension locally.
+
+There are two directories for extensions, one of them is for developing extensions, the other is for extensions installed from store.
+
+Extensions installed from Tarball files/urls are also installed in the development extension directory.
 
 Under settings page, developer tab, you can set the dev extension path. Extensions placed in this directory will be loaded as development extensions.
 
@@ -67,9 +73,9 @@ The tarball has to be produced by `npm pack` command.
 
 Under settings/developer page, you can also enter a URL of a website that hosts the extension.
 
-For example, you can use it for local development. Add a remote extension with URL: http://localhost:5173
+For example, you can use it for local development. Add a remote extension with URL: http://localhost:5173 to load your local extension through dev server with hot reload.
 
 Theoretically you could even add any website as a remote extension (e.g. https://google.com),
-but it is not recommended for security and privary concerns. The website could potentially run malicious code in Jarvis.
+but it is not recommended for security and privary concerns. The website could potentially run malicious code in Kunkun.
 
 Limited permissions are granted to remote extensions. They cannot access file system or clipboard, but it's still possible to leak information if you are using a non-localhost remote extension.

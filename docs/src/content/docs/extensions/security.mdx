@@ -9,11 +9,11 @@ Extension is a powerful feature that allows users to extend the functionality ho
 
 However, great functionality requires access to file system and system APIs, which can be dangerous if not properly secured.
 
-Since community maintained extensions can be installed to Jarvis, there is no guarantee that the extension is safe,
+Since community maintained extensions can be installed to Kunkun, there is no guarantee that the extension is safe,
 just like other extension systems like Chrome extensions, VSCode Extensions, Raycast Extensions, etc.
 We can only try to maintain a safety design to minimize the risk.
 
-All extensions are open sourced in GitHub Repo [JarvisExtensions](https://github.com/HuakunTech/JarvisExtensions/) for transparency and security review.
+All extensions are open sourced in GitHub Repo [KunkunExtensions](https://github.com/HuakunTech/KunkunExtensions/) for transparency and security review.
 
 Before a new extension is added, I will review the code and make sure it is safe to use.
 But there is no guarantee that the extension is completely safe as I can't review and test every single line of code.
@@ -25,16 +25,16 @@ This gives extensions a lot of power to do anything they want, but also makes it
 
 Although their extensions are all open sourced for review, there is still a risk that the extension can do something malicious.
 
-Jarvis also takes advantages of system APIs to provide powerful features, but it also has a multi-level
+KK also takes advantages of system APIs to provide powerful features, but it also has a multi-level
 permission management system to control what an extension can do.
 
-Jarvis is designed to take a similar approach to Chrome extensions, where the required permission for an app must be declared in the manifest file.
+KK is designed to take a similar approach to Chrome extensions, where the required permission for an app must be declared in the manifest file.
 
 The extension store will show the required permissions for each extension, and the user can decide whether to install it or not.
 
 For example, if a timer extension is expected to request notification permission, but not clipboard permission.
 
-Jarvis splits exposed APIs into different permission groups. e.g. clipboard APIs have `clipboard-read` and `clipboard-write` permissions.
+KK splits exposed APIs into different permission groups. e.g. clipboard APIs have `clipboard:read-text`, `clipboard:read-all`, `clipboard:write-image` and more.
 Extensions should only request the minimum required permissions.
 
 File system APIs will also have different access scopes. e.g.
@@ -53,7 +53,7 @@ Fore more details about permission declaration, see [Extension Permissions](./pe
 
 Buildtime threats are the threats that happen when the extension is being built. e.g.
 
-All extensions are open sourced in GitHub Repo [JarvisExtensions](https://github.com/HuakunTech/JarvisExtensions/).
+All extensions are open sourced in GitHub Repo [KunkunExtensions](https://github.com/HuakunTech/KunkunExtensions/).
 
 It's a pnpm monorepo, CI will build all extensions to make sure they can be built.
 

@@ -2,16 +2,16 @@
 title: Write Extension
 description: Write your own extension in JavaScript. Install extensons from a store.
 sidebar:
-  order: 1
+  order: 2
 ---
 
 :::note
-Jarvis is designed to be extensible like VSCode, Raycast, and Alfred. You can write your own plugins to extend Jarvis's functionality, making it highly customizable. Each extension is a lightweight applet written in JavaScript using web technologies, which can be developed with virtually any framework (React, Vue, Svelte) as long as it can be generated as a static website. This allows for complex UI designs without any restrictions.
+Kunkun is designed to be extensible like VSCode, Raycast, and Alfred. You can write your own extensions to extend Kunkun's functionality, making it highly customizable. Each extension is a lightweight applet written in JavaScript using web technologies, which can be developed with virtually any framework (React, Vue, Svelte) as long as it can be generated as a static website. This allows for complex UI designs without any restrictions.
 :::
 
-> This guide only talks about how to write an extension. To learn more about the design and security model , see [Extensions Doc](/extensions).
+> This guide only talks about how to write an extension. To learn more about the design and security model , see [Extensions Doc](/extensions)**.**
 
-https://github.com/HuakunTech/JarvisExtensions is the repository containing all extensions for Jarvis.
+https://github.com/HuakunTech/KunkunExtensions is the repository containing all extensions for KK.
 
 Under the `extension-template` you can grab a template to start your own extension.
 
@@ -23,21 +23,20 @@ I will make a video tutorial to demonstrate how to write an extension once the d
 
 ### Init Project
 
-If you want to add the extension to the Jarvis store, you can fork https://github.com/HuakunTech/JarvisExtensions and add your extension to the `extensions` directory.
+If you want to add the extension to the extension store, you can fork https://github.com/HuakunTech/kunkunExtensions and add your extension to the `extensions` directory.
 
 Otherwise, just create a new project.
 
-Pick any web framework you like. You can grab a template from https://github.com/HuakunTech/JarvisExtensions.
+Pick any web framework you like. You can grab a template from https://github.com/HuakunTech/KunkunExtensions.
 
 Open `package.json` in root and and the `$schema` field to the top of the file.
 
-Add `jarvis` field to the `package.json` to specify the extension name, identifier, short description, long description, etc.
+Add `kunkun` field to the `package.json` to specify the extension name, identifier, short description, long description, etc.
 
 ```json title="package.json"
 {
-    "$schema": "https://schema.kunkun.sh
-",
-    "jarvis": {
+    "$schema": "https://schema.kunkun.sh",
+    "kunkun": {
         "name": "JWT Inspector",
         "shortDescription": "JWT Inspector",
         "longDescription": "JWT Inspector",
@@ -50,21 +49,23 @@ Add `jarvis` field to the `package.json` to specify the extension name, identifi
 
 VSCode should provide intellisense for the fields in the manifest file. Missing fields and wrong data types will be highlighted.
 
+Any existing web app can be converted to a Kunkun extension, by adding the `kunkun` field to the `package.json`.
+
 ### Install API
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 
-Use `pnpm` if you are adding to `JarvisExtensions` repo as it uses `pnpm` workspace.
+Use `pnpm` if you are adding to `KunkunExtensions` repo as it uses `pnpm` workspace.
 
 <Tabs>
   <TabItem label="pnpm">
     ```bash
-    pnpm add jarvis-api
+    pnpm add @kksh/api
     ```
   </TabItem>
   <TabItem label="npm">
     ```bash
-    npm install jarvis-api
+    npm install @kksh/api
     ```
   </TabItem>
 </Tabs>
@@ -78,26 +79,25 @@ Only declared permissions can be accessed. This is to protect user's privacy.
 ```json title="package.json"
 {
     ...
-    "jarvis": {
+    "kunkun": {
         ...
         "permissions": [
-            "clipboard-read",
-            "clipboard-write",
-            "fs-home"
+            "clipboard:read-text",
+            "clipboard:write-all",
+            "fs:read-dir"
         ]
     }
 }
 ```
 
-[Extension Permission Doc](/extensions/permissions/) a list of all permissions.
-
+See [Extension Permission Doc](/extensions/permissions/) for a list of all permissions and their descriptions.
 
 ### Develop
 
-It is just a web app. System APIs can be accessed through `jarvis-api/ui`.
+It is just a web app. System APIs can be accessed through `@kksh/api/ui`.
 
 ```ts
-import { clipboard, fs, dialog, notification } from 'jarvis-api/ui';
+import { clipboard, fs, dialog, notification } from '@kksh/api/ui/worker';
 
 const text = await clipboard.readText();
 ```
@@ -117,10 +117,10 @@ Under Settings/Developer/Installation, set Dev Extension Path to the directory c
 
 import { FileTree } from '@astrojs/starlight/components';
 
-If you are using the `JarvisExtensions` repo, set it to `JarvisExtensions/extensions`.
+If you are using the `KunkunExtensions` repo, set it to `KunkunExtensions/extensions`.
 
 <FileTree>
-- JarvisExtensions
+- KunkunExtensions
   - extensions
     - ext-qrcode
       - package.json
@@ -132,9 +132,9 @@ If you are using the `JarvisExtensions` repo, set it to `JarvisExtensions/extens
 
 Now go back to the main search in home page, you should see the extension loaded. Dev extensions should have a <span class="bg-green-600 px-1 dark:text-black text-white font-bold rounded-sm">DEV</span> tag.
 
-But selecting your dev extension command won't work yet. By default, Jarvis loads the `main` field in `package.json` `jarvis` settings.
+But selecting your dev extension command won't work yet. By default, KK loads the `main` field in `package.json` `kunkun` settings.
 
-For the following example, Jarvis tries to load `dist/index.html`. So you have to run `npm run build` to generate the `dist` directory first before you can load the command.
+For the following example, KK tries to load `dist/index.html`. So you have to run `npm run build` to generate the `dist` directory first before you can load the command.
 
 ```json title="package.json"
 {
@@ -142,7 +142,7 @@ For the following example, Jarvis tries to load `dist/index.html`. So you have t
 ",
   "name": "jarvis-ext-jwt",
   "description": "JWT Inspector",
-  "jarvis": {
+  "kunkun": {
     "name": "Hacker News",
     "identifier": "sh.kunkun.hacker-news",
     "shortDescription": "List latest top hacker news",
@@ -178,7 +178,7 @@ It's annoying to run `npm run build` every time you make a change.
 
 Go to settings page, under general tab, enable `Dev Extension URL`.
 
-Now, Jarvis will load the `devMain` URL installed of `main`.
+Now, KK will load the `devMain` URL installed of `main`.
 
 #### Window Customization
 
@@ -202,11 +202,11 @@ In `Sample Package JSON`, in a UI Command, type double quote in a window object.
 
 ### Verify Extension
 
-After the extension is ready, you need to pack it and verify that it can be loaded in Jarvis.
+After the extension is ready, you need to pack it and verify that it can be loaded in KK.
 
 1. Disable `Dev Extension URL` in settings, general tab.
 2. Run `npm run build` to generate the `dist` directory.
-3. Try to load the dev extension in Jarvis, i.e. Search for your dev extension and select it to see if the UI can be loaded.
+3. Try to load the dev extension in KK, i.e. Search for your dev extension and select it to see if the UI can be loaded.
 4. Make sure `files` field in `package.json` only includes necessary files. e.g. `"files": ["dist"]`.
 5. Run `npm pack` to generate a tarball file.
     - Decompress the tarball file to see if only necessary files are included.
@@ -214,11 +214,11 @@ After the extension is ready, you need to pack it and verify that it can be load
     - The tarball file is decompressed to the dev extension path.
     - You may want to change the dev extension path as the new extension will be installed in the dev extension path as well, where your dev project is. And 2 extensions with the same identifier will be loaded.
     - The new extension's folder name will be the identifier, so it shouldn't override existing extensions.
-7. Check to see if the extension UI can be loaded in Jarvis.
-8. Run validation script if you are adding to `JarvisExtensions` repo.
+7. Check to see if the extension UI can be loaded in KK.
+8. Run validation script if you are adding to `KunkunExtensions` repo.
 
     <FileTree>
-    - JarvisExtensions
+    - KunkunExtensions
       - ci
         - validate.ts
       - extensions
@@ -232,7 +232,7 @@ After the extension is ready, you need to pack it and verify that it can be load
 
 
     ```bash
-    pnpm install # install dependencies for the JarvisExtensions monorepo
+    pnpm install # install dependencies for the KunkunExtensions monorepo
     pnpm clean # clean all extensions, remove all `.tgz` files
     cd ci
     bun validate.ts # I use bun to directly run TypeScript file
@@ -254,22 +254,22 @@ After the extension is ready, you need to pack it and verify that it can be load
 
 ## Publish
 
-For now, Jarvis doesn't have a website like Raycast for extensions. 
+For now, KK doesn't have a website like Raycast for extensions. 
 
-You can send a PR to [`JarvisExtensions`](https://github.com/HuakunTech/JarvisExtensions) repo to add your extension. 
+You can send a PR to [`KunkunExtensions`](https://github.com/HuakunTech/kunkunExtensions) repo to add your extension. 
 
 Once your PR is merged, your extension will be compiled in a isolated environment with docker and uploaded to the store.
 
 ## Notes
 
 - Any web frameworks can be used to develop extensions. e.g. React, Vue, Svelte, Vanilla JS.
-- To keep your UI consistent with Jarvis, it is recommended to use Shadcn
+- To keep your UI consistent with KK, it is recommended to use Shadcn
   - Shadcn is a beautiful and customizable tailwind library.
   - They reason I choose it is because
     - I love using Tailwind
     - Shadcn is avaialble in React (https://ui.shadcn.com/), Vue (https://shadcn-vue.com/), Svelte (https://www.shadcn-svelte.com/), 
       this helps keeping the UI consistent across different frameworks.
-- The Jarvis desktop app is built with Astro + Vue + Shadcn-Vue + Element Plus.
+- The KK desktop app is built with Astro + Vue + Shadcn-Vue + Element Plus.
   - If you use Vue, you can also add Element Plus to your stack. Shadcn doesn't have good toast component. I mainly use Element Plus for notifications.
 - Follow the manifest schema in `package.json`, otherwise your extension will not be loaded. See [Extension Manifest Validator](/developer/manifest/).
 - Before packing your extension, make sure only necessary files are included in `files` field in `package.json`. This is to reduce the size of the extension.
