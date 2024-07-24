@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { db, JarvisExtDB } from "@kunkunsh/api/commands"
-import { constructJarvisServerAPIWithPermissions, exposeApiToWindow } from "@kunkunsh/api/ui"
+import { db, JarvisExtDB } from "@kksh/api/commands"
+import { constructJarvisServerAPIWithPermissions, exposeApiToWindow } from "@kksh/api/ui"
 import {
   convertJarvisExtDBToServerDbAPI,
   type IDbServer,
   type IUiIframe
-} from "@kunkunsh/api/ui/iframe"
+} from "@kksh/api/ui/iframe"
 import { toast } from "vue-sonner"
 import { useExtStore } from "../stores/ext"
 

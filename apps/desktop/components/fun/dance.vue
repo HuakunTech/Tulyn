@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { cn } from "@/lib/utils"
-import { decompressFrame, deserializeFrame } from "@kunkunsh/dance"
+import { decompressFrame, deserializeFrame } from "@kksh/dance"
 import type { HTMLAttributes } from "vue"
 
 const interval = ref<NodeJS.Timeout | null>(null)

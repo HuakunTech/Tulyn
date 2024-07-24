@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { CommandGroup, CommandItem, CommandList } from "@/components/ui/command"
-import { List, ListSchema, WorkerExtension } from "@kunkunsh/api/ui/worker"
+import { List, ListSchema, WorkerExtension } from "@kksh/api/ui/worker"
 
 defineProps<{ item: ListSchema.Item }>()
 </script>

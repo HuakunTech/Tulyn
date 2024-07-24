@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Button } from "@/components/ui/button"
 import { SUPABASE_URL } from "@/lib/constants"
-import { getDevExtensionFolder, getExtensionFolder, getServerPort } from "@kunkunsh/api/commands"
-// import { open } from "@kunkunsh/api/ui";
+import { getDevExtensionFolder, getExtensionFolder, getServerPort } from "@kksh/api/commands"
+// import { open } from "@kksh/api/ui";
 import { open } from "tauri-plugin-shellx-api"
 import { onMounted, ref } from "vue"
 

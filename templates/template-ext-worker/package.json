@@ -35,7 +35,7 @@
     "build": "rimraf dist && rollup -c"
   },
   "dependencies": {
-    "@kunkunsh/api": "workspace:*"
+    "@kksh/api": "workspace:*"
   },
   "devDependencies": {
     "@types/bun": "latest",

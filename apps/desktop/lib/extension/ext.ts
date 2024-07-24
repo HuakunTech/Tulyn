@@ -6,7 +6,7 @@ import {
   pathExists,
   registerExtensionWindow,
   unregisterExtensionWindow
-} from "@kunkunsh/api/commands"
+} from "@kksh/api/commands"
 import {
   CustomUiCmd,
   ExtPackageJsonExtra,
@@ -15,7 +15,7 @@ import {
   TListGroup,
   TListItem,
   WindowConfig
-} from "@kunkunsh/schema"
+} from "@kksh/schema"
 import { join } from "@tauri-apps/api/path"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import * as fs from "@tauri-apps/plugin-fs"

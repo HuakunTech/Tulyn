@@ -1,5 +1,5 @@
 <!-- <script setup lang="ts">
-import { clipboard, system } from "@kunkunsh/api/ui/iframe"
+import { clipboard, system } from "@kksh/api/ui/iframe"
 import { isMain } from "tauri-api-adapter"
 
 onMounted(() => {

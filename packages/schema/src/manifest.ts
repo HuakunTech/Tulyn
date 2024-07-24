@@ -1,4 +1,4 @@
-import { AllKunkunPermission, Icon } from "@kunkunsh/api/models"
+import { AllKunkunPermission, Icon } from "@kksh/api/models"
 import {
   array,
   boolean,

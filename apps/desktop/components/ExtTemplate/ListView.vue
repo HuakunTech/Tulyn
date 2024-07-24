@@ -3,8 +3,8 @@ import IconMultiplexer from "@/components/IconMultiplexer.vue"
 import { CommandGroup, CommandItem, CommandList } from "@/components/ui/command"
 import StrikeSeparator from "@/components/ui/separator/StrikeSeparator.vue"
 import { expose, type Remote } from "@huakunshen/comlink"
-import { IconEnum } from "@kunkunsh/api/models"
-import { List, ListSchema, WorkerExtension } from "@kunkunsh/api/ui/worker"
+import { IconEnum } from "@kksh/api/models"
+import { List, ListSchema, WorkerExtension } from "@kksh/api/ui/worker"
 import ListItem from "./ListItem.vue"
 
 const props = defineProps<{

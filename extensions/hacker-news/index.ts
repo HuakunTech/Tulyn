@@ -1,4 +1,4 @@
-import { IconEnum } from "@kunkunsh/api/models"
+import { IconEnum } from "@kksh/api/models"
 import {
   Action,
   expose,
@@ -9,7 +9,7 @@ import {
   ui,
   WorkerExtension,
   wrap
-} from "@kunkunsh/api/ui/worker"
+} from "@kksh/api/ui/worker"
 import {
   array,
   number,

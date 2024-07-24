@@ -1,4 +1,4 @@
-import { constructJarvisServerAPIWithPermissions, exposeApiToWorker, fs } from "@kunkunsh/api/ui"
+import { constructJarvisServerAPIWithPermissions, exposeApiToWorker, fs } from "@kksh/api/ui"
 
 export const useDevWorkerExt = () => {
   onMounted(async () => {

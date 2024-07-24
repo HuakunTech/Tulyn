@@ -1,4 +1,4 @@
-import { type Database } from "@kunkunsh/supabase"
+import { type Database } from "@kksh/supabase"
 import { createClient } from "@supabase/supabase-js"
 import { parse, string } from "valibot"
 import { ExtPackageJson } from "../src/manifest"

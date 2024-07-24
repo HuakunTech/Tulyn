@@ -1,7 +1,7 @@
 import {
   restartServer,
   setDevExtensionFolder as setDevExtensionFolderForServer
-} from "@kunkunsh/api/commands"
+} from "@kksh/api/commands"
 import { attachConsole, debug, error, info, trace } from "@tauri-apps/plugin-log"
 import { Store } from "@tauri-apps/plugin-store"
 import { useColorMode } from "@vueuse/core"

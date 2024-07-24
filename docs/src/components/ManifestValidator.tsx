@@ -1,4 +1,4 @@
-import { ExtPackageJson } from "@kunkunsh/schema"
+import { ExtPackageJson } from "@kksh/schema"
 import Editor, { type Monaco, type OnChange, type OnMount } from "@monaco-editor/react"
 import { useEffect, useMemo, useRef, useState } from "react"
 import { safeParse } from "valibot"
@@ -37,7 +37,7 @@ const defaultJson = `{
     "build": "rimraf dist && rollup -c"
   },
   "dependencies": {
-    "@kunkunsh/api": "workspace:*",
+    "@kksh/api": "workspace:*",
     "valibot": "^0.36.0"
   },
   "devDependencies": {

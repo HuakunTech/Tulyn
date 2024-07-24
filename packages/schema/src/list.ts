@@ -1,4 +1,4 @@
-import { Icon, IconType } from "@kunkunsh/api/models"
+import { Icon, IconType } from "@kksh/api/models"
 import {
   array,
   boolean,

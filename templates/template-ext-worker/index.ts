@@ -1,4 +1,4 @@
-import { expose, Icon, IconEnum, List, toast, ui, WorkerExtension } from "@kunkunsh/api/ui/worker"
+import { expose, Icon, IconEnum, List, toast, ui, WorkerExtension } from "@kksh/api/ui/worker"
 
 class ExtensionTemplate extends WorkerExtension {
   load() {

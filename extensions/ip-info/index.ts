@@ -12,7 +12,7 @@ import {
   ui,
   WorkerExtension,
   wrap
-} from "@kunkunsh/api/ui/worker"
+} from "@kksh/api/ui/worker"
 import { boolean, number, object, parse, safeParse, string, type InferOutput } from "valibot"
 
 const IpApiJsonSchema = object({

@@ -38,7 +38,7 @@
     "dist"
   ],
   "dependencies": {
-    "@kunkunsh/api": "workspace:*",
+    "@kksh/api": "workspace:*",
     "valibot": "^0.36.0"
   },
   "devDependencies": {

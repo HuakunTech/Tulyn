@@ -6,8 +6,8 @@ import {
   isWindowLabelRegistered,
   registerExtensionWindow,
   unregisterExtensionWindow
-} from "@kunkunsh/api/commands"
-import type { ExtensionLabelMap } from "@kunkunsh/api/models"
+} from "@kksh/api/commands"
+import type { ExtensionLabelMap } from "@kksh/api/models"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { onMounted, ref } from "vue"
 import CodeEditor from "./CodeEditor.vue"

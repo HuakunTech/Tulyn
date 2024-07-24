@@ -1,4 +1,4 @@
-import { ui } from "@kunkunsh/api/ui/iframe"
+import { ui } from "@kksh/api/ui/iframe"
 import {
   ActionPanel,
   Button,
@@ -13,7 +13,7 @@ import {
   CommandShortcut,
   ThemeProvider,
   VertifcalSeparator
-} from "@kunkunsh/react"
+} from "@kksh/react"
 import {
   ArrowLeftIcon,
   CalendarIcon,

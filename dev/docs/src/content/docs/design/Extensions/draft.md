@@ -43,7 +43,7 @@ Procedures
 API-Driven Design: write sample client code first
 
 ```ts title="extension/lib/index.js"
-import { ExtensionTemplate, FileFilter, open, setListView } from "@kunkunsh/api"
+import { ExtensionTemplate, FileFilter, open, setListView } from "@kksh/api"
 
 function customFindFile(filename: string, scope: string, depth: number = 5) {
   // ...

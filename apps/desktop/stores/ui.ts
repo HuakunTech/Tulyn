@@ -1,4 +1,4 @@
-import { Action as ActionSchema } from "@kunkunsh/api/models"
+import { Action as ActionSchema } from "@kksh/api/models"
 import { defineStore } from "pinia"
 import { object, optional, string, type InferOutput } from "valibot"
 

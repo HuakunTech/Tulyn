@@ -1,4 +1,4 @@
-import { AllKunkunPermission } from "@kunkunsh/api/models"
+import { AllKunkunPermission } from "@kksh/api/models"
 import { appDataDir, join } from "@tauri-apps/api/path"
 import WorkerExt from "~/pages/worker-ext.vue"
 // import { z } from "zod"

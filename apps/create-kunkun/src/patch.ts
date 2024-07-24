@@ -24,16 +24,16 @@ export function patchManifestSchema(pkgJsonPath: string) {
 
 export function patchApiPkg(pkgJsonPath: string) {
   const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, "utf-8"))
-  delete pkgJson.dependencies["@kunkunsh/react"]
-  delete pkgJson.dependencies["@kunkunsh/api"]
+  delete pkgJson.dependencies["@kksh/react"]
+  delete pkgJson.dependencies["@kksh/api"]
   fs.writeFileSync(pkgJsonPath, JSON.stringify(pkgJson, null, 2))
 }
 
 export function patchInstallAPI(dir: string) {
-  // cd into the directory and run `npm install`, and run `npm install @kunkunsh/react`
+  // cd into the directory and run `npm install`, and run `npm install @kksh/react`
   console.info(`Running: npm install`)
   execSync("npm install", { cwd: dir, stdio: "inherit" })
-  // TODO: Uncomment the following line after @kunkunsh/react is published
-  // console.info(`Running: npm install @kunkunsh/react`)
-  // execSync("npm install @kunkunsh/react", { cwd: dir, stdio: "inherit" })
+  // TODO: Uncomment the following line after @kksh/react is published
+  // console.info(`Running: npm install @kksh/react`)
+  // execSync("npm install @kksh/react", { cwd: dir, stdio: "inherit" })
 }
