@@ -355,10 +355,18 @@ export class List implements ListSchema.List, IComponent<ListSchema.List> {
   nodeName: NodeName = NodeNameEnum.List
   sections?: Section[]
   items?: Item[]
+  detail?: ItemDetail
 
-  constructor(model: OmitNodeName<ListSchema.List> & { sections?: Section[]; items?: Item[] }) {
+  constructor(
+    model: OmitNodeName<ListSchema.List> & {
+      sections?: Section[]
+      items?: Item[]
+      detail?: ItemDetail
+    }
+  ) {
     this.sections = model.sections
     this.items = model.items
+    this.detail = model.detail
   }
 
   toModel(): ListSchema.List {

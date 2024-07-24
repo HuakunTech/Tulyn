@@ -9,10 +9,14 @@ import { visualizer } from "rollup-plugin-visualizer"
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, "./src/index.ts"),
+      entry: [
+        // resolve(__dirname, "./src/index.ts")
+        "./src/index.ts",
+        "./src/button.ts"
+      ],
       name: "@kksh/react",
-      fileName: (format) => `index.${format}.js`,
-      formats: ["es", "cjs"]
+      // fileName: (format) => `index.${format}.js`,
+      formats: ["es"]
     },
     rollupOptions: {
       external: ["react", "react-dom", "tailwindcss"],

@@ -164,7 +164,8 @@ export type Section = InferOutput<typeof Section>
 export const List = object({
   nodeName: NodeName,
   sections: optional(array(Section)),
-  items: optional(array(Item))
+  items: optional(array(Item)),
+  detail: optional(ItemDetail)
 })
 // export type List = InferOutput<typeof List>
 /**
@@ -178,4 +179,5 @@ export type List = {
   nodeName: NodeName
   sections?: Section[]
   items?: Item[]
+  detail?: ItemDetail
 }
