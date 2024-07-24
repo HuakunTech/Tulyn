@@ -32,6 +32,11 @@
       "import": "./dist/commands/index.js",
       "require": "./dist/commands/index.cjs",
       "types": "./dist/commands/index.d.ts"
+    },
+    "./ui/permissions": {
+      "import": "./dist/ui/api/permissions.js",
+      "require": "./dist/ui/api/permissions.cjs",
+      "types": "./dist/ui/api/permissions.d.ts"
     }
   },
   "scripts": {
