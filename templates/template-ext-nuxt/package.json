@@ -1,0 +1,54 @@
+{
+  "$schema": "../../packages/schema/manifest-json-schema.json",
+  "name": "template-ext-nuxt",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "kunkun": {
+    "name": "template-ext-nuxt",
+    "shortDescription": "A Custom UI template for nuxt",
+    "longDescription": "A Custom UI template for nuxt",
+    "identifier": "sh.kunkun-ext-custom-nuxt",
+    "icon": {
+      "type": "iconify",
+      "value": "logos:nuxt-icon"
+    },
+    "demoImages": [],
+    "permissions": [],
+    "customUiCmds": [
+      {
+        "main": ".output/public/index.html",
+        "devMain": "http://localhost:5173",
+        "name": "Nuxt Template Home Page",
+        "cmds": [],
+        "window": {
+          "title": "Nuxt Template Home Page"
+        }
+      },
+      {
+        "main": ".output/public/about/index.html",
+        "devMain": "http://localhost:3000/about",
+        "name": "Nuxt Template About Page",
+        "cmds": [],
+        "window": {
+          "title": "Nuxt Template About Page"
+        }
+      }
+    ],
+    "templateUiCmds": []
+  },
+  "scripts": {
+    "build": "nuxt generate",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "nuxt": "^3.12.4",
+    "vue": "latest"
+  },
+  "files": [
+    "dist"
+  ]
+}

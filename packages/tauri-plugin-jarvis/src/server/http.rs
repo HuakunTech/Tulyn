@@ -45,11 +45,10 @@ async fn start_server(
     let mut rest_router = axum::Router::new()
         .route("/", get(web_root))
         .route("/info", get(get_server_info))
-        .layer(
-            CorsLayer::new()
-                .allow_origin("http://localhost:3000".parse::<HeaderValue>().unwrap())
-                .allow_methods([Method::GET]),
-        )
+        .layer(CorsLayer::permissive())
+        // CorsLayer::new()
+        //     .allow_origin("http://localhost:3000".parse::<HeaderValue>().unwrap())
+        //     .allow_methods([Method::GET]),
         .nest_service("/extensions", ServeDir::new(options.extension_folder))
         .with_state(server_state);
     if options.dev_extension_folder.is_some() {
