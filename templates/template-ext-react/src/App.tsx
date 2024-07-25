@@ -3,6 +3,7 @@ import {
   ActionPanel,
   Button,
   Command,
+  CommandDemo,
   CommandEmpty,
   CommandFooter,
   CommandGroup,
@@ -11,7 +12,10 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
+  ThemeCustomizer,
   ThemeProvider,
+  ThemeWrapper,
+  TooltipProvider,
   VertifcalSeparator
 } from "@kksh/react"
 import {
@@ -28,7 +32,7 @@ import {
 } from "@radix-ui/react-icons"
 import { useRef, useState } from "react"
 
-export default function App() {
+function App() {
   const [value, setValue] = useState("linear")
   const actionInputRef = useRef<HTMLInputElement | null>(null)
   const [input, setInput] = useState("")
@@ -73,7 +77,7 @@ export default function App() {
               <ArrowLeftIcon />
             </Button>
           </CommandInput>
-          <CommandList className="h-full grow">
+          <CommandList className="h-full">
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup heading="Suggestions">
               <CommandItem>
@@ -146,3 +150,5 @@ export default function App() {
     </ThemeProvider>
   )
 }
+
+export default App

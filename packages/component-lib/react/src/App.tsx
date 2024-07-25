@@ -1,3 +1,4 @@
+import { CommandDemo } from "@/components/cmd/demo"
 import { ThemeProvider } from "@/components/theme"
 import { ThemeCustomizer } from "@/components/theme/theme-customizer"
 import { Button } from "@/components/ui/button"
@@ -13,6 +14,7 @@ function App() {
         <TooltipProvider>
           <ThemeCustomizer />
         </TooltipProvider>
+        <CommandDemo />
       </ThemeWrapper>
       <ThemeWrapper>
         <Button>Hello</Button>
