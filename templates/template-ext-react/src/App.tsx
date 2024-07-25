@@ -47,7 +47,6 @@ export default function App() {
   return (
     <ThemeProvider>
       <main className="h-screen">
-        <span>{input}</span>
         <Command
           onValueChange={(v) => {
             setValue(v)
@@ -74,7 +73,7 @@ export default function App() {
               <ArrowLeftIcon />
             </Button>
           </CommandInput>
-          <CommandList className="h-full">
+          <CommandList className="h-full grow">
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup heading="Suggestions">
               <CommandItem>

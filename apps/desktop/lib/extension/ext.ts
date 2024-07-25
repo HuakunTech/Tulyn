@@ -15,6 +15,7 @@ import {
   TemplateUiCmd,
   WindowConfig
 } from "@kksh/api/models"
+// import { fetch } from "@kksh/api/ui"
 import { join } from "@tauri-apps/api/path"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import * as fs from "@tauri-apps/plugin-fs"
@@ -183,6 +184,8 @@ export class Extension implements IExtensionBase {
     const extStore = useExtStore()
     this.manifests.forEach((manifest) => {
       if (item.type == "UI Command") {
+        console.log(manifest.kunkun.customUiCmds)
+
         manifest.kunkun.customUiCmds.forEach(async (cmd) => {
           if (item.value === generateItemValue(manifest, cmd, this.isDev)) {
             let url = cmd.main
@@ -199,7 +202,11 @@ export class Extension implements IExtensionBase {
             }
             try {
               console.log("Loading extension UI at", url)
-              await fetch(url)
+              // fetch(url, { method: "GET" }).then(console.log).catch(console.error)
+              console.log(await fetch("https://ifconfig.me"))
+
+              // const res = await fetch('http://localhost:1568/dev-extensions/template-ext-react/dist/', { method: "GET" })
+              // console.log(res)
             } catch (err) {
               error(`Failed to load extension UI at ${url}: ${err}`)
               return ElNotification.error({

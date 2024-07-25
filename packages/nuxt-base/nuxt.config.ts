@@ -2,7 +2,17 @@
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "@vueuse/nuxt", "@nuxt/icon"],
+  modules: [
+    "@vueuse/nuxt",
+    "@nuxtjs/tailwindcss",
+    "shadcn-nuxt",
+    "@vueuse/nuxt",
+    "@nuxt/icon",
+    "@pinia/nuxt",
+    "@nuxtjs/device",
+    // "dayjs-nuxt",
+    "@pinia-plugin-persistedstate/nuxt"
+  ],
   components: [
     {
       path: "./components/ui",
