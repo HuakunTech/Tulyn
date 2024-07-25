@@ -6,7 +6,7 @@ export {
   CommandDemo,
   type ActionItemProps
 } from "./components/cmd"
-
+export * from "@/components/theme"
 export * from "@/components/ui/accordion"
 export * from "@/components/ui/alert-dialog"
 export * from "@/components/ui/alert"
@@ -31,7 +31,7 @@ export * from "@/components/ui/hover-card"
 export * from "@/components/ui/input-otp"
 export * from "@/components/ui/input"
 export * from "@/components/ui/label"
-// export * from "@/components/ui/menubar"
+export * from "@/components/ui/menubar"
 export * from "@/components/ui/navigation-menu"
 export * from "@/components/ui/pagination"
 export * from "@/components/ui/popover"
@@ -54,5 +54,3 @@ export * from "@/components/ui/toggle-group"
 export * from "@/components/ui/toggle"
 export * from "@/components/ui/tooltip"
 export * from "@/components/ui/use-toast"
-export { ThemeProvider } from "@/components/theme-provider"
-export { ModeToggle } from "@/components/theme-toggle"
