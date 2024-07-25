@@ -10,6 +10,8 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@radix-icons/vue": "^1.0.0",
+    "lucide-vue-next": "^0.399.0",
     "nuxt": "^3.12.4",
     "vue": "latest"
   }
