@@ -25,6 +25,8 @@ const iframeUiAPI: IUiIframe = {
 
 onMounted(async () => {
   // navigateTo("/")
+  console.log("iframe-ext onMounted")
+
   if (!extStore.currentCustomUiExt) {
     return navigateTo("/")
   }
@@ -41,11 +43,18 @@ onMounted(async () => {
   const dbAPI = new db.JarvisExtDB(extInfoInDB.extId)
   const extDBApi: IDbServer = convertJarvisExtDBToServerDbAPI(dbAPI)
   if (iframeRef.value && iframeRef.value.contentWindow) {
+    const serverAPI = constructJarvisServerAPIWithPermissions(
+      currentCustomUiExt.manifest.kunkun.permissions
+    )
+    console.log("serverAPI", serverAPI)
+
     exposeApiToWindow(iframeRef.value.contentWindow as Window, {
-      ...constructJarvisServerAPIWithPermissions(currentCustomUiExt.manifest.kunkun.permissions),
+      ...serverAPI,
       ...iframeUiAPI,
       ...extDBApi
     })
+  } else {
+    console.error("iframeRef not available")
   }
 })
 

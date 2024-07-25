@@ -11,7 +11,8 @@
     "permissions": [
       "clipboard:read-text",
       "clipboard:write-text",
-      "fetch:all"
+      "fetch:all",
+      "notification:all"
     ],
     "demoImages": [],
     "icon": {

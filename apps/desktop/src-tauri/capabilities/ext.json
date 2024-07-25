@@ -43,7 +43,6 @@
     "upload:default",
     "upload:allow-download",
     "os:default",
-    "os:default",
     "notification:default",
     "notification:allow-is-permission-granted",
     "notification:allow-notify",
@@ -57,7 +56,6 @@
     "jarvis:allow-all-store",
     "jarvis:allow-app-is-dev",
     "jarvis:allow-open-devtools",
-    "jarvis:allow-get-selected-files-in-file-explorer",
-    "upload:default"
+    "jarvis:allow-get-selected-files-in-file-explorer"
   ]
 }

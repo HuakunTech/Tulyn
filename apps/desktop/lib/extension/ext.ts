@@ -60,6 +60,8 @@ export function cmdToItem(
 
 function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: CustomUiCmd, url: string) {
   // return registerExtensionWindow(manifest.extPath).then(async (windowLabel) => {
+  // const windowLabel = `main:sveltekit`
+  // const windowLabel = `ext:${uuidv4()}`
   const windowLabel = `main:ext:${uuidv4()}`
   const window = new WebviewWindow(windowLabel, {
     center: cmd.window?.center ?? undefined,
@@ -93,7 +95,7 @@ function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: CustomUi
     closable: cmd.window?.closable ?? undefined,
     parent: cmd.window?.parent ?? undefined,
     visibleOnAllWorkspaces: cmd.window?.visibleOnAllWorkspaces ?? undefined,
-    url
+    url: "/iframe-ext"
   })
   window.onCloseRequested(async (event) => {
     // await unregisterExtensionWindow(window.label)
@@ -214,10 +216,10 @@ export class Extension implements IExtensionBase {
                 message: "Consider Running the TroubleShooter or turn off dev mode"
               })
             }
+            extStore.setCurrentCustomUiExt({ url, cmd, manifest })
             if (cmd.window) {
               createNewExtWindowForUiCmd(manifest, cmd, url)
             } else {
-              extStore.setCurrentCustomUiExt({ url, cmd, manifest })
               navigateTo("/iframe-ext")
             }
           }

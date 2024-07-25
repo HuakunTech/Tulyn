@@ -30,7 +30,8 @@ import {
   RocketIcon,
   TwitterLogoIcon
 } from "@radix-ui/react-icons"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import {clipboard, notification} from '@kksh/api/ui/iframe'
 
 function App() {
   const [value, setValue] = useState("linear")
@@ -38,6 +39,14 @@ function App() {
   const [input, setInput] = useState("")
   const listRef = useRef(null)
   const seachInputEle = useRef<HTMLInputElement | null>(null)
+
+  useEffect(() => {
+    clipboard.readText().then((text) => {
+      console.log(text);
+    })
+    notification.sendNotification("hihi")
+  }, [])
+
   function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === "Escape") {
       if (input.length === 0) {

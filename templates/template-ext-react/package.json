@@ -14,7 +14,11 @@
       "value": "logos:react"
     },
     "demoImages": [],
-    "permissions": [],
+    "permissions": [
+      "clipboard:read-all",
+      "clipboard:write-all",
+      "notification:all"
+    ],
     "customUiCmds": [
       {
         "main": "dist",
