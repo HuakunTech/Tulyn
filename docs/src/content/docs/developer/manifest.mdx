@@ -8,25 +8,30 @@ sidebar:
 :::caution
 Kunkun is still in early development, the extension schema is not finalized yet, and could change any time.
 
-I will try to make the schema as stable as possible, and be backward compatible. But there is no guarantee in the current stage.
+I will try to make the schema as stable as possible, and backward compatible. But there is no guarantee in the current stage.
 
-To get the latest schema for nightly build: `https://extensions.jarvis.huakun.tech/nightly.schema.json`
+To get the schema for latest app release: `https://schema.kunkun.sh/`.
+
+To get the nightly release for latest app in development: `https://schema.kunkun.sh/nightly/`.
 :::
 
-Kunkun extensions metadata is defined in `package.json`.
+Kunkun extensions metadata are defined in `package.json`.
 
-In order to facilitate the validation of the extension manifest, I provide some tools that can be used to validate the manifest file.
+Writing manifest file in json without intellisense is error-prone and comfusing.
+
+For better DX, I provide some tools for manifest file validation and intellisense.
 
 ## Json Schema
 
-In the `package.json` of your extension, you can add a `$schema` field. In VSCode,
+In the `package.json` of your extension, you can add a `$schema` field. In VSCode and most modern code editors,
 this will enable intellisense for the fields in the manifest file.
 Missing fields and wrong data types will be highlighted.
 
+The schema will run through a validator during loading and publishing. Without a valid manifest file, you will not be able to develop or publish the extension.
+
 ```json title="package.json"
 {
-    "$schema": "https://schema.kunkun.sh
-",
+    "$schema": "https://schema.kunkun.sh",
     ...
 }
 ```
@@ -38,16 +43,26 @@ If you don't want to include this in your `package.json`, you can also configure
   "json.schemas": [
     {
       "fileMatch": ["<path to extension>/package.json"],
-      "url": "https://schema.kunkun.sh
-"
+      "url": "https://schema.kunkun.sh"
     }
   ]
 }
 ```
 
+## Key Fields
+
+- `name` (`string`): The name of the extension.
+- `version` (`string`): The version of the extension.
+- `files` (`string[]`): The files to be included in the publish package. Only include necessary files. e.g. most of the time `["dist"]` is enough.
+- `kunkun`: Add extension details and commands info here.
+
 ## Playground
 
-Here are two playgrounds with schema enabled. You can validate your extension manifest.
+Here are two playgrounds with schema enabled. You can validate your extension manifest or experiment with the intellisense.
+
+:::caution
+You should see a yellow wiggle line under the line 1 of this `package.json`. Hover over it to see the error message. 
+:::
 
 <iframe
   className="w-full h-[50vh]"

@@ -3,6 +3,9 @@ title: Libraries
 description: Libraries Used or Could be Used in Jarvis
 ---
 
+Here are some libraries KK may use or could use in the future.
+This is just a note for myself so I don't forget about them.
+
 ## Features
 
 - https://github.com/erhanbaris/smartcalc: A text based calculator (GPL-2.0 license)

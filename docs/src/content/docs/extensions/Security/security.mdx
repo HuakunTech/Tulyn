@@ -32,6 +32,8 @@ KK is designed to take a similar approach to Chrome extensions, where the requir
 
 The extension store will show the required permissions for each extension, and the user can decide whether to install it or not.
 
+If an extension accessed APIs they didn't declare in the manifest file, the behaviour will be logged, and the user will be notified.
+
 For example, if a timer extension is expected to request notification permission, but not clipboard permission.
 
 KK splits exposed APIs into different permission groups. e.g. clipboard APIs have `clipboard:read-text`, `clipboard:read-all`, `clipboard:write-image` and more.
@@ -43,7 +45,7 @@ File system APIs will also have different access scopes. e.g.
 2. Access to all files in the user's home directory
 3. Access to all files in the system
 
-Fore more details about permission declaration, see [Extension Permissions](./permissions.dx).
+Fore more details about permission declaration, see [Extension Permissions](/extensions/security/permissions).
 
 ## Application Lifecycle Threats
 

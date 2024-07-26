@@ -1,0 +1,32 @@
+---
+title: Worker Template Extension
+sidebar:
+  order: 4
+---
+
+Worker Template Extension is a kind of lightweight extension running in web worker, 
+following pre-defined template, making it easy to develop extension with consistent GUI.
+
+## Installation
+
+Run the project scaffolding command to create a new project with Worker Template Extension.
+
+```bash
+npm init kunkun --template template
+```
+
+## Development
+
+```bash
+npm run build # build the extension, generate dist/index.js file, this is the entry file of the extension, make sure it's listed in the package.json
+npm run dev # start the development server, basically running rollup compile with watch mode
+```
+
+The `@kksh/api/dev` subpackage provides a `kununWorkerTemplateExtensionRollupPlugin` function.
+This is a rollup plugin used to hot reload the extension in development mode. 
+
+In dev mode (`npm run dev`), every time you save the file, the extension will be recompiled and Kunkun desktop app will be notified to reload the extension.
+Otherwise you need to manually reload the extension.
+
+The template should come with the `kununWorkerTemplateExtensionRollupPlugin` plugin already configured in the rollup config file.
+

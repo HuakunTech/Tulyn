@@ -1,0 +1,15 @@
+---
+title: Custom UI Extension
+sidebar:
+  order: 5
+---
+
+## Advanced Usage
+
+Although I previously mentioned that KK supports any SSG/CSR web apps as extensions, 
+this doesn't mean you can't run a web server in the extension.
+
+If you request shell permission in the manifest file, you can run a web server process in the 
+extension (e.g. with Node, Bun, Deno runtime if installed locally, [read more about runtime](/extensions/runtime)) 
+and communicate with the frontend. You can then implement pretty much anything you want.
+
