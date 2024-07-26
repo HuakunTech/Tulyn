@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 import path from "path"
 import { input, select } from "@inquirer/prompts"
+import { version as kkApiVersion } from "@kksh/api/package.json"
 import chalk from "chalk"
 import { Command, Option } from "commander"
 import fs from "fs-extra"
 import pkgJson from "./package.json"
 import { getTemplateRoot } from "./src/constants"
-import { cleanExtension, patchApiPkg, patchInstallAPI, patchManifestSchema } from "./src/patch"
+import { cleanExtension, patchInstallAPI, patchManifestSchema, patchPkgJsonDep } from "./src/patch"
 
 const cwd = process.cwd()
 const templateRoot = getTemplateRoot()
@@ -21,7 +22,12 @@ const program = new Command()
 program
   .version(pkgJson.version)
   .addOption(
-    new Option("-t, --template <template>", "Extension Template").choices(["react", "template"])
+    new Option("-t, --template <template>", "Extension Template").choices([
+      "react",
+      "template",
+      "nuxt",
+      "sveltekit"
+    ])
   )
   .addOption(new Option("-n, --name <name>", "Extension Name"))
   .addOption(new Option("-f, --force", "Overwrite existing files").default(false))
@@ -36,7 +42,7 @@ const options = program.opts<{
 }>()
 let template: Template | undefined = options.template
 let name = options.name
-console.log(options)
+console.log("Options:", options)
 
 const outdir = path.resolve(options.outdir)
 console.info(`${chalk.blue("Outdir: ")}${outdir}`)
@@ -76,13 +82,25 @@ function copyTemplate(templateDir: string, targetFolderName: string) {
           name: "Preset Template",
           value: "template",
           description:
-            "Write regular TypeScript logic in OOP manner to render extension UI from some presets. "
+            "Write regular TypeScript logic in OOP manner to render extension UI from some presets."
         },
         {
           name: "React Custom UI",
           value: "react",
           description:
             "Extension will be rendered within iframe as a regular web app. The UI can be arbitrarily complex. Choose this if you want to use React to build complex UI."
+        },
+        {
+          name: "Nuxt Custom UI",
+          value: "react",
+          description:
+            "Extension will be rendered within iframe as a regular web app. The UI can be arbitrarily complex. Choose this if you want to use Nuxt to build complex UI."
+        },
+        {
+          name: "Sveltekit Custom UI",
+          value: "react",
+          description:
+            "Extension will be rendered within iframe as a regular web app. The UI can be arbitrarily complex. Choose this if you want to use Sveltekit to build complex UI."
         }
       ]
     })
@@ -90,7 +108,7 @@ function copyTemplate(templateDir: string, targetFolderName: string) {
   if (!name) {
     name = await input({
       message: "Enter Extension Name",
-      default: "akun-extension"
+      default: `kunkun-extension-${template}`
     })
   }
 
@@ -99,15 +117,15 @@ function copyTemplate(templateDir: string, targetFolderName: string) {
     cleanExtension(destDir)
     const pkgJsonPath = path.join(destDir, "package.json")
     patchManifestSchema(pkgJsonPath)
-    patchApiPkg(pkgJsonPath)
-    patchInstallAPI(destDir)
+    patchPkgJsonDep(pkgJsonPath, kkApiVersion)
+    // patchInstallAPI(destDir)
   } else if (template === "react") {
     const destDir = copyTemplate(path.join(templateRoot, "template-ext-react"), name)
     cleanExtension(destDir)
     const pkgJsonPath = path.join(destDir, "package.json")
     patchManifestSchema(pkgJsonPath)
-    patchApiPkg(pkgJsonPath)
-    patchInstallAPI(destDir)
+    patchPkgJsonDep(pkgJsonPath, kkApiVersion)
+    // patchInstallAPI(destDir)
   } else {
     console.error("Invalid template")
     process.exit(1)

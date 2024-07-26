@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import CmdInput from "@/components/cmd-palette/CommandInput.vue"
 import ExtTemplateListView from "@/components/ExtTemplate/ListView.vue"
-import { Command } from "@/components/ui/command"
+import { Command, CommandList } from "@/components/ui/command"
 import { HTMLElementId } from "@/lib/constants"
 import { $appState } from "@/lib/stores/appState"
 import { expose, type Remote } from "@huakunshen/comlink"
@@ -207,6 +207,7 @@ watch(highlightedItemValue, (newVal, oldVal) => {
       :workerAPI="workerAPI!"
       :loading="loading"
     />
+    <CommandList v-else></CommandList>
     <CmdPaletteFooter />
   </Command>
 </template>

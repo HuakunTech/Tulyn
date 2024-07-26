@@ -14,7 +14,7 @@ export enum ListItemTypeEnum {
   RemoteCmd = "Remote Command",
   Command = "Command",
   UICmd = "UI Command",
-  InlineCmd = "Inline Command",
+  InlineCmd = "Template Command",
   SystemCmd = "System Command",
   Application = "Application",
   BuiltInCmd = "Built-In Command"

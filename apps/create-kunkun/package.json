@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@inquirer/prompts": "^5.2.1",
+    "@kksh/api": "workspace:*",
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
     "fs-extra": "^11.2.0"

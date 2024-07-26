@@ -1,6 +1,8 @@
 import { execSync } from "child_process"
 import path from "path"
+import { ExtPackageJson } from "@kksh/api/models"
 import fs from "fs-extra"
+import { flatten, safeParse } from "valibot"
 
 /* -------------------------------------------------------------------------- */
 /*                              Worker Extension                              */
@@ -22,11 +24,28 @@ export function patchManifestSchema(pkgJsonPath: string) {
   fs.writeFileSync(pkgJsonPath, JSON.stringify(pkgJson, null, 2))
 }
 
-export function patchApiPkg(pkgJsonPath: string) {
+/**
+ * Remove workspace:* dependencies and add dependencies with proper versions
+ * @param pkgJsonPath path to created template's package.json
+ * @param kkApiVersion @kksh/api version with the current create-kunkun version
+ */
+export function patchPkgJsonDep(pkgJsonPath: string, kkApiVersion: string) {
   const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, "utf-8"))
   delete pkgJson.dependencies["@kksh/react"]
   delete pkgJson.dependencies["@kksh/api"]
+  pkgJson.dependencies["@kksh/api"] = kkApiVersion
   fs.writeFileSync(pkgJsonPath, JSON.stringify(pkgJson, null, 2))
+}
+
+export function validatePackageJson(pkgJsonPath: string) {
+  const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, "utf-8"))
+  const parseRes = safeParse(ExtPackageJson, pkgJson)
+  if (!parseRes.success) {
+    console.error(
+      `Unexpected Error: Invalid package.json: ${flatten<typeof ExtPackageJson>(parseRes.issues)}`
+    )
+    process.exit(1)
+  }
 }
 
 export function patchInstallAPI(dir: string) {

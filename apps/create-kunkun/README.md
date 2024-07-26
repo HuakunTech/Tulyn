@@ -1,5 +1,14 @@
 # Akun Extension Initializer
 
+## Usage
+
 ```bash
-npm init akun
+npm init kunkun
+```
+
+## Develop
+
+```bash
+bun index.ts --help
+bun index.ts
 ```

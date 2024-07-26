@@ -230,7 +230,7 @@ export class Extension implements IExtensionBase {
             }
           }
         })
-      } else if (item.type === "Inline Command") {
+      } else if (item.type === "Template Command") {
         manifest.kunkun.templateUiCmds.forEach(async (cmd) => {
           if (item.value === generateItemValue(manifest, cmd, this.isDev)) {
             const main = cmd.main
@@ -240,7 +240,7 @@ export class Extension implements IExtensionBase {
               error(`Extension Script not found: ${scriptPath}`)
               return
             }
-            debug(`Running inline command: ${scriptPath}`)
+            debug(`Running Template command: ${scriptPath}`)
             extStore.setCurrentWorkerExt({
               manifest,
               cmdName: cmd.name
