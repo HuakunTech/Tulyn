@@ -22,13 +22,18 @@ describe("Verify Bundled Package", () => {
     const file = Bun.file(pkgJsonPath)
     const pkgJson = await file.json()
     const exports = pkgJson["exports"]
-    Object.entries(exports).forEach(([key, value]) => {
-      const exportPaths = v.parse(v.record(v.string(), v.string()), value)
-      Object.values(exportPaths).forEach(async (_path: string) => {
-        const resolvedPath = path.join(pkgRoot, _path)
-        console.log(resolvedPath)
+    Object.entries(exports).forEach(async ([key, value]) => {
+      const exportPaths = v.parse(v.union([v.record(v.string(), v.string()), v.string()]), value)
+      if (typeof exportPaths === "string") {
+        // special case for "./package.json"
+        const resolvedPath = path.join(pkgRoot, exportPaths)
         expect(await Bun.file(resolvedPath).exists()).toBe(true)
-      })
+      } else {
+        Object.values(exportPaths).forEach(async (_path: string) => {
+          const resolvedPath = path.join(pkgRoot, _path)
+          expect(await Bun.file(resolvedPath).exists()).toBe(true)
+        })
+      }
     })
   })
 })
