@@ -6,7 +6,6 @@ import {
   NodeNameEnum,
   WorkerExtension
 } from "@kksh/api/ui/worker"
-import { parseMarkdown } from "@nuxtjs/mdc/runtime"
 import Markdown from "./Markdown.vue"
 
 const props = defineProps<{

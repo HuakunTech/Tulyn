@@ -7,6 +7,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   modules: [
+    "@nuxtjs/mdc",
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
     "@nuxtjs/tailwindcss",
@@ -18,9 +19,8 @@ export default defineNuxtConfig({
     "dayjs-nuxt",
     // "@nuxtjs/supabase"
     "@nuxtjs/device",
-    "@nuxt/icon",
-    "@nuxt/content",
-    "@nuxtjs/mdc"
+    "@nuxt/icon"
+    // "@nuxtjs/mdc"
   ],
 
   shadcn: {

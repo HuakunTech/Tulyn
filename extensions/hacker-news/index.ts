@@ -4,11 +4,11 @@ import {
   expose,
   Icon,
   List,
+  Markdown,
   shell,
   toast,
   ui,
-  WorkerExtension,
-  Markdown
+  WorkerExtension
 } from "@kksh/api/ui/worker"
 import {
   array,
@@ -133,11 +133,13 @@ class HackerNews extends WorkerExtension {
         }
         this.items = parsed.output
         this.listitems = this.items.map(hackerNewsItemToListItem)
-        return ui.render(new List.List({ items: this.listitems, 
-          // detail: new List.ItemDetail({width: 50, children: [
-          //   new Markdown(`# Hacker News\n1. hello\n2. world\n\n**bold**`)
-          // ]})
-        })
+        return ui.render(
+          new List.List({
+            items: this.listitems
+            // detail: new List.ItemDetail({width: 50, children: [
+            //   new Markdown(`# Hacker News\n1. hello\n2. world\n\n**bold**`)
+            // ]})
+          })
         )
       })
       .catch((err) => {

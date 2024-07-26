@@ -15,7 +15,7 @@ const props = defineProps<{
   loading: boolean
 }>()
 let isScrolling = false
-let defaultDetailWidth = props.modelValue.detail ? (props.modelValue.detail?.width ?? 70) : 0
+let defaultDetailWidth = props.modelValue.detail ? props.modelValue.detail?.width ?? 70 : 0
 function onScroll(e: Event) {
   const element = e.target as HTMLElement
   if (!isScrolling && element?.scrollHeight - element?.scrollTop === element?.clientHeight) {
