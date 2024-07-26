@@ -2,19 +2,19 @@
 /*                                     API                                    */
 /* -------------------------------------------------------------------------- */
 export {
-  clipboard,
-  dialog,
-  event,
-  network,
-  fs,
-  notification,
-  os,
-  shell,
-  sysInfo,
-  path,
-  log,
-  updownload,
-  fetch
+	clipboard,
+	dialog,
+	event,
+	network,
+	fs,
+	notification,
+	os,
+	shell,
+	sysInfo,
+	path,
+	log,
+	updownload,
+	fetch
 } from "tauri-api-adapter/worker"
 export { constructJarvisServerAPIWithPermissions } from "./server"
 export type { IUiWorker, IUiIframe } from "./client"

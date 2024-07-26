@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { cn } from "@/lib/utils"
 import {
-  MenubarItem,
-  useForwardPropsEmits,
-  type MenubarItemEmits,
-  type MenubarItemProps
+	MenubarItem,
+	useForwardPropsEmits,
+	type MenubarItemEmits,
+	type MenubarItemProps
 } from "radix-vue"
 import { computed, type HTMLAttributes } from "vue"
 
@@ -13,25 +13,25 @@ const props = defineProps<MenubarItemProps & { class?: HTMLAttributes["class"]; 
 const emits = defineEmits<MenubarItemEmits>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+	const { class: _, ...delegated } = props
 
-  return delegated
+	return delegated
 })
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>
-  <MenubarItem
-    v-bind="forwarded"
-    :class="
-      cn(
-        'focus:bg-accent focus:text-accent-foreground relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
-        inset && 'pl-8',
-        props.class
-      )
-    "
-  >
-    <slot />
-  </MenubarItem>
+	<MenubarItem
+		v-bind="forwarded"
+		:class="
+			cn(
+				'focus:bg-accent focus:text-accent-foreground relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+				inset && 'pl-8',
+				props.class
+			)
+		"
+	>
+		<slot />
+	</MenubarItem>
 </template>

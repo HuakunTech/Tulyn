@@ -6,25 +6,25 @@ import { PaginationPrev, type PaginationPrevProps } from "radix-vue"
 import { computed, type HTMLAttributes } from "vue"
 
 const props = withDefaults(
-  defineProps<PaginationPrevProps & { class?: HTMLAttributes["class"] }>(),
-  {
-    asChild: true
-  }
+	defineProps<PaginationPrevProps & { class?: HTMLAttributes["class"] }>(),
+	{
+		asChild: true
+	}
 )
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+	const { class: _, ...delegated } = props
 
-  return delegated
+	return delegated
 })
 </script>
 
 <template>
-  <PaginationPrev v-bind="delegatedProps">
-    <Button :class="cn('h-9 w-9 p-0', props.class)" variant="outline">
-      <slot>
-        <ChevronLeftIcon />
-      </slot>
-    </Button>
-  </PaginationPrev>
+	<PaginationPrev v-bind="delegatedProps">
+		<Button :class="cn('h-9 w-9 p-0', props.class)" variant="outline">
+			<slot>
+				<ChevronLeftIcon />
+			</slot>
+		</Button>
+	</PaginationPrev>
 </template>

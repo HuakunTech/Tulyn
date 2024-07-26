@@ -12,9 +12,9 @@ export const ArgumentRequired = z.literal("required")
 export const ArgumentOptional = z.literal("optional")
 export const ArgumentNone = z.literal("none")
 export const ArgumentType = z.enum([
-  ArgumentRequired.value,
-  ArgumentOptional.value,
-  ArgumentNone.value
+	ArgumentRequired.value,
+	ArgumentOptional.value,
+	ArgumentNone.value
 ])
 // node types
 export const NodeTypeEvent = z.literal("event")

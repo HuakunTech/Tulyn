@@ -8,35 +8,35 @@ import { createClient } from "npm:@supabase/supabase-js@2"
 import { corsHeaders } from "../_shared/cors.ts"
 
 const supabase = createClient(
-  Deno.env.get("SUPABASE_URL")!,
-  Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+	Deno.env.get("SUPABASE_URL")!,
+	Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
 )
 Deno.serve(async (req) => {
-  // This is needed if you're planning to invoke your function from a browser.
-  // This will be triggered when the browser sends a preflight request.
-  if (req.method === "OPTIONS") {
-    return new Response("ok", { headers: corsHeaders })
-  }
+	// This is needed if you're planning to invoke your function from a browser.
+	// This will be triggered when the browser sends a preflight request.
+	if (req.method === "OPTIONS") {
+		return new Response("ok", { headers: corsHeaders })
+	}
 
-  const { identifier, version } = await req.json()
-  console.log({ identifier, version })
+	const { identifier, version } = await req.json()
+	console.log({ identifier, version })
 
-  if (!identifier || !version) {
-    return new Response("Invalid request. Identifier or Version Invalid", {
-      status: 400
-    })
-  }
-  const ret = await supabase.rpc("increment_downloads", {
-    t_identifier: identifier,
-    t_version: version
-  }) // call database function
-  const data = {
-    downloads: ret.data
-  }
+	if (!identifier || !version) {
+		return new Response("Invalid request. Identifier or Version Invalid", {
+			status: 400
+		})
+	}
+	const ret = await supabase.rpc("increment_downloads", {
+		t_identifier: identifier,
+		t_version: version
+	}) // call database function
+	const data = {
+		downloads: ret.data
+	}
 
-  return new Response(JSON.stringify(data), {
-    headers: { ...corsHeaders, "Content-Type": "application/json" }
-  })
+	return new Response(JSON.stringify(data), {
+		headers: { ...corsHeaders, "Content-Type": "application/json" }
+	})
 })
 
 /* To invoke locally:

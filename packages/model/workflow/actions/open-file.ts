@@ -9,10 +9,10 @@ export const OpenFileName = z.literal("open_file")
  * app field by default will be the default app for the file type. Can be modified to a specific app path
  */
 export const OpenFileNode = z
-  .object({
-    type: NodeTypeAction,
-    input: z.string().or(GeneralDefault),
-    app: z.string().or(GeneralDefault).default(GeneralDefault.value)
-  })
-  .merge(BaseNode)
-  .merge(Position)
+	.object({
+		type: NodeTypeAction,
+		input: z.string().or(GeneralDefault),
+		app: z.string().or(GeneralDefault).default(GeneralDefault.value)
+	})
+	.merge(BaseNode)
+	.merge(Position)

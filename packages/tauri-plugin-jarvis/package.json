@@ -1,37 +1,37 @@
 {
-  "name": "tauri-plugin-jarvis-api",
-  "version": "0.0.1-alpha.2",
-  "author": "Huakun",
-  "description": "",
-  "type": "module",
-  "exports": {
-    ".": {
-      "import": "./guest-js/index.ts"
-    }
-  },
-  "files": [
-    "guest-js",
-    "README.md"
-  ],
-  "scripts": {
-    "build:rollup": "rollup -c",
-    "prepublishOnly": "pnpm build",
-    "pretest": "pnpm build",
-    "develop": "rollup -c --watch"
-  },
-  "peerDependencies": {
-    "@tauri-apps/api": "~2.0.0-beta.15",
-    "@tauri-apps/plugin-fs": "~2.0.0-beta.7",
-    "@tauri-apps/plugin-log": "~2.0.0-beta.8",
-    "@tauri-apps/plugin-os": "~2.0.0-beta.7"
-  },
-  "dependencies": {
-    "@kksh/api": "workspace:*"
-  },
-  "devDependencies": {
-    "@rollup/plugin-typescript": "^11.1.6",
-    "rollup": "^4.9.6",
-    "tslib": "^2.6.2",
-    "typescript": "^5.3.3"
-  }
+	"name": "tauri-plugin-jarvis-api",
+	"version": "0.0.1-alpha.2",
+	"author": "Huakun",
+	"description": "",
+	"type": "module",
+	"exports": {
+		".": {
+			"import": "./guest-js/index.ts"
+		}
+	},
+	"files": [
+		"guest-js",
+		"README.md"
+	],
+	"scripts": {
+		"build:rollup": "rollup -c",
+		"prepublishOnly": "pnpm build",
+		"pretest": "pnpm build",
+		"develop": "rollup -c --watch"
+	},
+	"peerDependencies": {
+		"@tauri-apps/api": "~2.0.0-beta.15",
+		"@tauri-apps/plugin-fs": "~2.0.0-beta.7",
+		"@tauri-apps/plugin-log": "~2.0.0-beta.8",
+		"@tauri-apps/plugin-os": "~2.0.0-beta.7"
+	},
+	"dependencies": {
+		"@kksh/api": "workspace:*"
+	},
+	"devDependencies": {
+		"@rollup/plugin-typescript": "^11.1.6",
+		"rollup": "^4.9.6",
+		"tslib": "^2.6.2",
+		"typescript": "^5.3.3"
+	}
 }

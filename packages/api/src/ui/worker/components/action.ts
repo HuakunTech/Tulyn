@@ -5,28 +5,28 @@ import { Icon } from "./icon"
 import type { IComponent } from "./interfaces"
 
 export class Action implements ActionSchema.Action, IComponent<ActionSchema.Action> {
-  nodeName: NodeName = NodeNameEnum.Action
-  icon?: Icon
-  title: string
-  value?: string
+	nodeName: NodeName = NodeNameEnum.Action
+	icon?: Icon
+	title: string
+	value?: string
 
-  constructor(model: IconConstructorPatch<ActionSchema.Action>) {
-    this.icon = model.icon
-    this.title = model.title
-    this.value = model.value
-  }
+	constructor(model: IconConstructorPatch<ActionSchema.Action>) {
+		this.icon = model.icon
+		this.title = model.title
+		this.value = model.value
+	}
 
-  toModel(): {
-    nodeName: NodeNameEnum
-    title: string
-    icon?: Icon
-  } {
-    return {
-      nodeName: this.nodeName,
-      title: this.title,
-      icon: this.icon
-    }
-  }
+	toModel(): {
+		nodeName: NodeNameEnum
+		title: string
+		icon?: Icon
+	} {
+		return {
+			nodeName: this.nodeName,
+			title: this.title,
+			icon: this.icon
+		}
+	}
 }
 
 // export class ActionPanelSection
@@ -72,26 +72,26 @@ export class Action implements ActionSchema.Action, IComponent<ActionSchema.Acti
 // }
 
 export class ActionPanel implements ActionSchema.ActionPanel, IComponent<ActionSchema.ActionPanel> {
-  nodeName: NodeName = NodeNameEnum.ActionPanel
-  title?: string
-  items: Array<//   ActionPanelSection | ActionPanelSubmenu |
-  Action>
+	nodeName: NodeName = NodeNameEnum.ActionPanel
+	title?: string
+	items: Array<//   ActionPanelSection | ActionPanelSubmenu |
+	Action>
 
-  constructor(
-    model: OmitNodeName<ActionSchema.ActionPanel> & {
-      items: Array<//   ActionPanelSection | ActionPanelSubmenu |
-      Action>
-    }
-  ) {
-    this.title = model.title
-    this.items = model.items
-  }
+	constructor(
+		model: OmitNodeName<ActionSchema.ActionPanel> & {
+			items: Array<//   ActionPanelSection | ActionPanelSubmenu |
+			Action>
+		}
+	) {
+		this.title = model.title
+		this.items = model.items
+	}
 
-  toModel(): ActionSchema.ActionPanel {
-    return {
-      nodeName: this.nodeName,
-      title: this.title,
-      items: this.items.map((item) => item.toModel())
-    }
-  }
+	toModel(): ActionSchema.ActionPanel {
+		return {
+			nodeName: this.nodeName,
+			title: this.title,
+			items: this.items.map((item) => item.toModel())
+		}
+	}
 }

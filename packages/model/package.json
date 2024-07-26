@@ -1,17 +1,17 @@
 {
-  "name": "model",
-  "module": "index.ts",
-  "type": "module",
-  "devDependencies": {
-    "@types/uuid": "^9.0.7",
-    "bun-types": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "@tauri-apps/api": "^1.5.4",
-    "uuid": "^9.0.1",
-    "zod": "^3.23.8"
-  }
+	"name": "model",
+	"module": "index.ts",
+	"type": "module",
+	"devDependencies": {
+		"@types/uuid": "^9.0.7",
+		"bun-types": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@tauri-apps/api": "^1.5.4",
+		"uuid": "^9.0.1",
+		"zod": "^3.23.8"
+	}
 }

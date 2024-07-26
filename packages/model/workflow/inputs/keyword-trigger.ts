@@ -8,14 +8,14 @@ export const KeywordTriggerName = z.literal("keyword_trigger")
  * Argument can be none, required or optional, and will be passed to the next node.
  */
 export const KeywordTriggerNode = z
-  .object({
-    type: NodeTypeInput,
-    name: KeywordTriggerName,
-    argType: ArgumentType,
-    keyword: z.string(),
-    workflowIcon: z.string(),
-    title: z.string(),
-    subtext: z.string()
-  })
-  .merge(BaseNode)
-  .merge(Position)
+	.object({
+		type: NodeTypeInput,
+		name: KeywordTriggerName,
+		argType: ArgumentType,
+		keyword: z.string(),
+		workflowIcon: z.string(),
+		title: z.string(),
+		subtext: z.string()
+	})
+	.merge(BaseNode)
+	.merge(Position)

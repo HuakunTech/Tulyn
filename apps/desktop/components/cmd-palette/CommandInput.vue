@@ -5,36 +5,36 @@ import { ComboboxInput, useForwardProps, type ComboboxInputProps } from "radix-v
 import { computed, type HTMLAttributes } from "vue"
 
 defineOptions({
-  inheritAttrs: false
+	inheritAttrs: false
 })
 
 const props = defineProps<
-  ComboboxInputProps & {
-    class?: HTMLAttributes["class"]
-  }
+	ComboboxInputProps & {
+		class?: HTMLAttributes["class"]
+	}
 >()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+	const { class: _, ...delegated } = props
 
-  return delegated
+	return delegated
 })
 
 const forwardedProps = useForwardProps(delegatedProps)
 </script>
 
 <template>
-  <div class="flex items-center gap-2 border-b px-3" cmdk-input-wrapper>
-    <slot />
-    <ComboboxInput
-      v-bind="{ ...forwardedProps, ...$attrs }"
-      auto-focus
-      :class="
-        cn(
-          'placeholder:text-muted-foreground flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50',
-          props.class
-        )
-      "
-    />
-  </div>
+	<div class="flex items-center gap-2 border-b px-3" cmdk-input-wrapper>
+		<slot />
+		<ComboboxInput
+			v-bind="{ ...forwardedProps, ...$attrs }"
+			auto-focus
+			:class="
+				cn(
+					'placeholder:text-muted-foreground flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none disabled:cursor-not-allowed disabled:opacity-50',
+					props.class
+				)
+			"
+		/>
+	</div>
 </template>

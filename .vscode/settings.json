@@ -1,0 +1,16 @@
+{
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#22148A",
+    "titleBar.activeBackground": "#301DC1",
+    "titleBar.activeForeground": "#FCFCFF"
+  },
+  "json.schemas": [],
+  "editor.tabSize": 2,
+  "editor.indentSize": 2,
+  "editor.insertSpaces": false
+}

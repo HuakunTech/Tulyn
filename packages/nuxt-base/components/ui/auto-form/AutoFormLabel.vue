@@ -2,13 +2,13 @@
 import { FormLabel } from "@/components/ui/form"
 
 defineProps<{
-  required?: boolean
+	required?: boolean
 }>()
 </script>
 
 <template>
-  <FormLabel>
-    <slot />
-    <span v-if="required" class="text-destructive"> *</span>
-  </FormLabel>
+	<FormLabel>
+		<slot />
+		<span v-if="required" class="text-destructive"> *</span>
+	</FormLabel>
 </template>

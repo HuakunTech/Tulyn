@@ -1,49 +1,49 @@
 {
-  "productName": "Kunkun",
-  "version": "0.1.2",
-  "identifier": "sh.kunkun.desktop",
-  "build": {
-    "beforeDevCommand": "pnpm dev",
-    "devUrl": "http://localhost:3000",
-    "beforeBuildCommand": "pnpm generate",
-    "frontendDist": "../.output/public"
-  },
-  "app": {
-    "windows": [
-      {
-        "title": "",
-        "label": "main",
-        "width": 800,
-        "height": 600,
-        "resizable": true,
-        "fullscreen": false,
-        "titleBarStyle": "Transparent",
-        "hiddenTitle": true
-      }
-    ],
-    "security": {
-      "csp": null,
-      "assetProtocol": {
-        "enable": true,
-        "scope": ["**"]
-      }
-    }
-  },
-  "bundle": {
-    "active": true,
-    "targets": "all",
-    "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
-    ]
-  },
-  "plugins": {
-    "updater": {
-      "endpoints": ["https://github.com/HuakunTech/kunkun/releases/latest/download/latest.json"],
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDc1NENCRjZFM0JBOEQ0ODMKUldTRDFLZzdicjlNZFhHS0ZKYk13WkdZUTFUM01LNjkvVW5Bb2x1SnB1R0crbFRuMnlRSlJ0STgK"
-    }
-  }
+	"productName": "Kunkun",
+	"version": "0.1.2",
+	"identifier": "sh.kunkun.desktop",
+	"build": {
+		"beforeDevCommand": "pnpm dev",
+		"devUrl": "http://localhost:3000",
+		"beforeBuildCommand": "pnpm generate",
+		"frontendDist": "../.output/public"
+	},
+	"app": {
+		"windows": [
+			{
+				"title": "",
+				"label": "main",
+				"width": 800,
+				"height": 600,
+				"resizable": true,
+				"fullscreen": false,
+				"titleBarStyle": "Transparent",
+				"hiddenTitle": true
+			}
+		],
+		"security": {
+			"csp": null,
+			"assetProtocol": {
+				"enable": true,
+				"scope": ["**"]
+			}
+		}
+	},
+	"bundle": {
+		"active": true,
+		"targets": "all",
+		"icon": [
+			"icons/32x32.png",
+			"icons/128x128.png",
+			"icons/128x128@2x.png",
+			"icons/icon.icns",
+			"icons/icon.ico"
+		]
+	},
+	"plugins": {
+		"updater": {
+			"endpoints": ["https://github.com/HuakunTech/kunkun/releases/latest/download/latest.json"],
+			"pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDc1NENCRjZFM0JBOEQ0ODMKUldTRDFLZzdicjlNZFhHS0ZKYk13WkdZUTFUM01LNjkvVW5Bb2x1SnB1R0crbFRuMnlRSlJ0STgK"
+		}
+	}
 }

@@ -5,11 +5,11 @@ import { currentMonitor } from "@tauri-apps/api/window"
 import { z } from "zod"
 
 export const TauriToast = z.object({
-  variant: z
-    .union([z.literal("success"), z.literal("error"), z.literal("info"), z.literal("default")])
-    .default("default"),
-  duration: z.number().default(3000),
-  message: z.string()
+	variant: z
+		.union([z.literal("success"), z.literal("error"), z.literal("info"), z.literal("default")])
+		.default("default"),
+	duration: z.number().default(3000),
+	message: z.string()
 })
 export type TauriToast = z.infer<typeof TauriToast>
 

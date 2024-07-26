@@ -5,25 +5,25 @@ import { computed, ref, watch } from "vue"
 
 const appConfig = useAppConfigStore()
 const checked = computed({
-  get() {
-    return appConfig.launchAtLogin
-  },
-  set(val) {
-    appConfig.setLaunchAtLogin(val)
-  }
+	get() {
+		return appConfig.launchAtLogin
+	},
+	set(val) {
+		appConfig.setLaunchAtLogin(val)
+	}
 })
 </script>
 <template>
-  <div class="grid grid-cols-2 gap-4">
-    <span class="justify-self-end">Startup</span>
-    <div class="flex items-center space-x-2">
-      <Checkbox id="startup" v-model:checked="checked" />
-      <label
-        for="startup"
-        class="select-none text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-      >
-        Launch at login
-      </label>
-    </div>
-  </div>
+	<div class="grid grid-cols-2 gap-4">
+		<span class="justify-self-end">Startup</span>
+		<div class="flex items-center space-x-2">
+			<Checkbox id="startup" v-model:checked="checked" />
+			<label
+				for="startup"
+				class="select-none text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+			>
+				Launch at login
+			</label>
+		</div>
+	</div>
 </template>

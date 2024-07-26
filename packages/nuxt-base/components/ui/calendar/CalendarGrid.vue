@@ -6,19 +6,19 @@ import { computed, type HTMLAttributes } from "vue"
 const props = defineProps<CalendarGridProps & { class?: HTMLAttributes["class"] }>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+	const { class: _, ...delegated } = props
 
-  return delegated
+	return delegated
 })
 
 const forwardedProps = useForwardProps(delegatedProps)
 </script>
 
 <template>
-  <CalendarGrid
-    :class="cn('w-full border-collapse space-y-1', props.class)"
-    v-bind="forwardedProps"
-  >
-    <slot />
-  </CalendarGrid>
+	<CalendarGrid
+		:class="cn('w-full border-collapse space-y-1', props.class)"
+		v-bind="forwardedProps"
+	>
+		<slot />
+	</CalendarGrid>
 </template>

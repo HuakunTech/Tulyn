@@ -7,16 +7,16 @@ import { computed, type HTMLAttributes } from "vue"
 const props = defineProps<StepperDescriptionProps & { class?: HTMLAttributes["class"] }>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+	const { class: _, ...delegated } = props
 
-  return delegated
+	return delegated
 })
 
 const forwarded = useForwardProps(delegatedProps)
 </script>
 
 <template>
-  <StepperDescription v-bind="forwarded" :class="cn('text-muted-foreground text-xs', props.class)">
-    <slot />
-  </StepperDescription>
+	<StepperDescription v-bind="forwarded" :class="cn('text-muted-foreground text-xs', props.class)">
+		<slot />
+	</StepperDescription>
 </template>

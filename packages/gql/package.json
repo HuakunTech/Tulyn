@@ -1,27 +1,27 @@
 {
-  "name": "@kksh/gql",
-  "module": "index.ts",
-  "type": "module",
-  "devDependencies": {
-    "@apollo/client": "^3.10.4",
-    "@graphql-codegen/cli": "^5.0.2",
-    "@types/bun": "latest",
-    "graphql-codegen-typescript-client": "0.18.2",
-    "graphql-codegen-typescript-common": "0.18.2",
-    "typescript": "^5.4.5"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "@graphql-codegen/client-preset": "^4.2.6",
-    "dotenv": "^16.4.5",
-    "graphql": "^16.8.1",
-    "prettier": "^3.2.5"
-  },
-  "scripts": {
-    "_codegen": "gql-gen --config codegen.ts",
-    "codegen": "bun --bun _codegen",
-    "build": "pnpm codegen"
-  }
+	"name": "@kksh/gql",
+	"module": "index.ts",
+	"type": "module",
+	"devDependencies": {
+		"@apollo/client": "^3.10.4",
+		"@graphql-codegen/cli": "^5.0.2",
+		"@types/bun": "latest",
+		"graphql-codegen-typescript-client": "0.18.2",
+		"graphql-codegen-typescript-common": "0.18.2",
+		"typescript": "^5.4.5"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@graphql-codegen/client-preset": "^4.2.6",
+		"dotenv": "^16.4.5",
+		"graphql": "^16.8.1",
+		"prettier": "^3.2.5"
+	},
+	"scripts": {
+		"_codegen": "gql-gen --config codegen.ts",
+		"codegen": "bun --bun _codegen",
+		"build": "pnpm codegen"
+	}
 }

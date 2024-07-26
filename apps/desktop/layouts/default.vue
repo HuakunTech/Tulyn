@@ -16,42 +16,42 @@ useGoToSettingShortcuts()
 usePreventExit()
 useTestDB()
 unlistenRefreshConfig = await listenToRefreshConfig(async () => {
-  await appConfig.init()
-  appConfig.refreshWindowStyles()
-  // useRegisterAppShortcuts()
+	await appConfig.init()
+	appConfig.refreshWindowStyles()
+	// useRegisterAppShortcuts()
 })
 onMounted(async () => {
-  await appConfig.init()
-  appConfig.refreshWindowStyles()
-  useRegisterAppShortcuts()
-    .then((hotkeyStr) => {
-      info(`Shortcuts registered (${hotkeyStr})`)
-    })
-    .catch((err) => {
-      console.warn(err)
-    })
-  // installBun()
-  //   .then((bunVersion) => {
-  //     info(`Bun installed (${bunVersion})`)
-  //   })
-  //   .catch((err) => {
-  //     warn(err.message)
-  //     // toast.error(err.message)
-  //   })
-  detach = await attachConsole()
-  appConfig.watch()
+	await appConfig.init()
+	appConfig.refreshWindowStyles()
+	useRegisterAppShortcuts()
+		.then((hotkeyStr) => {
+			info(`Shortcuts registered (${hotkeyStr})`)
+		})
+		.catch((err) => {
+			console.warn(err)
+		})
+	// installBun()
+	//   .then((bunVersion) => {
+	//     info(`Bun installed (${bunVersion})`)
+	//   })
+	//   .catch((err) => {
+	//     warn(err.message)
+	//     // toast.error(err.message)
+	//   })
+	detach = await attachConsole()
+	appConfig.watch()
 })
 </script>
 
 <template>
-  <main class="z-10 h-screen">
-    <Toaster :rich-colors="true" :expand="true" />
-    <slot />
-  </main>
+	<main class="z-10 h-screen">
+		<Toaster :rich-colors="true" :expand="true" />
+		<slot />
+	</main>
 </template>
 
 <style>
 .dark {
-  color-scheme: dark;
+	color-scheme: dark;
 }
 </style>

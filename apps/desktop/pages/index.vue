@@ -25,12 +25,12 @@ const devExt = new Extension("Dev Extensions", appConfig.devExtensionPath, true)
 const storeExt = new Extension("Extensions", await getExtensionsFolder())
 const remoteExt = new RemoteExtension()
 const exts: IExtensionBase[] = [
-  devExt,
-  remoteExt,
-  // storeExt,
-  builtinCmdExt,
-  sysCmdExt,
-  appExt
+	devExt,
+	remoteExt,
+	// storeExt,
+	builtinCmdExt,
+	sysCmdExt,
+	appExt
 ]
 const searchTermInSync = ref("")
 let updateSearchTermTimeout: ReturnType<typeof setTimeout>
@@ -50,84 +50,84 @@ const cmdInputRef = ref<InstanceType<typeof ComboboxInput> | null>(null)
 // })
 
 useListenToWindowBlur(() => {
-  if (!runtimeConfig.public.isDev) {
-    appWindow.hide()
-  }
+	if (!runtimeConfig.public.isDev) {
+		appWindow.hide()
+	}
 })
 
 useListenToWindowFocus(() => {
-  cmdInputRef.value?.$el.querySelector("input").focus()
+	cmdInputRef.value?.$el.querySelector("input").focus()
 })
 
 watch(searchTermInSync, (val) => {
-  clearTimeout(updateSearchTermTimeout)
-  updateSearchTermTimeout = setTimeout(() => {
-    setSearchTerm(val)
-  }, 100)
+	clearTimeout(updateSearchTermTimeout)
+	updateSearchTermTimeout = setTimeout(() => {
+		setSearchTerm(val)
+	}, 100)
 })
 
 onMounted(() => {
-  if (platform() !== "macos") {
-    appWindow.setDecorations(false)
-  }
-  Promise.all(exts.map((ext) => ext.load()))
-  setTimeout(() => {
-    loadDance.value = true
-  }, 100)
+	if (platform() !== "macos") {
+		appWindow.setDecorations(false)
+	}
+	Promise.all(exts.map((ext) => ext.load()))
+	setTimeout(() => {
+		loadDance.value = true
+	}, 100)
 })
 
 // when close window if not focused on input. If input element has content, clear the content
 onKeyStroke("Escape", (e) => {
-  console.log("escape pressed")
-  if (getActiveElementNodeName() === "INPUT") {
-    if (searchTermInSync.value !== "") {
-      searchTermInSync.value = ""
-    } else {
-      getCurrent().close()
-    }
-  } else {
-    getCurrent().close()
-  }
+	console.log("escape pressed")
+	if (getActiveElementNodeName() === "INPUT") {
+		if (searchTermInSync.value !== "") {
+			searchTermInSync.value = ""
+		} else {
+			getCurrent().close()
+		}
+	} else {
+		getCurrent().close()
+	}
 })
 
 // focus on input element when slash is pressed
 onKeyStroke("/", (e) => {
-  if (getActiveElementNodeName() !== "INPUT") {
-    const inputsEle = document.getElementsByTagName("input")
-    if (inputsEle.length > 0) {
-      inputsEle[0].focus()
-    }
-  }
+	if (getActiveElementNodeName() !== "INPUT") {
+		const inputsEle = document.getElementsByTagName("input")
+		if (inputsEle.length > 0) {
+			inputsEle[0].focus()
+		}
+	}
 })
 const highlightedItemValue = ref<string | undefined>()
 watch(highlightedItemValue, (newVal, oldVal) => {
-  if ((!newVal || newVal.length === 0) && oldVal) {
-    setTimeout(() => {
-      highlightedItemValue.value = oldVal
-    }, 1)
-  }
+	if ((!newVal || newVal.length === 0) && oldVal) {
+		setTimeout(() => {
+			highlightedItemValue.value = oldVal
+		}, 1)
+	}
 })
 </script>
 <template>
-  <!-- <FunDance v-if="loadDance" class="absolute z-0 h-screen w-full opacity-10" /> -->
-  <div class="z-10 h-full">
-    <CmdPaletteCommand
-      class=""
-      v-model:searchTerm="searchTermInSync"
-      :identity-filter="true"
-      v-model:selected-value="highlightedItemValue"
-    >
-      <CommandInput
-        :id="HTMLElementId.MainSearchInput"
-        ref="cmdInputRef"
-        class="text-md h-12"
-        placeholder="Search for apps or commands..."
-      />
-      <CommandList class="h-full">
-        <CommandEmpty>No results found.</CommandEmpty>
-        <MainSearchListGroup v-for="ext in exts" :ext="ext" />
-      </CommandList>
-      <CmdPaletteFooter />
-    </CmdPaletteCommand>
-  </div>
+	<!-- <FunDance v-if="loadDance" class="absolute z-0 h-screen w-full opacity-10" /> -->
+	<div class="z-10 h-full">
+		<CmdPaletteCommand
+			class=""
+			v-model:searchTerm="searchTermInSync"
+			:identity-filter="true"
+			v-model:selected-value="highlightedItemValue"
+		>
+			<CommandInput
+				:id="HTMLElementId.MainSearchInput"
+				ref="cmdInputRef"
+				class="text-md h-12"
+				placeholder="Search for apps or commands..."
+			/>
+			<CommandList class="h-full">
+				<CommandEmpty>No results found.</CommandEmpty>
+				<MainSearchListGroup v-for="ext in exts" :ext="ext" />
+			</CommandList>
+			<CmdPaletteFooter />
+		</CmdPaletteCommand>
+	</div>
 </template>

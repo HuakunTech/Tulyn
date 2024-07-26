@@ -9,12 +9,12 @@ const colorMode = useColorMode()
 const count = useCounterStore()
 </script>
 <template>
-  <div>
-    <CameraIcon />
-    <CaretSortIcon />
-    <!-- <BaseUIModeToggle /> -->
-    <ShadcnButton>ShadcnButton</ShadcnButton>
-    <span>{{ count.count }}</span>
-    <ShadcnButton @click="count.increment()">Inc</ShadcnButton>
-  </div>
+	<div>
+		<CameraIcon />
+		<CaretSortIcon />
+		<!-- <BaseUIModeToggle /> -->
+		<ShadcnButton>ShadcnButton</ShadcnButton>
+		<span>{{ count.count }}</span>
+		<ShadcnButton @click="count.increment()">Inc</ShadcnButton>
+	</div>
 </template>

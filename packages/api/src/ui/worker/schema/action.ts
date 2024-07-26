@@ -1,28 +1,28 @@
 import {
-  array,
-  boolean,
-  date,
-  enum_,
-  hexColor,
-  literal,
-  nullable,
-  object,
-  optional,
-  pipe,
-  string,
-  union,
-  type InferOutput
+	array,
+	boolean,
+	date,
+	enum_,
+	hexColor,
+	literal,
+	nullable,
+	object,
+	optional,
+	pipe,
+	string,
+	union,
+	type InferOutput
 } from "valibot"
 import { Color } from "../../../models/color"
 import { NodeName, NodeNameEnum } from "../../../models/constants"
 import { Icon } from "../../../models/icon"
 
 export const Action = object({
-  nodeName: NodeName,
-  icon: optional(Icon),
-  title: string(),
-  value: optional(string())
-  //   shortcut: optional(string())
+	nodeName: NodeName,
+	icon: optional(Icon),
+	title: string(),
+	value: optional(string())
+	//   shortcut: optional(string())
 })
 export type Action = InferOutput<typeof Action>
 
@@ -41,13 +41,13 @@ export type Action = InferOutput<typeof Action>
 // export type ActionPanelSection = InferOutput<typeof ActionPanelSection>
 
 export const ActionPanel = object({
-  nodeName: NodeName,
-  title: optional(string()),
-  items: array(
-    union([
-      // ActionPanelSection, ActionPaneSubmenu,
-      Action
-    ])
-  )
+	nodeName: NodeName,
+	title: optional(string()),
+	items: array(
+		union([
+			// ActionPanelSection, ActionPaneSubmenu,
+			Action
+		])
+	)
 })
 export type ActionPanel = InferOutput<typeof ActionPanel>

@@ -7,17 +7,17 @@ import { computed, type HtmlHTMLAttributes } from "vue"
 const props = defineProps<DrawerTitleProps & { class?: HtmlHTMLAttributes["class"] }>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+	const { class: _, ...delegated } = props
 
-  return delegated
+	return delegated
 })
 </script>
 
 <template>
-  <DrawerTitle
-    v-bind="delegatedProps"
-    :class="cn('text-lg font-semibold leading-none tracking-tight', props.class)"
-  >
-    <slot />
-  </DrawerTitle>
+	<DrawerTitle
+		v-bind="delegatedProps"
+		:class="cn('text-lg font-semibold leading-none tracking-tight', props.class)"
+	>
+		<slot />
+	</DrawerTitle>
 </template>

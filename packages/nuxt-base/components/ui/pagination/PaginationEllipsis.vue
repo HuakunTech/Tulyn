@@ -7,19 +7,19 @@ import { computed, type HTMLAttributes } from "vue"
 const props = defineProps<PaginationEllipsisProps & { class?: HTMLAttributes["class"] }>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+	const { class: _, ...delegated } = props
 
-  return delegated
+	return delegated
 })
 </script>
 
 <template>
-  <PaginationEllipsis
-    v-bind="delegatedProps"
-    :class="cn('flex h-9 w-9 items-center justify-center', props.class)"
-  >
-    <slot>
-      <DotsHorizontalIcon />
-    </slot>
-  </PaginationEllipsis>
+	<PaginationEllipsis
+		v-bind="delegatedProps"
+		:class="cn('flex h-9 w-9 items-center justify-center', props.class)"
+	>
+		<slot>
+			<DotsHorizontalIcon />
+		</slot>
+	</PaginationEllipsis>
 </template>

@@ -8,7 +8,7 @@ import { loadEnvVarWithNotification } from "./utils/envvar"
 // const appDataDirPath = await appDataDir();
 // export const extensionsFolder = await join(appDataDirPath, "extensions");
 export function getExtensionsFolder() {
-  return appDataDir().then((appDataDirPath) => join(appDataDirPath, "extensions"))
+	return appDataDir().then((appDataDirPath) => join(appDataDirPath, "extensions"))
 }
 const rtConfig = useRuntimeConfig()
 /* ---------------------------- Get Supabase URL ---------------------------- */
@@ -32,33 +32,33 @@ export const FileStorageUrl = ""
 
 // PermissionsEnum.
 const PermissionExplain = record(
-  AllKunkunPermission,
-  object({ displayName: string(), description: string() })
+	AllKunkunPermission,
+	object({ displayName: string(), description: string() })
 )
 type PermissionExplain = InferOutput<typeof PermissionExplain>
 export const PERMISSIONS_EXPLANATION: PermissionExplain = {
-  "clipboard:read-all": {
-    displayName: "Read Clipboard",
-    description:
-      "Access to read clipboard data. Including text, html, RTF, image, file paths and monitoring clipboard content update."
-  },
-  "clipboard:write-all": {
-    displayName: "Write Clipboard",
-    description:
-      "Access to write clipboard data. Write text, html, RTF, image, file paths to clipboard."
-  },
-  "fs:read": {
-    displayName: "Read File System",
-    description: "Read files and directories from the file system."
-  },
-  "fs:write": {
-    displayName: "Write File System",
-    description: "Write files and directories to the file system."
-  }
+	"clipboard:read-all": {
+		displayName: "Read Clipboard",
+		description:
+			"Access to read clipboard data. Including text, html, RTF, image, file paths and monitoring clipboard content update."
+	},
+	"clipboard:write-all": {
+		displayName: "Write Clipboard",
+		description:
+			"Access to write clipboard data. Write text, html, RTF, image, file paths to clipboard."
+	},
+	"fs:read": {
+		displayName: "Read File System",
+		description: "Read files and directories from the file system."
+	},
+	"fs:write": {
+		displayName: "Write File System",
+		description: "Write files and directories to the file system."
+	}
 }
 
 export const HTMLElementId = {
-  MainSearchInput: "main-search-input",
-  ActionPanelInputId: "action-panel-input",
-  WorkerExtInputId: "worker-ext-input"
+	MainSearchInput: "main-search-input",
+	ActionPanelInputId: "action-panel-input",
+	WorkerExtInputId: "worker-ext-input"
 }

@@ -1,0 +1,13 @@
+{
+	"deno.enablePaths": ["supabase/functions"],
+	"deno.lint": true,
+	"deno.unstable": true,
+	"[typescript]": {
+		"editor.defaultFormatter": "denoland.vscode-deno"
+	},
+	"workbench.colorCustomizations": {
+		"activityBar.background": "#30284F",
+		"titleBar.activeBackground": "#43386F",
+		"titleBar.activeForeground": "#FBFBFD"
+	}
+}

@@ -1,17 +1,17 @@
 export {
-  clipboard,
-  dialog,
-  event,
-  network,
-  fs,
-  notification,
-  os,
-  shell,
-  sysInfo,
-  path,
-  log,
-  updownload,
-  fetch
+	clipboard,
+	dialog,
+	event,
+	network,
+	fs,
+	notification,
+	os,
+	shell,
+	sysInfo,
+	path,
+	log,
+	updownload,
+	fetch
 } from "tauri-api-adapter/iframe"
 export { type IUiIframe } from "../client"
 export { comlinkUI as ui } from "../api/iframe-ui"

@@ -6,14 +6,14 @@ import { computed, type HTMLAttributes } from "vue"
 const props = defineProps<SelectGroupProps & { class?: HTMLAttributes["class"] }>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+	const { class: _, ...delegated } = props
 
-  return delegated
+	return delegated
 })
 </script>
 
 <template>
-  <SelectGroup :class="cn('w-full p-1', props.class)" v-bind="delegatedProps">
-    <slot />
-  </SelectGroup>
+	<SelectGroup :class="cn('w-full p-1', props.class)" v-bind="delegatedProps">
+		<slot />
+	</SelectGroup>
 </template>

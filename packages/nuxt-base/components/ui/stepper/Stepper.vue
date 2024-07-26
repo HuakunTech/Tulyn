@@ -8,16 +8,16 @@ const props = defineProps<StepperRootProps & { class?: HTMLAttributes["class"] }
 const emits = defineEmits<StepperRootEmits>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+	const { class: _, ...delegated } = props
 
-  return delegated
+	return delegated
 })
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>
-  <StepperRoot :class="cn('flex gap-1 p-0.5', props.class)" v-bind="forwarded">
-    <slot />
-  </StepperRoot>
+	<StepperRoot :class="cn('flex gap-1 p-0.5', props.class)" v-bind="forwarded">
+		<slot />
+	</StepperRoot>
 </template>

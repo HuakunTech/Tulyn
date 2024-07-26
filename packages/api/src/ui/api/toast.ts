@@ -5,9 +5,9 @@ import type { IToastServer } from "../server"
 const defaultClientAPI = getDefaultClientAPI<IToastServer>()
 
 export const toast: IToast = {
-  message: defaultClientAPI.toastMessage,
-  info: defaultClientAPI.toastInfo,
-  success: defaultClientAPI.toastSuccess,
-  warning: defaultClientAPI.toastWarning,
-  error: defaultClientAPI.toastError
+	message: defaultClientAPI.toastMessage,
+	info: defaultClientAPI.toastInfo,
+	success: defaultClientAPI.toastSuccess,
+	warning: defaultClientAPI.toastWarning,
+	error: defaultClientAPI.toastError
 }

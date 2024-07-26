@@ -6,24 +6,24 @@ import { useAppConfigStore } from "~/stores/appConfig"
 
 const appConfig = useAppConfigStore()
 listenToRefreshConfig(async () => {
-  console.log("listenToRefreshConfig triggered")
+	console.log("listenToRefreshConfig triggered")
 
-  await appConfig.init()
-  appConfig.refreshWindowStyles()
-  // useRegisterAppShortcuts()
+	await appConfig.init()
+	appConfig.refreshWindowStyles()
+	// useRegisterAppShortcuts()
 })
 onMounted(async () => {
-  await appConfig.init()
-  appConfig.refreshWindowStyles()
-  // useWatchAppConfig()
-  appConfig.watch()
+	await appConfig.init()
+	appConfig.refreshWindowStyles()
+	// useWatchAppConfig()
+	appConfig.watch()
 })
 </script>
 
 <template>
-  <main class="flex h-screen flex-col">
-    <Toaster :rich-colors="true" />
-    <Topbar />
-    <slot />
-  </main>
+	<main class="flex h-screen flex-col">
+		<Toaster :rich-colors="true" />
+		<Topbar />
+		<slot />
+	</main>
 </template>

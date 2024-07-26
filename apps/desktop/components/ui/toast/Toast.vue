@@ -9,20 +9,20 @@ const props = defineProps<ToastProps>()
 const emits = defineEmits<ToastRootEmits>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+	const { class: _, ...delegated } = props
 
-  return delegated
+	return delegated
 })
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>
-  <ToastRoot
-    v-bind="forwarded"
-    :class="cn(toastVariants({ variant }), props.class)"
-    @update:open="onOpenChange"
-  >
-    <slot />
-  </ToastRoot>
+	<ToastRoot
+		v-bind="forwarded"
+		:class="cn(toastVariants({ variant }), props.class)"
+		@update:open="onOpenChange"
+	>
+		<slot />
+	</ToastRoot>
 </template>

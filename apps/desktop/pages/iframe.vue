@@ -20,5 +20,5 @@ onMounted(() => {
 })
 </script>-->
 <template>
-  <h1>iframe</h1>
+	<h1>iframe</h1>
 </template>

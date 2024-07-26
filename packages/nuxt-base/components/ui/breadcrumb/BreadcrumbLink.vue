@@ -4,16 +4,16 @@ import { Primitive, type PrimitiveProps } from "radix-vue"
 import type { HTMLAttributes } from "vue"
 
 const props = withDefaults(defineProps<PrimitiveProps & { class?: HTMLAttributes["class"] }>(), {
-  as: "a"
+	as: "a"
 })
 </script>
 
 <template>
-  <Primitive
-    :as="as"
-    :as-child="asChild"
-    :class="cn('hover:text-foreground transition-colors', props.class)"
-  >
-    <slot />
-  </Primitive>
+	<Primitive
+		:as="as"
+		:as-child="asChild"
+		:class="cn('hover:text-foreground transition-colors', props.class)"
+	>
+		<slot />
+	</Primitive>
 </template>

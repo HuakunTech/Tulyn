@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {
-  AlertDialogRoot,
-  useForwardPropsEmits,
-  type AlertDialogEmits,
-  type AlertDialogProps
+	AlertDialogRoot,
+	useForwardPropsEmits,
+	type AlertDialogEmits,
+	type AlertDialogProps
 } from "radix-vue"
 
 const props = defineProps<AlertDialogProps>()
@@ -13,7 +13,7 @@ const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
-  <AlertDialogRoot v-bind="forwarded">
-    <slot />
-  </AlertDialogRoot>
+	<AlertDialogRoot v-bind="forwarded">
+		<slot />
+	</AlertDialogRoot>
 </template>

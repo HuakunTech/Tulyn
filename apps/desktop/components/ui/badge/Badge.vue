@@ -4,13 +4,13 @@ import type { HTMLAttributes } from "vue"
 import { badgeVariants, type BadgeVariants } from "."
 
 const props = defineProps<{
-  variant?: BadgeVariants["variant"]
-  class?: HTMLAttributes["class"]
+	variant?: BadgeVariants["variant"]
+	class?: HTMLAttributes["class"]
 }>()
 </script>
 
 <template>
-  <div :class="cn(badgeVariants({ variant }), props.class)">
-    <slot />
-  </div>
+	<div :class="cn(badgeVariants({ variant }), props.class)">
+		<slot />
+	</div>
 </template>

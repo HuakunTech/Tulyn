@@ -3,12 +3,12 @@ import { cn } from "@/lib/utils"
 import type { HTMLAttributes } from "vue"
 
 const props = defineProps<{
-  class?: HTMLAttributes["class"]
+	class?: HTMLAttributes["class"]
 }>()
 </script>
 
 <template>
-  <caption :class="cn('text-muted-foreground mt-4 text-sm', props.class)">
-    <slot />
-  </caption>
+	<caption :class="cn('text-muted-foreground mt-4 text-sm', props.class)">
+		<slot />
+	</caption>
 </template>

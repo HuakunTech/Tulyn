@@ -2,7 +2,7 @@ import { invoke } from "@tauri-apps/api/core"
 import { generateJarvisPluginCommand } from "./common"
 
 export function pathExists(path: string): Promise<boolean> {
-  return invoke(generateJarvisPluginCommand("path_exists"), { path })
+	return invoke(generateJarvisPluginCommand("path_exists"), { path })
 }
 
 /**
@@ -14,17 +14,17 @@ export function pathExists(path: string): Promise<boolean> {
  * @returns
  */
 export function decompressTarball(
-  path: string,
-  destinationFolder: string,
-  options?: {
-    overwrite?: boolean
-  }
+	path: string,
+	destinationFolder: string,
+	options?: {
+		overwrite?: boolean
+	}
 ): Promise<string> {
-  return invoke(generateJarvisPluginCommand("decompress_tarball"), {
-    path,
-    destinationFolder,
-    overwrite: options?.overwrite ?? false
-  })
+	return invoke(generateJarvisPluginCommand("decompress_tarball"), {
+		path,
+		destinationFolder,
+		overwrite: options?.overwrite ?? false
+	})
 }
 
 /**
@@ -35,17 +35,17 @@ export function decompressTarball(
  * @returns
  */
 export function compressTarball(
-  srcDir: string,
-  destFile: string,
-  options?: {
-    overwrite?: boolean
-  }
+	srcDir: string,
+	destFile: string,
+	options?: {
+		overwrite?: boolean
+	}
 ): Promise<string> {
-  return invoke(generateJarvisPluginCommand("compress_tarball"), {
-    srcDir,
-    destFile,
-    overwrite: options?.overwrite ?? false
-  })
+	return invoke(generateJarvisPluginCommand("compress_tarball"), {
+		srcDir,
+		destFile,
+		overwrite: options?.overwrite ?? false
+	})
 }
 
 /**
@@ -56,15 +56,15 @@ export function compressTarball(
  * @returns
  */
 export function unzip(
-  path: string,
-  destinationFolder: string,
-  options?: {
-    overwrite?: boolean
-  }
+	path: string,
+	destinationFolder: string,
+	options?: {
+		overwrite?: boolean
+	}
 ): Promise<void> {
-  return invoke(generateJarvisPluginCommand("unzip"), {
-    path,
-    destinationFolder,
-    overwrite: options?.overwrite ?? false
-  })
+	return invoke(generateJarvisPluginCommand("unzip"), {
+		path,
+		destinationFolder,
+		overwrite: options?.overwrite ?? false
+	})
 }

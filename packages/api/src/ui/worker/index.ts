@@ -2,19 +2,19 @@
 /*                                     API                                    */
 /* -------------------------------------------------------------------------- */
 export {
-  clipboard,
-  dialog,
-  event,
-  network,
-  fs,
-  notification,
-  os,
-  shell,
-  sysInfo,
-  path,
-  log,
-  updownload,
-  fetch
+	clipboard,
+	dialog,
+	event,
+	network,
+	fs,
+	notification,
+	os,
+	shell,
+	sysInfo,
+	path,
+	log,
+	updownload,
+	fetch
 } from "tauri-api-adapter/worker"
 export { comlinkSystem as system } from "../api/system"
 export { comlinkUI as ui } from "../api/worker-ui"

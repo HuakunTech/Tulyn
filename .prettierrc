@@ -3,7 +3,7 @@
     "tabWidth": 2,
     "trailingComma": "none",
     "semi": false,
-    "useTabs": false,
+    "useTabs": true,
     "plugins": [
         "@ianvs/prettier-plugin-sort-imports",
         "prettier-plugin-tailwindcss"

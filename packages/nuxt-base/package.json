@@ -1,44 +1,44 @@
 {
-  "name": "@kksh/nuxt-base",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
-  },
-  "dependencies": {
-    "@nuxt/icon": "^1.3.1",
-    "@pinia/nuxt": "^0.5.1",
-    "@radix-icons/vue": "^1.0.0",
-    "@unovis/ts": "^1.4.3",
-    "@unovis/vue": "^1.4.3",
-    "@vee-validate/zod": "^4.13.2",
-    "@vueuse/core": "^10.11.0",
-    "@vueuse/nuxt": "^10.11.0",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.1",
-    "dayjs": "^1.11.11",
-    "embla-carousel-vue": "^8.1.3",
-    "lucide-vue-next": "^0.399.0",
-    "nuxt": "^3.12.4",
-    "radix-vue": "^1.9.0",
-    "shadcn-nuxt": "^0.10.4",
-    "tailwind-merge": "^2.3.0",
-    "tailwindcss-animate": "^1.0.7",
-    "v-calendar": "^3.1.2",
-    "vaul-vue": "^0.1.2",
-    "vee-validate": "^4.13.2",
-    "vue": "latest",
-    "vue-sonner": "^1.1.3",
-    "zod": "^3.23.8"
-  },
-  "devDependencies": {
-    "@nuxtjs/device": "^3.1.1",
-    "@nuxtjs/tailwindcss": "^6.12.1",
-    "@pinia-plugin-persistedstate/nuxt": "^1.2.1",
-    "dayjs-nuxt": "^2.1.9"
-  }
+	"name": "@kksh/nuxt-base",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "nuxt build",
+		"dev": "nuxt dev",
+		"generate": "nuxt generate",
+		"preview": "nuxt preview",
+		"postinstall": "nuxt prepare"
+	},
+	"dependencies": {
+		"@nuxt/icon": "^1.3.1",
+		"@pinia/nuxt": "^0.5.1",
+		"@radix-icons/vue": "^1.0.0",
+		"@unovis/ts": "^1.4.3",
+		"@unovis/vue": "^1.4.3",
+		"@vee-validate/zod": "^4.13.2",
+		"@vueuse/core": "^10.11.0",
+		"@vueuse/nuxt": "^10.11.0",
+		"class-variance-authority": "^0.7.0",
+		"clsx": "^2.1.1",
+		"dayjs": "^1.11.11",
+		"embla-carousel-vue": "^8.1.3",
+		"lucide-vue-next": "^0.399.0",
+		"nuxt": "^3.12.4",
+		"radix-vue": "^1.9.0",
+		"shadcn-nuxt": "^0.10.4",
+		"tailwind-merge": "^2.3.0",
+		"tailwindcss-animate": "^1.0.7",
+		"v-calendar": "^3.1.2",
+		"vaul-vue": "^0.1.2",
+		"vee-validate": "^4.13.2",
+		"vue": "latest",
+		"vue-sonner": "^1.1.3",
+		"zod": "^3.23.8"
+	},
+	"devDependencies": {
+		"@nuxtjs/device": "^3.1.1",
+		"@nuxtjs/tailwindcss": "^6.12.1",
+		"@pinia-plugin-persistedstate/nuxt": "^1.2.1",
+		"dayjs-nuxt": "^2.1.9"
+	}
 }

@@ -4,31 +4,31 @@ import { computed, map } from "nanostores"
 import { literal, object, string, union, type InferOutput } from "valibot"
 
 export const appStateSchema = object({
-  searchTerm: string(),
-  // allApps: array(AppInfo),
-  platform: union([
-    literal("linux"),
-    literal("macos"),
-    literal("ios"),
-    literal("freebsd"),
-    literal("dragonfly"),
-    literal("netbsd"),
-    literal("openbsd"),
-    literal("solaris"),
-    literal("android"),
-    literal("windows")
-  ])
+	searchTerm: string(),
+	// allApps: array(AppInfo),
+	platform: union([
+		literal("linux"),
+		literal("macos"),
+		literal("ios"),
+		literal("freebsd"),
+		literal("dragonfly"),
+		literal("netbsd"),
+		literal("openbsd"),
+		literal("solaris"),
+		literal("android"),
+		literal("windows")
+	])
 })
 export type AppState = InferOutput<typeof appStateSchema>
 
 export const $appState = map<AppState>({
-  searchTerm: "",
-  // allApps: [],
-  platform: platform()
+	searchTerm: "",
+	// allApps: [],
+	platform: platform()
 })
 
 export function setSearchTerm(searchTerm: string) {
-  $appState.setKey("searchTerm", searchTerm)
+	$appState.setKey("searchTerm", searchTerm)
 }
 
 // export function setAllApps(allApps: AppInfo[]) {

@@ -1,40 +1,40 @@
 {
-  "name": "create-kunkun",
-  "type": "module",
-  "version": "0.1.0",
-  "bin": {
-    "create-akun": "dist/index.mjs"
-  },
-  "scripts": {
-    "build": "rimraf dist && cross-env NODE_ENV=production bun build index.ts --outfile=dist/index.mjs --target node",
-    "postbuild": "shx cp -r ../../templates dist/templates && bun scripts/clean-dist.ts"
-  },
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^26.0.1",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-replace": "^5.0.7",
-    "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-typescript": "^11.1.6",
-    "@types/bun": "latest",
-    "@types/fs-extra": "^11.0.4",
-    "cross-env": "^7.0.3",
-    "rimraf": "^6.0.1",
-    "rollup": "^4.18.1",
-    "rollup-plugin-visualizer": "^5.12.0",
-    "shx": "^0.3.4"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "@inquirer/prompts": "^5.2.1",
-    "@kksh/api": "workspace:*",
-    "chalk": "^5.3.0",
-    "commander": "^12.1.0",
-    "fs-extra": "^11.2.0"
-  },
-  "files": [
-    "dist"
-  ]
+	"name": "create-kunkun",
+	"type": "module",
+	"version": "0.1.0",
+	"bin": {
+		"create-akun": "dist/index.mjs"
+	},
+	"scripts": {
+		"build": "rimraf dist && cross-env NODE_ENV=production bun build index.ts --outfile=dist/index.mjs --target node",
+		"postbuild": "shx cp -r ../../templates dist/templates && bun scripts/clean-dist.ts"
+	},
+	"devDependencies": {
+		"@rollup/plugin-commonjs": "^26.0.1",
+		"@rollup/plugin-json": "^6.1.0",
+		"@rollup/plugin-node-resolve": "^15.2.3",
+		"@rollup/plugin-replace": "^5.0.7",
+		"@rollup/plugin-terser": "^0.4.4",
+		"@rollup/plugin-typescript": "^11.1.6",
+		"@types/bun": "latest",
+		"@types/fs-extra": "^11.0.4",
+		"cross-env": "^7.0.3",
+		"rimraf": "^6.0.1",
+		"rollup": "^4.18.1",
+		"rollup-plugin-visualizer": "^5.12.0",
+		"shx": "^0.3.4"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@inquirer/prompts": "^5.2.1",
+		"@kksh/api": "workspace:*",
+		"chalk": "^5.3.0",
+		"commander": "^12.1.0",
+		"fs-extra": "^11.2.0"
+	},
+	"files": [
+		"dist"
+	]
 }

@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "pflannery.vscode-versionlens",
+        "usernamehw.errorlens",
+        "ms-vscode.vscode-typescript-next",
+        "rust-lang.rust-analyzer",
+        "vue.volar",
+        "esbenp.prettier-vscode",
+        "zxh404.vscode-proto3"
+    ]
+}
