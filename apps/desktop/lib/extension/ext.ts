@@ -15,12 +15,13 @@ import {
   TemplateUiCmd,
   WindowConfig
 } from "@kksh/api/models"
-// import { fetch } from "@kksh/api/ui"
 import { join } from "@tauri-apps/api/path"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import * as fs from "@tauri-apps/plugin-fs"
 import { exists } from "@tauri-apps/plugin-fs"
 import { debug, error, warn } from "@tauri-apps/plugin-log"
+// import { fetch } from "@kksh/api/ui"
+import axios from "axios"
 import { atom, type WritableAtom } from "nanostores"
 import { v4 as uuidv4 } from "uuid"
 import { toast } from "vue-sonner"
@@ -204,11 +205,16 @@ export class Extension implements IExtensionBase {
             }
             try {
               console.log("Loading extension UI at", url)
-              // fetch(url, { method: "GET" }).then(console.log).catch(console.error)
-              console.log(await fetch("https://ifconfig.me"))
-
-              // const res = await fetch('http://localhost:1568/dev-extensions/template-ext-react/dist/', { method: "GET" })
+              // const res = await fetch(url)
               // console.log(res)
+              axios
+                .get(url)
+                .then((res) => {
+                  console.log(res)
+                })
+                .catch((err) => {
+                  console.error(err)
+                })
             } catch (err) {
               error(`Failed to load extension UI at ${url}: ${err}`)
               return ElNotification.error({

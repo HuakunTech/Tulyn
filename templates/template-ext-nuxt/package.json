@@ -17,8 +17,8 @@
     "permissions": [],
     "customUiCmds": [
       {
-        "main": ".output/public/index.html",
-        "devMain": "http://localhost:5173",
+        "main": "dist",
+        "devMain": "http://localhost:5173/dev-extensions/template-ext-nuxt/.output/public",
         "name": "Nuxt Template Home Page",
         "cmds": [],
         "window": {
@@ -26,8 +26,8 @@
         }
       },
       {
-        "main": ".output/public/about/index.html",
-        "devMain": "http://localhost:3000/about",
+        "main": "dist/about",
+        "devMain": "http://localhost:5173/dev-extensions/template-ext-nuxt/.output/public/about",
         "name": "Nuxt Template About Page",
         "cmds": [],
         "window": {
@@ -38,7 +38,8 @@
     "templateUiCmds": []
   },
   "scripts": {
-    "build": "nuxt generate",
+    "build": "KK_NODE_ENV=production nuxt generate",
+		"build:dev": "KK_NODE_ENV=development nuxt generate",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
