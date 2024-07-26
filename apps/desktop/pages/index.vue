@@ -14,6 +14,7 @@ import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
 import { arch, platform } from "@tauri-apps/plugin-os"
 import { useListenToWindowBlur } from "~/composables/useEvents"
+import { listenToRefreshConfig } from "~/lib/utils/tauri-events"
 import { ComboboxInput } from "radix-vue"
 
 const loadDance = ref(false)
@@ -38,6 +39,15 @@ let updateSearchTermTimeout: ReturnType<typeof setTimeout>
 const appWindow = getCurrent()
 const runtimeConfig = useRuntimeConfig()
 const cmdInputRef = ref<InstanceType<typeof ComboboxInput> | null>(null)
+
+listenToRefreshConfig(() => {
+  appExt.load()
+  sysCmdExt.load()
+  builtinCmdExt.load()
+  devExt.load()
+  storeExt.load()
+  remoteExt.load()
+})
 
 useListenToWindowBlur(() => {
   if (!runtimeConfig.public.isDev) {

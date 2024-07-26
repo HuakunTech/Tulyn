@@ -13,11 +13,6 @@ import {
 } from "@kksh/api/ui/worker"
 import { array, boolean, flatten, object, safeParse, string, type InferOutput } from "valibot"
 
-// const pathMap = {
-//   macos: `~/Library/Application Support/Code/User/globalStorage/alefragnani.project-manager/projects.json`,
-//   windows: `%APPDATA%\Code\User\globalStorage\alefragnani.project-manager\projects.json`,
-//   linux: `~/.config/Code/User/globalStorage/alefragnani.project-manager/projects.json`
-// }
 const Project = object({
   enabled: boolean(),
   name: string(),
@@ -67,7 +62,7 @@ class VSCodeProjectManager extends WorkerExtension {
         .then(() => Promise.resolve())
     }
     const projects = parseRes.output
-    console.log(projects)
+
     const tags = projects.map((project) => project.tags).flat()
     const sections = tags.map((tag) => {
       return new List.Section({

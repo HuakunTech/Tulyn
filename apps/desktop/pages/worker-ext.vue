@@ -24,12 +24,14 @@ import {
 } from "@kksh/api/ui/worker"
 import { useStore } from "@nanostores/vue"
 import { ArrowLeftIcon } from "@radix-icons/vue"
+import type { UnlistenFn } from "@tauri-apps/api/event"
 import { join } from "@tauri-apps/api/path"
 import { exists, readTextFile } from "@tauri-apps/plugin-fs"
 import { debug } from "@tauri-apps/plugin-log"
 import { onKeyStroke } from "@vueuse/core"
 import { loadExtensionManifestFromDisk } from "~/lib/commands/extensions"
 import { GlobalEventBus } from "~/lib/utils/events"
+import { listenToRefreshWorkerExt } from "~/lib/utils/tauri-events"
 import type { ComboboxInput } from "radix-vue"
 import { toast } from "vue-sonner"
 
@@ -45,6 +47,7 @@ const searchBarPlaceholder = ref("")
 function getWorkerExtInputEle(): HTMLInputElement | null {
   return cmdInputRef.value?.$el.querySelector("input")
 }
+let unlistenRefreshWorkerExt: UnlistenFn | undefined
 
 useListenToWindowFocus(() => {
   getWorkerExtInputEle()?.focus()
@@ -87,7 +90,7 @@ function onEnterKeyPressed() {
   }
 }
 
-onMounted(async () => {
+async function launchWorkerExt() {
   const currentWorkerExt = extStore.currentWorkerExt
   if (!currentWorkerExt) {
     toast.error("No worker extension selected")
@@ -133,12 +136,19 @@ onMounted(async () => {
   // exposeApiToWorker(worker, { render }) // Expose render function to worker
   workerAPI = wrap<WorkerExtension>(worker) // Call worker exposed APIs
   await workerAPI.load()
+}
 
-  // cmdInputRef.value = document.getElementById(HTMLElementId.WorkerExtInputId) as HTMLElement | null
+onMounted(async () => {
+  unlistenRefreshWorkerExt = await listenToRefreshWorkerExt(() => {
+    debug("Refreshing Worker Extension")
+    launchWorkerExt()
+  })
+  launchWorkerExt()
   GlobalEventBus.onActionSelected(onActionSelected)
 })
 
 onUnmounted(() => {
+  unlistenRefreshWorkerExt?.()
   GlobalEventBus.offActionSelected(onActionSelected)
 })
 

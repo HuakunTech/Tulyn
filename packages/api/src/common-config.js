@@ -5,5 +5,6 @@ export const buildEntries = [
   "src/ui/worker/index.ts",
   "src/models/index.ts",
   "src/commands/index.ts",
-  "src/ui/api/permissions.ts"
+  "src/ui/api/permissions.ts",
+  "src/dev/index.ts"
 ]

@@ -1,14 +1,11 @@
 use super::grpc::greeter::hello_world::greeter_server::GreeterServer;
 use super::grpc::greeter::MyGreeter;
-use super::Protocol;
 /// This module is responsible for controlling the main server
-use super::{
-    model::ServerState,
-    rest::{get_server_info, web_root},
-};
+use super::model::ServerState;
+use super::Protocol;
 use crate::utils::path::get_default_extensions_dir;
 use axum::http::{HeaderValue, Method};
-use axum::routing::get;
+use axum::routing::{get, post};
 use axum_server::tls_rustls::RustlsConfig;
 use std::sync::Mutex;
 use std::{net::SocketAddr, path::PathBuf, sync::Arc};
@@ -43,8 +40,11 @@ async fn start_server(
         .add_service(GreeterServer::new(greeter))
         .into_router();
     let mut rest_router = axum::Router::new()
-        .route("/", get(web_root))
-        .route("/info", get(get_server_info))
+        .route(
+            "/refresh-worker-extension",
+            post(super::rest::refresh_worker_extension),
+        )
+        .route("/info", get(super::rest::get_server_info))
         .layer(CorsLayer::permissive())
         // CorsLayer::new()
         //     .allow_origin("http://localhost:3000".parse::<HeaderValue>().unwrap())

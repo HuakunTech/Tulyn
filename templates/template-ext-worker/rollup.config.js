@@ -1,3 +1,4 @@
+import { kununWorkerTemplateExtensionRollupPlugin } from "@kksh/api/dev"
 import commonjs from "@rollup/plugin-commonjs"
 import resolve from "@rollup/plugin-node-resolve"
 import terser from "@rollup/plugin-terser"
@@ -18,7 +19,8 @@ const config = {
     }),
     commonjs(),
     terser(),
-    visualizer()
+    visualizer(),
+    kununWorkerTemplateExtensionRollupPlugin()
   ]
 }
 

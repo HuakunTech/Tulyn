@@ -5,6 +5,7 @@ import { useToast } from "@/components/ui/toast/use-toast"
 import {
   getDevExtensionFolder,
   getExtensionFolder,
+  getServerPort,
   restartServer,
   serverIsRunning,
   startServer,
@@ -19,11 +20,13 @@ const serverRunning = ref(false)
 let interval: NodeJS.Timeout
 const extFolder = ref<string | null>()
 const devExtFolder = ref<string | null>()
+const port = ref<number>()
 
 async function refreshStatus() {
   serverRunning.value = z.boolean().parse(await serverIsRunning())
   extFolder.value = await getExtensionFolder()
   devExtFolder.value = await getDevExtensionFolder()
+  port.value = await getServerPort()
 }
 
 onMounted(async () => {
@@ -103,6 +106,10 @@ function restart() {
     </span>
   </div>
   <div class="my-2">
+    <p>
+      <strong>Port: </strong>
+      <span>{{ port }}</span>
+    </p>
     <p>
       <strong>Extension Folder: </strong>
       <span class="text-muted-foreground cursor-pointer" @click="extFolder && open(extFolder)">{{

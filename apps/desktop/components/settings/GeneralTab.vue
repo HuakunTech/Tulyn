@@ -15,6 +15,7 @@ import { info } from "@tauri-apps/plugin-log"
 import { setTriggerHotkey } from "~/lib/stores/appConfig"
 import { registerAppHotkey } from "~/lib/utils/hotkey"
 import { mapKeyToTauriKey } from "~/lib/utils/js"
+import { emitRefreshConfig } from "~/lib/utils/tauri-events"
 import { toast } from "vue-sonner"
 
 const savedHotkey = ref<string[]>([])
@@ -33,6 +34,7 @@ async function updateHotkey(keys: string[]) {
   if (originalHotkey) {
     await unregister(originalHotkey.map(mapKeyToTauriKey).join("+"))
   }
+  emitRefreshConfig()
   registerAppHotkey(hotkeyStr)
     .then(() => {
       toast.info(`Hotkey set to ${hotkeyStr} successfully`)
