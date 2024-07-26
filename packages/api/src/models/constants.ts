@@ -21,7 +21,9 @@ export enum NodeNameEnum {
   ActionPanel = "ActionPanel",
   Action = "Action",
   ActionPanelSection = "ActionPanelSection",
-  ActionPanelSubmenu = "ActionPanelSubmenu"
+  ActionPanelSubmenu = "ActionPanelSubmenu",
+  /* --------------------------------- Content -------------------------------- */
+  Markdown = "Markdown"
 }
 export const NodeName = enum_(NodeNameEnum)
 export type NodeName = InferOutput<typeof NodeName>

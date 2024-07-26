@@ -18,7 +18,9 @@ export default defineNuxtConfig({
     "dayjs-nuxt",
     // "@nuxtjs/supabase"
     "@nuxtjs/device",
-    "@nuxt/icon"
+    "@nuxt/icon",
+    "@nuxt/content",
+    "@nuxtjs/mdc"
   ],
 
   shadcn: {

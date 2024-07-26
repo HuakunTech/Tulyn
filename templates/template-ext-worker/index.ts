@@ -1,15 +1,7 @@
-import { expose, Icon, IconEnum, List, toast, ui, WorkerExtension, notification } from "@kksh/api/ui/worker"
+import { expose, Icon, IconEnum, List, toast, ui, WorkerExtension } from "@kksh/api/ui/worker"
 
 class ExtensionTemplate extends WorkerExtension {
   load() {
-    notification.isPermissionGranted().then((granted) => {
-      if (granted) {
-        notification.sendNotification("Worker Template Extension loaded")
-      }else {
-        toast.error("Notification permission denied")
-      }
-    })
-
     return toast
       .info("Worker Template Extension loaded")
       .then(() => {

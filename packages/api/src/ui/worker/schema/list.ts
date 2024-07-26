@@ -6,6 +6,7 @@ import {
   hexColor,
   literal,
   nullable,
+  number,
   object,
   optional,
   pipe,
@@ -17,6 +18,7 @@ import { Color } from "../../../models/color"
 import { NodeName, NodeNameEnum } from "../../../models/constants"
 import { Icon } from "../../../models/icon"
 import * as ActionSchema from "./action"
+import { Markdown } from "./markdown"
 
 /* -------------------------------------------------------------------------- */
 /*                                 Empty View                                 */
@@ -134,8 +136,8 @@ export type ItemDetailMetadata = InferOutput<typeof ItemDetailMetadata>
 
 export const ItemDetail = object({
   nodeName: NodeName,
-  markdown: optional(string()),
-  metadata: optional(ItemDetailMetadata)
+  children: array(union([Markdown, ItemDetailMetadata])),
+  width: optional(number())
 })
 export type ItemDetail = InferOutput<typeof ItemDetail>
 

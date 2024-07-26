@@ -26,7 +26,7 @@ const props = defineProps<{ icon: TIcon; class?: HTMLAttributes["class"] }>()
   />
   <Button
     v-else-if="icon.type === IconEnum.Text"
-    :class="cn('text-center', props.class)"
+    :class="cn('shrink-0 text-center', props.class)"
     size="icon"
     >{{ icon.value }}</Button
   >

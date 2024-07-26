@@ -85,6 +85,7 @@ module.exports = {
   },
   plugins: [
     animate,
+    require('@tailwindcss/typography')
     // addDynamicIconSelectors()
     // addIconSelectors(["mdi", "mdi-light", "vscode-icons", "fa6-brands", "fa", "fa6-solid"])
   ]

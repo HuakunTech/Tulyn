@@ -9,10 +9,7 @@
     "longDescription": "A Worker Extension Template",
     "identifier": "sh.kunkun-ext-template-worker",
     "permissions": [
-      "clipboard:read-text",
-      "clipboard:write-text",
-      "fetch:all",
-      "notification:all"
+      "fetch:all"
     ],
     "demoImages": [],
     "icon": {

@@ -8,6 +8,7 @@ import {
   toast,
   ui,
   WorkerExtension,
+  Markdown
 } from "@kksh/api/ui/worker"
 import {
   array,
@@ -132,7 +133,12 @@ class HackerNews extends WorkerExtension {
         }
         this.items = parsed.output
         this.listitems = this.items.map(hackerNewsItemToListItem)
-        return ui.render(new List.List({ items: this.listitems }))
+        return ui.render(new List.List({ items: this.listitems, 
+          // detail: new List.ItemDetail({width: 50, children: [
+          //   new Markdown(`# Hacker News\n1. hello\n2. world\n\n**bold**`)
+          // ]})
+        })
+        )
       })
       .catch((err) => {
         console.error(err)

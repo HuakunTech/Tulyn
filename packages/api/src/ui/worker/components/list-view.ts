@@ -5,6 +5,7 @@ import * as Action from "./action"
 import type { IconConstructorPatch, OmitNodeName, ReplaceIcon } from "./common"
 import { Icon } from "./icon"
 import { type IComponent } from "./interfaces"
+import { Markdown } from "./markdown"
 
 export class EmptyView implements ListSchema.EmptyView, IComponent<ListSchema.EmptyView> {
   nodeName: NodeName = NodeNameEnum.EmptyView
@@ -273,18 +274,21 @@ export class ItemDetailMetadata
 
 export class ItemDetail implements ListSchema.ItemDetail, IComponent<ListSchema.ItemDetail> {
   nodeName: NodeName = NodeNameEnum.ListItemDetail
-  markdown?: string
-  metadata?: ItemDetailMetadata
+  children: (ItemDetailMetadata | Markdown)[]
+  width?: number
 
-  constructor(model: OmitNodeName<ListSchema.ItemDetail & { metadata: ItemDetailMetadata }>) {
-    this.markdown = model.markdown
-    this.metadata = model.metadata
+  constructor(
+    model: OmitNodeName<ListSchema.ItemDetail & { children: (ItemDetailMetadata | Markdown)[] }>
+  ) {
+    this.children = model.children
+    this.width = model.width
   }
 
   toModel(): ListSchema.ItemDetail {
     return {
       nodeName: this.nodeName,
-      metadata: this.metadata?.toModel()
+      children: this.children.map((child) => child.toModel()),
+      width: this.width
     }
   }
 }
