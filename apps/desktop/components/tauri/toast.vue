@@ -2,11 +2,12 @@
 import { onMounted, onUnmounted, ref } from "vue"
 import "@/styles/globals.css"
 import "@/styles/toast.css"
-import { $appConfig } from "@/lib/stores/appConfig"
 import { $toasts, dequeueToast } from "@/lib/stores/toast"
 import { useStore } from "@nanostores/vue"
 import { useColorMode } from "@vueuse/core"
+import { useAppConfigStore } from "~/stores/appConfig"
 
+const appConfig = useAppConfigStore()
 const toasts = useStore($toasts)
 const message = ref()
 
@@ -36,8 +37,6 @@ function handleToast() {
 onMounted(() => {
   // parse url query params
   console.log($toasts.get())
-  console.log($appConfig.get())
-
   document.addEventListener("keydown", handleKeyPress)
   handleToast()
 })

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Checkbox } from "@/components/ui/checkbox"
 import { CommandEmpty, CommandInput, CommandList } from "@/components/ui/command"
 import { getExtensionsFolder, HTMLElementId } from "@/lib/constants"
 import { AppsExtension } from "@/lib/extension/apps"
@@ -7,22 +8,20 @@ import { BuiltinCmds } from "@/lib/extension/builtin"
 import { Extension } from "@/lib/extension/ext"
 import { RemoteExtension } from "@/lib/extension/remoteExt"
 import { SystemCommandExtension } from "@/lib/extension/systemCmds"
-import { $appConfig } from "@/lib/stores/appConfig"
 import { setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
-import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
-import { arch, platform } from "@tauri-apps/plugin-os"
+import { platform } from "@tauri-apps/plugin-os"
 import { useListenToWindowBlur } from "~/composables/useEvents"
-import { listenToRefreshConfig } from "~/lib/utils/tauri-events"
+import { useAppConfigStore } from "~/stores/appConfig"
 import { ComboboxInput } from "radix-vue"
 
 const loadDance = ref(false)
-const appConfig = useStore($appConfig)
+const appConfig = useAppConfigStore()
 const appExt = new AppsExtension()
 const sysCmdExt = new SystemCommandExtension()
 const builtinCmdExt = new BuiltinCmds()
-const devExt = new Extension("Dev Extensions", appConfig.value.devExtensionPath, true)
+const devExt = new Extension("Dev Extensions", appConfig.devExtensionPath, true)
 const storeExt = new Extension("Extensions", await getExtensionsFolder())
 const remoteExt = new RemoteExtension()
 const exts: IExtensionBase[] = [
@@ -40,14 +39,15 @@ const appWindow = getCurrent()
 const runtimeConfig = useRuntimeConfig()
 const cmdInputRef = ref<InstanceType<typeof ComboboxInput> | null>(null)
 
-listenToRefreshConfig(() => {
-  appExt.load()
-  sysCmdExt.load()
-  builtinCmdExt.load()
-  devExt.load()
-  storeExt.load()
-  remoteExt.load()
-})
+// listenToRefreshConfig(() => {
+//   debug("refreshing config")
+//   appExt.load()
+//   sysCmdExt.load()
+//   builtinCmdExt.load()
+//   devExt.load()
+//   storeExt.load()
+//   remoteExt.load()
+// })
 
 useListenToWindowBlur(() => {
   if (!runtimeConfig.public.isDev) {
@@ -110,7 +110,6 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 </script>
 <template>
   <!-- <FunDance v-if="loadDance" class="absolute z-0 h-screen w-full opacity-10" /> -->
-
   <div class="z-10 h-full">
     <CmdPaletteCommand
       class=""

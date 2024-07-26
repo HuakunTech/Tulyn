@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import { Checkbox } from "@/components/ui/checkbox"
-import { $appConfig, setDevExtLoadUrl, setShowInTray } from "@/lib/stores/appConfig"
-import { useStore } from "@nanostores/vue"
+import { useAppConfigStore } from "~/stores/appConfig"
 import { computed, ref, watch } from "vue"
 
-const appConfig = useStore($appConfig)
+const appConfig = useAppConfigStore()
 const checked = computed({
   get() {
-    return appConfig.value.devExtLoadUrl
+    return appConfig.devExtLoadUrl
   },
   set(val) {
-    setDevExtLoadUrl(val)
+    appConfig.setDevExtLoadUrl(val)
   }
 })
 </script>

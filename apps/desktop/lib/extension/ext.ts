@@ -1,5 +1,4 @@
 import { loadAllExtensionsFromDisk } from "@/lib/commands/extensions"
-import { $appConfig } from "@/lib/stores/appConfig"
 import { ListItemType, TListGroup, TListItem } from "@/lib/types/list"
 import { useExtStore } from "@/stores/ext"
 import {
@@ -20,6 +19,7 @@ import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import * as fs from "@tauri-apps/plugin-fs"
 import { exists } from "@tauri-apps/plugin-fs"
 import { debug, error, warn } from "@tauri-apps/plugin-log"
+import { useAppConfigStore } from "~/stores/appConfig"
 // import { fetch } from "@kksh/api/ui"
 import axios from "axios"
 import { atom, type WritableAtom } from "nanostores"
@@ -185,6 +185,7 @@ export class Extension implements IExtensionBase {
 
   onSelect(item: TListItem): Promise<void> {
     const extStore = useExtStore()
+    const appConfig = useAppConfigStore()
     this.manifests.forEach((manifest) => {
       if (item.type == "UI Command") {
         console.log(manifest.kunkun.customUiCmds)
@@ -192,7 +193,7 @@ export class Extension implements IExtensionBase {
         manifest.kunkun.customUiCmds.forEach(async (cmd) => {
           if (item.value === generateItemValue(manifest, cmd, this.isDev)) {
             let url = cmd.main
-            if ($appConfig.value?.devExtLoadUrl && this.isDev && cmd.devMain) {
+            if (appConfig.devExtLoadUrl && this.isDev && cmd.devMain) {
               url = cmd.devMain
             } else {
               if (cmd.main.startsWith("http")) {

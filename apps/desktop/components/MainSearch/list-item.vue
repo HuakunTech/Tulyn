@@ -10,11 +10,10 @@ import {
   CommandSeparator,
   CommandShortcut
 } from "@/components/ui/command"
-import { $appConfig, setDevExtLoadUrl, setShowInTray } from "@/lib/stores/appConfig"
 import type { TListItem } from "@/lib/types/list"
-import { useStore } from "@nanostores/vue"
+import { useAppConfigStore } from "~/stores/appConfig"
 
-const appConfig = useStore($appConfig)
+const appConfig = useAppConfigStore()
 const props = defineProps<{ item: TListItem; isDevExt: boolean }>()
 const emits = defineEmits<{
   (e: "select"): void

@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/command"
 import { getExtensionsFolder, SUPABASE_ANON_KEY, SUPABASE_GRAPHQL_ENDPOINT } from "@/lib/constants"
 import { Extension } from "@/lib/extension/ext"
-import { $appConfig } from "@/lib/stores/appConfig"
 import { gqlClient } from "@/lib/utils/graphql"
 import { ApolloClient, gql, HttpLink, InMemoryCache, type ApolloQueryResult } from "@apollo/client"
 import type { ExtPackageJsonExtra } from "@kksh/api/models"

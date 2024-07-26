@@ -1,12 +1,8 @@
-import { $appConfig, setDevExtLoadUrl, setShowInTray } from "@/lib/stores/appConfig"
-import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
-import { getAll, getCurrent } from "@tauri-apps/api/window"
+import { getAll } from "@tauri-apps/api/window"
 import { isRegistered, register, unregister } from "@tauri-apps/plugin-global-shortcut"
-import { debug, warn } from "@tauri-apps/plugin-log"
-import { useMagicKeys } from "@vueuse/core"
-import { SettingsWindowLabel } from "~/lib/constants"
-import { $appState } from "~/lib/stores/appState"
+import { debug, info } from "@tauri-apps/plugin-log"
 import { mapKeyToTauriKey } from "~/lib/utils/js"
+import { useAppConfigStore } from "~/stores/appConfig"
 import { sendNotificationWithPermission } from "./notification"
 
 export async function registerAppHotkey(hotkeyStr: string) {
@@ -14,6 +10,7 @@ export async function registerAppHotkey(hotkeyStr: string) {
     debug(`Hotkey (${hotkeyStr}) already registered`)
     await unregister(hotkeyStr)
   }
+  info(`Registering hotkey: ${hotkeyStr}`)
   return register(hotkeyStr, async (e) => {
     if (e.state === "Released") {
       const wins = getAll()
@@ -37,12 +34,15 @@ export async function registerAppHotkey(hotkeyStr: string) {
  * Run this in main window, will show current window
  */
 export const useRegisterAppShortcuts = () => {
+  debug("useRegisterAppShortcuts called")
   return new Promise<string>((resolve, reject) => {
-    const hotkey = $appConfig.get().triggerHotkey
+    const appConfig = useAppConfigStore()
+    const hotkey = appConfig.triggerHotkey
     if (!hotkey) {
       return reject(new Error("No hotkey set in app config"))
     }
     const hotkeyStr = hotkey.map(mapKeyToTauriKey).join("+")
+    info(`Registering hotkey: ${hotkeyStr}`)
     registerAppHotkey(hotkeyStr)
       .then(() => resolve(hotkeyStr))
       .catch(reject)

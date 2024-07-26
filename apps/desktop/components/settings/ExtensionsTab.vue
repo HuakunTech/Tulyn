@@ -3,13 +3,14 @@ import IconMultiplexer from "@/components/IconMultiplexer.vue"
 import { getExtensionsFolder } from "@/lib/constants"
 import { Extension } from "@/lib/extension/ext"
 import { RemoteExtension } from "@/lib/extension/remoteExt"
-import { $appConfig } from "@/lib/stores/appConfig"
 import { TListGroup, type TListItem } from "@/lib/types/list"
+import { useAppConfigStore } from "~/stores/appConfig"
 import { ElMessage, ElTable, ElTableColumn } from "element-plus"
 import { Trash2Icon } from "lucide-vue-next"
 import { onMounted, ref } from "vue"
 
-const devExt = new Extension("Dev Extensions", $appConfig.get().devExtensionPath, true)
+const appConfig = useAppConfigStore()
+const devExt = new Extension("Dev Extensions", appConfig.devExtensionPath, true)
 const storeExt = new Extension("Extensions", await getExtensionsFolder())
 const remoteExt = new RemoteExtension()
 const tableData = ref<TListGroup[]>([])

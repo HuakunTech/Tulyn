@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { Checkbox } from "@/components/ui/checkbox"
-import { $appConfig, setShowInTray } from "@/lib/stores/appConfig"
 import { useStore } from "@nanostores/vue"
+import { useAppConfigStore } from "~/stores/appConfig"
 import { computed, ref, watch } from "vue"
 
-const appConfig = useStore($appConfig)
+const appConfig = useAppConfigStore()
 const checked = computed({
   get() {
-    return appConfig.value.showInTray
+    return appConfig.showInTray
   },
   set(val) {
-    setShowInTray(val)
+    appConfig.setShowInTray(val)
   }
 })
 </script>

@@ -5,10 +5,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import { setLightMode, type LightMode } from "@/lib/stores/appConfig"
 import { cn } from "@/lib/utils"
 import { useColorMode, useDark } from "@vueuse/core"
+import { LightMode, useAppConfigStore } from "~/stores/appConfig"
 
+const appConfig = useAppConfigStore()
 const props = defineProps<{
   class?: string
 }>()
@@ -18,7 +19,7 @@ const colorMode = useColorMode()
 
 function changeLightMode(mode: LightMode) {
   colorMode.value = mode
-  setLightMode(mode)
+  appConfig.setLightMode(mode)
 }
 </script>
 

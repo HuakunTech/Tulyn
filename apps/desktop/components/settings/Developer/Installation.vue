@@ -10,7 +10,6 @@ import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { $appConfig } from "@/lib/stores/appConfig"
 import { cn } from "@/lib/utils"
 import { installTarball, installTarballUrl } from "@/lib/utils/tarball"
 import { getDevExtensionFolder, getExtensionFolder } from "@kksh/api/commands"
@@ -18,6 +17,7 @@ import { IconEnum } from "@kksh/api/models"
 import { useStore } from "@nanostores/vue"
 import { downloadDir, join as pathJoin, tempDir } from "@tauri-apps/api/path"
 import { open as openFileSelector } from "@tauri-apps/plugin-dialog"
+import { useAppConfigStore } from "~/stores/appConfig"
 import axios from "axios"
 import { ElMessage, ElNotification } from "element-plus"
 import { CloudDownloadIcon, DownloadIcon, ExternalLinkIcon, InfoIcon } from "lucide-vue-next"
@@ -25,10 +25,10 @@ import { ref, type HTMLAttributes } from "vue"
 import { z } from "zod"
 import RemoteURLInstall from "./RemoteURLInstall.vue"
 
+const appConfig = useAppConfigStore()
 const props = defineProps<{
   class?: HTMLAttributes["class"]
 }>()
-const appConfig = useStore($appConfig)
 const dragging = ref(false)
 
 async function pickProject() {

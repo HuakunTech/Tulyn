@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-import { $appConfig, LightMode, setLightMode, setRadius, setTheme } from "@/lib/stores/appConfig"
 import { colors } from "@/lib/themes/colors"
 import { allColors } from "@/lib/themes/themes"
 import { useStore } from "@nanostores/vue"
 import { CheckIcon, MoonIcon, SunIcon } from "@radix-icons/vue"
 import { useColorMode, useDark } from "@vueuse/core"
+import { LightMode, useAppConfigStore } from "~/stores/appConfig"
 
-const appConfig = useStore($appConfig)
+const appConfig = useAppConfigStore()
 
 // const isDark = useDark();
 const RADII = [0, 0.25, 0.5, 0.75, 1]
@@ -17,7 +17,7 @@ const colorMode = useColorMode()
 
 function changeLightMode(mode: LightMode) {
   colorMode.value = mode
-  setLightMode(mode)
+  appConfig.setLightMode(mode)
 }
 </script>
 
@@ -32,7 +32,7 @@ function changeLightMode(mode: LightMode) {
           variant="outline"
           class="h-8 justify-start px-3"
           :class="color === appConfig.theme ? 'border-foreground border-2' : ''"
-          @click="setTheme(color)"
+          @click="appConfig.setTheme(color)"
         >
           <span
             class="flex h-5 w-5 items-center justify-center rounded-full"
@@ -55,7 +55,7 @@ function changeLightMode(mode: LightMode) {
           variant="outline"
           class="h-8 justify-center px-3"
           :class="r === appConfig.radius ? 'border-foreground border-2' : ''"
-          @click="setRadius(r)"
+          @click="appConfig.setRadius(r)"
         >
           <span class="text-xs">
             {{ r }}

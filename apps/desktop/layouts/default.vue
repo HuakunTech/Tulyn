@@ -2,60 +2,45 @@
 import { Toaster } from "@/components/ui/sonner"
 import { useGoToSettingShortcuts } from "@/composables/useShortcuts"
 import { useTestDB } from "@/lib/dev/exp"
-import { $appConfig, LightMode, setLightMode, setRadius, setTheme } from "@/lib/stores/appConfig"
-import { allColors } from "@/lib/themes/themes"
 import { installBun } from "@/lib/utils/runtime"
-import { useStore } from "@nanostores/vue"
 import type { UnlistenFn } from "@tauri-apps/api/event"
 import { attachConsole, debug, error, info, warn } from "@tauri-apps/plugin-log"
 import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"
+import { listenToRefreshConfig } from "~/lib/utils/tauri-events"
+import { useAppConfigStore } from "~/stores/appConfig"
 
-const colorMode = useColorMode() // auto set html class to dark is in dark mode
-const appConfig = useStore($appConfig)
+const appConfig = useAppConfigStore()
+let unlistenRefreshConfig: UnlistenFn
 let detach: UnlistenFn
 useGoToSettingShortcuts()
-useRegisterAppShortcuts()
-  .then((hotkeyStr) => {
-    info(`Shortcuts registered (${hotkeyStr})`)
-  })
-  .catch((err) => {
-    console.warn(err)
-  })
 usePreventExit()
 useTestDB()
-
+unlistenRefreshConfig = await listenToRefreshConfig(async () => {
+  await appConfig.init()
+  appConfig.refreshWindowStyles()
+  // useRegisterAppShortcuts()
+})
 onMounted(async () => {
-  installBun()
-    .then((bunVersion) => {
-      info(`Bun installed (${bunVersion})`)
+  await appConfig.init()
+  appConfig.refreshWindowStyles()
+  useRegisterAppShortcuts()
+    .then((hotkeyStr) => {
+      info(`Shortcuts registered (${hotkeyStr})`)
     })
     .catch((err) => {
-      warn(err.message)
-      // toast.error(err.message)
+      console.warn(err)
     })
+  // installBun()
+  //   .then((bunVersion) => {
+  //     info(`Bun installed (${bunVersion})`)
+  //   })
+  //   .catch((err) => {
+  //     warn(err.message)
+  //     // toast.error(err.message)
+  //   })
   detach = await attachConsole()
-  /* -------------------------------------------------------------------------- */
-  /*                            Theme and Style Init                            */
-  /* -------------------------------------------------------------------------- */
-  document.documentElement.style.setProperty("--radius", `${appConfig.value.radius}rem`)
-  document.documentElement.classList.add(`theme-${appConfig.value.theme}`)
-  colorMode.value = appConfig.value.lightMode ?? "system"
+  appConfig.watch()
 })
-
-watch(
-  () => appConfig.value.theme,
-  (theme) => {
-    document.documentElement.classList.remove(...allColors.map((color) => `theme-${color}`))
-    document.documentElement.classList.add(`theme-${theme}`)
-  }
-)
-
-watch(
-  () => appConfig.value.radius,
-  (radius) => {
-    document.documentElement.style.setProperty("--radius", `${radius}rem`)
-  }
-)
 </script>
 
 <template>

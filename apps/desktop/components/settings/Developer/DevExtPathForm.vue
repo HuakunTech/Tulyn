@@ -2,20 +2,19 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Extension } from "@/lib/extension/ext"
-import { $appConfig, setDevExtensionPath } from "@/lib/stores/appConfig"
 import { pathExists } from "@kksh/api/commands"
-import { useStore } from "@nanostores/vue"
 // import { loadDevExtManifests, loadExtManifests, $extensionsStore } from "@/lib/stores/extensions";
 import { open } from "@tauri-apps/plugin-dialog"
 import { exists } from "@tauri-apps/plugin-fs"
 import { debug } from "@tauri-apps/plugin-log"
+import { useAppConfigStore } from "~/stores/appConfig"
 import { onMount } from "nanostores"
 import { onMounted, ref } from "vue"
 import { toast } from "vue-sonner"
 
-const devExt = new Extension("Dev Extensions", $appConfig.get().devExtensionPath, true)
-const appConfig = useStore($appConfig)
-const devExtPath = ref(appConfig.value.devExtensionPath)
+const appConfig = useAppConfigStore()
+const devExt = new Extension("Dev Extensions", appConfig.devExtensionPath, true)
+const devExtPath = ref(appConfig.devExtensionPath)
 const lock = ref(true)
 
 async function pickDirectory() {
@@ -26,8 +25,7 @@ async function pickDirectory() {
   debug(`dir: ${dir}`)
   if (dir && (await pathExists(dir))) {
     devExtPath.value = dir
-    await setDevExtensionPath(devExtPath.value)
-    console.log($appConfig.get().devExtensionPath)
+    appConfig.setDevExtensionPath(dir)
     devExt.extPath = devExtPath.value
     await devExt.load()
     toast.success("Dev Extension Path Set", {
@@ -40,7 +38,8 @@ async function pickDirectory() {
 
 function clear() {
   devExtPath.value = undefined
-  return setDevExtensionPath(devExtPath.value)
+  return appConfig
+    .setDevExtensionPath(devExtPath.value)
     .then(() => {
       return toast({
         title: "Cleared"
