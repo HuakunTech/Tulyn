@@ -13,9 +13,9 @@ import {
 	union,
 	type InferOutput
 } from "valibot"
-import { Color } from "../../../models/color"
 import { NodeName, NodeNameEnum } from "../../../models/constants"
 import { Icon } from "../../../models/icon"
+import { Color } from "../../../models/styles"
 
 export const Action = object({
 	nodeName: NodeName,

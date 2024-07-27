@@ -6,8 +6,9 @@ import {
 	DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils"
+import type { LightMode } from "@kksh/api/models"
 import { useColorMode, useDark } from "@vueuse/core"
-import { LightMode, useAppConfigStore } from "~/stores/appConfig"
+import { useAppConfigStore } from "~/stores/appConfig"
 
 const appConfig = useAppConfigStore()
 const props = defineProps<{

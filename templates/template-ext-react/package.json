@@ -14,20 +14,13 @@
       "value": "logos:react"
     },
     "demoImages": [],
-    "permissions": [
-      "clipboard:read-all",
-      "clipboard:write-all",
-      "notification:all"
-    ],
+    "permissions": [],
     "customUiCmds": [
       {
         "main": "dist",
         "devMain": "http://localhost:5173",
         "name": "React Extension Template",
-        "cmds": [],
-        "window": {
-          "title": "React Extension Template in new Window"
-        }
+        "cmds": []
       }
     ],
     "templateUiCmds": []

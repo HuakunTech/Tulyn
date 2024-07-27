@@ -1,6 +1,7 @@
 import { toast } from "vue-sonner"
 import { type JarvisExtDB } from "../commands/db"
 import { type AppInfo } from "../models/apps"
+import type { LightMode, Position, Radius, ThemeColor } from "../models/styles"
 import { type IComponent } from "./worker/components/interfaces"
 import * as ListSchema from "./worker/schema/list"
 
@@ -57,6 +58,41 @@ export interface IUiWorker {
 export interface IUiIframe {
 	goHome: () => Promise<void>
 	goBack: () => Promise<void>
+	hideBackButton: () => Promise<void>
+	hideMoveButton: () => Promise<void>
+	hideRefreshButton: () => Promise<void>
+	/**
+	 * position can be "top-left" | "top-right" | "bottom-left" | "bottom-right" | CustomPosition
+	 * `CustomPosition` is an object with optional `top`, `right`, `bottom`, `left` properties
+	 * Each property is a number, with `rem` unit, and will be applied to css `top`, `right`, `bottom`, `left` properties
+	 * @param position "top-left" | "top-right" | "bottom-left" | "bottom-right" | CustomPosition
+	 * @example
+	 * ```ts
+	 * ui.showBackButton({ top: 2, left: 2 })
+	 * ui.showBackButton('top-right')
+	 * ```
+	 * @returns
+	 */
+	showBackButton: (position?: Position) => Promise<void>
+	/**
+	 * position can be "top-left" | "top-right" | "bottom-left" | "bottom-right" | CustomPosition
+	 * `CustomPosition` is an object with optional `top`, `right`, `bottom`, `left` properties
+	 * Each property is a number, with `rem` unit, and will be applied to css `top`, `right`, `bottom`, `left` properties
+	 * @param position "top-left" | "top-right" | "bottom-left" | "bottom-right" | CustomPosition
+	 * @example
+	 * ```ts
+	 * ui.showBackButton({ top: 2, left: 2 })
+	 * ui.showBackButton('top-right')
+	 * ```
+	 * @returns
+	 */
+	showMoveButton: (position?: Position) => Promise<void>
+	showRefreshButton: (position?: Position) => Promise<void>
+	getTheme: () => Promise<{ theme: ThemeColor; radius: Radius; lightMode: LightMode }>
+	reloadPage: () => Promise<void>
+	startDragging: () => Promise<void>
+	toggleMaximize: () => Promise<void>
+	internalToggleMaximize: () => Promise<void>
 }
 
 export interface IDb {

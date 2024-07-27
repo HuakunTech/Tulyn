@@ -53,7 +53,7 @@
 		"nanostores": "^0.10.3",
 		"nuxt": "^3.12.3",
 		"pinia": "^2.1.7",
-		"posthog-js": "^1.144.0",
+		"posthog-js": "^1.148.0",
 		"radix-vue": "^1.9.0",
 		"shadcn-nuxt": "^0.10.4",
 		"tailwind-merge": "^2.3.0",

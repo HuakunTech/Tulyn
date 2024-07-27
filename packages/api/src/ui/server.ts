@@ -1,3 +1,5 @@
+import { invoke } from "@tauri-apps/api/core"
+import { getCurrent } from "@tauri-apps/api/window"
 import {
 	checkPermission,
 	constructClipboardApi,
@@ -61,15 +63,26 @@ import { AllKunkunPermission, type SystemPermission } from "./api/permissions"
 import type { IDb, ISystem, IToast, IUiIframe, IUiWorker } from "./client"
 
 export interface IUiWorkerServer {
-	render: IUiWorker["render"]
-	setScrollLoading: IUiWorker["setScrollLoading"]
-	setSearchTerm: IUiWorker["setSearchTerm"]
-	setSearchBarPlaceholder: IUiWorker["setSearchBarPlaceholder"]
+	workerUiRender: IUiWorker["render"]
+	workerUiSetScrollLoading: IUiWorker["setScrollLoading"]
+	workerUiSetSearchTerm: IUiWorker["setSearchTerm"]
+	workerUiSetSearchBarPlaceholder: IUiWorker["setSearchBarPlaceholder"]
 }
 
 export interface IUiIframeServer {
-	goHome: IUiIframe["goHome"]
-	goBack: IUiIframe["goBack"]
+	iframeUiGoHome: IUiIframe["goHome"]
+	iframeUiGoBack: IUiIframe["goBack"]
+	iframeUiHideBackButton: IUiIframe["hideBackButton"]
+	iframeUiHideMoveButton: IUiIframe["hideMoveButton"]
+	iframeUiHideRefreshButton: IUiIframe["hideRefreshButton"]
+	iframeUiShowBackButton: IUiIframe["showBackButton"]
+	iframeUiShowMoveButton: IUiIframe["showMoveButton"]
+	iframeUiShowRefreshButton: IUiIframe["showRefreshButton"]
+	iframeUiGetTheme: IUiIframe["getTheme"]
+	iframeUiReloadPage: IUiIframe["reloadPage"]
+	iframeUiStartDragging: IUiIframe["startDragging"]
+	iframeUiToggleMaximize: IUiIframe["toggleMaximize"]
+	iframeUiInternalToggleMaximize: IUiIframe["internalToggleMaximize"]
 }
 
 export interface IToastServer {
@@ -217,6 +230,28 @@ export function constructToastApi(): IToastServer {
 	}
 }
 
+/**
+ * Other APIs will be constructed in main window as they are used to manipulate UI directly
+ * We can't access UI from here
+ * @returns
+ */
+export function constructIframeUiApi(): Pick<
+	IUiIframeServer,
+	"iframeUiStartDragging" | "iframeUiToggleMaximize" | "iframeUiInternalToggleMaximize"
+> {
+	return {
+		iframeUiStartDragging: () => {
+			return getCurrent().startDragging()
+		},
+		iframeUiToggleMaximize: () => {
+			return getCurrent().toggleMaximize()
+		},
+		iframeUiInternalToggleMaximize: () => {
+			return invoke<void>("plugin:window|internal_toggle_maximize")
+		}
+	}
+}
+
 // all enabled by default
 export const defaultSystemApi = constructSystemApi([
 	"system:volumn",
@@ -259,7 +294,8 @@ export function constructJarvisServerAPIWithPermissions(
 		constructLoggerApi(),
 		constructPathApi(),
 		constructSystemApi(permissions.filter((p) => p.startsWith("system:")) as SystemPermission[]),
-		constructToastApi()
+		constructToastApi(),
+		constructIframeUiApi()
 	]
 	return Object.assign({}, ...apis)
 }

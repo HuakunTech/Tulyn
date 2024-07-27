@@ -50,7 +50,7 @@ async function checkUpdate() {
 					</TauriLink>
 				</p>
 				<TauriLink href="https://github.com/HuakunTech/kunkun">
-					Akun Source Code
+					Source Code
 					<Icon name="mdi:github" class="inline -translate-y-0.5 text-white" />
 				</TauriLink>
 				<TauriLink href="https://github.com/HuakunTech/kunkunExtensions">
@@ -62,3 +62,4 @@ async function checkUpdate() {
 		</CardContent>
 	</Card>
 </template>
+<!-- <script defer data-domain="huakunshen.com" src="https://plausible.io/js/script.js"></script> -->

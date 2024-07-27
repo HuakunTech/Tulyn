@@ -1,5 +1,5 @@
-import type { Color } from "../../../models/color"
 import { NodeName, NodeNameEnum } from "../../../models/constants"
+import type { Color } from "../../../models/styles"
 import * as ListSchema from "../schema/list"
 import * as Action from "./action"
 import type { IconConstructorPatch, OmitNodeName, ReplaceIcon } from "./common"

@@ -16,7 +16,7 @@ export const comlinkDb: IDb = {
 // this db API doesn't need native implementation, for native API running in the main thread, use JarvisExtDB class directly
 export const db = comlinkDb
 
-export function convertJarvisExtDBToServerDbAPI(db: JarvisExtDB): IDbServer {
+export function constructJarvisExtDBToServerDbAPI(db: JarvisExtDB): IDbServer {
 	return {
 		dbAdd: (data) => db.add(data),
 		dbDelete: (dataId) => db.delete(dataId),

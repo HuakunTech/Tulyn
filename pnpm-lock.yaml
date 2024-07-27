@@ -254,7 +254,7 @@ importers:
         specifier: ^2.1.7
         version: 2.1.7(typescript@5.5.2)(vue@3.4.33(typescript@5.5.2))
       posthog-js:
-        specifier: ^1.144.0
+        specifier: ^1.148.0
         version: 1.148.0
       radix-vue:
         specifier: ^1.9.0

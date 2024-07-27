@@ -2,6 +2,7 @@ import {
 	restartServer,
 	setDevExtensionFolder as setDevExtensionFolderForServer
 } from "@kksh/api/commands"
+import { LightMode } from "@kksh/api/models"
 import { unregister } from "@tauri-apps/plugin-global-shortcut"
 import { debug, info, warn } from "@tauri-apps/plugin-log"
 import { Store } from "@tauri-apps/plugin-store"
@@ -28,9 +29,6 @@ import {
 } from "valibot"
 
 const persistAppConfig = new Store("appConfig.bin")
-
-export const LightMode = union([literal("light"), literal("dark"), literal("auto")])
-export type LightMode = InferOutput<typeof LightMode>
 
 export const appConfigSchema = object({
 	isInitialized: boolean(),

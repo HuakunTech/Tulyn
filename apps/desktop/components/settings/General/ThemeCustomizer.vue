@@ -3,10 +3,11 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { colors } from "@/lib/themes/colors"
 import { allColors } from "@/lib/themes/themes"
+import { LightMode } from "@kksh/api/models"
 import { useStore } from "@nanostores/vue"
 import { CheckIcon, MoonIcon, SunIcon } from "@radix-icons/vue"
 import { useColorMode, useDark } from "@vueuse/core"
-import { LightMode, useAppConfigStore } from "~/stores/appConfig"
+import { useAppConfigStore } from "~/stores/appConfig"
 
 const appConfig = useAppConfigStore()
 

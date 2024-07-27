@@ -38,7 +38,11 @@ export function generateItemValue(
 	cmd: CustomUiCmd | TemplateUiCmd,
 	isDev: boolean
 ) {
-	return `${ext.kunkun.identifier}/${cmd.name}/${isDev ? "dev" : ""}`
+	return JSON.stringify({
+		identifier: ext.kunkun.identifier,
+		cmdName: cmd.name,
+		isDev
+	})
 }
 
 export function cmdToItem(
@@ -80,7 +84,7 @@ function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: CustomUi
 		focus: cmd.window?.focus ?? undefined,
 		transparent: cmd.window?.transparent ?? undefined,
 		maximized: cmd.window?.maximized ?? undefined,
-		visible: cmd.window?.visible ?? undefined,
+		visible: cmd.window?.visible ?? false, // default to false to avoid flickering
 		decorations: cmd.window?.decorations ?? undefined,
 		alwaysOnTop: cmd.window?.alwaysOnTop ?? undefined,
 		alwaysOnBottom: cmd.window?.alwaysOnBottom ?? undefined,
@@ -147,6 +151,8 @@ export class Extension implements IExtensionBase {
 					const cmdsItems = this.manifests
 						.map((manifest) => manifestToCmdItems(manifest, this.isDev))
 						.flat()
+					console.log(cmdsItems)
+
 					this.$listItems.set(cmdsItems)
 				})
 				.catch((err) => {

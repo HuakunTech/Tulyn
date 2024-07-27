@@ -10,10 +10,10 @@ import {
 	constructJarvisServerAPIWithPermissions,
 	exposeApiToWorker,
 	getWorkerApiClient,
-	type IUiWorker
+	type IUiWorkerServer
 } from "@kksh/api/ui"
 import {
-	convertJarvisExtDBToServerDbAPI,
+	constructJarvisExtDBToServerDbAPI,
 	List,
 	NodeNameEnum,
 	wrap,
@@ -61,17 +61,18 @@ onKeyStroke("Escape", () => {
 	}
 })
 
-const extUiAPI: IUiWorker = {
-	async render(view: IComponent<ListSchema.List>) {
+const extUiAPI: IUiWorkerServer = {
+	async workerUiRender(view: IComponent<ListSchema.List>) {
+		console.log("render called")
 		viewContent.value = view
 	},
-	async setScrollLoading(_loading: boolean) {
+	async workerUiSetScrollLoading(_loading: boolean) {
 		loading.value = _loading
 	},
-	async setSearchTerm(term: string) {
+	async workerUiSetSearchTerm(term: string) {
 		searchTerm.value = term
 	},
-	async setSearchBarPlaceholder(placeholder: string) {
+	async workerUiSetSearchBarPlaceholder(placeholder: string) {
 		searchBarPlaceholder.value = placeholder
 	}
 }
@@ -127,7 +128,7 @@ async function launchWorkerExt() {
 	const worker = new Worker(blobURL)
 	// Expose Jarvis APIs to worker with permissions constraints
 	const dbAPI = new db.JarvisExtDB(extInfoInDB.extId)
-	const extDBApi: IDbServer = convertJarvisExtDBToServerDbAPI(dbAPI)
+	const extDBApi: IDbServer = constructJarvisExtDBToServerDbAPI(dbAPI)
 	exposeApiToWorker(worker, {
 		...constructJarvisServerAPIWithPermissions(currentWorkerExt.manifest.kunkun.permissions),
 		...extUiAPI,
