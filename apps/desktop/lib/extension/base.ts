@@ -2,6 +2,7 @@ import { TListItem } from "@/lib/types/list"
 import type { ReadableAtom } from "nanostores"
 
 export interface IExtensionBase {
+	id: string
 	extensionName: string
 	$listItems: ReadableAtom<TListItem[]>
 	// $listItemsDisplay: ReadableAtom<TListItem[]>;

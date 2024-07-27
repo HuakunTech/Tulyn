@@ -1,5 +1,6 @@
 import {
 	emit,
+	emitTo,
 	listen,
 	TauriEvent,
 	type Event,
@@ -13,6 +14,7 @@ export const FileDragCancelled = "tauri://drag-cancelled"
 export const FileDragOver = "tauri://drag-over"
 export const NewClipboardItemAddedEvent = "new_clipboard_item_added"
 export const RefreshConfigEvent = "kksh://refresh-config"
+export const RefreshExtEvent = "kksh://refresh-extensions"
 export const RefreshWorkerExtEvent = "kksh://refresh-worker-ext"
 
 export function listenToFileDrop(cb: EventCallback<{ paths: string[] }>) {
@@ -37,6 +39,14 @@ export function emitRefreshConfig() {
 
 export function listenToRefreshConfig(cb: EventCallback<null>) {
 	return listen(RefreshConfigEvent, cb)
+}
+
+export function emitRefreshExt() {
+	return emitTo("main", RefreshExtEvent)
+}
+
+export function listenToRefreshExt(cb: EventCallback<null>) {
+	return listen(RefreshExtEvent, cb)
 }
 
 export function emitRefreshWorkerExt() {

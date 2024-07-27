@@ -7,6 +7,7 @@ import { info, warn } from "@tauri-apps/plugin-log"
 import { ElNotification } from "element-plus"
 import { atom, computed, type WritableAtom } from "nanostores"
 import { executeBashScript, open } from "tauri-plugin-shellx-api"
+import { v4 as uuidv4 } from "uuid"
 import { type IExtensionBase } from "./base"
 
 /**
@@ -44,6 +45,7 @@ export function appInfoToListItem(app: AppInfo & { app_path_exe: string }): TLis
 }
 
 export class AppsExtension implements IExtensionBase {
+	id: string = uuidv4()
 	apps: AppInfo[] = []
 	extensionName = "Applications"
 	$listItems: WritableAtom<TListItem[]> = atom([])

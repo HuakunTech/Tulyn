@@ -6,6 +6,7 @@ import { getAll as getAllWindows, WebviewWindow } from "@tauri-apps/api/webviewW
 import { ElMessage, ElNotification } from "element-plus"
 import type { ReadableAtom, WritableAtom } from "nanostores"
 import { atom } from "nanostores"
+import { v4 as uuidv4 } from "uuid"
 import type { IExtensionBase } from "./base"
 
 const rtConfig = useRuntimeConfig()
@@ -107,6 +108,7 @@ const buildinCmdsListItems: TListItem[] = builtinCmds.map(
 )
 
 export class BuiltinCmds implements IExtensionBase {
+	id: string = uuidv4()
 	extensionName: string = "Builtin Commands"
 	$listItems: WritableAtom<TListItem[]>
 	constructor() {

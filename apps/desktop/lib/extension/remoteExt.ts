@@ -5,6 +5,7 @@ import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { info } from "@tauri-apps/plugin-log"
 import { ElMessage } from "element-plus"
 import { atom, computed, task, type ReadableAtom, type WritableAtom } from "nanostores"
+import { v4 as uuidv4 } from "uuid"
 import {
 	array,
 	minLength,
@@ -56,6 +57,7 @@ function convertToListItem(rawExt: RemoteCmd): TListItem {
 }
 
 export class RemoteExtension implements IExtensionBase {
+	id: string = uuidv4()
 	extensionName: string = "Remote Extensions"
 	remoteExtensions: RemoteCmd[]
 	$listItems: WritableAtom<TListItem[]>

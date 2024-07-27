@@ -132,6 +132,7 @@ export const useAppConfigStore = defineStore("appConfig", {
 		},
 		setDevExtensionPath(devExtensionPath: string | undefined) {
 			this.devExtensionPath = devExtensionPath
+			emitRefreshConfig()
 			return setDevExtensionFolderForServer(devExtensionPath).then(() => {
 				return restartServer()
 			})

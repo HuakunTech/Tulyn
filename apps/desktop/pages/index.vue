@@ -13,25 +13,30 @@ import { getActiveElementNodeName } from "@/lib/utils/dom"
 import { getCurrent } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
 import { useListenToWindowBlur } from "~/composables/useEvents"
+import { listenToRefreshConfig, listenToRefreshExt } from "~/lib/utils/tauri-events"
 import { useAppConfigStore } from "~/stores/appConfig"
 import { ComboboxInput } from "radix-vue"
 
 const loadDance = ref(false)
 const appConfig = useAppConfigStore()
-const appExt = new AppsExtension()
-const sysCmdExt = new SystemCommandExtension()
-const builtinCmdExt = new BuiltinCmds()
-const devExt = new Extension("Dev Extensions", appConfig.devExtensionPath, true)
-const storeExt = new Extension("Extensions", await getExtensionsFolder())
-const remoteExt = new RemoteExtension()
-const exts: IExtensionBase[] = [
-	devExt,
-	remoteExt,
-	// storeExt,
-	builtinCmdExt,
-	sysCmdExt,
-	appExt
-]
+await appConfig.init()
+const extsObj = reactive({
+	appExt: new AppsExtension(),
+	sysCmdExt: new SystemCommandExtension(),
+	builtinCmdExt: new BuiltinCmds(),
+	devExt: new Extension("Dev Extensions", appConfig.devExtensionPath, true),
+	storeExt: new Extension("Extensions", await getExtensionsFolder()),
+	remoteExt: new RemoteExtension()
+})
+
+let exts = computed<IExtensionBase[]>(() => [
+	extsObj.devExt,
+	extsObj.remoteExt,
+	// extsObj.storeExt,
+	extsObj.builtinCmdExt,
+	extsObj.sysCmdExt,
+	extsObj.appExt
+])
 const searchTermInSync = ref("")
 let updateSearchTermTimeout: ReturnType<typeof setTimeout>
 
@@ -39,15 +44,17 @@ const appWindow = getCurrent()
 const runtimeConfig = useRuntimeConfig()
 const cmdInputRef = ref<InstanceType<typeof ComboboxInput> | null>(null)
 
-// listenToRefreshConfig(() => {
-//   debug("refreshing config")
-//   appExt.load()
-//   sysCmdExt.load()
-//   builtinCmdExt.load()
-//   devExt.load()
-//   storeExt.load()
-//   remoteExt.load()
-// })
+appConfig.$subscribe((mutation, state) => {
+	const mutEvts = Array.isArray(mutation.events) ? mutation.events : [mutation.events]
+	mutEvts.forEach((evt) => {
+		if (evt.key === "devExtensionPath") {
+			if (evt.oldValue !== evt.newValue) {
+				extsObj.devExt = new Extension("Dev Extensions", state.devExtensionPath, true)
+				extsObj.devExt.load()
+			}
+		}
+	})
+})
 
 useListenToWindowBlur(() => {
 	if (!runtimeConfig.public.isDev) {
@@ -70,7 +77,7 @@ onMounted(() => {
 	if (platform() !== "macos") {
 		appWindow.setDecorations(false)
 	}
-	Promise.all(exts.map((ext) => ext.load()))
+	Promise.all(exts.value.map((ext) => ext.load()))
 	setTimeout(() => {
 		loadDance.value = true
 	}, 100)
@@ -78,7 +85,6 @@ onMounted(() => {
 
 // when close window if not focused on input. If input element has content, clear the content
 onKeyStroke("Escape", (e) => {
-	console.log("escape pressed")
 	if (getActiveElementNodeName() === "INPUT") {
 		if (searchTermInSync.value !== "") {
 			searchTermInSync.value = ""
@@ -125,7 +131,7 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 			/>
 			<CommandList class="h-full">
 				<CommandEmpty>No results found.</CommandEmpty>
-				<MainSearchListGroup v-for="ext in exts" :ext="ext" />
+				<MainSearchListGroup v-for="(ext, idx) in exts" :key="ext.id" :ext="ext" />
 			</CommandList>
 			<CmdPaletteFooter />
 		</CmdPaletteCommand>

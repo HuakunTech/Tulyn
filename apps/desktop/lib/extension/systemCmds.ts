@@ -5,10 +5,12 @@ import * as dialog from "@tauri-apps/plugin-dialog"
 import { error } from "@tauri-apps/plugin-log"
 import { ElNotification } from "element-plus"
 import { atom, type ReadableAtom, type WritableAtom } from "nanostores"
+import { v4 as uuidv4 } from "uuid"
 import { parse, safeParse } from "valibot"
 import { type IExtensionBase } from "./base"
 
 export class SystemCommandExtension implements IExtensionBase {
+	id: string = uuidv4()
 	extensionName: string
 	$listItems: WritableAtom<TListItem[]> = atom([])
 	systemCommands: SysCommand[] = []

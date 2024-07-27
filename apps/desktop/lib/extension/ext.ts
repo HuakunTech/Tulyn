@@ -18,7 +18,7 @@ import { join } from "@tauri-apps/api/path"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import * as fs from "@tauri-apps/plugin-fs"
 import { exists } from "@tauri-apps/plugin-fs"
-import { debug, error, warn } from "@tauri-apps/plugin-log"
+import { debug, error, info, warn } from "@tauri-apps/plugin-log"
 import { useAppConfigStore } from "~/stores/appConfig"
 // import { fetch } from "@kksh/api/ui"
 import axios from "axios"
@@ -120,6 +120,7 @@ export function manifestToCmdItems(manifest: ExtPackageJsonExtra, isDev: boolean
 }
 
 export class Extension implements IExtensionBase {
+	id: string = uuidv4()
 	manifests: ExtPackageJsonExtra[]
 	extPath: string | undefined
 	isDev: boolean
@@ -140,13 +141,13 @@ export class Extension implements IExtensionBase {
 			warn(`Extension path not found: ${this.extPath}`)
 			this.manifests = []
 		} else {
-			debug(`Loading extensions from: ${this.extPath}`)
 			return loadAllExtensionsFromDisk(this.extPath)
 				.then((manifests) => {
 					this.manifests = manifests
-					this.$listItems.set(
-						this.manifests.map((manifest) => manifestToCmdItems(manifest, this.isDev)).flat()
-					)
+					const cmdsItems = this.manifests
+						.map((manifest) => manifestToCmdItems(manifest, this.isDev))
+						.flat()
+					this.$listItems.set(cmdsItems)
 				})
 				.catch((err) => {
 					console.error(err)
