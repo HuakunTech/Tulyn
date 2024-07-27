@@ -1,10 +1,11 @@
 import { os } from "@kksh/api/ui"
 import { platform } from "@tauri-apps/plugin-os"
-import { computed, map } from "nanostores"
+import { atom, computed, map } from "nanostores"
 import { literal, object, string, union, type InferOutput } from "valibot"
 
 export const appStateSchema = object({
 	searchTerm: string(),
+	// searchTermInSync: string(),
 	// allApps: array(AppInfo),
 	platform: union([
 		literal("linux"),
@@ -23,6 +24,7 @@ export type AppState = InferOutput<typeof appStateSchema>
 
 export const $appState = map<AppState>({
 	searchTerm: "",
+	// searchTermInSync: "",
 	// allApps: [],
 	platform: platform()
 })
@@ -30,6 +32,8 @@ export const $appState = map<AppState>({
 export function setSearchTerm(searchTerm: string) {
 	$appState.setKey("searchTerm", searchTerm)
 }
+
+export const $searchTermSync = atom<string>("")
 
 // export function setAllApps(allApps: AppInfo[]) {
 //   $appState.setKey("allApps", allApps)

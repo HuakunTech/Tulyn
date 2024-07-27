@@ -1,7 +1,6 @@
 import { SettingsWindowLabel } from "@/lib/constants"
 import { $appState } from "@/lib/stores/appState"
-import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
-import { getAll } from "@tauri-apps/api/window"
+import { getAll, WebviewWindow } from "@tauri-apps/api/webviewWindow"
 
 export function newSettingsPage() {
 	const allWins = getAll()

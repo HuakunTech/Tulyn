@@ -8,8 +8,9 @@ import { BuiltinCmds } from "@/lib/extension/builtin"
 import { Extension } from "@/lib/extension/ext"
 import { RemoteExtension } from "@/lib/extension/remoteExt"
 import { SystemCommandExtension } from "@/lib/extension/systemCmds"
-import { setSearchTerm } from "@/lib/stores/appState"
+import { $appState, $searchTermSync, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
+import { useStore, useVModel } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
 import { useListenToWindowBlur } from "~/composables/useEvents"
@@ -17,6 +18,8 @@ import { listenToRefreshConfig, listenToRefreshExt } from "~/lib/utils/tauri-eve
 import { useAppConfigStore } from "~/stores/appConfig"
 import { ComboboxInput } from "radix-vue"
 
+// const appState = useStore($appState)
+const searchTermSync = useVModel($searchTermSync)
 const loadDance = ref(false)
 const appConfig = useAppConfigStore()
 await appConfig.init()
@@ -37,7 +40,7 @@ let exts = computed<IExtensionBase[]>(() => [
 	extsObj.sysCmdExt,
 	extsObj.appExt
 ])
-const searchTermInSync = ref("")
+// const searchTermInSync = ref("")
 let updateSearchTermTimeout: ReturnType<typeof setTimeout>
 
 const appWindow = getCurrent()
@@ -66,7 +69,7 @@ useListenToWindowFocus(() => {
 	cmdInputRef.value?.$el.querySelector("input").focus()
 })
 
-watch(searchTermInSync, (val) => {
+$searchTermSync.subscribe((val, oldVal) => {
 	clearTimeout(updateSearchTermTimeout)
 	updateSearchTermTimeout = setTimeout(() => {
 		setSearchTerm(val)
@@ -86,8 +89,8 @@ onMounted(() => {
 // when close window if not focused on input. If input element has content, clear the content
 onKeyStroke("Escape", (e) => {
 	if (getActiveElementNodeName() === "INPUT") {
-		if (searchTermInSync.value !== "") {
-			searchTermInSync.value = ""
+		if ($searchTermSync.get() !== "") {
+			$searchTermSync.set("")
 		} else {
 			getCurrent().close()
 		}
@@ -115,11 +118,10 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 })
 </script>
 <template>
-	<!-- <FunDance v-if="loadDance" class="absolute z-0 h-screen w-full opacity-10" /> -->
 	<div class="z-10 h-full">
 		<CmdPaletteCommand
 			class=""
-			v-model:searchTerm="searchTermInSync"
+			v-model:searchTerm="searchTermSync as string"
 			:identity-filter="true"
 			v-model:selected-value="highlightedItemValue"
 		>

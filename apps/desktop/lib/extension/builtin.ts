@@ -1,4 +1,5 @@
 import { DebugWindowLabel, DevWindowLabel, SettingsWindowLabel } from "@/lib/constants"
+import { $searchTermSync } from "@/lib/stores/appState"
 import { ListItemType, TListItem } from "@/lib/types/list"
 import { newSettingsPage } from "@/lib/utils/router"
 import { IconType } from "@kksh/api/models"
@@ -7,6 +8,7 @@ import { ElMessage, ElNotification } from "element-plus"
 import type { ReadableAtom, WritableAtom } from "nanostores"
 import { atom } from "nanostores"
 import { v4 as uuidv4 } from "uuid"
+import { toast } from "vue-sonner"
 import type { IExtensionBase } from "./base"
 
 const rtConfig = useRuntimeConfig()
@@ -23,16 +25,16 @@ const builtinCmds: BuiltinCmd[] = [
 		name: "Store",
 		iconifyIcon: "streamline:store-2-solid",
 		description: "Go to Extension Store",
-		function: () => {
+		function: async () => {
+			$searchTermSync.set("")
 			navigateTo("/extension-store")
-			return Promise.resolve()
 		}
 	},
 	{
 		name: "Settings",
 		iconifyIcon: "solar:settings-linear",
 		description: "Open Settings",
-		function: () => {
+		function: async () => {
 			const windows = getAllWindows()
 			const found = windows.find((w) => w.label === SettingsWindowLabel)
 			if (found) {
@@ -40,7 +42,26 @@ const builtinCmds: BuiltinCmd[] = [
 			} else {
 				newSettingsPage()
 			}
-			return Promise.resolve()
+			$searchTermSync.set("")
+		}
+	},
+	{
+		name: "Reload",
+		iconifyIcon: "tabler:reload",
+		description: "Reload this page",
+		function: async () => {
+			location.reload()
+		}
+	},
+	{
+		name: "Toggle Dev Extension Live Load Mode",
+		iconifyIcon: "tabler:reload",
+		description: "Load dev extensions from their dev server URLs",
+		function: async () => {
+			const appConfig = useAppConfigStore()
+			appConfig.setDevExtLoadUrl(!appConfig.devExtLoadUrl)
+			$searchTermSync.set("")
+			toast.success(`Dev Extension Live Load Mode toggled to: ${appConfig.devExtLoadUrl}`)
 		}
 	}
 ]
