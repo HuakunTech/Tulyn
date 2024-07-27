@@ -129,9 +129,7 @@ export class Extension implements IExtensionBase {
 	extPath: string | undefined
 	isDev: boolean
 	extensionName: string
-	//  $listItems, $listItemsDisplay
 	$listItems: WritableAtom<TListItem[]>
-	// $listItemsDisplay: ReadableAtom<TListItem[]>;
 
 	constructor(name: string, extPath?: string, isDev: boolean = false) {
 		this.extensionName = name
@@ -151,8 +149,6 @@ export class Extension implements IExtensionBase {
 					const cmdsItems = this.manifests
 						.map((manifest) => manifestToCmdItems(manifest, this.isDev))
 						.flat()
-					console.log(cmdsItems)
-
 					this.$listItems.set(cmdsItems)
 				})
 				.catch((err) => {

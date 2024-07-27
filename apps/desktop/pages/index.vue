@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Checkbox } from "@/components/ui/checkbox"
 import { CommandEmpty, CommandInput, CommandList } from "@/components/ui/command"
 import { getExtensionsFolder, HTMLElementId } from "@/lib/constants"
 import { AppsExtension } from "@/lib/extension/apps"
@@ -8,18 +7,16 @@ import { BuiltinCmds } from "@/lib/extension/builtin"
 import { Extension } from "@/lib/extension/ext"
 import { RemoteExtension } from "@/lib/extension/remoteExt"
 import { SystemCommandExtension } from "@/lib/extension/systemCmds"
-import { $appState, $searchTermSync, setSearchTerm } from "@/lib/stores/appState"
+import { $searchTermSync, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
-import { useStore, useVModel } from "@nanostores/vue"
+import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
 import { useListenToWindowBlur } from "~/composables/useEvents"
-import { listenToRefreshConfig, listenToRefreshExt } from "~/lib/utils/tauri-events"
 import { useAppConfigStore } from "~/stores/appConfig"
 import { ComboboxInput } from "radix-vue"
 
-// const appState = useStore($appState)
-const searchTermSync = useVModel($searchTermSync)
+const searchTermSync = useStore($searchTermSync)
 const loadDance = ref(false)
 const appConfig = useAppConfigStore()
 await appConfig.init()
@@ -116,12 +113,19 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 		}, 1)
 	}
 })
+
+const searchTermSyncProxy = computed({
+	get: () => searchTermSync.value,
+	set: (val: string) => {
+		$searchTermSync.set(val)
+	}
+})
 </script>
 <template>
 	<div class="z-10 h-full">
 		<CmdPaletteCommand
 			class=""
-			v-model:searchTerm="searchTermSync as string"
+			v-model:searchTerm="searchTermSyncProxy"
 			:identity-filter="true"
 			v-model:selected-value="highlightedItemValue"
 		>
