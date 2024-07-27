@@ -26,6 +26,7 @@
     "husky": "^9.0.11",
     "madge": "^7.0.0",
     "prettier": "^3.2.5",
+    "prettier-plugin-svelte": "^3.1.2",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "turbo": "^2.0.9",
     "typescript": "^5.4.5"
