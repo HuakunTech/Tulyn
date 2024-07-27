@@ -9,8 +9,8 @@
     "develop": "turbo run develop",
     "commit": "pnpm gitmoji -c",
     "lint": "turbo run lint",
-    "format:apps": "prettier --write \"./apps/**/*.{ts,tsx,md,vue,json,yaml,yml}\"",
-    "format:packages": "prettier --write \"./packages/**/*.{ts,tsx,md,vue,json,yaml,yml}\"",
+    "format:apps": "prettier --write \"./apps/**/*.{ts,tsx,md,vue,json,yaml,yml,svelte}\"",
+    "format:packages": "prettier --write \"./packages/**/*.{ts,tsx,md,vue,json,yaml,yml,svelte}\"",
     "format": "npm run format:apps && npm run format:packages",
     "prepare": "husky"
   },

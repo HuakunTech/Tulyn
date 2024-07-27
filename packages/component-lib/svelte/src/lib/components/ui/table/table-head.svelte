@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { HTMLThAttributes } from "svelte/elements";
-	import { cn } from "$lib/utils.js";
+	import { cn } from "$lib/utils.js"
+	import type { HTMLThAttributes } from "svelte/elements"
 
-	type $$Props = HTMLThAttributes;
+	type $$Props = HTMLThAttributes
 
-	let className: $$Props["class"] = undefined;
-	export { className as class };
+	let className: $$Props["class"] = undefined
+	export { className as class }
 </script>
 
 <th

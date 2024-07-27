@@ -1,61 +1,61 @@
 <script lang="ts">
-	import { writable } from "svelte/store";
-	import { onDestroy } from "svelte";
-	import { type CarouselAPI, type CarouselProps, setEmblaContext } from "./context.js";
-	import { cn } from "$lib/utils.js";
+	import { cn } from "$lib/utils.js"
+	import { onDestroy } from "svelte"
+	import { writable } from "svelte/store"
+	import { setEmblaContext, type CarouselAPI, type CarouselProps } from "./context.js"
 
-	type $$Props = CarouselProps;
+	type $$Props = CarouselProps
 
-	export let opts = {};
-	export let plugins: NonNullable<$$Props["plugins"]> = [];
-	export let api: $$Props["api"] = undefined;
-	export let orientation: NonNullable<$$Props["orientation"]> = "horizontal";
+	export let opts = {}
+	export let plugins: NonNullable<$$Props["plugins"]> = []
+	export let api: $$Props["api"] = undefined
+	export let orientation: NonNullable<$$Props["orientation"]> = "horizontal"
 
-	let className: $$Props["class"] = undefined;
-	export { className as class };
+	let className: $$Props["class"] = undefined
+	export { className as class }
 
-	const apiStore = writable<CarouselAPI | undefined>(undefined);
-	const orientationStore = writable(orientation);
-	const canScrollPrev = writable(false);
-	const canScrollNext = writable(false);
-	const optionsStore = writable(opts);
-	const pluginStore = writable(plugins);
-	const scrollSnapsStore = writable<number[]>([]);
-	const selectedIndexStore = writable(0);
+	const apiStore = writable<CarouselAPI | undefined>(undefined)
+	const orientationStore = writable(orientation)
+	const canScrollPrev = writable(false)
+	const canScrollNext = writable(false)
+	const optionsStore = writable(opts)
+	const pluginStore = writable(plugins)
+	const scrollSnapsStore = writable<number[]>([])
+	const selectedIndexStore = writable(0)
 
-	$: orientationStore.set(orientation);
-	$: pluginStore.set(plugins);
-	$: optionsStore.set(opts);
+	$: orientationStore.set(orientation)
+	$: pluginStore.set(plugins)
+	$: optionsStore.set(opts)
 
 	function scrollPrev() {
-		api?.scrollPrev();
+		api?.scrollPrev()
 	}
 	function scrollNext() {
-		api?.scrollNext();
+		api?.scrollNext()
 	}
 	function scrollTo(index: number, jump?: boolean) {
-		api?.scrollTo(index, jump);
+		api?.scrollTo(index, jump)
 	}
 
 	function onSelect(api: CarouselAPI) {
-		if (!api) return;
-		canScrollPrev.set(api.canScrollPrev());
-		canScrollNext.set(api.canScrollNext());
+		if (!api) return
+		canScrollPrev.set(api.canScrollPrev())
+		canScrollNext.set(api.canScrollNext())
 	}
 
 	$: if (api) {
-		onSelect(api);
-		api.on("select", onSelect);
-		api.on("reInit", onSelect);
+		onSelect(api)
+		api.on("select", onSelect)
+		api.on("reInit", onSelect)
 	}
 
 	function handleKeyDown(e: KeyboardEvent) {
 		if (e.key === "ArrowLeft") {
-			e.preventDefault();
-			scrollPrev();
+			e.preventDefault()
+			scrollPrev()
 		} else if (e.key === "ArrowRight") {
-			e.preventDefault();
-			scrollNext();
+			e.preventDefault()
+			scrollNext()
 		}
 	}
 
@@ -72,18 +72,18 @@
 		onInit,
 		scrollSnaps: scrollSnapsStore,
 		selectedIndex: selectedIndexStore,
-		scrollTo,
-	});
+		scrollTo
+	})
 
 	function onInit(event: CustomEvent<CarouselAPI>) {
-		api = event.detail;
-		apiStore.set(api);
-		scrollSnapsStore.set(api.scrollSnapList());
+		api = event.detail
+		apiStore.set(api)
+		scrollSnapsStore.set(api.scrollSnapList())
 	}
 
 	onDestroy(() => {
-		api?.off("select", onSelect);
-	});
+		api?.off("select", onSelect)
+	})
 </script>
 
 <div

@@ -1,15 +1,15 @@
 <script lang="ts">
-	import type { HTMLLiAttributes } from "svelte/elements";
-	import ChevronRight from "svelte-radix/ChevronRight.svelte";
-	import { cn } from "$lib/utils.js";
+	import { cn } from "$lib/utils.js"
+	import ChevronRight from "svelte-radix/ChevronRight.svelte"
+	import type { HTMLLiAttributes } from "svelte/elements"
 
 	type $$Props = HTMLLiAttributes & {
-		el?: HTMLLIElement;
-	};
+		el?: HTMLLIElement
+	}
 
-	export let el: $$Props["el"] = undefined;
-	let className: $$Props["class"] = undefined;
-	export { className as class };
+	export let el: $$Props["el"] = undefined
+	let className: $$Props["class"] = undefined
+	export { className as class }
 </script>
 
 <li

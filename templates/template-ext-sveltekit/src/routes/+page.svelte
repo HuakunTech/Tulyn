@@ -1,5 +1,6 @@
 <script>
 	import { base } from '$app/paths';
+	import { ModeToggle, Button } from '@kksh/svelte';
 	import { clipboard, notification, ui } from '@kksh/api/ui/iframe';
 	import { onMount } from 'svelte';
 
@@ -15,6 +16,10 @@
 	});
 </script>
 
+<ModeToggle />
 <h1>Home Page</h1>
 <a href="{base}/about">About</a>
 <span>Clipboard Text: {clipboardText}</span>
+<div>
+	<Button>Hello</Button>
+</div>

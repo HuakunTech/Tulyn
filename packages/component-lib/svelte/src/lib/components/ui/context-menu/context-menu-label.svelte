@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { ContextMenu as ContextMenuPrimitive } from "bits-ui";
-	import { cn } from "$lib/utils.js";
+	import { cn } from "$lib/utils.js"
+	import { ContextMenu as ContextMenuPrimitive } from "bits-ui"
 
 	type $$Props = ContextMenuPrimitive.LabelProps & {
-		inset?: boolean;
-	};
+		inset?: boolean
+	}
 
-	let className: $$Props["class"] = undefined;
-	export let inset: $$Props["inset"] = undefined;
-	export { className as class };
+	let className: $$Props["class"] = undefined
+	export let inset: $$Props["inset"] = undefined
+	export { className as class }
 </script>
 
 <ContextMenuPrimitive.Label

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { ModeWatcher } from "mode-watcher";
-  import CommandDemo from "@/components/cmdk/demo.svelte";
+	import CommandDemo from "@/components/cmdk/demo.svelte"
+	import { ModeWatcher } from "mode-watcher"
 </script>
 
 <ModeWatcher />
-<CommandDemo class="w-[45em] h-[30em]" />
+<CommandDemo class="h-[30em] w-[45em]" />

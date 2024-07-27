@@ -1294,6 +1294,22 @@ importers:
         version: 5.3.4(@types/node@20.14.11)(sass@1.77.6)(terser@5.31.1)
 
   templates/template-ext-sveltekit:
+    dependencies:
+      '@kksh/svelte':
+        specifier: workspace:*
+        version: link:../../packages/component-lib/svelte
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      mode-watcher:
+        specifier: ^0.4.0
+        version: 0.4.0(svelte@4.2.17)
+      tailwind-merge:
+        specifier: ^2.4.0
+        version: 2.4.0
+      tailwind-variants:
+        specifier: ^0.2.1
+        version: 0.2.1(tailwindcss@3.4.6(ts-node@10.9.2(@types/node@20.14.11)(typescript@5.5.2)))
     devDependencies:
       '@kksh/api':
         specifier: workspace:*
@@ -1310,9 +1326,15 @@ importers:
       '@sveltejs/vite-plugin-svelte':
         specifier: ^3.0.0
         version: 3.1.0(svelte@4.2.17)(vite@5.3.4(@types/node@20.14.11)(sass@1.77.6)(terser@5.31.1))
+      '@tailwindcss/typography':
+        specifier: ^0.5.13
+        version: 0.5.13(tailwindcss@3.4.6(ts-node@10.9.2(@types/node@20.14.11)(typescript@5.5.2)))
       '@types/eslint':
         specifier: ^9.6.0
         version: 9.6.0
+      autoprefixer:
+        specifier: ^10.4.19
+        version: 10.4.19(postcss@8.4.39)
       eslint:
         specifier: ^9.0.0
         version: 9.5.0
@@ -1325,18 +1347,27 @@ importers:
       globals:
         specifier: ^15.0.0
         version: 15.8.0
+      postcss:
+        specifier: ^8.4.38
+        version: 8.4.39
       prettier:
         specifier: ^3.1.1
         version: 3.2.5
       prettier-plugin-svelte:
         specifier: ^3.1.2
         version: 3.2.6(prettier@3.2.5)(svelte@4.2.17)
+      prettier-plugin-tailwindcss:
+        specifier: ^0.6.4
+        version: 0.6.5(@ianvs/prettier-plugin-sort-imports@4.3.0(@vue/compiler-sfc@3.4.34)(prettier@3.2.5))(prettier-plugin-svelte@3.2.6(prettier@3.2.5)(svelte@4.2.17))(prettier@3.2.5)
       svelte:
         specifier: ^4.2.7
         version: 4.2.17
       svelte-check:
         specifier: ^3.6.0
         version: 3.8.4(@babel/core@7.24.7)(postcss-load-config@5.1.0(postcss@8.4.39))(postcss@8.4.39)(sass@1.77.6)(svelte@4.2.17)
+      tailwindcss:
+        specifier: ^3.4.4
+        version: 3.4.6(ts-node@10.9.2(@types/node@20.14.11)(typescript@5.5.2))
       typescript:
         specifier: ^5.0.0
         version: 5.5.2
