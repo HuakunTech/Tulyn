@@ -38,14 +38,15 @@
     "templateUiCmds": []
   },
   "scripts": {
-    "build": "KK_NODE_ENV=production nuxt generate",
-		"build:dev": "KK_NODE_ENV=development nuxt generate",
+    "build": "cross-env KK_NODE_ENV=production nuxt generate",
+    "build:dev": "cross-env KK_NODE_ENV=development nuxt generate",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "cross-env": "^7.0.3",
     "nuxt": "^3.12.4",
     "vue": "latest"
   },

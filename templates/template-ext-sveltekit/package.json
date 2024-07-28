@@ -44,8 +44,8 @@
 	],
 	"scripts": {
 		"dev": "vite dev",
-		"build": "KK_NODE_ENV=production vite build",
-		"build:dev": "KK_NODE_ENV=development vite build",
+		"build": "cross-env KK_NODE_ENV=production vite build",
+		"build:dev": "cross-env KK_NODE_ENV=development vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -57,6 +57,7 @@
 		"@kksh/api": "workspace:*",
 		"@kksh/svelte": "workspace:*",
 		"clsx": "^2.1.1",
+		"cross-env": "^7.0.3",
 		"lucide-svelte": "^0.416.0",
 		"mode-watcher": "^0.4.0",
 		"tailwind-merge": "^2.4.0",
