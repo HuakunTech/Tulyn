@@ -8,10 +8,10 @@
 		CommandFooter,
 		ModeWatcher,
 		Separator,
-		ThemeCustomizer,
 		ThemeWrapper,
-		setTheme
+		updateTheme
 	} from '@kksh/svelte';
+	import ThemeCustomizer from '$lib/components/ThemeCustomizer.svelte';
 	import {
 		Calculator,
 		Calendar,
@@ -27,7 +27,7 @@
 		init();
 		notification.sendNotification('Hello from template-ext-svelte');
 		ui.getTheme().then((theme) => {
-			setTheme(theme);
+			updateTheme(theme);
 		});
 	});
 

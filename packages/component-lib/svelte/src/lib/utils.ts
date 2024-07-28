@@ -1,7 +1,10 @@
+import { config as themeConfig } from "$lib/stores/config"
 import { clsx, type ClassValue } from "clsx"
+import { mode, setMode } from "mode-watcher"
 import { cubicOut } from "svelte/easing"
 import type { TransitionConfig } from "svelte/transition"
 import { twMerge } from "tailwind-merge"
+import type { ThemeConfig } from "./components/theme/types"
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
@@ -59,15 +62,17 @@ export function isBrowser() {
 	return typeof document !== "undefined"
 }
 
-export function updateTheme(activeTheme: string) {
+export function updateTheme(config: ThemeConfig) {
 	if (!isBrowser()) {
 		console.warn("Not in browser")
 		return
 	}
+	themeConfig.set(config)
 	document.body.classList.forEach((className) => {
 		if (className.match(/^theme.*/)) {
 			document.body.classList.remove(className)
 		}
 	})
-	return document.body.classList.add(`theme-${activeTheme}`)
+	setMode(config.lightMode === "auto" ? "dark" : config.lightMode)
+	return document.body.classList.add(`theme-${config.theme}`)
 }

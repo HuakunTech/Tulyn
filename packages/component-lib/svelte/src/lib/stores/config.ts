@@ -1,15 +1,14 @@
-import type { Style } from "$lib/registry/styles"
 import type { Theme } from "$lib/registry/themes"
-import { persisted } from "svelte-persisted-store"
+import { writable } from "svelte/store"
 
-export type Config = {
-	style: Style["name"]
+type Config = {
 	theme: Theme["name"]
 	radius: number
+	lightMode: "auto" | "light" | "dark"
 }
 
-export const config = persisted<Config>("config", {
-	style: "default",
+export const config = writable<Config>({
 	theme: "zinc",
-	radius: 0.5
+	radius: 0.5,
+	lightMode: "auto"
 })

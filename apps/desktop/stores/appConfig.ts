@@ -89,7 +89,7 @@ export const useAppConfigStore = defineStore("appConfig", {
 			document.documentElement.classList.remove(...allColors.map((color) => `theme-${color}`))
 			document.documentElement.classList.add(`theme-${this.theme}`)
 			const colorMode = useColorMode()
-			colorMode.value = this.lightMode ?? "system"
+			colorMode.value = this.lightMode ?? "auto"
 		},
 		setTheme(theme: string) {
 			this.theme = theme

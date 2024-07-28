@@ -6,9 +6,8 @@
 		CommandFooter,
 		ModeWatcher,
 		Separator,
-		setTheme,
-		ThemeCustomizer,
-		ThemeWrapper
+		ThemeWrapper,
+		updateTheme
 	} from "@kksh/svelte"
 	import {
 		Calculator,
@@ -20,11 +19,12 @@
 		User
 	} from "lucide-svelte"
 	import { onMount } from "svelte"
+	import ThemeCustomizer from '$lib/components/ThemeCustomizer.svelte';
 
 	onMount(() => {
 		init()
 		ui.getTheme().then((theme) => {
-			setTheme(theme)
+			updateTheme(theme)
 		})
 		notification.sendNotification("Hello from template-ext-svelte")
 	})
