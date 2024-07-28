@@ -65,11 +65,11 @@
 		"tsc-alias": "^1.8.10",
 		"tsup": "^8.1.2",
 		"typedoc": "^0.26.4",
-		"valibot": "^0.35.0"
+		"valibot": "^0.36.0"
 	},
 	"peerDependencies": {
 		"typescript": "^5.0.0",
-		"valibot": "^0.35.0"
+		"valibot": "^0.36.0"
 	},
 	"dependencies": {
 		"@rollup/plugin-typescript": "^11.1.6",

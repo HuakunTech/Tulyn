@@ -55,7 +55,7 @@ const builtinCmds: BuiltinCmd[] = [
 	},
 	{
 		name: "Toggle Dev Extension Live Load Mode",
-		iconifyIcon: "tabler:reload",
+		iconifyIcon: "ri:toggle-line",
 		description: "Load dev extensions from their dev server URLs",
 		function: async () => {
 			const appConfig = useAppConfigStore()
