@@ -1,0 +1,32 @@
+{
+	"name": "@kksh/cli",
+	"module": "index.ts",
+	"version": "0.0.1",
+	"type": "module",
+	"bin": "./dist/index.js",
+	"scripts": {
+		"build": "bun build index.ts --minify --outdir dist"
+	},
+	"devDependencies": {
+		"@types/bun": "latest",
+		"@types/debug": "^4.1.12",
+		"@types/fs-extra": "^11.0.4"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	},
+	"dependencies": {
+		"@inquirer/prompts": "^5.2.1",
+		"@kksh/api": "workspace:*",
+		"chalk": "^5.3.0",
+		"commander": "^12.1.0",
+		"console-table-printer": "^2.12.1",
+		"debug": "^4.3.6",
+		"fs-extra": "^11.2.0",
+		"inquirer": "^10.1.2",
+		"valibot": "^0.36.0"
+	},
+	"files": [
+		"dist"
+	]
+}
