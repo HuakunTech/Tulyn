@@ -34,7 +34,7 @@
   "packageManager": "pnpm@9.6.0",
   "dependencies": {
     "@huakunshen/comlink": "^4.4.1",
-    "tauri-plugin-clipboard-api": "^2.1.5",
+    "tauri-plugin-clipboard-api": "^2.1.6",
     "tauri-plugin-shellx-api": "^2.0.8",
     "valibot": "^0.35.0"
   }
