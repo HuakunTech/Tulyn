@@ -207,16 +207,16 @@ export class Extension implements IExtensionBase {
 								url = `http://localhost:${port}/${this.isDev ? "dev-" : ""}extensions/${manifest.extFolderName}/${cmd.main}${postfix}`
 							}
 						}
-						try {
-							await axios.get(url)
-						} catch (err) {
-							console.error(err)
-							error(`Failed to load extension UI at ${url}: ${err}`)
-							return ElNotification.error({
-								title: "Failed to load extension UI",
-								message: `Consider Running the TroubleShooter or turn off dev mode. URL: ${url}`
-							})
-						}
+						// try {
+						// 	await axios.get(url)
+						// } catch (err) {
+						// 	console.error(err)
+						// 	error(`Failed to load extension UI at ${url}: ${err}`)
+						// 	return ElNotification.error({
+						// 		title: "Failed to load extension UI",
+						// 		message: `Consider Running the TroubleShooter or turn off dev mode. URL: ${url}`
+						// 	})
+						// }
 						extStore.setCurrentCustomUiExt({ url, cmd, manifest })
 						if (cmd.window) {
 							createNewExtWindowForUiCmd(manifest, cmd, url)

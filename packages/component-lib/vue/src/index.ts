@@ -1,5 +1,7 @@
 import "./assets/index.css"
 import { ThemeConfig, updateTheme } from "@/stores/config"
+// import Calendar from '@/components/ui/v-calendar/Calendar.vue'
+import CommandFooter from "./components/cmdk/CommandFooter.vue"
 import ThemeCustomizer from "./components/theme/ThemeCustomizer.vue"
 import Accordion from "./components/ui/accordion/Accordion.vue"
 import AccordionContent from "./components/ui/accordion/AccordionContent.vue"
@@ -65,7 +67,6 @@ import Checkbox from "./components/ui/checkbox/Checkbox.vue"
 import Collapsible from "./components/ui/collapsible/Collapsible.vue"
 import CollapsibleContent from "./components/ui/collapsible/CollapsibleContent.vue"
 import CollapsibleTrigger from "./components/ui/collapsible/CollapsibleTrigger.vue"
-// import Calendar from '@/components/ui/v-calendar/Calendar.vue'
 import Command from "./components/ui/command/Command.vue"
 import CommandDialog from "./components/ui/command/CommandDialog.vue"
 import CommandEmpty from "./components/ui/command/CommandEmpty.vue"
@@ -460,6 +461,7 @@ export {
 	CommandList,
 	CommandSeparator,
 	CommandShortcut,
+	// CommandFooter,
 	RadioGroup,
 	RadioGroupItem,
 	Select,
@@ -493,8 +495,7 @@ export {
 	PinInputGroup,
 	PinInputSeparator,
 	PinInputInput,
-	// ThemeCustomizer,
-	ThemeCustomizer,
+	// ThemeCustomizer, // this cause conflict name issue, annoying
 	updateTheme,
 	type ThemeConfig,
 	Badge

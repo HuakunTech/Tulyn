@@ -5,10 +5,10 @@
   "version": "0.0.0",
   "type": "module",
   "kunkun": {
-    "name": "template-ext-sveltekit",
-    "shortDescription": "A Custom UI template for sveltekit",
-    "longDescription": "A Custom UI template for sveltekit",
-    "identifier": "sh.kunkun-ext-custom-sveltekit",
+    "name": "template-ext-svelte",
+    "shortDescription": "A Custom UI template for svelte",
+    "longDescription": "A Custom UI template for svelte",
+    "identifier": "sh.kunkun-ext-custom-svelte",
     "icon": {
       "type": "iconify",
       "value": "logos:svelte-icon"

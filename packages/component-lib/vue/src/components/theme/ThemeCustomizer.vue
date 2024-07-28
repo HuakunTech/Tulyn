@@ -3,28 +3,12 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { colors } from "@/lib/themes/colors"
 import { allColors, Theme } from "@/lib/themes/themes"
-// import { $themeConfig, setLightMode, setRadius, setThemeColor, ThemeConfig } from "@/stores/config"
-// import { useStore } from "@nanostores/vue"
 import { CheckIcon, MoonIcon, SunIcon } from "@radix-icons/vue"
 
-// import { useColorMode, useDark } from "@vueuse/core"
-
-// const themeConfig = useStore($themeConfig)
 const RADII = [0, 0.25, 0.5, 0.75, 1]
-
-// const props = defineProps<{
-// 	themeConfig: ThemeConfig
-// }>()
-// const themeConfig = defineModel<ThemeConfig>()
 const lightMode = defineModel<"auto" | "light" | "dark">("lightMode")
 const theme = defineModel<Theme["name"]>("theme")
 const radius = defineModel<number>("radius")
-
-// function changeLightMode(mode: "light" | "dark" | "auto") {
-// 	const colorMode = useColorMode()
-// 	colorMode.value = mode
-// 	setLightMode(mode)
-// }
 
 function changeLightMode(mode: "light" | "dark" | "auto") {
 	lightMode.value = mode
