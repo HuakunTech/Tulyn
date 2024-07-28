@@ -9,7 +9,8 @@
 		ModeWatcher,
 		Separator,
 		ThemeCustomizer,
-		ThemeWrapper
+		ThemeWrapper,
+		setTheme
 	} from '@kksh/svelte';
 	import {
 		Calculator,
@@ -26,7 +27,7 @@
 		init();
 		notification.sendNotification('Hello from template-ext-svelte');
 		ui.getTheme().then((theme) => {
-			console.log('theme:', theme);
+			setTheme(theme);
 		});
 	});
 

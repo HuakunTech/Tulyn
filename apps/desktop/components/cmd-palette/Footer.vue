@@ -1,16 +1,40 @@
 <script setup lang="ts">
 import Kbd from "@/components/Kbd.vue"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 import { useAppUiStore } from "@/stores/ui"
 import { Icon } from "@iconify/vue"
+import { platform } from "@tauri-apps/plugin-os"
+import { RefreshCcw } from "lucide-vue-next"
 import ActionPanel from "./ActionPanel.vue"
 
+const _platform = platform()
 const appUiStore = useAppUiStore()
+function onReload() {
+	location.reload()
+}
+onKeyStroke(["meta", "r"], () => {
+	onReload()
+})
+onKeyStroke(["control", "r"], () => {
+	onReload()
+})
 </script>
 <template>
 	<div data-tauri-drag-region class="z-50 flex h-12 items-center justify-between border p-2">
 		<img :class="cn('h-6 w-6', 'invert dark:invert-0')" src="/img/logo-w-bg.png" alt="logo" />
-		<span class="flex">
+		<span class="flex gap-2">
+			<Tooltip>
+				<TooltipTrigger>
+					<Button variant="ghost" size="icon" @click="onReload">
+						<RefreshCcw class="w-4" />
+					</Button>
+				</TooltipTrigger>
+				<TooltipContent>
+					<span v-if="_platform === 'macos'">Command + R</span>
+					<span v-else>Control + R</span>
+				</TooltipContent>
+			</Tooltip>
 			<Button v-if="appUiStore.defaultAction" variant="ghost" class="gap-2">
 				{{ appUiStore.defaultAction }}
 				<Kbd><Icon icon="tdesign:enter" /></Kbd>

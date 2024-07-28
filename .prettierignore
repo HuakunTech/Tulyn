@@ -5,3 +5,6 @@ apps/desktop/src-tauri/gen/**
 packages/tauri-plugin-jarvis/dist-js/**
 packages/api/dist/**
 
+dist/
+.output/
+.svelte-kit/

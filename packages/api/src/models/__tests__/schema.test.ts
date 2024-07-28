@@ -1,6 +1,6 @@
+import { expect, test } from "bun:test"
 import fs from "fs"
 import path from "path"
-import { expect, test } from "bun:test"
 import { safeParse } from "valibot"
 import { ExtPackageJson } from "../manifest"
 

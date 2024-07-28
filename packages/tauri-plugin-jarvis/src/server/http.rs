@@ -46,9 +46,6 @@ async fn start_server(
         )
         .route("/info", get(super::rest::get_server_info))
         .layer(CorsLayer::permissive())
-        // CorsLayer::new()
-        //     .allow_origin("http://localhost:3000".parse::<HeaderValue>().unwrap())
-        //     .allow_methods([Method::GET]),
         .nest_service("/extensions", ServeDir::new(options.extension_folder))
         .with_state(server_state);
     if options.dev_extension_folder.is_some() {
@@ -57,7 +54,10 @@ async fn start_server(
             ServeDir::new(options.dev_extension_folder.unwrap()),
         );
     }
-    let combined_router = axum::Router::new().merge(grpc_router).merge(rest_router);
+    let combined_router = axum::Router::new()
+        .merge(grpc_router)
+        .merge(rest_router)
+        .layer(CorsLayer::permissive());
     let svr = match protocol {
         Protocol::Http => {
             axum_server::bind(server_addr)

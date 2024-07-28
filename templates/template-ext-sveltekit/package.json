@@ -14,8 +14,7 @@
 		},
 		"demoImages": [],
 		"permissions": [
-			"clipboard:read-all",
-			"clipboard:write-all",
+			"clipboard:read-text",
 			"notification:all"
 		],
 		"customUiCmds": [

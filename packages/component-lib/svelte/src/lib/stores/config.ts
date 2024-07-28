@@ -2,7 +2,7 @@ import type { Style } from "$lib/registry/styles"
 import type { Theme } from "$lib/registry/themes"
 import { persisted } from "svelte-persisted-store"
 
-type Config = {
+export type Config = {
 	style: Style["name"]
 	theme: Theme["name"]
 	radius: number

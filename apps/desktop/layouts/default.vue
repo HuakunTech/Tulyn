@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Toaster } from "@/components/ui/sonner"
+import { TooltipProvider } from "@/components/ui/tooltip"
 import { useGoToSettingShortcuts } from "@/composables/useShortcuts"
 import { useTestDB } from "@/lib/dev/exp"
 import { installBun } from "@/lib/utils/runtime"
@@ -44,10 +45,12 @@ onMounted(async () => {
 </script>
 
 <template>
-	<main class="z-10 h-screen">
-		<Toaster :rich-colors="true" :expand="true" />
-		<slot />
-	</main>
+	<TooltipProvider>
+		<main class="z-10 h-screen">
+			<Toaster :rich-colors="true" :expand="true" />
+			<slot />
+		</main>
+	</TooltipProvider>
 </template>
 
 <style>

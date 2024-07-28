@@ -1,5 +1,5 @@
-import path from "path"
 import { describe, expect, test } from "bun:test"
+import path from "path"
 import madge from "madge"
 import * as v from "valibot"
 import { buildEntries } from "../src/common-config.js"

@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { init, notification } from "@kksh/api/ui/iframe"
+	import { init, notification, ui } from "@kksh/api/ui/iframe"
 	import {
 		Button,
 		Command,
 		CommandFooter,
 		ModeWatcher,
 		Separator,
+		setTheme,
 		ThemeCustomizer,
 		ThemeWrapper
 	} from "@kksh/svelte"
@@ -22,6 +23,9 @@
 
 	onMount(() => {
 		init()
+		ui.getTheme().then((theme) => {
+			setTheme(theme)
+		})
 		notification.sendNotification("Hello from template-ext-svelte")
 	})
 

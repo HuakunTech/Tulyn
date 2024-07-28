@@ -210,6 +210,7 @@ export class Extension implements IExtensionBase {
 						try {
 							await axios.get(url)
 						} catch (err) {
+							console.error(err)
 							error(`Failed to load extension UI at ${url}: ${err}`)
 							return ElNotification.error({
 								title: "Failed to load extension UI",
