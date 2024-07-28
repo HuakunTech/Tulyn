@@ -1,3 +1,14 @@
+import { registerDragRegion } from "../api/iframe-ui"
+
+/**
+ * Initialize iframe extension
+ * Will
+ * 1. registerDragRegion
+ */
+export function init() {
+	registerDragRegion()
+}
+
 export {
 	clipboard,
 	dialog,

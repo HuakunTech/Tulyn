@@ -10,6 +10,7 @@ import {
 } from "@kksh/api/ui/iframe"
 import { getCurrent } from "@tauri-apps/api/window"
 import { cn } from "~/lib/utils"
+import { isInMainWindow } from "~/lib/utils/window"
 import { ArrowLeftIcon, MoveIcon, RefreshCcwIcon } from "lucide-vue-next"
 import { flatten, safeParse } from "valibot"
 import { toast } from "vue-sonner"
@@ -26,7 +27,7 @@ const ui = reactive<{
 	refreshBtnPosition: Position
 }>({
 	iframeLoaded: false,
-	showBackBtn: true,
+	showBackBtn: isInMainWindow(), // if open in new window, hide back button
 	showMoveBtn: true,
 	showRefreshBtn: true,
 	backBtnPosition: "top-left",
@@ -55,6 +56,9 @@ const iframeUiAPI: Omit<
 		ui.showRefreshBtn = false
 	},
 	iframeUiShowBackButton: async (position?: Position) => {
+		if (isInMainWindow()) {
+			return // if open in new window, hide back button
+		}
 		ui.showBackBtn = true
 		ui.backBtnPosition = position ?? "top-left"
 	},
@@ -82,7 +86,7 @@ onMounted(async () => {
 	// navigateTo("/")
 	setTimeout(() => {
 		getCurrent().show()
-	}, 100)
+	}, 200)
 	if (!extStore.currentCustomUiExt) {
 		return navigateTo("/")
 	}

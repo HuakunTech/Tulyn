@@ -1,8 +1,6 @@
 <script lang="ts">
-	import { base } from '$app/paths';
-	import { clipboard, notification, ui, init, toast } from '@kksh/api/ui/iframe';
+	import { init, notification } from "@kksh/api/ui/iframe"
 	import {
-		ModeToggle,
 		Button,
 		Command,
 		CommandFooter,
@@ -10,7 +8,7 @@
 		Separator,
 		ThemeCustomizer,
 		ThemeWrapper
-	} from '@kksh/svelte';
+	} from "@kksh/svelte"
 	import {
 		Calculator,
 		Calendar,
@@ -19,19 +17,23 @@
 		SettingsIcon,
 		Smile,
 		User
-	} from 'lucide-svelte';
-	import { onMount } from 'svelte';
+	} from "lucide-svelte"
+	import { onMount } from "svelte"
 
 	onMount(() => {
-		init();
-		notification.sendNotification('Hello from template-ext-svelte');
-		ui.getTheme().then((theme) => {
-			console.log('theme:', theme);
-		});
-	});
+		init()
+		notification.sendNotification("Hello from template-ext-svelte")
+	})
 
-	let highlighted = '';
-	let searchTerm = '';
+	let highlighted = ""
+	$: {
+		console.log("highlighted:", highlighted)
+	}
+
+	let searchTerm = ""
+	$: {
+		console.log("search term:", searchTerm)
+	}
 </script>
 
 <ModeWatcher />
@@ -43,23 +45,23 @@
 			<Command.List>
 				<Command.Empty>No results found.</Command.Empty>
 				<Command.Group heading="Suggestions">
-					<Command.Item onSelect={(v) => console.log('selected:', v)}>
+					<Command.Item onSelect={(v) => console.log("selected:", v)}>
 						<Calendar class="mr-2 h-4 w-4" />
 
 						<span>Calendar</span>
 					</Command.Item>
-					<Command.Item onSelect={(v) => console.log('selected:', v)}>
+					<Command.Item onSelect={(v) => console.log("selected:", v)}>
 						<Smile class="mr-2 h-4 w-4" />
 						<span>Search Emoji</span>
 					</Command.Item>
-					<Command.Item onSelect={(v) => console.log('selected:', v)}>
+					<Command.Item onSelect={(v) => console.log("selected:", v)}>
 						<Calculator class="mr-2 h-4 w-4" />
 						<span>Calculator</span>
 					</Command.Item>
 				</Command.Group>
 				<Command.Separator />
 				<Command.Group heading="Settings">
-					<Command.Item onSelect={(v) => console.log('selected:', v)}>
+					<Command.Item onSelect={(v) => console.log("selected:", v)}>
 						<User class="mr-2 h-4 w-4" />
 						<span>Profile</span>
 						<Command.Shortcut>⌘P</Command.Shortcut>
@@ -69,7 +71,7 @@
 						<span>Billing</span>
 						<Command.Shortcut>⌘B</Command.Shortcut>
 					</Command.Item>
-					<Command.Item onSelect={(v) => console.log('selected:', v)}>
+					<Command.Item onSelect={(v) => console.log("selected:", v)}>
 						<Settings class="mr-2 h-4 w-4" />
 						<span>Settings</span>
 						<Command.Shortcut>⌘S</Command.Shortcut>
@@ -85,15 +87,6 @@
 					<kbd class="ml-1">↵</kbd>
 				</Button>
 				<Separator orientation="vertical" />
-				<a href="{base}/about"><Button>About Page</Button></a>
-				<Button
-					on:click={async () => {
-						toast.success(await clipboard.readText());
-					}}
-				>
-					Read Clipboard
-				</Button>
-				<ModeToggle />
 				<ThemeCustomizer />
 			</div>
 		</CommandFooter>

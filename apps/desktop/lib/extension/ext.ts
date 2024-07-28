@@ -65,8 +65,6 @@ export function cmdToItem(
 
 function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: CustomUiCmd, url: string) {
 	// return registerExtensionWindow(manifest.extPath).then(async (windowLabel) => {
-	// const windowLabel = `main:sveltekit`
-	// const windowLabel = `ext:${uuidv4()}`
 	const windowLabel = `main:ext:${uuidv4()}`
 	const window = new WebviewWindow(windowLabel, {
 		center: cmd.window?.center ?? undefined,
@@ -102,6 +100,8 @@ function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: CustomUi
 		visibleOnAllWorkspaces: cmd.window?.visibleOnAllWorkspaces ?? undefined,
 		url: "/iframe-ext"
 	})
+	console.log("URL: ", url)
+
 	window.onCloseRequested(async (event) => {
 		// await unregisterExtensionWindow(window.label)
 	})
@@ -208,22 +208,12 @@ export class Extension implements IExtensionBase {
 							}
 						}
 						try {
-							console.log("Loading extension UI at", url)
-							// const res = await fetch(url)
-							// console.log(res)
-							axios
-								.get(url)
-								.then((res) => {
-									console.log(res)
-								})
-								.catch((err) => {
-									console.error(err)
-								})
+							await axios.get(url)
 						} catch (err) {
 							error(`Failed to load extension UI at ${url}: ${err}`)
 							return ElNotification.error({
 								title: "Failed to load extension UI",
-								message: "Consider Running the TroubleShooter or turn off dev mode"
+								message: `Consider Running the TroubleShooter or turn off dev mode. URL: ${url}`
 							})
 						}
 						extStore.setCurrentCustomUiExt({ url, cmd, manifest })
