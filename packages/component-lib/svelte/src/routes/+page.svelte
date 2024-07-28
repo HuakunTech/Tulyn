@@ -1,7 +1,15 @@
 <script lang="ts">
 	import CommandDemo from "@/components/cmdk/demo.svelte"
-	import { ModeWatcher } from "mode-watcher"
+	import { ThemeCustomizer, ThemeWrapper } from "@/components/theme"
+	import { Button } from "@/components/ui/button"
 </script>
 
-<ModeWatcher />
-<CommandDemo class="h-[30em] w-[45em]" />
+<ThemeWrapper>
+	<div class="flex flex-col gap-2 p-4">
+		<div>
+			<ThemeCustomizer />
+			<Button>Hello</Button>
+		</div>
+		<CommandDemo class="h-[30em] w-[45em]" />
+	</div>
+</ThemeWrapper>

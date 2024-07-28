@@ -54,3 +54,20 @@ export const flyAndScale = (
 		easing: cubicOut
 	}
 }
+
+export function isBrowser() {
+	return typeof document !== "undefined"
+}
+
+export function updateTheme(activeTheme: string) {
+	if (!isBrowser()) {
+		console.warn("Not in browser")
+		return
+	}
+	document.body.classList.forEach((className) => {
+		if (className.match(/^theme.*/)) {
+			document.body.classList.remove(className)
+		}
+	})
+	return document.body.classList.add(`theme-${activeTheme}`)
+}
