@@ -2,7 +2,7 @@
   "$schema": "../../packages/schema/manifest-json-schema.json",
   "name": "template-ext-svelte",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "kunkun": {
     "name": "template-ext-svelte",
