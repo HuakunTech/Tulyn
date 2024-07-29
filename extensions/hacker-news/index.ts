@@ -146,14 +146,6 @@ class HackerNews extends WorkerExtension {
         console.error(err)
       })
   }
-  onSearchTermChange(term: string): Promise<void> {
-    const filtered = this.items.filter((item) =>
-      item.title.toLowerCase().includes(term.toLowerCase())
-    )
-    this.listitems = filtered.map(hackerNewsItemToListItem)
-    // return ui.render(new List.List({ items: this.listitems })).then(() => Promise.resolve())
-    return Promise.resolve()
-  }
 
   onItemSelected(value: string): Promise<void> {
     const target = this.items.find((item) => item.title === value)
