@@ -7,7 +7,7 @@
 	},
 	"scripts": {
 		"build": "rimraf dist && cross-env NODE_ENV=production bun build index.ts --outfile=dist/index.mjs --target node",
-		"postbuild": "shx cp -r ../../templates dist/templates && bun scripts/clean-dist.ts"
+		"postbuild": "shx cp -r ../../templates dist/templates && bun scripts/postbuild.ts"
 	},
 	"devDependencies": {
 		"@rollup/plugin-commonjs": "^26.0.1",

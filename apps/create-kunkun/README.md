@@ -1,4 +1,4 @@
-# Akun Extension Initializer
+# Kunkun Extension Initializer
 
 ## Usage
 

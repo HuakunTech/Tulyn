@@ -3,6 +3,8 @@ import path from "path"
 import { ExtPackageJson } from "@kksh/api/models"
 import fs from "fs-extra"
 import { flatten, safeParse } from "valibot"
+import { isProduction } from "./constants"
+import { findPkgVersions } from "./utils"
 
 /* -------------------------------------------------------------------------- */
 /*                              Worker Extension                              */
@@ -18,7 +20,7 @@ export function cleanExtension(dir: string) {
 	})
 }
 
-export function patchManifestSchema(pkgJsonPath: string) {
+export function patchManifestJsonSchema(pkgJsonPath: string) {
 	const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, "utf-8"))
 	pkgJson["$schema"] = "https://schema.kunkun.sh"
 	fs.writeFileSync(pkgJsonPath, JSON.stringify(pkgJson, null, 2))
@@ -26,14 +28,26 @@ export function patchManifestSchema(pkgJsonPath: string) {
 
 /**
  * Remove workspace:* dependencies and add dependencies with proper versions
+ * This should be run only in development mode
  * @param pkgJsonPath path to created template's package.json
  * @param kkApiVersion @kksh/api version with the current create-kunkun version
  */
-export function patchPkgJsonDep(pkgJsonPath: string, kkApiVersion: string) {
+export function patchPkgJsonDep(pkgJsonPath: string) {
+	if (isProduction) {
+		throw new Error("This function is only available in development mode")
+	}
 	const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, "utf-8"))
-	delete pkgJson.dependencies["@kksh/react"]
-	delete pkgJson.dependencies["@kksh/api"]
-	pkgJson.dependencies["@kksh/api"] = kkApiVersion
+	const monorepoPkgVersions = findPkgVersions()
+	for (const [dep, v] of Object.entries(pkgJson.dependencies)) {
+		if ((v as string).startsWith("workspace:")) {
+			if (!monorepoPkgVersions[dep]) {
+				console.error(`Package ${dep} not found in monorepo`)
+				process.exit(1)
+			}
+			pkgJson.dependencies[dep] = monorepoPkgVersions[dep]
+		}
+	}
+
 	fs.writeFileSync(pkgJsonPath, JSON.stringify(pkgJson, null, 2))
 }
 

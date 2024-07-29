@@ -727,6 +727,16 @@ importers:
         specifier: ^0.36.0
         version: 0.36.0
 
+  packages/ci:
+    dependencies:
+      fs-extra:
+        specifier: ^11.2.0
+        version: 11.2.0
+    devDependencies:
+      '@types/bun':
+        specifier: latest
+        version: 1.1.6
+
   packages/component-lib/react:
     dependencies:
       '@hookform/resolvers':

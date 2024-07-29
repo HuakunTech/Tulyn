@@ -1,7 +1,7 @@
 {
 	"name": "@kksh/cli",
 	"module": "index.ts",
-	"version": "0.0.1",
+	"version": "0.0.2-alpha.0",
 	"type": "module",
 	"bin": "./dist/index.js",
 	"author": "Huakun",
