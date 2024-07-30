@@ -10,10 +10,7 @@ import {
 import { computed, type HTMLAttributes } from "vue"
 
 const props = defineProps<
-	SplitterResizeHandleProps & {
-		class?: HTMLAttributes["class"]
-		withHandle?: boolean
-	}
+	SplitterResizeHandleProps & { class?: HTMLAttributes["class"]; withHandle?: boolean }
 >()
 const emits = defineEmits<SplitterResizeHandleEmits>()
 

@@ -182,8 +182,7 @@ import RangeCalendarHeader from "./components/ui/range-calendar/RangeCalendarHea
 import RangeCalendarHeading from "./components/ui/range-calendar/RangeCalendarHeading.vue"
 import RangeCalendarNextButton from "./components/ui/range-calendar/RangeCalendarNextButton.vue"
 import RangeCalendarPrevButton from "./components/ui/range-calendar/RangeCalendarPrevButton.vue"
-import ResizableHandle from "./components/ui/resizable/ResizableHandle.vue"
-import ResizablePanelGroup from "./components/ui/resizable/ResizablePanelGroup.vue"
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./components/ui/resizable"
 import ScrollArea from "./components/ui/scroll-area/ScrollArea.vue"
 import ScrollBar from "./components/ui/scroll-area/ScrollBar.vue"
 import Select from "./components/ui/select/Select.vue"
@@ -450,6 +449,7 @@ export {
 	Switch,
 	AreaChart,
 	ResizablePanelGroup,
+	ResizablePanel,
 	ResizableHandle,
 	Command,
 	CommandDialog,
