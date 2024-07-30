@@ -21,8 +21,7 @@ import {
 	type ListSchema,
 	type WorkerExtension
 } from "@kksh/api/ui/worker"
-import { Button } from "@kkui/components/ui/button"
-import { Command, CommandList } from "@kkui/components/ui/command"
+import { Button, Command, CommandList } from "@kksh/vue"
 import { useStore } from "@nanostores/vue"
 import { ArrowLeftIcon } from "@radix-icons/vue"
 import type { UnlistenFn } from "@tauri-apps/api/event"

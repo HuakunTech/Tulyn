@@ -18,6 +18,7 @@
 		"@kksh/api": "workspace:*",
 		"@kksh/dance": "workspace:*",
 		"@kksh/gql": "workspace:*",
+		"@kksh/vue": "workspace:*",
 		"@kksh/supabase": "workspace:*",
 		"@nanostores/persistent": "^0.10.1",
 		"@nanostores/vue": "^0.10.0",

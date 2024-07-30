@@ -23,16 +23,16 @@ export default defineNuxtConfig({
 		"@nuxt/icon"
 		// "@nuxtjs/mdc"
 	],
-	alias: {
-		"@kkui": "../../../packages/ui/src"
-	},
-	vite: {
-		resolve: {
-			alias: {
-				"@kkui": path.resolve(__dirname, "../../packages/ui/src")
-			}
-		}
-	},
+	// alias: {
+	// 	"@kkui": "../../../packages/ui/src"
+	// },
+	// vite: {
+	// 	resolve: {
+	// 		alias: {
+	// 			"@kkui": path.resolve(__dirname, "../../packages/ui/src")
+	// 		}
+	// 	}
+	// },
 	nitro: {
 		output: {
 			publicDir: "dist"

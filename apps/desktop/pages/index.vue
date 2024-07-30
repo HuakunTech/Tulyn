@@ -8,7 +8,7 @@ import { RemoteExtension } from "@/lib/extension/remoteExt"
 import { SystemCommandExtension } from "@/lib/extension/systemCmds"
 import { $searchTermSync, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
-import { CommandEmpty, CommandInput, CommandList } from "@kkui/components/ui/command"
+import { Button, CommandEmpty, CommandInput, CommandList } from "@kksh/vue"
 import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
@@ -122,24 +122,22 @@ const searchTermSyncProxy = computed({
 })
 </script>
 <template>
-	<div class="z-10 h-full">
-		<CmdPaletteCommand
-			class=""
-			v-model:searchTerm="searchTermSyncProxy"
-			:identity-filter="true"
-			v-model:selected-value="highlightedItemValue"
-		>
-			<CommandInput
-				:id="HTMLElementId.MainSearchInput"
-				ref="cmdInputRef"
-				class="text-md h-12"
-				placeholder="Search for apps or commands..."
-			/>
-			<CommandList class="h-full">
-				<CommandEmpty>No results found.</CommandEmpty>
-				<MainSearchListGroup v-for="(ext, idx) in exts" :key="ext.id" :ext="ext" />
-			</CommandList>
-			<CmdPaletteFooter />
-		</CmdPaletteCommand>
-	</div>
+	<CmdPaletteCommand
+		class=""
+		v-model:searchTerm="searchTermSyncProxy"
+		:identity-filter="true"
+		v-model:selected-value="highlightedItemValue"
+	>
+		<CommandInput
+			:id="HTMLElementId.MainSearchInput"
+			ref="cmdInputRef"
+			class="text-md h-12"
+			placeholder="Search for apps or commands..."
+		/>
+		<CommandList class="h-full max-h-screen">
+			<CommandEmpty>No results found.</CommandEmpty>
+			<MainSearchListGroup v-for="(ext, idx) in exts" :key="ext.id" :ext="ext" />
+		</CommandList>
+		<CmdPaletteFooter />
+	</CmdPaletteCommand>
 </template>

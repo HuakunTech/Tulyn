@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TListItem } from "@/lib/types/list"
-import { Badge } from "@kkui/components/ui/badge"
 import {
+	Badge,
 	Command,
 	CommandEmpty,
 	CommandGroup,
@@ -10,7 +10,7 @@ import {
 	CommandList,
 	CommandSeparator,
 	CommandShortcut
-} from "@kkui/components/ui/command"
+} from "@kksh/vue"
 import { useAppConfigStore } from "~/stores/appConfig"
 
 const appConfig = useAppConfigStore()

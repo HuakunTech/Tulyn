@@ -3,13 +3,7 @@ import Kbd from "@/components/Kbd.vue"
 import { cn } from "@/lib/utils"
 import { useAppUiStore } from "@/stores/ui"
 import { Icon } from "@iconify/vue"
-import { Button } from "@kkui/components/ui/button"
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipProvider,
-	TooltipTrigger
-} from "@kkui/components/ui/tooltip"
+import { Button, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@kksh/vue"
 import { platform } from "@tauri-apps/plugin-os"
 import { RefreshCcw } from "lucide-vue-next"
 import ActionPanel from "./ActionPanel.vue"

@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import ThemeCustomizer from "@/components/settings/General/ThemeCustomizer.vue"
-import { Button } from "@kkui/components/ui/button"
 import {
+	Button,
 	Dialog,
 	DialogContent,
 	DialogDescription,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger
-} from "@kkui/components/ui/dialog"
+} from "@kksh/vue"
 </script>
 <template>
 	<div class="grid grid-cols-2 gap-4">

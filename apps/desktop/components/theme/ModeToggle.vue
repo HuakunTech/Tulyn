@@ -6,7 +6,7 @@ import {
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger
-} from "@kkui/components/ui/dropdown-menu"
+} from "@kksh/vue"
 import { useColorMode, useDark } from "@vueuse/core"
 import { useAppConfigStore } from "~/stores/appConfig"
 

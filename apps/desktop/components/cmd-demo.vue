@@ -8,7 +8,7 @@ import {
 	CommandList,
 	CommandSeparator,
 	CommandShortcut
-} from "@kkui/components/ui/command"
+} from "@kksh/vue"
 import {
 	CalendarIcon,
 	EnvelopeClosedIcon,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Checkbox } from "@kkui/components/ui/checkbox"
+import { Checkbox } from "@kksh/vue"
 import { useAppConfigStore } from "~/stores/appConfig"
 import { computed, ref, watch } from "vue"
 

@@ -3,16 +3,18 @@ import Kbd from "@/components/Kbd.vue"
 import { HTMLElementId } from "@/lib/constants"
 import { useAppUiStore } from "@/stores/ui"
 import { Icon } from "@iconify/vue"
-import { Button } from "@kkui/components/ui/button"
 import {
+	Button,
 	Command,
 	CommandEmpty,
 	CommandGroup,
 	CommandInput,
 	CommandItem,
-	CommandList
-} from "@kkui/components/ui/command"
-import { Popover, PopoverContent, PopoverTrigger } from "@kkui/components/ui/popover"
+	CommandList,
+	Popover,
+	PopoverContent,
+	PopoverTrigger
+} from "@kksh/vue"
 import { GlobalEventBus } from "~/lib/utils/events"
 import { ref } from "vue"
 

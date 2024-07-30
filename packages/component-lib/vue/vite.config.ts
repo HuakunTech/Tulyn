@@ -33,9 +33,9 @@ export default defineConfig({
 	},
 	plugins: [
 		vue(),
-		dts({
-			include: ["src/**/*"]
-		})
+		// dts({
+		// 	include: ["src/**/*"]
+		// })
 	],
 	resolve: {
 		alias: {

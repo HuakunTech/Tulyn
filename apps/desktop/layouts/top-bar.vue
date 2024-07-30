@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { Toaster } from "@kkui/components/ui/sonner"
-// import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"
+import { Toaster } from "@kksh/vue"
 import { listenToRefreshConfig } from "~/lib/utils/tauri-events"
 import { useAppConfigStore } from "~/stores/appConfig"
 

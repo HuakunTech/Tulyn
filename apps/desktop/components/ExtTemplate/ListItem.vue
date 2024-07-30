@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { List, ListSchema, WorkerExtension } from "@kksh/api/ui/worker"
-import {
-	CommandGroup,
-	CommandItem,
-	CommandList,
-	CommandShortcut
-} from "@kkui/components/ui/command"
+import { CommandGroup, CommandItem, CommandList, CommandShortcut } from "@kksh/vue"
 
 defineProps<{ item: ListSchema.Item }>()
 </script>

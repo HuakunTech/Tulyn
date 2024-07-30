@@ -8,12 +8,18 @@ import { cn } from "@/lib/utils"
 import { installTarball, installTarballUrl } from "@/lib/utils/tarball"
 import { getDevExtensionFolder, getExtensionFolder } from "@kksh/api/commands"
 import { IconEnum } from "@kksh/api/models"
-import { Alert, AlertDescription, AlertTitle } from "@kkui/components/ui/alert"
-import { Button } from "@kkui/components/ui/button"
-import { Card } from "@kkui/components/ui/card"
-import { Input } from "@kkui/components/ui/input"
-import { Label } from "@kkui/components/ui/label"
-import { Popover, PopoverContent, PopoverTrigger } from "@kkui/components/ui/popover"
+import {
+	Alert,
+	AlertDescription,
+	AlertTitle,
+	Button,
+	Card,
+	Input,
+	Label,
+	Popover,
+	PopoverContent,
+	PopoverTrigger
+} from "@kksh/vue"
 import { useStore } from "@nanostores/vue"
 import { downloadDir, join as pathJoin, tempDir } from "@tauri-apps/api/path"
 import { open as openFileSelector } from "@tauri-apps/plugin-dialog"

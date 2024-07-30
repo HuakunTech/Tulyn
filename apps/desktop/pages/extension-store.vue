@@ -11,8 +11,8 @@ import { ApolloClient, gql, HttpLink, InMemoryCache, type ApolloQueryResult } fr
 import type { ExtPackageJsonExtra } from "@kksh/api/models"
 import { AllExtensionsDocument, type AllExtensionsQuery } from "@kksh/gql"
 import { type Tables } from "@kksh/supabase"
-import { Button } from "@kkui/components/ui/button"
 import {
+	Button,
 	Command,
 	CommandDialog,
 	CommandEmpty,
@@ -21,7 +21,7 @@ import {
 	CommandList,
 	CommandSeparator,
 	CommandShortcut
-} from "@kkui/components/ui/command"
+} from "@kksh/vue"
 import { ArrowLeftIcon } from "@radix-icons/vue"
 import { ElMessage } from "element-plus"
 import { parse } from "valibot"

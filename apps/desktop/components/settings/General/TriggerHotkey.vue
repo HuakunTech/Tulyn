@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import { Button } from "@kkui/components/ui/button"
-import { Popover, PopoverContent, PopoverTrigger } from "@kkui/components/ui/popover"
+import { Button, Popover, PopoverContent, PopoverTrigger } from "@kksh/vue"
 import { keyCombToDisplay } from "~/lib/utils/js"
 
 const savedHotkey = defineModel<string[]>("savedHotkey", { required: true })

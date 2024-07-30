@@ -4,9 +4,7 @@ import {
 	CarouselContent,
 	CarouselItem,
 	CarouselNext,
-	CarouselPrevious
-} from "@kkui/components/ui/carousel"
-import {
+	CarouselPrevious,
 	Dialog,
 	DialogContent,
 	DialogDescription,
@@ -14,7 +12,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger
-} from "@kkui/components/ui/dialog"
+} from "@kksh/vue"
 import { VisuallyHidden } from "radix-vue"
 import type { HTMLAttributes } from "vue"
 

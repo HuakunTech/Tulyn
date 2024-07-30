@@ -3,7 +3,7 @@ import ListItem from "@/components/MainSearch/list-item.vue"
 import type { IExtensionBase } from "@/lib/extension/base"
 import { $appState } from "@/lib/stores/appState"
 import type { TListItem } from "@/lib/types/list"
-import { CommandGroup, CommandItem } from "@kkui/components/ui/command"
+import { CommandGroup, CommandItem } from "@kksh/vue"
 import { useStore } from "@nanostores/vue"
 import { computed } from "vue"
 

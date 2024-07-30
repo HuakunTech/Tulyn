@@ -7,7 +7,7 @@ import {
 	type IDbServer,
 	type IUiIframeServer
 } from "@kksh/api/ui/iframe"
-import { Button } from "@kkui/components/ui/button"
+import { Button } from "@kksh/vue"
 import { getCurrent } from "@tauri-apps/api/window"
 import { cn } from "~/lib/utils"
 import { isInMainWindow } from "~/lib/utils/window"
