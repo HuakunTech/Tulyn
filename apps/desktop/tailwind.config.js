@@ -7,6 +7,8 @@ module.exports = {
   safelist: ["dark"],
   prefix: "",
 
+  content: ["./node_modules/@kksh/components/src/**/*.{ts,tsx,vue}"],
+  
   theme: {
     container: {
       center: true,

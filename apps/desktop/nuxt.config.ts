@@ -1,4 +1,7 @@
+import path from "path"
 import { z } from "zod"
+
+console.log("hello", path.resolve(__dirname, "../../packages/components/src"))
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -22,7 +25,21 @@ export default defineNuxtConfig({
 		"@nuxt/icon"
 		// "@nuxtjs/mdc"
 	],
-
+	alias: {
+		"@kkui": "../../../packages/components/src"
+	},
+	vite: {
+		resolve: {
+			alias: {
+				"@kkui": path.resolve(__dirname, "../../packages/components/src")
+			}
+		}
+	},
+	nitro: {
+		output: {
+			publicDir: "dist"
+		}
+	},
 	shadcn: {
 		/**
 		 * Prefix for all the imported component
