@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Extension } from "@/lib/extension/ext"
 import { pathExists } from "@kksh/api/commands"
+import { Button } from "@kkui/components/ui/button"
+import { Input } from "@kkui/components/ui/input"
 // import { loadDevExtManifests, loadExtManifests, $extensionsStore } from "@/lib/stores/extensions";
 import { open } from "@tauri-apps/plugin-dialog"
 import { exists } from "@tauri-apps/plugin-fs"

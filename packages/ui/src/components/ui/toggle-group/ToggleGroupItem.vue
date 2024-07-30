@@ -1,35 +1,43 @@
 <script setup lang="ts">
-import type { VariantProps } from 'class-variance-authority'
-import { type HTMLAttributes, computed, inject } from 'vue'
-import { ToggleGroupItem, type ToggleGroupItemProps, useForwardProps } from 'radix-vue'
-import { toggleVariants } from '@kkui/components/ui/toggle'
-import { cn } from '@kkui/lib/utils'
+import { toggleVariants } from "@kkui/components/ui/toggle"
+import { cn } from "@kkui/lib/utils"
+import type { VariantProps } from "class-variance-authority"
+import { ToggleGroupItem, useForwardProps, type ToggleGroupItemProps } from "radix-vue"
+import { computed, inject, type HTMLAttributes } from "vue"
 
 type ToggleGroupVariants = VariantProps<typeof toggleVariants>
 
-const props = defineProps<ToggleGroupItemProps & {
-  class?: HTMLAttributes['class']
-  variant?: ToggleGroupVariants['variant']
-  size?: ToggleGroupVariants['size']
-}>()
+const props = defineProps<
+	ToggleGroupItemProps & {
+		class?: HTMLAttributes["class"]
+		variant?: ToggleGroupVariants["variant"]
+		size?: ToggleGroupVariants["size"]
+	}
+>()
 
-const context = inject<ToggleGroupVariants>('toggleGroup')
+const context = inject<ToggleGroupVariants>("toggleGroup")
 
 const delegatedProps = computed(() => {
-  const { class: _, variant, size, ...delegated } = props
-  return delegated
+	const { class: _, variant, size, ...delegated } = props
+	return delegated
 })
 
 const forwardedProps = useForwardProps(delegatedProps)
 </script>
 
 <template>
-  <ToggleGroupItem
-    v-bind="forwardedProps" :class="cn(toggleVariants({
-      variant: context?.variant || variant,
-      size: context?.size || size,
-    }), props.class)"
-  >
-    <slot />
-  </ToggleGroupItem>
+	<ToggleGroupItem
+		v-bind="forwardedProps"
+		:class="
+			cn(
+				toggleVariants({
+					variant: context?.variant || variant,
+					size: context?.size || size
+				}),
+				props.class
+			)
+		"
+	>
+		<slot />
+	</ToggleGroupItem>
 </template>

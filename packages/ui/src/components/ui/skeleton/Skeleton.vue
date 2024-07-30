@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue'
-import { cn } from '@kkui/lib/utils'
+import { cn } from "@kkui/lib/utils"
+import type { HTMLAttributes } from "vue"
 
 interface SkeletonProps {
-  class?: HTMLAttributes['class']
+	class?: HTMLAttributes["class"]
 }
 
 const props = defineProps<SkeletonProps>()
 </script>
 
 <template>
-  <div :class="cn('animate-pulse rounded-md bg-primary/10', props.class)" />
+	<div :class="cn('bg-primary/10 animate-pulse rounded-md', props.class)" />
 </template>

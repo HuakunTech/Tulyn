@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import type { NumberFieldRootEmits, NumberFieldRootProps } from 'radix-vue'
-import { NumberFieldRoot, useForwardPropsEmits } from 'radix-vue'
-import { type HTMLAttributes, computed } from 'vue'
-import { cn } from '@kkui/lib/utils'
+import { cn } from "@kkui/lib/utils"
+import type { NumberFieldRootEmits, NumberFieldRootProps } from "radix-vue"
+import { NumberFieldRoot, useForwardPropsEmits } from "radix-vue"
+import { computed, type HTMLAttributes } from "vue"
 
-const props = defineProps<NumberFieldRootProps & { class?: HTMLAttributes['class'] }>()
+const props = defineProps<NumberFieldRootProps & { class?: HTMLAttributes["class"] }>()
 const emits = defineEmits<NumberFieldRootEmits>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+	const { class: _, ...delegated } = props
 
-  return delegated
+	return delegated
 })
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>
-  <NumberFieldRoot v-bind="forwarded" :class="cn('grid gap-1.5', props.class)">
-    <slot />
-  </NumberFieldRoot>
+	<NumberFieldRoot v-bind="forwarded" :class="cn('grid gap-1.5', props.class)">
+		<slot />
+	</NumberFieldRoot>
 </template>

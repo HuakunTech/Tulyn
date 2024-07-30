@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import CmdInput from "@/components/cmd-palette/CommandInput.vue"
 import ExtTemplateListView from "@/components/ExtTemplate/ListView.vue"
-import { Command, CommandList } from "@/components/ui/command"
 import { HTMLElementId } from "@/lib/constants"
 import { $appState } from "@/lib/stores/appState"
 import { expose, type Remote } from "@huakunshen/comlink"
@@ -22,6 +21,8 @@ import {
 	type ListSchema,
 	type WorkerExtension
 } from "@kksh/api/ui/worker"
+import { Button } from "@kkui/components/ui/button"
+import { Command, CommandList } from "@kkui/components/ui/command"
 import { useStore } from "@nanostores/vue"
 import { ArrowLeftIcon } from "@radix-icons/vue"
 import type { UnlistenFn } from "@tauri-apps/api/event"
@@ -63,7 +64,7 @@ onKeyStroke("Escape", () => {
 
 const extUiAPI: IUiWorkerServer = {
 	async workerUiRender(view: IComponent<ListSchema.List>) {
-		console.log("render called")
+		console.log("render called", view)
 		viewContent.value = view
 	},
 	async workerUiSetScrollLoading(_loading: boolean) {
@@ -218,7 +219,7 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 			:workerAPI="workerAPI!"
 			:loading="loading"
 		/>
-		<CommandList v-else></CommandList>
+		<CommandList v-else class="h-full"></CommandList>
 		<CmdPaletteFooter />
 	</Command>
 </template>

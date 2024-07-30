@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { type HTMLAttributes, computed } from 'vue'
-import { DialogDescription, type DialogDescriptionProps } from 'radix-vue'
-import { cn } from '@kkui/lib/utils'
+import { cn } from "@kkui/lib/utils"
+import { DialogDescription, type DialogDescriptionProps } from "radix-vue"
+import { computed, type HTMLAttributes } from "vue"
 
-const props = defineProps<DialogDescriptionProps & { class?: HTMLAttributes['class'] }>()
+const props = defineProps<DialogDescriptionProps & { class?: HTMLAttributes["class"] }>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+	const { class: _, ...delegated } = props
 
-  return delegated
+	return delegated
 })
 </script>
 
 <template>
-  <DialogDescription
-    :class="cn('text-sm text-muted-foreground', props.class)"
-    v-bind="delegatedProps"
-  >
-    <slot />
-  </DialogDescription>
+	<DialogDescription
+		:class="cn('text-muted-foreground text-sm', props.class)"
+		v-bind="delegatedProps"
+	>
+		<slot />
+	</DialogDescription>
 </template>

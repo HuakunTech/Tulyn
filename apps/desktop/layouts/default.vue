@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Toaster } from "@/components/ui/sonner"
-import { TooltipProvider } from "@/components/ui/tooltip"
 import { useGoToSettingShortcuts } from "@/composables/useShortcuts"
 import { useTestDB } from "@/lib/dev/exp"
 import { installBun } from "@/lib/utils/runtime"
+import { Toaster } from "@kkui/components/ui/sonner"
+import { TooltipProvider } from "@kkui/components/ui/tooltip"
 import type { UnlistenFn } from "@tauri-apps/api/event"
 import { attachConsole, debug, error, info, warn } from "@tauri-apps/plugin-log"
 import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"

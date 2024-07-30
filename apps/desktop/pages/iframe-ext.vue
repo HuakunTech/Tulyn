@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Button } from "@/components/ui/button"
 import { db, JarvisExtDB } from "@kksh/api/commands"
 import { CustomPosition, LightMode, Radius, ThemeColor, type Position } from "@kksh/api/models"
 import { constructJarvisServerAPIWithPermissions, exposeApiToWindow } from "@kksh/api/ui"
@@ -8,6 +7,7 @@ import {
 	type IDbServer,
 	type IUiIframeServer
 } from "@kksh/api/ui/iframe"
+import { Button } from "@kkui/components/ui/button"
 import { getCurrent } from "@tauri-apps/api/window"
 import { cn } from "~/lib/utils"
 import { isInMainWindow } from "~/lib/utils/window"

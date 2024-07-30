@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import {
-  MenubarRadioGroup,
-  type MenubarRadioGroupEmits,
-  type MenubarRadioGroupProps,
-  useForwardPropsEmits,
-} from 'radix-vue'
+	MenubarRadioGroup,
+	useForwardPropsEmits,
+	type MenubarRadioGroupEmits,
+	type MenubarRadioGroupProps
+} from "radix-vue"
 
 const props = defineProps<MenubarRadioGroupProps>()
 
@@ -14,7 +14,7 @@ const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
-  <MenubarRadioGroup v-bind="forwarded">
-    <slot />
-  </MenubarRadioGroup>
+	<MenubarRadioGroup v-bind="forwarded">
+		<slot />
+	</MenubarRadioGroup>
 </template>

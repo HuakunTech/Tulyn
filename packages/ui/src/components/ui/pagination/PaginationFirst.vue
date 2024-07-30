@@ -1,29 +1,30 @@
 <script setup lang="ts">
-import { type HTMLAttributes, computed } from 'vue'
-import { PaginationFirst, type PaginationFirstProps } from 'radix-vue'
-import { DoubleArrowLeftIcon } from '@radix-icons/vue'
-import {
-  Button,
-} from '@kkui/components/ui/button'
-import { cn } from '@kkui/lib/utils'
+import { Button } from "@kkui/components/ui/button"
+import { cn } from "@kkui/lib/utils"
+import { DoubleArrowLeftIcon } from "@radix-icons/vue"
+import { PaginationFirst, type PaginationFirstProps } from "radix-vue"
+import { computed, type HTMLAttributes } from "vue"
 
-const props = withDefaults(defineProps<PaginationFirstProps & { class?: HTMLAttributes['class'] }>(), {
-  asChild: true,
-})
+const props = withDefaults(
+	defineProps<PaginationFirstProps & { class?: HTMLAttributes["class"] }>(),
+	{
+		asChild: true
+	}
+)
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+	const { class: _, ...delegated } = props
 
-  return delegated
+	return delegated
 })
 </script>
 
 <template>
-  <PaginationFirst v-bind="delegatedProps">
-    <Button :class="cn('w-9 h-9 p-0', props.class)" variant="outline">
-      <slot>
-        <DoubleArrowLeftIcon />
-      </slot>
-    </Button>
-  </PaginationFirst>
+	<PaginationFirst v-bind="delegatedProps">
+		<Button :class="cn('h-9 w-9 p-0', props.class)" variant="outline">
+			<slot>
+				<DoubleArrowLeftIcon />
+			</slot>
+		</Button>
+	</PaginationFirst>
 </template>

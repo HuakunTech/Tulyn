@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue'
-import { SelectLabel, type SelectLabelProps } from 'radix-vue'
-import { cn } from '@kkui/lib/utils'
+import { cn } from "@kkui/lib/utils"
+import { SelectLabel, type SelectLabelProps } from "radix-vue"
+import type { HTMLAttributes } from "vue"
 
-const props = defineProps<SelectLabelProps & { class?: HTMLAttributes['class'] }>()
+const props = defineProps<SelectLabelProps & { class?: HTMLAttributes["class"] }>()
 </script>
 
 <template>
-  <SelectLabel :class="cn('px-2 py-1.5 text-sm font-semibold', props.class)">
-    <slot />
-  </SelectLabel>
+	<SelectLabel :class="cn('px-2 py-1.5 text-sm font-semibold', props.class)">
+		<slot />
+	</SelectLabel>
 </template>

@@ -5,8 +5,8 @@ import {
 	AccordionContent,
 	AccordionItem,
 	AccordionTrigger
-} from "@/components/ui/accordion"
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
+} from "@kkui/components/ui/accordion"
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@kkui/components/ui/hover-card"
 import { InfoIcon } from "lucide-vue-next"
 import DevVars from "./Developer/DevVars.vue"
 import ServerStatus from "./Developer/ServerStatus.vue"

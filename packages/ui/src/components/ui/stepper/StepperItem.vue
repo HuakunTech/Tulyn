@@ -1,27 +1,26 @@
 <script lang="ts" setup>
-import { type HTMLAttributes, computed } from 'vue'
-import type { StepperItemProps } from 'radix-vue'
-import { StepperItem, useForwardProps } from 'radix-vue'
+import { cn } from "@kkui/lib/utils"
+import type { StepperItemProps } from "radix-vue"
+import { StepperItem, useForwardProps } from "radix-vue"
+import { computed, type HTMLAttributes } from "vue"
 
-import { cn } from '@kkui/lib/utils'
-
-const props = defineProps<StepperItemProps & { class?: HTMLAttributes['class'] }>()
+const props = defineProps<StepperItemProps & { class?: HTMLAttributes["class"] }>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+	const { class: _, ...delegated } = props
 
-  return delegated
+	return delegated
 })
 
 const forwarded = useForwardProps(delegatedProps)
 </script>
 
 <template>
-  <StepperItem
-    v-slot="slotProps"
-    v-bind="forwarded"
-    :class="cn('flex items-center gap-2 group data-[disabled]:pointer-events-none', props.class)"
-  >
-    <slot v-bind="slotProps" />
-  </StepperItem>
+	<StepperItem
+		v-slot="slotProps"
+		v-bind="forwarded"
+		:class="cn('group flex items-center gap-2 data-[disabled]:pointer-events-none', props.class)"
+	>
+		<slot v-bind="slotProps" />
+	</StepperItem>
 </template>

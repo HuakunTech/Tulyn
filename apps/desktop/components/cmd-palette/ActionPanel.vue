@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import Kbd from "@/components/Kbd.vue"
-import { Button } from "@/components/ui/button"
+import { HTMLElementId } from "@/lib/constants"
+import { useAppUiStore } from "@/stores/ui"
+import { Icon } from "@iconify/vue"
+import { Button } from "@kkui/components/ui/button"
 import {
 	Command,
 	CommandEmpty,
@@ -8,11 +11,8 @@ import {
 	CommandInput,
 	CommandItem,
 	CommandList
-} from "@/components/ui/command"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { HTMLElementId } from "@/lib/constants"
-import { useAppUiStore } from "@/stores/ui"
-import { Icon } from "@iconify/vue"
+} from "@kkui/components/ui/command"
+import { Popover, PopoverContent, PopoverTrigger } from "@kkui/components/ui/popover"
 import { GlobalEventBus } from "~/lib/utils/events"
 import { ref } from "vue"
 

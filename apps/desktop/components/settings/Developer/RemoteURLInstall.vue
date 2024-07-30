@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Button } from "@/components/ui/button"
+import { RemoteCmd, RemoteExtension } from "@/lib/extension/remoteExt"
+import { Button } from "@kkui/components/ui/button"
 import {
 	Dialog,
 	DialogContent,
@@ -8,17 +9,16 @@ import {
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@kkui/components/ui/dialog"
+import { Input } from "@kkui/components/ui/input"
+import { Label } from "@kkui/components/ui/label"
 import {
 	TagsInput,
 	TagsInputInput,
 	TagsInputItem,
 	TagsInputItemDelete,
 	TagsInputItemText
-} from "@/components/ui/tags-input"
-import { RemoteCmd, RemoteExtension } from "@/lib/extension/remoteExt"
+} from "@kkui/components/ui/tags-input"
 import { ElMessage } from "element-plus"
 import { CloudDownloadIcon, DownloadIcon, ExternalLinkIcon, InfoIcon } from "lucide-vue-next"
 import { v4 as uuidv4 } from "uuid"

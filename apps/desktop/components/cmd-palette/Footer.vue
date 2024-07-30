@@ -1,9 +1,15 @@
 <script setup lang="ts">
 import Kbd from "@/components/Kbd.vue"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 import { useAppUiStore } from "@/stores/ui"
 import { Icon } from "@iconify/vue"
+import { Button } from "@kkui/components/ui/button"
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger
+} from "@kkui/components/ui/tooltip"
 import { platform } from "@tauri-apps/plugin-os"
 import { RefreshCcw } from "lucide-vue-next"
 import ActionPanel from "./ActionPanel.vue"

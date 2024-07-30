@@ -1,8 +1,15 @@
 <script setup lang="ts">
-import { NumberFieldInput } from 'radix-vue'
-import { cn } from '@kkui/lib/utils'
+import { cn } from "@kkui/lib/utils"
+import { NumberFieldInput } from "radix-vue"
 </script>
 
 <template>
-  <NumberFieldInput data-slot="input" :class="cn('flex h-9 w-full rounded-md border border-input bg-transparent py-1 text-sm text-center shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50')" />
+	<NumberFieldInput
+		data-slot="input"
+		:class="
+			cn(
+				'border-input placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full rounded-md border bg-transparent py-1 text-center text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50'
+			)
+		"
+	/>
 </template>

@@ -1,18 +1,4 @@
 <script setup lang="ts">
-import { Button } from "@/components/ui/button"
-import {
-	Drawer,
-	DrawerClose,
-	DrawerContent,
-	DrawerDescription,
-	DrawerFooter,
-	DrawerHeader,
-	DrawerTitle,
-	DrawerTrigger
-} from "@/components/ui/drawer"
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
 import { PERMISSIONS_EXPLANATION } from "@/lib/constants"
 import { GlobalEventBus } from "@/lib/utils/events"
 import { gqlClient } from "@/lib/utils/graphql"
@@ -27,6 +13,20 @@ import {
 	type FindLatestExtQueryVariables
 } from "@kksh/gql"
 import { type Tables } from "@kksh/supabase"
+import { Button } from "@kkui/components/ui/button"
+import {
+	Drawer,
+	DrawerClose,
+	DrawerContent,
+	DrawerDescription,
+	DrawerFooter,
+	DrawerHeader,
+	DrawerTitle,
+	DrawerTrigger
+} from "@kkui/components/ui/drawer"
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@kkui/components/ui/hover-card"
+import { ScrollArea } from "@kkui/components/ui/scroll-area"
+import { Separator } from "@kkui/components/ui/separator"
 import { compareVersions } from "compare-versions"
 import { ElMessage } from "element-plus"
 import { CircleCheckBigIcon, Trash2Icon } from "lucide-vue-next"

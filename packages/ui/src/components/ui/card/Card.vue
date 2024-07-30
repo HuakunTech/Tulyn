@@ -1,21 +1,14 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue'
-import { cn } from '@kkui/lib/utils'
+import { cn } from "@kkui/lib/utils"
+import type { HTMLAttributes } from "vue"
 
 const props = defineProps<{
-  class?: HTMLAttributes['class']
+	class?: HTMLAttributes["class"]
 }>()
 </script>
 
 <template>
-  <div
-    :class="
-      cn(
-        'rounded-xl border bg-card text-card-foreground shadow',
-        props.class,
-      )
-    "
-  >
-    <slot />
-  </div>
+	<div :class="cn('bg-card text-card-foreground rounded-xl border shadow', props.class)">
+		<slot />
+	</div>
 </template>

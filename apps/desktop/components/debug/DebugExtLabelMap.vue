@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import {
 	getExtLabelMap,
 	isWindowLabelRegistered,
@@ -8,6 +6,8 @@ import {
 	unregisterExtensionWindow
 } from "@kksh/api/commands"
 import type { ExtensionLabelMap } from "@kksh/api/models"
+import { Button } from "@kkui/components/ui/button"
+import { ScrollArea } from "@kkui/components/ui/scroll-area"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { onMounted, ref } from "vue"
 import CodeEditor from "./CodeEditor.vue"

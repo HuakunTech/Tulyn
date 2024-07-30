@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
 import { colors } from "@/lib/themes/colors"
 import { allColors } from "@/lib/themes/themes"
 import { LightMode } from "@kksh/api/models"
+import { Button } from "@kkui/components/ui/button"
+import { Label } from "@kkui/components/ui/label"
 import { useStore } from "@nanostores/vue"
 import { CheckIcon, MoonIcon, SunIcon } from "@radix-icons/vue"
 import { useColorMode, useDark } from "@vueuse/core"

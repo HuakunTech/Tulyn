@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { useToast } from "@/components/ui/toast/use-toast"
 import {
 	getDevExtensionFolder,
 	getExtensionFolder,
@@ -11,11 +8,13 @@ import {
 	startServer,
 	stopServer
 } from "@kksh/api/commands"
+import { Badge } from "@kkui/components/ui/badge"
+import { Button } from "@kkui/components/ui/button"
 import { open } from "tauri-plugin-shellx-api"
 import { onMounted, onUnmounted, ref } from "vue"
+import { toast } from "vue-sonner"
 import { z } from "zod"
 
-const { toast } = useToast()
 const serverRunning = ref(false)
 let interval: NodeJS.Timeout
 const extFolder = ref<string | null>()
@@ -43,32 +42,20 @@ onUnmounted(() => {
 function start() {
 	startServer()
 		.then(() => {
-			toast({
-				title: "Start Server Command Sent"
-			})
+			toast.info("Start Server Command Sent")
 		})
 		.catch((err) => {
-			toast({
-				title: "Start Server Error",
-				description: err,
-				variant: "destructive"
-			})
+			toast.error("Start Server Error", err)
 		})
 }
 
 function stop() {
 	stopServer()
 		.then(() => {
-			toast({
-				title: "Stop Server Command Sent"
-			})
+			toast.info("Stop Server Command Sent")
 		})
 		.catch((err) => {
-			toast({
-				title: "Stop Server Error",
-				description: err,
-				variant: "destructive"
-			})
+			toast.error("Stop Server Error", err)
 		})
 }
 

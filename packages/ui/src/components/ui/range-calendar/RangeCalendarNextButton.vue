@@ -1,32 +1,34 @@
 <script lang="ts" setup>
-import { type HTMLAttributes, computed } from 'vue'
-import { RangeCalendarNext, type RangeCalendarNextProps, useForwardProps } from 'radix-vue'
-import { ChevronRightIcon } from '@radix-icons/vue'
-import { cn } from '@kkui/lib/utils'
-import { buttonVariants } from '@kkui/components/ui/button'
+import { buttonVariants } from "@kkui/components/ui/button"
+import { cn } from "@kkui/lib/utils"
+import { ChevronRightIcon } from "@radix-icons/vue"
+import { RangeCalendarNext, useForwardProps, type RangeCalendarNextProps } from "radix-vue"
+import { computed, type HTMLAttributes } from "vue"
 
-const props = defineProps<RangeCalendarNextProps & { class?: HTMLAttributes['class'] }>()
+const props = defineProps<RangeCalendarNextProps & { class?: HTMLAttributes["class"] }>()
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+	const { class: _, ...delegated } = props
 
-  return delegated
+	return delegated
 })
 
 const forwardedProps = useForwardProps(delegatedProps)
 </script>
 
 <template>
-  <RangeCalendarNext
-    :class="cn(
-      buttonVariants({ variant: 'outline' }),
-      'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100',
-      props.class,
-    )"
-    v-bind="forwardedProps"
-  >
-    <slot>
-      <ChevronRightIcon class="h-4 w-4" />
-    </slot>
-  </RangeCalendarNext>
+	<RangeCalendarNext
+		:class="
+			cn(
+				buttonVariants({ variant: 'outline' }),
+				'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100',
+				props.class
+			)
+		"
+		v-bind="forwardedProps"
+	>
+		<slot>
+			<ChevronRightIcon class="h-4 w-4" />
+		</slot>
+	</RangeCalendarNext>
 </template>

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { CommandEmpty, CommandInput, CommandList } from "@/components/ui/command"
 import { getExtensionsFolder, HTMLElementId } from "@/lib/constants"
 import { AppsExtension } from "@/lib/extension/apps"
 import type { IExtensionBase } from "@/lib/extension/base"
@@ -9,8 +8,7 @@ import { RemoteExtension } from "@/lib/extension/remoteExt"
 import { SystemCommandExtension } from "@/lib/extension/systemCmds"
 import { $searchTermSync, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
-import { Button } from "@kkui/components/ui/button"
-// import { Button } from "@kksh/ui"
+import { CommandEmpty, CommandInput, CommandList } from "@kkui/components/ui/command"
 import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
@@ -125,8 +123,6 @@ const searchTermSyncProxy = computed({
 </script>
 <template>
 	<div class="z-10 h-full">
-		<!-- <Demo.CmdDemo /> -->
-		<Button>Hello</Button>
 		<CmdPaletteCommand
 			class=""
 			v-model:searchTerm="searchTermSyncProxy"

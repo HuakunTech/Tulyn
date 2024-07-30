@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import { cn } from "@/lib/utils"
+import type { LightMode } from "@kksh/api/models"
 import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu"
-import { cn } from "@/lib/utils"
-import type { LightMode } from "@kksh/api/models"
+} from "@kkui/components/ui/dropdown-menu"
 import { useColorMode, useDark } from "@vueuse/core"
 import { useAppConfigStore } from "~/stores/appConfig"
 

@@ -1,23 +1,17 @@
 <script lang="ts" setup>
-import type { HTMLAttributes } from 'vue'
-import type { LabelProps } from 'radix-vue'
-import { useFormField } from './useFormField'
-import { cn } from '@kkui/lib/utils'
-import { Label } from '@kkui/components/ui/label'
+import { Label } from "@kkui/components/ui/label"
+import { cn } from "@kkui/lib/utils"
+import type { LabelProps } from "radix-vue"
+import type { HTMLAttributes } from "vue"
+import { useFormField } from "./useFormField"
 
-const props = defineProps<LabelProps & { class?: HTMLAttributes['class'] }>()
+const props = defineProps<LabelProps & { class?: HTMLAttributes["class"] }>()
 
 const { error, formItemId } = useFormField()
 </script>
 
 <template>
-  <Label
-    :class="cn(
-      error && 'text-destructive',
-      props.class,
-    )"
-    :for="formItemId"
-  >
-    <slot />
-  </Label>
+	<Label :class="cn(error && 'text-destructive', props.class)" :for="formItemId">
+		<slot />
+	</Label>
 </template>

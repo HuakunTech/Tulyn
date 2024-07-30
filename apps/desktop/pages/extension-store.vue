@@ -4,7 +4,14 @@ import ExtListItem from "@/components/extension-store/ext-list-item.vue"
 import ExtDrawer from "@/components/extension-store/ExtDrawer.vue"
 // import Command from "@/components/extension-store/Command.vue";
 import { ExtItem, ExtItemParser } from "@/components/extension-store/types"
-import { Button } from "@/components/ui/button"
+import { getExtensionsFolder, SUPABASE_ANON_KEY, SUPABASE_GRAPHQL_ENDPOINT } from "@/lib/constants"
+import { Extension } from "@/lib/extension/ext"
+import { gqlClient } from "@/lib/utils/graphql"
+import { ApolloClient, gql, HttpLink, InMemoryCache, type ApolloQueryResult } from "@apollo/client"
+import type { ExtPackageJsonExtra } from "@kksh/api/models"
+import { AllExtensionsDocument, type AllExtensionsQuery } from "@kksh/gql"
+import { type Tables } from "@kksh/supabase"
+import { Button } from "@kkui/components/ui/button"
 import {
 	Command,
 	CommandDialog,
@@ -14,14 +21,7 @@ import {
 	CommandList,
 	CommandSeparator,
 	CommandShortcut
-} from "@/components/ui/command"
-import { getExtensionsFolder, SUPABASE_ANON_KEY, SUPABASE_GRAPHQL_ENDPOINT } from "@/lib/constants"
-import { Extension } from "@/lib/extension/ext"
-import { gqlClient } from "@/lib/utils/graphql"
-import { ApolloClient, gql, HttpLink, InMemoryCache, type ApolloQueryResult } from "@apollo/client"
-import type { ExtPackageJsonExtra } from "@kksh/api/models"
-import { AllExtensionsDocument, type AllExtensionsQuery } from "@kksh/gql"
-import { type Tables } from "@kksh/supabase"
+} from "@kkui/components/ui/command"
 import { ArrowLeftIcon } from "@radix-icons/vue"
 import { ElMessage } from "element-plus"
 import { parse } from "valibot"

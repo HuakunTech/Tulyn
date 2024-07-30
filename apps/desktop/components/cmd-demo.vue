@@ -8,7 +8,7 @@ import {
 	CommandList,
 	CommandSeparator,
 	CommandShortcut
-} from "@/components/ui/command"
+} from "@kkui/components/ui/command"
 import {
 	CalendarIcon,
 	EnvelopeClosedIcon,

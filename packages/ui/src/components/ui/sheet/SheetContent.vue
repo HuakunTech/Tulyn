@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { type HTMLAttributes, computed } from 'vue'
+import { cn } from "@kkui/lib/utils"
+import { Cross2Icon } from "@radix-icons/vue"
 import {
-  DialogClose,
-  DialogContent,
-  type DialogContentEmits,
-  type DialogContentProps,
-  DialogOverlay,
-  DialogPortal,
-  useForwardPropsEmits,
-} from 'radix-vue'
-import { Cross2Icon } from '@radix-icons/vue'
-import { type SheetVariants, sheetVariants } from '.'
-import { cn } from '@kkui/lib/utils'
+	DialogClose,
+	DialogContent,
+	DialogOverlay,
+	DialogPortal,
+	useForwardPropsEmits,
+	type DialogContentEmits,
+	type DialogContentProps
+} from "radix-vue"
+import { computed, type HTMLAttributes } from "vue"
+import { sheetVariants, type SheetVariants } from "."
 
 interface SheetContentProps extends DialogContentProps {
-  class?: HTMLAttributes['class']
-  side?: SheetVariants['side']
+	class?: HTMLAttributes["class"]
+	side?: SheetVariants["side"]
 }
 
 defineOptions({
-  inheritAttrs: false,
+	inheritAttrs: false
 })
 
 const props = defineProps<SheetContentProps>()
@@ -27,30 +27,30 @@ const props = defineProps<SheetContentProps>()
 const emits = defineEmits<DialogContentEmits>()
 
 const delegatedProps = computed(() => {
-  const { class: _, side, ...delegated } = props
+	const { class: _, side, ...delegated } = props
 
-  return delegated
+	return delegated
 })
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>
-  <DialogPortal>
-    <DialogOverlay
-      class="fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
-    />
-    <DialogContent
-      :class="cn(sheetVariants({ side }), props.class)"
-      v-bind="{ ...forwarded, ...$attrs }"
-    >
-      <slot />
+	<DialogPortal>
+		<DialogOverlay
+			class="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/80"
+		/>
+		<DialogContent
+			:class="cn(sheetVariants({ side }), props.class)"
+			v-bind="{ ...forwarded, ...$attrs }"
+		>
+			<slot />
 
-      <DialogClose
-        class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary"
-      >
-        <Cross2Icon class="w-4 h-4" />
-      </DialogClose>
-    </DialogContent>
-  </DialogPortal>
+			<DialogClose
+				class="ring-offset-background focus:ring-ring data-[state=open]:bg-secondary absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:pointer-events-none"
+			>
+				<Cross2Icon class="h-4 w-4" />
+			</DialogClose>
+		</DialogContent>
+	</DialogPortal>
 </template>

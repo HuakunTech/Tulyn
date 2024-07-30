@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Alert, AlertDescription, AlertTitle } from "@kkui/components/ui/alert"
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -9,7 +9,7 @@ import {
 	AlertDialogHeader,
 	AlertDialogTitle,
 	AlertDialogTrigger
-} from "@/components/ui/alert-dialog"
+} from "@kkui/components/ui/alert-dialog"
 import {
 	AlertCircle,
 	CloudDownloadIcon,
