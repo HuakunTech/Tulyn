@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { CommandEmpty, CommandInput, CommandList } from "@/components/ui/command"
 import { getExtensionsFolder, HTMLElementId } from "@/lib/constants"
 import { AppsExtension } from "@/lib/extension/apps"
 import type { IExtensionBase } from "@/lib/extension/base"
@@ -8,7 +9,10 @@ import { RemoteExtension } from "@/lib/extension/remoteExt"
 import { SystemCommandExtension } from "@/lib/extension/systemCmds"
 import { $searchTermSync, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
-import { Button, CommandEmpty, CommandInput, CommandList } from "@kksh/vue"
+import {
+	Button
+	// , CommandEmpty, CommandInput, CommandList
+} from "@kksh/vue"
 import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"

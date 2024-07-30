@@ -11,6 +11,7 @@ import {
 	ResizablePanel,
 	ResizablePanelGroup
 } from "@kksh/vue"
+import type { HTMLAttributes } from "vue"
 import ListDetail from "./ListDetail.vue"
 import ListItem from "./ListItem.vue"
 
@@ -18,6 +19,7 @@ const props = defineProps<{
 	modelValue: ListSchema.List
 	workerAPI: Remote<WorkerExtension>
 	loading: boolean
+	class: HTMLAttributes["class"]
 }>()
 let isScrolling = false
 let defaultDetailWidth = props.modelValue.detail ? props.modelValue.detail?.width ?? 70 : 0
@@ -31,15 +33,9 @@ function onScroll(e: Event) {
 		}, 500)
 	}
 }
-// const detailWidth = computed(() => {
-//   if (!props.modelValue.detail) {
-//     return 0
-//   }
-//  return props.modelValue.detail?.width??70
-// })
 </script>
 <template>
-	<ResizablePanelGroup direction="horizontal">
+	<ResizablePanelGroup direction="horizontal" :class="props.class">
 		<ResizablePanel :default-size="100 - defaultDetailWidth">
 			<CommandList class="h-full" @scroll="onScroll">
 				<CommandEmpty>No results found.</CommandEmpty>

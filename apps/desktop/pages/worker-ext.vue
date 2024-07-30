@@ -193,7 +193,7 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 </script>
 <template>
 	<Command
-		class=""
+		class="border border-green-500"
 		v-model:searchTerm="searchTerm"
 		@update:search-term="onSearchTermChange"
 		@update:model-value="(v) => workerAPI?.onItemSelected((v as ListSchema.Item).value)"
@@ -214,6 +214,7 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 		</CmdInput>
 		<ExtTemplateListView
 			v-if="viewContent"
+			class=""
 			:model-value="viewContent"
 			:workerAPI="workerAPI!"
 			:loading="loading"
