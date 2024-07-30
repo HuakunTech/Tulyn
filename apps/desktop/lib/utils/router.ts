@@ -7,16 +7,17 @@ export function newSettingsPage() {
 	const existingWin = allWins.find((win) => win.label === SettingsWindowLabel)
 	if (existingWin) {
 		existingWin.show()
+		return existingWin
 	} else {
-		new WebviewWindow(SettingsWindowLabel, {
+		return new WebviewWindow(SettingsWindowLabel, {
 			url: "/settings",
 			title: "",
 			hiddenTitle: true,
 			width: 1000,
 			height: 800,
 			titleBarStyle: $appState.get().platform === "macos" ? "overlay" : undefined,
-			visible: true
-			// visible: false
+			// visible: true
+			visible: false
 		})
 	}
 }

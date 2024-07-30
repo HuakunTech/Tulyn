@@ -55,7 +55,12 @@ useListenToWindowFocus(() => {
 
 onKeyStroke("Escape", () => {
 	if (document.activeElement === getWorkerExtInputEle()) {
-		return navigateTo("/")
+		if (searchTerm.value.length > 0) {
+			searchTerm.value = ""
+			return
+		} else {
+			return navigateTo("/")
+		}
 	} else {
 		getWorkerExtInputEle()?.focus()
 	}
@@ -193,7 +198,8 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 </script>
 <template>
 	<Command
-		class="border border-green-500"
+		class=""
+		:id="HTMLElementId.WorkerExtInputId"
 		v-model:searchTerm="searchTerm"
 		@update:search-term="onSearchTermChange"
 		@update:model-value="(v) => workerAPI?.onItemSelected((v as ListSchema.Item).value)"
@@ -202,7 +208,6 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 		:filterFunction="(items, term) => filterFunction(items as ListSchema.Item[], term)"
 	>
 		<CmdInput
-			:id="HTMLElementId.WorkerExtInputId"
 			ref="cmdInputRef"
 			class="text-md h-12"
 			:placeholder="searchBarPlaceholder ?? 'Search...'"

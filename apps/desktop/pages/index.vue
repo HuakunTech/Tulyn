@@ -9,10 +9,6 @@ import { RemoteExtension } from "@/lib/extension/remoteExt"
 import { SystemCommandExtension } from "@/lib/extension/systemCmds"
 import { $searchTermSync, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
-import {
-	Button
-	// , CommandEmpty, CommandInput, CommandList
-} from "@kksh/vue"
 import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
@@ -21,7 +17,6 @@ import { useAppConfigStore } from "~/stores/appConfig"
 import { ComboboxInput } from "radix-vue"
 
 const searchTermSync = useStore($searchTermSync)
-const loadDance = ref(false)
 const appConfig = useAppConfigStore()
 await appConfig.init()
 const extsObj = reactive({
@@ -82,9 +77,7 @@ onMounted(() => {
 		appWindow.setDecorations(false)
 	}
 	Promise.all(exts.value.map((ext) => ext.load()))
-	setTimeout(() => {
-		loadDance.value = true
-	}, 100)
+	appWindow.show()
 })
 
 // when close window if not focused on input. If input element has content, clear the content
@@ -126,6 +119,7 @@ const searchTermSyncProxy = computed({
 })
 </script>
 <template>
+	<!-- <FunDance /> -->
 	<CmdPaletteCommand
 		class=""
 		v-model:searchTerm="searchTermSyncProxy"

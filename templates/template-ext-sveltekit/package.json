@@ -22,10 +22,7 @@
 				"main": "build",
 				"devMain": "http://localhost:5173/dev-extensions/template-ext-sveltekit/build",
 				"name": "Sveltekit Template Home Page",
-				"cmds": [],
-				"window": {
-					"title": "Sveltekit Template Home Page"
-				}
+				"cmds": []
 			},
 			{
 				"main": "build/about.html",

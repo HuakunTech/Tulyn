@@ -40,7 +40,13 @@ const builtinCmds: BuiltinCmd[] = [
 			if (found) {
 				ElNotification.error("Settings Page is already open")
 			} else {
-				newSettingsPage()
+				const win = newSettingsPage()
+				setTimeout(() => {
+					// this is a backup, if window is not properly loaded,
+					// the show() will not be called within setting page, we call it here with a larger delay,
+					// at least the window will be shown
+					win.show()
+				}, 800)
 			}
 			$searchTermSync.set("")
 		}

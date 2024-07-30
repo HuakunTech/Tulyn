@@ -9,16 +9,20 @@
 		"frontendDist": "../dist"
 	},
 	"app": {
+		"macOSPrivateApi": false,
 		"windows": [
 			{
 				"title": "",
+				"url": "init-page",
 				"label": "main",
 				"width": 800,
 				"height": 600,
 				"resizable": true,
 				"fullscreen": false,
 				"titleBarStyle": "Transparent",
-				"hiddenTitle": true
+				"transparent": false,
+				"hiddenTitle": true,
+				"visible": false
 			}
 		],
 		"security": {

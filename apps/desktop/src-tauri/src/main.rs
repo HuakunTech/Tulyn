@@ -135,6 +135,13 @@ fn main() {
                 window.open_devtools();
                 // window.close_devtools();
             }
+
+            let main_window = app.get_webview_window("main").unwrap();
+            std::thread::spawn(move || {
+                // this is a backup plan, if frontend is not properly loaded, show() will not be called, then we need to call it manually from rust after a long delay
+                std::thread::sleep(std::time::Duration::from_secs(1));
+                main_window.show().unwrap();
+            });
             Ok(())
         })
         .run(tauri::generate_context!())
