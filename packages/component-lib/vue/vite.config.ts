@@ -10,8 +10,9 @@ import { dependencies, peerDependencies } from "./package.json"
 export default defineConfig({
 	build: {
 		lib: {
-			// entry: ["./src/index3.ts"],
+			// entry: ["./src/dev.ts"],
 			entry: ["./src/index.ts"],
+			// entry: ["./src/index.ts", "./src/dev.ts"],
 			name: "@kksh/vue",
 			formats: ["es", "cjs"]
 		},

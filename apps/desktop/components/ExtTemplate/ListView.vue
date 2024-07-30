@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import IconMultiplexer from "@/components/IconMultiplexer.vue"
+import { StrikeSeparator } from "@/components/separator"
 import { expose, type Remote } from "@huakunshen/comlink"
 import { IconEnum } from "@kksh/api/models"
 import { List, ListSchema, WorkerExtension } from "@kksh/api/ui/worker"
@@ -12,7 +13,6 @@ import {
 	ResizablePanel,
 	ResizablePanelGroup
 } from "@kksh/vue"
-import { StrikeSeparator } from "@/components/separator"
 import ListDetail from "./ListDetail.vue"
 import ListItem from "./ListItem.vue"
 
