@@ -6,7 +6,7 @@ import {
 	unregisterExtensionWindow
 } from "@kksh/api/commands"
 import type { ExtensionLabelMap } from "@kksh/api/models"
-import { ScrollArea, Button } from "@kksh/vue"
+import { Button, ScrollArea } from "@kksh/vue"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { onMounted, ref } from "vue"
 import CodeEditor from "./CodeEditor.vue"

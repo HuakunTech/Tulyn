@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import { cn } from "@/lib/utils"
 import type { LightMode } from "@kksh/api/models"
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuTrigger
-} from "@kksh/vue"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@kksh/vue"
 import { useColorMode, useDark } from "@vueuse/core"
 import { useAppConfigStore } from "~/stores/appConfig"
 
