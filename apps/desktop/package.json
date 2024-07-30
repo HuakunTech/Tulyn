@@ -13,8 +13,8 @@
 	"dependencies": {
 		"@apollo/client": "^3.10.4",
 		"@element-plus/nuxt": "^1.0.9",
-		"@kksh/components": "workspace:*",
 		"@formkit/auto-animate": "^0.8.2",
+		"@kksh/ui": "workspace:*",
 		"@kksh/api": "workspace:*",
 		"@kksh/dance": "workspace:*",
 		"@kksh/gql": "workspace:*",

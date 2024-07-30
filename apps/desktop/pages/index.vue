@@ -9,6 +9,8 @@ import { RemoteExtension } from "@/lib/extension/remoteExt"
 import { SystemCommandExtension } from "@/lib/extension/systemCmds"
 import { $searchTermSync, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
+import { Button } from "@kkui/components/ui/button"
+// import { Button } from "@kksh/ui"
 import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
@@ -123,6 +125,8 @@ const searchTermSyncProxy = computed({
 </script>
 <template>
 	<div class="z-10 h-full">
+		<!-- <Demo.CmdDemo /> -->
+		<Button>Hello</Button>
 		<CmdPaletteCommand
 			class=""
 			v-model:searchTerm="searchTermSyncProxy"

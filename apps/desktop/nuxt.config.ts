@@ -1,8 +1,6 @@
 import path from "path"
 import { z } from "zod"
 
-console.log("hello", path.resolve(__dirname, "../../packages/components/src"))
-
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
 	ssr: false,
@@ -26,12 +24,12 @@ export default defineNuxtConfig({
 		// "@nuxtjs/mdc"
 	],
 	alias: {
-		"@kkui": "../../../packages/components/src"
+		"@kkui": "../../../packages/ui/src"
 	},
 	vite: {
 		resolve: {
 			alias: {
-				"@kkui": path.resolve(__dirname, "../../packages/components/src")
+				"@kkui": path.resolve(__dirname, "../../packages/ui/src")
 			}
 		}
 	},
