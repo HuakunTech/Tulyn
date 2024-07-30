@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import IconMultiplexer from "@/components/IconMultiplexer.vue"
-import { StrikeSeparator } from "@/components/separator"
-import { expose, type Remote } from "@huakunshen/comlink"
-import { IconEnum } from "@kksh/api/models"
-import { List, ListSchema, WorkerExtension } from "@kksh/api/ui/worker"
+import StrikeSeparator from "@/components/StrikeSeparator.vue"
+import { type Remote } from "@huakunshen/comlink"
+import { ListSchema, WorkerExtension } from "@kksh/api/ui/worker"
 import {
 	CommandEmpty,
 	CommandGroup,
