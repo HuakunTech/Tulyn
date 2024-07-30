@@ -48,11 +48,11 @@ import CardDescription from "./components/ui/card/CardDescription.vue"
 import CardFooter from "./components/ui/card/CardFooter.vue"
 import CardHeader from "./components/ui/card/CardHeader.vue"
 import CardTitle from "./components/ui/card/CardTitle.vue"
-// import Carousel from "./components/ui/carousel/Carousel.vue"
-// import CarouselContent from "./components/ui/carousel/CarouselContent.vue"
-// import CarouselItem from "./components/ui/carousel/CarouselItem.vue"
-// import CarouselNext from "./components/ui/carousel/CarouselNext.vue"
-// import CarouselPrevious from "./components/ui/carousel/CarouselPrevious.vue"
+import Carousel from "./components/ui/carousel/Carousel.vue"
+import CarouselContent from "./components/ui/carousel/CarouselContent.vue"
+import CarouselItem from "./components/ui/carousel/CarouselItem.vue"
+import CarouselNext from "./components/ui/carousel/CarouselNext.vue"
+import CarouselPrevious from "./components/ui/carousel/CarouselPrevious.vue"
 import AreaChart from "./components/ui/chart-area/AreaChart.vue"
 import BarChart from "./components/ui/chart-bar/BarChart.vue"
 import DonutChart from "./components/ui/chart-donut/DonutChart.vue"
@@ -376,11 +376,11 @@ export {
 	StepperTitle,
 	StepperDescription,
 	StepperSeparator,
-	// Carousel,
-	// CarouselContent,
-	// CarouselItem,
-	// CarouselPrevious,
-	// CarouselNext,
+	Carousel,
+	CarouselContent,
+	CarouselItem,
+	CarouselPrevious,
+	CarouselNext,
 	ToggleGroup,
 	ToggleGroupItem,
 	ContextMenu,
