@@ -13,11 +13,19 @@ const appUiStore = useAppUiStore()
 function onReload() {
 	location.reload()
 }
-onKeyStroke(["meta", "r"], () => {
-	onReload()
+
+function onKeyDown(e: KeyboardEvent) {
+	if (e.key === "r" && (e.ctrlKey || e.metaKey)) {
+		onReload()
+	}
+}
+
+onMounted(() => {
+	document.addEventListener("keydown", onKeyDown)
 })
-onKeyStroke(["control", "r"], () => {
-	onReload()
+
+onUnmounted(() => {
+	document.removeEventListener("keydown", onKeyDown)
 })
 </script>
 <template>

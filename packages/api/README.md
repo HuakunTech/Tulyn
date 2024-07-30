@@ -1,10 +1,8 @@
-# jarvis-api
+# @kksh/api
 
-[Jarvis API](https://www.npmjs.com/package/jarvis-api) is an NPM package designed for developers to create extensions for Jarvis.
+[Kunkun API](https://www.npmjs.com/package/@kksh/api) is an NPM package designed for developers to create extensions for Jarvis.
 
-For now, only `jarvis-api/ui` is useful. This subpackage is designed for UI extension commands.
-
-`jarvis-api/ui` exposes a set of APIs to interact with Jarvis and access system resources.
+`@kksh/api` provides a set of APIs for extensions to interact with Kunkun and System APIs. The APIs include:
 
 - Clipboard API: read and write clipboard
 - System API: get system information
@@ -14,11 +12,7 @@ For now, only `jarvis-api/ui` is useful. This subpackage is designed for UI exte
 - Dialog API: show dialog, interact with user
 - etc.
 
-Read more details in documentation at https://docs.jarvis.huakun.tech.
-
-## Note
-
-This package should not have any internal dependencies (e.g. `workspace:*`). Otherwise, the package cannot be published to NPM.
+Read more details in documentation at https://docs.kunkun.sh
 
 ## Dev
 
