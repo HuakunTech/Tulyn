@@ -1,7 +1,6 @@
 import "./assets/index.css"
 import { ThemeConfig, updateTheme } from "@/stores/config"
-// import Calendar from '@/components/ui/v-calendar/Calendar.vue'
-import CommandFooter from "./components/cmdk/CommandFooter.vue"
+// import CommandFooter from "./components/ui/command-extra/CommandFooter.vue"
 import ThemeCustomizer from "./components/theme/ThemeCustomizer.vue"
 import Accordion from "./components/ui/accordion/Accordion.vue"
 import AccordionContent from "./components/ui/accordion/AccordionContent.vue"
@@ -67,6 +66,7 @@ import Checkbox from "./components/ui/checkbox/Checkbox.vue"
 import Collapsible from "./components/ui/collapsible/Collapsible.vue"
 import CollapsibleContent from "./components/ui/collapsible/CollapsibleContent.vue"
 import CollapsibleTrigger from "./components/ui/collapsible/CollapsibleTrigger.vue"
+import CmdFooter from "./components/ui/command-extra/CmdFooter.vue"
 import Command from "./components/ui/command/Command.vue"
 import CommandDialog from "./components/ui/command/CommandDialog.vue"
 import CommandEmpty from "./components/ui/command/CommandEmpty.vue"
@@ -496,6 +496,10 @@ export {
 	PinInputSeparator,
 	PinInputInput,
 	// ThemeCustomizer, // this cause conflict name issue, annoying
+	// CommandFooter2,
+	CmdFooter,
+	// Btn as CommandFooter,
+	// ThemeCustomizer,
 	updateTheme,
 	type ThemeConfig,
 	Badge

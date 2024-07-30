@@ -12,7 +12,7 @@ export default defineConfig({
 		lib: {
 			// entry: ["./src/index3.ts"],
 			entry: ["./src/index.ts"],
-			name: "shadcn-vue-components",
+			name: "@kksh/vue",
 			formats: ["es", "cjs"]
 		},
 		rollupOptions: {
