@@ -12,7 +12,7 @@ import {
 	ResizablePanel,
 	ResizablePanelGroup
 } from "@kksh/vue"
-import { StrikeSeparator } from "@kkui/components/kk/separator"
+import { StrikeSeparator } from "@/components/separator"
 import ListDetail from "./ListDetail.vue"
 import ListItem from "./ListItem.vue"
 
