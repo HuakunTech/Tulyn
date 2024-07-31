@@ -58,13 +58,27 @@ export interface IFsServer {
 export const mapDirAliasToDirFn: Record<string, () => Promise<string>> = {
 	$DESKTOP: pathAPI.desktopDir,
 	$DOCUMENT: pathAPI.documentDir,
-	$DOWNLOAD: pathAPI.downloadDir
+	$DOWNLOAD: pathAPI.downloadDir,
+	$HOME: pathAPI.homeDir,
+	$APPDATA: pathAPI.appDataDir
 }
 
-const samplePermission: FsPermissionScoped = {
-	permission: "fs:read",
-	allow: [{ path: "$DESKTOP/*" }],
-	deny: []
+async function combinePathAndBaseDir(target: string, baseDir?: BaseDirectory) {
+	if (!baseDir) return target
+	switch (baseDir) {
+		case BaseDirectory.Desktop:
+			return await pathAPI.join(await pathAPI.desktopDir(), target)
+		case BaseDirectory.Document:
+			return await pathAPI.join(await pathAPI.documentDir(), target)
+		case BaseDirectory.Download:
+			return await pathAPI.join(await pathAPI.downloadDir(), target)
+		case BaseDirectory.Home:
+			return await pathAPI.join(await pathAPI.homeDir(), target)
+		case BaseDirectory.AppData:
+			return await pathAPI.join(await pathAPI.appDataDir(), target)
+		default:
+			break
+	}
 }
 
 /**
@@ -74,14 +88,6 @@ const samplePermission: FsPermissionScoped = {
  * @param scope expected to be like $DESKTOP/*, $DOWNLOAD/**, $DOCUMENT/abc/*.txt
  */
 export async function translateScopeToPath(scope: string): Promise<string> {
-	// find the first slash of scope, split it into alias and pattern
-	// const slashIndex = scope.indexOf("/")
-	// if (slashIndex === -1) {
-	// 	throw new Error(`Invalid scope: ${scope}`)
-	// }
-	// const validAlias = Object.keys(mapDirAliasToDirFn)
-	// 	.map((key) => scope.startsWith(key))
-	// 	.some((x) => x)
 	for (const key of Object.keys(mapDirAliasToDirFn)) {
 		if (scope.startsWith(key)) {
 			const alias = key
@@ -106,20 +112,6 @@ async function matchPathAndScope(target: string, scope: string): Promise<boolean
 	const translatedScope = await translateScopeToPath(scope)
 	console.log("matchPathAndScope", target, translatedScope, minimatch(target, translatedScope))
 	return minimatch(target, translatedScope)
-}
-
-async function combinePathAndBaseDir(target: string, baseDir?: BaseDirectory) {
-	if (!baseDir) return target
-	switch (baseDir) {
-		case BaseDirectory.Desktop:
-			return await pathAPI.join(await pathAPI.desktopDir(), target)
-		case BaseDirectory.Document:
-			return await pathAPI.join(await pathAPI.documentDir(), target)
-		case BaseDirectory.Download:
-			return await pathAPI.join(await pathAPI.downloadDir(), target)
-		default:
-			break
-	}
 }
 
 const requiredPermissionMap: Record<keyof IFsServer, KunkunFsPermission[]> = {
@@ -147,12 +139,11 @@ async function verifyPermission(
 	options?: { baseDir?: BaseDirectory }
 ) {
 	path = path.toString()
+	// console.log("verifyPermission", requiredPermissions, userPermissionScopes, path, options)
 	const fullPath = await combinePathAndBaseDir(path, options?.baseDir)
-
 	if (!fullPath) {
-		throw new Error("Invalid path")
+		throw new Error("Invalid path or base directory")
 	}
-
 	const matchedPermissionScope = userPermissionScopes.filter((p) =>
 		requiredPermissions.includes(p.permission)
 	)

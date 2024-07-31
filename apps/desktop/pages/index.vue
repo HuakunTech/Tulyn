@@ -15,7 +15,6 @@ import { useStore } from "@nanostores/vue"
 import * as path from "@tauri-apps/api/path"
 import { getCurrent } from "@tauri-apps/api/window"
 import { BaseDirectory } from "@tauri-apps/plugin-fs"
-import * as fs from "@tauri-apps/plugin-fs"
 import { platform } from "@tauri-apps/plugin-os"
 import { useListenToWindowBlur } from "~/composables/useEvents"
 import { useAppConfigStore } from "~/stores/appConfig"
@@ -78,8 +77,6 @@ $searchTermSync.subscribe((val, oldVal) => {
 })
 
 onMounted(async () => {
-	console.log(await fs.readDir(".", { baseDir: path.BaseDirectory.Download }))
-
 	if (platform() !== "macos") {
 		appWindow.setDecorations(false)
 	}
