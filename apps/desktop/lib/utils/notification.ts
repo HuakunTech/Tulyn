@@ -1,4 +1,5 @@
-import { notification } from "@kksh/api/ui"
+// import { notification } from "@kksh/api/ui"
+import * as notification from "@tauri-apps/plugin-notification"
 
 export async function getNotificationPermission() {
 	let permissionGranted = await notification.isPermissionGranted()

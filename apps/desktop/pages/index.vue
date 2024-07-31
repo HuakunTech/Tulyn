@@ -9,6 +9,7 @@ import { RemoteExtension } from "@/lib/extension/remoteExt"
 import { SystemCommandExtension } from "@/lib/extension/systemCmds"
 import { $searchTermSync, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
+import { notification } from "@kksh/api/ui"
 import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
@@ -72,7 +73,9 @@ $searchTermSync.subscribe((val, oldVal) => {
 	}, 100)
 })
 
-onMounted(() => {
+onMounted(async () => {
+	// console.log(await notification.isPermissionGranted());
+
 	if (platform() !== "macos") {
 		appWindow.setDecorations(false)
 	}

@@ -98,9 +98,8 @@ function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: CustomUi
 		closable: cmd.window?.closable ?? undefined,
 		parent: cmd.window?.parent ?? undefined,
 		visibleOnAllWorkspaces: cmd.window?.visibleOnAllWorkspaces ?? undefined,
-		url: "/iframe-ext"
+		url
 	})
-	console.log("URL: ", url)
 
 	window.onCloseRequested(async (event) => {
 		// await unregisterExtensionWindow(window.label)
@@ -191,8 +190,7 @@ export class Extension implements IExtensionBase {
 		const appConfig = useAppConfigStore()
 		this.manifests.forEach((manifest) => {
 			if (item.type == "UI Command") {
-				console.log(manifest.kunkun.customUiCmds)
-
+				// console.log(manifest.kunkun.customUiCmds)
 				manifest.kunkun.customUiCmds.forEach(async (cmd) => {
 					if (item.value === generateItemValue(manifest, cmd, this.isDev)) {
 						let url = cmd.main
@@ -217,11 +215,13 @@ export class Extension implements IExtensionBase {
 						// 		message: `Consider Running the TroubleShooter or turn off dev mode. URL: ${url}`
 						// 	})
 						// }
-						extStore.setCurrentCustomUiExt({ url, cmd, manifest })
+						// extStore.setCurrentCustomUiExt({ url, cmd, manifest })
+						const url2 = `/iframe-ext?url=${encodeURIComponent(url)}&extPath=${encodeURIComponent(manifest.extPath)}`
+						console.log("URL: ", url2)
 						if (cmd.window) {
-							createNewExtWindowForUiCmd(manifest, cmd, url)
+							createNewExtWindowForUiCmd(manifest, cmd, url2)
 						} else {
-							navigateTo("/iframe-ext")
+							navigateTo(url2)
 						}
 					}
 				})

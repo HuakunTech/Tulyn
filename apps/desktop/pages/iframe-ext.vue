@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { db, JarvisExtDB } from "@kksh/api/commands"
-import { CustomPosition, LightMode, Radius, ThemeColor, type Position } from "@kksh/api/models"
+import {
+	CustomPosition,
+	ExtPackageJsonExtra,
+	LightMode,
+	Radius,
+	ThemeColor,
+	type Position
+} from "@kksh/api/models"
 import { constructJarvisServerAPIWithPermissions, exposeApiToWindow } from "@kksh/api/ui"
 import {
 	constructJarvisExtDBToServerDbAPI,
@@ -8,13 +15,19 @@ import {
 	type IUiIframeServer
 } from "@kksh/api/ui/iframe"
 import { Button } from "@kksh/vue"
+import { join } from "@tauri-apps/api/path"
 import { getCurrent } from "@tauri-apps/api/window"
+import { loadExtensionManifestFromDisk } from "~/lib/commands/extensions"
 import { cn } from "~/lib/utils"
+import { sendNotificationWithPermission } from "~/lib/utils/notification"
 import { isInMainWindow } from "~/lib/utils/window"
 import { ArrowLeftIcon, MoveIcon, RefreshCcwIcon } from "lucide-vue-next"
 import { flatten, safeParse } from "valibot"
+import * as v from "valibot"
 import { toast } from "vue-sonner"
 import { useExtStore } from "../stores/ext"
+
+// import { notification } from "@kksh/api/ui"
 
 const appConfig = useAppConfigStore()
 const ui = reactive<{
@@ -34,8 +47,10 @@ const ui = reactive<{
 	moveBtnPosition: "bottom-left",
 	refreshBtnPosition: "top-right"
 })
+const appWin = getCurrent()
 const iframeRef = ref<HTMLIFrameElement | null>(null)
 const extStore = useExtStore()
+const extUrl = ref<string>()
 const iframeUiAPI: Omit<
 	IUiIframeServer,
 	"iframeUiStartDragging" | "iframeUiToggleMaximize" | "iframeUiInternalToggleMaximize"
@@ -85,27 +100,61 @@ const iframeUiAPI: Omit<
 onMounted(async () => {
 	// navigateTo("/")
 	setTimeout(() => {
-		getCurrent().show()
-	}, 200)
-	if (!extStore.currentCustomUiExt) {
+		appWin.show()
+	}, 100)
+	const route = useRoute()
+	console.log(route.query)
+
+	const parseUrl = v.safeParse(v.string(), route.query.url)
+
+	if (!parseUrl.success) {
+		sendNotificationWithPermission("Invalid Extension URL", "")
+		if (appWin.label !== "main") {
+			return appWin.close()
+		} else {
+			return navigateTo("/")
+		}
+	}
+	extUrl.value = parseUrl.output
+
+	const parseExtPath = v.safeParse(v.string(), route.query.extPath)
+	if (!parseExtPath.success) {
+		sendNotificationWithPermission("Invalid Extension Path", "")
+		if (appWin.label !== "main") {
+			return appWin.close()
+		} else {
+			return navigateTo("/")
+		}
+	}
+	const extPath = parseExtPath.output
+	let loadedExt: ExtPackageJsonExtra
+	try {
+		loadedExt = await loadExtensionManifestFromDisk(await join(extPath, "package.json"))
+	} catch (error) {
+		console.error("Error loading extension", error)
+		sendNotificationWithPermission("Error loading extension", "")
+		if (appWin.label !== "main") {
+			return appWin.close()
+		} else {
+			return navigateTo("/")
+		}
+	}
+	const identifier = loadedExt.kunkun.identifier
+	if (!identifier || !extUrl.value) {
 		return navigateTo("/")
 	}
-	const currentCustomUiExt = extStore.currentCustomUiExt
-	const extInfoInDB = await db.getExtensionByIdentifier(
-		currentCustomUiExt.manifest.kunkun.identifier
-	)
+	const extInfoInDB = await db.getExtensionByIdentifier(identifier)
 	if (!extInfoInDB) {
 		toast.error("Unexpected Error", {
-			description: `Worker extension ${currentCustomUiExt.manifest.kunkun.identifier} not found in database. Run Troubleshooter.`
+			description: `Worker extension ${identifier} not found in database. Run Troubleshooter.`
+			// description: `Worker extension ${currentCustomUiExt.manifest.kunkun.identifier} not found in database. Run Troubleshooter.`
 		})
 		return navigateTo("/")
 	}
 	const dbAPI = new db.JarvisExtDB(extInfoInDB.extId)
 	const extDBApi: IDbServer = constructJarvisExtDBToServerDbAPI(dbAPI)
 	if (iframeRef.value && iframeRef.value.contentWindow) {
-		const serverAPI = constructJarvisServerAPIWithPermissions(
-			currentCustomUiExt.manifest.kunkun.permissions
-		)
+		const serverAPI = constructJarvisServerAPIWithPermissions(loadedExt.kunkun.permissions)
 		console.log("serverAPI", serverAPI)
 
 		exposeApiToWindow(iframeRef.value.contentWindow as Window, {
@@ -121,7 +170,6 @@ onMounted(async () => {
 function onIframeLoad() {
 	setTimeout(() => {
 		console.log("iframe loaded", iframeRef.value)
-
 		// avoid flickering, especially on slow connections and dark mode
 		ui.iframeLoaded = true
 		// if (iframeRef.value) {
@@ -129,7 +177,7 @@ function onIframeLoad() {
 
 		// 	`)
 		// }
-	}, 200)
+	}, 500)
 }
 
 function positionToTailwindClasses(position: Position) {
@@ -212,6 +260,8 @@ function positionToCssStyleObj(position?: Position) {
 		>
 			<RefreshCcwIcon class="w-4" />
 		</Button>
+		<!-- <span>{{extUrl}}</span>
+		<iframe src="http://localhost:9561/dev-extensions/template-ext-nuxt/dist/" frameborder="0"></iframe> -->
 		<iframe
 			v-show="ui.iframeLoaded"
 			@load="onIframeLoad"
@@ -220,7 +270,7 @@ function positionToCssStyleObj(position?: Position) {
 			width="100%"
 			heigh="100%"
 			frameborder="0"
-			:src="extStore.currentCustomUiExt?.url"
+			:src="extUrl"
 		/>
 		<FunDance v-show="!ui.iframeLoaded" />
 	</main>

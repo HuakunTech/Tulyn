@@ -15,7 +15,7 @@ export {
 	log,
 	updownload,
 	fetch
-} from "tauri-api-adapter/worker"
+} from "tauri-api-adapter"
 export {
 	constructJarvisServerAPIWithPermissions,
 	type IUiWorkerServer,

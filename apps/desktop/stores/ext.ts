@@ -10,7 +10,7 @@ export type WorkerExtMetadata = InferOutput<typeof WorkerExtMetadata>
 
 export const CustomExtMetadata = object({
 	manifest: ExtPackageJsonExtra,
-	url: string(),
+	// url: string(),
 	cmd: CustomUiCmd
 })
 export type CustomExtMetadata = InferOutput<typeof CustomExtMetadata>
