@@ -9,6 +9,7 @@ import { RemoteExtension } from "@/lib/extension/remoteExt"
 import { SystemCommandExtension } from "@/lib/extension/systemCmds"
 import { $searchTermSync, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
+import { fileSearch } from "@kksh/api/commands"
 import { notification } from "@kksh/api/ui"
 import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
@@ -75,6 +76,15 @@ $searchTermSync.subscribe((val, oldVal) => {
 
 onMounted(async () => {
 	// console.log(await notification.isPermissionGranted());
+	// console.log(
+	// 	await fileSearch({
+	// 		locations: ["/Users/hacker/Dev/projects/kunkun/kunkun"],
+	// 		// ext: "ts",
+	// 		ignore_case: false,
+	// 		hidden: false,
+	// 		file_size_greater: 100 * 1024 // 10kb
+	// 	})
+	// )
 
 	if (platform() !== "macos") {
 		appWindow.setDecorations(false)

@@ -652,6 +652,20 @@
           ]
         },
         {
+          "description": "allow-file-search -> Enables the file_search command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-file-search"
+          ]
+        },
+        {
+          "description": "deny-file-search -> Denies the file_search command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-file-search"
+          ]
+        },
+        {
           "description": "allow-get-all-extensions -> Enables the get_all_extensions command without any pre-configured scope.",
           "type": "string",
           "enum": [

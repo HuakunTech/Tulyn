@@ -674,6 +674,32 @@ Denies the ext_store_wrapper_values command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-file-search`
+
+</td>
+<td>
+
+Enables the file_search command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-file-search`
+
+</td>
+<td>
+
+Denies the file_search command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-get-all-extensions`
 
 </td>

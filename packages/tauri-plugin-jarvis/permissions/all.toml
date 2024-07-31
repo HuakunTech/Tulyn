@@ -51,6 +51,8 @@ commands.allow = [
     # File System
     "decompress_tarball",
     "compress_tarball",
+    # File Search
+    "file_search",
     "unzip",
     # Path
     "get_default_extensions_dir",
