@@ -28,7 +28,7 @@ import {
 	type WriteFileOptions
 } from "@tauri-apps/plugin-fs"
 import { minimatch } from "minimatch"
-import { fileSearch } from "../../commands/fileSearch"
+import { fileSearch, FileSearchParams } from "../../commands/fileSearch"
 import {
 	AllKunkunPermission,
 	type FsPermissionScoped,
@@ -244,6 +244,18 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFsServer {
 			verifyPermission(requiredPermissionMap.fsTruncate, permissions, path, options).then(() =>
 				fsWriteTextFile(path, data, options)
 			),
-		fsFileSearch: fileSearch
+		fsFileSearch: (
+			searchParams: FileSearchParams & {
+				hidden?: boolean
+				ignore_case?: boolean
+			}
+		) => {
+			return Promise.all(
+				// TODO: first verify all search locations are allowed, for now, recursive search is allowed even if scope allows one level only
+				searchParams.locations.map((loc) =>
+					verifyPermission(requiredPermissionMap.fsFileSearch, permissions, loc)
+				)
+			).then(() => fileSearch(searchParams))
+		}
 	}
 }
