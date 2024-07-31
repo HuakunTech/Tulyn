@@ -22,7 +22,7 @@ export { toast } from "../api/toast"
 export { db, constructJarvisExtDBToServerDbAPI } from "../api/db"
 export * from "./ext"
 export { expose, wrap } from "@huakunshen/comlink"
-export { type IDbServer } from "../server"
+export { type IDbServer } from "../server/db"
 /* -------------------------------------------------------------------------- */
 /*                             UI Component Schema                            */
 /* -------------------------------------------------------------------------- */

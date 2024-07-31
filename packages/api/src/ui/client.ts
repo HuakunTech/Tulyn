@@ -1,5 +1,22 @@
+import type {
+	copyFile,
+	create,
+	exists,
+	lstat,
+	mkdir,
+	readDir,
+	readFile,
+	readTextFile,
+	remove,
+	rename,
+	stat,
+	truncate,
+	writeFile,
+	writeTextFile
+} from "@tauri-apps/plugin-fs"
 import { toast } from "vue-sonner"
 import { type JarvisExtDB } from "../commands/db"
+import type { fileSearch } from "../commands/fileSearch"
 import { type AppInfo } from "../models/apps"
 import type { LightMode, Position, Radius, ThemeColor } from "../models/styles"
 import { type IComponent } from "./worker/components/interfaces"
@@ -103,4 +120,22 @@ export interface IDb {
 	retrieveAllByType: typeof JarvisExtDB.prototype.retrieveAllByType
 	deleteAll: typeof JarvisExtDB.prototype.deleteAll
 	update: typeof JarvisExtDB.prototype.update
+}
+
+export interface IFs {
+	readDir: typeof readDir
+	readFile: typeof readFile
+	readTextFile: typeof readTextFile
+	stat: typeof stat
+	lstat: typeof lstat
+	exists: typeof exists
+	mkdir: typeof mkdir
+	create: typeof create
+	copyFile: typeof copyFile
+	remove: typeof remove
+	rename: typeof rename
+	truncate: typeof truncate
+	writeFile: typeof writeFile
+	writeTextFile: typeof writeTextFile
+	fileSearch: typeof fileSearch
 }

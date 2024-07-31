@@ -1,3 +1,4 @@
+import { FsPermissionSchema } from "tauri-api-adapter/permissions"
 import {
 	array,
 	boolean,
@@ -11,7 +12,12 @@ import {
 	union,
 	type InferOutput
 } from "valibot"
-import { AllKunkunPermission } from "../ui/api/permissions"
+import {
+	AllKunkunPermission,
+	FsPermissionScopedSchema,
+	KunkunFsPermissionSchema,
+	KunkunManifestPermission
+} from "../ui/api/permissions"
 import { Icon } from "./icon"
 
 export enum OSPlatformEnum {
@@ -110,7 +116,7 @@ export const KunkunExtManifest = object({
 	identifier: string("Unique identifier for the extension"),
 	icon: Icon,
 	permissions: array(
-		AllKunkunPermission,
+		union([KunkunManifestPermission, FsPermissionScopedSchema]),
 		"Permissions Declared by the extension. e.g. clipboard-all. Not declared APIs will be blocked."
 	),
 	demoImages: array(string("Demo images for the extension")),

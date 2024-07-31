@@ -3,7 +3,7 @@ import { ExtPackageJson, ExtPackageJsonExtra } from "@kksh/api/models"
 import { basename, dirname, join } from "@tauri-apps/api/path"
 import { readDir, readTextFile } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
-import { safeParse } from "valibot"
+import { flatten, safeParse } from "valibot"
 
 export function loadExtensionManifestFromDisk(manifestPath: string): Promise<ExtPackageJsonExtra> {
 	return readTextFile(manifestPath).then(async (content) => {
@@ -11,6 +11,7 @@ export function loadExtensionManifestFromDisk(manifestPath: string): Promise<Ext
 		if (parse.issues) {
 			error(`Fail to load extension from ${manifestPath}. See console for parse error.`)
 			console.error(parse.issues)
+			console.error(JSON.stringify(flatten<typeof ExtPackageJson>(parse.issues), null, 2))
 			throw new Error(`Invalid manifest: ${manifestPath} - ${parse.issues}`)
 		} else {
 			debug(`Loaded extension ${parse.output.kunkun.identifier} from ${manifestPath}`)

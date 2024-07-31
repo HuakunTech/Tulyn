@@ -102,27 +102,28 @@ async function launchWorkerExt() {
 		toast.error("No worker extension selected")
 		return navigateTo("/")
 	}
-	if (!exists(currentWorkerExt.manifest.extPath)) {
+	const manifest = await loadExtensionManifestFromDisk(
+		await join(currentWorkerExt.manifest.extPath, "package.json")
+	)
+	if (!exists(manifest.extPath)) {
 		toast.error("Worker extension not found")
 		return navigateTo("/")
 	}
 
-	const cmd = currentWorkerExt.manifest.kunkun.templateUiCmds.find(
-		(cmd) => cmd.name === currentWorkerExt.cmdName
-	)
+	const cmd = manifest.kunkun.templateUiCmds.find((cmd) => cmd.name === currentWorkerExt.cmdName)
 	if (!cmd) {
 		toast.error(`Worker extension command ${currentWorkerExt.cmdName} not found`)
 		return navigateTo("/")
 	}
-	const scriptPath = await join(currentWorkerExt.manifest.extPath, cmd.main)
+	const scriptPath = await join(manifest.extPath, cmd.main)
 	if (!exists(scriptPath)) {
 		toast.error(`Worker extension script ${cmd.main} not found`)
 		return navigateTo("/")
 	}
-	const extInfoInDB = await db.getExtensionByIdentifier(currentWorkerExt.manifest.kunkun.identifier)
+	const extInfoInDB = await db.getExtensionByIdentifier(manifest.kunkun.identifier)
 	if (!extInfoInDB) {
 		toast.error("Unexpected Error", {
-			description: `Worker extension ${currentWorkerExt.manifest.kunkun.identifier} not found in database. Run Troubleshooter.`
+			description: `Worker extension ${manifest.kunkun.identifier} not found in database. Run Troubleshooter.`
 		})
 		return navigateTo("/")
 	}
@@ -135,7 +136,7 @@ async function launchWorkerExt() {
 	const dbAPI = new db.JarvisExtDB(extInfoInDB.extId)
 	const extDBApi: IDbServer = constructJarvisExtDBToServerDbAPI(dbAPI)
 	exposeApiToWorker(worker, {
-		...constructJarvisServerAPIWithPermissions(currentWorkerExt.manifest.kunkun.permissions),
+		...constructJarvisServerAPIWithPermissions(manifest.kunkun.permissions),
 		...extUiAPI,
 		...extDBApi
 	})

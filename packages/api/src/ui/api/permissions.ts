@@ -1,5 +1,17 @@
-import { AllPermissionSchema as TauriApiAdapterAllPermissionSchema } from "tauri-api-adapter/permissions"
-import { literal, union, type InferOutput } from "valibot"
+import {
+	ClipboardPermissionSchema,
+	DialogPermissionSchema,
+	FetchPermissionSchema,
+	FsPermissionSchema,
+	NetworkPermissionSchema,
+	NotificationPermissionSchema,
+	OsPermissionSchema,
+	ShellPermissionSchema,
+	SystemInfoPermissionSchema,
+	// AllPermissionSchema as TauriApiAdapterAllPermissionSchema,
+	UpdownloadPermissionSchema
+} from "tauri-api-adapter/permissions"
+import { array, literal, object, optional, string, union, type InferOutput } from "valibot"
 
 export const SystemPermissionSchema = union([
 	literal("system:volumn"),
@@ -9,13 +21,62 @@ export const SystemPermissionSchema = union([
 	literal("system:fs"),
 	literal("system:ui")
 ])
-export type SystemPermission = InferOutput<typeof SystemPermissionSchema>
-export const AllKunkunPermission = union([
-	TauriApiAdapterAllPermissionSchema,
-	SystemPermissionSchema
+export const KunkunFsPermissionSchema = union([
+	FsPermissionSchema,
+	literal("fs:read-dir"),
+	literal("fs:stat"),
+	literal("fs:search")
 ])
+export type KunkunFsPermission = InferOutput<typeof KunkunFsPermissionSchema>
+export const FsPermissionScopedSchema = object({
+	permission: KunkunFsPermissionSchema,
+	allow: optional(array(object({ path: string() }))),
+	deny: optional(array(object({ path: string() })))
+})
+export type FsPermissionScoped = InferOutput<typeof FsPermissionScopedSchema>
+
+// export const FsPermissionSchema = union([
+// 	literal("fs:allow-desktop-read-recursive"),
+// 	literal("fs:allow-desktop-write-recursive"),
+// 	literal("fs:allow-documents-read-recursive"),
+// 	literal("fs:allow-documents-write-recursive"),
+// 	literal("fs:allow-downloads-read-recursive"),
+// 	literal("fs:allow-downloads-write-recursive")
+// ])
+// export type FsPermission = InferOutput<typeof FsPermissionSchema>
+
+// export const FsScopePermissionSchema = union([
+// 	literal("fs:allow-desktop-read-recursive"),
+// 	literal("fs:allow-desktop-write-recursive"),
+// 	literal("fs:allow-documents-read-recursive"),
+// 	literal("fs:allow-documents-write-recursive"),
+// 	literal("fs:allow-downloads-read-recursive"),
+// 	literal("fs:allow-downloads-write-recursive"),
+// 	literal("fs:scope-download-recursive"),
+// 	literal("fs:scope-desktop-recursive"),
+// 	literal("fs:scope-documents-recursive")
+// ])
+// export type FsScopePermission = InferOutput<typeof FsScopePermissionSchema>
+export type SystemPermission = InferOutput<typeof SystemPermissionSchema>
+export const KunkunManifestPermission = union([
+	// TauriApiAdapterAllPermissionSchema,
+	ClipboardPermissionSchema,
+	DialogPermissionSchema,
+	NotificationPermissionSchema,
+	// FsPermissionSchema,
+	OsPermissionSchema,
+	ShellPermissionSchema,
+	FetchPermissionSchema,
+	SystemInfoPermissionSchema,
+	NetworkPermissionSchema,
+	UpdownloadPermissionSchema,
+	SystemPermissionSchema
+	// FsScopePermissionSchema
+])
+export const AllKunkunPermission = union([KunkunManifestPermission, KunkunFsPermissionSchema])
 export type AllKunkunPermission = InferOutput<typeof AllKunkunPermission>
 export type PermissionDescriptions = Record<AllKunkunPermission, string>
+
 export const permissionDescriptions: PermissionDescriptions = {
 	"system:volumn": "Allows access to control system volume",
 	"system:boot": "Allows sleep, restart, logout and shutdown, etc.",
@@ -33,9 +94,6 @@ export const permissionDescriptions: PermissionDescriptions = {
 	"clipboard:write-files": "Allows writing files to the clipboard",
 	"dialog:all": "Allows access to system dialog APIs, e.g. confirm, save, open, etc.",
 	"notification:all": "Allows sending system notifications",
-	"fs:read": "Allows reading files from the file system",
-	"fs:write": "Allows writing files to the file system",
-	"fs:exists": "Allows checking if a file exists in the file system",
 	"os:all": "Allows access to all operating system information",
 	"shell:open": "Allows opening shell commands",
 	"shell:execute": "Allows executing shell commands",
@@ -52,5 +110,36 @@ export const permissionDescriptions: PermissionDescriptions = {
 	"network:interface": "Allows access to network interface information",
 	"network:port": "Allows access to network port information",
 	"updownload:download": "Allows downloading files",
-	"updownload:upload": "Allows uploading files"
+	"updownload:upload": "Allows uploading files",
+	/* -------------------------------------------------------------------------- */
+	/*                                 File System                                */
+	/* -------------------------------------------------------------------------- */
+	// fs:allow-app-write-recursive
+	"fs:search": "Allows searching files in the file system",
+	"fs:read": "Allows reading files from the file system",
+	"fs:read-dir":
+		"Allows reading directories from the file system. Permissions to read files not granted, must be declared separately",
+	"fs:write": "Allows writing files to the file system",
+	"fs:exists": "Allows checking if a file exists in the file system",
+	"fs:stat": "Allows getting file metadata from the file system"
+	/* ---------------------------- File System Scope --------------------------- */
+	// "fs:scope-download-recursive": "Allows reading files from the download directory and its subdirectories",
+	// "fs:allow-desktop-read-recursive":
+	// 	"Allows reading files from the desktop directory and its subdirectories",
+	// "fs:allow-desktop-write-recursive":
+	// 	"Allows writing files to the desktop directory and its subdirectories",
+	// "fs:allow-documents-read-recursive":
+	// 	"Allows reading files from the documents directory and its subdirectories",
+	// "fs:allow-documents-write-recursive":
+	// 	"Allows writing files to the documents directory and its subdirectories",
+	// "fs:allow-downloads-read-recursive":
+	// 	"Allows reading files from the download directory and its subdirectories",
+	// "fs:allow-downloads-write-recursive":
+	// 	"Allows writing files to the download directory and its subdirectories",
+	// "fs:scope-download-recursive":
+	// 	"Allow reading files from the download directory and its subdirectories",
+	// "fs:scope-desktop-recursive":
+	// 	"Allow reading files from the desktop directory and its subdirectories",
+	// "fs:scope-documents-recursive":
+	// 	"Allow reading files from the documents directory and its subdirectories"
 }

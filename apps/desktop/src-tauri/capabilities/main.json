@@ -104,6 +104,17 @@
 		"fs:allow-home-write-recursive",
 		"fs:allow-appdata-read-recursive",
 		"fs:allow-appdata-write-recursive",
+		{
+			"identifier": "fs:scope",
+			"allow": [
+				{ "path": "$DESKTOP" },
+				{ "path": "$DESKTOP/**" },
+				{ "path": "$DOWNLOAD" },
+				{ "path": "$DOWNLOAD/**" },
+				{ "path": "$DOCUMENT" },
+				{ "path": "$DOCUMENT/**" }
+			]
+		},
 		"notification:allow-is-permission-granted",
 		"notification:allow-notify",
 		"notification:allow-request-permission",
