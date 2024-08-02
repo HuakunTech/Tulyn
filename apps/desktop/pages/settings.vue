@@ -20,19 +20,19 @@ onMounted(() => {
 		<TabsList class="grid w-full select-none grid-cols-4">
 			<TabsTrigger value="general">
 				<CogIcon class="mr-2 h-5 w-5" />
-				{{ $t("general") }}
+				General
 			</TabsTrigger>
 			<TabsTrigger value="extensions">
 				<Icon name="fluent:developer-board-lightning-20-regular" class="mr-2 h-5 w-5" />
-				{{ $t("extensions") }}
+				Extensions
 			</TabsTrigger>
 			<TabsTrigger value="developer">
 				<SquareTerminalIcon class="mr-2 h-5 w-5" />
-				{{ $t("developer") }}
+				Developer
 			</TabsTrigger>
 			<TabsTrigger value="about">
 				<InfoIcon class="mr-2 h-5 w-5" />
-				{{ $t("about") }}
+				About
 			</TabsTrigger>
 		</TabsList>
 		<TabsContent value="general" class="min-h-0 grow">

@@ -14,8 +14,10 @@ import { AlertCircle, InfoIcon } from "lucide-vue-next"
 </script>
 <template>
 	<Alert variant="destructive" class="dark:border-red-600 dark:text-red-600">
+		<AlertCircle class="h-4 w-4 dark:text-red-600" />
 		<AlertTitle>
-			<span>{{ $t("developerModeExtensionInstallationWarning") }}</span>
+			<span>Warning: Powerful Extensions, Potential Security Risks</span>
+
 			<AlertDialog>
 				<AlertDialogTrigger as-child>
 					<button class="float-right">
@@ -26,7 +28,7 @@ import { AlertCircle, InfoIcon } from "lucide-vue-next"
 					<AlertDialogHeader>
 						<AlertDialogTitle class="prose dark:prose-invert">
 							<h2 class="text-red-600/90">
-								{{ $t("developerModeExtensionInstallationWarning") }}
+								Warning: Powerful Extensions, Potential Security Risks
 							</h2>
 						</AlertDialogTitle>
 						<AlertDialogDescription

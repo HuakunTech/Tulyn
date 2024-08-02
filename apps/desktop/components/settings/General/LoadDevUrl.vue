@@ -1,29 +1,29 @@
 <script setup lang="ts">
 import { Checkbox } from "@kksh/vue/checkbox"
-import { useStore } from "@nanostores/vue"
 import { useAppConfigStore } from "~/stores/appConfig"
 import { computed, ref, watch } from "vue"
 
 const appConfig = useAppConfigStore()
 const checked = computed({
 	get() {
-		return appConfig.showInTray
+		return appConfig.devExtLoadUrl
 	},
 	set(val) {
-		appConfig.setShowInTray(val)
+		appConfig.setDevExtLoadUrl(val)
 	}
 })
 </script>
 <template>
 	<div class="grid grid-cols-2 gap-4">
-		<span class="justify-self-end">Menu Bar Icon</span>
+		<span class="justify-self-end">Dev Extension URL</span>
 		<div class="flex items-center space-x-2">
-			<Checkbox id="menu-bar" v-model:checked="checked" />
+			<Checkbox id="dev-ext-load-url" v-model:checked="checked" />
 			<label
-				for="menu-bar"
+				for="dev-ext-load-url"
 				class="select-none text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 			>
-				Show in Menu Bar
+				<span v-if="checked">Live Load UI from Dev Server</span>
+				<span v-else>Load from Compiled Static Assets</span>
 			</label>
 		</div>
 	</div>

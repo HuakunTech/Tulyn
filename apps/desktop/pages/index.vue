@@ -117,8 +117,6 @@ const searchTermSyncProxy = computed({
 		$searchTermSync.set(val)
 	}
 })
-
-const localep = useLocalePath()
 </script>
 <template>
 	<CmdPaletteCommand
@@ -131,7 +129,7 @@ const localep = useLocalePath()
 			:id="HTMLElementId.MainSearchInput"
 			ref="cmdInputRef"
 			class="text-md h-12"
-			:placeholder="$t('searchBarSearchForAppsOrCmds')"
+			placeholder="Search for apps or commands..."
 		/>
 		<CommandList class="h-full max-h-screen">
 			<CommandEmpty>No results found.</CommandEmpty>
