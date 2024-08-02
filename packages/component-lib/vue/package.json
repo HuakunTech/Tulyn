@@ -13,6 +13,266 @@
 			"require": "./dist/index.cjs",
 			"types": "./dist/index.d.ts"
 		},
+		"./accordion": {
+			"import": "./dist/components/ui/accordion/index.js",
+			"require": "./dist/components/ui/accordion/index.cjs",
+			"types": "./dist/components/ui/accordion/index.d.ts"
+		},
+		"./alert": {
+			"import": "./dist/components/ui/alert/index.js",
+			"require": "./dist/components/ui/alert/index.cjs",
+			"types": "./dist/components/ui/alert/index.d.ts"
+		},
+		"./alert-dialog": {
+			"import": "./dist/components/ui/alert-dialog/index.js",
+			"require": "./dist/components/ui/alert-dialog/index.cjs",
+			"types": "./dist/components/ui/alert-dialog/index.d.ts"
+		},
+		"./aspect-ratio": {
+			"import": "./dist/components/ui/aspect-ratio/index.js",
+			"require": "./dist/components/ui/aspect-ratio/index.cjs",
+			"types": "./dist/components/ui/aspect-ratio/index.d.ts"
+		},
+		"./avatar": {
+			"import": "./dist/components/ui/avatar/index.js",
+			"require": "./dist/components/ui/avatar/index.cjs",
+			"types": "./dist/components/ui/avatar/index.d.ts"
+		},
+		"./badge": {
+			"import": "./dist/components/ui/badge/index.js",
+			"require": "./dist/components/ui/badge/index.cjs",
+			"types": "./dist/components/ui/badge/index.d.ts"
+		},
+		"./breadcrumb": {
+			"import": "./dist/components/ui/breadcrumb/index.js",
+			"require": "./dist/components/ui/breadcrumb/index.cjs",
+			"types": "./dist/components/ui/breadcrumb/index.d.ts"
+		},
+		"./button": {
+			"import": "./dist/components/ui/button/index.js",
+			"require": "./dist/components/ui/button/index.cjs",
+			"types": "./dist/components/ui/button/index.d.ts"
+		},
+		"./card": {
+			"import": "./dist/components/ui/card/index.js",
+			"require": "./dist/components/ui/card/index.cjs",
+			"types": "./dist/components/ui/card/index.d.ts"
+		},
+		"./chart": {
+			"import": "./dist/components/ui/chart/index.js",
+			"require": "./dist/components/ui/chart/index.cjs",
+			"types": "./dist/components/ui/chart/index.d.ts"
+		},
+		"./chart-area": {
+			"import": "./dist/components/ui/chart-area/index.js",
+			"require": "./dist/components/ui/chart-area/index.cjs",
+			"types": "./dist/components/ui/chart-area/index.d.ts"
+		},
+		"./chart-bar": {
+			"import": "./dist/components/ui/chart-bar/index.js",
+			"require": "./dist/components/ui/chart-bar/index.cjs",
+			"types": "./dist/components/ui/chart-bar/index.d.ts"
+		},
+		"./chart-donut": {
+			"import": "./dist/components/ui/chart-donut/index.js",
+			"require": "./dist/components/ui/chart-donut/index.cjs",
+			"types": "./dist/components/ui/chart-donut/index.d.ts"
+		},
+		"./chart-line": {
+			"import": "./dist/components/ui/chart-line/index.js",
+			"require": "./dist/components/ui/chart-line/index.cjs",
+			"types": "./dist/components/ui/chart-line/index.d.ts"
+		},
+		"./checkbox": {
+			"import": "./dist/components/ui/checkbox/index.js",
+			"require": "./dist/components/ui/checkbox/index.cjs",
+			"types": "./dist/components/ui/checkbox/index.d.ts"
+		},
+		"./collapsible": {
+			"import": "./dist/components/ui/collapsible/index.js",
+			"require": "./dist/components/ui/collapsible/index.cjs",
+			"types": "./dist/components/ui/collapsible/index.d.ts"
+		},
+		"./command": {
+			"import": "./dist/components/ui/command/index.js",
+			"require": "./dist/components/ui/command/index.cjs",
+			"types": "./dist/components/ui/command/index.d.ts"
+		},
+		"./command-extra": {
+			"import": "./dist/components/ui/command-extra/index.js",
+			"require": "./dist/components/ui/command-extra/index.cjs",
+			"types": "./dist/components/ui/command-extra/index.d.ts"
+		},
+		"./context-menu": {
+			"import": "./dist/components/ui/context-menu/index.js",
+			"require": "./dist/components/ui/context-menu/index.cjs",
+			"types": "./dist/components/ui/context-menu/index.d.ts"
+		},
+		"./dialog": {
+			"import": "./dist/components/ui/dialog/index.js",
+			"require": "./dist/components/ui/dialog/index.cjs",
+			"types": "./dist/components/ui/dialog/index.d.ts"
+		},
+		"./drawer": {
+			"import": "./dist/components/ui/drawer/index.js",
+			"require": "./dist/components/ui/drawer/index.cjs",
+			"types": "./dist/components/ui/drawer/index.d.ts"
+		},
+		"./dropdown-menu": {
+			"import": "./dist/components/ui/dropdown-menu/index.js",
+			"require": "./dist/components/ui/dropdown-menu/index.cjs",
+			"types": "./dist/components/ui/dropdown-menu/index.d.ts"
+		},
+		"./form": {
+			"import": "./dist/components/ui/form/index.js",
+			"require": "./dist/components/ui/form/index.cjs",
+			"types": "./dist/components/ui/form/index.d.ts"
+		},
+		"./hover-card": {
+			"import": "./dist/components/ui/hover-card/index.js",
+			"require": "./dist/components/ui/hover-card/index.cjs",
+			"types": "./dist/components/ui/hover-card/index.d.ts"
+		},
+		"./input": {
+			"import": "./dist/components/ui/input/index.js",
+			"require": "./dist/components/ui/input/index.cjs",
+			"types": "./dist/components/ui/input/index.d.ts"
+		},
+		"./label": {
+			"import": "./dist/components/ui/label/index.js",
+			"require": "./dist/components/ui/label/index.cjs",
+			"types": "./dist/components/ui/label/index.d.ts"
+		},
+		"./menubar": {
+			"import": "./dist/components/ui/menubar/index.js",
+			"require": "./dist/components/ui/menubar/index.cjs",
+			"types": "./dist/components/ui/menubar/index.d.ts"
+		},
+		"./navigation-menu": {
+			"import": "./dist/components/ui/navigation-menu/index.js",
+			"require": "./dist/components/ui/navigation-menu/index.cjs",
+			"types": "./dist/components/ui/navigation-menu/index.d.ts"
+		},
+		"./number-field": {
+			"import": "./dist/components/ui/number-field/index.js",
+			"require": "./dist/components/ui/number-field/index.cjs",
+			"types": "./dist/components/ui/number-field/index.d.ts"
+		},
+		"./pagination": {
+			"import": "./dist/components/ui/pagination/index.js",
+			"require": "./dist/components/ui/pagination/index.cjs",
+			"types": "./dist/components/ui/pagination/index.d.ts"
+		},
+		"./pin-input": {
+			"import": "./dist/components/ui/pin-input/index.js",
+			"require": "./dist/components/ui/pin-input/index.cjs",
+			"types": "./dist/components/ui/pin-input/index.d.ts"
+		},
+		"./popover": {
+			"import": "./dist/components/ui/popover/index.js",
+			"require": "./dist/components/ui/popover/index.cjs",
+			"types": "./dist/components/ui/popover/index.d.ts"
+		},
+		"./progress": {
+			"import": "./dist/components/ui/progress/index.js",
+			"require": "./dist/components/ui/progress/index.cjs",
+			"types": "./dist/components/ui/progress/index.d.ts"
+		},
+		"./radio-group": {
+			"import": "./dist/components/ui/radio-group/index.js",
+			"require": "./dist/components/ui/radio-group/index.cjs",
+			"types": "./dist/components/ui/radio-group/index.d.ts"
+		},
+		"./resizable": {
+			"import": "./dist/components/ui/resizable/index.js",
+			"require": "./dist/components/ui/resizable/index.cjs",
+			"types": "./dist/components/ui/resizable/index.d.ts"
+		},
+		"./scroll-area": {
+			"import": "./dist/components/ui/scroll-area/index.js",
+			"require": "./dist/components/ui/scroll-area/index.cjs",
+			"types": "./dist/components/ui/scroll-area/index.d.ts"
+		},
+		"./select": {
+			"import": "./dist/components/ui/select/index.js",
+			"require": "./dist/components/ui/select/index.cjs",
+			"types": "./dist/components/ui/select/index.d.ts"
+		},
+		"./separator": {
+			"import": "./dist/components/ui/separator/index.js",
+			"require": "./dist/components/ui/separator/index.cjs",
+			"types": "./dist/components/ui/separator/index.d.ts"
+		},
+		"./sheet": {
+			"import": "./dist/components/ui/sheet/index.js",
+			"require": "./dist/components/ui/sheet/index.cjs",
+			"types": "./dist/components/ui/sheet/index.d.ts"
+		},
+		"./skeleton": {
+			"import": "./dist/components/ui/skeleton/index.js",
+			"require": "./dist/components/ui/skeleton/index.cjs",
+			"types": "./dist/components/ui/skeleton/index.d.ts"
+		},
+		"./slider": {
+			"import": "./dist/components/ui/slider/index.js",
+			"require": "./dist/components/ui/slider/index.cjs",
+			"types": "./dist/components/ui/slider/index.d.ts"
+		},
+		"./sonner": {
+			"import": "./dist/components/ui/sonner/index.js",
+			"require": "./dist/components/ui/sonner/index.cjs",
+			"types": "./dist/components/ui/sonner/index.d.ts"
+		},
+		"./stepper": {
+			"import": "./dist/components/ui/stepper/index.js",
+			"require": "./dist/components/ui/stepper/index.cjs",
+			"types": "./dist/components/ui/stepper/index.d.ts"
+		},
+		"./switch": {
+			"import": "./dist/components/ui/switch/index.js",
+			"require": "./dist/components/ui/switch/index.cjs",
+			"types": "./dist/components/ui/switch/index.d.ts"
+		},
+		"./table": {
+			"import": "./dist/components/ui/table/index.js",
+			"require": "./dist/components/ui/table/index.cjs",
+			"types": "./dist/components/ui/table/index.d.ts"
+		},
+		"./tabs": {
+			"import": "./dist/components/ui/tabs/index.js",
+			"require": "./dist/components/ui/tabs/index.cjs",
+			"types": "./dist/components/ui/tabs/index.d.ts"
+		},
+		"./tags-input": {
+			"import": "./dist/components/ui/tags-input/index.js",
+			"require": "./dist/components/ui/tags-input/index.cjs",
+			"types": "./dist/components/ui/tags-input/index.d.ts"
+		},
+		"./textarea": {
+			"import": "./dist/components/ui/textarea/index.js",
+			"require": "./dist/components/ui/textarea/index.cjs",
+			"types": "./dist/components/ui/textarea/index.d.ts"
+		},
+		"./toggle": {
+			"import": "./dist/components/ui/toggle/index.js",
+			"require": "./dist/components/ui/toggle/index.cjs",
+			"types": "./dist/components/ui/toggle/index.d.ts"
+		},
+		"./toggle-group": {
+			"import": "./dist/components/ui/toggle-group/index.js",
+			"require": "./dist/components/ui/toggle-group/index.cjs",
+			"types": "./dist/components/ui/toggle-group/index.d.ts"
+		},
+		"./tooltip": {
+			"import": "./dist/components/ui/tooltip/index.js",
+			"require": "./dist/components/ui/tooltip/index.cjs",
+			"types": "./dist/components/ui/tooltip/index.d.ts"
+		},
+		"./v-calendar": {
+			"import": "./dist/components/ui/v-calendar/index.js",
+			"require": "./dist/components/ui/v-calendar/index.cjs",
+			"types": "./dist/components/ui/v-calendar/index.d.ts"
+		},
 		"./css": "./dist/style.css",
 		"./themes": "./dist/themes.css"
 	},

@@ -17,8 +17,8 @@
 		"@kksh/api": "workspace:*",
 		"@kksh/dance": "workspace:*",
 		"@kksh/gql": "workspace:*",
-		"@kksh/vue": "workspace:*",
 		"@kksh/supabase": "workspace:*",
+		"@kksh/vue": "workspace:*",
 		"@nanostores/persistent": "^0.10.1",
 		"@nanostores/vue": "^0.10.0",
 		"@nuxt/icon": "^1.0.0",
@@ -72,6 +72,7 @@
 	},
 	"devDependencies": {
 		"@iconify/vue": "^4.1.2",
+		"@nuxt/kit": "^3.12.4",
 		"@nuxtjs/device": "^3.1.1",
 		"@nuxtjs/tailwindcss": "^6.12.0",
 		"@pinia-plugin-persistedstate/nuxt": "^1.2.1",

@@ -11,6 +11,7 @@ import { $searchTermSync, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
 import { fileSearch } from "@kksh/api/commands"
 import { notification } from "@kksh/api/ui"
+import { Button as Btn } from "@kksh/vue/button"
 import { useStore } from "@nanostores/vue"
 import * as path from "@tauri-apps/api/path"
 import { getCurrent } from "@tauri-apps/api/window"
@@ -123,7 +124,7 @@ const searchTermSyncProxy = computed({
 })
 </script>
 <template>
-	<!-- <FunDance /> -->
+	<Btn>GH==</Btn>
 	<CmdPaletteCommand
 		class=""
 		v-model:searchTerm="searchTermSyncProxy"
