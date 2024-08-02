@@ -14,7 +14,7 @@ import {
 	CarouselItem,
 	CarouselNext,
 	CarouselPrevious
-} from "~/components/ui/carousel"
+} from "@kksh/vue/carousel"
 import { VisuallyHidden } from "radix-vue"
 import type { HTMLAttributes } from "vue"
 

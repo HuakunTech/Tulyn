@@ -53,10 +53,20 @@
 			"require": "./dist/components/ui/button/index.cjs",
 			"types": "./dist/components/ui/button/index.d.ts"
 		},
+		"./calendar": {
+			"import": "./dist/components/ui/calendar/index.js",
+			"require": "./dist/components/ui/calendar/index.cjs",
+			"types": "./dist/components/ui/calendar/index.d.ts"
+		},
 		"./card": {
 			"import": "./dist/components/ui/card/index.js",
 			"require": "./dist/components/ui/card/index.cjs",
 			"types": "./dist/components/ui/card/index.d.ts"
+		},
+		"./carousel": {
+			"import": "./dist/components/ui/carousel/index.js",
+			"require": "./dist/components/ui/carousel/index.cjs",
+			"types": "./dist/components/ui/carousel/index.d.ts"
 		},
 		"./chart": {
 			"import": "./dist/components/ui/chart/index.js",
@@ -177,6 +187,11 @@
 			"import": "./dist/components/ui/progress/index.js",
 			"require": "./dist/components/ui/progress/index.cjs",
 			"types": "./dist/components/ui/progress/index.d.ts"
+		},
+		"./range-calendar": {
+			"import": "./dist/components/ui/range-calendar/index.js",
+			"require": "./dist/components/ui/range-calendar/index.cjs",
+			"types": "./dist/components/ui/range-calendar/index.d.ts"
 		},
 		"./radio-group": {
 			"import": "./dist/components/ui/radio-group/index.js",
