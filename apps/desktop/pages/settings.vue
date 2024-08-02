@@ -3,7 +3,7 @@ import AboutTab from "@/components/settings/AboutTab.vue"
 import DeveloperTab from "@/components/settings/DeveloperTab.vue"
 import ExtensionsTab from "@/components/settings/ExtensionsTab.vue"
 import GeneralTab from "@/components/settings/GeneralTab.vue"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@kksh/vue"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@kksh/vue/tabs"
 import { getCurrent } from "@tauri-apps/api/window"
 import { BugIcon, CogIcon, InfoIcon, SquareTerminalIcon, UserRoundIcon } from "lucide-vue-next"
 

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { default as TauriLink } from "@/components/tauri/link.vue"
 import { cn } from "@/lib/utils"
-import { Button, Card, CardContent } from "@kksh/vue"
+import { Button } from "@kksh/vue/button"
+import { Card, CardContent } from "@kksh/vue/card"
 import { getVersion } from "@tauri-apps/api/app"
 import { confirm } from "@tauri-apps/plugin-dialog"
 import { relaunch } from "@tauri-apps/plugin-process"

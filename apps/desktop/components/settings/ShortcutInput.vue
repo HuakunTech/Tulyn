@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Input } from "@kksh/vue"
+import { Input } from "@kksh/vue/input"
 import { onKeyPressed } from "@vueuse/core"
 import { cn } from "~/lib/utils"
 import { isShortcut } from "~/lib/utils/common"

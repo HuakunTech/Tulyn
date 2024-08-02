@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ModeToggle from "@/components/theme/ModeToggle.vue"
 import { appIsDev, toggleDevTools } from "@kksh/api/commands"
-import { Button } from "@kksh/vue"
+import { Button } from "@kksh/vue/button"
 import {
 	CogIcon,
 	FlaskConicalIcon,

@@ -2,15 +2,8 @@
 import StrikeSeparator from "@/components/StrikeSeparator.vue"
 import { type Remote } from "@huakunshen/comlink"
 import { ListSchema, WorkerExtension } from "@kksh/api/ui/worker"
-import {
-	CommandEmpty,
-	CommandGroup,
-	CommandItem,
-	CommandList,
-	ResizableHandle,
-	ResizablePanel,
-	ResizablePanelGroup
-} from "@kksh/vue"
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@kksh/vue/resizable"
+import { CommandEmpty, CommandGroup, CommandItem, CommandList } from "~/components/ui/command"
 import type { HTMLAttributes } from "vue"
 import ListDetail from "./ListDetail.vue"
 import ListItem from "./ListItem.vue"

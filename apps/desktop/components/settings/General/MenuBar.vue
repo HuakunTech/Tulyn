@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Checkbox } from "@kksh/vue"
+import { Checkbox } from "@kksh/vue/checkbox"
 import { useStore } from "@nanostores/vue"
 import { useAppConfigStore } from "~/stores/appConfig"
 import { computed, ref, watch } from "vue"

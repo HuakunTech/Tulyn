@@ -13,18 +13,17 @@ import {
 	type FindLatestExtQueryVariables
 } from "@kksh/gql"
 import { type Tables } from "@kksh/supabase"
+import { Button } from "@kksh/vue/button"
 import {
-	Button,
 	DrawerContent,
 	DrawerDescription,
 	DrawerFooter,
 	DrawerHeader,
-	DrawerTitle,
-	HoverCardContent,
-	HoverCardTrigger,
-	ScrollArea,
-	Separator
-} from "@kksh/vue"
+	DrawerTitle
+} from "@kksh/vue/drawer"
+import { HoverCardContent, HoverCardTrigger } from "@kksh/vue/hover-card"
+import { ScrollArea } from "@kksh/vue/scroll-area"
+import { Separator } from "@kksh/vue/separator"
 import { compareVersions } from "compare-versions"
 import { ElMessage } from "element-plus"
 import { CircleCheckBigIcon, Trash2Icon } from "lucide-vue-next"

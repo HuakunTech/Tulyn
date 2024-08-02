@@ -8,7 +8,8 @@ import {
 	startServer,
 	stopServer
 } from "@kksh/api/commands"
-import { Badge, Button } from "@kksh/vue"
+import { Badge } from "@kksh/vue/badge"
+import { Button } from "@kksh/vue/button"
 import { open } from "tauri-plugin-shellx-api"
 import { onMounted, onUnmounted, ref } from "vue"
 import { toast } from "vue-sonner"

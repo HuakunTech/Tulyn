@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Toaster } from "@kksh/vue"
+import { Toaster } from "@kksh/vue/sonner"
 import { listenToRefreshConfig } from "~/lib/utils/tauri-events"
 import { useAppConfigStore } from "~/stores/appConfig"
 

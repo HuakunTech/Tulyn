@@ -14,7 +14,7 @@ import {
 	type IDbServer,
 	type IUiIframeServer
 } from "@kksh/api/ui/iframe"
-import { Button } from "@kksh/vue"
+import { Button } from "@kksh/vue/button"
 import { join } from "@tauri-apps/api/path"
 import { getCurrent } from "@tauri-apps/api/window"
 import { loadExtensionManifestFromDisk } from "~/lib/commands/extensions"

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import IconMultiplexer from "@/components/IconMultiplexer.vue"
 import { humanReadableNumber } from "@/lib/utils/format"
-import { CommandItem } from "@kksh/vue"
+import { CommandItem } from "~/components/ui/command"
 import { CircleCheckBigIcon } from "lucide-vue-next"
 import { ExtItem } from "./types"
 

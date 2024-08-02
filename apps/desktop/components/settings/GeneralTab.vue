@@ -8,7 +8,7 @@ import {
 	TriggerHotkey
 } from "@/components/settings/General"
 import StrikeSeparator from "@/components/StrikeSeparator.vue"
-import { Card } from "@kksh/vue"
+import { Card } from "@kksh/vue/card"
 import { emitRefreshConfig } from "~/lib/utils/tauri-events"
 import { useAppConfigStore } from "~/stores/appConfig"
 import { toast } from "vue-sonner"

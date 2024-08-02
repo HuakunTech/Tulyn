@@ -4,7 +4,6 @@ import { CommandGroup, CommandItem } from "@/components/ui/command"
 import type { IExtensionBase } from "@/lib/extension/base"
 import { $appState } from "@/lib/stores/appState"
 import type { TListItem } from "@/lib/types/list"
-// import { CommandGroup, CommandItem } from "@kksh/vue"
 import { useStore } from "@nanostores/vue"
 import { computed } from "vue"
 

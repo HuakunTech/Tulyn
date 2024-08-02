@@ -1,14 +1,7 @@
 <script setup lang="ts">
 import Installation from "@/components/settings/Developer/Installation.vue"
-import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger,
-	HoverCard,
-	HoverCardContent,
-	HoverCardTrigger
-} from "@kksh/vue"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@kksh/vue/accordion"
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@kksh/vue/hover-card"
 import { InfoIcon } from "lucide-vue-next"
 import DevVars from "./Developer/DevVars.vue"
 import ServerStatus from "./Developer/ServerStatus.vue"

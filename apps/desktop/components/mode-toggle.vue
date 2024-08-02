@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import { Button } from "@kksh/vue/button"
 import {
-	Button,
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
 	DropdownMenuTrigger
-} from "@kksh/vue"
+} from "@kksh/vue/dropdown-menu"
 
 const colorMode = useColorMode()
 </script>

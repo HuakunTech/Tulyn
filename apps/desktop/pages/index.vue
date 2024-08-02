@@ -9,13 +9,8 @@ import { RemoteExtension } from "@/lib/extension/remoteExt"
 import { SystemCommandExtension } from "@/lib/extension/systemCmds"
 import { $searchTermSync, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
-import { fileSearch } from "@kksh/api/commands"
-import { notification } from "@kksh/api/ui"
-import { Button as Btn } from "@kksh/vue/button"
 import { useStore } from "@nanostores/vue"
-import * as path from "@tauri-apps/api/path"
 import { getCurrent } from "@tauri-apps/api/window"
-import { BaseDirectory } from "@tauri-apps/plugin-fs"
 import { platform } from "@tauri-apps/plugin-os"
 import { useListenToWindowBlur } from "~/composables/useEvents"
 import { useAppConfigStore } from "~/stores/appConfig"
@@ -124,7 +119,6 @@ const searchTermSyncProxy = computed({
 })
 </script>
 <template>
-	<Btn>GH==</Btn>
 	<CmdPaletteCommand
 		class=""
 		v-model:searchTerm="searchTermSyncProxy"

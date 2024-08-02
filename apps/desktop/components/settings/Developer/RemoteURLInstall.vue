@@ -1,22 +1,17 @@
 <script setup lang="ts">
 import { RemoteCmd, RemoteExtension } from "@/lib/extension/remoteExt"
+import { Button } from "@kksh/vue/button"
 import {
-	Button,
 	Dialog,
 	DialogContent,
 	DialogDescription,
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-	DialogTrigger,
-	Input,
-	Label,
-	TagsInput,
-	TagsInputInput,
-	TagsInputItem,
-	TagsInputItemDelete,
-	TagsInputItemText
-} from "@kksh/vue"
+	DialogTrigger
+} from "@kksh/vue/dialog"
+import { Input } from "@kksh/vue/input"
+import { Label } from "@kksh/vue/label"
 import { ElMessage } from "element-plus"
 import { CloudDownloadIcon, DownloadIcon, ExternalLinkIcon, InfoIcon } from "lucide-vue-next"
 import { v4 as uuidv4 } from "uuid"

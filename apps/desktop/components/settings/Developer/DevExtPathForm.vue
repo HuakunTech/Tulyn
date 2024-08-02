@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { Extension } from "@/lib/extension/ext"
 import { pathExists } from "@kksh/api/commands"
-import { Button, Input } from "@kksh/vue"
+import { Button } from "@kksh/vue/button"
+import { Input } from "@kksh/vue/input"
 import { open } from "@tauri-apps/plugin-dialog"
 import { exists } from "@tauri-apps/plugin-fs"
 import { debug } from "@tauri-apps/plugin-log"

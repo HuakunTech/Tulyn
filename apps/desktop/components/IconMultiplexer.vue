@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { cn } from "@/lib/utils"
 import { IconEnum, IconType, Icon as TIcon } from "@kksh/api/models"
-import { Button } from "@kksh/vue"
+import { Button } from "@kksh/vue/button"
 import type { HTMLAttributes } from "vue"
 
 const props = defineProps<{ icon: TIcon; class?: HTMLAttributes["class"] }>()
