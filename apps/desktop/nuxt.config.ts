@@ -20,19 +20,15 @@ export default defineNuxtConfig({
 		"dayjs-nuxt",
 		// "@nuxtjs/supabase"
 		"@nuxtjs/device",
-		"@nuxt/icon"
 		// "@nuxtjs/mdc"
+		"@nuxt/icon",
+		"@nuxtjs/i18n"
 	],
-	// alias: {
-	// 	"@kkui": "../../../packages/ui/src"
-	// },
-	// vite: {
-	// 	resolve: {
-	// 		alias: {
-	// 			"@kkui": path.resolve(__dirname, "../../packages/ui/src")
-	// 		}
-	// 	}
-	// },
+	i18n: {
+		locales: ["en", "zh"],
+		defaultLocale: "en",
+		vueI18n: "./i18n/i18n.config.ts"
+	},
 	nitro: {
 		output: {
 			publicDir: "dist"

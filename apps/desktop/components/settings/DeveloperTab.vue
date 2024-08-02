@@ -13,7 +13,7 @@ import ServerStatus from "./Developer/ServerStatus.vue"
 				<AccordionItem value="server-status">
 					<AccordionTrigger>
 						<span class="flex items-center space-x-2">
-							<span>Server Status</span>
+							<span>{{ $t("serverStatus") }}</span>
 							<HoverCard>
 								<HoverCardTrigger><InfoIcon :size="20" /></HoverCardTrigger>
 								<HoverCardContent class="ml-10 w-96">
@@ -28,11 +28,11 @@ import ServerStatus from "./Developer/ServerStatus.vue"
 					<AccordionContent><ServerStatus /></AccordionContent>
 				</AccordionItem>
 				<AccordionItem value="ext-installation">
-					<AccordionTrigger>Installation</AccordionTrigger>
+					<AccordionTrigger>{{ $t("installation") }}</AccordionTrigger>
 					<AccordionContent><Installation /></AccordionContent>
 				</AccordionItem>
 				<AccordionItem value="Folders">
-					<AccordionTrigger>Dev Variables</AccordionTrigger>
+					<AccordionTrigger>{{ $t("devVars") }}</AccordionTrigger>
 					<AccordionContent><DevVars /></AccordionContent>
 				</AccordionItem>
 			</Accordion>

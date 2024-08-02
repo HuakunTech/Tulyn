@@ -40,26 +40,25 @@ async function checkUpdate() {
 		<CardContent class="flex items-center space-x-5">
 			<img src="/img/logo-w-bg.png" class="w-44" />
 			<div class="flex flex-col space-y-1">
-				<p class="text-3xl font-bold">Akun</p>
-				<p class="text-xs">Version: {{ appVersion }}</p>
+				<p class="text-3xl font-bold">{{ $t("appName") }}</p>
+				<p class="text-xs">{{ $t("version") }}: {{ appVersion }}</p>
 				<p>
-					<strong class="font-bold">Author: </strong>
+					<strong class="font-bold">{{ $t("author") }}: </strong>
 					<TauriLink href="https://github.com/HuakunShen">
 						@HuakunShen
 						<Icon name="mdi:github" class="inline -translate-y-0.5 text-white" />
 					</TauriLink>
 				</p>
 				<TauriLink href="https://github.com/HuakunTech/kunkun">
-					Source Code
+					{{ $t("sourceCode") }}
 					<Icon name="mdi:github" class="inline -translate-y-0.5 text-white" />
 				</TauriLink>
 				<TauriLink href="https://github.com/HuakunTech/kunkunExtensions">
-					Extensions Source Code
+					{{ $t("extensionsSourceCode") }}
 					<Icon name="mdi:github" class="inline -translate-y-0.5 text-white" />
 				</TauriLink>
-				<Button @click="checkUpdate" size="xs" variant="secondary">Check Update</Button>
+				<Button @click="checkUpdate" size="xs" variant="secondary">{{ $t("checkUpdate") }}</Button>
 			</div>
 		</CardContent>
 	</Card>
 </template>
-<!-- <script defer data-domain="huakunshen.com" src="https://plausible.io/js/script.js"></script> -->

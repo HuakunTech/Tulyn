@@ -21,7 +21,7 @@ onMounted(async () => {
 </script>
 <template>
 	<div data-tauri-drag-region class="h-8">
-		<div class="float-right flex space-x-4 px-5 py-2">
+		<!-- <div class="float-right flex space-x-4 px-5 py-2">
 			<ModeToggle class="h-4 w-4 -translate-y-0.5" />
 			<a href="/">
 				<Button class="h-4 w-4" size="icon" variant="ghost">
@@ -51,6 +51,6 @@ onMounted(async () => {
 			<Button v-if="isDev" @click="toggleDevTools" class="h-4 w-4" size="icon" variant="ghost">
 				<WrenchIcon />
 			</Button>
-		</div>
+		</div> -->
 	</div>
 </template>

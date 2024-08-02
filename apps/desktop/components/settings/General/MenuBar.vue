@@ -16,14 +16,14 @@ const checked = computed({
 </script>
 <template>
 	<div class="grid grid-cols-2 gap-4">
-		<span class="justify-self-end">Menu Bar Icon</span>
+		<span class="justify-self-end">{{ $t("menubarIcon") }}</span>
 		<div class="flex items-center space-x-2">
 			<Checkbox id="menu-bar" v-model:checked="checked" />
 			<label
 				for="menu-bar"
 				class="select-none text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 			>
-				Show in Menu Bar
+				{{ $t("showInMenuBar") }}
 			</label>
 		</div>
 	</div>
