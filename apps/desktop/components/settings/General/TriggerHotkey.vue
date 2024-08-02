@@ -13,11 +13,11 @@ function onRecordClick() {
 </script>
 <template>
 	<div class="grid grid-cols-2 gap-4">
-		<span class="justify-self-end">Trigger Hotkey</span>
+		<span class="justify-self-end">{{ $t("triggerHotkey") }}</span>
 		<Popover v-model:open="recording">
 			<PopoverTrigger class="w-fit" @click="onRecordClick">
 				<Button v-if="savedHotkey.length === 0" variant="ghost" size="sm" class="w-fit">
-					Record Hotkey
+					{{ $t("recordHotkey") }}
 				</Button>
 				<Button v-else variant="outline" size="sm" class="w-32 gap-2">
 					{{ keyCombToDisplay(savedHotkey) }}

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
-	LoadDevUrl,
+	DevExtMode,
+	Language,
 	MenuBar,
 	Startup,
 	Theme,
@@ -39,8 +40,9 @@ function updateHotkey(keys: string[]) {
 		<MenuBar />
 		<Theme />
 		<StrikeSeparator>
-			<span class="whitespace-nowrap break-normal">Developer Setting</span>
+			<span class="whitespace-nowrap break-normal">{{ $t("developerSettings") }}</span>
 		</StrikeSeparator>
-		<LoadDevUrl />
+		<DevExtMode />
+		<Language />
 	</Card>
 </template>

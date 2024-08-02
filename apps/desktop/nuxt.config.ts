@@ -13,12 +13,23 @@ export default defineNuxtConfig({
 		"@vueuse/nuxt",
 		"@nuxtjs/mdc",
 		"@element-plus/nuxt",
-		"@nuxtjs/tailwindcss",
-		"shadcn-nuxt",
+		"@formkit/auto-animate/nuxt",
+		"@nuxt/image",
+		"dayjs-nuxt",
+		// "@nuxtjs/supabase"
+		"@nuxtjs/device",
 		"@nuxt/icon"
+		// "@nuxtjs/mdc"
 	],
 	i18n: {
-		vueI18n: "./i18n.config.ts" // if you are using custom path, default
+		locales: ["en", "zh"],
+		defaultLocale: "en",
+		vueI18n: "./i18n/i18n.config.ts"
+	},
+	nitro: {
+		output: {
+			publicDir: "dist"
+		}
 	},
 	shadcn: {
 		/**
