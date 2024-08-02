@@ -78,7 +78,7 @@ export default defineNuxtConfig({
 			posthogHost: z.string().describe("POSTHOG_HOST").parse(process.env.POSTHOG_HOST)
 		}
 	},
-	sourcemap: true,
+	// sourcemap: true,
 	// supabase: {
 	//   key: process.env.SUPABASE_ANON_KEY,
 	//   url: process.env.SUPABASE_URL

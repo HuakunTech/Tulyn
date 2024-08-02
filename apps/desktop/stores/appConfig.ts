@@ -11,7 +11,7 @@ import { allColors } from "~/lib/themes/themes"
 import { registerAppHotkey } from "~/lib/utils/hotkey"
 import { mapKeyToTauriKey } from "~/lib/utils/js"
 import { emitRefreshConfig } from "~/lib/utils/tauri-events"
-import { isEqual } from "lodash"
+import isEqual from "lodash/isEqual"
 import { defineStore } from "pinia"
 import {
 	array,
