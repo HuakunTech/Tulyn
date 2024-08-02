@@ -1,42 +1,24 @@
-import path from "path"
 import { z } from "zod"
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+	compatibilityDate: "2024-04-03",
 	ssr: false,
-	css: ["@/assets/css/themes.css"],
+	css: ["@kksh/vue/css", "@kksh/vue/themes"],
 	devtools: { enabled: true },
-
 	modules: [
-		"@nuxtjs/mdc",
+		"@nuxtjs/i18n",
 		"@pinia/nuxt",
 		"@pinia-plugin-persistedstate/nuxt",
+		"@vueuse/nuxt",
+		"@nuxtjs/mdc",
+		"@element-plus/nuxt",
 		"@nuxtjs/tailwindcss",
 		"shadcn-nuxt",
-		"@vueuse/nuxt",
-		"@element-plus/nuxt",
-		"@formkit/auto-animate/nuxt",
-		"@nuxt/image",
-		"dayjs-nuxt",
-		// "@nuxtjs/supabase"
-		"@nuxtjs/device",
 		"@nuxt/icon"
-		// "@nuxtjs/mdc"
 	],
-	// alias: {
-	// 	"@kkui": "../../../packages/ui/src"
-	// },
-	// vite: {
-	// 	resolve: {
-	// 		alias: {
-	// 			"@kkui": path.resolve(__dirname, "../../packages/ui/src")
-	// 		}
-	// 	}
-	// },
-	nitro: {
-		output: {
-			publicDir: "dist"
-		}
+	i18n: {
+		vueI18n: "./i18n.config.ts" // if you are using custom path, default
 	},
 	shadcn: {
 		/**
@@ -49,15 +31,6 @@ export default defineNuxtConfig({
 		 */
 		componentDir: "./components/ui"
 	},
-
-	// elementPlus: {
-	//   icon: "ElIcon",
-	//   importStyle: "scss",
-	//   themes: ["dark"],
-	// },
-	// app: {
-	//   pageTransition: { name: "page", mode: "out-in" },
-	// },
 
 	runtimeConfig: {
 		public: {
@@ -77,11 +50,5 @@ export default defineNuxtConfig({
 				.parse(process.env.POSTHOG_PUBLIC_KEY),
 			posthogHost: z.string().describe("POSTHOG_HOST").parse(process.env.POSTHOG_HOST)
 		}
-	},
-	// sourcemap: true,
-	// supabase: {
-	//   key: process.env.SUPABASE_ANON_KEY,
-	//   url: process.env.SUPABASE_URL
-	// },
-	compatibilityDate: "2024-04-03"
+	}
 })

@@ -1,17 +1,10 @@
 const animate = require("tailwindcss-animate")
-// const { addIconSelectors, addDynamicIconSelectors } = require("@iconify/tailwind")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	darkMode: ["class"],
 	safelist: ["dark"],
 	prefix: "",
-
-	content: [
-    // these 2 are equivalent
-		// "../../packages/component-lib/vue/src/components/**/*.{vue,ts,tsx}",
-		"./node_modules/@kksh/vue/src/components/**/*.{vue,ts,tsx}"
-	],
 
 	theme: {
 		container: {
@@ -89,10 +82,5 @@ module.exports = {
 			}
 		}
 	},
-	plugins: [
-		animate,
-		require("@tailwindcss/typography")
-		// addDynamicIconSelectors()
-		// addIconSelectors(["mdi", "mdi-light", "vscode-icons", "fa6-brands", "fa", "fa6-solid"])
-	]
+	plugins: [animate, require("@tailwindcss/typography")]
 }

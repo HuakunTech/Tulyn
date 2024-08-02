@@ -29,8 +29,8 @@ onUnmounted(() => {
 })
 </script>
 <template>
-	<div class="h-screen w-screen absolute z-50" data-tauri-drag-region/>
-	<main :class="cn('flex h-full items-center justify-center', props.class)" >
+	<div class="absolute z-50 h-screen w-screen" data-tauri-drag-region />
+	<main :class="cn('flex h-full items-center justify-center', props.class)">
 		<div>
 			<div v-for="row in frame" class="flex">
 				<div

@@ -1,5 +1,12 @@
 <script setup lang="ts">
 import {
+	Carousel,
+	CarouselContent,
+	CarouselItem,
+	CarouselNext,
+	CarouselPrevious
+} from "@kksh/vue/carousel"
+import {
 	Dialog,
 	DialogContent,
 	DialogDescription,
@@ -8,13 +15,6 @@ import {
 	DialogTitle,
 	DialogTrigger
 } from "@kksh/vue/dialog"
-import {
-	Carousel,
-	CarouselContent,
-	CarouselItem,
-	CarouselNext,
-	CarouselPrevious
-} from "@kksh/vue/carousel"
 import { VisuallyHidden } from "radix-vue"
 import type { HTMLAttributes } from "vue"
 
