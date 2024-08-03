@@ -17,9 +17,9 @@
 		"@kksh/gql": "workspace:*",
 		"@kksh/supabase": "workspace:*",
 		"@kksh/vue": "workspace:*",
+		"@nanostores/vue": "^0.10.0",
 		"@nuxt/icon": "^1.4.4",
 		"@nuxtjs/i18n": "^8.3.3",
-		"@nanostores/vue": "^0.10.0",
 		"@nuxtjs/mdc": "^0.8.3",
 		"@pinia/nuxt": "^0.5.1",
 		"@radix-icons/vue": "^1.0.0",
@@ -53,6 +53,7 @@
 		"tauri-plugin-network-api": "workspace:*",
 		"tauri-plugin-shellx-api": "^2.0.8",
 		"tauri-plugin-system-info-api": "workspace:*",
+		"vaul-vue": "^0.2.0",
 		"vue": "latest",
 		"zod": "^3.23.8"
 	},

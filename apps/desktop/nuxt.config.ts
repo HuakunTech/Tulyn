@@ -13,13 +13,7 @@ export default defineNuxtConfig({
 		"@vueuse/nuxt",
 		"@nuxtjs/mdc",
 		"@element-plus/nuxt",
-		"@formkit/auto-animate/nuxt",
-		"@nuxt/image",
-		"dayjs-nuxt",
-		// "@nuxtjs/supabase"
-		"@nuxtjs/device",
 		"@nuxt/icon"
-		// "@nuxtjs/mdc"
 	],
 	i18n: {
 		locales: ["en", "zh"],
