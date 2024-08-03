@@ -15,7 +15,8 @@ export default defineNuxtConfig({
         "@element-plus/nuxt",
         "@nuxt/icon",
         "@nuxtjs/tailwindcss",
-        "shadcn-nuxt"
+        "shadcn-nuxt",
+        "@nuxt/image"
     ],
 	i18n: {
 		locales: ["en", "zh"],
