@@ -1,5 +1,8 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { Toaster } from "@kksh/vue/toast"
+</script>
 <template>
+	<Toaster />
 	<div>
 		<NuxtLink to="/">Home</NuxtLink>
 	</div>

@@ -207,7 +207,7 @@ import SheetTitle from "./components/ui/sheet/SheetTitle.vue"
 import SheetTrigger from "./components/ui/sheet/SheetTrigger.vue"
 import Skeleton from "./components/ui/skeleton/Skeleton.vue"
 import Slider from "./components/ui/slider/Slider.vue"
-import Toaster from "./components/ui/sonner/Sonner.vue"
+import SonnerToaster from "./components/ui/sonner/Sonner.vue"
 import Stepper from "./components/ui/stepper/Stepper.vue"
 import StepperDescription from "./components/ui/stepper/StepperDescription.vue"
 import StepperIndicator from "./components/ui/stepper/StepperIndicator.vue"
@@ -337,7 +337,7 @@ export {
 	AccordionTrigger,
 	Skeleton,
 	Separator,
-	Toaster,
+	SonnerToaster,
 	NumberField,
 	NumberFieldInput,
 	NumberFieldIncrement,

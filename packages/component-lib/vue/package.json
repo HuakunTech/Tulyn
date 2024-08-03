@@ -33,6 +33,11 @@
 			"require": "./dist/components/ui/aspect-ratio/index.cjs",
 			"types": "./dist/components/ui/aspect-ratio/index.d.ts"
 		},
+		"./auto-form": {
+			"import": "./dist/components/ui/auto-form/index.js",
+			"require": "./dist/components/ui/auto-form/index.cjs",
+			"types": "./dist/components/ui/auto-form/index.d.ts"
+		},
 		"./avatar": {
 			"import": "./dist/components/ui/avatar/index.js",
 			"require": "./dist/components/ui/avatar/index.cjs",
@@ -267,6 +272,11 @@
 			"import": "./dist/components/ui/textarea/index.js",
 			"require": "./dist/components/ui/textarea/index.cjs",
 			"types": "./dist/components/ui/textarea/index.d.ts"
+		},
+		"./toast": {
+			"import": "./dist/components/ui/toast/index.js",
+			"require": "./dist/components/ui/toast/index.cjs",
+			"types": "./dist/components/ui/toast/index.d.ts"
 		},
 		"./toggle": {
 			"import": "./dist/components/ui/toggle/index.js",
