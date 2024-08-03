@@ -12,6 +12,7 @@
 	},
 	"dependencies": {
 		"@element-plus/nuxt": "^1.0.9",
+		"@iconify/vue": "^4.1.2",
 		"@kksh/api": "workspace:*",
 		"@kksh/dance": "workspace:*",
 		"@kksh/gql": "workspace:*",
@@ -43,8 +44,11 @@
 		"dayjs": "^1.11.11",
 		"element-plus": "^2.7.3",
 		"lodash": "^4.17.21",
+		"lucide-vue-next": "^0.414.0",
+		"nanostores": "^0.10.3",
 		"nuxt": "^3.12.4",
 		"pinia": "^2.1.7",
+		"posthog-js": "^1.154.2",
 		"radix-vue": "^1.9.2",
 		"shadcn-nuxt": "^0.10.4",
 		"tailwind-merge": "^2.4.0",
@@ -53,14 +57,17 @@
 		"tauri-plugin-network-api": "workspace:*",
 		"tauri-plugin-shellx-api": "^2.0.8",
 		"tauri-plugin-system-info-api": "workspace:*",
+		"uuid": "^9.0.1",
 		"vaul-vue": "^0.2.0",
 		"vue": "latest",
+		"vue-sonner": "^1.1.4",
 		"zod": "^3.23.8"
 	},
 	"devDependencies": {
 		"@nuxtjs/tailwindcss": "^6.12.1",
 		"@pinia-plugin-persistedstate/nuxt": "^1.2.1",
 		"@tailwindcss/typography": "^0.5.13",
-		"@types/lodash": "^4.17.7"
+		"@types/lodash": "^4.17.7",
+		"@types/uuid": "^9.0.7"
 	}
 }

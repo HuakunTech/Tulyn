@@ -31,7 +31,7 @@ onUnmounted(() => {
 </script>
 <template>
 	<div data-tauri-drag-region class="z-50 flex h-12 items-center justify-between border p-2">
-		<img :class="cn('h-6 w-6', 'invert dark:invert-0')" src="/img/logo-w-bg.png" alt="logo" />
+		<img class="h-6 w-6 invert dark:invert-0" src="/img/logo-w-bg.png" alt="logo" />
 		<span class="flex gap-2">
 			<Tooltip>
 				<TooltipTrigger>

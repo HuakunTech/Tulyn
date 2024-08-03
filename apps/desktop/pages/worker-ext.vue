@@ -18,6 +18,7 @@ import {
 	wrap,
 	type IComponent,
 	type IDbServer,
+	type IListViewExtension,
 	type ListSchema,
 	type WorkerExtension
 } from "@kksh/api/ui/worker"
@@ -37,7 +38,7 @@ import type { ComboboxInput } from "radix-vue"
 import { toast } from "vue-sonner"
 
 const appState = useStore($appState)
-let workerAPI: Remote<WorkerExtension> | undefined = undefined
+let workerAPI: Remote<WorkerExtension & IListViewExtension> | undefined = undefined
 const loading = ref(false)
 const viewContent = ref<ListSchema.List>()
 const extStore = useExtStore()
@@ -142,7 +143,7 @@ async function launchWorkerExt() {
 		...extDBApi
 	})
 	// exposeApiToWorker(worker, { render }) // Expose render function to worker
-	workerAPI = wrap<WorkerExtension>(worker) // Call worker exposed APIs
+	workerAPI = wrap<WorkerExtension & IListViewExtension>(worker) // Call worker exposed APIs
 	await workerAPI.load()
 }
 
@@ -179,7 +180,7 @@ function filterFunction(items: ListSchema.Item[], searchTerm: string) {
 }
 
 function onHighlightedItemChanged(itemValue: string) {
-	workerAPI?.onHighlightedItemChanged(itemValue)
+	workerAPI?.onHighlightedListItemChanged(itemValue)
 	const item = viewContent.value?.items?.find((item) => item.value === itemValue)
 	appUiStore.setActionPanel(item?.actions)
 	appUiStore.setDefaultAction(item?.defaultAction)
@@ -204,7 +205,7 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 		:id="HTMLElementId.WorkerExtInputId"
 		v-model:searchTerm="searchTerm"
 		@update:search-term="onSearchTermChange"
-		@update:model-value="(v) => workerAPI?.onItemSelected((v as ListSchema.Item).value)"
+		@update:model-value="(v) => workerAPI?.onListItemSelected((v as ListSchema.Item).value)"
 		v-model:selected-value="highlightedItemValue"
 		:identity-filter="false"
 		:filterFunction="(items, term) => filterFunction(items as ListSchema.Item[], term)"

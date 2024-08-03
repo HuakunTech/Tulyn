@@ -20,8 +20,6 @@ import * as fs from "@tauri-apps/plugin-fs"
 import { exists } from "@tauri-apps/plugin-fs"
 import { debug, error, info, warn } from "@tauri-apps/plugin-log"
 import { useAppConfigStore } from "~/stores/appConfig"
-// import { fetch } from "@kksh/api/ui"
-import axios from "axios"
 import { atom, type WritableAtom } from "nanostores"
 import { v4 as uuidv4 } from "uuid"
 import { toast } from "vue-sonner"
@@ -186,6 +184,8 @@ export class Extension implements IExtensionBase {
 	}
 
 	onSelect(item: TListItem): Promise<void> {
+		console.log("on select", item);
+		
 		const extStore = useExtStore()
 		const appConfig = useAppConfigStore()
 		this.manifests.forEach((manifest) => {
@@ -226,6 +226,8 @@ export class Extension implements IExtensionBase {
 					}
 				})
 			} else if (item.type === "Template Command") {
+				console.log("Launch Template Command");
+				
 				manifest.kunkun.templateUiCmds.forEach(async (cmd) => {
 					if (item.value === generateItemValue(manifest, cmd, this.isDev)) {
 						const main = cmd.main
