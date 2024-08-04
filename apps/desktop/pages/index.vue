@@ -127,12 +127,7 @@ const localep = useLocalePath()
 		:identity-filter="true"
 		v-model:selected-value="highlightedItemValue"
 	>
-		<CommandInput
-			:id="HTMLElementId.MainSearchInput"
-			ref="cmdInputRef"
-			class="text-md h-12"
-			:placeholder="$t('searchBarSearchForAppsOrCmds')"
-		/>
+		<CmdPaletteMainSearchBar />
 		<CommandList class="h-full max-h-screen">
 			<CommandEmpty>No results found.</CommandEmpty>
 			<MainSearchListGroup v-for="(ext, idx) in exts" :key="ext.id" :ext="ext" />

@@ -35,5 +35,6 @@ const forwardedProps = useForwardProps(delegatedProps)
 				)
 			"
 		/>
+		<slot name="end" />
 	</div>
 </template>
