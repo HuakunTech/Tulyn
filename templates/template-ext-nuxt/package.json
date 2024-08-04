@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "@kksh/api": "workspace:*",
-    "@kksh/vue": "0.1.1",
+    "@kksh/vue": "0.1.2",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "nuxt": "^3.12.4",
     "tailwindcss": "^3.4.7",

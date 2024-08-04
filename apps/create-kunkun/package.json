@@ -7,7 +7,8 @@
 	},
 	"scripts": {
 		"build": "rimraf dist && cross-env NODE_ENV=production bun build index.ts --outfile=dist/index.mjs --target node",
-		"postbuild": "shx cp -r ../../templates dist/templates && bun scripts/postbuild.ts"
+		"postbuild": "shx cp -r ../../templates dist/templates && bun scripts/postbuild.ts",
+		"test": "bun test --coverage"
 	},
 	"devDependencies": {
 		"@rollup/plugin-commonjs": "^26.0.1",
@@ -32,7 +33,8 @@
 		"@kksh/api": "workspace:*",
 		"chalk": "^5.3.0",
 		"commander": "^12.1.0",
-		"fs-extra": "^11.2.0"
+		"fs-extra": "^11.2.0",
+		"valibot": "^0.36.0"
 	},
 	"files": [
 		"dist"

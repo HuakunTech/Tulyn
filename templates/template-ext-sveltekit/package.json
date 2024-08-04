@@ -51,7 +51,7 @@
 	},
 	"dependencies": {
 		"@kksh/api": "workspace:*",
-		"@kksh/svelte": "0.1.1",
+		"@kksh/svelte": "0.1.3",
 		"clsx": "^2.1.1",
 		"cross-env": "^7.0.3",
 		"lucide-svelte": "^0.416.0",

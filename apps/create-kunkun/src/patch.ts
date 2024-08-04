@@ -32,12 +32,12 @@ export function patchManifestJsonSchema(pkgJsonPath: string) {
  * @param pkgJsonPath path to created template's package.json
  * @param kkApiVersion @kksh/api version with the current create-kunkun version
  */
-export function patchPkgJsonDep(pkgJsonPath: string) {
+export async function patchPkgJsonDep(pkgJsonPath: string) {
 	if (isProduction) {
 		throw new Error("This function is only available in development mode")
 	}
 	const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, "utf-8"))
-	const monorepoPkgVersions = findPkgVersions()
+	const monorepoPkgVersions = await findPkgVersions()
 	for (const [dep, v] of Object.entries(pkgJson.dependencies)) {
 		if ((v as string).startsWith("workspace:")) {
 			if (!monorepoPkgVersions[dep]) {

@@ -18,7 +18,7 @@
 		"@kksh/dance": "workspace:*",
 		"@kksh/gql": "workspace:*",
 		"@kksh/supabase": "workspace:*",
-		"@kksh/vue": "0.1.1",
+		"@kksh/vue": "0.1.2",
 		"@nanostores/vue": "^0.10.0",
 		"@nuxt/icon": "^1.4.4",
 		"@nuxt/image": "^1.7.0",

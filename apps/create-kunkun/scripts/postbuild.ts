@@ -19,7 +19,7 @@ for (const p of fs.readdirSync(path.join(distPath, "templates"))) {
 	if (fs.existsSync(pkgJsonPath)) {
 		/* ----------------------- Patch Package Dependencies ----------------------- */
 		// Replace local dependencies (workspace:*) with real dependencies
-		patchPkgJsonDep(pkgJsonPath)
+		await patchPkgJsonDep(pkgJsonPath)
 		/* ----------------------- Patch Manifest JSON Schema ----------------------- */
 		// Replace local template with remote schema
 		patchManifestJsonSchema(pkgJsonPath)
