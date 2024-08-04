@@ -6,8 +6,8 @@ import { FormNodeName, FormNodeNameEnum, FormSchema } from "@kksh/api/ui/worker"
 import { z } from "zod"
 
 function convertBasicFormField(input: FormSchema.FormField) {
-	console.log("input 2", input);
-	
+	console.log("input 2", input)
+
 	let baseSchema:
 		| z.ZodString
 		| z.ZodNumber
@@ -53,16 +53,16 @@ function convertBasicFormField(input: FormSchema.FormField) {
 }
 
 export function convertFormToZod(input: FormSchema.FormField | FormSchema.Form) {
-	console.log("input", input);
-	
+	console.log("input", input)
+
 	if (input.nodeName === FormNodeNameEnum.Array) {
 		const field = input as FormSchema.ArrayField
 		return z.array(convertBasicFormField(field.content))
 	} else if (input.nodeName === FormNodeNameEnum.Form) {
 		const f: Record<string, any> = {}
 		const form = input as FormSchema.Form
-		console.log("form", form);
-		
+		console.log("form", form)
+
 		form.fields.forEach((field: FormSchema.FormField | FormSchema.Form) => {
 			f[field.key] = convertFormToZod(field as FormSchema.FormField)
 		})

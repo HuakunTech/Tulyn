@@ -7,17 +7,17 @@ export default defineNuxtConfig({
 	css: ["@kksh/vue/css", "@kksh/vue/themes"],
 	devtools: { enabled: true },
 	modules: [
-        "@nuxtjs/i18n",
-        "@pinia/nuxt",
-        "@pinia-plugin-persistedstate/nuxt",
-        "@vueuse/nuxt",
-        "@nuxtjs/mdc",
-        "@element-plus/nuxt",
-        "@nuxt/icon",
-        "@nuxtjs/tailwindcss",
-        "shadcn-nuxt",
-        "@nuxt/image"
-    ],
+		"@nuxtjs/i18n",
+		"@pinia/nuxt",
+		"@pinia-plugin-persistedstate/nuxt",
+		"@vueuse/nuxt",
+		"@nuxtjs/mdc",
+		"@element-plus/nuxt",
+		"@nuxt/icon",
+		"@nuxtjs/tailwindcss",
+		"shadcn-nuxt",
+		"@nuxt/image"
+	],
 	i18n: {
 		locales: ["en", "zh"],
 		defaultLocale: "en",

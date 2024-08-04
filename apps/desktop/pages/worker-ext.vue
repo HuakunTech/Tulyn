@@ -83,7 +83,7 @@ const extUiAPI: IUiWorkerServer = {
 		} else if (view.nodeName === FormNodeNameEnum.Form) {
 			listViewContent.value = undefined
 			formViewContent.value = parse(FormSchema.Form, view)
-			console.log("parsed form", parse(FormSchema.Form, view));
+			console.log("parsed form", parse(FormSchema.Form, view))
 			const zodSchema = convertFormToZod(parse(FormSchema.Form, view))
 			formViewZodSchema.value = zodSchema
 			console.log(zodSchema)

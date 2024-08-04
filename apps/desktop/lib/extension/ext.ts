@@ -184,8 +184,8 @@ export class Extension implements IExtensionBase {
 	}
 
 	onSelect(item: TListItem): Promise<void> {
-		console.log("on select", item);
-		
+		console.log("on select", item)
+
 		const extStore = useExtStore()
 		const appConfig = useAppConfigStore()
 		this.manifests.forEach((manifest) => {
@@ -226,8 +226,8 @@ export class Extension implements IExtensionBase {
 					}
 				})
 			} else if (item.type === "Template Command") {
-				console.log("Launch Template Command");
-				
+				console.log("Launch Template Command")
+
 				manifest.kunkun.templateUiCmds.forEach(async (cmd) => {
 					if (item.value === generateItemValue(manifest, cmd, this.isDev)) {
 						const main = cmd.main
