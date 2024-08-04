@@ -19,8 +19,8 @@ import { type JarvisExtDB } from "../commands/db"
 import type { fileSearch } from "../commands/fileSearch"
 import { type AppInfo } from "../models/apps"
 import type { LightMode, Position, Radius, ThemeColor } from "../models/styles"
-import type { FormSchema } from "./worker"
 import { type IComponent } from "./worker/components/interfaces"
+import * as FormSchema from "./worker/schema/form"
 import * as ListSchema from "./worker/schema/list"
 
 type PromiseWrap<T extends (...args: any[]) => any> = (
