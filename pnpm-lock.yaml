@@ -325,7 +325,7 @@ importers:
         version: 2.4.0
       tailwindcss-animate:
         specifier: ^1.0.7
-        version: 1.0.7(tailwindcss@3.4.7(ts-node@10.9.2(@types/node@20.14.12)(typescript@5.5.4)))
+        version: 1.0.7(tailwindcss@3.4.6(ts-node@10.9.2(@types/node@20.14.11)(typescript@5.5.2)))
       tauri-plugin-jarvis-api:
         specifier: workspace:*
         version: link:../../packages/tauri-plugin-jarvis
@@ -365,7 +365,7 @@ importers:
         version: 1.2.1(@pinia/nuxt@0.5.1(magicast@0.3.4)(rollup@4.18.1)(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4)))(magicast@0.3.4)(pinia@2.1.7(typescript@5.5.4)(vue@3.4.35(typescript@5.5.4)))(rollup@4.18.1)
       '@tailwindcss/typography':
         specifier: ^0.5.13
-        version: 0.5.13(tailwindcss@3.4.7(ts-node@10.9.2(@types/node@20.14.12)(typescript@5.5.4)))
+        version: 0.5.13(tailwindcss@3.4.6(ts-node@10.9.2(@types/node@20.14.12)(typescript@5.5.2)))
       '@types/lodash':
         specifier: ^4.17.7
         version: 4.17.7
@@ -1506,6 +1506,9 @@ importers:
       '@radix-icons/vue':
         specifier: ^1.0.0
         version: 1.0.0(vue@3.4.34(typescript@5.5.2))
+      '@vee-validate/zod':
+        specifier: ^4.13.2
+        version: 4.13.2(vue@3.4.34(typescript@5.5.2))
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -1521,9 +1524,15 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.6(ts-node@10.9.2(@types/node@20.14.12)(typescript@5.5.2)))
+      vee-validate:
+        specifier: ^4.13.2
+        version: 4.13.2(vue@3.4.34(typescript@5.5.2))
       vue:
         specifier: ^3.4.31
         version: 3.4.34(typescript@5.5.2)
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
     devDependencies:
       '@types/node':
         specifier: ^20.14.12
@@ -19410,14 +19419,6 @@ snapshots:
       postcss-selector-parser: 6.0.10
       tailwindcss: 3.4.6(ts-node@10.9.2(@types/node@20.14.12)(typescript@5.5.2))
 
-  '@tailwindcss/typography@0.5.13(tailwindcss@3.4.7(ts-node@10.9.2(@types/node@20.14.12)(typescript@5.5.4)))':
-    dependencies:
-      lodash.castarray: 4.4.0
-      lodash.isplainobject: 4.0.6
-      lodash.merge: 4.6.2
-      postcss-selector-parser: 6.0.10
-      tailwindcss: 3.4.7(ts-node@10.9.2(@types/node@20.14.12)(typescript@5.5.4))
-
   '@tanstack/virtual-core@3.8.1': {}
 
   '@tanstack/vue-virtual@3.8.1(vue@3.4.34(typescript@5.5.2))':
@@ -20203,6 +20204,14 @@ snapshots:
     dependencies:
       '@unovis/ts': 1.4.3
       vue: 3.4.35(typescript@5.5.2)
+
+  '@vee-validate/zod@4.13.2(vue@3.4.34(typescript@5.5.2))':
+    dependencies:
+      type-fest: 4.23.0
+      vee-validate: 4.13.2(vue@3.4.34(typescript@5.5.2))
+      zod: 3.23.8
+    transitivePeerDependencies:
+      - vue
 
   '@vee-validate/zod@4.13.2(vue@3.4.35(typescript@5.5.2))':
     dependencies:
@@ -28196,10 +28205,6 @@ snapshots:
     dependencies:
       tailwindcss: 3.4.6(ts-node@10.9.2(@types/node@20.14.12)(typescript@5.5.2))
 
-  tailwindcss-animate@1.0.7(tailwindcss@3.4.7(ts-node@10.9.2(@types/node@20.14.12)(typescript@5.5.4))):
-    dependencies:
-      tailwindcss: 3.4.7(ts-node@10.9.2(@types/node@20.14.12)(typescript@5.5.4))
-
   tailwindcss@3.4.3(ts-node@10.9.2(@types/node@20.14.12)(typescript@5.4.5)):
     dependencies:
       '@alloc/quick-lru': 5.2.0
@@ -29116,6 +29121,12 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
       - '@types/react-dom'
+
+  vee-validate@4.13.2(vue@3.4.34(typescript@5.5.2)):
+    dependencies:
+      '@vue/devtools-api': 6.6.3
+      type-fest: 4.23.0
+      vue: 3.4.34(typescript@5.5.2)
 
   vee-validate@4.13.2(vue@3.4.35(typescript@5.5.2)):
     dependencies:

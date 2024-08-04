@@ -1,9 +1,8 @@
-<script setup lang="ts">
+<!-- <script setup lang="ts">
 import { AutoForm, AutoFormField } from "@kksh/vue/auto-form"
 import { Button } from "@kksh/vue/button"
 import { toast } from "@kksh/vue/toast"
 import { h } from "vue"
-// import { toast } from "vue-sonner"
 import * as z from "zod"
 
 definePageMeta({
@@ -158,4 +157,41 @@ function onSubmit(values: Record<string, any>) {
 
 		<Button type="submit"> Submit </Button>
 	</AutoForm>
+</template> -->
+
+<script setup lang="ts">
+import * as z from 'zod'
+import { h } from 'vue'
+import { Button } from '@kksh/vue/button'
+import { toast } from '@kksh/vue/toast'
+import { AutoForm } from '@kksh/vue/auto-form'
+
+const schema = z
+  .object({
+    password: z.string(),
+    confirm: z.string(),
+  })
+  .refine(data => data.password === data.confirm, {
+    message: 'Passwords must match.',
+    path: ['confirm'],
+  })
+
+function onSubmit(values: Record<string, any>) {
+  toast({
+    title: 'You submitted the following values:',
+    description: h('pre', { class: 'mt-2 w-[340px] rounded-md bg-slate-950 p-4' }, h('code', { class: 'text-white' }, JSON.stringify(values, null, 2))),
+  })
+}
+</script>
+
+<template>
+  <AutoForm
+    class="w-2/3 space-y-6"
+    :schema="schema"
+    @submit="onSubmit"
+  >
+    <Button type="submit">
+      Submit
+    </Button>
+  </AutoForm>
 </template>

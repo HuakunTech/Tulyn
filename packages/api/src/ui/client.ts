@@ -19,6 +19,7 @@ import { type JarvisExtDB } from "../commands/db"
 import type { fileSearch } from "../commands/fileSearch"
 import { type AppInfo } from "../models/apps"
 import type { LightMode, Position, Radius, ThemeColor } from "../models/styles"
+import type { FormSchema } from "./worker"
 import { type IComponent } from "./worker/components/interfaces"
 import * as ListSchema from "./worker/schema/list"
 
@@ -66,7 +67,7 @@ export interface IToast {
 }
 
 export interface IUiWorker {
-	render: (view: IComponent<ListSchema.List>) => Promise<void>
+	render: (view: IComponent<ListSchema.List | FormSchema.Form>) => Promise<void>
 	setScrollLoading: (loading: boolean) => Promise<void>
 	setSearchTerm: (term: string) => Promise<void>
 	setSearchBarPlaceholder: (placeholder: string) => Promise<void>

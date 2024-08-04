@@ -13,15 +13,17 @@ import {
 } from "@kksh/api/ui"
 import {
 	constructJarvisExtDBToServerDbAPI,
+	FormNodeNameEnum,
+	FormSchema,
 	List,
+	ListSchema,
 	NodeNameEnum,
 	wrap,
 	type IComponent,
 	type IDbServer,
-	type IListViewExtension,
-	type ListSchema,
 	type WorkerExtension
 } from "@kksh/api/ui/worker"
+import { AutoForm } from "@kksh/vue/auto-form"
 import { Button } from "@kksh/vue/button"
 import { useStore } from "@nanostores/vue"
 import { ArrowLeftIcon } from "@radix-icons/vue"
@@ -33,14 +35,18 @@ import { onKeyStroke } from "@vueuse/core"
 import { Command, CommandList } from "~/components/ui/command"
 import { loadExtensionManifestFromDisk } from "~/lib/commands/extensions"
 import { GlobalEventBus } from "~/lib/utils/events"
+import { convertFormToZod } from "~/lib/utils/form"
 import { listenToRefreshWorkerExt } from "~/lib/utils/tauri-events"
 import type { ComboboxInput } from "radix-vue"
+import { flatten, parse, safeParse } from "valibot"
 import { toast } from "vue-sonner"
 
 const appState = useStore($appState)
-let workerAPI: Remote<WorkerExtension & IListViewExtension> | undefined = undefined
+let workerAPI: Remote<WorkerExtension> | undefined = undefined
 const loading = ref(false)
-const viewContent = ref<ListSchema.List>()
+const listViewContent = ref<ListSchema.List>()
+const formViewContent = ref<FormSchema.Form>()
+const formViewZodSchema = ref<any>()
 const extStore = useExtStore()
 const cmdInputRef = ref<InstanceType<typeof ComboboxInput> | null>(null)
 const appUiStore = useAppUiStore()
@@ -69,9 +75,19 @@ onKeyStroke("Escape", () => {
 })
 
 const extUiAPI: IUiWorkerServer = {
-	async workerUiRender(view: IComponent<ListSchema.List>) {
+	async workerUiRender(view: IComponent<ListSchema.List | FormSchema.Form>) {
 		console.log("render called", view)
-		viewContent.value = view
+		if (view.nodeName === NodeNameEnum.List) {
+			formViewContent.value = undefined
+			listViewContent.value = parse(ListSchema.List, view)
+		} else if (view.nodeName === FormNodeNameEnum.Form) {
+			listViewContent.value = undefined
+			formViewContent.value = parse(FormSchema.Form, view)
+			console.log("parsed form", parse(FormSchema.Form, view));
+			const zodSchema = convertFormToZod(parse(FormSchema.Form, view))
+			formViewZodSchema.value = zodSchema
+			console.log(zodSchema)
+		}
 	},
 	async workerUiSetScrollLoading(_loading: boolean) {
 		loading.value = _loading
@@ -143,7 +159,7 @@ async function launchWorkerExt() {
 		...extDBApi
 	})
 	// exposeApiToWorker(worker, { render }) // Expose render function to worker
-	workerAPI = wrap<WorkerExtension & IListViewExtension>(worker) // Call worker exposed APIs
+	workerAPI = wrap<WorkerExtension>(worker) // Call worker exposed APIs
 	await workerAPI.load()
 }
 
@@ -181,7 +197,7 @@ function filterFunction(items: ListSchema.Item[], searchTerm: string) {
 
 function onHighlightedItemChanged(itemValue: string) {
 	workerAPI?.onHighlightedListItemChanged(itemValue)
-	const item = viewContent.value?.items?.find((item) => item.value === itemValue)
+	const item = listViewContent.value?.items?.find((item) => item.value === itemValue)
 	appUiStore.setActionPanel(item?.actions)
 	appUiStore.setDefaultAction(item?.defaultAction)
 }
@@ -200,6 +216,8 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 })
 </script>
 <template>
+	<!-- <pre>{{ JSON.stringify(formViewContent ?? {}, null, 2) }}</pre> -->
+	<AutoForm v-if="formViewContent && formViewZodSchema" :schema="formViewZodSchema" />
 	<Command
 		class=""
 		:id="HTMLElementId.WorkerExtInputId"
@@ -221,9 +239,9 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 			</Button>
 		</CmdInput>
 		<ExtTemplateListView
-			v-if="viewContent"
+			v-if="listViewContent"
 			class=""
-			:model-value="viewContent"
+			:model-value="listViewContent"
 			:workerAPI="workerAPI!"
 			:loading="loading"
 		/>

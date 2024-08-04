@@ -1,7 +1,7 @@
 import { enum_, literal, union, type InferOutput } from "valibot"
-import type { NodeName } from "../../../models"
+import type { FormNodeName, NodeName } from "../../../models"
 
 export interface IComponent<T> {
-	nodeName: NodeName
+	nodeName: NodeName | FormNodeName
 	toModel(): T
 }

@@ -27,3 +27,16 @@ export enum NodeNameEnum {
 }
 export const NodeName = enum_(NodeNameEnum)
 export type NodeName = InferOutput<typeof NodeName>
+
+export enum FormNodeNameEnum {
+	Base = "Base",
+	Number = "Number",
+	Select = "Select",
+	Boolean = "Boolean",
+	Input = "Input",
+	Date = "Date",
+	Array = "Array",
+	Form = "Form"
+}
+export const FormNodeName = enum_(FormNodeNameEnum)
+export type FormNodeName = InferOutput<typeof FormNodeName>

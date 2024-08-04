@@ -1,5 +1,6 @@
 import {
 	expose,
+	Form,
 	fs,
 	Icon,
 	IconEnum,
@@ -12,6 +13,26 @@ import {
 
 class ExtensionTemplate extends WorkerExtension {
 	async load() {
+		return ui.render(
+			new Form.Form({
+				key: "form1",
+				fields: [
+					new Form.NumberField({
+						key: "age"
+					}),
+					new Form.Form({
+						key: "random",
+						fields: [
+							new Form.BooleanField({ key: "Server On" }),
+							new Form.ArrayField({
+								key: "birthday",
+								content: new Form.DateField({ key: "birthday" })
+							})
+						]
+					})
+				]
+			})
+		)
 		return toast
 			.info("Worker Template Extension loaded")
 			.then(() => {
