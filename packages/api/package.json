@@ -88,7 +88,7 @@
 		"minimatch": "^10.0.1",
 		"rollup": "^4.9.6",
 		"rollup-plugin-typescript2": "^0.36.0",
-		"tauri-api-adapter": "workspace:*",
+		"tauri-api-adapter": "0.1.0",
 		"tauri-plugin-network-api": "workspace:*",
 		"tauri-plugin-system-info-api": "workspace:*",
 		"vue-sonner": "^1.1.3"

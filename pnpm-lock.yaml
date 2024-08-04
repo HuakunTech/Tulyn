@@ -635,8 +635,8 @@ importers:
         specifier: ^0.36.0
         version: 0.36.0(rollup@4.18.0)(typescript@5.5.4)
       tauri-api-adapter:
-        specifier: workspace:*
-        version: link:../../vendors/tauri-api-adapter/packages/tauri-api-adapter
+        specifier: 0.1.0
+        version: 0.1.0(@huakunshen/comlink@4.4.1)(@tauri-apps/api@2.0.0-beta.13)(@tauri-apps/plugin-dialog@2.0.0-beta.3)(@tauri-apps/plugin-fs@2.0.0-beta.3)(@tauri-apps/plugin-http@2.0.0-beta.3)(@tauri-apps/plugin-log@2.0.0-beta.4)(@tauri-apps/plugin-notification@2.0.0-beta.3)(@tauri-apps/plugin-os@2.0.0-beta.7)(@tauri-apps/plugin-shell@2.0.0-beta.8)(@tauri-apps/plugin-upload@2.0.0-beta.4)(tauri-plugin-clipboard-api@2.1.6(valibot@0.36.0))(tauri-plugin-network-api@vendors+tauri-plugin-network)(tauri-plugin-shellx-api@2.0.8)(tauri-plugin-system-info-api@vendors+tauri-plugin-system-info)(typescript@5.5.4)(valibot@0.36.0)
       tauri-plugin-network-api:
         specifier: workspace:*
         version: link:../../vendors/tauri-plugin-network
@@ -1583,82 +1583,6 @@ importers:
       rollup-plugin-visualizer:
         specifier: ^5.12.0
         version: 5.12.0(rollup@4.18.1)
-
-  vendors/tauri-api-adapter/packages/tauri-api-adapter:
-    dependencies:
-      '@huakunshen/comlink':
-        specifier: ^4.4.1
-        version: 4.4.1
-      '@tauri-apps/api':
-        specifier: ~2.0.0-beta.15
-        version: 2.0.0-beta.15
-      '@tauri-apps/plugin-dialog':
-        specifier: ~2.0.0-beta.7
-        version: 2.0.0-beta.7
-      '@tauri-apps/plugin-fs':
-        specifier: ~2.0.0-beta.7
-        version: 2.0.0-beta.7
-      '@tauri-apps/plugin-http':
-        specifier: ~2.0.0-beta.8
-        version: 2.0.0-beta.8
-      '@tauri-apps/plugin-log':
-        specifier: ~2.0.0-beta.8
-        version: 2.0.0-beta.8
-      '@tauri-apps/plugin-notification':
-        specifier: ~2.0.0-beta.7
-        version: 2.0.0-beta.7
-      '@tauri-apps/plugin-os':
-        specifier: ~2.0.0-beta.7
-        version: 2.0.0-beta.7
-      '@tauri-apps/plugin-shell':
-        specifier: ~2.0.0-beta.8
-        version: 2.0.0-beta.8
-      '@tauri-apps/plugin-upload':
-        specifier: ~2.0.0-beta.8
-        version: 2.0.0-beta.8
-      tauri-plugin-clipboard-api:
-        specifier: ^2.1.6
-        version: 2.1.6(valibot@0.36.0)
-      tauri-plugin-network-api:
-        specifier: ^2.0.3-beta.1
-        version: 2.0.3-beta.1
-      tauri-plugin-shellx-api:
-        specifier: ^2.0.8
-        version: 2.0.8
-      tauri-plugin-system-info-api:
-        specifier: ^2.0.2
-        version: 2.0.2
-      typescript:
-        specifier: ^5.0.0
-        version: 5.5.2
-      valibot:
-        specifier: ^0.36.0
-        version: 0.36.0
-    devDependencies:
-      '@rollup/plugin-alias':
-        specifier: ^5.1.0
-        version: 5.1.0(rollup@4.18.0)
-      '@rollup/plugin-typescript':
-        specifier: ^11.1.6
-        version: 11.1.6(rollup@4.18.0)(tslib@2.6.3)(typescript@5.5.2)
-      '@types/bun':
-        specifier: latest
-        version: 1.1.6
-      rimraf:
-        specifier: ^5.0.7
-        version: 5.0.7
-      rollup:
-        specifier: ^4.18.0
-        version: 4.18.0
-      shx:
-        specifier: ^0.3.4
-        version: 0.3.4
-      tsc-alias:
-        specifier: ^1.8.10
-        version: 1.8.10
-      typedoc:
-        specifier: ^0.25.13
-        version: 0.25.13(typescript@5.5.2)
 
   vendors/tauri-plugin-network:
     dependencies:
@@ -12476,19 +12400,33 @@ packages:
     resolution: {integrity: sha512-ENhg4W6BmjYxl8GTaE7/h99f0aXiSWv4kikRZ9n2/JRxypZniE84ILZqimAhxxX7Zb8Px6pFdheW3EeHfhnXQQ==}
     engines: {node: '>=18'}
 
+  tauri-api-adapter@0.1.0:
+    resolution: {integrity: sha512-EYMTTK9WViCchr+LGVv9RAN2jLW7Ynnf0q3TSBqwxevS36Lurc2tPZOB5EM1MUFEZA+Yj9vHxZ3elxhIZ+s/9Q==}
+    peerDependencies:
+      '@huakunshen/comlink': ^4.4.1
+      '@tauri-apps/api': ~2.0.0-beta.15
+      '@tauri-apps/plugin-dialog': ~2.0.0-beta.7
+      '@tauri-apps/plugin-fs': ~2.0.0-beta.7
+      '@tauri-apps/plugin-http': ~2.0.0-beta.8
+      '@tauri-apps/plugin-log': ~2.0.0-beta.8
+      '@tauri-apps/plugin-notification': ~2.0.0-beta.7
+      '@tauri-apps/plugin-os': ~2.0.0-beta.7
+      '@tauri-apps/plugin-shell': ~2.0.0-beta.8
+      '@tauri-apps/plugin-upload': ~2.0.0-beta.8
+      tauri-plugin-clipboard-api: ^2.1.6
+      tauri-plugin-network-api: ^2.0.3-beta.1
+      tauri-plugin-shellx-api: ^2.0.8
+      tauri-plugin-system-info-api: ^2.0.2
+      typescript: ^5.0.0
+      valibot: ^0.36.0
+
   tauri-plugin-clipboard-api@2.1.6:
     resolution: {integrity: sha512-/0NRwk/y2msC86BF0R3baNTd6N6uNbBB+pnilWLL4b4l+z/PcHAyBoLD8gHHRzPLUecPNEAnmkT6ApTWgUGpFA==}
     peerDependencies:
       valibot: ^0.36.0
 
-  tauri-plugin-network-api@2.0.3-beta.1:
-    resolution: {integrity: sha512-AKm3r31Hrt/txFSUB2A6covzJtS9D3UFS37vT1R4klY/hVai0YOb0dsMe68nnwFJ7T4RPm6xXAPKJBBp2zWlDQ==}
-
   tauri-plugin-shellx-api@2.0.8:
     resolution: {integrity: sha512-N2Xv5JOyEw8Mqh29rDmIUzZaluB8zhG18jcbTrXj0bTBNqWyeO0mAlVi2WPb6y4VCz7t4hpmoddwtXaPI1dc+g==}
-
-  tauri-plugin-system-info-api@2.0.2:
-    resolution: {integrity: sha512-YZ+LWpseipSQXb3rA/iZSgAqCnzP/vDeub9jCWNnDPBIUtHBtHZIfM4BWEVYlaJhvwmWTB0EoR50mltmcNZZ2g==}
 
   term-size@2.2.1:
     resolution: {integrity: sha512-wK0Ri4fOGjv/XPy8SBHZChl8CM7uMc5VML7SqiQ0zG7+J5Vr+RMQDoHa2CNT6KHUnTGIXH34UDMkPzAUyapBZg==}
@@ -14177,8 +14115,8 @@ snapshots:
       '@aws-crypto/sha1-browser': 3.0.0
       '@aws-crypto/sha256-browser': 3.0.0
       '@aws-crypto/sha256-js': 3.0.0
-      '@aws-sdk/client-sso-oidc': 3.583.0(@aws-sdk/client-sts@3.583.0)
-      '@aws-sdk/client-sts': 3.583.0
+      '@aws-sdk/client-sso-oidc': 3.583.0
+      '@aws-sdk/client-sts': 3.583.0(@aws-sdk/client-sso-oidc@3.583.0)
       '@aws-sdk/core': 3.582.0
       '@aws-sdk/credential-provider-node': 3.583.0(@aws-sdk/client-sso-oidc@3.583.0)(@aws-sdk/client-sts@3.583.0)
       '@aws-sdk/middleware-bucket-endpoint': 3.577.0
@@ -14235,11 +14173,11 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/client-sso-oidc@3.583.0(@aws-sdk/client-sts@3.583.0)':
+  '@aws-sdk/client-sso-oidc@3.583.0':
     dependencies:
       '@aws-crypto/sha256-browser': 3.0.0
       '@aws-crypto/sha256-js': 3.0.0
-      '@aws-sdk/client-sts': 3.583.0
+      '@aws-sdk/client-sts': 3.583.0(@aws-sdk/client-sso-oidc@3.583.0)
       '@aws-sdk/core': 3.582.0
       '@aws-sdk/credential-provider-node': 3.583.0(@aws-sdk/client-sso-oidc@3.583.0)(@aws-sdk/client-sts@3.583.0)
       '@aws-sdk/middleware-host-header': 3.577.0
@@ -14278,7 +14216,6 @@ snapshots:
       '@smithy/util-utf8': 3.0.0
       tslib: 2.6.3
     transitivePeerDependencies:
-      - '@aws-sdk/client-sts'
       - aws-crt
 
   '@aws-sdk/client-sso@3.583.0':
@@ -14324,11 +14261,11 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/client-sts@3.583.0':
+  '@aws-sdk/client-sts@3.583.0(@aws-sdk/client-sso-oidc@3.583.0)':
     dependencies:
       '@aws-crypto/sha256-browser': 3.0.0
       '@aws-crypto/sha256-js': 3.0.0
-      '@aws-sdk/client-sso-oidc': 3.583.0(@aws-sdk/client-sts@3.583.0)
+      '@aws-sdk/client-sso-oidc': 3.583.0
       '@aws-sdk/core': 3.582.0
       '@aws-sdk/credential-provider-node': 3.583.0(@aws-sdk/client-sso-oidc@3.583.0)(@aws-sdk/client-sts@3.583.0)
       '@aws-sdk/middleware-host-header': 3.577.0
@@ -14367,6 +14304,7 @@ snapshots:
       '@smithy/util-utf8': 3.0.0
       tslib: 2.6.3
     transitivePeerDependencies:
+      - '@aws-sdk/client-sso-oidc'
       - aws-crt
 
   '@aws-sdk/core@3.582.0':
@@ -14400,7 +14338,7 @@ snapshots:
 
   '@aws-sdk/credential-provider-ini@3.583.0(@aws-sdk/client-sso-oidc@3.583.0)(@aws-sdk/client-sts@3.583.0)':
     dependencies:
-      '@aws-sdk/client-sts': 3.583.0
+      '@aws-sdk/client-sts': 3.583.0(@aws-sdk/client-sso-oidc@3.583.0)
       '@aws-sdk/credential-provider-env': 3.577.0
       '@aws-sdk/credential-provider-process': 3.577.0
       '@aws-sdk/credential-provider-sso': 3.583.0(@aws-sdk/client-sso-oidc@3.583.0)
@@ -14457,7 +14395,7 @@ snapshots:
 
   '@aws-sdk/credential-provider-web-identity@3.577.0(@aws-sdk/client-sts@3.583.0)':
     dependencies:
-      '@aws-sdk/client-sts': 3.583.0
+      '@aws-sdk/client-sts': 3.583.0(@aws-sdk/client-sso-oidc@3.583.0)
       '@aws-sdk/types': 3.577.0
       '@smithy/property-provider': 3.0.0
       '@smithy/types': 3.0.0
@@ -14573,7 +14511,7 @@ snapshots:
 
   '@aws-sdk/token-providers@3.577.0(@aws-sdk/client-sso-oidc@3.583.0)':
     dependencies:
-      '@aws-sdk/client-sso-oidc': 3.583.0(@aws-sdk/client-sts@3.583.0)
+      '@aws-sdk/client-sso-oidc': 3.583.0
       '@aws-sdk/types': 3.577.0
       '@smithy/property-provider': 3.0.0
       '@smithy/shared-ini-file-loader': 3.0.0
@@ -18534,12 +18472,6 @@ snapshots:
 
   '@repeaterjs/repeater@3.0.6': {}
 
-  '@rollup/plugin-alias@5.1.0(rollup@4.18.0)':
-    dependencies:
-      slash: 4.0.0
-    optionalDependencies:
-      rollup: 4.18.0
-
   '@rollup/plugin-alias@5.1.0(rollup@4.18.1)':
     dependencies:
       slash: 4.0.0
@@ -18624,15 +18556,6 @@ snapshots:
     optionalDependencies:
       rollup: 4.18.0
       tslib: 2.6.2
-
-  '@rollup/plugin-typescript@11.1.6(rollup@4.18.0)(tslib@2.6.3)(typescript@5.5.2)':
-    dependencies:
-      '@rollup/pluginutils': 5.1.0(rollup@4.18.0)
-      resolve: 1.22.8
-      typescript: 5.5.2
-    optionalDependencies:
-      rollup: 4.18.0
-      tslib: 2.6.3
 
   '@rollup/plugin-typescript@11.1.6(rollup@4.18.0)(tslib@2.6.3)(typescript@5.5.4)':
     dependencies:
@@ -28357,25 +28280,33 @@ snapshots:
       mkdirp: 3.0.1
       yallist: 5.0.0
 
+  tauri-api-adapter@0.1.0(@huakunshen/comlink@4.4.1)(@tauri-apps/api@2.0.0-beta.13)(@tauri-apps/plugin-dialog@2.0.0-beta.3)(@tauri-apps/plugin-fs@2.0.0-beta.3)(@tauri-apps/plugin-http@2.0.0-beta.3)(@tauri-apps/plugin-log@2.0.0-beta.4)(@tauri-apps/plugin-notification@2.0.0-beta.3)(@tauri-apps/plugin-os@2.0.0-beta.7)(@tauri-apps/plugin-shell@2.0.0-beta.8)(@tauri-apps/plugin-upload@2.0.0-beta.4)(tauri-plugin-clipboard-api@2.1.6(valibot@0.36.0))(tauri-plugin-network-api@vendors+tauri-plugin-network)(tauri-plugin-shellx-api@2.0.8)(tauri-plugin-system-info-api@vendors+tauri-plugin-system-info)(typescript@5.5.4)(valibot@0.36.0):
+    dependencies:
+      '@huakunshen/comlink': 4.4.1
+      '@tauri-apps/api': 2.0.0-beta.13
+      '@tauri-apps/plugin-dialog': 2.0.0-beta.3
+      '@tauri-apps/plugin-fs': 2.0.0-beta.3
+      '@tauri-apps/plugin-http': 2.0.0-beta.3
+      '@tauri-apps/plugin-log': 2.0.0-beta.4
+      '@tauri-apps/plugin-notification': 2.0.0-beta.3
+      '@tauri-apps/plugin-os': 2.0.0-beta.7
+      '@tauri-apps/plugin-shell': 2.0.0-beta.8
+      '@tauri-apps/plugin-upload': 2.0.0-beta.4
+      tauri-plugin-clipboard-api: 2.1.6(valibot@0.36.0)
+      tauri-plugin-network-api: link:vendors/tauri-plugin-network
+      tauri-plugin-shellx-api: 2.0.8
+      tauri-plugin-system-info-api: link:vendors/tauri-plugin-system-info
+      typescript: 5.5.4
+      valibot: 0.36.0
+
   tauri-plugin-clipboard-api@2.1.6(valibot@0.36.0):
     dependencies:
       '@tauri-apps/api': 2.0.0-beta.11
       valibot: 0.36.0
 
-  tauri-plugin-network-api@2.0.3-beta.1:
-    dependencies:
-      '@tauri-apps/api': 2.0.0-beta.13
-      valibot: 0.35.0
-
   tauri-plugin-shellx-api@2.0.8:
     dependencies:
       '@tauri-apps/api': 2.0.0-beta.13
-
-  tauri-plugin-system-info-api@2.0.2:
-    dependencies:
-      '@tauri-apps/api': 2.0.0-beta.13
-      valibot: 0.35.0
-      zod: 3.23.8
 
   term-size@2.2.1: {}
 
@@ -28710,14 +28641,6 @@ snapshots:
       minimatch: 9.0.5
       shiki: 0.14.7
       typescript: 5.4.5
-
-  typedoc@0.25.13(typescript@5.5.2):
-    dependencies:
-      lunr: 2.3.9
-      marked: 4.3.0
-      minimatch: 9.0.5
-      shiki: 0.14.7
-      typescript: 5.5.2
 
   typedoc@0.26.4(typescript@5.5.2):
     dependencies:
@@ -29075,7 +28998,8 @@ snapshots:
   valibot@0.31.1:
     optional: true
 
-  valibot@0.35.0: {}
+  valibot@0.35.0:
+    optional: true
 
   valibot@0.36.0: {}
 
