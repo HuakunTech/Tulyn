@@ -27,6 +27,7 @@ import { ElMessage } from "element-plus"
 import { parse } from "valibot"
 import { computed, onMounted, ref, watch } from "vue"
 
+const localePath = useLocalePath()
 const ext = new Extension("Extensions", await getExtensionsFolder())
 const selectedExt = ref<ExtItem>()
 const extDrawerOpen = ref(false)
@@ -41,7 +42,7 @@ function refreshListing() {
 
 onKeyStroke("Escape", () => {
 	if (document.activeElement?.nodeName === "INPUT") {
-		navigateTo("/")
+		navigateTo(localePath("/"))
 	}
 })
 
@@ -105,7 +106,7 @@ const filterFunc = (items: ExtItem[], searchTerm: string) => {
 		/>
 		<Command :filterFunction="(val, searchTerm) => filterFunc(val as ExtItem[], searchTerm)">
 			<CommandInput placeholder="Type to search..." class="text-md h-12">
-				<Button size="icon" variant="outline" @click="() => navigateTo('/')">
+				<Button size="icon" variant="outline" @click="() => navigateTo(localePath('/'))">
 					<ArrowLeftIcon class="h-5 w-5 shrink-0" />
 				</Button>
 			</CommandInput>

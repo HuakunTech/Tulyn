@@ -27,8 +27,7 @@ import * as v from "valibot"
 import { toast } from "vue-sonner"
 import { useExtStore } from "../stores/ext"
 
-// import { notification } from "@kksh/api/ui"
-
+const localePath = useLocalePath()
 const appConfig = useAppConfigStore()
 const ui = reactive<{
 	iframeLoaded: boolean
@@ -56,7 +55,7 @@ const iframeUiAPI: Omit<
 	"iframeUiStartDragging" | "iframeUiToggleMaximize" | "iframeUiInternalToggleMaximize"
 > = {
 	iframeUiGoHome: async () => {
-		navigateTo("/")
+		navigateTo(localePath("/"))
 	},
 	iframeUiGoBack: async () => {
 		history.back()
@@ -98,7 +97,7 @@ const iframeUiAPI: Omit<
 }
 
 onMounted(async () => {
-	// navigateTo("/")
+	// navigateTo(localePath("/"))
 	setTimeout(() => {
 		appWin.show()
 	}, 100)
@@ -112,7 +111,7 @@ onMounted(async () => {
 		if (appWin.label !== "main") {
 			return appWin.close()
 		} else {
-			return navigateTo("/")
+			return navigateTo(localePath("/"))
 		}
 	}
 	extUrl.value = parseUrl.output
@@ -123,7 +122,7 @@ onMounted(async () => {
 		if (appWin.label !== "main") {
 			return appWin.close()
 		} else {
-			return navigateTo("/")
+			return navigateTo(localePath("/"))
 		}
 	}
 	const extPath = parseExtPath.output
@@ -136,12 +135,12 @@ onMounted(async () => {
 		if (appWin.label !== "main") {
 			return appWin.close()
 		} else {
-			return navigateTo("/")
+			return navigateTo(localePath("/"))
 		}
 	}
 	const identifier = loadedExt.kunkun.identifier
 	if (!identifier || !extUrl.value) {
-		return navigateTo("/")
+		return navigateTo(localePath("/"))
 	}
 	const extInfoInDB = await db.getExtensionByIdentifier(identifier)
 	if (!extInfoInDB) {
@@ -149,7 +148,7 @@ onMounted(async () => {
 			description: `Worker extension ${identifier} not found in database. Run Troubleshooter.`
 			// description: `Worker extension ${currentCustomUiExt.manifest.kunkun.identifier} not found in database. Run Troubleshooter.`
 		})
-		return navigateTo("/")
+		return navigateTo(localePath("/"))
 	}
 	const dbAPI = new db.JarvisExtDB(extInfoInDB.extId)
 	const extDBApi: IDbServer = constructJarvisExtDBToServerDbAPI(dbAPI)
@@ -236,7 +235,7 @@ function positionToCssStyleObj(position?: Position) {
 			:style="positionToCssStyleObj(ui.backBtnPosition)"
 			size="icon"
 			variant="outline"
-			@click="navigateTo('/')"
+			@click="navigateTo(localePath('/'))"
 		>
 			<ArrowLeftIcon class="w-4" />
 		</Button>

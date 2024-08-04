@@ -229,6 +229,7 @@ export class Extension implements IExtensionBase {
 				console.log("Launch Template Command")
 
 				manifest.kunkun.templateUiCmds.forEach(async (cmd) => {
+					const localePath = useLocalePath()
 					if (item.value === generateItemValue(manifest, cmd, this.isDev)) {
 						const main = cmd.main
 						const scriptPath = await join(manifest.extPath, main)
@@ -242,7 +243,7 @@ export class Extension implements IExtensionBase {
 							manifest,
 							cmdName: cmd.name
 						})
-						navigateTo("/worker-ext")
+						navigateTo(localePath("/worker-ext"))
 					}
 				})
 			} else if (item.type === "Remote Command") {

@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from "uuid"
 import { toast } from "vue-sonner"
 import type { IExtensionBase } from "./base"
 
+const localePath = useLocalePath()
 const rtConfig = useRuntimeConfig()
 
 type BuiltinCmd = {
@@ -27,7 +28,7 @@ const builtinCmds: BuiltinCmd[] = [
 		description: "Go to Extension Store",
 		function: async () => {
 			$searchTermSync.set("")
-			navigateTo("/extension-store")
+			navigateTo(localePath("/extension-store"))
 		}
 	},
 	{
