@@ -3,6 +3,7 @@ import { useGoToSettingShortcuts } from "@/composables/useShortcuts"
 import { useTestDB } from "@/lib/dev/exp"
 import { installBun } from "@/lib/utils/runtime"
 import { Toaster } from "@kksh/vue/sonner"
+import { Toaster as Toaster2 } from "@kksh/vue/toast"
 import { TooltipProvider } from "@kksh/vue/tooltip"
 import type { UnlistenFn } from "@tauri-apps/api/event"
 import { attachConsole, debug, error, info, warn } from "@tauri-apps/plugin-log"
@@ -48,6 +49,7 @@ onMounted(async () => {
 	<TooltipProvider>
 		<main class="z-10 h-screen">
 			<Toaster :rich-colors="true" :expand="true" />
+			<Toaster2 />
 			<slot />
 		</main>
 	</TooltipProvider>

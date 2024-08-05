@@ -14,7 +14,6 @@ import type {
 	writeFile,
 	writeTextFile
 } from "@tauri-apps/plugin-fs"
-import type { toast } from "vue-sonner"
 import { type JarvisExtDB } from "../commands/db"
 import type { fileSearch } from "../commands/fileSearch"
 import { type AppInfo } from "../models/apps"
@@ -58,12 +57,27 @@ export interface ISystem {
 	getSelectedFilesInFileExplorer(): Promise<string[]>
 }
 
+export type GeneralToastParams = {
+	description?: string
+	duration?: number
+	closeButton?: boolean
+	position?:
+		| "top-left"
+		| "top-right"
+		| "bottom-left"
+		| "bottom-right"
+		| "top-center"
+		| "bottom-center"
+}
+
+export type GeneralToast = (message: string, options?: GeneralToastParams) => Promise<void>
+
 export interface IToast {
-	message: PromiseWrap<typeof toast.message>
-	info: PromiseWrap<typeof toast.info>
-	success: PromiseWrap<typeof toast.success>
-	warning: PromiseWrap<typeof toast.warning>
-	error: PromiseWrap<typeof toast.error>
+	message: GeneralToast
+	info: GeneralToast
+	success: GeneralToast
+	warning: GeneralToast
+	error: GeneralToast
 }
 
 export interface IUiWorker {
