@@ -1,19 +1,27 @@
 {
 	"name": "@kksh/cli",
 	"module": "dist/mod.js",
-	"version": "0.0.3",
+	"version": "0.0.4-alpha.4",
 	"type": "module",
-	"bin": "./dist/cli.js",
+	"bin": {
+		"@kksh/cli": "./dist/cli.js",
+		"docker-entrypoint.sh": "./dist/docker/entrypoint.sh"
+	},
 	"author": "Huakun",
 	"scripts": {
 		"build": "bun build.ts",
 		"test": "bun test --coverage"
 	},
 	"devDependencies": {
+		"@rollup/plugin-json": "^6.1.0",
+		"@rollup/plugin-replace": "^5.0.7",
+		"@rollup/plugin-terser": "^0.4.4",
+		"@rollup/plugin-typescript": "^11.1.6",
 		"@types/bun": "latest",
 		"@types/debug": "^4.1.12",
 		"@types/fs-extra": "^11.0.4",
-		"tsup": "^8.1.2"
+		"rollup": "^4.20.0",
+		"rollup-plugin-visualizer": "^5.12.0"
 	},
 	"peerDependencies": {
 		"typescript": "^5.0.0"

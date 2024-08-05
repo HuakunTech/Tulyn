@@ -79,8 +79,6 @@ export function buildWithDocker(extPath: string): Promise<{
 	console.log(`Building ${extPath}`)
 	return new Promise((resolve, reject) => {
 		const pkg = v.parse(ExtPackageJson, fs.readJsonSync(path.join(extPath, "package.json")))
-		// console.log(pkg);
-		// console.log(REPO_ROOT);
 		const dockerCmd = `
     run -v ${getDockerEntrypoint()}:/entrypoint.sh -v ${extPath}:/workspace -w /workspace --rm node:22.5.1-bullseye-slim /entrypoint.sh`
 		console.log("dockerCmd", dockerCmd)

@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 import fs from "fs"
-import os from "os"
 import path from "path"
 import { buildCmd, verifyCmd } from "@/commands"
-import { getDockerFolder } from "@/constants"
 import logger from "@/logger"
 import { program } from "commander"
 import { version } from "./package.json"

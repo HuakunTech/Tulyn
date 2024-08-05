@@ -18,5 +18,5 @@ await $`rm -rf dist`
 // 	external: ["debug"],
 // })
 
-await $`pnpm tsup`
+await $`pnpm rollup -c`
 await $`cp -r ./src/docker ./dist/docker`
