@@ -8,10 +8,15 @@ if (Bun.env.NODE_ENV !== "production") {
 }
 
 await $`rm -rf dist`
-await Bun.build({
-	entrypoints: ["./cli.ts"],
-	outdir: "./dist",
-	target: "node",
-	minify: true
-})
+// building with bun doesn't work with debug
+// await Bun.build({
+// 	entrypoints: ["./cli.ts"],
+// 	outdir: "./dist",
+// 	target: "node",
+// 	// minify: true,
+// 	format: "esm",
+// 	external: ["debug"],
+// })
+
+await $`pnpm tsup`
 await $`cp -r ./src/docker ./dist/docker`

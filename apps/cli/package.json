@@ -1,7 +1,7 @@
 {
 	"name": "@kksh/cli",
-	"module": "mod.ts",
-	"version": "0.0.2",
+	"module": "dist/mod.js",
+	"version": "0.0.3",
 	"type": "module",
 	"bin": "./dist/cli.js",
 	"author": "Huakun",
@@ -12,12 +12,12 @@
 	"devDependencies": {
 		"@types/bun": "latest",
 		"@types/debug": "^4.1.12",
-		"@types/fs-extra": "^11.0.4"
+		"@types/fs-extra": "^11.0.4",
+		"tsup": "^8.1.2"
 	},
 	"peerDependencies": {
 		"typescript": "^5.0.0"
 	},
-
 	"dependencies": {
 		"@inquirer/prompts": "^5.2.1",
 		"@kksh/api": "workspace:*",

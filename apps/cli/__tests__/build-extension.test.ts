@@ -1,10 +1,10 @@
+import { $ } from "bun"
+import { afterAll, expect, test } from "bun:test"
 import os from "os"
 import path from "path"
 import { getRootDir } from "@/constants"
 import type { BuildResult } from "@/types"
 import { buildWithDockerAndValidate } from "@/utils"
-import { $ } from "bun"
-import { afterAll, expect, test } from "bun:test"
 import fs from "fs-extra"
 
 const rootDir = getRootDir()
