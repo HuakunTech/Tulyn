@@ -14,7 +14,7 @@ import type {
 	writeFile,
 	writeTextFile
 } from "@tauri-apps/plugin-fs"
-import { toast } from "vue-sonner"
+import type { toast } from "vue-sonner"
 import { type JarvisExtDB } from "../commands/db"
 import type { fileSearch } from "../commands/fileSearch"
 import { type AppInfo } from "../models/apps"
