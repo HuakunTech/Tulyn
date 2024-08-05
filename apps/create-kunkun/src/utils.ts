@@ -25,10 +25,7 @@ export async function findPkgVersions() {
 	const pkgVersions: Record<string, string> = {}
 	const root = getRootDir()
 	const repoRoot = path.join(root, "../../")
-	const searchFolders = [
-		path.join(repoRoot, "apps"),
-		path.join(repoRoot, "packages"),
-	]
+	const searchFolders = [path.join(repoRoot, "apps"), path.join(repoRoot, "packages")]
 	for (const folder of searchFolders) {
 		const packages = fs.readdirSync(folder)
 		// console.log("Packages: ", packages);

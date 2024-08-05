@@ -1,9 +1,11 @@
 /**
+ * This is a E2E test, create every template from production build and run `npm install` and `npm run build`
  * When running `npm install` with bun shell, it fails in bun test environment, so I simply run everything as regular ts without test()
  */
+import { $ } from "bun"
+import { afterAll, beforeAll, describe, expect, test } from "bun:test"
 import os from "os"
 import path from "path"
-import { $ } from "bun"
 import fs from "fs-extra"
 import { getRootDir } from "../src/constants"
 
@@ -22,10 +24,18 @@ await Promise.all(
 		const templateDir = path.join(testDir, folderName)
 		await $`npm install`.cwd(templateDir).text() // this doesn't work within bun test
 		await $`npm run build`.cwd(templateDir).text()
-		const expectedOutDir = templateName === "sveltekit" ? "build" : "dist"
-		if (!fs.existsSync(path.join(templateDir, expectedOutDir))) {
-			throw new Error(`Expected ${expectedOutDir} to exist`)
-		}
 	})
 )
-fs.rmdirSync(testDir, { recursive: true })
+
+test("Build Artifact Existense", () => {
+	templateNames.forEach(async (templateName) => {
+		const expectedOutDir = templateName === "sveltekit" ? "build" : "dist"
+		const folderName = `${templateName}-ext`
+		const templateDir = path.join(testDir, folderName)
+		expect(fs.existsSync(path.join(templateDir, expectedOutDir))).toBeTrue()
+	})
+})
+
+afterAll(() => {
+	fs.rmdirSync(testDir, { recursive: true })
+})
