@@ -1,13 +1,13 @@
 {
 	"$schema": "../../packages/schema/manifest-json-schema.json",
-	"name": "kk-ext-vscode-project-manager",
+	"name": "kk-ext-vscode",
 	"version": "0.0.1",
 	"type": "module",
 	"kunkun": {
-		"name": "VSCode Project Manager",
+		"name": "VSCode",
 		"shortDescription": "Open projects quickly with VSCode.",
 		"longDescription": "This extension reads data from VSCode Project Manager extension and list the projects. Pick one from the list and it will be opened with VSCode.",
-		"identifier": "sh.kunkun.vscode-project-manager",
+		"identifier": "sh.kunkun.vscode",
 		"permissions": [
 			"os:all",
 			"shell:open",

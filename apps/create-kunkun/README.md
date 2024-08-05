@@ -3,7 +3,9 @@
 ## Usage
 
 ```bash
-npm init kunkun
+npm init kunkun@latest
+
+npx create-kunkun@latest
 ```
 
 ## Develop
