@@ -47,3 +47,4 @@ bun.lockb
 *.sqlite3
 *.sqlite
 *.db
+*.tgz

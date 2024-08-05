@@ -82,8 +82,8 @@ export function buildWithDocker(extPath: string): Promise<{
 		// console.log(pkg);
 		// console.log(REPO_ROOT);
 		const dockerCmd = `
-    run -v ${getDockerEntrypoint()}:/entrypoint.sh -v ${extPath}:/workspace -w /workspace --rm --platform=linux/amd64 node:20 /entrypoint.sh`
-		// console.log(dockerCmd);
+    run -v ${getDockerEntrypoint()}:/entrypoint.sh -v ${extPath}:/workspace -w /workspace --rm node:22.5.1-bullseye-slim /entrypoint.sh`
+		console.log("dockerCmd", dockerCmd);
 		const args = dockerCmd
 			.split(" ")
 			.filter((arg) => arg.length > 0)

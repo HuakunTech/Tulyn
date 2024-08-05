@@ -23,5 +23,7 @@ for (const p of fs.readdirSync(path.join(distPath, "templates"))) {
 		/* ----------------------- Patch Manifest JSON Schema ----------------------- */
 		// Replace local template with remote schema
 		patchManifestJsonSchema(pkgJsonPath)
+		// remove node_modules
+		fs.rmdirSync(path.join(distPath, "templates", p, "node_modules"), { recursive: true })
 	}
 }

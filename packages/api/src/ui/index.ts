@@ -18,6 +18,6 @@ export {
 } from "tauri-api-adapter"
 export { constructJarvisServerAPIWithPermissions } from "./server"
 export { type IUiWorkerServer, type IUiIframeServer } from "./server/ui"
-export type { IUiWorker, IUiIframe } from "./client"
+export * from "./client" // all client types
 export { expose, wrap } from "@huakunshen/comlink"
 export { getWorkerApiClient, exposeApiToWorker, exposeApiToWindow } from "tauri-api-adapter"

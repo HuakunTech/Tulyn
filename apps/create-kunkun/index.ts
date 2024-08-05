@@ -6,8 +6,8 @@ import chalk from "chalk"
 import { Command, Option } from "commander"
 import fs from "fs-extra"
 import pkgJson from "./package.json"
-import { getTemplateRoot } from "./src/constants"
-import { cleanExtension, patchManifestJsonSchema } from "./src/patch"
+import { getTemplateRoot, isProduction } from "./src/constants"
+import { cleanExtension, patchManifestJsonSchema, patchPkgJsonDep } from "./src/patch"
 
 const cwd = process.cwd()
 const templateRoot = getTemplateRoot()
@@ -125,15 +125,20 @@ function copyTemplate(templateDir: string, targetFolderName: string) {
 			default: `kunkun-extension-${template}`
 		})
 	}
-
+	let destDir = ""
 	if (template === "template") {
-		const destDir = copyTemplate(path.join(templateRoot, "template-ext-worker"), name)
+		destDir = copyTemplate(path.join(templateRoot, "template-ext-worker"), name)
 		cleanExtension(destDir)
 	} else if (["react", "vue", "svelte", "nuxt", "sveltekit"].includes(template)) {
-		const destDir = copyTemplate(path.join(templateRoot, `template-ext-${template}`), name)
+		destDir = copyTemplate(path.join(templateRoot, `template-ext-${template}`), name)
 		cleanExtension(destDir)
 	} else {
 		console.error("Invalid template")
 		process.exit(1)
+	}
+	if (!isProduction) {
+		const pkgJsonPath = path.join(destDir, "package.json")
+		patchManifestJsonSchema(pkgJsonPath)
+		patchPkgJsonDep(pkgJsonPath)
 	}
 })()

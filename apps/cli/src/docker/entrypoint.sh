@@ -1,5 +1,6 @@
 cd /workspace
 rm *.tgz
+rm -rf node_modules
 cp -r /workspace /workspace-copy
 cd /workspace-copy
 npm i
