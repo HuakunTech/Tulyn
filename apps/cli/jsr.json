@@ -1,0 +1,9 @@
+{
+	"$schema": "https://jsr.io/schema/config-file.v1.json",
+	"name": "@kksh/cli",
+	"version": "0.0.2",
+	"exports": "./mod.ts",
+	"imports": {
+		"@/": "./src/"
+	}
+}

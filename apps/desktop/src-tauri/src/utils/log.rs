@@ -8,7 +8,7 @@ pub fn get_log_targets() -> Vec<LogTarget> {
         LogTarget::new(TargetKind::Stdout),
         LogTarget::new(TargetKind::LogDir {
             file_name: Some(format!(
-                "dev:akun-{}",
+                "dev:kunkun-{}",
                 chrono::Local::now().format("%Y-%m-%d")
             )),
         }),
@@ -18,7 +18,10 @@ pub fn get_log_targets() -> Vec<LogTarget> {
     let log_targets = vec![
         LogTarget::new(TargetKind::Stdout),
         LogTarget::new(TargetKind::LogDir {
-            file_name: Some(format!("akun-{}", chrono::Local::now().format("%Y-%m-%d"))),
+            file_name: Some(format!(
+                "kunkun-{}",
+                chrono::Local::now().format("%Y-%m-%d")
+            )),
         }),
     ];
     log_targets

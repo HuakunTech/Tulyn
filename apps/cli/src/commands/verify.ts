@@ -5,7 +5,7 @@ import { printTable } from "console-table-printer"
 import fs from "fs-extra"
 import * as v from "valibot"
 
-function verifyCustomUiCommand(projectRoot: string, cmd: CustomUiCmd): boolean {
+export function verifyCustomUiCommand(projectRoot: string, cmd: CustomUiCmd): boolean {
 	if (!cmd.main.startsWith("http")) {
 		const mainPath = path.join(projectRoot, cmd.main)
 		if (
@@ -22,7 +22,7 @@ function verifyCustomUiCommand(projectRoot: string, cmd: CustomUiCmd): boolean {
 	return true
 }
 
-function verifyTemplateUiCommand(projectRoot: string, cmd: TemplateUiCmd): boolean {
+export function verifyTemplateUiCommand(projectRoot: string, cmd: TemplateUiCmd): boolean {
 	const mainPath = path.join(projectRoot, cmd.main)
 	if (!fs.existsSync(mainPath)) {
 		logger.error(`main file not found at ${mainPath} for command ${cmd.name}`)
@@ -69,7 +69,7 @@ export function verifySingleProject(projectPath: string): boolean {
 	return true
 }
 
-export default function (projectPath: string, batch: boolean) {
+export function verifyCmd(projectPath: string, batch: boolean) {
 	if (!batch) {
 		verifySingleProject(projectPath)
 	} else {
@@ -84,3 +84,4 @@ export default function (projectPath: string, batch: boolean) {
 		printTable(records)
 	}
 }
+export default verifyCmd
