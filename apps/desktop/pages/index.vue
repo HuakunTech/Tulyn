@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { CommandEmpty, CommandInput, CommandList } from "@/components/ui/command"
-import { getExtensionsFolder, HTMLElementId } from "@/lib/constants"
-import { AppsExtension } from "@/lib/extension/apps"
-import type { IExtensionBase } from "@/lib/extension/base"
-import { BuiltinCmds } from "@/lib/extension/builtin"
-import { Extension } from "@/lib/extension/ext"
-import { RemoteExtension } from "@/lib/extension/remoteExt"
-import { SystemCommandExtension } from "@/lib/extension/systemCmds"
+import ListItem from "@/components/MainSearch/list-item.vue"
+import {
+	CommandEmpty,
+	CommandGroup,
+	CommandInput,
+	CommandItem,
+	CommandList
+} from "@/components/ui/command"
 import { $searchTermSync, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
 import { useStore } from "@nanostores/vue"
@@ -14,29 +14,26 @@ import { getCurrent } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
 import { useListenToWindowBlur } from "~/composables/useEvents"
 import { useAppConfigStore } from "~/stores/appConfig"
+import { useAppsLoaderStore } from "~/stores/appLoader"
+import { useAppStateStore } from "~/stores/appState"
+import { useBuiltInCmdStore } from "~/stores/builtinCmdLoader"
+import { useDevExtStore, useExtStore } from "~/stores/extensionLoader"
+import { useRemoteCmdStore } from "~/stores/remoteCmds"
+import { useSystemCmdsStore } from "~/stores/systemCmds"
 import { ComboboxInput } from "radix-vue"
+
+const builtinCmdStore = useBuiltInCmdStore()
+const appsStore = useAppsLoaderStore()
+const sysCmdsStore = useSystemCmdsStore()
+const appStateStore = useAppStateStore()
+const remoteCmdStore = useRemoteCmdStore()
+const devExtStore = useDevExtStore()
+const extStore = useExtStore()
 
 const searchTermSync = useStore($searchTermSync)
 const appConfig = useAppConfigStore()
 await appConfig.init()
-const extsObj = reactive({
-	appExt: new AppsExtension(),
-	sysCmdExt: new SystemCommandExtension(),
-	builtinCmdExt: new BuiltinCmds(),
-	devExt: new Extension("Dev Extensions", appConfig.devExtensionPath, true),
-	storeExt: new Extension("Extensions", await getExtensionsFolder()),
-	remoteExt: new RemoteExtension()
-})
 
-let exts = computed<IExtensionBase[]>(() => [
-	extsObj.devExt,
-	extsObj.remoteExt,
-	// extsObj.storeExt,
-	extsObj.builtinCmdExt,
-	extsObj.sysCmdExt,
-	extsObj.appExt
-])
-// const searchTermInSync = ref("")
 let updateSearchTermTimeout: ReturnType<typeof setTimeout>
 
 const appWindow = getCurrent()
@@ -48,8 +45,9 @@ appConfig.$subscribe((mutation, state) => {
 	mutEvts.forEach((evt) => {
 		if (evt.key === "devExtensionPath") {
 			if (evt.oldValue !== evt.newValue) {
-				extsObj.devExt = new Extension("Dev Extensions", state.devExtensionPath, true)
-				extsObj.devExt.load()
+				// extsObj.devExt = new Extension("Dev Extensions", state.devExtensionPath, true)
+				// extsObj.devExt.load()
+				// TODO
 			}
 		}
 	})
@@ -69,6 +67,7 @@ $searchTermSync.subscribe((val, oldVal) => {
 	clearTimeout(updateSearchTermTimeout)
 	updateSearchTermTimeout = setTimeout(() => {
 		setSearchTerm(val)
+		appStateStore.setSearchTerm(val)
 	}, 100)
 })
 
@@ -76,8 +75,10 @@ onMounted(async () => {
 	if (platform() !== "macos") {
 		appWindow.setDecorations(false)
 	}
-	Promise.all(exts.value.map((ext) => ext.load()))
+	// Promise.all(exts.value.map((ext) => ext.load()))
 	appWindow.show()
+	devExtStore.load()
+	extStore.load()
 })
 
 // when close window if not focused on input. If input element has content, clear the content
@@ -117,8 +118,6 @@ const searchTermSyncProxy = computed({
 		$searchTermSync.set(val)
 	}
 })
-
-const localep = useLocalePath()
 </script>
 <template>
 	<CmdPaletteCommand
@@ -130,7 +129,26 @@ const localep = useLocalePath()
 		<CmdPaletteMainSearchBar />
 		<CommandList class="h-full max-h-screen">
 			<CommandEmpty>No results found.</CommandEmpty>
-			<MainSearchListGroup v-for="(ext, idx) in exts" :key="ext.id" :ext="ext" />
+			<CommandGroup
+				v-for="extLoader in [
+					devExtStore,
+					extStore,
+					remoteCmdStore,
+					sysCmdsStore,
+					builtinCmdStore,
+					appsStore
+				]"
+				:heading="extLoader.extensionName"
+				:key="extLoader.id"
+			>
+				<ListItem
+					v-for="(item, idx) in extLoader.$filteredListItems"
+					:item="item"
+					:isDevExt="extLoader.extensionName === 'Dev Extensions'"
+					:key="`${extLoader.extensionName}-${item.title}-${item.value}`"
+					@select="extLoader.onSelect(item)"
+				/>
+			</CommandGroup>
 		</CommandList>
 		<CmdPaletteFooter />
 	</CmdPaletteCommand>

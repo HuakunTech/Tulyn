@@ -62,6 +62,7 @@ commands.allow = [
     "unregister_extension_window",
     "get_ext_label_map",
     "get_frontmost_app",
+    # Database
     "create_extension",
     "get_all_extensions",
     "get_extension_by_identifier",
@@ -76,6 +77,7 @@ commands.allow = [
     "search_extension_data",
     "delete_extension_data_by_id",
     "update_extension_data_by_id",
+    # Clipboard
     "add_to_history",
     "get_history",
 ]

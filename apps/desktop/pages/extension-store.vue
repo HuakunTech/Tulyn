@@ -5,7 +5,7 @@ import ExtDrawer from "@/components/extension-store/ExtDrawer.vue"
 // import Command from "@/components/extension-store/Command.vue";
 import { ExtItem, ExtItemParser } from "@/components/extension-store/types"
 import { getExtensionsFolder, SUPABASE_ANON_KEY, SUPABASE_GRAPHQL_ENDPOINT } from "@/lib/constants"
-import { Extension } from "@/lib/extension/ext"
+// import { Extension } from "@/lib/extension/ext"
 import { gqlClient } from "@/lib/utils/graphql"
 import { ApolloClient, gql, HttpLink, InMemoryCache, type ApolloQueryResult } from "@apollo/client"
 import type { ExtPackageJsonExtra } from "@kksh/api/models"
@@ -23,20 +23,21 @@ import {
 	CommandSeparator,
 	CommandShortcut
 } from "~/components/ui/command"
+import { useExtStore } from "~/stores/extensionLoader"
 import { ElMessage } from "element-plus"
 import { parse } from "valibot"
-import { computed, onMounted, ref, watch } from "vue"
+import { onMounted, ref } from "vue"
 
 const localePath = useLocalePath()
-const ext = new Extension("Extensions", await getExtensionsFolder())
 const selectedExt = ref<ExtItem>()
 const extDrawerOpen = ref(false)
 const extList = ref<ExtItem[]>([])
 const installedManifests = ref<ExtPackageJsonExtra[]>([])
+const extStore = useExtStore()
 
 function refreshListing() {
-	return ext.load().then(() => {
-		installedManifests.value = ext.manifests
+	return extStore.load().then(() => {
+		installedManifests.value = extStore.manifests
 	})
 }
 
@@ -76,7 +77,7 @@ function onInstalled(downloads: number) {
 
 function uninstall(extPublish: Tables<"ext_publish"> | null) {
 	if (extPublish) {
-		ext.uninstallExt(extPublish.identifier).then((manifest) => {
+		extStore.uninstallExt(extPublish.identifier).then((manifest) => {
 			ElMessage.success(`Uninstalled: ${manifest.name}`)
 			extDrawerOpen.value = false
 			refreshListing()

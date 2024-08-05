@@ -1,23 +1,22 @@
 <script setup lang="ts">
 import IconMultiplexer from "@/components/IconMultiplexer.vue"
-import { getExtensionsFolder } from "@/lib/constants"
-import { Extension } from "@/lib/extension/ext"
-import { RemoteExtension } from "@/lib/extension/remoteExt"
 import { TListGroup, type TListItem } from "@/lib/types/list"
 import { useAppConfigStore } from "~/stores/appConfig"
+import { useDevExtStore, useExtStore } from "~/stores/extensionLoader"
+import { useRemoteCmdStore } from "~/stores/remoteCmds"
 import { ElMessage, ElTable, ElTableColumn } from "element-plus"
 import { Trash2Icon } from "lucide-vue-next"
 import { onMounted, ref } from "vue"
 
+const remoteCmdStore = useRemoteCmdStore()
+const devExtStore = useDevExtStore()
+const extStore = useExtStore()
 const appConfig = useAppConfigStore()
-const devExt = new Extension("Dev Extensions", appConfig.devExtensionPath, true)
-const storeExt = new Extension("Extensions", await getExtensionsFolder())
-const remoteExt = new RemoteExtension()
 const tableData = ref<TListGroup[]>([])
 
 function refreshListing() {
-	return Promise.all([devExt.load(), storeExt.load(), remoteExt.load()]).then(() => {
-		tableData.value = [...storeExt.groups(), ...devExt.groups(), ...remoteExt.groups()]
+	return Promise.all([remoteCmdStore.load(), devExtStore.load(), extStore.load()]).then(() => {
+		tableData.value = [...remoteCmdStore.groups(), ...devExtStore.groups(), ...extStore.groups()]
 	})
 }
 
@@ -27,7 +26,7 @@ onMounted(() => {
 
 function handleDeleteCommand(index: number, item: TListItem) {
 	if (item.type === "Remote Command") {
-		remoteExt
+		remoteCmdStore
 			.removeRemoteCmd(parseInt(item.value))
 			.then(() => {
 				ElMessage.success(`Removed Remote Command: ${item.title}`)
@@ -38,7 +37,7 @@ function handleDeleteCommand(index: number, item: TListItem) {
 }
 
 function handleDeleteExtension(index: number, item: TListGroup) {
-	const ext = item.flags.isDev ? devExt : storeExt
+	const ext = item.flags.isDev ? devExtStore : extStore
 	ext
 		.uninstallExt(item.identifier)
 		.then(() => {

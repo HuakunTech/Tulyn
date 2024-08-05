@@ -20,7 +20,7 @@ export const ExtStoreSchema = object({
 })
 export type ExtStoreState = InferOutput<typeof ExtStoreSchema>
 
-export const useExtStore = defineStore("extension", {
+export const useExtDisplayStore = defineStore("extension", {
 	state: (): ExtStoreState => ({
 		currentWorkerExt: undefined,
 		currentCustomUiExt: undefined

@@ -4,11 +4,11 @@ import { getAllApps, refreshApplicationsList } from "@kksh/api/commands"
 import { AppInfo, IconEnum } from "@kksh/api/models"
 import { convertFileSrc } from "@tauri-apps/api/core"
 import { info, warn } from "@tauri-apps/plugin-log"
-import { ElNotification } from "element-plus"
-import { atom, computed, type WritableAtom } from "nanostores"
+import { filterListItem } from "~/lib/utils/search"
+import { defineStore } from "pinia"
 import { executeBashScript, open } from "tauri-plugin-shellx-api"
 import { v4 as uuidv4 } from "uuid"
-import { type IExtensionBase } from "./base"
+import { useAppStateStore } from "./appState"
 
 /**
  * On MacOS, we use .app folder as unique value to identify an application
@@ -44,34 +44,33 @@ export function appInfoToListItem(app: AppInfo & { app_path_exe: string }): TLis
 	}
 }
 
-export class AppsExtension implements IExtensionBase {
-	id: string = uuidv4()
-	apps: AppInfo[] = []
-	extensionName = "Applications"
-	$listItems: WritableAtom<TListItem[]> = atom([])
-
-	setApps(apps: AppInfo[]): void {
-		this.apps = apps
-		this.$listItems.set(
-			apps
-				.filter((app) => !!app.app_path_exe)
-				.map((app) => appInfoToListItem(app as AppInfo & { app_path_exe: string }))
-		)
-	}
-
-	load(): Promise<void> {
+export const useAppsLoaderStore = defineStore("appLoader", () => {
+	const apps = ref<AppInfo[]>([])
+	const $listItems = computed(() =>
+		apps.value
+			.filter((app) => !!app.app_path_exe)
+			.map((app) => appInfoToListItem(app as AppInfo & { app_path_exe: string }))
+	)
+	const appStateStore = useAppStateStore()
+	const $filteredListItems = computed<TListItem[]>(() => {
+		return appStateStore.searchTerm.length === 0
+			? $listItems.value.slice(0, 30)
+			: filterListItem(appStateStore.searchTerm, $listItems.value).slice(0, 30)
+	})
+	function load() {
 		return refreshApplicationsList()
 			.then(() => getAllApps())
-			.then((apps) => {
-				this.setApps(apps)
+			.then((_apps) => {
+				apps.value = _apps
 			})
 	}
-	default(): TListItem[] {
-		return []
+	function setApps(_apps: AppInfo[]): void {
+		apps.value = _apps
 	}
-	onSelect(item: TListItem): Promise<void> {
+
+	function onSelect(item: TListItem): Promise<void> {
 		const platform = $appState.get().platform
-		const foundApp = this.apps.find((app) => app.app_desktop_path === item.value)
+		const foundApp = apps.value.find((app) => app.app_desktop_path === item.value)
 		if (platform === "macos") {
 			if (foundApp?.app_desktop_path) {
 				return open(foundApp.app_desktop_path)
@@ -108,4 +107,14 @@ export class AppsExtension implements IExtensionBase {
 			return Promise.resolve()
 		}
 	}
-}
+	return {
+		id: uuidv4(),
+		extensionName: "Applications",
+		apps,
+		$listItems,
+		$filteredListItems,
+		load,
+		setApps,
+		onSelect
+	}
+})

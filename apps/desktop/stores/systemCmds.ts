@@ -3,26 +3,26 @@ import { getSystemCommands } from "@kksh/api/commands"
 import { IconType, SysCommand } from "@kksh/api/models"
 import * as dialog from "@tauri-apps/plugin-dialog"
 import { error } from "@tauri-apps/plugin-log"
+import { filterListItem } from "~/lib/utils/search"
 import { ElNotification } from "element-plus"
-import { atom, type ReadableAtom, type WritableAtom } from "nanostores"
+import { defineStore } from "pinia"
 import { v4 as uuidv4 } from "uuid"
 import { parse, safeParse } from "valibot"
-import { type IExtensionBase } from "./base"
+import { useAppStateStore } from "./appState"
 
-export class SystemCommandExtension implements IExtensionBase {
-	id: string = uuidv4()
-	extensionName: string
-	$listItems: WritableAtom<TListItem[]> = atom([])
-	systemCommands: SysCommand[] = []
-	systemCommandListItems: TListItem[] = []
+export const useSystemCmdsStore = defineStore("system-cmds", () => {
+	const systemCommands = ref<SysCommand[]>([])
+	const $listItems = ref<TListItem[]>([])
+	const appStateStore = useAppStateStore()
+	const $filteredListItems = computed<TListItem[]>(() => {
+		return appStateStore.searchTerm.length === 0
+			? $listItems.value
+			: filterListItem(appStateStore.searchTerm, $listItems.value)
+	})
 
-	constructor() {
-		this.extensionName = "System Commands"
-	}
-
-	async load(): Promise<void> {
-		this.systemCommands = await getSystemCommands()
-		this.systemCommandListItems = this.systemCommands
+	async function load() {
+		systemCommands.value = await getSystemCommands()
+		$listItems.value = systemCommands.value
 			.map((cmd) => {
 				const candidate = {
 					title: cmd.name,
@@ -43,17 +43,10 @@ export class SystemCommandExtension implements IExtensionBase {
 				}
 			})
 			.filter((item) => item !== null)
+	}
 
-		setTimeout(() => {
-			this.$listItems.set(this.systemCommandListItems)
-		})
-		return Promise.resolve()
-	}
-	default(): TListItem[] {
-		return this.systemCommandListItems
-	}
-	async onSelect(item: TListItem): Promise<void> {
-		const cmd = this.systemCommands.find((c) => c.value === item.value)
+	async function onSelect(item: TListItem) {
+		const cmd = systemCommands.value.find((c) => c.value === item.value)
 		if (!cmd) {
 			ElNotification({
 				title: "Unexpected Error",
@@ -71,4 +64,17 @@ export class SystemCommandExtension implements IExtensionBase {
 			}
 		}
 	}
-}
+
+	setTimeout(() => {
+		load()
+	}, 100)
+
+	return {
+		id: uuidv4(),
+		extensionName: "System Commands",
+		$listItems,
+		$filteredListItems,
+		load,
+		onSelect
+	}
+})

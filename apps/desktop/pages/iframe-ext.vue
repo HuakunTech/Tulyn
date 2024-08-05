@@ -25,7 +25,7 @@ import { ArrowLeftIcon, MoveIcon, RefreshCcwIcon } from "lucide-vue-next"
 import { flatten, safeParse } from "valibot"
 import * as v from "valibot"
 import { toast } from "vue-sonner"
-import { useExtStore } from "../stores/ext"
+import { useExtDisplayStore } from "../stores/extState"
 
 const localePath = useLocalePath()
 const appConfig = useAppConfigStore()
@@ -48,7 +48,7 @@ const ui = reactive<{
 })
 const appWin = getCurrent()
 const iframeRef = ref<HTMLIFrameElement | null>(null)
-const extStore = useExtStore()
+const extStore = useExtDisplayStore()
 const extUrl = ref<string>()
 const iframeUiAPI: Omit<
 	IUiIframeServer,

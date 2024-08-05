@@ -28,6 +28,7 @@ import { loadExtensionManifestFromDisk } from "~/lib/commands/extensions"
 import { GlobalEventBus } from "~/lib/utils/events"
 import { convertFormToZod } from "~/lib/utils/form"
 import { listenToRefreshWorkerExt } from "~/lib/utils/tauri-events"
+import { useExtDisplayStore } from "~/stores/extState"
 import { parse } from "valibot"
 import { toast } from "vue-sonner"
 
@@ -38,7 +39,7 @@ const loading = ref(false)
 const listViewContent = ref<ListSchema.List>()
 const formViewContent = ref<FormSchema.Form>()
 const formViewZodSchema = ref<any>()
-const extStore = useExtStore()
+const extStateStore = useExtDisplayStore()
 const appUiStore = useAppUiStore()
 const searchTerm = ref("")
 const searchBarPlaceholder = ref("")
@@ -79,7 +80,7 @@ function onActionSelected(actionVal: string) {
 }
 
 async function launchWorkerExt() {
-	const currentWorkerExt = extStore.currentWorkerExt
+	const currentWorkerExt = extStateStore.currentWorkerExt
 	if (!currentWorkerExt) {
 		toast.error("No worker extension selected")
 		return navigateTo(localePath("/"))

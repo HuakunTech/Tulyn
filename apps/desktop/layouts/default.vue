@@ -8,6 +8,7 @@ import { TooltipProvider } from "@kksh/vue/tooltip"
 import type { UnlistenFn } from "@tauri-apps/api/event"
 import { attachConsole, debug, error, info, warn } from "@tauri-apps/plugin-log"
 import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"
+import { initStores } from "~/lib/utils/stores"
 import { listenToRefreshConfig } from "~/lib/utils/tauri-events"
 import { useAppConfigStore } from "~/stores/appConfig"
 
@@ -42,6 +43,8 @@ onMounted(async () => {
 	//   })
 	detach = await attachConsole()
 	appConfig.watch()
+
+	initStores()
 })
 </script>
 

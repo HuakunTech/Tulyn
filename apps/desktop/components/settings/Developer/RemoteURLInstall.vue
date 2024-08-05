@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { RemoteCmd, RemoteExtension } from "@/lib/extension/remoteExt"
 import { Button } from "@kksh/vue/button"
 import {
 	Dialog,
@@ -12,13 +11,12 @@ import {
 } from "@kksh/vue/dialog"
 import { Input } from "@kksh/vue/input"
 import { Label } from "@kksh/vue/label"
+import { useRemoteCmdStore } from "~/stores/remoteCmds"
 import { ElMessage } from "element-plus"
-import { CloudDownloadIcon, DownloadIcon, ExternalLinkIcon, InfoIcon } from "lucide-vue-next"
-import { v4 as uuidv4 } from "uuid"
-import { parse } from "valibot"
+import { CloudDownloadIcon } from "lucide-vue-next"
 import { ref } from "vue"
 
-const remoteExt = new RemoteExtension()
+const remoteCmdStore = useRemoteCmdStore()
 const remoteUrl = ref("")
 const name = ref("")
 const open = ref(false)
@@ -32,7 +30,7 @@ function onSave() {
 		}
 		console.log("remoteExtPayload", remoteExtPayload)
 
-		remoteExt
+		remoteCmdStore
 			.addRemoteExt(remoteExtPayload)
 			.then(() => {
 				ElMessage.success("Installed 1 Remote Command")

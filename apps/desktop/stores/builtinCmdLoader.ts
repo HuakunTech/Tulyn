@@ -4,12 +4,12 @@ import { ListItemType, TListItem } from "@/lib/types/list"
 import { newSettingsPage } from "@/lib/utils/router"
 import { IconType } from "@kksh/api/models"
 import { getAll as getAllWindows, WebviewWindow } from "@tauri-apps/api/webviewWindow"
+import { filterListItem } from "~/lib/utils/search"
 import { ElMessage, ElNotification } from "element-plus"
-import type { ReadableAtom, WritableAtom } from "nanostores"
-import { atom } from "nanostores"
+import { defineStore } from "pinia"
 import { v4 as uuidv4 } from "uuid"
 import { toast } from "vue-sonner"
-import type { IExtensionBase } from "./base"
+import { useAppStateStore } from "./appState"
 
 const localePath = useLocalePath()
 const rtConfig = useRuntimeConfig()
@@ -135,29 +135,8 @@ const buildinCmdsListItems: TListItem[] = builtinCmds.map(
 	})
 )
 
-export class BuiltinCmds implements IExtensionBase {
-	id: string = uuidv4()
-	extensionName: string = "Builtin Commands"
-	$listItems: WritableAtom<TListItem[]>
-	constructor() {
-		this.$listItems = atom([])
-	}
-
-	load(): Promise<void> {
-		setTimeout(() => {
-			this.$listItems.set(buildinCmdsListItems)
-		}, 50)
-		return Promise.resolve()
-	}
-
-	/**
-	 * Get the default list items for the extension when search term is empty
-	 */
-	default(): TListItem[] {
-		return buildinCmdsListItems
-	}
-
-	onSelect(item: TListItem): Promise<void> {
+export const useBuiltInCmdStore = defineStore("built-in-cmd-loader", () => {
+	function onSelect(item: TListItem): Promise<void> {
 		const cmd = builtinCmds.find((cmd) => genListItemValue(cmd.name) === item.value)
 		if (cmd) {
 			return cmd.function()
@@ -166,4 +145,24 @@ export class BuiltinCmds implements IExtensionBase {
 			return Promise.reject(`Command (${item.title}) not found`)
 		}
 	}
-}
+	const appStateStore = useAppStateStore()
+	const $listItems = ref<TListItem[]>([])
+	const $filteredListItems = computed<TListItem[]>(() => {
+		return appStateStore.searchTerm.length === 0
+			? $listItems.value
+			: filterListItem(appStateStore.searchTerm, $listItems.value)
+	})
+
+	function load() {
+		$listItems.value = buildinCmdsListItems
+	}
+
+	return {
+		id: uuidv4(),
+		load,
+		extensionName: "Builtin Commands",
+		$listItems,
+		$filteredListItems,
+		onSelect
+	}
+})

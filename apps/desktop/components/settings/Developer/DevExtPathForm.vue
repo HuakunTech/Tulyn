@@ -1,19 +1,16 @@
 <script setup lang="ts">
-import { Extension } from "@/lib/extension/ext"
 import { pathExists } from "@kksh/api/commands"
 import { Button } from "@kksh/vue/button"
 import { Input } from "@kksh/vue/input"
 import { open } from "@tauri-apps/plugin-dialog"
-import { exists } from "@tauri-apps/plugin-fs"
 import { debug } from "@tauri-apps/plugin-log"
-import { emitRefreshConfig, emitRefreshExt } from "~/lib/utils/tauri-events"
 import { useAppConfigStore } from "~/stores/appConfig"
-import { onMount } from "nanostores"
-import { onMounted, ref } from "vue"
+import { useDevExtStore } from "~/stores/extensionLoader"
+import { ref } from "vue"
 import { toast } from "vue-sonner"
 
+const devExtStore = useDevExtStore()
 const appConfig = useAppConfigStore()
-const devExt = new Extension("Dev Extensions", appConfig.devExtensionPath, true)
 const devExtPath = ref(appConfig.devExtensionPath)
 const lock = ref(true)
 
@@ -26,10 +23,10 @@ async function pickDirectory() {
 	if (dir && (await pathExists(dir))) {
 		devExtPath.value = dir
 		appConfig.setDevExtensionPath(dir)
-		devExt.extPath = devExtPath.value
-		await devExt.load()
+		devExtStore.setExtPath(devExtPath.value)
+		await devExtStore.load()
 		toast.success("Dev Extension Path Set", {
-			description: `${devExt.manifests.length} dev extensions loaded.`
+			description: `${devExtStore.manifests.length} dev extensions loaded.`
 		})
 	} else {
 		return toast.error("Invalid Path")
