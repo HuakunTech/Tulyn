@@ -7,7 +7,8 @@
 	"author": "Huakun",
 	"scripts": {
 		"build": "rimraf dist && cross-env NODE_ENV=production bun build index.ts --minify --outdir dist --target node",
-		"postbuild": "shx cp -r ./src/docker ./dist/docker"
+		"postbuild": "shx cp -r ./src/docker ./dist/docker",
+		"test": "bun test --coverage"
 	},
 	"devDependencies": {
 		"@types/bun": "latest",
