@@ -1,4 +1,5 @@
 import { $ } from "bun"
+import fs from 'fs-extra'
 
 process.env.NODE_ENV = "production"
 
@@ -19,4 +20,7 @@ await $`rm -rf dist`
 // })
 
 await $`pnpm rollup -c`
-await $`cp -r ./src/docker ./dist/docker`
+// await $`cp -r ./src/docker ./dist/docker`
+fs.cpSync('./src/docker', './dist/docker', {recursive: true})
+
+
