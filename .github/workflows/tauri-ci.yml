@@ -119,3 +119,8 @@ jobs:
           prerelease: false
           args: ${{ matrix.settings.args }}
           projectPath: "./apps/desktop"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Kunkun-${{ matrix.settings.platform }}
+          path: ${{ github.workspace }}/apps/desktop/src-tauri/target/release/bundle
