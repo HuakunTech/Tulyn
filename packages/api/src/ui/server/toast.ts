@@ -26,37 +26,40 @@ async function constructToast(
 		| typeof toast.warning
 		| typeof toast.error,
 	message: string,
-	options?: GeneralToastParams
+	options?: GeneralToastParams,
+	action?: () => void
 ): Promise<void> {
-	await fn(
-		message,
-		options
-			? {
-					description: options.description,
-					duration: options.duration,
-					closeButton: options.closeButton,
-					position: options.position
-				}
-			: undefined
-	)
+	await fn(message, {
+		...options,
+		action:
+			action && options?.actionLabel
+				? {
+						label: options?.actionLabel ?? "Action",
+						onClick: () => {
+							action()
+						}
+					}
+				: undefined
+	})
 }
 
 export function constructToastApi(): IToastServer {
 	return {
-		toastMessage: async (message: string, options?: GeneralToastParams) => {
-			constructToast(toast.message, message, options)
+		toastMessage: async (message: string, options?: GeneralToastParams, action?: () => void) => {
+			console.log("Server Message")
+			constructToast(toast.message, message, options, action)
 		},
-		toastInfo: async (message: string, options?: GeneralToastParams) => {
-			constructToast(toast.info, message, options)
+		toastInfo: async (message: string, options?: GeneralToastParams, action?: () => void) => {
+			constructToast(toast.info, message, options, action)
 		},
-		toastSuccess: async (message: string, options?: GeneralToastParams) => {
-			constructToast(toast.success, message, options)
+		toastSuccess: async (message: string, options?: GeneralToastParams, action?: () => void) => {
+			constructToast(toast.success, message, options, action)
 		},
-		toastWarning: async (message: string, options?: GeneralToastParams) => {
-			constructToast(toast.warning, message, options)
+		toastWarning: async (message: string, options?: GeneralToastParams, action?: () => void) => {
+			constructToast(toast.warning, message, options, action)
 		},
-		toastError: async (message: string, options?: GeneralToastParams) => {
-			constructToast(toast.error, message, options)
+		toastError: async (message: string, options?: GeneralToastParams, action?: () => void) => {
+			constructToast(toast.error, message, options, action)
 		}
 	}
 }

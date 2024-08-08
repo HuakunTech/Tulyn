@@ -1,4 +1,5 @@
 import {
+	any,
 	array,
 	boolean,
 	lazy,
@@ -53,7 +54,8 @@ export const BaseField = object({
 	hideLabel: optional(boolean()),
 	placeholder: optional(string()),
 	optional: optional(boolean()),
-	description: optional(string())
+	description: optional(string()),
+	default: optional(any())
 })
 export type BaseField = InferOutput<typeof BaseField>
 
@@ -129,6 +131,9 @@ export type FormField = InferOutput<typeof FormField>
 // export type Form = InferOutput<typeof Form>
 export type Form = {
 	nodeName: FormNodeName
+	title?: string
+	description?: string
+	submitBtnText?: string
 	key: string
 	fields: (FormField | Form)[]
 }

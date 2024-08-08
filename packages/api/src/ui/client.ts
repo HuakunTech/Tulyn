@@ -68,9 +68,14 @@ export type GeneralToastParams = {
 		| "bottom-right"
 		| "top-center"
 		| "bottom-center"
+	actionLabel?: string
 }
 
-export type GeneralToast = (message: string, options?: GeneralToastParams) => Promise<void>
+export type GeneralToast = (
+	message: string,
+	options?: GeneralToastParams,
+	action?: () => void
+) => Promise<void>
 
 export interface IToast {
 	message: GeneralToast
@@ -85,6 +90,7 @@ export interface IUiWorker {
 	setScrollLoading: (loading: boolean) => Promise<void>
 	setSearchTerm: (term: string) => Promise<void>
 	setSearchBarPlaceholder: (placeholder: string) => Promise<void>
+	toast: (action: () => void) => Promise<void>
 }
 
 export interface IUiIframe {
