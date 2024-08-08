@@ -7,6 +7,7 @@ export interface IUiWorkerServer {
 	workerUiSetScrollLoading: IUiWorker["setScrollLoading"]
 	workerUiSetSearchTerm: IUiWorker["setSearchTerm"]
 	workerUiSetSearchBarPlaceholder: IUiWorker["setSearchBarPlaceholder"]
+	workerUiToast: IUiWorker["toast"]
 }
 
 export interface IUiIframeServer {

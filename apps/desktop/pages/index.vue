@@ -13,6 +13,7 @@ import { useStore } from "@nanostores/vue"
 import { getCurrent } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
 import { useListenToWindowBlur } from "~/composables/useEvents"
+import { initStores } from "~/lib/utils/stores"
 import { useAppConfigStore } from "~/stores/appConfig"
 import { useAppsLoaderStore } from "~/stores/appLoader"
 import { useAppStateStore } from "~/stores/appState"
@@ -33,6 +34,14 @@ const extStore = useExtStore()
 const searchTermSync = useStore($searchTermSync)
 const appConfig = useAppConfigStore()
 await appConfig.init()
+const extLoaders = ref([
+	devExtStore,
+	extStore,
+	remoteCmdStore,
+	sysCmdsStore,
+	builtinCmdStore,
+	appsStore
+])
 
 let updateSearchTermTimeout: ReturnType<typeof setTimeout>
 
@@ -75,10 +84,14 @@ onMounted(async () => {
 	if (platform() !== "macos") {
 		appWindow.setDecorations(false)
 	}
-	// Promise.all(exts.value.map((ext) => ext.load()))
 	appWindow.show()
-	devExtStore.load()
-	extStore.load()
+	console.log("main search mounted")
+	// force rerender groups
+	const cache = extLoaders.value
+	extLoaders.value = []
+	setTimeout(() => {
+		extLoaders.value = cache
+	}, 10)
 })
 
 // when close window if not focused on input. If input element has content, clear the content
@@ -128,26 +141,23 @@ const searchTermSyncProxy = computed({
 	>
 		<CmdPaletteMainSearchBar />
 		<CommandList class="h-full max-h-screen">
+			<!-- <pre>{{ devExtStore.$filteredListItems }}</pre> -->
 			<CommandEmpty>No results found.</CommandEmpty>
+			<!-- <pre>{{ extLoaders.map(l => l.id) }}</pre> -->
+			<!-- <pre v-for="loader in extLoaders" :key="loader.id">{{ loader.id }}</pre> -->
 			<CommandGroup
-				v-for="extLoader in [
-					devExtStore,
-					extStore,
-					remoteCmdStore,
-					sysCmdsStore,
-					builtinCmdStore,
-					appsStore
-				]"
+				v-for="extLoader in extLoaders"
 				:heading="extLoader.extensionName"
 				:key="extLoader.id"
 			>
+				<!-- <span>{{ extLoader.extensionName }}</span> -->
 				<ListItem
 					v-for="(item, idx) in extLoader.$filteredListItems"
 					:item="item"
 					:isDevExt="extLoader.extensionName === 'Dev Extensions'"
-					:key="`${extLoader.extensionName}-${item.title}-${item.value}`"
 					@select="extLoader.onSelect(item)"
 				/>
+				<!-- :key="`${extLoader.extensionName}-${item.title}-${item.value}`" -->
 			</CommandGroup>
 		</CommandList>
 		<CmdPaletteFooter />

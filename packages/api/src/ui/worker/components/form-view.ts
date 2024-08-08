@@ -11,9 +11,17 @@ export abstract class BaseField implements FormSchema.BaseField, IComponent<Form
 	placeholder?: string
 	optional?: boolean
 	description?: string
+	default?: any
 
 	constructor(model: OmitNodeName<FormSchema.BaseField>) {
 		this.key = model.key
+		this.key = model.key
+		this.label = model.label
+		this.hideLabel = model.hideLabel
+		this.placeholder = model.placeholder
+		this.optional = model.optional
+		this.description = model.description
+		this.default = model.default
 	}
 
 	toModel(): FormSchema.BaseField {
@@ -24,7 +32,8 @@ export abstract class BaseField implements FormSchema.BaseField, IComponent<Form
 			hideLabel: this.hideLabel,
 			placeholder: this.placeholder,
 			optional: this.optional,
-			description: this.description
+			description: this.description,
+			default: this.default
 		}
 	}
 }
@@ -129,6 +138,9 @@ export class Form implements IComponent<FormSchema.Form> {
 	nodeName: FormNodeName = FormNodeNameEnum.Form
 	fields: (AllFormFields | Form)[]
 	key: string
+	title?: string
+	description?: string
+	submitBtnText?: string
 
 	constructor(model: OmitNodeName<FormSchema.Form & { fields: (AllFormFields | Form)[] }>) {
 		this.fields = model.fields
@@ -139,6 +151,9 @@ export class Form implements IComponent<FormSchema.Form> {
 		return {
 			nodeName: this.nodeName,
 			key: this.key,
+			title: this.title,
+			description: this.description,
+			submitBtnText: this.submitBtnText,
 			fields: this.fields.map((field) => field.toModel())
 		}
 	}

@@ -26,7 +26,7 @@ import { exists, readTextFile } from "@tauri-apps/plugin-fs"
 import { debug } from "@tauri-apps/plugin-log"
 import { loadExtensionManifestFromDisk } from "~/lib/commands/extensions"
 import { GlobalEventBus } from "~/lib/utils/events"
-import { convertFormToZod } from "~/lib/utils/form"
+import { buildFieldConfig, convertFormToZod } from "~/lib/utils/form"
 import { listenToRefreshWorkerExt } from "~/lib/utils/tauri-events"
 import { useExtDisplayStore } from "~/stores/extState"
 import { parse } from "valibot"
@@ -34,10 +34,12 @@ import { toast } from "vue-sonner"
 
 const localePath = useLocalePath()
 const appState = useStore($appState)
+const loaded = ref(false)
 let workerAPI: Remote<WorkerExtension> | undefined = undefined
 const loading = ref(false)
 const listViewContent = ref<ListSchema.List>()
 const formViewContent = ref<FormSchema.Form>()
+const formFieldConfig = ref({})
 const formViewZodSchema = ref<any>()
 const extStateStore = useExtDisplayStore()
 const appUiStore = useAppUiStore()
@@ -54,12 +56,18 @@ const extUiAPI: IUiWorkerServer = {
 			listViewContent.value = parse(ListSchema.List, view)
 		} else if (view.nodeName === FormNodeNameEnum.Form) {
 			listViewContent.value = undefined
-			formViewContent.value = parse(FormSchema.Form, view)
-			console.log("parsed form", parse(FormSchema.Form, view))
-			const zodSchema = convertFormToZod(parse(FormSchema.Form, view))
+			const parsedForm = parse(FormSchema.Form, view)
+			formViewContent.value = parsedForm
+			const zodSchema = convertFormToZod(parsedForm)
 			formViewZodSchema.value = zodSchema
+			formFieldConfig.value = buildFieldConfig(parsedForm)
+			console.log("fieldConfig", formFieldConfig.value)
 			console.log(zodSchema)
 		}
+	},
+	async workerUiToast(action) {
+		console.log("toast", action)
+		action()
 	},
 	async workerUiSetScrollLoading(_loading: boolean) {
 		loading.value = _loading
@@ -135,6 +143,9 @@ onMounted(async () => {
 	})
 	launchWorkerExt()
 	GlobalEventBus.onActionSelected(onActionSelected)
+	setTimeout(() => {
+		loaded.value = true
+	}, 300)
 })
 
 onUnmounted(() => {
@@ -143,13 +154,16 @@ onUnmounted(() => {
 })
 </script>
 <template>
+	<FunDance v-if="!loaded" />
+
 	<ExtTemplateFormView
-		v-if="formViewContent && formViewZodSchema"
+		v-if="loaded && formViewContent && formViewZodSchema"
 		:workerAPI="workerAPI!"
 		:formViewZodSchema="formViewZodSchema"
+		:fieldConfig="formFieldConfig"
 	/>
 	<ExtTemplateListView
-		v-else-if="listViewContent"
+		v-else-if="loaded && listViewContent"
 		class=""
 		v-model:search-term="searchTerm"
 		v-model:search-bar-placeholder="searchBarPlaceholder"

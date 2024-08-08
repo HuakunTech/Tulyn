@@ -1,0 +1,54 @@
+{
+	"$schema": "https://schema.kunkun.sh",
+	"name": "download-twitter-video",
+	"version": "0.0.1",
+	"type": "module",
+	"kunkun": {
+		"name": "Download Twitter Video",
+		"shortDescription": "Download Twitter Video",
+		"longDescription": "Prodivde a Tweet URL, the video in the given tweet will be downloaded for you",
+		"identifier": "sh.kunkun.ext-twitter-download-video",
+		"permissions": [
+			"clipboard:read-text",
+			"updownload:download",
+			"shell:open"
+		],
+		"demoImages": [],
+		"icon": {
+			"type": "iconify",
+			"value": "skill-icons:twitter"
+		},
+		"customUiCmds": [],
+		"templateUiCmds": [
+			{
+				"name": "Download Twitter/X Video",
+				"main": "dist/index.js",
+				"cmds": []
+			}
+		]
+	},
+	"files": [
+		"./dist"
+	],
+	"scripts": {
+		"dev": "rollup -c --watch",
+		"build": "rimraf dist && rollup -c"
+	},
+	"dependencies": {
+		"@huakunshen/comlink": "^4.4.1",
+		"@kksh/api": "workspace:*"
+	},
+	"devDependencies": {
+		"@rollup/plugin-commonjs": "^26.0.1",
+		"@rollup/plugin-node-resolve": "^15.2.3",
+		"@rollup/plugin-terser": "^0.4.4",
+		"@rollup/plugin-typescript": "^11.1.6",
+		"@types/bun": "latest",
+		"rimraf": "^6.0.1",
+		"rollup": "^4.18.1",
+		"rollup-plugin-visualizer": "^5.12.0"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	}
+}
