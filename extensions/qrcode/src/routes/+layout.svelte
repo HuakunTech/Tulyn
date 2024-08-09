@@ -2,9 +2,8 @@
 	import '../app.css';
 	import { ModeWatcher } from 'mode-watcher';
 	import { registerDragRegion, ui } from '@kksh/api/ui/iframe';
-	import { updateTheme } from '@kksh/svelte';
+	import { ThemeWrapper, updateTheme } from '@kksh/svelte';
 	import { onMount } from 'svelte';
-	import { ThemeWrapper } from '@kksh/svelte';
 
 	onMount(() => {
 		registerDragRegion();
