@@ -103,9 +103,6 @@ onMounted(async () => {
 	setTimeout(() => {
 		extLoaders.value = cache
 	}, 10)
-	listen("tauri://blur", (e) => {
-		console.log(e)
-	})
 })
 
 // when close window if not focused on input. If input element has content, clear the content

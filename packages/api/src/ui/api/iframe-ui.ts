@@ -22,7 +22,8 @@ export const comlinkUI: IUiIframe = {
 	reloadPage: defaultClientAPI.iframeUiReloadPage,
 	toggleMaximize: defaultClientAPI.iframeUiToggleMaximize,
 	startDragging: defaultClientAPI.iframeUiStartDragging,
-	internalToggleMaximize: defaultClientAPI.iframeUiInternalToggleMaximize
+	internalToggleMaximize: defaultClientAPI.iframeUiInternalToggleMaximize,
+	setTransparentWindowBackground: defaultClientAPI.iframeSetTransparentWindowBackground
 }
 
 export const KK_DRAG_REGION_ATTR = "kunkun-drag-region"

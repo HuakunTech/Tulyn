@@ -21,7 +21,7 @@ import { loadExtensionManifestFromDisk } from "~/lib/commands/extensions"
 import { cn } from "~/lib/utils"
 import { sendNotificationWithPermission } from "~/lib/utils/notification"
 import { isInMainWindow } from "~/lib/utils/window"
-import { ArrowLeftIcon, MoveIcon, RefreshCcwIcon } from "lucide-vue-next"
+import { ArrowLeftIcon, MoveIcon, RefreshCcwIcon, XIcon } from "lucide-vue-next"
 import { flatten, safeParse } from "valibot"
 import * as v from "valibot"
 import { toast } from "vue-sonner"
@@ -37,14 +37,16 @@ const ui = reactive<{
 	backBtnPosition: Position
 	moveBtnPosition: Position
 	refreshBtnPosition: Position
+	transparentBg: boolean
 }>({
 	iframeLoaded: false,
-	showBackBtn: isInMainWindow(), // if open in new window, hide back button
+	showBackBtn: true, // if open in new window, hide back button
 	showMoveBtn: true,
 	showRefreshBtn: true,
 	backBtnPosition: "top-left",
 	moveBtnPosition: "bottom-left",
-	refreshBtnPosition: "top-right"
+	refreshBtnPosition: "top-right",
+	transparentBg: false
 })
 const appWin = getCurrentWindow()
 const iframeRef = ref<HTMLIFrameElement | null>(null)
@@ -58,7 +60,11 @@ const iframeUiAPI: Omit<
 		navigateTo(localePath("/"))
 	},
 	iframeUiGoBack: async () => {
-		history.back()
+		if (isInMainWindow()) {
+			navigateTo(localePath("/"))
+		} else {
+			appWin.close()
+		}
 	},
 	iframeUiHideBackButton: async () => {
 		ui.showBackBtn = false
@@ -90,11 +96,20 @@ const iframeUiAPI: Omit<
 	},
 	async iframeUiReloadPage() {
 		location.reload()
+	},
+	async iframeSetTransparentWindowBackground(transparent: boolean) {
+		if (isInMainWindow()) {
+			throw new Error("Cannot set background in main window")
+		}
+		if (transparent) {
+			document.body.style.backgroundColor = "transparent"
+		} else {
+			document.body.style.backgroundColor = ""
+		}
 	}
 }
 
 onMounted(async () => {
-	// navigateTo(localePath("/"))
 	setTimeout(() => {
 		appWin.show()
 	}, 100)
@@ -222,6 +237,14 @@ function positionToCssStyleObj(position?: Position) {
 	}
 	return ret
 }
+
+function onBackBtnClicked() {
+	if (isInMainWindow()) {
+		navigateTo(localePath("/"))
+	} else {
+		appWin.close()
+	}
+}
 </script>
 <template>
 	<main class="h-screen">
@@ -231,9 +254,10 @@ function positionToCssStyleObj(position?: Position) {
 			:style="positionToCssStyleObj(ui.backBtnPosition)"
 			size="icon"
 			variant="outline"
-			@click="navigateTo(localePath('/'))"
+			@click="onBackBtnClicked"
 		>
-			<ArrowLeftIcon class="w-4" />
+			<ArrowLeftIcon v-if="appWin.label === 'main'" class="w-4" />
+			<XIcon v-else class="w-4" />
 		</Button>
 		<Button
 			v-if="ui.showMoveBtn"
@@ -268,3 +292,8 @@ function positionToCssStyleObj(position?: Position) {
 		<FunDance v-if="!ui.iframeLoaded" class="-z-30" />
 	</main>
 </template>
+<style>
+body {
+	/* background-color: transparent; */
+}
+</style>

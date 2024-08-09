@@ -131,6 +131,7 @@ export interface IUiIframe {
 	startDragging: () => Promise<void>
 	toggleMaximize: () => Promise<void>
 	internalToggleMaximize: () => Promise<void>
+	setTransparentWindowBackground: (transparent: boolean) => Promise<void>
 }
 
 export interface IDb {

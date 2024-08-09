@@ -24,6 +24,7 @@ export interface IUiIframeServer {
 	iframeUiStartDragging: IUiIframe["startDragging"]
 	iframeUiToggleMaximize: IUiIframe["toggleMaximize"]
 	iframeUiInternalToggleMaximize: IUiIframe["internalToggleMaximize"]
+	iframeSetTransparentWindowBackground: IUiIframe["setTransparentWindowBackground"]
 }
 
 /**
