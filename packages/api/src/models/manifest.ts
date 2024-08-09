@@ -113,7 +113,7 @@ export const KunkunExtManifest = object({
 	name: string("Name of the extension (Human Readable)"),
 	shortDescription: string("Description of the extension (Will be displayed in store)"),
 	longDescription: string("Long description of the extension (Will be displayed in store)"),
-	identifier: string("Unique identifier for the extension"),
+	identifier: string("Unique identifier for the extension, must be the same as extension folder name"),
 	icon: Icon,
 	permissions: array(
 		union([KunkunManifestPermission, FsPermissionScopedSchema]),

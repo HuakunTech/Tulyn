@@ -7,7 +7,7 @@
 		"name": "template-ext-sveltekit",
 		"shortDescription": "A Custom UI template for sveltekit",
 		"longDescription": "A Custom UI template for sveltekit",
-		"identifier": "sh.kunkun-ext-custom-sveltekit",
+		"identifier": "template-ext-sveltekit",
 		"icon": {
 			"type": "iconify",
 			"value": "logos:svelte-icon"

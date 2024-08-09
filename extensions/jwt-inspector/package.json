@@ -7,7 +7,7 @@
 		"name": "JWT Inspector",
 		"shortDescription": "Inspect JWT Token",
 		"longDescription": "Same as jwt.io; Display decoded JWT Token.",
-		"identifier": "sh.kunkun.jwt-inspector",
+		"identifier": "jwt-inspector",
 		"icon": {
 			"type": "iconify",
 			"value": "logos:jwt-icon"

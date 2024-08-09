@@ -6,7 +6,7 @@
   "type": "module",
   "kunkun": {
     "name": "Hacker News",
-    "identifier": "sh.kunkun.hacker-news",
+    "identifier": "hacker-news",
     "shortDescription": "List latest top hacker news",
     "icon": {
       "type": "iconify",

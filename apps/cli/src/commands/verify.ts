@@ -56,6 +56,14 @@ export function verifySingleProject(projectPath: string): boolean {
 			`"files" field is empty, it is recommended to include only the necessary files, e.g. dist`
 		)
 	}
+	// check if kunkun extension name is the same as the folder name
+	const folderName = path.basename(projectPath)
+	if (pkg.kunkun.identifier !== folderName) {
+		logger.error(
+			`Extension package name at [pkg.kunkun.identifier](${pkg.kunkun.identifier}) is not the same as the folder name [${folderName}], please fix it`
+		)
+		return false
+	}
 	for (const cmd of pkg.kunkun.customUiCmds) {
 		if (!verifyCustomUiCommand(projectPath, cmd)) {
 			return false
@@ -69,9 +77,10 @@ export function verifySingleProject(projectPath: string): boolean {
 	return true
 }
 
-export function verifyCmd(projectPath: string, batch: boolean) {
+export function verifyCmd(projectPath: string, batch: boolean): boolean {
+	let success = true
 	if (!batch) {
-		verifySingleProject(projectPath)
+		success = verifySingleProject(projectPath)
 	} else {
 		const records: { valid: boolean; path: string }[] = []
 		fs.readdirSync(projectPath).forEach((dir) => {
@@ -82,6 +91,8 @@ export function verifyCmd(projectPath: string, batch: boolean) {
 			}
 		})
 		printTable(records)
+		success = records.every((record) => record.valid)
 	}
+	return success
 }
 export default verifyCmd

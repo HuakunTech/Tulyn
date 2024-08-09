@@ -27,10 +27,10 @@ export async function installTarball(tarballPath: string, targetDir: string) {
 	return loadExtensionManifestFromDisk(decompressDest)
 		.then(async (manifest) => {
 			// The extension folder name will be the identifier
-			const extInstallPath = await pathJoin(targetDir, manifest.jarvis.identifier)
+			const extInstallPath = await pathJoin(targetDir, manifest.kunkun.identifier)
 			if (await fs.exists(extInstallPath)) {
 				const overwrite = await dialog.ask(
-					`Extension ${manifest.jarvis.identifier} already exists, do you want to overwrite it?`
+					`Extension ${manifest.kunkun.identifier} already exists, do you want to overwrite it?`
 				)
 				if (!overwrite) {
 					return Promise.reject("Extension Already Exists")

@@ -34,7 +34,7 @@
 		"name": "template-ext-vue",
 		"shortDescription": "A Custom UI template for vue",
 		"longDescription": "A Custom UI template for vue",
-		"identifier": "sh.kunkun-ext-custom-vue",
+		"identifier": "template-ext-vue",
 		"icon": {
 			"type": "iconify",
 			"value": "logos:vue"

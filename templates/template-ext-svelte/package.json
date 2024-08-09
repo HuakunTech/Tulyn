@@ -8,7 +8,7 @@
 		"name": "template-ext-svelte",
 		"shortDescription": "A Custom UI template for svelte",
 		"longDescription": "A Custom UI template for svelte",
-		"identifier": "sh.kunkun-ext-custom-svelte",
+		"identifier": "template-ext-svelte",
 		"icon": {
 			"type": "iconify",
 			"value": "logos:svelte-icon"

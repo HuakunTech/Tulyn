@@ -7,7 +7,7 @@
 		"name": "Download Twitter Video",
 		"shortDescription": "Download Twitter Video",
 		"longDescription": "Prodivde a Tweet URL, the video in the given tweet will be downloaded for you",
-		"identifier": "sh.kunkun.ext-twitter-download-video",
+		"identifier": "download-twitter-video",
 		"permissions": [
 			"clipboard:read-text",
 			"updownload:download",

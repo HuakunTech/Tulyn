@@ -1,6 +1,6 @@
 {
 	"$schema": "https://schema.kunkun.sh",
-	"name": "@huakunshen/jarvis-ext-qrcode",
+	"name": "qrcode",
 	"version": "0.0.2",
 	"description": "Jarvis QRCode Extension",
 	"private": true,
@@ -8,7 +8,7 @@
 		"name": "QRCode",
 		"shortDescription": "Generate QRCode from text and Detect QRCode",
 		"longDescription": "Copy a url or any text and open the QRCode generation command, a QRCode will be displayed. Also supports detecting QRCode from screenshot.",
-		"identifier": "sh.kunkun.qrcode-ext",
+		"identifier": "qrcode",
 		"icon": {
 			"type": "iconify",
 			"value": "mingcute:qrcode-line"

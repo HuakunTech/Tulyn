@@ -8,7 +8,7 @@
     "name": "template-ext-nuxt",
     "shortDescription": "A Custom UI template for nuxt",
     "longDescription": "A Custom UI template for nuxt",
-    "identifier": "sh.kunkun-ext-custom-nuxt",
+    "identifier": "template-ext-nuxt",
     "icon": {
       "type": "iconify",
       "value": "logos:nuxt-icon"

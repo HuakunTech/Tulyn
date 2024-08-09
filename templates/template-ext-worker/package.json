@@ -1,13 +1,13 @@
 {
 	"$schema": "../../packages/schema/manifest-json-schema.json",
-	"name": "tempalte-ext-worker",
+	"name": "template-ext-worker",
 	"version": "0.0.1",
 	"type": "module",
 	"kunkun": {
 		"name": "Extension Template Worker",
 		"shortDescription": "A Worker Extension Template",
 		"longDescription": "A Worker Extension Template",
-		"identifier": "sh.kunkun-ext-template-worker",
+		"identifier": "template-ext-worker",
 		"permissions": [
 			"fetch:all"
 		],

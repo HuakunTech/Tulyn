@@ -8,7 +8,7 @@
 		"name": "template-ext-react",
 		"shortDescription": "A Custom UI template for react",
 		"longDescription": "A Custom UI template for react",
-		"identifier": "sh.kunkun-ext-custom-react",
+		"identifier": "template-ext-react",
 		"icon": {
 			"type": "iconify",
 			"value": "logos:react"

@@ -8,7 +8,7 @@
     "name": "IP Info",
     "shortDescription": "Show your current IP Info and Search for IP Address",
     "longDescription": "Will display you IP Address and more information about this IP address, including Geo Location, ASN, ISP. You can also search for a specific IP.",
-    "identifier": "sh.kunkun-ext-ip-info",
+    "identifier": "ip-info",
     "permissions": [
       "clipboard:write-text",
       "fetch:all"
