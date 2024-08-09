@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { init, notification, ui } from "@kksh/api/ui/iframe"
+	import { initCustomExtension, notification, ui } from "@kksh/api/ui/iframe"
 	import {
 		Button,
 		Command,
@@ -9,6 +9,7 @@
 		ThemeWrapper,
 		updateTheme
 	} from "@kksh/svelte"
+	import ThemeCustomizer from "$lib/components/ThemeCustomizer.svelte"
 	import {
 		Calculator,
 		Calendar,
@@ -19,10 +20,9 @@
 		User
 	} from "lucide-svelte"
 	import { onMount } from "svelte"
-	import ThemeCustomizer from '$lib/components/ThemeCustomizer.svelte';
 
 	onMount(() => {
-		init()
+		initCustomExtension()
 		ui.getTheme().then((theme) => {
 			updateTheme(theme)
 		})

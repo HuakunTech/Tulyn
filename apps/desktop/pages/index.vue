@@ -10,7 +10,19 @@ import {
 import { $searchTermSync, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
 import { useStore } from "@nanostores/vue"
-import { getCurrent } from "@tauri-apps/api/window"
+import {
+	emit,
+	emitTo,
+	listen,
+	once,
+	type Event,
+	type EventCallback,
+	type EventName,
+	type EventTarget,
+	type Options,
+	type UnlistenFn
+} from "@tauri-apps/api/event"
+import { getCurrentWindow } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
 import { useListenToWindowBlur } from "~/composables/useEvents"
 import { initStores } from "~/lib/utils/stores"
@@ -45,7 +57,7 @@ const extLoaders = ref([
 
 let updateSearchTermTimeout: ReturnType<typeof setTimeout>
 
-const appWindow = getCurrent()
+const appWindow = getCurrentWindow()
 const runtimeConfig = useRuntimeConfig()
 const cmdInputRef = ref<InstanceType<typeof ComboboxInput> | null>(null)
 
@@ -85,13 +97,15 @@ onMounted(async () => {
 		appWindow.setDecorations(false)
 	}
 	appWindow.show()
-	console.log("main search mounted")
 	// force rerender groups
 	const cache = extLoaders.value
 	extLoaders.value = []
 	setTimeout(() => {
 		extLoaders.value = cache
 	}, 10)
+	listen("tauri://blur", (e) => {
+		console.log(e)
+	})
 })
 
 // when close window if not focused on input. If input element has content, clear the content
@@ -100,10 +114,10 @@ onKeyStroke("Escape", (e) => {
 		if ($searchTermSync.get() !== "") {
 			$searchTermSync.set("")
 		} else {
-			getCurrent().close()
+			getCurrentWindow().close()
 		}
 	} else {
-		getCurrent().close()
+		getCurrentWindow().close()
 	}
 })
 

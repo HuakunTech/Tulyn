@@ -43,8 +43,6 @@ onMounted(async () => {
 	//   })
 	detach = await attachConsole()
 	appConfig.watch()
-	console.log("default layout mounted")
-
 	initStores()
 })
 </script>

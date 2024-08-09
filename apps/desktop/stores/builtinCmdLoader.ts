@@ -3,7 +3,7 @@ import { $searchTermSync } from "@/lib/stores/appState"
 import { ListItemType, TListItem } from "@/lib/types/list"
 import { newSettingsPage } from "@/lib/utils/router"
 import { IconType } from "@kksh/api/models"
-import { getAll as getAllWindows, WebviewWindow } from "@tauri-apps/api/webviewWindow"
+import { getAllWebviewWindows, WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { filterListItem } from "~/lib/utils/search"
 import { ElMessage, ElNotification } from "element-plus"
 import { defineStore } from "pinia"
@@ -36,7 +36,7 @@ const builtinCmds: BuiltinCmd[] = [
 		iconifyIcon: "solar:settings-linear",
 		description: "Open Settings",
 		function: async () => {
-			const windows = getAllWindows()
+			const windows = getAllWebviewWindows()
 			const found = windows.find((w) => w.label === SettingsWindowLabel)
 			if (found) {
 				ElNotification.error("Settings Page is already open")
@@ -79,7 +79,7 @@ if (rtConfig.public.isDev) {
 		iconifyIcon: "fa6-brands:dev",
 		description: "Open Dev Page",
 		function: () => {
-			const windows = getAllWindows()
+			const windows = getAllWebviewWindows()
 			const found = windows.find((w) => w.label === DevWindowLabel)
 			if (found) {
 				ElNotification.error("Debug Page is already open")
@@ -98,7 +98,7 @@ if (rtConfig.public.isDev) {
 		iconifyIcon: "carbon:debug",
 		description: "Open Debug Page",
 		function: () => {
-			const windows = getAllWindows()
+			const windows = getAllWebviewWindows()
 			const found = windows.find((w) => w.label === DebugWindowLabel)
 			if (found) {
 				ElNotification.error("Debug Page is already open")

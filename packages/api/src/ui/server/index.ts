@@ -2,7 +2,6 @@ import {
 	checkPermission,
 	constructClipboardApi,
 	constructDialogApi,
-	constructEventApi,
 	constructFetchApi,
 	// constructFsApi, // a local constructFsApi is defined below
 	constructLoggerApi,
@@ -26,12 +25,14 @@ import {
 } from "tauri-api-adapter"
 import {
 	AllKunkunPermission,
+	type EventPermission,
 	type FsPermissionScoped,
 	type KunkunFsPermission,
 	type OpenPermissionScoped,
 	type SystemPermission
 } from "../api/permissions"
 import type { IDbServer } from "./db"
+import { constructEventApi } from "./event"
 import { constructFsApi, type IFsServer } from "./fs"
 import { constructOpenApi } from "./open"
 import { constructSystemApi, type ISystemServer } from "./system"
@@ -53,7 +54,7 @@ export type IJarvisFullAPI = IFullAPI &
 	IFsServer // IFsServer will override some methods in IFullAPI, it's fine because it's a superset
 
 function getStringPermissions(
-	permissions: (AllKunkunPermission | FsPermissionScoped)[]
+	permissions: (AllKunkunPermission | FsPermissionScoped | OpenPermissionScoped)[]
 ): AllKunkunPermission[] {
 	return permissions.filter((p) => typeof p === "string") as AllKunkunPermission[]
 }
@@ -65,7 +66,7 @@ function getObjectPermissions(
 }
 
 export function constructJarvisServerAPIWithPermissions(
-	permissions: (AllKunkunPermission | FsPermissionScoped)[]
+	permissions: (AllKunkunPermission | FsPermissionScoped | OpenPermissionScoped)[]
 ): IJarvisFullAPI {
 	const apis = [
 		constructClipboardApi(
@@ -91,7 +92,6 @@ export function constructJarvisServerAPIWithPermissions(
 				p.permission.startsWith("open:")
 			)
 		),
-		// constructFsApi(permissions.filter((p) => p.startsWith("fs:")) as FsPermission[]),
 		constructOsApi(
 			getStringPermissions(permissions).filter((p) => p.startsWith("os:")) as OsPermission[]
 		),
@@ -116,7 +116,9 @@ export function constructJarvisServerAPIWithPermissions(
 				p.startsWith("updownload:")
 			) as UpdownloadPermission[]
 		),
-		constructEventApi(),
+		constructEventApi(
+			getStringPermissions(permissions).filter((p) => p.startsWith("event:")) as EventPermission[]
+		), // this one is not from tauri-api-adapter, it's a custom one defined in this project, only limited events are exposed
 		constructLoggerApi(),
 		constructPathApi(),
 		constructSystemApi(

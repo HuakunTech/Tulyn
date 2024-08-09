@@ -4,7 +4,7 @@ import DeveloperTab from "@/components/settings/DeveloperTab.vue"
 import ExtensionsTab from "@/components/settings/ExtensionsTab.vue"
 import GeneralTab from "@/components/settings/GeneralTab.vue"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@kksh/vue/tabs"
-import { getCurrent } from "@tauri-apps/api/window"
+import { getCurrentWindow } from "@tauri-apps/api/window"
 import { BugIcon, CogIcon, InfoIcon, SquareTerminalIcon, UserRoundIcon } from "lucide-vue-next"
 
 definePageMeta({
@@ -12,7 +12,7 @@ definePageMeta({
 })
 
 onMounted(() => {
-	getCurrent().show()
+	getCurrentWindow().show()
 })
 </script>
 <template>

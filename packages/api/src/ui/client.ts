@@ -166,3 +166,25 @@ export interface IOpen {
 	openFile: (path: string) => Promise<void>
 	openFolder: (path: string) => Promise<void>
 }
+
+/* -------------------------------------------------------------------------- */
+/*                                  Event API                                 */
+/* -------------------------------------------------------------------------- */
+export type DragDropPayload = {
+	paths: string[]
+	position: { x: number; y: number }
+}
+export type DragEnterPayload = DragDropPayload
+export type DragOverPayload = {
+	position: { x: number; y: number }
+}
+
+export interface IEvent {
+	onDragDrop: (callback: (payload: DragDropPayload) => void) => void
+	onDragEnter: (callback: (payload: DragEnterPayload) => void) => void
+	onDragLeave: (callback: () => void) => void
+	onDragOver: (callback: (payload: DragOverPayload) => void) => void
+	onWindowBlur: (callback: () => void) => void
+	onWindowCloseRequested: (callback: () => void) => void
+	onWindowFocus: (callback: () => void) => void
+}

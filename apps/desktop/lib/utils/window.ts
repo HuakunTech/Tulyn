@@ -1,5 +1,5 @@
-import { getCurrent } from "@tauri-apps/api/window"
+import { getCurrentWindow } from "@tauri-apps/api/window"
 
 export function isInMainWindow() {
-	return getCurrent().label == "main"
+	return getCurrentWindow().label == "main"
 }

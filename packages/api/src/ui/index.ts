@@ -4,7 +4,7 @@
 export {
 	clipboard,
 	dialog,
-	event,
+	// event,
 	network,
 	fs,
 	notification,

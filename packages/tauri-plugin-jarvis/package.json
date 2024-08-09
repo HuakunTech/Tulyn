@@ -20,10 +20,10 @@
 		"develop": "rollup -c --watch"
 	},
 	"peerDependencies": {
-		"@tauri-apps/api": "~2.0.0-beta.15",
-		"@tauri-apps/plugin-fs": "~2.0.0-beta.7",
-		"@tauri-apps/plugin-log": "~2.0.0-beta.8",
-		"@tauri-apps/plugin-os": "~2.0.0-beta.7"
+		"@tauri-apps/api": "~2.0.0-rc.0",
+		"@tauri-apps/plugin-fs": "~2.0.0-rc.0",
+		"@tauri-apps/plugin-log": "~2.0.0-rc.0",
+		"@tauri-apps/plugin-os": "~2.0.0-rc.0"
 	},
 	"dependencies": {
 		"@kksh/api": "workspace:*"

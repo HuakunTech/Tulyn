@@ -74,7 +74,7 @@
 	},
 	"dependencies": {
 		"@rollup/plugin-typescript": "^11.1.6",
-		"@tauri-apps/api": "2.0.0-beta.13",
+		"@tauri-apps/api": "2.0.0-rc.0",
 		"@tauri-apps/plugin-dialog": "2.0.0-beta.3",
 		"@tauri-apps/plugin-fs": "2.0.0-beta.3",
 		"@tauri-apps/plugin-global-shortcut": "2.0.0-beta.3",
@@ -88,7 +88,7 @@
 		"minimatch": "^10.0.1",
 		"rollup": "^4.9.6",
 		"rollup-plugin-typescript2": "^0.36.0",
-		"tauri-api-adapter": "0.1.0",
+		"tauri-api-adapter": "0.1.1",
 		"tauri-plugin-network-api": "workspace:*",
 		"tauri-plugin-system-info-api": "workspace:*",
 		"vue-sonner": "^1.1.3"

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { getCurrent } from "@tauri-apps/api/window"
+import { getCurrentWindow } from "@tauri-apps/api/window"
 
 const localePath = useLocalePath()
 
 onMounted(() => {
-	getCurrent().show()
+	getCurrentWindow().show()
 	setTimeout(() => {
 		navigateTo(localePath("/"))
 	}, 500)

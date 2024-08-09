@@ -124,7 +124,6 @@ export function manifestToCmdItems(manifest: ExtPackageJsonExtra, isDev: boolean
 }
 
 export function constructExtStore(options: { isDev: boolean }) {
-	console.log("Constructing Ext Store", options)
 	const storeName = options.isDev ? "dev-extensions" : "extensions"
 	return defineStore(storeName, () => {
 		const extensionName = ref(options.isDev ? "Dev Extensions" : "Extensions")

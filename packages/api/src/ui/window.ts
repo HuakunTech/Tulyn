@@ -2,13 +2,13 @@ import * as _webviewApis from "@tauri-apps/api/webview"
 import * as _webviewWindowApis from "@tauri-apps/api/webviewWindow"
 import * as _windowApis from "@tauri-apps/api/window"
 
-export { getCurrent, getAll, currentMonitor } from "@tauri-apps/api/window"
+export { getCurrentWindow, getAllWindows, currentMonitor } from "@tauri-apps/api/window"
 export { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 
 type Unlisten = () => void
 
 export function closeWindow() {
-	return _windowApis.getCurrent().close()
+	return _windowApis.getCurrentWindow().close()
 }
 
 /**
@@ -16,27 +16,27 @@ export function closeWindow() {
  * @returns Promise<void>
  */
 export function destroyWindow() {
-	return _windowApis.getCurrent().destroy()
+	return _windowApis.getCurrentWindow().destroy()
 }
 
 export function windowLabelExists(label: string) {
-	return _windowApis.getAll().some((w) => w.label === label)
+	return _windowApis.getAllWindows().some((w) => w.label === label)
 }
 
 export function getWindowByLabel(label: string) {
-	return _windowApis.getAll().find((w) => w.label === label)
+	return _windowApis.getAllWindows().find((w) => w.label === label)
 }
 
 export function closeMainWindow() {
 	return _windowApis
-		.getAll()
+		.getAllWindows()
 		.find((w) => w.label === "main")
 		?.close()
 }
 
 export function hideWindow(windowLabel: string) {
 	return _windowApis
-		.getAll()
+		.getAllWindows()
 		.find((w) => w.label === windowLabel)
 		?.hide()
 }
@@ -47,7 +47,7 @@ export function hideMainWindow() {
 
 export function showWindow(windowLabel: string) {
 	return _windowApis
-		.getAll()
+		.getAllWindows()
 		.find((w) => w.label === windowLabel)
 		?.show()
 }

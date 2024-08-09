@@ -1,5 +1,5 @@
 import { invoke } from "@tauri-apps/api/core"
-import { getCurrent } from "@tauri-apps/api/window"
+import { getCurrentWindow } from "@tauri-apps/api/window"
 import type { IDb, IFs, ISystem, IToast, IUiIframe, IUiWorker } from "../client"
 
 export interface IUiWorkerServer {
@@ -37,10 +37,10 @@ export function constructIframeUiApi(): Pick<
 > {
 	return {
 		iframeUiStartDragging: () => {
-			return getCurrent().startDragging()
+			return getCurrentWindow().startDragging()
 		},
 		iframeUiToggleMaximize: () => {
-			return getCurrent().toggleMaximize()
+			return getCurrentWindow().toggleMaximize()
 		},
 		iframeUiInternalToggleMaximize: () => {
 			return invoke<void>("plugin:window|internal_toggle_maximize")

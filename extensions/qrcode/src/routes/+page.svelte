@@ -4,7 +4,7 @@
 	import QR from '$lib/components/QR.svelte';
 	import QRCode from 'easyqrcodejs';
 	import { onMount } from 'svelte';
-	import { clipboard, fs, dialog, open } from '@kksh/api/ui/iframe';
+	import { clipboard, fs, dialog, open, event } from '@kksh/api/ui/iframe';
 	import * as v from 'valibot';
 	import {
 		ClipboardCopyIcon,

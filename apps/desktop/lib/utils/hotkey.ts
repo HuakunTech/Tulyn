@@ -1,4 +1,4 @@
-import { getAll } from "@tauri-apps/api/window"
+import { getAllWindows } from "@tauri-apps/api/window"
 import { isRegistered, register, unregister } from "@tauri-apps/plugin-global-shortcut"
 import { debug, info } from "@tauri-apps/plugin-log"
 import { mapKeyToTauriKey } from "~/lib/utils/js"
@@ -13,7 +13,7 @@ export async function registerAppHotkey(hotkeyStr: string) {
 	info(`Registering hotkey: ${hotkeyStr}`)
 	return register(hotkeyStr, async (e) => {
 		if (e.state === "Released") {
-			const wins = getAll()
+			const wins = getAllWindows()
 			const mainWin = wins.find((w) => w.label === "main")
 			if (!mainWin) {
 				return sendNotificationWithPermission(

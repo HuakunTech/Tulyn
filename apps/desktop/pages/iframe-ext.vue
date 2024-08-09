@@ -16,7 +16,7 @@ import {
 } from "@kksh/api/ui/iframe"
 import { Button } from "@kksh/vue/button"
 import { join } from "@tauri-apps/api/path"
-import { getCurrent } from "@tauri-apps/api/window"
+import { getCurrentWindow } from "@tauri-apps/api/window"
 import { loadExtensionManifestFromDisk } from "~/lib/commands/extensions"
 import { cn } from "~/lib/utils"
 import { sendNotificationWithPermission } from "~/lib/utils/notification"
@@ -46,7 +46,7 @@ const ui = reactive<{
 	moveBtnPosition: "bottom-left",
 	refreshBtnPosition: "top-right"
 })
-const appWin = getCurrent()
+const appWin = getCurrentWindow()
 const iframeRef = ref<HTMLIFrameElement | null>(null)
 const extStore = useExtDisplayStore()
 const extUrl = ref<string>()
@@ -165,7 +165,6 @@ onMounted(async () => {
 
 function onIframeLoad() {
 	setTimeout(() => {
-		console.log("iframe loaded", iframeRef.value)
 		// avoid flickering, especially on slow connections and dark mode
 		ui.iframeLoaded = true
 		// if (iframeRef.value) {

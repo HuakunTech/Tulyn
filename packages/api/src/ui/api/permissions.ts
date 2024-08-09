@@ -27,6 +27,16 @@ export const KunkunFsPermissionSchema = union([
 	literal("fs:stat"),
 	literal("fs:search")
 ])
+export const EventPermissionSchema = union([
+	literal("event:drag-drop"),
+	literal("event:drag-enter"),
+	literal("event:drag-leave"),
+	literal("event:drag-over"),
+	literal("event:window-blur"),
+	literal("event:window-close-requested"),
+	literal("event:window-focus")
+])
+export type EventPermission = InferOutput<typeof EventPermissionSchema>
 export const PermissionScopeSchema = object({ path: optional(string()), url: optional(string()) })
 export type KunkunFsPermission = InferOutput<typeof KunkunFsPermissionSchema>
 export const FsPermissionScopedSchema = object({
@@ -74,6 +84,7 @@ export type SystemPermission = InferOutput<typeof SystemPermissionSchema>
 export const KunkunManifestPermission = union([
 	// TauriApiAdapterAllPermissionSchema,
 	ClipboardPermissionSchema,
+	EventPermissionSchema,
 	DialogPermissionSchema,
 	NotificationPermissionSchema,
 	// FsPermissionSchema,
@@ -161,5 +172,15 @@ export const permissionDescriptions: PermissionDescriptions = {
 	// 	"Allow reading files from the documents directory and its subdirectories"
 	"open:url": "Open URLs",
 	"open:file": "Open Files",
-	"open:folder": "Open Folders"
+	"open:folder": "Open Folders",
+	/* -------------------------------------------------------------------------- */
+	/*                                    Event                                   */
+	/* -------------------------------------------------------------------------- */
+	"event:drag-drop": "Listen to file drop event",
+	"event:drag-enter": "Listen to drag enter event",
+	"event:drag-leave": "Listen to drag leave event",
+	"event:drag-over": "Listen to drag over event",
+	"event:window-blur": "Listen to window blur event",
+	"event:window-close-requested": "Listen to window close requested event",
+	"event:window-focus": "Listen to window focus event"
 }

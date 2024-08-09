@@ -5,14 +5,14 @@ import { registerDragRegion } from "../api/iframe-ui"
  * Will
  * 1. registerDragRegion
  */
-export function init() {
+export function initCustomExtension() {
 	registerDragRegion()
 }
 
 export {
 	clipboard,
 	dialog,
-	event,
+	// event,
 	network,
 	fs,
 	notification,
@@ -26,6 +26,7 @@ export {
 } from "tauri-api-adapter/iframe"
 export { type IUiIframe } from "../client"
 export { comlinkUI as ui, registerDragRegion } from "../api/iframe-ui"
+export { comlinkEvent as event } from "../api/event"
 export { db, constructJarvisExtDBToServerDbAPI } from "../api/db"
 export { comlinkOpen as open } from "../api/open"
 export { toast } from "../api/toast"

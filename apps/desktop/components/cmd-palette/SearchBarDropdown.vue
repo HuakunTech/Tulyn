@@ -7,7 +7,6 @@ import {
 	DropdownMenuRadioItem,
 	DropdownMenuTrigger
 } from "@kksh/vue/dropdown-menu"
-import { getCurrent } from "@tauri-apps/api/window"
 import { EllipsisVerticalIcon, PinIcon } from "lucide-vue-next"
 
 const position = ref("bottom")
@@ -16,7 +15,6 @@ function onChange() {
 }
 
 function onPin() {
-	// getCurrent()
 	console.log("Pinned")
 }
 </script>

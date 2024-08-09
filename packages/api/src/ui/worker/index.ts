@@ -4,7 +4,7 @@
 export {
 	clipboard,
 	dialog,
-	event,
+	// event,
 	network,
 	fs,
 	notification,
@@ -24,6 +24,7 @@ export { db, constructJarvisExtDBToServerDbAPI } from "../api/db"
 export { WorkerExtension } from "./ext"
 export { expose, wrap } from "@huakunshen/comlink"
 export { type IDbServer } from "../server/db"
+export { comlinkEvent as event } from "../api/event"
 /* -------------------------------------------------------------------------- */
 /*                             UI Component Schema                            */
 /* -------------------------------------------------------------------------- */
