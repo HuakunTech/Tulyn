@@ -38,7 +38,6 @@ export async function registerDragRegion(): Promise<void> {
 
 	document.addEventListener("mousedown", (e) => {
 		const target = e.target as HTMLElement
-		// console.log(target)
 		if (
 			// element has the magic data attribute
 			(target.classList.contains(KK_DRAG_REGION_ATTR) ||

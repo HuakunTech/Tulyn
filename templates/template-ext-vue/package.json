@@ -57,6 +57,7 @@
 		"templateUiCmds": []
 	},
 	"files": [
-		"dist"
+		"dist",
+		".gitignore"
 	]
 }

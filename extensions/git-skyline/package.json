@@ -41,7 +41,9 @@
 			"value": "tabler:building-skyscraper"
 		},
 		"demoImages": [],
-		"permissions": [],
+		"permissions": [
+			"clipboard:read-all"
+		],
 		"customUiCmds": [
 			{
 				"main": "dist",

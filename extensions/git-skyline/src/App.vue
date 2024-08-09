@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { initCustomExtension, toast, ui } from "@kksh/api/ui/iframe"
+import { clipboard, initCustomExtension, toast, ui } from "@kksh/api/ui/iframe"
 import { updateTheme } from "@kksh/vue"
 import { computed, onMounted, ref, watch } from "vue"
 import ContextMenu from "./components/context-menu.vue"
@@ -45,11 +45,14 @@ onMounted(async () => {
 	initCustomExtension()
 	ui.setTransparentWindowBackground(true)
 	ui.showBackButton("bottom-right")
-	ui.hideMoveButton()
+	// ui.hideMoveButton() // enable this after fixing window cannot be moved bug in extension production build
 	ui.getTheme().then((theme) => {
 		updateTheme(theme)
 	})
 	console.log("mounted")
+	clipboard.readText().then((text) => {
+		console.log("clipboard text", text)
+	})
 
 	const pref = await getPreferences()
 	console.log(pref)

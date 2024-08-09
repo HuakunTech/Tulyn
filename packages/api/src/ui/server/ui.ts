@@ -38,6 +38,7 @@ export function constructIframeUiApi(): Pick<
 > {
 	return {
 		iframeUiStartDragging: () => {
+			console.log("iframeUiStartDragging in server ui API")
 			return getCurrentWindow().startDragging()
 		},
 		iframeUiToggleMaximize: () => {

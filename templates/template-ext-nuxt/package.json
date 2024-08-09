@@ -1,64 +1,65 @@
 {
-  "$schema": "../../packages/schema/manifest-json-schema.json",
-  "name": "template-ext-nuxt",
-  "version": "0.0.2",
-  "private": true,
-  "type": "module",
-  "kunkun": {
-    "name": "template-ext-nuxt",
-    "shortDescription": "A Custom UI template for nuxt",
-    "longDescription": "A Custom UI template for nuxt",
-    "identifier": "template-ext-nuxt",
-    "icon": {
-      "type": "iconify",
-      "value": "logos:nuxt-icon"
-    },
-    "demoImages": [],
-    "permissions": [],
-    "customUiCmds": [
-      {
-        "main": "dist",
-        "devMain": "http://localhost:5173/dev-extensions/template-ext-nuxt/dist",
-        "name": "Nuxt Template Home Page",
-        "cmds": [],
-        "window": {
-          "title": "Nuxt Template Home Page"
-        }
-      },
-      {
-        "main": "dist/about",
-        "devMain": "http://localhost:5173/dev-extensions/template-ext-nuxt/dist/about",
-        "name": "Nuxt Template About Page",
-        "cmds": [],
-        "window": {
-          "title": "Nuxt Template About Page"
-        }
-      }
-    ],
-    "templateUiCmds": []
-  },
-  "scripts": {
-    "build": "cross-env KK_NODE_ENV=production nuxt generate",
-    "build:dev": "cross-env KK_NODE_ENV=development nuxt generate",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
-  },
-  "dependencies": {
-    "@kksh/api": "workspace:*",
-    "@kksh/vue": "0.1.2",
-    "@nuxtjs/tailwindcss": "^6.12.1",
-    "nuxt": "^3.12.4",
-    "tailwindcss": "^3.4.7",
-    "vite": "^5.3.5",
-    "vue": "latest"
-  },
-  "devDependencies": {
-    "cross-env": "^7.0.3",
-    "typescript": "^5.5.4"
-  },
-  "files": [
-    "dist"
-  ]
+	"$schema": "../../packages/schema/manifest-json-schema.json",
+	"name": "template-ext-nuxt",
+	"version": "0.0.2",
+	"private": true,
+	"type": "module",
+	"kunkun": {
+		"name": "template-ext-nuxt",
+		"shortDescription": "A Custom UI template for nuxt",
+		"longDescription": "A Custom UI template for nuxt",
+		"identifier": "template-ext-nuxt",
+		"icon": {
+			"type": "iconify",
+			"value": "logos:nuxt-icon"
+		},
+		"demoImages": [],
+		"permissions": [],
+		"customUiCmds": [
+			{
+				"main": "dist",
+				"devMain": "http://localhost:5173/dev-extensions/template-ext-nuxt/dist",
+				"name": "Nuxt Template Home Page",
+				"cmds": [],
+				"window": {
+					"title": "Nuxt Template Home Page"
+				}
+			},
+			{
+				"main": "dist/about",
+				"devMain": "http://localhost:5173/dev-extensions/template-ext-nuxt/dist/about",
+				"name": "Nuxt Template About Page",
+				"cmds": [],
+				"window": {
+					"title": "Nuxt Template About Page"
+				}
+			}
+		],
+		"templateUiCmds": []
+	},
+	"scripts": {
+		"build": "cross-env KK_NODE_ENV=production nuxt generate",
+		"build:dev": "cross-env KK_NODE_ENV=development nuxt generate",
+		"dev": "nuxt dev",
+		"generate": "nuxt generate",
+		"preview": "nuxt preview",
+		"postinstall": "nuxt prepare"
+	},
+	"dependencies": {
+		"@kksh/api": "workspace:*",
+		"@kksh/vue": "0.1.2",
+		"@nuxtjs/tailwindcss": "^6.12.1",
+		"nuxt": "^3.12.4",
+		"tailwindcss": "^3.4.7",
+		"vite": "^5.3.5",
+		"vue": "latest"
+	},
+	"devDependencies": {
+		"cross-env": "^7.0.3",
+		"typescript": "^5.5.4"
+	},
+	"files": [
+		"dist",
+		".gitignore"
+	]
 }

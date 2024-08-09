@@ -58,6 +58,7 @@
 		"vite": "^5.3.4"
 	},
 	"files": [
-		"dist"
+		"dist",
+		".gitignore"
 	]
 }

@@ -25,9 +25,6 @@
 			}
 		]
 	},
-	"files": [
-		"./dist"
-	],
 	"scripts": {
 		"dev": "rollup -c --watch",
 		"build": "rimraf dist && rollup -c"
@@ -47,5 +44,9 @@
 	},
 	"peerDependencies": {
 		"typescript": "^5.0.0"
-	}
+	},
+	"files": [
+		"./dist",
+		".gitignore"
+	]
 }

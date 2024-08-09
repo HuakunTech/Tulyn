@@ -25,9 +25,6 @@
 		],
 		"templateUiCmds": []
 	},
-	"files": [
-		"dist"
-	],
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc -b && vite build",
@@ -56,5 +53,9 @@
 		"typescript": "^5.2.2",
 		"vite": "^5.3.4",
 		"vue": "^3.4.35"
-	}
+	},
+	"files": [
+		"dist",
+		".gitignore"
+	]
 }

@@ -56,6 +56,10 @@ const iframeUiAPI: Omit<
 	IUiIframeServer,
 	"iframeUiStartDragging" | "iframeUiToggleMaximize" | "iframeUiInternalToggleMaximize"
 > = {
+	// async iframeUiStartDragging() {
+	// 	console.log("start dragging")
+	// 	appWin.startDragging().catch(console.error)
+	// },
 	iframeUiGoHome: async () => {
 		navigateTo(localePath("/"))
 	},
