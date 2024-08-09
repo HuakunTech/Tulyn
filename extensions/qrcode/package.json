@@ -1,37 +1,37 @@
 {
-	"$schema": "../../packages/schema/manifest-json-schema.json",
-	"name": "template-ext-sveltekit",
+	"$schema": "https://schema.kunkun.sh",
+	"name": "@huakunshen/jarvis-ext-qrcode",
 	"version": "0.0.2",
+	"description": "Jarvis QRCode Extension",
 	"private": true,
 	"kunkun": {
-		"name": "template-ext-sveltekit",
-		"shortDescription": "A Custom UI template for sveltekit",
-		"longDescription": "A Custom UI template for sveltekit",
-		"identifier": "sh.kunkun-ext-custom-sveltekit",
+		"name": "QRCode",
+		"shortDescription": "Generate QRCode from text and Detect QRCode",
+		"longDescription": "Copy a url or any text and open the QRCode generation command, a QRCode will be displayed. Also supports detecting QRCode from screenshot.",
+		"identifier": "sh.kunkun.qrcode-ext",
 		"icon": {
 			"type": "iconify",
-			"value": "logos:svelte-icon"
+			"value": "mingcute:qrcode-line"
 		},
 		"demoImages": [],
 		"permissions": [
 			"clipboard:read-text",
-			"notification:all"
+			"clipboard:read-image",
+			"clipboard:write-text",
+			"shell:open"
 		],
 		"customUiCmds": [
 			{
 				"main": "build",
-				"devMain": "http://localhost:5173/dev-extensions/template-ext-sveltekit/build",
-				"name": "Sveltekit Template Home Page",
+				"devMain": "http://localhost:5173/dev-extensions/qrcode/build",
+				"name": "Generate QRCode",
 				"cmds": []
 			},
 			{
-				"main": "build/about.html",
-				"devMain": "http://localhost:5173/dev-extensions/template-ext-sveltekit/build/about",
-				"name": "Sveltekit Template About Page",
-				"cmds": [],
-				"window": {
-					"title": "Sveltekit Template About Page"
-				}
+				"main": "build/detect.html",
+				"devMain": "http://localhost:5173/dev-extensions/qrcode/build/detect",
+				"name": "Detect QRCode",
+				"cmds": []
 			}
 		],
 		"templateUiCmds": []
@@ -50,10 +50,12 @@
 		"format": "prettier --write ."
 	},
 	"dependencies": {
-		"@kksh/api": "workspace:*",
+		"@kksh/api": "0.0.4-alpha.1",
 		"@kksh/svelte": "0.1.4",
 		"clsx": "^2.1.1",
 		"cross-env": "^7.0.3",
+		"easyqrcodejs": "^4.6.1",
+		"jsqr": "^1.4.0",
 		"lucide-svelte": "^0.416.0",
 		"mode-watcher": "^0.4.0",
 		"tailwind-merge": "^2.4.0",

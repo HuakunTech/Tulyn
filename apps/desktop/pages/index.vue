@@ -37,9 +37,9 @@ await appConfig.init()
 const extLoaders = ref([
 	devExtStore,
 	extStore,
+	builtinCmdStore,
 	remoteCmdStore,
 	sysCmdsStore,
-	builtinCmdStore,
 	appsStore
 ])
 
@@ -141,23 +141,18 @@ const searchTermSyncProxy = computed({
 	>
 		<CmdPaletteMainSearchBar />
 		<CommandList class="h-full max-h-screen">
-			<!-- <pre>{{ devExtStore.$filteredListItems }}</pre> -->
 			<CommandEmpty>No results found.</CommandEmpty>
-			<!-- <pre>{{ extLoaders.map(l => l.id) }}</pre> -->
-			<!-- <pre v-for="loader in extLoaders" :key="loader.id">{{ loader.id }}</pre> -->
 			<CommandGroup
 				v-for="extLoader in extLoaders"
 				:heading="extLoader.extensionName"
 				:key="extLoader.id"
 			>
-				<!-- <span>{{ extLoader.extensionName }}</span> -->
 				<ListItem
 					v-for="(item, idx) in extLoader.$filteredListItems"
 					:item="item"
 					:isDevExt="extLoader.extensionName === 'Dev Extensions'"
 					@select="extLoader.onSelect(item)"
 				/>
-				<!-- :key="`${extLoader.extensionName}-${item.title}-${item.value}`" -->
 			</CommandGroup>
 		</CommandList>
 		<CmdPaletteFooter />

@@ -127,7 +127,7 @@ export function constructExtStore(options: { isDev: boolean }) {
 	console.log("Constructing Ext Store", options)
 	const storeName = options.isDev ? "dev-extensions" : "extensions"
 	return defineStore(storeName, () => {
-		const extensionName = ref(options.isDev ? "Develop Extensions" : "Extensions")
+		const extensionName = ref(options.isDev ? "Dev Extensions" : "Extensions")
 		const { isDev } = options
 		const appStateStore = useAppStateStore()
 		const extPath = ref<string | undefined>()
@@ -158,7 +158,6 @@ export function constructExtStore(options: { isDev: boolean }) {
 			const listItems = manifests.value
 				.map((manifest) => manifestToCmdItems(manifest, isDev))
 				.flat()
-			console.log(`listItems in ${extensionName.value} isdev: ${isDev}`, listItems)
 			return listItems
 		})
 		const $filteredListItems = computed<TListItem[]>(() => {

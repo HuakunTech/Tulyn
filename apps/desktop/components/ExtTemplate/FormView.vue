@@ -6,14 +6,12 @@ import { Button } from "@kksh/vue/button"
 import { ArrowLeftIcon } from "@radix-icons/vue"
 import { z } from "zod"
 
-
 const localePath = useLocalePath()
 const props = defineProps<{
 	workerAPI: Remote<WorkerExtension>
 	formViewZodSchema: z.ZodObject<any, any> | z.ZodEffects<z.ZodObject<any, any>>
 	fieldConfig: Record<string, any>
 }>()
-
 
 onKeyStroke("Escape", () => {
 	if (document.activeElement?.nodeName === "INPUT") {
@@ -32,7 +30,6 @@ function onSubmit(data: Record<string, any>) {
 	console.log(data)
 	props.workerAPI.onFormSubmit(data)
 }
-
 </script>
 <template>
 	<div class="flex h-screen flex-col">
@@ -44,7 +41,7 @@ function onSubmit(data: Record<string, any>) {
 		>
 			<ArrowLeftIcon />
 		</Button>
-		<div class="grow overflow-y-auto px-16 py-3 mt-10">
+		<div class="mt-10 grow overflow-y-auto px-16 py-3">
 			<AutoForm :schema="formViewZodSchema" @submit="onSubmit" :field-config="fieldConfig">
 				<Button type="submit" class="float-right mt-3">Submit</Button>
 			</AutoForm>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { db, JarvisExtDB } from "@kksh/api/commands"
+import { db } from "@kksh/api/commands"
 import {
 	CustomPosition,
 	ExtPackageJsonExtra,
@@ -70,9 +70,6 @@ const iframeUiAPI: Omit<
 		ui.showRefreshBtn = false
 	},
 	iframeUiShowBackButton: async (position?: Position) => {
-		if (isInMainWindow()) {
-			return // if open in new window, hide back button
-		}
 		ui.showBackBtn = true
 		ui.backBtnPosition = position ?? "top-left"
 	},
@@ -231,7 +228,7 @@ function positionToCssStyleObj(position?: Position) {
 	<main class="h-screen">
 		<Button
 			v-if="ui.showBackBtn"
-			:class="cn('absolute', positionToTailwindClasses(ui.backBtnPosition))"
+			:class="cn('absolute z-40', positionToTailwindClasses(ui.backBtnPosition))"
 			:style="positionToCssStyleObj(ui.backBtnPosition)"
 			size="icon"
 			variant="outline"
@@ -242,7 +239,7 @@ function positionToCssStyleObj(position?: Position) {
 		<Button
 			v-if="ui.showMoveBtn"
 			data-tauri-drag-region
-			:class="cn('absolute', positionToTailwindClasses(ui.moveBtnPosition))"
+			:class="cn('absolute z-40', positionToTailwindClasses(ui.moveBtnPosition))"
 			:style="positionToCssStyleObj(ui.moveBtnPosition)"
 			size="icon"
 			variant="outline"
@@ -251,7 +248,7 @@ function positionToCssStyleObj(position?: Position) {
 		</Button>
 		<Button
 			v-if="ui.showRefreshBtn"
-			:class="cn('absolute', positionToTailwindClasses(ui.refreshBtnPosition))"
+			:class="cn('absolute z-40', positionToTailwindClasses(ui.refreshBtnPosition))"
 			:style="positionToCssStyleObj(ui.refreshBtnPosition)"
 			size="icon"
 			variant="outline"
@@ -259,8 +256,6 @@ function positionToCssStyleObj(position?: Position) {
 		>
 			<RefreshCcwIcon class="w-4" />
 		</Button>
-		<!-- <span>{{extUrl}}</span>
-		<iframe src="http://localhost:9561/dev-extensions/template-ext-nuxt/dist/" frameborder="0"></iframe> -->
 		<iframe
 			v-show="ui.iframeLoaded"
 			@load="onIframeLoad"
@@ -271,6 +266,6 @@ function positionToCssStyleObj(position?: Position) {
 			frameborder="0"
 			:src="extUrl"
 		/>
-		<FunDance v-show="!ui.iframeLoaded" />
+		<FunDance v-if="!ui.iframeLoaded" class="-z-30" />
 	</main>
 </template>
