@@ -110,7 +110,6 @@ export async function translateScopeToPath(scope: string): Promise<string> {
  */
 async function matchPathAndScope(target: string, scope: string): Promise<boolean> {
 	const translatedScope = await translateScopeToPath(scope)
-	console.log("matchPathAndScope", target, translatedScope, minimatch(target, translatedScope))
 	return minimatch(target, translatedScope)
 }
 
@@ -156,11 +155,13 @@ async function verifyPermission(
 	for (const permission of matchedPermissionScope) {
 		// deny has priority, if deny rule is matched, we ignore allow rule
 		for (const deny of permission.deny || []) {
+			if (!deny.path) continue
 			if (await matchPathAndScope(fullPath, deny.path)) {
 				throw new Error(`Permission denied for path: ${fullPath} by rule ${deny.path}`)
 			}
 		}
 		for (const allow of permission.allow || []) {
+			if (!allow.path) continue
 			if (await matchPathAndScope(fullPath, allow.path)) {
 				return
 			}

@@ -13,11 +13,9 @@ import {
 	constructShellApi,
 	constructSystemInfoApi,
 	constructUpdownloadApi,
-	type AllPermission,
 	type ClipboardPermission,
 	type DialogPermission,
 	type FetchPermission,
-	type FsPermission,
 	type IFullAPI,
 	type NetworkPermission,
 	type NotificationPermission,
@@ -30,10 +28,12 @@ import {
 	AllKunkunPermission,
 	type FsPermissionScoped,
 	type KunkunFsPermission,
+	type OpenPermissionScoped,
 	type SystemPermission
 } from "../api/permissions"
 import type { IDbServer } from "./db"
 import { constructFsApi, type IFsServer } from "./fs"
+import { constructOpenApi } from "./open"
 import { constructSystemApi, type ISystemServer } from "./system"
 import { constructToastApi, type IToastServer } from "./toast"
 import { constructIframeUiApi, type IUiIframeServer, type IUiWorkerServer } from "./ui"
@@ -59,9 +59,9 @@ function getStringPermissions(
 }
 
 function getObjectPermissions(
-	permissions: (AllKunkunPermission | FsPermissionScoped)[]
-): FsPermissionScoped[] {
-	return permissions.filter((p) => typeof p !== "string") as FsPermissionScoped[]
+	permissions: (AllKunkunPermission | FsPermissionScoped | OpenPermissionScoped)[]
+): (FsPermissionScoped | OpenPermissionScoped)[] {
+	return permissions.filter((p) => typeof p !== "string")
 }
 
 export function constructJarvisServerAPIWithPermissions(
@@ -81,7 +81,16 @@ export function constructJarvisServerAPIWithPermissions(
 				p.startsWith("notification:")
 			) as NotificationPermission[]
 		),
-		constructFsApi(getObjectPermissions(permissions).filter((p) => p.permission.startsWith("fs:"))),
+		constructFsApi(
+			(getObjectPermissions(permissions) as FsPermissionScoped[]).filter((p) =>
+				p.permission.startsWith("fs:")
+			)
+		),
+		constructOpenApi(
+			(getObjectPermissions(permissions) as OpenPermissionScoped[]).filter((p) =>
+				p.permission.startsWith("open:")
+			)
+		),
 		// constructFsApi(permissions.filter((p) => p.startsWith("fs:")) as FsPermission[]),
 		constructOsApi(
 			getStringPermissions(permissions).filter((p) => p.startsWith("os:")) as OsPermission[]

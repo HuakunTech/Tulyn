@@ -27,13 +27,26 @@ export const KunkunFsPermissionSchema = union([
 	literal("fs:stat"),
 	literal("fs:search")
 ])
+export const PermissionScopeSchema = object({ path: optional(string()), url: optional(string()) })
 export type KunkunFsPermission = InferOutput<typeof KunkunFsPermissionSchema>
 export const FsPermissionScopedSchema = object({
 	permission: KunkunFsPermissionSchema,
-	allow: optional(array(object({ path: string() }))),
-	deny: optional(array(object({ path: string() })))
+	allow: optional(array(PermissionScopeSchema)),
+	deny: optional(array(PermissionScopeSchema))
 })
 export type FsPermissionScoped = InferOutput<typeof FsPermissionScopedSchema>
+
+export const OpenPermissionSchema = union([
+	literal("open:url"),
+	literal("open:file"),
+	literal("open:folder")
+])
+export const OpenPermissionScopedSchema = object({
+	permission: OpenPermissionSchema,
+	allow: optional(array(PermissionScopeSchema)),
+	deny: optional(array(PermissionScopeSchema))
+})
+export type OpenPermissionScoped = InferOutput<typeof OpenPermissionScopedSchema>
 
 // export const FsPermissionSchema = union([
 // 	literal("fs:allow-desktop-read-recursive"),
@@ -73,7 +86,11 @@ export const KunkunManifestPermission = union([
 	SystemPermissionSchema
 	// FsScopePermissionSchema
 ])
-export const AllKunkunPermission = union([KunkunManifestPermission, KunkunFsPermissionSchema])
+export const AllKunkunPermission = union([
+	KunkunManifestPermission,
+	KunkunFsPermissionSchema,
+	OpenPermissionSchema
+])
 export type AllKunkunPermission = InferOutput<typeof AllKunkunPermission>
 export type PermissionDescriptions = Record<AllKunkunPermission, string>
 
@@ -121,7 +138,7 @@ export const permissionDescriptions: PermissionDescriptions = {
 		"Allows reading directories from the file system. Permissions to read files not granted, must be declared separately",
 	"fs:write": "Allows writing files to the file system",
 	"fs:exists": "Allows checking if a file exists in the file system",
-	"fs:stat": "Allows getting file metadata from the file system"
+	"fs:stat": "Allows getting file metadata from the file system",
 	/* ---------------------------- File System Scope --------------------------- */
 	// "fs:scope-download-recursive": "Allows reading files from the download directory and its subdirectories",
 	// "fs:allow-desktop-read-recursive":
@@ -142,4 +159,7 @@ export const permissionDescriptions: PermissionDescriptions = {
 	// 	"Allow reading files from the desktop directory and its subdirectories",
 	// "fs:scope-documents-recursive":
 	// 	"Allow reading files from the documents directory and its subdirectories"
+	"open:url": "Open URLs",
+	"open:file": "Open Files",
+	"open:folder": "Open Folders"
 }

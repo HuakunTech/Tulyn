@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { base } from '$app/paths';
 	import { Alert, Button, ThemeWrapper, Command } from '@kksh/svelte';
 	import Calendar from 'lucide-svelte/icons/calendar';
 	import * as jose from 'jose';

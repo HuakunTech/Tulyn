@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schema.kunkun.sh",
+	"$schema": "../../packages/schema/manifest-json-schema.json",
 	"name": "qrcode",
 	"version": "0.0.2",
 	"description": "Jarvis QRCode Extension",
@@ -18,7 +18,18 @@
 			"clipboard:read-text",
 			"clipboard:read-image",
 			"clipboard:write-text",
-			"shell:open"
+			"clipboard:write-image",
+			{
+				"permission": "open:url",
+				"allow": [
+					{
+						"url": "https://**"
+					},
+					{
+						"url": "http://**"
+					}
+				]
+			}
 		],
 		"customUiCmds": [
 			{
@@ -50,7 +61,7 @@
 		"format": "prettier --write ."
 	},
 	"dependencies": {
-		"@kksh/api": "0.0.4-alpha.1",
+		"@kksh/api": "workspace:*",
 		"@kksh/svelte": "0.1.4",
 		"clsx": "^2.1.1",
 		"cross-env": "^7.0.3",

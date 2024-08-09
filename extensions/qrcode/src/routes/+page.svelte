@@ -1,9 +1,10 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import { Button, Input } from '@kksh/svelte';
 	import QR from '$lib/components/QR.svelte';
 	import QRCode from 'easyqrcodejs';
 	import { onMount } from 'svelte';
-	import { shell, clipboard, fs, dialog } from '@kksh/api/ui/iframe';
+	import { clipboard, fs, dialog, open } from '@kksh/api/ui/iframe';
 	import * as v from 'valibot';
 	import {
 		ClipboardCopyIcon,
@@ -105,13 +106,13 @@
 				<pre
 					on:click={() => {
 						if (url.startsWith('http')) {
-							shell.open(url);
+							open.openUrl(url);
 						}
 					}}
 					class="cursor-pointer text-wrap px-3">{url}</pre>
 			</div>
 		{/if}
-		<a href="./detect-qrcode.html">
+		<a href="{base}/detect">
 			<Button size="sm">
 				<SearchIcon class="mr-1 h-4 w-4" />
 				Detect QRCode From Screenshot <LinkIcon class="ml-2 w-4" /></Button

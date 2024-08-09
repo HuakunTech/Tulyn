@@ -160,3 +160,9 @@ export interface IFs {
 	writeTextFile: typeof writeTextFile
 	fileSearch: typeof fileSearch
 }
+
+export interface IOpen {
+	openUrl: (url: string) => Promise<void>
+	openFile: (path: string) => Promise<void>
+	openFolder: (path: string) => Promise<void>
+}

@@ -27,6 +27,7 @@ export {
 export { type IUiIframe } from "../client"
 export { comlinkUI as ui, registerDragRegion } from "../api/iframe-ui"
 export { db, constructJarvisExtDBToServerDbAPI } from "../api/db"
+export { comlinkOpen as open } from "../api/open"
 export { toast } from "../api/toast"
 export { expose, wrap } from "@huakunshen/comlink"
 export { comlinkSystem as system } from "../api/system"

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import jsQR from 'jsqr';
-	import { clipboard, shell } from '@kksh/api/ui/iframe';
+	import { base } from '$app/paths';
+	import { clipboard, open } from '@kksh/api/ui/iframe';
 	import { Button } from '@kksh/svelte';
 	import { ModeWatcher } from 'mode-watcher';
 	import { onMount } from 'svelte';
@@ -51,7 +52,7 @@
 	<div class=" flex grow flex-col items-center justify-center space-y-5">
 		<div class="flex space-x-3">
 			<Button on:click={readScreenshot}>Read QRCode Screenshot From Clipboard</Button>
-			<a href="./">
+			<a href={base}>
 				<Button>Generate QRCode <LinkIcon class="ml-2 w-4" /></Button>
 			</a>
 		</div>
@@ -60,8 +61,12 @@
 			href={detectedCode}
 			on:click={(e) => {
 				e.preventDefault();
-				shell.open(detectedCode);
-			}}>{detectedCode}</a
+				if (detectedCode.startsWith('http')) {
+					open.openUrl(detectedCode);
+				}
+			}}
 		>
+			{detectedCode}
+		</a>
 	</div>
 </main>

@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schema.kunkun.sh",
+	"$schema": "../../packages/schema/manifest-json-schema.json",
 	"name": "kunkun-ext-jwt",
 	"version": "0.0.2",
 	"private": true,
@@ -47,7 +47,7 @@
 		"format": "prettier --write ."
 	},
 	"dependencies": {
-		"@kksh/api": "0.0.4-alpha.1",
+		"@kksh/api": "workspace:*",
 		"@kksh/svelte": "0.1.4",
 		"clsx": "^2.1.1",
 		"cross-env": "^7.0.3",

@@ -18,6 +18,7 @@ export {
 } from "tauri-api-adapter/worker"
 export { comlinkSystem as system } from "../api/system"
 export { comlinkUI as ui } from "../api/worker-ui"
+export { comlinkOpen as open } from "../api/open"
 export { toast } from "../api/toast"
 export { db, constructJarvisExtDBToServerDbAPI } from "../api/db"
 export { WorkerExtension } from "./ext"
