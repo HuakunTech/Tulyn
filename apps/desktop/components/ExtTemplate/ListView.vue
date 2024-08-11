@@ -32,7 +32,7 @@ const props = defineProps<{
 }>()
 
 let isScrolling = false
-let defaultDetailWidth = props.modelValue.detail ? props.modelValue.detail?.width ?? 70 : 0
+let defaultDetailWidth = props.modelValue.detail ? (props.modelValue.detail?.width ?? 70) : 0
 
 function getWorkerExtInputEle(): HTMLInputElement | null {
 	return cmdInputRef.value?.$el.querySelector("input")

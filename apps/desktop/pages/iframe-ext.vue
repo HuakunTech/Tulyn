@@ -52,6 +52,8 @@ const appWin = getCurrentWindow()
 const iframeRef = ref<HTMLIFrameElement | null>(null)
 const extStore = useExtDisplayStore()
 const extUrl = ref<string>()
+const loadedExt = ref<ExtPackageJsonExtra>()
+let allExposedApis: Record<string, any> = {}
 const iframeUiAPI: Omit<
 	IUiIframeServer,
 	"iframeUiStartDragging" | "iframeUiToggleMaximize" | "iframeUiInternalToggleMaximize"
@@ -142,9 +144,8 @@ onMounted(async () => {
 		}
 	}
 	const extPath = parseExtPath.output
-	let loadedExt: ExtPackageJsonExtra
 	try {
-		loadedExt = await loadExtensionManifestFromDisk(await join(extPath, "package.json"))
+		loadedExt.value = await loadExtensionManifestFromDisk(await join(extPath, "package.json"))
 	} catch (error) {
 		console.error("Error loading extension", error)
 		sendNotificationWithPermission("Error loading extension", "")
@@ -154,7 +155,11 @@ onMounted(async () => {
 			return navigateTo(localePath("/"))
 		}
 	}
-	const identifier = loadedExt.kunkun.identifier
+	if (!loadedExt.value) {
+		console.error("No loaded extension")
+		return
+	}
+	const identifier = loadedExt.value.kunkun.identifier
 	if (!identifier || !extUrl.value) {
 		return navigateTo(localePath("/"))
 	}
@@ -168,19 +173,42 @@ onMounted(async () => {
 	}
 	const dbAPI = new db.JarvisExtDB(extInfoInDB.extId)
 	const extDBApi: IDbServer = constructJarvisExtDBToServerDbAPI(dbAPI)
-	if (iframeRef.value && iframeRef.value.contentWindow) {
-		const serverAPI = constructJarvisServerAPIWithPermissions(loadedExt.kunkun.permissions)
-		console.log("serverAPI", serverAPI)
-
-		exposeApiToWindow(iframeRef.value.contentWindow as Window, {
-			...serverAPI,
-			...iframeUiAPI,
-			...extDBApi
-		})
-	} else {
-		console.error("iframeRef not available")
+	const serverAPI = constructJarvisServerAPIWithPermissions(loadedExt.value.kunkun.permissions)
+	allExposedApis = {
+		...serverAPI,
+		...iframeUiAPI,
+		...extDBApi
 	}
+	exposeAPIsToIframe()
+	window.addEventListener("message", (event) => {
+		if (event.data.type === "RELEASE") {
+			console.count("comlink release, will re-expose APIs")
+			exposeAPIsToIframe()
+		}
+	})
 })
+
+/**
+ * When extension iframe is in production mode, it loads very fast.
+ * iframeRef.value may be null when iframe is loaded, so we manually get the iframe element with document API.
+ */
+function getTheOnlyIframe() {
+	return document.querySelector("iframe")
+}
+
+async function exposeAPIsToIframe() {
+	// console.log("exposing apis to iframe")
+	const iframeEle = getTheOnlyIframe()
+	// console.log("iframeEle", iframeEle, iframeEle?.contentWindow)
+
+	if (iframeRef.value && iframeRef.value.contentWindow) {
+		exposeApiToWindow(iframeRef.value.contentWindow, allExposedApis)
+	} else if (iframeEle) {
+		exposeApiToWindow(iframeEle.contentWindow!, allExposedApis)
+	} else {
+		console.error("iframeRef not available", document.querySelector("iframe"))
+	}
+}
 
 function onIframeLoad() {
 	setTimeout(() => {
@@ -296,8 +324,3 @@ function onBackBtnClicked() {
 		<FunDance v-if="!ui.iframeLoaded" class="-z-30" />
 	</main>
 </template>
-<style>
-body {
-	/* background-color: transparent; */
-}
-</style>
