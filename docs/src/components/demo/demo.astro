@@ -1,0 +1,9 @@
+---
+import SvelteCmdDemo from "./svelte/command.svelte";
+import VueCmdDemo from "./vue/command.vue";
+import ReactCmdDemo from "./react/command.tsx";
+---
+
+<SvelteCmdDemo client:only="svelte" />
+<VueCmdDemo client:only="vue" />
+<ReactCmdDemo client:only="react" />

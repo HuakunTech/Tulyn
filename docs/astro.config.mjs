@@ -1,83 +1,81 @@
-import react from "@astrojs/react"
-import starlight from "@astrojs/starlight"
-import svelte from "@astrojs/svelte"
-// import d2 from "astro-d2";
-import tailwind from "@astrojs/tailwind"
-import vue from "@astrojs/vue"
-import { defineConfig } from "astro/config"
-import { visualizer } from "rollup-plugin-visualizer"
+import { defineConfig } from "astro/config";
+import starlight from "@astrojs/starlight";
+import tailwind from "@astrojs/tailwind";
+import vue from "@astrojs/vue";
+import svelte from "@astrojs/svelte";
+
+import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [
     starlight({
       title: "Kunkun",
-      customCss: ["./src/tailwind.css"],
-      // tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 2 },
       lastUpdated: true,
       logo: {
-        src: "./src/assets/kunkun-logo-gray.svg"
-      },
-      components: {
-        Header: "./src/components/overrides/Header.astro"
+        // src: "./src/assets/kunkun-logo-gray.svg"
+        light: "./src/assets/kunkun-logo.svg",
+        dark: "./src/assets/kunkun-logo-inverted.svg",
       },
       social: {
         github: "https://github.com/HuakunTech/kunkun",
-        discord: "https://discord.gg/bvf6GwxKWX"
+        discord: "https://discord.gg/bvf6GwxKWX",
       },
+      components: {
+        // ThemeSelect: "./src/components/overrides/ThemeSelect.astro", // no longer needed, imported in Header.astro
+        Header: "./src/components/overrides/Header.astro",
+      },
+
+      customCss: ["./src/tailwind.css"],
       sidebar: [
         {
           label: "Guides",
           autogenerate: {
-            directory: "guides"
-          }
+            directory: "guides",
+          },
         },
         {
           label: "Development",
           autogenerate: {
-            directory: "development"
+            directory: "development",
           },
-          collapsed: true
+          collapsed: true,
         },
         {
           label: "Extensions",
           autogenerate: {
-            directory: "extensions"
+            directory: "extensions",
           },
-          collapsed: true
+          collapsed: true,
         },
         {
           label: "Developer",
           autogenerate: {
-            directory: "developer"
+            directory: "developer",
           },
-          collapsed: true
+          collapsed: true,
         },
         {
           label: "Reference",
           autogenerate: {
-            directory: "reference"
+            directory: "reference",
           },
-          collapsed: true
+          collapsed: true,
         },
         {
           label: "Blog",
           autogenerate: {
-            directory: "blog"
+            directory: "blog",
           },
-          collapsed: true
-        }
-      ]
+          collapsed: true,
+        },
+      ],
     }),
-    // d2(),
     tailwind({
-      applyBaseStyles: false
+      applyBaseStyles: false,
     }),
     vue(),
+    svelte(),
     react(),
-    svelte()
   ],
-  vite: {
-    plugins: [visualizer()]
-  }
-})
+});

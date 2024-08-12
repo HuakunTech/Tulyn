@@ -4,12 +4,14 @@ import LanguageSelect from '@astrojs/starlight/components/LanguageSelect.astro';
 import Search from '@astrojs/starlight/components/Search.astro';
 import SiteTitle from './SiteTitle.astro';
 import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
-import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
-import PostHog from "../posthog.astro";
-import GoogleAnalytics from '../google-analytics.astro';
+import ThemeSelect from './ThemeSelect.astro';
+import VtbotStarlight from 'astro-vtbot/components/starlight/Base.astro';
+// import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
+import PostHog from "../analytics/posthog.astro";
+import GoogleAnalytics from '../analytics/google-analytics.astro';
+import SyncThemeVue from '@/components/theme/sync-theme.vue'
 
 const curLocale = Astro.props.locale;
-
 
 type Link = {
 	title: string;
@@ -40,34 +42,46 @@ const links: Link[] = [
 	},
 ];
 ---
+
+<!-- <script>
+import { syncThemeClass } from "@/utils/theme";
+
+syncThemeClass()
+
+</script> -->
+
 <head>
 	<PostHog />
 	<GoogleAnalytics />
 </head>
-<div class="header sl-flex">
-	<div class="full-width sl-flex">
-		<SiteTitle {...Astro.props} />
-	</div>
-	<div class="sl-flex">
-		<Search {...Astro.props} />
-	</div>
-	<div class="sl-hidden md:sl-flex right-group">
-		<div class="desktop">
-			{
-				links.map((link) => (
-					<a href={link.transfer && curLocale ? `/${curLocale}${link.value}` : link.value}>
-						{link.title}
-					</a>
-				))
-			}
+<!-- <SyncThemeVue client:only="vue" /> -->
+<!-- <VtbotStarlight {...Astro.props} transition:animate="fade"> -->
+	<div class="header sl-flex">
+		<div class="full-width sl-flex">
+			<SiteTitle {...Astro.props} />
 		</div>
-		<div class="sl-flex social-icons">
-			<SocialIcons {...Astro.props} />
+		<div class="sl-flex">
+			<Search {...Astro.props} />
 		</div>
-		<ThemeSelect {...Astro.props} />
-		<LanguageSelect {...Astro.props} />
+		<!-- <h1>Hello from header</h1> -->
+		<div class="sl-hidden md:sl-flex right-group">
+			<div class="desktop">
+				{
+					links.map((link) => (
+						<a href={link.transfer && curLocale ? `/${curLocale}${link.value}` : link.value}>
+							{link.title}
+						</a>
+					))
+				}
+			</div>
+			<div class="sl-flex social-icons">
+				<SocialIcons {...Astro.props} />
+			</div>
+			<ThemeSelect {...Astro.props} />
+			<LanguageSelect {...Astro.props} />
+		</div>
 	</div>
-</div>
+<!-- </VtbotStarlight> -->
 
 <style>
 	.header {

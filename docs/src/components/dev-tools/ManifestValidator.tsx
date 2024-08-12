@@ -88,8 +88,6 @@ export default function SchemaValidatorEditor() {
   }
 
   const handleEditorDidMount: OnMount = (editor, monaco) => {
-    console.log("editorDidMount", editor, monaco)
-
     monacoRef.current = monaco
     monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
       enableSchemaRequest: true,
