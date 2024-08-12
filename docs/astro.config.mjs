@@ -39,35 +39,35 @@ export default defineConfig({
           autogenerate: {
             directory: "development",
           },
-          collapsed: true,
+          collapsed: false,
         },
         {
           label: "Extensions",
           autogenerate: {
             directory: "extensions",
           },
-          collapsed: true,
+          collapsed: false,
         },
         {
           label: "Developer",
           autogenerate: {
             directory: "developer",
           },
-          collapsed: true,
+          collapsed: false,
         },
         {
           label: "Reference",
           autogenerate: {
             directory: "reference",
           },
-          collapsed: true,
+          collapsed: false,
         },
         {
           label: "Blog",
           autogenerate: {
             directory: "blog",
           },
-          collapsed: true,
+          collapsed: false,
         },
       ],
     }),

@@ -15,7 +15,11 @@ In the future, KK will be published to package managers and a website will also 
 
 ## Supported Platforms
 
-KK is designed to be cross-platform, it supports Windows, macOS, and Linux.
+KK is designed to be cross-platform. It not only supports Windows and MacOS, but also Linux.
+
+Linux is usually ignored by app developers as it has a small market share. 
+
+However, as a developer myself, I admire the open source spirit of Linux and I want to make KK available to Linux users.
 
 ## Extensions
 
@@ -29,7 +33,7 @@ Building extensions in KK is a breeze. Each extension is a lightweight JavaScrip
 
 ### Lightweight Champions
 
-KK extensions are designed to be featherweights, typically clocking in at a mere 40-200KB (even with UI libraries). Compare that to traditional desktop apps (often in the megabyte range) or Electron apps (sometimes exceeding 100MB). For tasks like image editing, document searching, file/video convertsions, a full-blown app is overkill. KK extensions provide a streamlined solution within your existing workflow.
+KK extensions are designed to be featherweights, typically clocking in at a mere 40-200KB (even with UI libraries). Compare that to traditional desktop apps (often in the megabyte range) or Electron apps (sometimes exceeding 100MB). For simple tasks like document searching, file/video convertsions, a full-blown app is overkill. KK extensions provide a streamlined solution within your existing workflow.
 
 ### Write Once, Run Everywhere
 

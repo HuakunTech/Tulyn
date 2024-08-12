@@ -254,11 +254,19 @@ After the extension is ready, you need to pack it and verify that it can be load
 
 ## Publish
 
-For now, KK doesn't have a website like Raycast for extensions. 
+For now, KK doesn't have a website like Raycast for extensions. I will implement a simple store in the near future.
 
-You can send a PR to [`KunkunExtensions`](https://github.com/HuakunTech/kunkunExtensions) repo to add your extension. 
+Currently, for security reason, extensions are expected to be open sourced. 
 
-Once your PR is merged, your extension will be compiled in a isolated environment with docker and uploaded to the store.
+For now, for simplicity, you can fork [`KunkunExtensions`](https://github.com/kunkunsh/KunkunExtensions) repo and send a PR to add your extension. 
+
+Once your PR is merged, your extension will be compiled in CI within a isolated environment with docker and uploaded to the store.
+
+:::tip
+Later I plan to implement better extension publishing system that allows developers to use their own GitHub repo directly, and [`KunkunExtensions`](https://github.com/kunkunsh/KunkunExtensions)
+will be a mirror of all extensions to make sure the published extensions always have source code available for review.
+:::
+
 
 ## Notes
 

@@ -1,0 +1,32 @@
+---
+title: Component Library
+---
+
+KK supports turning any static website into an extension.
+
+However, if you are building a custom UI extension from scratch it is recommended to use
+KK's Component Library to keep the UI styling consistent with KK's design.
+
+To keep the style consistent across different frameworks, KK uses TailwindCSS + Shadcn.
+
+Shadcn has ports for multiple popular frontend frameworks. For now, KK supports React, Vue, and Svelte.
+
+Shadcn adds component source code to your project, so you can customize the component as you like,
+but I want to make it easy for developers to use the components without worrying about dealing with the component files.
+
+So I created component libraries wrapping Shadcn components for React, Vue, and Svelte so you can import components directly.
+
+:::note
+Since the component libraries are just wrappers around Shadcn components, the usage is pretty much exactly the same.
+I won't build a full documentation for each library. A few examples are provided for each library in the following pages.
+
+To see the full list of components, please refer to the Shadcn documentation.
+
+- [Shadcn React](https://ui.shadcn.com/)
+- [Shadcn Vue](https://www.shadcn-vue.com/)
+- [Shadcn Svelte](https://www.shadcn-svelte.com/)
+:::
+
+:::tip
+If you use the KK's provided scaffolding CLI [**create-kunkun**](https://www.npmjs.com/package/create-kunkun) to create a new project, the component libraries are already installed and ready to use.
+:::
