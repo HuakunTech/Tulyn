@@ -34,7 +34,7 @@ import {
 	type FsPermissionScoped,
 	type KunkunFsPermission,
 	type SystemPermission
-} from "../api/permissions"
+} from "../../permissions"
 import type { IDb, IFs, ISystem, IToast, IUiIframe, IUiWorker } from "../client"
 
 export interface ISystemServer {

@@ -18,7 +18,7 @@ import {
 	KunkunFsPermissionSchema,
 	KunkunManifestPermission,
 	OpenPermissionScopedSchema
-} from "../ui/api/permissions"
+} from "../permissions"
 import { Icon } from "./icon"
 
 export enum OSPlatformEnum {

@@ -21,3 +21,21 @@ export { type IUiWorkerServer, type IUiIframeServer } from "./server/ui"
 export * from "./client" // all client types
 export { expose, wrap } from "@huakunshen/comlink"
 export { getWorkerApiClient, exposeApiToWorker, exposeApiToWindow } from "tauri-api-adapter"
+
+/* -------------------------------------------------------------------------- */
+/*                               API Interfaces                               */
+/* -------------------------------------------------------------------------- */
+export type {
+	IClipboard,
+	IDialog,
+	IFs,
+	ILogger,
+	INetwork,
+	INotification,
+	IOs,
+	IPath,
+	IShell,
+	ISystemInfo,
+	IUpdownload,
+	IFetch
+} from "tauri-api-adapter"

@@ -954,8 +954,8 @@ importers:
         specifier: ^0.36.0
         version: 0.36.0(rollup@4.20.0)(typescript@5.5.4)
       tauri-api-adapter:
-        specifier: 0.1.1
-        version: 0.1.1(@huakunshen/comlink@4.4.1)(@tauri-apps/api@2.0.0-rc.0)(@tauri-apps/plugin-dialog@2.0.0-beta.3)(@tauri-apps/plugin-fs@2.0.0-beta.3)(@tauri-apps/plugin-http@2.0.0-beta.3)(@tauri-apps/plugin-log@2.0.0-beta.4)(@tauri-apps/plugin-notification@2.0.0-beta.3)(@tauri-apps/plugin-os@2.0.0-beta.7)(@tauri-apps/plugin-shell@2.0.0-rc.0)(@tauri-apps/plugin-upload@2.0.0-beta.4)(tauri-plugin-clipboard-api@2.1.6(valibot@0.36.0))(tauri-plugin-network-api@vendors+tauri-plugin-network)(tauri-plugin-shellx-api@2.0.8)(tauri-plugin-system-info-api@vendors+tauri-plugin-system-info)(typescript@5.5.4)(valibot@0.36.0)
+        specifier: 0.1.3
+        version: 0.1.3(@huakunshen/comlink@4.4.1)(@tauri-apps/api@2.0.0-rc.0)(@tauri-apps/plugin-dialog@2.0.0-beta.3)(@tauri-apps/plugin-fs@2.0.0-beta.3)(@tauri-apps/plugin-http@2.0.0-beta.3)(@tauri-apps/plugin-log@2.0.0-beta.4)(@tauri-apps/plugin-notification@2.0.0-beta.3)(@tauri-apps/plugin-os@2.0.0-beta.7)(@tauri-apps/plugin-shell@2.0.0-rc.0)(@tauri-apps/plugin-upload@2.0.0-beta.4)(tauri-plugin-clipboard-api@2.1.6(valibot@0.36.0))(tauri-plugin-network-api@vendors+tauri-plugin-network)(tauri-plugin-shellx-api@2.0.8)(tauri-plugin-system-info-api@vendors+tauri-plugin-system-info)(typescript@5.5.4)(valibot@0.36.0)
       tauri-plugin-network-api:
         specifier: workspace:*
         version: link:../../vendors/tauri-plugin-network
@@ -11441,8 +11441,8 @@ packages:
     resolution: {integrity: sha512-5S7Va8hKfV7W5U6g3aYxXmlPoZVAwUMy9AOKyF2fVuZa2UD3qZjg578OrLRt8PcNN1PleVaL/5/yYATNL0ICUw==}
     engines: {node: '>=18'}
 
-  tauri-api-adapter@0.1.1:
-    resolution: {integrity: sha512-uTzoSQBL337nZ70AIjMD3Qn8CkLiJmjSBa6o62NoKqxlmVyoLiBKDKyswX35JZTtwCi0OFi9gZI2kwfcGXoqCg==}
+  tauri-api-adapter@0.1.3:
+    resolution: {integrity: sha512-ipg832RnXjnaSEitovnOkjn4eJyCNh0h2xwvcaRLDyDkr5vKpsbS3NXREshf1om+YrM2tWMSuSCmXCQvdQuWTA==}
     peerDependencies:
       '@huakunshen/comlink': ^4.4.1
       '@tauri-apps/api': ~2.0.0-rc.0
@@ -25483,7 +25483,7 @@ snapshots:
       mkdirp: 3.0.1
       yallist: 5.0.0
 
-  tauri-api-adapter@0.1.1(@huakunshen/comlink@4.4.1)(@tauri-apps/api@2.0.0-rc.0)(@tauri-apps/plugin-dialog@2.0.0-beta.3)(@tauri-apps/plugin-fs@2.0.0-beta.3)(@tauri-apps/plugin-http@2.0.0-beta.3)(@tauri-apps/plugin-log@2.0.0-beta.4)(@tauri-apps/plugin-notification@2.0.0-beta.3)(@tauri-apps/plugin-os@2.0.0-beta.7)(@tauri-apps/plugin-shell@2.0.0-rc.0)(@tauri-apps/plugin-upload@2.0.0-beta.4)(tauri-plugin-clipboard-api@2.1.6(valibot@0.36.0))(tauri-plugin-network-api@vendors+tauri-plugin-network)(tauri-plugin-shellx-api@2.0.8)(tauri-plugin-system-info-api@vendors+tauri-plugin-system-info)(typescript@5.5.4)(valibot@0.36.0):
+  tauri-api-adapter@0.1.3(@huakunshen/comlink@4.4.1)(@tauri-apps/api@2.0.0-rc.0)(@tauri-apps/plugin-dialog@2.0.0-beta.3)(@tauri-apps/plugin-fs@2.0.0-beta.3)(@tauri-apps/plugin-http@2.0.0-beta.3)(@tauri-apps/plugin-log@2.0.0-beta.4)(@tauri-apps/plugin-notification@2.0.0-beta.3)(@tauri-apps/plugin-os@2.0.0-beta.7)(@tauri-apps/plugin-shell@2.0.0-rc.0)(@tauri-apps/plugin-upload@2.0.0-beta.4)(tauri-plugin-clipboard-api@2.1.6(valibot@0.36.0))(tauri-plugin-network-api@vendors+tauri-plugin-network)(tauri-plugin-shellx-api@2.0.8)(tauri-plugin-system-info-api@vendors+tauri-plugin-system-info)(typescript@5.5.4)(valibot@0.36.0):
     dependencies:
       '@huakunshen/comlink': 4.4.1
       '@tauri-apps/api': 2.0.0-rc.0

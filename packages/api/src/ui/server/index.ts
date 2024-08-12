@@ -30,17 +30,18 @@ import {
 	type KunkunFsPermission,
 	type OpenPermissionScoped,
 	type SystemPermission
-} from "../api/permissions"
+} from "../../permissions"
 import type { IDbServer } from "./db"
 import { constructEventApi } from "./event"
-import { constructFsApi, type IFsServer } from "./fs"
+import { constructFsApi } from "./fs"
 import { constructOpenApi } from "./open"
 import { constructSystemApi, type ISystemServer } from "./system"
 import { constructToastApi, type IToastServer } from "./toast"
 import { constructIframeUiApi, type IUiIframeServer, type IUiWorkerServer } from "./ui"
+import type { IFsServer } from "./server-types"
 
 export type { IDbServer } from "./db"
-export { constructFsApi, type IFsServer } from "./fs"
+export { constructFsApi } from "./fs"
 export { constructSystemApi, type ISystemServer } from "./system"
 export { constructToastApi, type IToastServer } from "./toast"
 export { constructIframeUiApi, type IUiIframeServer, type IUiWorkerServer } from "./ui"

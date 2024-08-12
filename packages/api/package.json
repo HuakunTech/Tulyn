@@ -33,10 +33,10 @@
 			"require": "./dist/commands/index.cjs",
 			"types": "./dist/commands/index.d.ts"
 		},
-		"./ui/permissions": {
-			"import": "./dist/ui/api/permissions.js",
-			"require": "./dist/ui/api/permissions.cjs",
-			"types": "./dist/ui/api/permissions.d.ts"
+		"./permissions": {
+			"import": "./dist/permissions/index.js",
+			"require": "./dist/permissions/index.cjs",
+			"types": "./dist/permissions/index.d.ts"
 		},
 		"./dev": {
 			"import": "./dist/dev/index.js",
@@ -88,7 +88,7 @@
 		"minimatch": "^10.0.1",
 		"rollup": "^4.9.6",
 		"rollup-plugin-typescript2": "^0.36.0",
-		"tauri-api-adapter": "0.1.1",
+		"tauri-api-adapter": "0.1.3",
 		"tauri-plugin-network-api": "workspace:*",
 		"tauri-plugin-system-info-api": "workspace:*",
 		"vue-sonner": "^1.1.3"

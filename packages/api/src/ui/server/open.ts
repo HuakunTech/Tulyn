@@ -2,7 +2,7 @@ import { exists, stat } from "@tauri-apps/plugin-fs"
 import { minimatch } from "minimatch"
 import { open } from "tauri-plugin-shellx-api"
 import { flatten, parse, pipe, safeParse, string, url, type InferOutput } from "valibot"
-import type { OpenPermissionScoped } from "../api/permissions"
+import type { OpenPermissionScoped } from "../../permissions"
 import type { IOpen } from "../client"
 
 const UrlSchema = pipe(string("A URL must be string."), url("The URL is badly formatted."))

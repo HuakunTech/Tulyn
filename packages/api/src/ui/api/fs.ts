@@ -19,7 +19,7 @@ import {
 import { getDefaultClientAPI, isMain } from "tauri-api-adapter"
 import { fileSearch } from "../../commands/fileSearch"
 import type { IFs } from "../client"
-import type { IFsServer } from "../server"
+import type { IFsServer } from "../server/server-types"
 
 // BaseDirectory.
 export function constructAPI(api: Remote<IFsServer>): IFs {

@@ -29,31 +29,14 @@ import {
 } from "@tauri-apps/plugin-fs"
 import { minimatch } from "minimatch"
 import { fileSearch, FileSearchParams } from "../../commands/fileSearch"
+import { FsPermissionMap } from "../../permissions/permission-map"
 import {
 	AllKunkunPermission,
 	type FsPermissionScoped,
 	type KunkunFsPermission,
 	type SystemPermission
-} from "../api/permissions"
-import type { IDb, IFs, ISystem, IToast, IUiIframe, IUiWorker } from "../client"
-
-export interface IFsServer {
-	fsReadDir: IFs["readDir"]
-	fsReadFile: IFs["readFile"]
-	fsReadTextFile: IFs["readTextFile"]
-	fsStat: IFs["stat"]
-	fsLstat: IFs["lstat"]
-	fsExists: IFs["exists"]
-	fsMkdir: IFs["mkdir"]
-	fsCreate: IFs["create"]
-	fsCopyFile: IFs["copyFile"]
-	fsRemove: IFs["remove"]
-	fsRename: IFs["rename"]
-	fsTruncate: IFs["truncate"]
-	fsWriteFile: IFs["writeFile"]
-	fsWriteTextFile: IFs["writeTextFile"]
-	fsFileSearch: IFs["fileSearch"]
-}
+} from "../../permissions/schema"
+import type { IFsServer } from "./server-types"
 
 export const mapDirAliasToDirFn: Record<string, () => Promise<string>> = {
 	$DESKTOP: pathAPI.desktopDir,
@@ -113,24 +96,6 @@ async function matchPathAndScope(target: string, scope: string): Promise<boolean
 	return minimatch(target, translatedScope)
 }
 
-export const fsRequiredPermissionMap: Record<keyof IFsServer, KunkunFsPermission[]> = {
-	fsReadDir: ["fs:read", "fs:read-dir"],
-	fsReadFile: ["fs:read"],
-	fsReadTextFile: ["fs:read"],
-	fsStat: ["fs:stat", "fs:read"],
-	fsLstat: ["fs:stat", "fs:read"],
-	fsExists: ["fs:exists", "fs:read"],
-	fsMkdir: ["fs:write"],
-	fsCreate: ["fs:write"],
-	fsCopyFile: ["fs:write"],
-	fsRemove: ["fs:write"],
-	fsRename: ["fs:write"],
-	fsTruncate: ["fs:write"],
-	fsWriteFile: ["fs:write"],
-	fsWriteTextFile: ["fs:write"],
-	fsFileSearch: ["fs:search"]
-}
-
 async function verifyPermission(
 	requiredPermissions: KunkunFsPermission[],
 	userPermissionScopes: FsPermissionScoped[],
@@ -188,14 +153,14 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFsServer {
 			) as ReturnType<T>
 	}
 	return {
-		fsReadDir: createMethod(fsRequiredPermissionMap.fsReadDir, fsReadDir),
-		fsReadFile: createMethod(fsRequiredPermissionMap.fsReadFile, fsReadFile),
-		fsReadTextFile: createMethod(fsRequiredPermissionMap.fsReadTextFile, fsReadTextFile),
-		fsStat: createMethod(fsRequiredPermissionMap.fsStat, fsStat),
-		fsLstat: createMethod(fsRequiredPermissionMap.fsLstat, fsLstat),
-		fsExists: createMethod(fsRequiredPermissionMap.fsExists, fsExists),
-		fsMkdir: createMethod(fsRequiredPermissionMap.fsMkdir, fsMkdir),
-		fsCreate: createMethod(fsRequiredPermissionMap.fsCreate, fsCreate),
+		fsReadDir: createMethod(FsPermissionMap.fsReadDir, fsReadDir),
+		fsReadFile: createMethod(FsPermissionMap.fsReadFile, fsReadFile),
+		fsReadTextFile: createMethod(FsPermissionMap.fsReadTextFile, fsReadTextFile),
+		fsStat: createMethod(FsPermissionMap.fsStat, fsStat),
+		fsLstat: createMethod(FsPermissionMap.fsLstat, fsLstat),
+		fsExists: createMethod(FsPermissionMap.fsExists, fsExists),
+		fsMkdir: createMethod(FsPermissionMap.fsMkdir, fsMkdir),
+		fsCreate: createMethod(FsPermissionMap.fsCreate, fsCreate),
 		fsCopyFile: (fromPath: string | URL, toPath: string | URL, options?: CopyFileOptions) => {
 			return fsStat(fromPath)
 				.then((oldPathStat) => {
@@ -214,7 +179,7 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFsServer {
 				})
 				.then(() => fsCopyFile(fromPath, toPath, options))
 		},
-		fsRemove: createMethod(fsRequiredPermissionMap.fsRemove, fsRemove),
+		fsRemove: createMethod(FsPermissionMap.fsRemove, fsRemove),
 		fsRename: async (oldPath: string | URL, newPath: string | URL, options?: RenameOptions) => {
 			return fsStat(oldPath)
 				.then((oldPathStat) => {
@@ -234,15 +199,15 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFsServer {
 				.then(() => fsRename(oldPath, newPath, options))
 		},
 		fsTruncate: (path: string | URL, len?: number, options?: TruncateOptions) =>
-			verifyPermission(fsRequiredPermissionMap.fsTruncate, permissions, path, options).then(() =>
+			verifyPermission(FsPermissionMap.fsTruncate, permissions, path, options).then(() =>
 				fsTruncate(path, len, options)
 			),
 		fsWriteFile: (path: string | URL, data: Uint8Array, options?: WriteFileOptions) =>
-			verifyPermission(fsRequiredPermissionMap.fsTruncate, permissions, path, options).then(() =>
+			verifyPermission(FsPermissionMap.fsTruncate, permissions, path, options).then(() =>
 				fsWriteFile(path, data, options)
 			),
 		fsWriteTextFile: (path: string | URL, data: string, options?: WriteFileOptions) =>
-			verifyPermission(fsRequiredPermissionMap.fsTruncate, permissions, path, options).then(() =>
+			verifyPermission(FsPermissionMap.fsTruncate, permissions, path, options).then(() =>
 				fsWriteTextFile(path, data, options)
 			),
 		fsFileSearch: (
@@ -254,7 +219,7 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFsServer {
 			return Promise.all(
 				// TODO: first verify all search locations are allowed, for now, recursive search is allowed even if scope allows one level only
 				searchParams.locations.map((loc) =>
-					verifyPermission(fsRequiredPermissionMap.fsFileSearch, permissions, loc)
+					verifyPermission(FsPermissionMap.fsFileSearch, permissions, loc)
 				)
 			).then(() => fileSearch(searchParams))
 		}

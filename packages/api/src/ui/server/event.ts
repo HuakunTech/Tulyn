@@ -5,7 +5,7 @@
  * only exposes a limited set of events.
  */
 import { listen, TauriEvent } from "@tauri-apps/api/event"
-import type { EventPermission } from "../api/permissions"
+import type { EventPermission } from "../../permissions"
 import type { DragDropPayload, DragEnterPayload, DragOverPayload, IEvent } from "../client"
 
 export interface IEventServer {

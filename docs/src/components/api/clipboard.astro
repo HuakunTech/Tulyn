@@ -1,18 +1,16 @@
 ---
-import { permissionDescriptions } from "@kksh/api/ui/permissions"
+import { permissionDescriptions } from "@kksh/api/permissions"
 import { clipboard } from "@kksh/api/ui/worker"
 
 const methodNames = Object.keys(clipboard)
 // const permissions = Object.entries(permissionDescriptions)
-
 ---
 
 <!-- <pre>{JSON.stringify(permissionDescriptions, null, 2)}</pre> -->
-
-{
+<!-- {
 	methodNames.map((name) => (
 		<li>
-			<code>{name}</code>: <span>{permissionDescriptions[name]}</span>
+			<code>{name}</code>: <span>{(permissionDescriptions[name]) ?? ""}</span>
 		</li>
 	))
-}
+} -->
