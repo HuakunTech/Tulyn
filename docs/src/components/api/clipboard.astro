@@ -7,10 +7,12 @@ import { ClipboardPermissionMap } from "@kksh/api/permissions"
 		Object.entries(ClipboardPermissionMap).map(([methodName, permissions]) => (
 			<li>
 				<code class="">{methodName}</code>:
-				<span class="space-x-1">
+				<span class="gap-1">
+					[
 					{permissions.map((p) => (
 						<code>{p}</code><span> </span>
 					))}
+					]
 				</span>
 			</li>
 		))

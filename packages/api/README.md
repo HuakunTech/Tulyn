@@ -1,24 +1,43 @@
 # @kksh/api
 
-[Kunkun API](https://www.npmjs.com/package/@kksh/api) is an NPM package designed for developers to create extensions for Jarvis.
+![NPM Version](https://img.shields.io/npm/v/%40kksh%2Fapi)
+
+[Kunkun API](https://www.npmjs.com/package/@kksh/api) is an NPM package designed for developers to create extensions for Kunkun.
 
 `@kksh/api` provides a set of APIs for extensions to interact with Kunkun and System APIs. The APIs include:
 
-- Clipboard API: read and write clipboard
-- System API: get system information
-- Shell API: run shell command
-- File System API: access file system
-- Notification API: show notification
-- Dialog API: show dialog, interact with user
+- Clipboard
+- Database
+- Dialog
+- Event
+- Fetch
+- File System
+- Logger
+- Network
+- Notification
+- Open
+- OS
+- Path
+- Shell
+- System Info
+- System Commands
+- Toast
+- UI
 - etc.
 
-Read more details in documentation at https://docs.kunkun.sh
+Read more details in documentation at https://docs.kunkun.sh,
+and generated docs at https://docs.api.kunkun.sh/
 
 ## Dev
 
 ### Dependency Graph
 
+To detect circular dependencies
+
 ```bash
-p madge ./src/ui/worker/index.ts --circular # detect circular dependencies
+pnpm madge ./src/ui/worker/index.ts --circular # detect circular dependencies
 pnpm dep-tree ./src/ui/worker/index.ts
+
+
+pnpm test # this will detect circular dependencies in all files
 ```

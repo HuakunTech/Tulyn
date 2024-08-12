@@ -1,12 +1,19 @@
 ---
-import { os } from "@kksh/api/ui/worker"
+import { OsPermissionMap } from "@kksh/api/permissions"
 ---
 
 <ul>
 	{
-		Object.keys(os).map((methodName) => (
+		Object.entries(OsPermissionMap).map(([methodName, permissions]) => (
 			<li>
-				<code>{methodName}</code>
+				<code class="">{methodName}</code>:
+				<span class="gap-1">
+					[
+					{permissions.map((p) => (
+						<code>{p}</code><span> </span>
+					))}
+					]
+				</span>
 			</li>
 		))
 	}
