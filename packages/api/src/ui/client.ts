@@ -181,11 +181,32 @@ export type DragOverPayload = {
 }
 
 export interface IEvent {
+	/**
+	 * Get files dropped on the window
+	 */
 	onDragDrop: (callback: (payload: DragDropPayload) => void) => void
+	/**
+	 * Listen to drag enter event, when mouse drag enters the window
+	 */
 	onDragEnter: (callback: (payload: DragEnterPayload) => void) => void
+	/**
+	 * Listen to drag leave event, when mouse drag leaves the window
+	 */
 	onDragLeave: (callback: () => void) => void
+	/**
+	 * Get the position of the dragged item
+	 */
 	onDragOver: (callback: (payload: DragOverPayload) => void) => void
+	/**
+	 * Listen to window blur (defocus) event
+	 */
 	onWindowBlur: (callback: () => void) => void
+	/**
+	 * Listen to window close request event
+	 */
 	onWindowCloseRequested: (callback: () => void) => void
+	/**
+	 * Listen to window on focus event
+	 */
 	onWindowFocus: (callback: () => void) => void
 }

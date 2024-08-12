@@ -18,52 +18,65 @@ export interface IEventServer {
 	eventOnWindowFocus: IEvent["onWindowFocus"]
 }
 
-function checkPermission(permissions: EventPermission[], permission: EventPermission) {
-	if (!permissions.includes(permission)) {
-		throw new Error(`${permission} permission is required`)
+function checkPermission(
+	userPermissions: EventPermission[],
+	requiredPermissions: EventPermission[]
+) {
+	if (!requiredPermissions.some((p) => userPermissions.includes(p))) {
+		throw new Error(`${requiredPermissions.join(" or ")} permission is required`)
 	}
+}
+
+export const eventRequiredPermissionMap: Record<keyof IEventServer, EventPermission[]> = {
+	eventOnDragDrop: ["event:drag-drop"],
+	eventOnDragEnter: ["event:drag-enter"],
+	eventOnDragLeave: ["event:drag-leave"],
+	eventOnDragOver: ["event:drag-over"],
+	eventOnWindowBlur: ["event:window-blur"],
+	eventOnWindowCloseRequested: ["event:window-close-requested"],
+	eventOnWindowFocus: ["event:window-focus"]
 }
 
 export function constructEventApi(permissions: EventPermission[]): IEventServer {
 	return {
 		eventOnDragDrop: (callback) => {
-			checkPermission(permissions, "event:drag-drop")
+			checkPermission(permissions, eventRequiredPermissionMap.eventOnDragDrop)
 			listen<DragDropPayload>(TauriEvent.DRAG_DROP, (e) => {
 				callback(e.payload)
 			})
 		},
 		eventOnDragEnter: (callback) => {
-			checkPermission(permissions, "event:drag-enter")
+			checkPermission(permissions, eventRequiredPermissionMap.eventOnDragEnter)
 			listen<DragEnterPayload>(TauriEvent.DRAG_ENTER, (e) => {
 				callback(e.payload)
 			})
 		},
 		eventOnDragLeave: (callback) => {
-			checkPermission(permissions, "event:drag-leave")
+			checkPermission(permissions, eventRequiredPermissionMap.eventOnDragLeave)
 			listen<null>(TauriEvent.DRAG_LEAVE, (e) => {
 				callback()
 			})
 		},
 		eventOnDragOver: (callback) => {
-			checkPermission(permissions, "event:drag-over")
+			checkPermission(permissions, eventRequiredPermissionMap.eventOnDragOver)
 			listen<DragOverPayload>(TauriEvent.DRAG_OVER, (e) => {
 				callback(e.payload)
 			})
 		},
 		eventOnWindowBlur: (callback) => {
-			checkPermission(permissions, "event:window-blur")
+			checkPermission(permissions, eventRequiredPermissionMap.eventOnWindowBlur)
 			listen<null>(TauriEvent.WINDOW_BLUR, (e) => {
 				callback()
 			})
 		},
 		eventOnWindowCloseRequested: (callback) => {
-			checkPermission(permissions, "event:window-close-requested")
+			checkPermission(permissions, eventRequiredPermissionMap.eventOnWindowCloseRequested)
 			listen<null>(TauriEvent.WINDOW_CLOSE_REQUESTED, (e) => {
 				callback()
 			})
 		},
 		eventOnWindowFocus: (callback) => {
-			checkPermission(permissions, "event:window-focus")
+			checkPermission(permissions, eventRequiredPermissionMap.eventOnWindowFocus)
 			listen<null>(TauriEvent.WINDOW_FOCUS, (e) => {
 				callback()
 			})

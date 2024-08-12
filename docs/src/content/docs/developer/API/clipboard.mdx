@@ -1,12 +1,44 @@
 ---
-title: Clipboard API
+title: Clipboard
 sidebar:
   badge:
     text: WIP
     variant: caution
 ---
 
+import ClipboardAPI from '@/components/api/clipboard.astro'
+
 The clipboard API is the same for `@kksh/api/UI/iframe` and `@kksh/api/ui/worker`.
 
+## Clipboard API Methods
 
 
+<ClipboardAPI />
+
+
+## Sample Usage
+
+```ts
+// Check if the clipboard has data
+const hasFiles: boolean = await clipboard.hasFiles()
+const hasHTML: boolean = await clipboard.hasHTML()
+const hasImage: boolean = await clipboard.hasImage()
+const hasRTF: boolean = await clipboard.hasRTF()
+const hasText: boolean = await clipboard.hasText()
+
+// Read data from the clipboard
+const text: string = await clipboard.readText()
+const imageBinary: Blob = await clipboard.readImageBinary('Blob') as Blob
+const imageBase64: string = await clipboard.readImageBase64()
+const html: string = await clipboard.readHtml()
+const files: string[] = await clipboard.readFiles()
+const rtf: string = await clipboard.readRtf()
+
+// Write data to the clipboard
+await clipboard.writeText('Hello, World!')
+await clipboard.writeImageBinary(Array.from(new Uint8Array(await imageBinary.arrayBuffer())));
+await clipboard.writeHtmlAndText('<h1>Hello, World!</h1>', 'Hello, World!')
+await clipboard.writeFiles(['file1.txt', 'file2.txt'])
+await clipboard.writeRtf(rtf)
+await clipboard.writeImageBase64(imageBase64)
+```
