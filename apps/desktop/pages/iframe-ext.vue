@@ -62,9 +62,9 @@ const iframeUiAPI: Omit<
 	// 	console.log("start dragging")
 	// 	appWin.startDragging().catch(console.error)
 	// },
-	iframeUiGoHome: async () => {
-		navigateTo(localePath("/"))
-	},
+	// iframeUiGoHome: async () => {
+	// 	navigateTo(localePath("/"))
+	// },
 	iframeUiGoBack: async () => {
 		if (isInMainWindow()) {
 			navigateTo(localePath("/"))

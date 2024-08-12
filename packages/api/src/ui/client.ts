@@ -90,11 +90,10 @@ export interface IUiWorker {
 	setScrollLoading: (loading: boolean) => Promise<void>
 	setSearchTerm: (term: string) => Promise<void>
 	setSearchBarPlaceholder: (placeholder: string) => Promise<void>
-	toast: (action: () => void) => Promise<void>
 }
 
 export interface IUiIframe {
-	goHome: () => Promise<void>
+	// goHome: () => Promise<void>
 	goBack: () => Promise<void>
 	hideBackButton: () => Promise<void>
 	hideMoveButton: () => Promise<void>

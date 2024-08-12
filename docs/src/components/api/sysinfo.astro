@@ -1,10 +1,10 @@
 ---
-import { ClipboardPermissionMap } from "@kksh/api/permissions"
+import {SystemInfoPermissionMap} from '@kksh/api/permissions'
 ---
 
 <ul>
 	{
-		Object.entries(ClipboardPermissionMap).map(([methodName, permissions]) => (
+		Object.entries(SystemInfoPermissionMap).map(([methodName, permissions]) => (
 			<li>
 				<code class="">{methodName}</code>:
 				<span class="space-x-1">

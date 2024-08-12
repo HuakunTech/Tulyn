@@ -1,7 +1,7 @@
 import { proxy } from "@huakunshen/comlink"
 import { getDefaultClientAPI } from "tauri-api-adapter"
 import type { DragDropPayload, DragEnterPayload, DragOverPayload, IEvent } from "../client"
-import type { IEventServer } from "../server/event"
+import type { IEventServer } from "../server/server-types"
 
 const defaultClientAPI = getDefaultClientAPI<IEventServer>()
 

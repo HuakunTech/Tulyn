@@ -1,7 +1,26 @@
 ---
 title: Fetch
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 ---
+
+**Docs:** https://docs.api.kunkun.sh/interfaces/ui.IFetch
+
+Fetch API is the same for both iframe and web worker environment.
+
+When you use the built-in `fetch` or http client like Axios directly in iframe or web worker, 
+you may encounter CORS issue.
+
+`fetch()` API provided in `@kksh/api` sends the request through the host app, thus bypassing CORS.
+
+`'fetch:all'` permission is required to use this API.
+
+The syntax is pretty much the same as browser's built-in `fetch()` API.
+
+```ts
+import { fetch } from '@kksh/api/ui/worker';
+// or
+import { fetch } from '@kksh/api/ui/iframe';
+
+await fetch('https://schema.kunkun.sh')
+  .then((res) => res.json())
+  .then((data) => {});
+```

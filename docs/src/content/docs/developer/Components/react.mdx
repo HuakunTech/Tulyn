@@ -24,7 +24,9 @@ import { Button } from "@kksh/react"
 `} lang="tsx" mark={['@/components/ui', '@kksh/react']} />
 
 
-## Button Example
+## Component Examples
+
+### Button Example
 
 <div class="not-content">
 	<Tabs>
@@ -44,7 +46,7 @@ export function ButtonDemo() {
 
 </div>
 
-## Command Palette Example
+### Command Palette Example
 
 <div class="not-content">
 	<Tabs>
@@ -123,4 +125,50 @@ export default function CommandDemo() {
 
 </div>
 
+
+
+## Theme
+
+You can get KK's color theme and set your extension theme to match KK's theme.
+
+`@kksh/react` requires `<ThemeProvider />` and `<ThemeWrapper />` components to be wrapped around the root component.
+
+- `<ThemeProvider />` is responsible for dark/light mode switching
+- `<ThemeWrapper />` is responsible for setting the color theme
+
+```tsx
+import { ui } from "@kksh/api/ui/iframe"
+import { updateTheme } from "@kksh/react"
+
+useEffect(() => {
+  ui.getTheme().then((theme) => {
+      updateTheme(theme)
+  })
+}, [])
+return (
+  <ThemeProvider defaultTheme="dark" storageKey="kk-ui-theme">
+    <ThemeWrapper>
+      <main>
+        ...
+      </main>
+    </ThemeWrapper>
+  </ThemeProvider>
+)
+```
+
+For color theme to take effect, you need to import the theme styles from `@kksh/vue/themes`.
+
+```css title="styles.css"
+@import url("@kksh/react/css");
+@import url("@kksh/react/themes");
+```
+
+import ThemeCustomizer from '@/components/demo/react/theme-customizer.astro';
+
+<details>
+  <summary>Sample Theme Customizer</summary>
+  <div class="not-content">
+    <ThemeCustomizer />
+  </div>
+</details>
 

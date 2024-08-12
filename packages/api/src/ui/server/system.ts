@@ -35,112 +35,118 @@ import {
 	type KunkunFsPermission,
 	type SystemPermission
 } from "../../permissions"
-import type { IDb, IFs, ISystem, IToast, IUiIframe, IUiWorker } from "../client"
-
-export interface ISystemServer {
-	systemOpenTrash: ISystem["openTrash"]
-	systemEmptyTrash: ISystem["emptyTrash"]
-	systemShutdown: ISystem["shutdown"]
-	systemReboot: ISystem["reboot"]
-	systemSleep: ISystem["sleep"]
-	systemToggleSystemAppearance: ISystem["toggleSystemAppearance"]
-	systemShowDesktop: ISystem["showDesktop"]
-	systemQuitAllApps: ISystem["quitAllApps"]
-	systemSleepDisplays: ISystem["sleepDisplays"]
-	systemSetVolume: ISystem["setVolume"]
-	systemSetVolumeTo0: ISystem["setVolumeTo0"]
-	systemSetVolumeTo25: ISystem["setVolumeTo25"]
-	systemSetVolumeTo50: ISystem["setVolumeTo50"]
-	systemSetVolumeTo75: ISystem["setVolumeTo75"]
-	systemSetVolumeTo100: ISystem["setVolumeTo100"]
-	systemTurnVolumeUp: ISystem["turnVolumeUp"]
-	systemTurnVolumeDown: ISystem["turnVolumeDown"]
-	systemToggleStageManager: ISystem["toggleStageManager"]
-	systemToggleBluetooth: ISystem["toggleBluetooth"]
-	systemToggleHiddenFiles: ISystem["toggleHiddenFiles"]
-	systemEjectAllDisks: ISystem["ejectAllDisks"]
-	systemLogoutUser: ISystem["logoutUser"]
-	systemToggleMute: ISystem["toggleMute"]
-	systemMute: ISystem["mute"]
-	systemUnmute: ISystem["unmute"]
-	systemGetFrontmostApp: ISystem["getFrontmostApp"]
-	systemHideAllAppsExceptFrontmost: ISystem["hideAllAppsExceptFrontmost"]
-	systemGetSelectedFilesInFileExplorer: ISystem["getSelectedFilesInFileExplorer"]
-}
+import { SystemPermissionMap } from "../../permissions/permission-map"
+import type { ISystemServer } from "./server-types"
 
 export function constructSystemApi(permissions: SystemPermission[]): ISystemServer {
 	return {
-		systemOpenTrash: checkPermission<SystemPermission>([], permissions)(openTrash),
-		systemEmptyTrash: checkPermission<SystemPermission>(["system:fs"], permissions)(emptyTrash),
-		systemShutdown: checkPermission<SystemPermission>(["system:boot"], permissions)(shutdown),
-		systemReboot: checkPermission<SystemPermission>(["system:boot"], permissions)(reboot),
-		systemSleep: checkPermission<SystemPermission>(["system:boot"], permissions)(sleep),
+		systemOpenTrash: checkPermission<SystemPermission>(
+			SystemPermissionMap.systemOpenTrash,
+			permissions
+		)(openTrash),
+		systemEmptyTrash: checkPermission<SystemPermission>(
+			SystemPermissionMap.systemEmptyTrash,
+			permissions
+		)(emptyTrash),
+		systemShutdown: checkPermission<SystemPermission>(
+			SystemPermissionMap.systemShutdown,
+			permissions
+		)(shutdown),
+		systemReboot: checkPermission<SystemPermission>(
+			SystemPermissionMap.systemReboot,
+			permissions
+		)(reboot),
+		systemSleep: checkPermission<SystemPermission>(
+			SystemPermissionMap.systemSleep,
+			permissions
+		)(sleep),
 		systemToggleSystemAppearance: checkPermission<SystemPermission>(
-			["system:ui"],
+			SystemPermissionMap.systemToggleSystemAppearance,
 			permissions
 		)(toggleSystemAppearance),
-		systemShowDesktop: checkPermission<SystemPermission>(["system:ui"], permissions)(showDesktop),
-		systemQuitAllApps: checkPermission<SystemPermission>(["system:apps"], permissions)(quitAllApps),
+		systemShowDesktop: checkPermission<SystemPermission>(
+			SystemPermissionMap.systemShowDesktop,
+			permissions
+		)(showDesktop),
+		systemQuitAllApps: checkPermission<SystemPermission>(
+			SystemPermissionMap.systemQuitAllApps,
+			permissions
+		)(quitAllApps),
 		systemSleepDisplays: checkPermission<SystemPermission>(
-			["system:boot"],
+			SystemPermissionMap.systemSleepDisplays,
 			permissions
 		)(sleepDisplays),
-		systemSetVolume: checkPermission<SystemPermission>(["system:volumn"], permissions)(setVolume),
+		systemSetVolume: checkPermission<SystemPermission>(
+			SystemPermissionMap.systemSetVolume,
+			permissions
+		)(setVolume),
 		systemSetVolumeTo0: checkPermission<SystemPermission>(
-			["system:volumn"],
+			SystemPermissionMap.systemSetVolumeTo0,
 			permissions
 		)(setVolumeTo0),
 		systemSetVolumeTo25: checkPermission<SystemPermission>(
-			["system:volumn"],
+			SystemPermissionMap.systemSetVolumeTo25,
 			permissions
 		)(setVolumeTo25),
 		systemSetVolumeTo50: checkPermission<SystemPermission>(
-			["system:volumn"],
+			SystemPermissionMap.systemSetVolumeTo50,
 			permissions
 		)(setVolumeTo50),
 		systemSetVolumeTo75: checkPermission<SystemPermission>(
-			["system:volumn"],
+			SystemPermissionMap.systemSetVolumeTo75,
 			permissions
 		)(setVolumeTo75),
 		systemSetVolumeTo100: checkPermission<SystemPermission>(
-			["system:volumn"],
+			SystemPermissionMap.systemSetVolumeTo100,
 			permissions
 		)(setVolumeTo100),
 		systemTurnVolumeUp: checkPermission<SystemPermission>(
-			["system:volumn"],
+			SystemPermissionMap.systemTurnVolumeUp,
 			permissions
 		)(turnVolumeUp),
 		systemTurnVolumeDown: checkPermission<SystemPermission>(
-			["system:volumn"],
+			SystemPermissionMap.systemTurnVolumeDown,
 			permissions
 		)(turnVolumeDown),
 		systemToggleStageManager: checkPermission<SystemPermission>(
-			["system:ui"],
+			SystemPermissionMap.systemToggleStageManager,
 			permissions
 		)(toggleStageManager),
 		systemToggleBluetooth: checkPermission<SystemPermission>([], permissions)(toggleBluetooth),
 		systemToggleHiddenFiles: checkPermission<SystemPermission>(
-			["system:ui"],
+			SystemPermissionMap.systemToggleHiddenFiles,
 			permissions
 		)(toggleHiddenFiles),
 		systemEjectAllDisks: checkPermission<SystemPermission>(
-			["system:disk"],
+			SystemPermissionMap.systemEjectAllDisks,
 			permissions
 		)(ejectAllDisks),
-		systemLogoutUser: checkPermission<SystemPermission>(["system:boot"], permissions)(logoutUser),
-		systemToggleMute: checkPermission<SystemPermission>(["system:volumn"], permissions)(toggleMute),
-		systemMute: checkPermission<SystemPermission>(["system:volumn"], permissions)(mute),
-		systemUnmute: checkPermission<SystemPermission>(["system:volumn"], permissions)(unmute),
+		systemLogoutUser: checkPermission<SystemPermission>(
+			SystemPermissionMap.systemLogoutUser,
+			permissions
+		)(logoutUser),
+		systemToggleMute: checkPermission<SystemPermission>(
+			SystemPermissionMap.systemToggleMute,
+			permissions
+		)(toggleMute),
+		systemMute: checkPermission<SystemPermission>(
+			SystemPermissionMap.systemMute,
+			permissions
+		)(mute),
+		systemUnmute: checkPermission<SystemPermission>(
+			SystemPermissionMap.systemUnmute,
+			permissions
+		)(unmute),
 		systemGetFrontmostApp: checkPermission<SystemPermission>(
-			["system:apps"],
+			SystemPermissionMap.systemGetFrontmostApp,
 			permissions
 		)(getFrontmostApp),
 		systemHideAllAppsExceptFrontmost: checkPermission<SystemPermission>(
-			["system:apps"],
+			SystemPermissionMap.systemHideAllAppsExceptFrontmost,
 			permissions
 		)(hideAllAppsExceptFrontmost),
 		systemGetSelectedFilesInFileExplorer: checkPermission<SystemPermission>(
-			["system:fs"],
+			SystemPermissionMap.systemGetSelectedFilesInFileExplorer,
 			permissions
 		)(getSelectedFilesInFileExplorer)
 	}

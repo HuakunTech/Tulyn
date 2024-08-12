@@ -6,6 +6,7 @@ export default {
   content: [
     "./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
     "node_modules/@kksh/vue/dist/**/*.{js,jsx,svelte,ts,tsx,vue,css}",
+    "node_modules/@kksh/react/dist/**/*.{js,jsx,svelte,ts,tsx,vue,css}",
   ],
   theme: {
     container: {

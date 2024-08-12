@@ -1,7 +1,43 @@
 ---
 title: Toast
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 ---
+
+**Docs:** https://docs.api.kunkun.sh/interfaces/ui.IToast
+
+> Toast API is the same for both iframe and web worker environment.
+
+If you are using custom UI extension running in iframe, you can build your own toast component and use the API to show toast messages.
+
+- `toast.message`
+- `toast.info`
+- `toast.success`
+- `toast.warning`
+- `toast.error`
+
+```ts
+import { toast } from "@kksh/api/ui/worker"
+// or
+import { toast } from "@kksh/api/ui/iframe"
+
+// Show an error message
+await toast.error("Item not found")
+
+// More options
+await toast.error("Item not found", {
+  description: 'The item you selected does not have a URL',
+  duration: 3000,
+  closeButton: true,
+  position: 'top-left'
+})
+
+await toast.warning(
+  "Item Deleted",
+  {
+    actionLabel: "Undo"
+  },
+  () => {
+    toast.success("Item Restored")
+  }
+)
+```
+

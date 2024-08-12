@@ -8,6 +8,5 @@ export const comlinkUI: IUiWorker = {
 	render: defaultClientAPI.workerUiRender,
 	setScrollLoading: defaultClientAPI.workerUiSetScrollLoading,
 	setSearchTerm: defaultClientAPI.workerUiSetSearchTerm,
-	setSearchBarPlaceholder: defaultClientAPI.workerUiSetSearchBarPlaceholder,
-	toast: defaultClientAPI.workerUiToast
+	setSearchBarPlaceholder: defaultClientAPI.workerUiSetSearchBarPlaceholder
 }

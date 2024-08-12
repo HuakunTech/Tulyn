@@ -44,7 +44,8 @@ const url = computed(() => {
 onMounted(async () => {
 	initCustomExtension()
 	ui.setTransparentWindowBackground(true)
-	ui.showBackButton("bottom-right")
+	// ui.goHome()
+	// ui.goBack()
 	// ui.hideMoveButton() // enable this after fixing window cannot be moved bug in extension production build
 	ui.getTheme().then((theme) => {
 		updateTheme(theme)

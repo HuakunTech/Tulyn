@@ -1,18 +1,39 @@
 ---
 title: Event
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 ---
 
+**Docs:** https://docs.api.kunkun.sh/interfaces/ui.IEvent
 
-## API Permission Map
+> Event API is the same for both iframe and web worker environment.
 
-- `onDragDrop`: `"event:drag-drop"`
-- `onDragEnter`: `"event:drag-enter"`
-- `onDragLeave`: `"event:drag-leave"`
-- `onDragOver`: `"event:drag-over"`
-- `onWindowBlur`: `"event:window-blur"`
-- `onWindowCloseRequested`: `"event:window-close-requested"`
-- `onWindowFocus`: `"event:window-focus"`
+Event API contains commands to listen to some window/app events.
+
+For more details, refer to [**Docs**](https://docs.api.kunkun.sh/interfaces/ui.IEvent).
+
+## Sample Code
+
+```ts
+import { event } from '@kksh/api/ui/worker'
+// or
+import { event } from '@kksh/api/ui/iframe'
+
+event.onDragDrop((payload) => {
+	const filePaths = payload.paths
+	const { x, y } = payload.position
+})
+
+event.onWindowFocus(() => {
+	document.getElementById("search-bar")?.focus()
+})
+
+event.onWindowBlur(() => {
+  // e.g. disconnect from server
+})
+```
+
+## Permission
+
+import EventAPI from '@/components/api/event.astro'
+
+<EventAPI />
+

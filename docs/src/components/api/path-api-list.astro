@@ -1,0 +1,13 @@
+---
+import { path } from "@kksh/api/ui/worker"
+---
+
+<ul>
+	{
+		Object.keys(path).map((methodName) => (
+			<li>
+				<code>{methodName}</code>
+			</li>
+		))
+	}
+</ul>

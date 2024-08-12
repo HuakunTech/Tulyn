@@ -1,7 +1,16 @@
 ---
 title: Notification
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 ---
+
+Notificaiton API is the same for both iframe and web worker environment.
+
+It is used to send native system notification.
+
+```ts
+import { notification } from "@kksh/api/ui/worker"
+// or
+import { notification } from "@kksh/api/ui/iframe"
+
+await notification.sendNotification("Extension Loaded.")
+```
+

@@ -1,0 +1,116 @@
+---
+title: Custom UI
+---
+
+:::caution
+The `ui` API differs between custom (iframe) extensions and template (web worker) extensions.
+:::
+
+
+## Custom (Iframe) Extensions
+
+**Docs:** https://docs.api.kunkun.sh/interfaces/ui.IUiIframe
+
+### Built-in Buttons
+
+A custom extension rendered with iframe will take up the entire view port of the window.
+
+The extension provides a few optional built-in buttons to help users navigate and control the extension
+if the extension does not provide its own navigation and control buttons.
+
+- `showBackButton`
+	- Show a back button to navigate back to the main page
+	- Will close window if your extension runs in a separate window
+- `showMoveButton`
+	- Show a move button user can grab to move the app window around
+	- Designed for scenarios where extension doesn't have a title bar
+	- You can choose to make any element in your extension draggable as well
+- `showRefreshButton`
+	- Show a refresh button to reload the extension, could be useful during development
+
+You can hide these buttons if you want to provide your own
+
+- `hideBackButton`
+- `hideMoveButton`
+- `hideRefreshButton`
+
+Here we use the back button as an example.
+
+```ts
+import { ui } from "@kksh/api/ui/iframe"
+
+type CustomPosition = {
+	top: number,
+	right: number,
+	bottom: number,
+	left: number
+}
+type Position = "top-left" | "top-right" | "bottom-left" | "bottom-right" | CustomPosition;
+
+await ui.showBackButton("bottom-right")
+// or set custom position
+await ui.showBackButton({
+	top: 5,
+	right: 5
+})
+// hide the back button if you want to provide your own
+await ui.hideBackButton() 
+```
+
+### Navigation
+
+```ts
+import { ui } from "@kksh/api/ui/iframe"
+
+/**
+ * Will return to main page if the extension runs in the main window
+ * Will close the window if the extension runs in a separate window
+ */ 
+ui.goBack()
+
+/**
+ * Will reload the window
+ */
+ui.reloadPage()
+```
+
+### Window Control
+
+```ts
+import { ui } from "@kksh/api/ui/iframe"
+
+// maximize the window
+ui.toggleMaximize()
+
+// set window background to transparent
+// if the extension also has a transparent background, this will make the extension appear to be floating
+ui.setTransparentWindowBackground(true)
+```
+
+### Theme
+
+Get KK's color theme, if your extension is using KK component libraries, 
+you can set your extension theme to match KK's theme.
+
+```ts
+import { ui } from "@kksh/api/ui/iframe"
+
+import { updateTheme } from "@kksh/vue"
+// or
+import { updateTheme } from "@kksh/react"
+// or
+import { updateTheme } from "@kksh/svelte"
+
+
+ui.getTheme().then((theme) => {
+	updateTheme(theme)
+})
+
+```
+
+:::note
+Dependending on which KK component library you are using, you may need to wrap your app with a `ThemeProvider` 
+for the theme to take effect.
+
+Read the component library documentation for more information.
+:::

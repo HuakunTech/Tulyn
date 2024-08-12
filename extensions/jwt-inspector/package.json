@@ -15,7 +15,26 @@
 		"demoImages": [],
 		"permissions": [
 			"clipboard:read-text",
-			"clipboard:write-text"
+			"clipboard:write-text",
+			{
+				"permission": "open:folder",
+				"allow": [
+					{
+						"path": "$DESKTOP/**"
+					},
+					{
+						"path": "$DOWNLOAD"
+					},
+					{
+						"path": "$DOCUMENT/dev/*"
+					}
+				],
+				"deny": [
+					{
+						"path": "$DESKTOP/malicious.sh"
+					}
+				]
+			}
 		],
 		"customUiCmds": [
 			{

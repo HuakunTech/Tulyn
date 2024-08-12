@@ -1,7 +1,57 @@
 ---
 title: Dialog
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 ---
+
+**Docs:** https://docs.api.kunkun.sh/interfaces/ui.IDialog
+
+> Dialog API is the same for both iframe and web worker environment.
+
+Dialog API is used to interact with the user by showing dialog boxes. This API is used to show alert, confirm, prompt, and file dialog boxes.
+
+- `ask`: Shows a question dialog with Yes and No buttons.
+- `confirm`: Shows a question dialog with Ok and Cancel buttons.
+- `message`: Shows a message dialog with an Ok button.
+- `open`: Open a file/directory selection dialog.
+- `save`: Open a file/directory save dialog.
+
+
+```ts
+import { dialog } from "@kksh/api/ui/worker"
+// or
+import { dialog } from "@kksh/api/ui/iframe"
+
+const answer = await dialog.ask('This action cannot be reverted. Are you sure?', {
+  title: 'KK',
+  kind: 'warning',
+});
+
+const confirmation = await dialog.confirm(
+  'This action cannot be reverted. Are you sure?',
+  { title: 'KK', kind: 'warning' }
+);
+
+await dialog.message('File not found', { title: 'KK', kind: 'error' });
+
+
+const file = await open({
+  multiple: false,
+  directory: false,
+});
+console.log(file);
+// Prints file path and name to the console
+
+const path = await save({
+  filters: [
+    {
+      name: 'My Filter',
+      extensions: ['png', 'jpeg'],
+    },
+  ],
+});
+// Prints the chosen path
+```
+
+
+:::note
+Alias of Tauri's dialog plugin https://v2.tauri.app/plugin/dialog/
+:::

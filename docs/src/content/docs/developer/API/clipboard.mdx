@@ -1,20 +1,16 @@
 ---
 title: Clipboard
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 ---
+
+**Docs:** https://docs.api.kunkun.sh/interfaces/ui.IClipboard
 
 import ClipboardAPI from '@/components/api/clipboard.astro'
 
 The clipboard API is the same for `@kksh/api/UI/iframe` and `@kksh/api/ui/worker`.
 
-## Clipboard API Methods
-
+## API and Permissions
 
 <ClipboardAPI />
-
 
 ## Sample Usage
 
@@ -42,3 +38,11 @@ await clipboard.writeFiles(['file1.txt', 'file2.txt'])
 await clipboard.writeRtf(rtf)
 await clipboard.writeImageBase64(imageBase64)
 ```
+
+
+
+
+:::note
+Clipboard API taken from https://github.com/CrossCopy/tauri-plugin-clipboard
+:::
+

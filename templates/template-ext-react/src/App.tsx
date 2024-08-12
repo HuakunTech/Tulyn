@@ -53,7 +53,7 @@ function App() {
 	function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
 		if (e.key === "Escape") {
 			if (input.length === 0) {
-				ui.goHome()
+				ui.goBack()
 			} else {
 				setInput("")
 			}

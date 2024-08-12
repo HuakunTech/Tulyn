@@ -31,8 +31,9 @@ import { Button } from "@kksh/vue/button"
 import { Button } from "@kksh/vue" // no treeshaking
 `} lang="tsx" mark={['@/components/ui', '@kksh/vue', '@kksh/vue/button']} />
 
+## Component Examples
 
-## Button Example
+### Button Example
 
 <div class="not-content">
 	<Tabs>
@@ -55,7 +56,7 @@ import { Button } from "@kksh/vue" // no treeshaking
 </div>
 
 
-## Command Palette Example
+### Command Palette Example
 
 
 <div class="not-content">
@@ -133,4 +134,27 @@ import {
 	</Tabs>
 
 </div>
+
+
+## Theme
+
+You can get KK's color theme and set your extension theme to match KK's theme.
+
+`@kksh/vue`'s `updateTheme()` function set the theme globally, there is no need for a `ThemeProvider`.
+
+```ts
+import { ui } from "@kksh/api/ui/iframe"
+import { updateTheme } from "@kksh/vue"
+
+ui.getTheme().then((theme) => {
+	updateTheme(theme)
+})
+```
+
+For color theme to take effect, you need to import the theme styles from `@kksh/vue/themes`.
+
+```css title="styles.css"
+@import url("@kksh/vue/css");
+@import url("@kksh/vue/themes");
+```
 

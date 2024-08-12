@@ -10,7 +10,7 @@ const defaultClientAPI = getDefaultClientAPI<IUiIframeServer>()
 // comlinkUI.internalToggleMaximize = defaultClientAPI.iframeUiInternalToggleMaximize
 // comlinkUI.toggleMaximize = defaultClientAPI.iframeUiToggleMaximize
 export const comlinkUI: IUiIframe = {
-	goHome: defaultClientAPI.iframeUiGoHome,
+	// goHome: defaultClientAPI.iframeUiGoHome,
 	goBack: defaultClientAPI.iframeUiGoBack,
 	hideBackButton: defaultClientAPI.iframeUiHideBackButton,
 	hideMoveButton: defaultClientAPI.iframeUiHideMoveButton,

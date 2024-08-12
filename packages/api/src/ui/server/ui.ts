@@ -7,11 +7,10 @@ export interface IUiWorkerServer {
 	workerUiSetScrollLoading: IUiWorker["setScrollLoading"]
 	workerUiSetSearchTerm: IUiWorker["setSearchTerm"]
 	workerUiSetSearchBarPlaceholder: IUiWorker["setSearchBarPlaceholder"]
-	workerUiToast: IUiWorker["toast"]
 }
 
 export interface IUiIframeServer {
-	iframeUiGoHome: IUiIframe["goHome"]
+	// iframeUiGoHome: IUiIframe["goHome"]
 	iframeUiGoBack: IUiIframe["goBack"]
 	iframeUiHideBackButton: IUiIframe["hideBackButton"]
 	iframeUiHideMoveButton: IUiIframe["hideMoveButton"]

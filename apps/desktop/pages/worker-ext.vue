@@ -65,10 +65,6 @@ const extUiAPI: IUiWorkerServer = {
 			console.log(zodSchema)
 		}
 	},
-	async workerUiToast(action) {
-		console.log("toast", action)
-		action()
-	},
 	async workerUiSetScrollLoading(_loading: boolean) {
 		loading.value = _loading
 	},

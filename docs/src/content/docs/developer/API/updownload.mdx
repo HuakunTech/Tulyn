@@ -1,8 +1,25 @@
 ---
 title: Updownload
 description: Download and upload files
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 ---
+
+**Docs:** https://docs.api.kunkun.sh/interfaces/ui.IUpdownload
+
+> The updownload API is the same for `@kksh/api/UI/iframe` and `@kksh/api/ui/worker`.
+
+## API and Permissions
+
+```ts
+import { updownload, path } from '@kksh/api/ui/worker';
+// or
+import { updownload, path } from '@kksh/api/ui/iframe';
+
+await updownload.download(
+  'https://schema.kunkun.sh',
+  await path.join(await path.desktopDir(), 'kk-ext-schema.json')
+);
+```
+
+:::note
+Updownload API is taken from Tauri's Upload Plugin https://v2.tauri.app/plugin/upload/
+:::

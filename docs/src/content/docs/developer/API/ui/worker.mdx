@@ -1,0 +1,30 @@
+---
+title: Template UI
+sidebar:
+  badge:
+    text: WIP
+    variant: caution
+---
+
+:::caution
+The `ui` API differs between custom (iframe) extensions and template (web worker) extensions.
+:::
+
+## Template (Web Worker) Extensions
+
+**Docs:** https://docs.api.kunkun.sh/interfaces/ui.IUiWorker
+
+- `setScrollLoading`
+  - Display a loading spinner when the user scrolls to the bottom of list view
+- `setSearchTerm`
+  - Set the search term in the search bar
+- `setSearchBarPlaceholder`
+  - Set the placeholder text in the search bar
+- `render`
+  - Render a extension based on template
+
+```ts
+import { ui, WorkerExtension, expose } from "@kksh/api/ui/worker"
+
+
+```

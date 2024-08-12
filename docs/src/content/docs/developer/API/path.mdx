@@ -1,7 +1,31 @@
 ---
 title: Path
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 ---
+
+**Docs:** https://docs.api.kunkun.sh/interfaces/ui.IPath
+
+> Path API is the same for both iframe and web worker environment.
+
+No permission is required to use this API.
+
+This API is very trivial and simple. It is used to get the path of various directories.
+
+Read the docs for more.
+
+```ts
+import { path } from "@kksh/api/ui/worker"
+// or
+import { path } from "@kksh/api/ui/iframe"
+
+const videoPath = await path.join(await path.desktopDir(), 'kunkun.mp4')
+// sample output: /Users/kksh/Desktop/kunkun.mp4
+```
+
+## Full List of APIs
+
+import PathApiList from '@/components/api/path-api-list.astro'
+
+The documentation https://docs.api.kunkun.sh/interfaces/ui.IPath contains detailed description and examples for each of the following APIs.
+
+<PathApiList />
+
