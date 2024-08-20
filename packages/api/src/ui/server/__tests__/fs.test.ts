@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test"
 import { minimatch } from "minimatch"
-import { translateScopeToPath } from "../fs"
+import { translateScopeToPath } from "../../../utils/path"
 
 test("minimatch", () => {
 	// console.log(minimatch("/desktop/newbi/bar.foo", "/desktop/**/*.foo"))

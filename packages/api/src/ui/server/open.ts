@@ -3,6 +3,7 @@ import { minimatch } from "minimatch"
 import { open } from "tauri-plugin-shellx-api"
 import { flatten, parse, pipe, safeParse, string, url, type InferOutput } from "valibot"
 import type { OpenPermissionScoped } from "../../permissions"
+import { combinePathAndBaseDir, matchPathAndScope } from "../../utils/path"
 import type { IOpen } from "../client"
 
 const UrlSchema = pipe(string("A URL must be string."), url("The URL is badly formatted."))
@@ -13,15 +14,24 @@ export interface IOpenServer {
 	openFolder: IOpen["openFolder"]
 }
 
-function checkPermission(
+async function checkPermission(
 	permissions: OpenPermissionScoped[],
 	value: string,
 	key: "url" | "path"
-): boolean {
+): Promise<boolean> {
+	async function match(value: string, scope: string): Promise<boolean> {
+		if (key === "url") {
+			return minimatch(value, scope)
+		} else if (key === "path") {
+			return matchPathAndScope(value, scope)
+		} else {
+			throw new Error(`Invalid key: ${key}`)
+		}
+	}
 	let pass = false
 	for (const permission of permissions) {
 		for (const allow of permission.allow || []) {
-			if (allow[key] && minimatch(value, allow[key])) {
+			if (allow[key] && (await match(value, allow[key]))) {
 				pass = true
 				break
 			}
@@ -30,7 +40,7 @@ function checkPermission(
 			break
 		}
 		for (const deny of permission.deny || []) {
-			if (deny[key] && minimatch(value, deny[key])) {
+			if (deny[key] && (await match(value, deny[key]))) {
 				pass = false
 				break
 			}
@@ -50,7 +60,7 @@ export function constructOpenApi(permissions: OpenPermissionScoped[]): IOpenServ
 			}
 			// permission check
 			if (
-				checkPermission(
+				await checkPermission(
 					permissions.filter((p) => p.permission === "open:url"),
 					parseResult.output,
 					"url"
@@ -76,7 +86,7 @@ export function constructOpenApi(permissions: OpenPermissionScoped[]): IOpenServ
 			}
 			// permission check
 			if (
-				checkPermission(
+				await checkPermission(
 					permissions.filter((p) => p.permission === "open:file"),
 					p,
 					"path"
@@ -101,7 +111,7 @@ export function constructOpenApi(permissions: OpenPermissionScoped[]): IOpenServ
 				}
 			}
 			if (
-				checkPermission(
+				await checkPermission(
 					permissions.filter((p) => p.permission === "open:folder"),
 					p,
 					"path"
