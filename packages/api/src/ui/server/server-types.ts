@@ -58,3 +58,7 @@ export interface IEventServer {
 	eventOnWindowCloseRequested: IEvent["onWindowCloseRequested"]
 	eventOnWindowFocus: IEvent["onWindowFocus"]
 }
+
+// export interface IShellServer {
+
+// }

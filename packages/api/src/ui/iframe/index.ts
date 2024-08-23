@@ -17,7 +17,7 @@ export {
 	fs,
 	notification,
 	os,
-	shell,
+	shell, // Shell has a custom server implementation in kunkun with a more fine grained permission system, the client API should be the same as tauri-api-adapter
 	sysInfo,
 	path,
 	log,

@@ -6,7 +6,7 @@ import {
 	NetworkPermissionSchema,
 	NotificationPermissionSchema,
 	OsPermissionSchema,
-	ShellPermissionSchema,
+	// ShellPermissionSchema,
 	SystemInfoPermissionSchema,
 	// AllPermissionSchema as TauriApiAdapterAllPermissionSchema,
 	UpdownloadPermissionSchema
@@ -37,7 +37,14 @@ export const EventPermissionSchema = union([
 	literal("event:window-focus")
 ])
 export type EventPermission = InferOutput<typeof EventPermissionSchema>
-export const PermissionScopeSchema = object({ path: optional(string()), url: optional(string()) })
+export const PermissionScopeSchema = object({
+	path: optional(string()),
+	url: optional(string()),
+	cmd: object({
+		program: string(),
+		args: array(string())
+	})
+})
 export type KunkunFsPermission = InferOutput<typeof KunkunFsPermissionSchema>
 export const FsPermissionScopedSchema = object({
 	permission: KunkunFsPermissionSchema,
@@ -57,6 +64,22 @@ export const OpenPermissionScopedSchema = object({
 	deny: optional(array(PermissionScopeSchema))
 })
 export type OpenPermissionScoped = InferOutput<typeof OpenPermissionScopedSchema>
+
+export const ShellPermissionSchema = union([
+	literal("shell:execute"),
+	literal("shell:spawn"),
+	literal("shell:open"),
+	literal("shell:kill"),
+	literal("shell:all"),
+	literal("shell:stdin-write"),
+])
+export const ShellPermissionScoped = object({
+	permission: ShellPermissionSchema,
+	allow: optional(array(PermissionScopeSchema)),
+	deny: optional(array(PermissionScopeSchema))
+})
+export type ShellPermissionScoped = InferOutput<typeof ShellPermissionScoped>
+export type ShellPermission = InferOutput<typeof ShellPermissionSchema>
 
 // export const FsPermissionSchema = union([
 // 	literal("fs:allow-desktop-read-recursive"),

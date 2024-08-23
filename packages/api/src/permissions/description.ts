@@ -22,6 +22,11 @@ export const permissionDescriptions: PermissionDescriptions = {
 	"os:all": "Allows access to all operating system information",
 	"shell:open": "Allows opening shell commands",
 	"shell:execute": "Allows executing shell commands",
+	"shell:spawn": "Allow spawning a new process and listen to the streaming of its output",
+	"shell:kill": "Allows killing processes by pid. Need this to kill the process you started.",
+	"shell:all":
+		"Grant all shell related permissions. Path scope and args regex validation is still required.",
+	"shell:stdin-write": "Allows writing to a command created.",
 	"fetch:all": "Allows making network requests",
 	"system-info:all": "Allows access to all system information",
 	"system-info:memory": "Allows access to system memory information",

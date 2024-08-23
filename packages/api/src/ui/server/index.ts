@@ -3,13 +3,13 @@ import {
 	constructClipboardApi,
 	constructDialogApi,
 	constructFetchApi,
-	// constructFsApi, // a local constructFsApi is defined below
+	// constructFsApi, // a local constructFsApi is defined
 	constructLoggerApi,
 	constructNetworkApi,
 	constructNotificationApi,
 	constructOsApi,
 	constructPathApi,
-	constructShellApi,
+	// constructShellApi, // a local custom constructShellApi is defined
 	constructSystemInfoApi,
 	constructUpdownloadApi,
 	type ClipboardPermission,
@@ -25,6 +25,7 @@ import {
 } from "tauri-api-adapter"
 import {
 	AllKunkunPermission,
+	ShellPermissionScoped,
 	type EventPermission,
 	type FsPermissionScoped,
 	type KunkunFsPermission,
@@ -36,6 +37,7 @@ import { constructEventApi } from "./event"
 import { constructFsApi } from "./fs"
 import { constructOpenApi } from "./open"
 import type { IFsServer, ISystemServer } from "./server-types"
+import { constructShellApi } from "./shell"
 import { constructSystemApi } from "./system"
 import { constructToastApi, type IToastServer } from "./toast"
 import { constructIframeUiApi, type IUiIframeServer, type IUiWorkerServer } from "./ui"
@@ -62,7 +64,7 @@ function getStringPermissions(
 
 function getObjectPermissions(
 	permissions: (AllKunkunPermission | FsPermissionScoped | OpenPermissionScoped)[]
-): (FsPermissionScoped | OpenPermissionScoped)[] {
+): (FsPermissionScoped | OpenPermissionScoped | ShellPermissionScoped)[] {
 	return permissions.filter((p) => typeof p !== "string")
 }
 
@@ -96,9 +98,14 @@ export function constructJarvisServerAPIWithPermissions(
 		constructOsApi(
 			getStringPermissions(permissions).filter((p) => p.startsWith("os:")) as OsPermission[]
 		),
-		constructShellApi(
-			getStringPermissions(permissions).filter((p) => p.startsWith("shell:")) as ShellPermission[]
-		),
+		constructShellApi([
+			...(getStringPermissions(permissions).filter((p) =>
+				p.startsWith("shell:")
+			) as ShellPermission[]),
+			...(getObjectPermissions(permissions) as ShellPermissionScoped[]).filter((p) =>
+				p.permission.startsWith("shell:")
+			)
+		]),
 		constructFetchApi(
 			getStringPermissions(permissions).filter((p) => p.startsWith("fetch:")) as FetchPermission[]
 		),

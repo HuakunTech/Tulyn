@@ -1,4 +1,3 @@
-import * as pathAPI from "@tauri-apps/api/path"
 import { BaseDirectory } from "@tauri-apps/api/path"
 import {
 	copyFile as fsCopyFile,
@@ -35,48 +34,48 @@ import {
 	type KunkunFsPermission,
 	type SystemPermission
 } from "../../permissions/schema"
-import { combinePathAndBaseDir, matchPathAndScope } from "../../utils/path"
+import { combinePathAndBaseDir, matchPathAndScope, verifyGeneralPathScopedPermission } from "../../utils/path"
 import type { IFsServer } from "./server-types"
 
-async function verifyPermission(
-	requiredPermissions: KunkunFsPermission[],
-	userPermissionScopes: FsPermissionScoped[],
-	path: string | URL,
-	options?: { baseDir?: BaseDirectory }
-) {
-	path = path.toString()
-	// console.log("verifyPermission", requiredPermissions, userPermissionScopes, path, options)
-	const fullPath = await combinePathAndBaseDir(path, options?.baseDir)
-	if (!fullPath) {
-		throw new Error("Invalid path or base directory")
-	}
-	const matchedPermissionScope = userPermissionScopes.filter((p) =>
-		requiredPermissions.includes(p.permission)
-	)
-	if (matchedPermissionScope.length === 0) {
-		throw new Error(
-			`FS Permission denied. Require one of these: [${requiredPermissions.join(", ")}] for path: ${fullPath}`
-		)
-	}
+// async function verifyPermission(
+// 	requiredPermissions: KunkunFsPermission[],
+// 	userPermissionScopes: FsPermissionScoped[],
+// 	path: string | URL,
+// 	options?: { baseDir?: BaseDirectory }
+// ) {
+// 	path = path.toString()
+// 	// console.log("verifyPermission", requiredPermissions, userPermissionScopes, path, options)
+// 	const fullPath = await combinePathAndBaseDir(path, options?.baseDir)
+// 	if (!fullPath) {
+// 		throw new Error("Invalid path or base directory")
+// 	}
+// 	const matchedPermissionScope = userPermissionScopes.filter((p) =>
+// 		requiredPermissions.includes(p.permission)
+// 	)
+// 	if (matchedPermissionScope.length === 0) {
+// 		throw new Error(
+// 			`FS Permission denied. Require one of these: [${requiredPermissions.join(", ")}] for path: ${fullPath}`
+// 		)
+// 	}
 
-	for (const permission of matchedPermissionScope) {
-		// deny has priority, if deny rule is matched, we ignore allow rule
-		for (const deny of permission.deny || []) {
-			if (!deny.path) continue
-			if (await matchPathAndScope(fullPath, deny.path)) {
-				throw new Error(`Permission denied for path: ${fullPath} by rule ${deny.path}`)
-			}
-		}
-		for (const allow of permission.allow || []) {
-			if (!allow.path) continue
-			if (await matchPathAndScope(fullPath, allow.path)) {
-				return
-			}
-		}
-	}
-	// No Allow rule and path matched
-	throw new Error(`Permission denied for path: ${path}, no rule matched.`)
-}
+// 	for (const permission of matchedPermissionScope) {
+// 		// deny has priority, if deny rule is matched, we ignore allow rule
+// 		for (const deny of permission.deny || []) {
+// 			if (!deny.path) continue
+// 			if (await matchPathAndScope(fullPath, deny.path)) {
+// 				throw new Error(`Permission denied for path: ${fullPath} by rule ${deny.path}`)
+// 			}
+// 		}
+// 		for (const allow of permission.allow || []) {
+// 			if (!allow.path) continue
+// 			if (await matchPathAndScope(fullPath, allow.path)) {
+// 				return
+// 			}
+// 		}
+// 	}
+// 	// No Allow rule and path matched
+// 	throw new Error(`Permission denied for path: ${path}, no rule matched.`)
+// }
 
 export function constructFsApi(permissions: FsPermissionScoped[]): IFsServer {
 	/**
@@ -90,7 +89,7 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFsServer {
 		fn: T
 	) => {
 		return (path: string | URL, options?: { baseDir?: BaseDirectory }): ReturnType<T> =>
-			verifyPermission(requiredPermissions, permissions, path, options).then((result) =>
+			verifyGeneralPathScopedPermission(requiredPermissions, permissions, path, options).then((result) =>
 				fn(path, options)
 			) as ReturnType<T>
 	}
@@ -111,10 +110,10 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFsServer {
 						oldPathPermissions.push("fs:read-dir")
 					}
 					return Promise.all([
-						verifyPermission(oldPathPermissions, permissions, fromPath, {
+						verifyGeneralPathScopedPermission(oldPathPermissions, permissions, fromPath, {
 							baseDir: options?.fromPathBaseDir
 						}),
-						verifyPermission(["fs:write"], permissions, toPath, {
+						verifyGeneralPathScopedPermission(["fs:write"], permissions, toPath, {
 							baseDir: options?.toPathBaseDir
 						})
 					])
@@ -130,10 +129,10 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFsServer {
 						oldPathPermissions.push("fs:read-dir")
 					}
 					return Promise.all([
-						verifyPermission(oldPathPermissions, permissions, oldPath, {
+						verifyGeneralPathScopedPermission(oldPathPermissions, permissions, oldPath, {
 							baseDir: options?.oldPathBaseDir
 						}),
-						verifyPermission(["fs:write"], permissions, newPath, {
+						verifyGeneralPathScopedPermission(["fs:write"], permissions, newPath, {
 							baseDir: options?.oldPathBaseDir
 						})
 					])
@@ -141,15 +140,15 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFsServer {
 				.then(() => fsRename(oldPath, newPath, options))
 		},
 		fsTruncate: (path: string | URL, len?: number, options?: TruncateOptions) =>
-			verifyPermission(FsPermissionMap.fsTruncate, permissions, path, options).then(() =>
+			verifyGeneralPathScopedPermission(FsPermissionMap.fsTruncate, permissions, path, options).then(() =>
 				fsTruncate(path, len, options)
 			),
 		fsWriteFile: (path: string | URL, data: Uint8Array, options?: WriteFileOptions) =>
-			verifyPermission(FsPermissionMap.fsTruncate, permissions, path, options).then(() =>
+			verifyGeneralPathScopedPermission(FsPermissionMap.fsTruncate, permissions, path, options).then(() =>
 				fsWriteFile(path, data, options)
 			),
 		fsWriteTextFile: (path: string | URL, data: string, options?: WriteFileOptions) =>
-			verifyPermission(FsPermissionMap.fsTruncate, permissions, path, options).then(() =>
+			verifyGeneralPathScopedPermission(FsPermissionMap.fsTruncate, permissions, path, options).then(() =>
 				fsWriteTextFile(path, data, options)
 			),
 		fsFileSearch: (
@@ -161,7 +160,7 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFsServer {
 			return Promise.all(
 				// TODO: first verify all search locations are allowed, for now, recursive search is allowed even if scope allows one level only
 				searchParams.locations.map((loc) =>
-					verifyPermission(FsPermissionMap.fsFileSearch, permissions, loc)
+					verifyGeneralPathScopedPermission(FsPermissionMap.fsFileSearch, permissions, loc)
 				)
 			).then(() => fileSearch(searchParams))
 		}

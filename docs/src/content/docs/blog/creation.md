@@ -3,7 +3,7 @@ title: "Creation of Kunkun"
 ---
 
 > Why did I create Kunkun?
-> Kunkun is designed to be a cross-platform and open source alternative for apps like Alfred, Raycast, uTools. I will discuss these 3 them in this blog.
+> Kunkun is designed to be a cross-platform and open source alternative for apps like Alfred, Raycast, uTools. I will discuss them in this blog.
 
 These are very successful and popular products that I have used and loved. Kunkun was created to solve some of the problems I had with these products.
 

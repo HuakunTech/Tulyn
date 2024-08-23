@@ -1,6 +1,11 @@
 import * as pathAPI from "@tauri-apps/api/path"
 import { BaseDirectory } from "@tauri-apps/api/path"
 import { minimatch } from "minimatch"
+import type {
+	FsPermissionScoped,
+	OpenPermissionScoped,
+	ShellPermissionScoped
+} from "../permissions/schema"
 
 export async function combinePathAndBaseDir(target: string, baseDir?: BaseDirectory) {
 	if (!baseDir) return target
@@ -58,4 +63,53 @@ export async function translateScopeToPath(scope: string): Promise<string> {
 export async function matchPathAndScope(target: string, scope: string): Promise<boolean> {
 	const translatedScope = await translateScopeToPath(scope)
 	return minimatch(target, translatedScope)
+}
+
+/**
+ * This is a helper function to verify scoped permission for path
+ * If a scoped permission needs access to paths, this function verify whether the path is allowed by the permission
+ * @param requiredPermissions 
+ * @param userPermissionScopes 
+ * @param path 
+ * @param options 
+ * @returns 
+ */
+export async function verifyGeneralPathScopedPermission<T extends string[]>(
+	requiredPermissions: T,
+	userPermissionScopes: (FsPermissionScoped | OpenPermissionScoped | ShellPermissionScoped)[],
+	path: string | URL,
+	options?: { baseDir?: BaseDirectory }
+) {
+	path = path.toString()
+	// console.log("verifyPermission", requiredPermissions, userPermissionScopes, path, options)
+	const fullPath = await combinePathAndBaseDir(path, options?.baseDir)
+	if (!fullPath) {
+		throw new Error("Invalid path or base directory")
+	}
+	const matchedPermissionScope = userPermissionScopes.filter((p) =>
+		requiredPermissions.includes(p.permission)
+	)
+	if (matchedPermissionScope.length === 0) {
+		throw new Error(
+			`Path Permission denied. Require one of these: [${requiredPermissions.join(", ")}] for path: ${fullPath}`
+		)
+	}
+
+	for (const permission of matchedPermissionScope) {
+		// deny has priority, if deny rule is matched, we ignore allow rule
+		for (const deny of permission.deny || []) {
+			if (!deny.path) continue
+			if (await matchPathAndScope(fullPath, deny.path)) {
+				throw new Error(`Permission denied for path: ${fullPath} by rule ${deny.path}`)
+			}
+		}
+		for (const allow of permission.allow || []) {
+			if (!allow.path) continue
+			if (await matchPathAndScope(fullPath, allow.path)) {
+				return
+			}
+		}
+	}
+	// No Allow rule and path matched
+	throw new Error(`Permission denied for path: ${path}, no rule matched.`)
 }

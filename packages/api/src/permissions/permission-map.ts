@@ -1,5 +1,11 @@
+import type { IShellServer } from "tauri-api-adapter"
 import type { IEventServer, IFsServer, ISystemServer } from "../ui/server/server-types"
-import type { EventPermission, KunkunFsPermission, SystemPermission } from "./schema"
+import type {
+	EventPermission,
+	KunkunFsPermission,
+	ShellPermission,
+	SystemPermission
+} from "./schema"
 
 /* -------------------------------------------------------------------------- */
 /*                                  Re-export                                 */
@@ -12,7 +18,7 @@ export {
 	OsPermissionMap,
 	FetchPermissionMap,
 	SystemInfoPermissionMap,
-	ShellPermissionMap,
+	// ShellPermissionMap, // we defined a custom one below
 	UpdownloadPermissionMap
 } from "tauri-api-adapter/permissions"
 
@@ -73,4 +79,20 @@ export const EventPermissionMap: Record<keyof IEventServer, EventPermission[]> =
 	eventOnWindowBlur: ["event:window-blur"],
 	eventOnWindowCloseRequested: ["event:window-close-requested"],
 	eventOnWindowFocus: ["event:window-focus"]
+}
+
+export const ShellPermissionMap: Record<keyof IShellServer, ShellPermission[]> = {
+	shellExecute: ["shell:all", "shell:execute"],
+	shellKill: ["shell:all", "shell:kill"],
+	shellStdinWrite: ["shell:all", "shell:stdin-write", "shell:execute"],
+	shellOpen: ["shell:all", "shell:open"],
+	shellRawSpawn: ["shell:all", "shell:spawn"],
+	shellExecuteBashScript: ["shell:all", "shell:execute"],
+	shellExecutePowershellScript: ["shell:all", "shell:execute"],
+	shellExecuteAppleScript: ["shell:all", "shell:execute"],
+	shellExecutePythonScript: ["shell:all", "shell:execute"],
+	shellExecuteZshScript: ["shell:all", "shell:execute"],
+	shellExecuteNodeScript: ["shell:all", "shell:execute"],
+	shellHasCommand: [],
+	shellLikelyOnWindows: ["shell:all", "shell:execute"]
 }
