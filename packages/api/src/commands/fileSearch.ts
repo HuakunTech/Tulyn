@@ -31,7 +31,10 @@ export const FileSearchParams = object({
 export type FileSearchParams = InferOutput<typeof FileSearchParams>
 
 export function fileSearch(
-	searchParams: FileSearchParams & { hidden?: boolean; ignore_case?: boolean }
+	searchParams: Omit<FileSearchParams, "hidden" | "ignore_case"> & {
+		hidden?: boolean
+		ignore_case?: boolean
+	}
 ): Promise<string[]> {
 	return invoke(generateJarvisPluginCommand("file_search"), {
 		searchParams: parse(FileSearchParams, searchParams)

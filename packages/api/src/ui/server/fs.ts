@@ -34,7 +34,11 @@ import {
 	type KunkunFsPermission,
 	type SystemPermission
 } from "../../permissions/schema"
-import { combinePathAndBaseDir, matchPathAndScope, verifyGeneralPathScopedPermission } from "../../utils/path"
+import {
+	combinePathAndBaseDir,
+	matchPathAndScope,
+	verifyGeneralPathScopedPermission
+} from "../../utils/path"
 import type { IFsServer } from "./server-types"
 
 // async function verifyPermission(
@@ -89,8 +93,8 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFsServer {
 		fn: T
 	) => {
 		return (path: string | URL, options?: { baseDir?: BaseDirectory }): ReturnType<T> =>
-			verifyGeneralPathScopedPermission(requiredPermissions, permissions, path, options).then((result) =>
-				fn(path, options)
+			verifyGeneralPathScopedPermission(requiredPermissions, permissions, path, options).then(
+				(result) => fn(path, options)
 			) as ReturnType<T>
 	}
 	return {
@@ -140,19 +144,28 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFsServer {
 				.then(() => fsRename(oldPath, newPath, options))
 		},
 		fsTruncate: (path: string | URL, len?: number, options?: TruncateOptions) =>
-			verifyGeneralPathScopedPermission(FsPermissionMap.fsTruncate, permissions, path, options).then(() =>
-				fsTruncate(path, len, options)
-			),
+			verifyGeneralPathScopedPermission(
+				FsPermissionMap.fsTruncate,
+				permissions,
+				path,
+				options
+			).then(() => fsTruncate(path, len, options)),
 		fsWriteFile: (path: string | URL, data: Uint8Array, options?: WriteFileOptions) =>
-			verifyGeneralPathScopedPermission(FsPermissionMap.fsTruncate, permissions, path, options).then(() =>
-				fsWriteFile(path, data, options)
-			),
+			verifyGeneralPathScopedPermission(
+				FsPermissionMap.fsTruncate,
+				permissions,
+				path,
+				options
+			).then(() => fsWriteFile(path, data, options)),
 		fsWriteTextFile: (path: string | URL, data: string, options?: WriteFileOptions) =>
-			verifyGeneralPathScopedPermission(FsPermissionMap.fsTruncate, permissions, path, options).then(() =>
-				fsWriteTextFile(path, data, options)
-			),
+			verifyGeneralPathScopedPermission(
+				FsPermissionMap.fsTruncate,
+				permissions,
+				path,
+				options
+			).then(() => fsWriteTextFile(path, data, options)),
 		fsFileSearch: (
-			searchParams: FileSearchParams & {
+			searchParams: Omit<FileSearchParams, "hidden" | "ignore_case"> & {
 				hidden?: boolean
 				ignore_case?: boolean
 			}

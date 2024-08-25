@@ -2,10 +2,12 @@
 title: Shell
 ---
 
+**Docs:** https://docs.api.kunkun.sh/interfaces/ui.IShell
+
 :::danger
 This API is dangerous and should be used with caution.
 Unless you have a good reason to use it, you should not use it.
-KK has provided many common APIs to interact with the system, and you should use them instead.
+KK has provided many common and cross-platform APIs to interact with the system, and you should use them instead.
 Extension developers are expected to explain why they need to use this API in their PR.
 
 KK has implemented some measures to reduce the risk of using this API, but it should still be used with caution.
@@ -15,11 +17,12 @@ Shell API provides a way to execute shell commands/scripts and spawn processes.
 
 Commands executed runs at once and are not interactive. `stdout` and `stderr` are captured and returned as a result.
 
-If you are running a long running process and need to capture the `stdout`/`stderr` stream or event interact with `stdin`, you should use the `spawn` API.
+If you are running a long running process and need to capture the `stdout`/`stderr` stream, or interact with `stdin`, you should use the `spawn` API.
 
 More examples will be provided below.
 
-All shell permissions are scoped, read the documentation carefully before using them. Without proper permissions, KK's API will deny the shell command.
+All shell permissions are scoped, read the documentation carefully before using them. 
+Without proper permissions, KK's API will deny the shell command.
 
 ## API and Permissions
 

@@ -21,3 +21,12 @@ await fetch('https://schema.kunkun.sh')
   .then((res) => res.json())
   .then((data) => {});
 ```
+
+Sample `package.json` permission configuration:
+
+```json title="package.json"
+...
+"permissions": ["fetch:all"],
+...
+```
+

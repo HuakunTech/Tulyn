@@ -14,7 +14,6 @@ export {
 	dialog,
 	// event,
 	network,
-	fs,
 	notification,
 	os,
 	shell, // Shell has a custom server implementation in kunkun with a more fine grained permission system, the client API should be the same as tauri-api-adapter
@@ -25,6 +24,7 @@ export {
 	fetch
 } from "tauri-api-adapter/iframe"
 export { type IUiIframe } from "../client"
+export { fs } from "../api/fs"
 export { comlinkUI as ui, registerDragRegion } from "../api/iframe-ui"
 export { comlinkEvent as event } from "../api/event"
 export { db, constructJarvisExtDBToServerDbAPI } from "../api/db"

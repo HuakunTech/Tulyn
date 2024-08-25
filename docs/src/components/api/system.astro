@@ -1,23 +1,9 @@
 ---
 import { SystemPermissionMap } from "@kksh/api/permissions"
+import ApiPermissionList from './api-permission-list.astro'
 
 function transformMethodName(name: string) {
 	return name.substring(6).charAt(0).toLowerCase() + name.substring(7);
 }
 ---
-<ul>
-	{
-		Object.entries(SystemPermissionMap).map(([methodName, permissions]) => (
-			<li>
-				<code class="">{transformMethodName(methodName)}</code>:
-				<span class="gap-1">
-					[
-					{permissions.map((p) => (
-						<code>{p}</code><span> </span>
-					))}
-					]
-				</span>
-			</li>
-		))
-	}
-</ul>
+<ApiPermissionList permissionMap={SystemPermissionMap} apiPrefixLength={6} />

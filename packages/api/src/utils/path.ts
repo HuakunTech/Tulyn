@@ -82,7 +82,6 @@ export async function verifyGeneralPathScopedPermission<T extends string[]>(
 	options?: { baseDir?: BaseDirectory }
 ) {
 	path = path.toString()
-	// console.log("verifyPermission", requiredPermissions, userPermissionScopes, path, options)
 	const fullPath = await combinePathAndBaseDir(path, options?.baseDir)
 	if (!fullPath) {
 		throw new Error("Invalid path or base directory")
@@ -118,10 +117,10 @@ export async function verifyGeneralPathScopedPermission<T extends string[]>(
 /**
  * This permission verifier helps to verify scoped permission for URL or path
  * Pass in user scoped permission, value and key to verify, return true if permission is allowed
- * @param userPermissionScopes 
- * @param value 
- * @param key 
- * @returns 
+ * @param userPermissionScopes
+ * @param value
+ * @param key
+ * @returns
  */
 export async function verifyScopedPermission(
 	userPermissionScopes: (FsPermissionScoped | OpenPermissionScoped | ShellPermissionScoped)[],

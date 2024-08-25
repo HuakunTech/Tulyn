@@ -28,7 +28,6 @@ export { getWorkerApiClient, exposeApiToWorker, exposeApiToWindow } from "tauri-
 export type {
 	IClipboard,
 	IDialog,
-	IFs,
 	ILogger,
 	INetwork,
 	INotification,
@@ -39,3 +38,4 @@ export type {
 	IUpdownload,
 	IFetch
 } from "tauri-api-adapter"
+export type { ISystem, IToast, IUiWorker, IUiIframe, IDb, IFs, IOpen, IEvent } from "../ui/client"

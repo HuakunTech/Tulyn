@@ -6,7 +6,7 @@ export {
 	dialog,
 	// event,
 	network,
-	fs,
+	// fs, // a custom kunkun implementation of fs is provided
 	notification,
 	os,
 	shell, // Shell has a custom server implementation in kunkun with a more fine grained permission system, the client API should be the same as tauri-api-adapter
@@ -18,6 +18,7 @@ export {
 } from "tauri-api-adapter/worker"
 export { comlinkSystem as system } from "../api/system"
 export { comlinkUI as ui } from "../api/worker-ui"
+export { fs } from "../api/fs"
 export { comlinkOpen as open } from "../api/open"
 export { toast } from "../api/toast"
 export { db, constructJarvisExtDBToServerDbAPI } from "../api/db"
