@@ -1,7 +1,128 @@
 ---
 title: Database
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 ---
+
+Database API is for extensions that need to store data in a database.
+
+Please avoid using browser storage like `localStorage` to avoid data collisions with other extensions and data leaks.
+
+Database API doesn't require any permissions, but one extension can only access its own data.
+
+This database is based on sqlite thus doesn't have a key-value style storage. 
+(I have plan to provide key-value style API in the future for convenience.)
+
+The following APIs are now available:
+- `add`
+- `delete`
+- `search`
+- `retrieveAll`
+- `retrieveAllByType`
+- `deleteAll`
+- `update`
+
+CRUD are the basic operations provided by the database API. Let's talk about them one by one.
+
+## Add
+
+There are 3 parameters for each data entry:
+
+- `data`
+  - Any data you want to store.
+- `dataType`
+  - An arbitrary string to categorize the data.
+- `searchText`
+  - A string to search the data. You can use this to store preview data as well.
+  - This field is searchable via sqlite full-text search.
+
+Only `data` is required. `dataType` and `searchText` are optional, and everything is stored as a string.
+
+You need to use `JSON.stringify` to store objects, and `JSON.parse` to deserialize them.
+
+> Later I may provide a way to store objects directly, but for now, you need to serialize them.
+
+```ts
+import { db } from '@kksh/api/ui/worker';
+// or
+import { db } from '@kksh/api/ui/iframe';
+
+await db.add({
+  data: JSON.stringify({ name: 'Kunkun' }),
+  dataType: 'preference',
+  searchText: 'preference',
+});
+```
+
+:::caution
+Since the database API currently doesn't support key-value store. `dataType` isn't a unique key. 
+Running `.add()` multiple times with the same data will create multiple entries.
+
+If you need to make sure there is a single entry, you need to use read, update and delete APIs to manage the data.
+
+Later I will provide a way to store key-value pairs directly.
+:::
+
+## Read/Search
+
+There are multiple APIs to read data from the database.
+
+- `db.retrieveAll` returns all data entries for the extension. 
+Sometimes the extension may store large amount of data in the `data` field, while you may only need the `searchText`.
+So a `fields` parameter is provided to specify which fields you want to retrieve.
+- `db.retrieveAllByType` returns all data entries by `dataType`.
+- `db.search` run search query within the database instead of retrieving all data and filtering them with JS.
+
+```ts
+const allData = await db.retrieveAll({
+  fields: ["data", "search_text"]
+})
+
+const result = await db.search({ dataType: 'preference' });
+
+const result = await db.search({ dataType: "preference" })
+```
+
+### Search
+
+`db.search` API supports searching on multiple fields. Use your IDE to go to the definition of `search()` to see the full type definition.
+
+```ts
+enum SQLSortOrder {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
+
+type SearchParams = {
+  dataId?: number
+  fullTextSearch?: boolean
+  dataType?: string
+  searchText?: string
+  afterCreatedAt?: Date
+  beforeCreatedAt?: Date
+  limit?: number
+  orderByCreatedAt?: SQLSortOrder
+  orderByUpdatedAt?: SQLSortOrder
+  fields?: ExtDataField[]
+}
+```
+
+- `dataId` is the unique ID of the data entry.
+- `fullTextSearch` is a boolean to enable full-text search on the `searchText` field.
+- `limit` is the maximum number of results to return.
+- `fields` is an array of fields to return.
+
+## Update
+
+You need to provide the `dataId` to update the data.
+
+```ts
+await db.update({ dataId: 803, data: "new data", searchText: "new data" })
+```
+
+## Delete
+
+You need to provide the `dataId` to delete the data.
+
+```ts
+await db.delete(803)
+```
+
