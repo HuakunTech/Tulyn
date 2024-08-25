@@ -1,7 +1,323 @@
 ---
 title: Shell
-sidebar:
-  badge:
-    text: WIP
-    variant: caution
 ---
+
+:::danger
+This API is dangerous and should be used with caution.
+Unless you have a good reason to use it, you should not use it.
+KK has provided many common APIs to interact with the system, and you should use them instead.
+Extension developers are expected to explain why they need to use this API in their PR.
+
+KK has implemented some measures to reduce the risk of using this API, but it should still be used with caution.
+:::
+
+Shell API provides a way to execute shell commands/scripts and spawn processes.
+
+Commands executed runs at once and are not interactive. `stdout` and `stderr` are captured and returned as a result.
+
+If you are running a long running process and need to capture the `stdout`/`stderr` stream or event interact with `stdin`, you should use the `spawn` API.
+
+More examples will be provided below.
+
+All shell permissions are scoped, read the documentation carefully before using them. Without proper permissions, KK's API will deny the shell command.
+
+## API and Permissions
+
+Here is a list of APIs and permissions required to use them.
+
+import ShellAPI from '@/components/api/shell.astro'
+
+<ShellAPI />
+
+## `Command` Object
+
+### Execute Command
+
+```ts
+import { shell } from "@kksh/api/ui/worker"
+// or
+import { shell } from "@kksh/api/ui/iframe"
+
+const cmd = shell.Command.create("echo", ["Hello World"])
+const output = await cmd.execute()
+console.log(output.stdout) // Hello World
+```
+
+To execute a command, you need to add scoped permission for the command you are executing.
+
+This is used to prevent extensions from being hacked and running injected malicious code.
+
+So always make the permission as specific as possible.
+
+Here is an example permission for the sample code above.
+
+```json title="package.json"
+...
+"permissions": [
+  {
+    "permission": "shell:execute",
+    "allow": [
+      {
+        "cmd": {
+          "program": "echo",
+          "args": [
+            "Hello World"
+          ]
+        }
+      }
+    ]
+  },
+  ...
+],
+...
+```
+
+Each item in the `args` array is a regex to match the argument.
+You can add a permission like this to allow dynamic arguments.
+
+```json title="package.json"
+...
+"permissions": [
+  {
+    "permission": "shell:execute",
+    "allow": [
+      {
+        "cmd": {
+          "program": "echo",
+          "args": [
+            "[a-zA-Z0-9\s]+"
+          ]
+        }
+      }
+    ]
+  },
+  ...
+],
+...
+```
+
+### Spawn Command
+
+Executed command runs at once and are not interactive. `stdout` and `stderr` are captured and returned as a result.
+If you are running a long running process and need to capture the `stdout`/`stderr` stream or event interact with `stdin`, you should use the `spawn` API.
+
+For example, this could be useful if you are converting a video file with `ffmpeg`, and need to read stdout to get the progress throughout the conversion process.
+
+Here is a simplified example of how to use the `spawn` API.
+
+```ts
+const cmd = shell.Command.create("echo", ["Hello World"])
+let stdout = ""
+let stderr = ""
+cmd.on("close", (data) => {
+  console.log(`command finished with code ${data.code} and signal ${data.signal}`)
+  // sample output: "command finished with code 0 and signal null"
+})
+cmd.on("error", (error) => {
+  console.error(error)
+})
+cmd.stdout.on("data", (line) => {
+  stdout += line
+})
+cmd.stderr.on("data", (line) => {
+  stderr += line
+})
+await cmd.spawn()
+```
+
+Spawn also requires its own scoped permission (`shell:spawn`).
+
+```json title="package.json"
+...
+"permissions": [
+  {
+    "permission": "shell:spawn",
+    "allow": [
+      {
+        "cmd": {
+          "program": "echo",
+          "args": [
+            "Hello World"
+          ]
+        }
+      }
+    ]
+  },
+  ...
+],
+...
+```
+
+:::tip
+The `await cmd.spawn()` doesn't block. You need to rely on the `close` event to know when the command has finished.
+Read the last section for a promise example on `spawn` which makes it easier to work with.
+:::
+
+## Execute Scripts Directly
+
+Sometimes adding args one by one is inconvenient, 
+especially for extensions that need to run a lot of shell scripts (like an emulated terminal).
+
+KK provides some convenient methods for executing scripts directly.
+
+This API allows extension to run any shell script, which could be potentially **unsafe**. 
+
+:::danger
+It's not recommended to use this API. Extensions without proper reason will be rejected.
+:::
+
+- `executeBashScript` (`bash -c`)
+-  `shellExecutePowershellScript` (`powershell -Command`)
+- `executeAppleScript` (`osascript -e`)
+- `executePythonScript` (`python -c`)
+- `executeZshScript` (`zsh -c`)
+- `executeNodeScript` (`node -e`)
+
+```ts
+import { shell } from "@kksh/api/ui/worker"
+
+await shell.executeAppleScript("display dialog \"Hello World\"") // macOS only, display a dialog
+
+const ret = await shell.executePythonScript("print('Hello World')")
+console.log(ret.stdout)
+```
+
+### Permissions
+
+Direct shell script execution use the entire script as one argument. Thus the scoped permission will look like this.
+
+`program` is the command to execute, first arg can be `-c`, `-e` etc. depending on which shell you are using. Check the list above.
+
+The second argument is a regex to match the script. In this example `.+` is used to match any script, you should replace it with a more specific regex.
+
+```json title="package.json"
+...
+"permissions": [
+  {
+    "permission": "shell:execute",
+    "allow": [
+      {
+        "cmd": {
+          "program": "osascript",
+          "args": [
+            "-e",
+            ".+"
+          ]
+        }
+      },
+      {
+        "cmd": {
+          "program": "python",
+          "args": [
+            "-c",
+            ".+"
+          ]
+        }
+      }
+    ]
+  },
+  ...
+],
+...
+```
+
+## Make Command Script
+
+The previous section provides APIs to execute scripts directly. You can't interact with the script.
+
+In this section, we will create a command script object and execute/spawn it.
+
+```ts
+const cmd = shell.makeBashScript("echo \"Hello World\"")
+const output = await cmd.execute()
+console.log(output.stdout);
+
+// or spawn the command
+let stdout = ""
+let stderr = ""
+cmd.on("close", (data) => {
+  console.log(`command finished with code ${data.code} and signal ${data.signal}`)
+  // sample output: "command finished with code 0 and signal null"
+})
+cmd.on("error", (error) => {
+  console.error(error)
+})
+cmd.stdout.on("data", (line) => {
+  stdout += line
+})
+cmd.stderr.on("data", (line) => {
+  stderr += line
+})
+await cmd.spawn()
+```
+
+And of course, you need to add permission for running bash scripts.
+
+```json title="package.json"
+...
+"permissions": [
+  {
+    "permission": "shell:execute",
+    "allow": [
+      {
+        "cmd": {
+          "program": "bash",
+          "args": [
+            "-c",
+            ".+"
+          ]
+        }
+      }
+    ]
+  },
+  ...
+],
+...
+```
+
+
+## More Example Code
+
+### Promisify `spawn`
+
+You can turn the spawned command into a promise, so you can easily work with it.
+
+Here we define a custom `execute` function that returns a promise.
+You can write custom logic to handle the `stdout` and `stderr` stream.
+The final output is returned as a promise.
+
+```ts
+function execute(
+  command: shell.Command<string>,
+): Promise<{ stderr: string; stdout: string }> {
+  return new Promise((resolve, reject) => {
+    let stdout = "";
+    let stderr = "";
+    command.on("close", (data) => {
+      return resolve({ stdout, stderr });
+    });
+    command.on("error", (error) => reject(error));
+    command.stdout.on("data", (line) => {
+      stdout += line;
+    });
+    command.stderr.on("data", (line) => {
+      stderr += line;
+    });
+    command.spawn();
+  });
+}
+
+const command = shell.Command.create("ffprobe", [
+  "-v",
+  "quiet",
+  "-print_format",
+  "json",
+  "-show_format",
+  "-show_streams",
+  videoPath,
+]);
+return execute(command).then(({ stdout, stderr }) => {
+  console.log(stdout);
+  console.log(stderr);
+});
+```

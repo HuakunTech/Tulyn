@@ -40,10 +40,12 @@ export type EventPermission = InferOutput<typeof EventPermissionSchema>
 export const PermissionScopeSchema = object({
 	path: optional(string()),
 	url: optional(string()),
-	cmd: object({
-		program: string(),
-		args: array(string())
-	})
+	cmd: optional(
+		object({
+			program: string(),
+			args: array(string())
+		})
+	)
 })
 export type KunkunFsPermission = InferOutput<typeof KunkunFsPermissionSchema>
 export const FsPermissionScopedSchema = object({
@@ -71,38 +73,16 @@ export const ShellPermissionSchema = union([
 	literal("shell:open"),
 	literal("shell:kill"),
 	literal("shell:all"),
-	literal("shell:stdin-write"),
+	literal("shell:stdin-write")
 ])
-export const ShellPermissionScoped = object({
+export const ShellPermissionScopedSchema = object({
 	permission: ShellPermissionSchema,
 	allow: optional(array(PermissionScopeSchema)),
 	deny: optional(array(PermissionScopeSchema))
 })
-export type ShellPermissionScoped = InferOutput<typeof ShellPermissionScoped>
+export type ShellPermissionScoped = InferOutput<typeof ShellPermissionScopedSchema>
 export type ShellPermission = InferOutput<typeof ShellPermissionSchema>
 
-// export const FsPermissionSchema = union([
-// 	literal("fs:allow-desktop-read-recursive"),
-// 	literal("fs:allow-desktop-write-recursive"),
-// 	literal("fs:allow-documents-read-recursive"),
-// 	literal("fs:allow-documents-write-recursive"),
-// 	literal("fs:allow-downloads-read-recursive"),
-// 	literal("fs:allow-downloads-write-recursive")
-// ])
-// export type FsPermission = InferOutput<typeof FsPermissionSchema>
-
-// export const FsScopePermissionSchema = union([
-// 	literal("fs:allow-desktop-read-recursive"),
-// 	literal("fs:allow-desktop-write-recursive"),
-// 	literal("fs:allow-documents-read-recursive"),
-// 	literal("fs:allow-documents-write-recursive"),
-// 	literal("fs:allow-downloads-read-recursive"),
-// 	literal("fs:allow-downloads-write-recursive"),
-// 	literal("fs:scope-download-recursive"),
-// 	literal("fs:scope-desktop-recursive"),
-// 	literal("fs:scope-documents-recursive")
-// ])
-// export type FsScopePermission = InferOutput<typeof FsScopePermissionSchema>
 export type SystemPermission = InferOutput<typeof SystemPermissionSchema>
 export const KunkunManifestPermission = union([
 	// TauriApiAdapterAllPermissionSchema,
@@ -113,6 +93,7 @@ export const KunkunManifestPermission = union([
 	// FsPermissionSchema,
 	OsPermissionSchema,
 	ShellPermissionSchema,
+	// StringShellPermissionSchema, // permission like exeucte and spawn must be scoped, this schema should only contain string permissions
 	FetchPermissionSchema,
 	SystemInfoPermissionSchema,
 	NetworkPermissionSchema,

@@ -17,7 +17,8 @@ import {
 	FsPermissionScopedSchema,
 	KunkunFsPermissionSchema,
 	KunkunManifestPermission,
-	OpenPermissionScopedSchema
+	OpenPermissionScopedSchema,
+	ShellPermissionScopedSchema
 } from "../permissions"
 import { Icon } from "./icon"
 
@@ -119,7 +120,12 @@ export const KunkunExtManifest = object({
 	),
 	icon: Icon,
 	permissions: array(
-		union([KunkunManifestPermission, FsPermissionScopedSchema, OpenPermissionScopedSchema]),
+		union([
+			KunkunManifestPermission,
+			FsPermissionScopedSchema,
+			OpenPermissionScopedSchema,
+			ShellPermissionScopedSchema
+		]),
 		"Permissions Declared by the extension. e.g. clipboard-all. Not declared APIs will be blocked."
 	),
 	demoImages: array(string("Demo images for the extension")),

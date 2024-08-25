@@ -19,17 +19,18 @@ import {
 	type NetworkPermission,
 	type NotificationPermission,
 	type OsPermission,
-	type ShellPermission,
+	// type ShellPermission,
 	type SystemInfoPermission,
 	type UpdownloadPermission
 } from "tauri-api-adapter"
 import {
 	AllKunkunPermission,
-	ShellPermissionScoped,
+	type ShellPermissionScoped,
 	type EventPermission,
 	type FsPermissionScoped,
 	type KunkunFsPermission,
 	type OpenPermissionScoped,
+	type ShellPermission,
 	type SystemPermission
 } from "../../permissions"
 import type { IDbServer } from "./db"

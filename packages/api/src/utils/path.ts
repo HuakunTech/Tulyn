@@ -56,7 +56,8 @@ export async function translateScopeToPath(scope: string): Promise<string> {
 }
 
 /**
- * target should be full path, but this function also does security check to prevent parent directory traversal
+ * Target should be full path
+ * TODO: but this function also does security check to prevent parent directory traversal
  * @param target full path to file
  * @param scope expected to be like $DESKTOP/*, $DOWNLOAD/**
  */
@@ -68,11 +69,11 @@ export async function matchPathAndScope(target: string, scope: string): Promise<
 /**
  * This is a helper function to verify scoped permission for path
  * If a scoped permission needs access to paths, this function verify whether the path is allowed by the permission
- * @param requiredPermissions 
- * @param userPermissionScopes 
- * @param path 
- * @param options 
- * @returns 
+ * @param requiredPermissions
+ * @param userPermissionScopes
+ * @param path
+ * @param options
+ * @returns
  */
 export async function verifyGeneralPathScopedPermission<T extends string[]>(
 	requiredPermissions: T,
@@ -112,4 +113,47 @@ export async function verifyGeneralPathScopedPermission<T extends string[]>(
 	}
 	// No Allow rule and path matched
 	throw new Error(`Permission denied for path: ${path}, no rule matched.`)
+}
+
+/**
+ * This permission verifier helps to verify scoped permission for URL or path
+ * Pass in user scoped permission, value and key to verify, return true if permission is allowed
+ * @param userPermissionScopes 
+ * @param value 
+ * @param key 
+ * @returns 
+ */
+export async function verifyScopedPermission(
+	userPermissionScopes: (FsPermissionScoped | OpenPermissionScoped | ShellPermissionScoped)[],
+	value: string,
+	key: "url" | "path"
+): Promise<boolean> {
+	async function match(value: string, scope: string): Promise<boolean> {
+		if (key === "url") {
+			return minimatch(value, scope)
+		} else if (key === "path") {
+			return matchPathAndScope(value, scope)
+		} else {
+			throw new Error(`Invalid key: ${key}`)
+		}
+	}
+	let pass = false
+	for (const permission of userPermissionScopes) {
+		for (const allow of permission.allow || []) {
+			if (allow[key] && (await match(value, allow[key]))) {
+				pass = true
+				break
+			}
+		}
+		if (pass) {
+			break
+		}
+		for (const deny of permission.deny || []) {
+			if (deny[key] && (await match(value, deny[key]))) {
+				pass = false
+				break
+			}
+		}
+	}
+	return pass
 }

@@ -25,8 +25,8 @@ import {
 	type SpawnOptions
 } from "tauri-plugin-shellx-api"
 import { ShellPermissionMap } from "../../permissions/permission-map"
-import { ShellPermissionScoped, type ShellPermission } from "../../permissions/schema"
-import { matchPathAndScope, verifyGeneralPathScopedPermission } from "../../utils/path"
+import { type ShellPermission, type ShellPermissionScoped } from "../../permissions/schema"
+import { verifyScopedPermission } from "../../utils/path"
 
 function matchRegexArgs(args: string[], regexes: string[]): boolean {
 	if (args.length !== regexes.length) {
@@ -88,7 +88,7 @@ export function constructShellApi(
 					args
 				))
 			) {
-				return Promise.reject(new Error("Permission denied"))
+				return Promise.reject(new Error("Shell Execute Permission denied"))
 			}
 			return invoke<ChildProcess<IOPayload>>("plugin:shellx|execute", {
 				program: program,
@@ -119,8 +119,19 @@ export function constructShellApi(
 		shellOpen: async (path: string, openWith?: string) => {
 			// TODO: consider adding a base dir option like the fs api's
 			// this should throw if permission is denied
-			await verifyGeneralPathScopedPermission(ShellPermissionMap.shellOpen, objectPermissions, path)
-			return shellxOpen(path, openWith)
+			if (
+				await verifyScopedPermission(
+					objectPermissions.filter(
+						(p) => p.permission === "shell:open" || p.permission === "shell:all"
+					),
+					path,
+					"url"
+				)
+			) {
+				return shellxOpen(path, openWith)
+			} else {
+				throw new Error(`Permission denied to open file: ${path}`)
+			}
 		},
 		// shellOpen: verifyShellCmdPermission(["shell:open"], permissions)(shellOpen),
 		shellRawSpawn: async <O extends IOPayload>(
@@ -137,7 +148,7 @@ export function constructShellApi(
 					args
 				))
 			) {
-				return Promise.reject(new Error("Permission denied"))
+				return Promise.reject(new Error("Shell Spawn Permission denied"))
 			}
 			const onEvent = new Channel<CommandEvent<O>>()
 			onEvent.onmessage = cb
@@ -157,7 +168,7 @@ export function constructShellApi(
 					["-c", script]
 				))
 			) {
-				return Promise.reject(new Error("Permission denied"))
+				return Promise.reject(new Error("Shell Execute (Bash) Permission denied"))
 			}
 			return shellxExecuteBashScript(script)
 		},
@@ -170,11 +181,14 @@ export function constructShellApi(
 					["-Command", script]
 				))
 			) {
-				return Promise.reject(new Error("Permission denied"))
+				return Promise.reject(new Error("Shell Execute (PowerShell) Permission denied"))
 			}
 			return shellxExecutePowershellScript(script)
 		},
 		shellExecuteAppleScript: async (script: string): Promise<ChildProcess<string>> => {
+			console.log("shellExecuteAppleScript", script)
+			console.log("objectPermissions", objectPermissions)
+
 			if (
 				!(await verifyShellCmdPermission(
 					ShellPermissionMap.shellExecuteAppleScript,
@@ -183,7 +197,7 @@ export function constructShellApi(
 					["-e", script]
 				))
 			) {
-				return Promise.reject(new Error("Permission denied"))
+				return Promise.reject(new Error("Shell Execute (AppleScript) Permission denied"))
 			}
 			return shellxExecuteAppleScript(script)
 		},
@@ -196,7 +210,7 @@ export function constructShellApi(
 					["-c", script]
 				))
 			) {
-				return Promise.reject(new Error("Permission denied"))
+				return Promise.reject(new Error("Shell Execute (Python) Permission denied"))
 			}
 			return shellxExecutePythonScript(script)
 		},
@@ -209,7 +223,7 @@ export function constructShellApi(
 					["-c", script]
 				))
 			) {
-				return Promise.reject(new Error("Permission denied"))
+				return Promise.reject(new Error("Shell Execute (ZSH) Permission denied"))
 			}
 			return shellxExecuteZshScript(script)
 		},
@@ -222,7 +236,7 @@ export function constructShellApi(
 					["-e", script]
 				))
 			) {
-				return Promise.reject(new Error("Permission denied"))
+				return Promise.reject(new Error("Shell Execute (Node) Permission denied"))
 			}
 			return shellxExecuteNodeScript(script)
 		},
