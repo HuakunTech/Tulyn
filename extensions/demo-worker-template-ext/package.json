@@ -1,0 +1,52 @@
+{
+  "$schema": "https://schema.kunkun.sh",
+  "name": "demo-template-extension",
+  "version": "0.0.1",
+  "type": "module",
+  "kunkun": {
+    "name": "Demo Template Extension",
+    "shortDescription": "Demo Template Extension",
+    "longDescription": "Demo Template Extension",
+    "identifier": "sh.kunkun.demo-template-extension",
+    "permissions": [
+      "fetch:all"
+    ],
+    "demoImages": [],
+    "icon": {
+      "type": "iconify",
+      "value": "carbon:demo"
+    },
+    "customUiCmds": [],
+    "templateUiCmds": [
+      {
+        "name": "Demo Worker Template",
+        "main": "dist/index.js",
+        "cmds": []
+      }
+    ]
+  },
+  "scripts": {
+    "dev": "rollup -c --watch",
+    "build": "rimraf dist && rollup -c"
+  },
+  "dependencies": {
+    "@kksh/api": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.18.1",
+    "rollup-plugin-visualizer": "^5.12.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "./dist",
+    ".gitignore"
+  ]
+}

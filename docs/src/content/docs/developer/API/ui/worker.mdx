@@ -14,6 +14,17 @@ The `ui` API differs between custom (iframe) extensions and template (web worker
 
 **Docs:** https://docs.api.kunkun.sh/interfaces/ui.IUiWorker
 
+A template extension scaffold can be created with the following command:
+
+```bash
+npm init kunkun@latest
+```
+
+Read the [extensions section](/extensions/worker-template) first to learn more about this kind of extension.
+
+
+`ui` API provides the following methods:
+
 - `setScrollLoading`
   - Display a loading spinner when the user scrolls to the bottom of list view
 - `setSearchTerm`
@@ -21,10 +32,8 @@ The `ui` API differs between custom (iframe) extensions and template (web worker
 - `setSearchBarPlaceholder`
   - Set the placeholder text in the search bar
 - `render`
-  - Render a extension based on template
+  - Render a extension based on template, (e.g. list view, form view, etc.)
 
-```ts
-import { ui, WorkerExtension, expose } from "@kksh/api/ui/worker"
+I will explain how to use the `ui` API to build a template extension.
 
-
-```
+Sample code can be found in the [extensions section](/extensions/worker-template).
