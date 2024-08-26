@@ -1,6 +1,6 @@
 {
 	"productName": "Kunkun",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"identifier": "sh.kunkun.desktop",
 	"build": {
 		"beforeDevCommand": "pnpm dev",
@@ -46,7 +46,7 @@
 	},
 	"plugins": {
 		"updater": {
-			"endpoints": ["https://github.com/kunkun/kunkun/releases/latest/download/latest.json"],
+			"endpoints": ["https://updater.kunkun.sh"],
 			"pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDc1NENCRjZFM0JBOEQ0ODMKUldTRDFLZzdicjlNZFhHS0ZKYk13WkdZUTFUM01LNjkvVW5Bb2x1SnB1R0crbFRuMnlRSlJ0STgK"
 		}
 	}
