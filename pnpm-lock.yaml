@@ -1544,7 +1544,7 @@ importers:
   vendors/tauri-plugin-network:
     dependencies:
       '@tauri-apps/api':
-        specifier: '>=2.0.0-beta.6'
+        specifier: ^2.0.0-beta.6
         version: 2.0.0-rc.0
       valibot:
         specifier: ^0.36.0
@@ -1569,7 +1569,7 @@ importers:
   vendors/tauri-plugin-system-info:
     dependencies:
       '@tauri-apps/api':
-        specifier: '>=2.0.0-beta.6'
+        specifier: ^2.0.0-beta.6
         version: 2.0.0-rc.0
       valibot:
         specifier: ^0.36.0
