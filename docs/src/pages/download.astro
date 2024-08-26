@@ -1,0 +1,86 @@
+---
+import StarlightPage from "@astrojs/starlight/components/StarlightPage.astro"
+
+const res = await fetch("https://updater.kunkun.sh")
+type UpdaterData = {
+	version: string
+	notes: string
+	pub_date: string
+	platforms: Record<
+		string,
+		{
+			signature: string
+			url: string
+		}
+	>
+}
+const data: UpdaterData = await res.json()
+const version = data.version
+const downloadProxyBaseUrl = `https://github.com/kunkunsh/kunkun/releases/download/Kunkun-v${version}`
+// const downloadProxyBaseUrl = `https://download.kunkun.sh/Kunkun-v${version}`
+
+const downloadUrlMap = {
+  /* ---------------------------------- Linux --------------------------------- */
+  linux_x86_64_rpm: `${downloadProxyBaseUrl}/Kunkun-${version}-1.x86_64.rpm`,
+  linux_x86_64_deb: `${downloadProxyBaseUrl}/Kunkun_${version}_amd64.deb`,
+  /* --------------------------------- Windows -------------------------------- */
+  windows_x64_exe: `${downloadProxyBaseUrl}/Kunkun_${version}_x64-setup.exe`,
+  windows_x64_msi: `${downloadProxyBaseUrl}/Kunkun_${version}_x64_en-US.msi`,
+  /* ---------------------------------- MacOS --------------------------------- */
+  darwin_aarch64_dmg: `${downloadProxyBaseUrl}/Kunkun_${version}_aarch64.dmg`,
+  darwin_aarch64_app: `${downloadProxyBaseUrl}/Kunkun_aarch64.app.tar.gz`,
+  darwin_universal_dmg: `${downloadProxyBaseUrl}/Kunkun_${version}_universal.dmg`,
+  darwin_universal_app: `${downloadProxyBaseUrl}/Kunkun_universal.app.tar.gz`,
+  darwin_x64_dmg: `${downloadProxyBaseUrl}/Kunkun_${version}_x64.dmg`,
+  darwin_x64_app: `${downloadProxyBaseUrl}/Kunkun_x64.app.tar.gz`,
+}
+const downloadUrls = Object.values(downloadUrlMap)
+const downloadUrlKeys = Object.keys(downloadUrlMap)
+const headFetchRes = await Promise.all(
+  downloadUrls.map((url) => fetch(url, { method: "HEAD" }).then((res) => res.ok))
+)
+const failedLinks = headFetchRes.map((valid, idx) => valid ? null : downloadUrls[idx]).filter(x => x!== null)
+const failedLinkKeys = headFetchRes.map((valid, idx) => valid ? null : downloadUrlKeys[idx]).filter(x => x!== null)
+function isValid(platformKey: string) {
+  return !failedLinkKeys.includes(platformKey)
+}
+// replace github url with proxy url
+Object.entries(downloadUrlMap).forEach(([key, value], idx) => {
+  // @ts-ignore
+  downloadUrlMap[key] = value.replace('https://github.com/kunkunsh/kunkun/releases/download/', 'https://download.kunkun.sh/')
+})
+---
+
+<StarlightPage frontmatter={{ title: "Download" }} hasSidebar={false}>
+	<a href="https://github.com/HuakunTech/kunkun/releases">Download from GitHub Release</a>
+	<p><strong>Current Version:</strong>{data.version}</p>
+	<p>The following download links are proxies to GitHub release files, they could be useful if you cannot access GitHub smoothly.</p>
+	<h2>Mac</h2>
+	<ul>
+		{isValid('darwin_aarch64_dmg') && <li><a href={downloadUrlMap.darwin_aarch64_dmg}><strong>Apple Sillicon (.dmg)</strong></a></li>}
+		{isValid('darwin_aarch64_app') && <li><a href={downloadUrlMap.darwin_aarch64_app}><strong>Apple Sillicon (.app)</strong></a></li>}
+		{isValid('darwin_x64_dmg') && <li><a href={downloadUrlMap.darwin_x64_dmg}><strong>Intel (.dmg)</strong></a></li>}
+		{isValid('darwin_x64_app') && <li><a href={downloadUrlMap.darwin_x64_app}><strong>Intel (.app)</strong></a></li>}
+		{isValid('darwin_universal_dmg') && <li><a href={downloadUrlMap.darwin_universal_dmg}><strong>Universal (.dmg)</strong></a></li>}
+		{isValid('darwin_universal_app') && <li><a href={downloadUrlMap.darwin_universal_app}><strong>Universal (.app)</strong></a></li>}
+	</ul>
+	<h2>Windows</h2>
+	<ul>
+		{isValid('windows_x64_exe') && <li><a href={downloadUrlMap.windows_x64_exe}><strong>.exe</strong></a></li>}
+		{isValid('windows_x64_msi') && <li><a href={downloadUrlMap.windows_x64_msi}><strong>.msi</strong></a></li>}
+	</ul>
+
+	<h2>Linux</h2>
+	<ul>
+		{isValid('linux_x86_64_rpm') && <li><a href={downloadUrlMap.linux_x86_64_rpm}><strong>.rpm</strong></a></li>}
+		{isValid('linux_x86_64_deb') && <li><a href={downloadUrlMap.linux_x86_64_deb}><strong>.deb</strong></a></li>}
+	</ul>
+	{
+		failedLinks.length > 0 && (
+      <h2>Broken Download Links</h2>
+      <ul>
+				{failedLinks.map((url) => <li>{url}</li>)}
+			</ul>
+		)
+	}
+</StarlightPage>
