@@ -1,6 +1,6 @@
 {
 	"productName": "Kunkun",
-	"version": "0.1.2",
+	"version": "0.1.4",
 	"identifier": "sh.kunkun.desktop",
 	"build": {
 		"beforeDevCommand": "pnpm dev",

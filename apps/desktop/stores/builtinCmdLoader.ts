@@ -61,6 +61,14 @@ const builtinCmds: BuiltinCmd[] = [
 		}
 	},
 	{
+		name: "Dance",
+		iconifyIcon: "mdi:dance-pole",
+		description: "Dance",
+		function: async () => {
+			navigateTo("/dance")
+		}
+	},
+	{
 		name: "Toggle Dev Extension Live Load Mode",
 		iconifyIcon: "ri:toggle-line",
 		description: "Load dev extensions from their dev server URLs",

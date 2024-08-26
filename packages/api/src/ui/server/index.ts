@@ -25,12 +25,12 @@ import {
 } from "tauri-api-adapter"
 import {
 	AllKunkunPermission,
-	type ShellPermissionScoped,
 	type EventPermission,
 	type FsPermissionScoped,
 	type KunkunFsPermission,
 	type OpenPermissionScoped,
 	type ShellPermission,
+	type ShellPermissionScoped,
 	type SystemPermission
 } from "../../permissions"
 import type { IDbServer } from "./db"
@@ -56,21 +56,23 @@ export type IJarvisFullAPI = IFullAPI &
 	IUiWorkerServer &
 	IUiIframeServer &
 	IFsServer // IFsServer will override some methods in IFullAPI, it's fine because it's a superset
-
-function getStringPermissions(
-	permissions: (AllKunkunPermission | FsPermissionScoped | OpenPermissionScoped)[]
-): AllKunkunPermission[] {
+type AllPermissions =
+	| AllKunkunPermission
+	| FsPermissionScoped
+	| OpenPermissionScoped
+	| ShellPermissionScoped
+function getStringPermissions(permissions: AllPermissions[]): AllKunkunPermission[] {
 	return permissions.filter((p) => typeof p === "string") as AllKunkunPermission[]
 }
 
 function getObjectPermissions(
-	permissions: (AllKunkunPermission | FsPermissionScoped | OpenPermissionScoped)[]
+	permissions: AllPermissions[]
 ): (FsPermissionScoped | OpenPermissionScoped | ShellPermissionScoped)[] {
 	return permissions.filter((p) => typeof p !== "string")
 }
 
 export function constructJarvisServerAPIWithPermissions(
-	permissions: (AllKunkunPermission | FsPermissionScoped | OpenPermissionScoped)[]
+	permissions: AllPermissions[]
 ): IJarvisFullAPI {
 	const apis = [
 		constructClipboardApi(
