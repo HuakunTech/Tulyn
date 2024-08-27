@@ -60,6 +60,7 @@ onMounted(async () => {
 })
 
 function select(item: ExtItem) {
+	navigateTo(`/store/${item.identifier}`)
 	selectedExt.value = item
 	extDrawerOpen.value = true
 }
@@ -95,19 +96,23 @@ const filterFunc = (items: ExtItem[], searchTerm: string) => {
 		)
 	})
 }
+
+function goBack() {
+	navigateTo(localePath("/"))
+}
 </script>
 <template>
 	<div>
-		<ExtDrawer
+		<!-- <ExtDrawer
 			v-model:open="extDrawerOpen"
 			:selectedExt="selectedExt"
 			:installed="selectedExt?.identifier ? isInstalled(selectedExt?.identifier) : false"
 			@installed="onInstalled"
 			@uninstall="uninstall"
-		/>
+		/> -->
 		<Command :filterFunction="(val, searchTerm) => filterFunc(val as ExtItem[], searchTerm)">
 			<CommandInput placeholder="Type to search..." class="text-md h-12">
-				<Button size="icon" variant="outline" @click="() => navigateTo(localePath('/'))">
+				<Button size="icon" variant="outline" @click="goBack">
 					<ArrowLeftIcon class="h-5 w-5 shrink-0" />
 				</Button>
 			</CommandInput>

@@ -28,7 +28,8 @@ const builtinCmds: BuiltinCmd[] = [
 		description: "Go to Extension Store",
 		function: async () => {
 			$searchTermSync.set("")
-			navigateTo(localePath("/extension-store"))
+			navigateTo("/extension-store")
+			// navigateTo(localePath("/extension-store"))
 		}
 	},
 	{

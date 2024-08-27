@@ -24,9 +24,9 @@ import {
 import { HoverCardContent, HoverCardTrigger } from "@kksh/vue/hover-card"
 import { ScrollArea } from "@kksh/vue/scroll-area"
 import { Separator } from "@kksh/vue/separator"
-import { compareVersions } from "compare-versions"
 import { ElMessage } from "element-plus"
 import { CircleCheckBigIcon, Trash2Icon } from "lucide-vue-next"
+import * as v from "valibot"
 import { computed, onMounted, onUnmounted, ref, watch } from "vue"
 import { z } from "zod"
 import DialogImage from "./DialogImage.vue"
@@ -74,7 +74,7 @@ watch(
 const manifest = computed<KunkunExtManifest>(() => {
 	if (currentExt.value) {
 		// @ts-ignore
-		return KunkunExtManifest.parse(JSON.parse(currentExt.value?.manifest as string))
+		return v.parse(KunkunExtManifest, JSON.parse(currentExt.value?.manifest as string))
 	} else {
 		return null
 	}

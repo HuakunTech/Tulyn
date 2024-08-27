@@ -1,6 +1,6 @@
 import { loadExtensionManifestFromDisk } from "@/lib/commands/extensions"
 import { decompressTarball, getDevExtensionFolder, getExtensionFolder } from "@kksh/api/commands"
-import { downloadDir, join as pathJoin, tempDir } from "@tauri-apps/api/path"
+import { desktopDir, downloadDir, join as pathJoin, tempDir } from "@tauri-apps/api/path"
 import * as dialog from "@tauri-apps/plugin-dialog"
 import * as fs from "@tauri-apps/plugin-fs"
 import { download } from "@tauri-apps/plugin-upload"
@@ -24,7 +24,7 @@ export async function installTarball(tarballPath: string, targetDir: string) {
 			overwrite: true
 		}
 	)
-	return loadExtensionManifestFromDisk(decompressDest)
+	return loadExtensionManifestFromDisk(await pathJoin(decompressDest, "package.json"))
 		.then(async (manifest) => {
 			// The extension folder name will be the identifier
 			const extInstallPath = await pathJoin(targetDir, manifest.kunkun.identifier)
@@ -44,6 +44,8 @@ export async function installTarball(tarballPath: string, targetDir: string) {
 				console.error(err)
 				throw new Error("Invalid Manifest or Extension")
 			}
+			console.log()
+
 			throw new Error(err)
 		})
 }
@@ -55,7 +57,6 @@ export async function installTarballUrl(tarballUrl: string, targetDir: string): 
 		let tarballPath = await pathJoin(tempDirPath, filename)
 		await download(tarballUrl, tarballPath)
 		await installTarball(tarballPath, targetDir)
-		// sonner.success(`Installed 1 Tarball`);
 		await fs.remove(tarballPath)
 		// } catch (error: any) {
 		//   const { toast } = useToast();

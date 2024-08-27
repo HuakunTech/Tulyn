@@ -112,7 +112,9 @@
 				{ "path": "$DOWNLOAD" },
 				{ "path": "$DOWNLOAD/**" },
 				{ "path": "$DOCUMENT" },
-				{ "path": "$DOCUMENT/**" }
+				{ "path": "$DOCUMENT/**" },
+				{ "path": "$TEMP/**" },
+				{ "path": "$TEMP" }
 			]
 		},
 		"notification:allow-is-permission-granted",

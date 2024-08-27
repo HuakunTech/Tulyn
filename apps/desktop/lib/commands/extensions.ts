@@ -1,10 +1,16 @@
 import { db } from "@kksh/api/commands"
 import { ExtPackageJson, ExtPackageJsonExtra } from "@kksh/api/models"
+import { fs } from "@kksh/api/ui"
 import { basename, dirname, join } from "@tauri-apps/api/path"
 import { readDir, readTextFile } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
 import { flatten, safeParse } from "valibot"
 
+/**
+ *
+ * @param manifestPath absolute path to package.json
+ * @returns
+ */
 export function loadExtensionManifestFromDisk(manifestPath: string): Promise<ExtPackageJsonExtra> {
 	return readTextFile(manifestPath).then(async (content) => {
 		const parse = safeParse(ExtPackageJson, JSON.parse(content))
