@@ -20,7 +20,7 @@
 		"develop": "rollup -c --watch"
 	},
 	"peerDependencies": {
-		"@tauri-apps/api": "~2.0.0-rc.0",
+		"@tauri-apps/api": "~2.0.0-rc.3",
 		"@tauri-apps/plugin-fs": "~2.0.0-rc.0",
 		"@tauri-apps/plugin-log": "~2.0.0-rc.0",
 		"@tauri-apps/plugin-os": "~2.0.0-rc.0"

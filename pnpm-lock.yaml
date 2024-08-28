@@ -795,8 +795,8 @@ importers:
         specifier: workspace:*
         version: link:../api
       '@tauri-apps/api':
-        specifier: ~2.0.0-rc.0
-        version: 2.0.0-rc.0
+        specifier: ~2.0.0-rc.3
+        version: 2.0.0-rc.3
       '@tauri-apps/plugin-fs':
         specifier: ~2.0.0-rc.0
         version: 2.0.0-rc.0
