@@ -13,7 +13,7 @@ export async function registerAppHotkey(hotkeyStr: string) {
 	info(`Registering hotkey: ${hotkeyStr}`)
 	return register(hotkeyStr, async (e) => {
 		if (e.state === "Released") {
-			const wins = getAllWindows()
+			const wins = await getAllWindows()
 			const mainWin = wins.find((w) => w.label === "main")
 			if (!mainWin) {
 				return sendNotificationWithPermission(

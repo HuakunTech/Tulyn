@@ -2,8 +2,8 @@ import { SettingsWindowLabel } from "@/lib/constants"
 import { $appState } from "@/lib/stores/appState"
 import { getAllWebviewWindows, WebviewWindow } from "@tauri-apps/api/webviewWindow"
 
-export function newSettingsPage() {
-	const allWins = getAllWebviewWindows()
+export async function newSettingsPage() {
+	const allWins = await getAllWebviewWindows()
 	const existingWin = allWins.find((win) => win.label === SettingsWindowLabel)
 	if (existingWin) {
 		existingWin.show()

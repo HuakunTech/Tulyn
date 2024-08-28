@@ -20,25 +20,21 @@ export function destroyWindow() {
 }
 
 export function windowLabelExists(label: string) {
-	return _windowApis.getAllWindows().some((w) => w.label === label)
+	return _windowApis.getAllWindows().then((wins) => wins.some((w) => w.label === label))
 }
 
 export function getWindowByLabel(label: string) {
-	return _windowApis.getAllWindows().find((w) => w.label === label)
+	return _windowApis.getAllWindows().then((wins) => wins.find((w) => w.label === label))
 }
 
 export function closeMainWindow() {
-	return _windowApis
-		.getAllWindows()
-		.find((w) => w.label === "main")
-		?.close()
+	return _windowApis.getAllWindows().then((wins) => wins.find((w) => w.label === "main")?.close())
 }
 
 export function hideWindow(windowLabel: string) {
 	return _windowApis
 		.getAllWindows()
-		.find((w) => w.label === windowLabel)
-		?.hide()
+		.then((wins) => wins.find((w) => w.label === windowLabel)?.hide())
 }
 
 export function hideMainWindow() {
@@ -48,8 +44,7 @@ export function hideMainWindow() {
 export function showWindow(windowLabel: string) {
 	return _windowApis
 		.getAllWindows()
-		.find((w) => w.label === windowLabel)
-		?.show()
+		.then((wins) => wins.find((w) => w.label === windowLabel)?.show())
 }
 
 export function showMainWindow() {

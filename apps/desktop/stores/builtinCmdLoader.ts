@@ -37,12 +37,12 @@ const builtinCmds: BuiltinCmd[] = [
 		iconifyIcon: "solar:settings-linear",
 		description: "Open Settings",
 		function: async () => {
-			const windows = getAllWebviewWindows()
+			const windows = await getAllWebviewWindows()
 			const found = windows.find((w) => w.label === SettingsWindowLabel)
 			if (found) {
 				ElNotification.error("Settings Page is already open")
 			} else {
-				const win = newSettingsPage()
+				const win = await newSettingsPage()
 				setTimeout(() => {
 					// this is a backup, if window is not properly loaded,
 					// the show() will not be called within setting page, we call it here with a larger delay,
@@ -87,8 +87,8 @@ if (rtConfig.public.isDev) {
 		name: "Open Dev Page",
 		iconifyIcon: "fa6-brands:dev",
 		description: "Open Dev Page",
-		function: () => {
-			const windows = getAllWebviewWindows()
+		function: async () => {
+			const windows = await getAllWebviewWindows()
 			const found = windows.find((w) => w.label === DevWindowLabel)
 			if (found) {
 				ElNotification.error("Debug Page is already open")
@@ -106,8 +106,8 @@ if (rtConfig.public.isDev) {
 		name: "Open Debug Page",
 		iconifyIcon: "carbon:debug",
 		description: "Open Debug Page",
-		function: () => {
-			const windows = getAllWebviewWindows()
+		function: async () => {
+			const windows = await getAllWebviewWindows()
 			const found = windows.find((w) => w.label === DebugWindowLabel)
 			if (found) {
 				ElNotification.error("Debug Page is already open")
