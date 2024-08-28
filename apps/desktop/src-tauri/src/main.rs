@@ -21,8 +21,9 @@ use tauri::Manager;
 pub use tauri_plugin_log::fern::colors::ColoredLevelConfig;
 
 fn main() {
+    let context = tauri::generate_context!();
     let shell_unlocked = true;
-    tauri::Builder::default()
+    let app = tauri::Builder::default()
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_upload::init())
@@ -66,6 +67,7 @@ fn main() {
         .setup(|app| {
             setup::window::setup_window(app.handle());
             setup::tray::create_tray(app.handle())?;
+
             // #[cfg(all(target_os = "macos", debug_assertions))]
             // app.set_activation_policy(ActivationPolicy::Accessory);
             let mut store = StoreBuilder::new("appConfig.bin").build(app.handle().clone());
@@ -111,6 +113,7 @@ fn main() {
             let ext = jarvis_db.get_extension_by_identifier(
                 tauri_plugin_jarvis::constants::KUNKUN_CLIPBOARD_EXT_IDENTIFIER,
             )?;
+
             app.manage(
                 tauri_plugin_jarvis::model::clipboard_history::ClipboardHistory::new(
                     jarvis_db,
@@ -144,6 +147,33 @@ fn main() {
             });
             Ok(())
         })
-        .run(tauri::generate_context!())
+        .build(context)
+        // .run(tauri::generate_context!())
         .expect("error while running tauri application");
+    app.run(|_app_handle, event| match event {
+        // tauri::RunEvent::Exit => todo!(),
+        // tauri::RunEvent::ExitRequested { code, api, .. } => todo!(),
+        // tauri::RunEvent::WindowEvent { label, event, .. } => todo!(),
+        // tauri::RunEvent::WebviewEvent { label, event, .. } => todo!(),
+        // tauri::RunEvent::Ready => todo!(),
+        // tauri::RunEvent::Resumed => todo!(),
+        // tauri::RunEvent::MainEventsCleared => todo!(),
+        // tauri::RunEvent::Opened { urls } => todo!(),
+        // tauri::RunEvent::MenuEvent(_) => todo!(),
+        // tauri::RunEvent::TrayIconEvent(_) => todo!(),
+        tauri::RunEvent::Reopen {
+            has_visible_windows,
+            ..
+        } => {
+            _app_handle
+                .webview_windows()
+                .iter()
+                .for_each(|(label, window)| {
+                    window.show().unwrap();
+                });
+            // let main_window = _app_handle.get_webview_window("main").unwrap();
+            // main_window.show().unwrap();
+        }
+        _ => {}
+    });
 }

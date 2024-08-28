@@ -81,7 +81,7 @@
 	},
 	"type": "module",
 	"files": [
-		"files",
+		"build",
 		".gitignore"
 	]
 }
