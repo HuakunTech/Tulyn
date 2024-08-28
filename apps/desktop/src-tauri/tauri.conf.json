@@ -34,6 +34,7 @@
 		}
 	},
 	"bundle": {
+		"createUpdaterArtifacts": true,
 		"active": true,
 		"targets": "all",
 		"icon": [
@@ -46,7 +47,6 @@
 	},
 	"plugins": {
 		"updater": {
-			"createUpdaterArtifacts": true,
 			"endpoints": ["https://updater.kunkun.sh"],
 			"pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDc1NENCRjZFM0JBOEQ0ODMKUldTRDFLZzdicjlNZFhHS0ZKYk13WkdZUTFUM01LNjkvVW5Bb2x1SnB1R0crbFRuMnlRSlJ0STgK"
 		}
