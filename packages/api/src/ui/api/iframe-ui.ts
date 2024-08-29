@@ -1,5 +1,5 @@
 import { getDefaultClientAPI } from "tauri-api-adapter"
-import { os } from "tauri-api-adapter/iframe"
+import { comlinkOs as os } from "tauri-api-adapter/api/os"
 import { type IUiIframe } from "../client"
 import type { IUiIframeServer } from "../server"
 

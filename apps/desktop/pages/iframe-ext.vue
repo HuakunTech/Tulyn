@@ -183,7 +183,7 @@ onMounted(async () => {
 	window.addEventListener("message", (event) => {
 		if (event.data.type === "RELEASE") {
 			console.count("comlink release, will re-expose APIs")
-			exposeAPIsToIframe()
+			exposeAPIsToIframe() // TODO: This may cause memory leak
 		}
 	})
 })

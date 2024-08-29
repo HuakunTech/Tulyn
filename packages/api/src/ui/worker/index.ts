@@ -1,31 +1,50 @@
 /* -------------------------------------------------------------------------- */
 /*                                     API                                    */
 /* -------------------------------------------------------------------------- */
-export {
+import { comlinkClipboard as clipboard } from "tauri-api-adapter/api/clipboard"
+import { comlinkDialog as dialog } from "tauri-api-adapter/api/dialog"
+import { fetch } from "tauri-api-adapter/api/fetch"
+import { comlinkLog as log } from "tauri-api-adapter/api/log"
+import { comlinkNetwork as network } from "tauri-api-adapter/api/network"
+import { comlinkNotification as notification } from "tauri-api-adapter/api/notification"
+import { comlinkOs as os } from "tauri-api-adapter/api/os"
+import { comlinkPath as path } from "tauri-api-adapter/api/path"
+import { comlinkShell as shell } from "tauri-api-adapter/api/shell"
+import { comlinkSysInfo as sysInfo } from "tauri-api-adapter/api/system-info"
+import { comlinkUpdownload as updownload } from "tauri-api-adapter/api/updownload"
+import { db } from "../api/db"
+import { comlinkEvent as event } from "../api/event"
+import { fs } from "../api/fs"
+import { comlinkOpen as open } from "../api/open"
+import { comlinkSystem as system } from "../api/system"
+import { toast } from "../api/toast"
+import { comlinkUI as ui } from "../api/worker-ui"
+
+export { constructJarvisExtDBToServerDbAPI } from "../api/db"
+export const api = {
+	db,
+	toast,
 	clipboard,
 	dialog,
-	// event,
+	log,
 	network,
-	// fs, // a custom kunkun implementation of fs is provided
 	notification,
 	os,
-	shell, // Shell has a custom server implementation in kunkun with a more fine grained permission system, the client API should be the same as tauri-api-adapter
-	sysInfo,
 	path,
-	log,
+	shell,
+	sysInfo,
 	updownload,
-	fetch
-} from "tauri-api-adapter/worker"
-export { comlinkSystem as system } from "../api/system"
-export { comlinkUI as ui } from "../api/worker-ui"
-export { fs } from "../api/fs"
-export { comlinkOpen as open } from "../api/open"
-export { toast } from "../api/toast"
-export { db, constructJarvisExtDBToServerDbAPI } from "../api/db"
+	event,
+	open,
+	system,
+	ui,
+	fetch,
+	fs
+}
+
 export { WorkerExtension } from "./ext"
 export { expose, wrap } from "@huakunshen/comlink"
 export { type IDbServer } from "../server/db"
-export { comlinkEvent as event } from "../api/event"
 /* -------------------------------------------------------------------------- */
 /*                             UI Component Schema                            */
 /* -------------------------------------------------------------------------- */
