@@ -131,6 +131,7 @@ export interface IUiIframe {
 	toggleMaximize: () => Promise<void>
 	internalToggleMaximize: () => Promise<void>
 	setTransparentWindowBackground: (transparent: boolean) => Promise<void>
+	registerDragRegion: () => Promise<void>
 }
 
 export interface IDb {
@@ -162,9 +163,9 @@ export interface IFs {
 }
 
 export interface IOpen {
-	openUrl: (url: string) => Promise<void>
-	openFile: (path: string) => Promise<void>
-	openFolder: (path: string) => Promise<void>
+	url: (url: string) => Promise<void>
+	file: (path: string) => Promise<void>
+	folder: (path: string) => Promise<void>
 }
 
 /* -------------------------------------------------------------------------- */

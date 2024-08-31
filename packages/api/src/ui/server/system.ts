@@ -1,4 +1,4 @@
-import { checkPermission } from "tauri-api-adapter"
+import { checkPermission } from "tauri-api-adapter/permissions"
 import {
 	ejectAllDisks,
 	emptyTrash,
@@ -40,123 +40,111 @@ import type { ISystemServer } from "./server-types"
 
 export function constructSystemApi(permissions: SystemPermission[]): ISystemServer {
 	return {
-		systemOpenTrash: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemOpenTrash,
+		openTrash: checkPermission<SystemPermission>(
+			SystemPermissionMap.openTrash,
 			permissions
 		)(openTrash),
-		systemEmptyTrash: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemEmptyTrash,
+		emptyTrash: checkPermission<SystemPermission>(
+			SystemPermissionMap.emptyTrash,
 			permissions
 		)(emptyTrash),
-		systemShutdown: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemShutdown,
+		shutdown: checkPermission<SystemPermission>(
+			SystemPermissionMap.shutdown,
 			permissions
 		)(shutdown),
-		systemReboot: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemReboot,
-			permissions
-		)(reboot),
-		systemSleep: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemSleep,
-			permissions
-		)(sleep),
-		systemToggleSystemAppearance: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemToggleSystemAppearance,
+		reboot: checkPermission<SystemPermission>(SystemPermissionMap.reboot, permissions)(reboot),
+		sleep: checkPermission<SystemPermission>(SystemPermissionMap.sleep, permissions)(sleep),
+		toggleSystemAppearance: checkPermission<SystemPermission>(
+			SystemPermissionMap.toggleSystemAppearance,
 			permissions
 		)(toggleSystemAppearance),
-		systemShowDesktop: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemShowDesktop,
+		showDesktop: checkPermission<SystemPermission>(
+			SystemPermissionMap.showDesktop,
 			permissions
 		)(showDesktop),
-		systemQuitAllApps: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemQuitAllApps,
+		quitAllApps: checkPermission<SystemPermission>(
+			SystemPermissionMap.quitAllApps,
 			permissions
 		)(quitAllApps),
-		systemSleepDisplays: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemSleepDisplays,
+		sleepDisplays: checkPermission<SystemPermission>(
+			SystemPermissionMap.sleepDisplays,
 			permissions
 		)(sleepDisplays),
-		systemSetVolume: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemSetVolume,
+		setVolume: checkPermission<SystemPermission>(
+			SystemPermissionMap.setVolume,
 			permissions
 		)(setVolume),
-		systemSetVolumeTo0: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemSetVolumeTo0,
+		setVolumeTo0: checkPermission<SystemPermission>(
+			SystemPermissionMap.setVolumeTo0,
 			permissions
 		)(setVolumeTo0),
-		systemSetVolumeTo25: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemSetVolumeTo25,
+		setVolumeTo25: checkPermission<SystemPermission>(
+			SystemPermissionMap.setVolumeTo25,
 			permissions
 		)(setVolumeTo25),
-		systemSetVolumeTo50: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemSetVolumeTo50,
+		setVolumeTo50: checkPermission<SystemPermission>(
+			SystemPermissionMap.setVolumeTo50,
 			permissions
 		)(setVolumeTo50),
-		systemSetVolumeTo75: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemSetVolumeTo75,
+		setVolumeTo75: checkPermission<SystemPermission>(
+			SystemPermissionMap.setVolumeTo75,
 			permissions
 		)(setVolumeTo75),
-		systemSetVolumeTo100: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemSetVolumeTo100,
+		setVolumeTo100: checkPermission<SystemPermission>(
+			SystemPermissionMap.setVolumeTo100,
 			permissions
 		)(setVolumeTo100),
-		systemTurnVolumeUp: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemTurnVolumeUp,
+		turnVolumeUp: checkPermission<SystemPermission>(
+			SystemPermissionMap.turnVolumeUp,
 			permissions
 		)(turnVolumeUp),
-		systemTurnVolumeDown: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemTurnVolumeDown,
+		turnVolumeDown: checkPermission<SystemPermission>(
+			SystemPermissionMap.turnVolumeDown,
 			permissions
 		)(turnVolumeDown),
-		systemToggleStageManager: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemToggleStageManager,
+		toggleStageManager: checkPermission<SystemPermission>(
+			SystemPermissionMap.toggleStageManager,
 			permissions
 		)(toggleStageManager),
-		systemToggleBluetooth: checkPermission<SystemPermission>([], permissions)(toggleBluetooth),
-		systemToggleHiddenFiles: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemToggleHiddenFiles,
+		toggleBluetooth: checkPermission<SystemPermission>([], permissions)(toggleBluetooth),
+		toggleHiddenFiles: checkPermission<SystemPermission>(
+			SystemPermissionMap.toggleHiddenFiles,
 			permissions
 		)(toggleHiddenFiles),
-		systemEjectAllDisks: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemEjectAllDisks,
+		ejectAllDisks: checkPermission<SystemPermission>(
+			SystemPermissionMap.ejectAllDisks,
 			permissions
 		)(ejectAllDisks),
-		systemLogoutUser: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemLogoutUser,
+		logoutUser: checkPermission<SystemPermission>(
+			SystemPermissionMap.logoutUser,
 			permissions
 		)(logoutUser),
-		systemToggleMute: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemToggleMute,
+		toggleMute: checkPermission<SystemPermission>(
+			SystemPermissionMap.toggleMute,
 			permissions
 		)(toggleMute),
-		systemMute: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemMute,
-			permissions
-		)(mute),
-		systemUnmute: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemUnmute,
-			permissions
-		)(unmute),
-		systemGetFrontmostApp: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemGetFrontmostApp,
+		mute: checkPermission<SystemPermission>(SystemPermissionMap.mute, permissions)(mute),
+		unmute: checkPermission<SystemPermission>(SystemPermissionMap.unmute, permissions)(unmute),
+		getFrontmostApp: checkPermission<SystemPermission>(
+			SystemPermissionMap.getFrontmostApp,
 			permissions
 		)(getFrontmostApp),
-		systemHideAllAppsExceptFrontmost: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemHideAllAppsExceptFrontmost,
+		hideAllAppsExceptFrontmost: checkPermission<SystemPermission>(
+			SystemPermissionMap.hideAllAppsExceptFrontmost,
 			permissions
 		)(hideAllAppsExceptFrontmost),
-		systemGetSelectedFilesInFileExplorer: checkPermission<SystemPermission>(
-			SystemPermissionMap.systemGetSelectedFilesInFileExplorer,
+		getSelectedFilesInFileExplorer: checkPermission<SystemPermission>(
+			SystemPermissionMap.getSelectedFilesInFileExplorer,
 			permissions
 		)(getSelectedFilesInFileExplorer)
 	}
 }
 
 // all enabled by default
-export const defaultSystemApi = constructSystemApi([
-	"system:volumn",
-	"system:boot",
-	"system:disk",
-	"system:apps",
-	"system:fs"
-])
+// export const defaultSystemApi = constructSystemApi([
+// 	"system:volumn",
+// 	"system:boot",
+// 	"system:disk",
+// 	"system:apps",
+// 	"system:fs"
+// ])

@@ -39,49 +39,15 @@ import {
 	matchPathAndScope,
 	verifyGeneralPathScopedPermission
 } from "../../utils/path"
-import type { IFsServer } from "./server-types"
+import type { IFs } from "../client"
 
-// async function verifyPermission(
-// 	requiredPermissions: KunkunFsPermission[],
-// 	userPermissionScopes: FsPermissionScoped[],
-// 	path: string | URL,
-// 	options?: { baseDir?: BaseDirectory }
-// ) {
-// 	path = path.toString()
-// 	// console.log("verifyPermission", requiredPermissions, userPermissionScopes, path, options)
-// 	const fullPath = await combinePathAndBaseDir(path, options?.baseDir)
-// 	if (!fullPath) {
-// 		throw new Error("Invalid path or base directory")
-// 	}
-// 	const matchedPermissionScope = userPermissionScopes.filter((p) =>
-// 		requiredPermissions.includes(p.permission)
-// 	)
-// 	if (matchedPermissionScope.length === 0) {
-// 		throw new Error(
-// 			`FS Permission denied. Require one of these: [${requiredPermissions.join(", ")}] for path: ${fullPath}`
-// 		)
-// 	}
-
-// 	for (const permission of matchedPermissionScope) {
-// 		// deny has priority, if deny rule is matched, we ignore allow rule
-// 		for (const deny of permission.deny || []) {
-// 			if (!deny.path) continue
-// 			if (await matchPathAndScope(fullPath, deny.path)) {
-// 				throw new Error(`Permission denied for path: ${fullPath} by rule ${deny.path}`)
-// 			}
-// 		}
-// 		for (const allow of permission.allow || []) {
-// 			if (!allow.path) continue
-// 			if (await matchPathAndScope(fullPath, allow.path)) {
-// 				return
-// 			}
-// 		}
-// 	}
-// 	// No Allow rule and path matched
-// 	throw new Error(`Permission denied for path: ${path}, no rule matched.`)
-// }
-
-export function constructFsApi(permissions: FsPermissionScoped[]): IFsServer {
+/**
+ * `tauri-api-adapter` provides fs API
+ * In Kunkun I provide a more granular permission system and an extra file search API, so I rewrite the fs server API constructor
+ * @param permissions
+ * @returns
+ */
+export function constructFsApi(permissions: FsPermissionScoped[]): IFs {
 	/**
 	 * This is a helper function to simplify the creation of methods that takes one path and one options object
 	 * @param requiredPermissions
@@ -98,15 +64,15 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFsServer {
 			) as ReturnType<T>
 	}
 	return {
-		fsReadDir: createMethod(FsPermissionMap.fsReadDir, fsReadDir),
-		fsReadFile: createMethod(FsPermissionMap.fsReadFile, fsReadFile),
-		fsReadTextFile: createMethod(FsPermissionMap.fsReadTextFile, fsReadTextFile),
-		fsStat: createMethod(FsPermissionMap.fsStat, fsStat),
-		fsLstat: createMethod(FsPermissionMap.fsLstat, fsLstat),
-		fsExists: createMethod(FsPermissionMap.fsExists, fsExists),
-		fsMkdir: createMethod(FsPermissionMap.fsMkdir, fsMkdir),
-		fsCreate: createMethod(FsPermissionMap.fsCreate, fsCreate),
-		fsCopyFile: (fromPath: string | URL, toPath: string | URL, options?: CopyFileOptions) => {
+		readDir: createMethod(FsPermissionMap.readDir, fsReadDir),
+		readFile: createMethod(FsPermissionMap.readFile, fsReadFile),
+		readTextFile: createMethod(FsPermissionMap.readTextFile, fsReadTextFile),
+		stat: createMethod(FsPermissionMap.stat, fsStat),
+		lstat: createMethod(FsPermissionMap.lstat, fsLstat),
+		exists: createMethod(FsPermissionMap.exists, fsExists),
+		mkdir: createMethod(FsPermissionMap.mkdir, fsMkdir),
+		create: createMethod(FsPermissionMap.create, fsCreate),
+		copyFile: (fromPath: string | URL, toPath: string | URL, options?: CopyFileOptions) => {
 			return fsStat(fromPath)
 				.then((oldPathStat) => {
 					const oldPathPermissions: KunkunFsPermission[] = ["fs:read"]
@@ -124,8 +90,8 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFsServer {
 				})
 				.then(() => fsCopyFile(fromPath, toPath, options))
 		},
-		fsRemove: createMethod(FsPermissionMap.fsRemove, fsRemove),
-		fsRename: async (oldPath: string | URL, newPath: string | URL, options?: RenameOptions) => {
+		remove: createMethod(FsPermissionMap.remove, fsRemove),
+		rename: async (oldPath: string | URL, newPath: string | URL, options?: RenameOptions) => {
 			return fsStat(oldPath)
 				.then((oldPathStat) => {
 					const oldPathPermissions: KunkunFsPermission[] = ["fs:read"]
@@ -143,28 +109,19 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFsServer {
 				})
 				.then(() => fsRename(oldPath, newPath, options))
 		},
-		fsTruncate: (path: string | URL, len?: number, options?: TruncateOptions) =>
-			verifyGeneralPathScopedPermission(
-				FsPermissionMap.fsTruncate,
-				permissions,
-				path,
-				options
-			).then(() => fsTruncate(path, len, options)),
-		fsWriteFile: (path: string | URL, data: Uint8Array, options?: WriteFileOptions) =>
-			verifyGeneralPathScopedPermission(
-				FsPermissionMap.fsTruncate,
-				permissions,
-				path,
-				options
-			).then(() => fsWriteFile(path, data, options)),
-		fsWriteTextFile: (path: string | URL, data: string, options?: WriteFileOptions) =>
-			verifyGeneralPathScopedPermission(
-				FsPermissionMap.fsTruncate,
-				permissions,
-				path,
-				options
-			).then(() => fsWriteTextFile(path, data, options)),
-		fsFileSearch: (
+		truncate: (path: string | URL, len?: number, options?: TruncateOptions) =>
+			verifyGeneralPathScopedPermission(FsPermissionMap.truncate, permissions, path, options).then(
+				() => fsTruncate(path, len, options)
+			),
+		writeFile: (path: string | URL, data: Uint8Array, options?: WriteFileOptions) =>
+			verifyGeneralPathScopedPermission(FsPermissionMap.truncate, permissions, path, options).then(
+				() => fsWriteFile(path, data, options)
+			),
+		writeTextFile: (path: string | URL, data: string, options?: WriteFileOptions) =>
+			verifyGeneralPathScopedPermission(FsPermissionMap.truncate, permissions, path, options).then(
+				() => fsWriteTextFile(path, data, options)
+			),
+		fileSearch: (
 			searchParams: Omit<FileSearchParams, "hidden" | "ignore_case"> & {
 				hidden?: boolean
 				ignore_case?: boolean
@@ -173,7 +130,7 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFsServer {
 			return Promise.all(
 				// TODO: first verify all search locations are allowed, for now, recursive search is allowed even if scope allows one level only
 				searchParams.locations.map((loc) =>
-					verifyGeneralPathScopedPermission(FsPermissionMap.fsFileSearch, permissions, loc)
+					verifyGeneralPathScopedPermission(FsPermissionMap.fileSearch, permissions, loc)
 				)
 			).then(() => fileSearch(searchParams))
 		}
