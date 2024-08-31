@@ -9,7 +9,22 @@
 		"longDescription": "A Worker Extension Template",
 		"identifier": "template-ext-worker",
 		"permissions": [
-			"fetch:all"
+			"fetch:all",
+			"clipboard:read-all",
+			{
+				"permission": "shell:execute",
+				"allow": [
+					{
+						"cmd": {
+							"program": "bash",
+							"args": [
+								"-c",
+								".+"
+							]
+						}
+					}
+				]
+			}
 		],
 		"demoImages": [],
 		"icon": {
@@ -33,11 +48,11 @@
 		"@kksh/api": "workspace:*"
 	},
 	"devDependencies": {
-		"@types/bun": "latest",
 		"@rollup/plugin-commonjs": "^26.0.1",
 		"@rollup/plugin-node-resolve": "^15.2.3",
 		"@rollup/plugin-terser": "^0.4.4",
 		"@rollup/plugin-typescript": "^11.1.6",
+		"@types/bun": "latest",
 		"rimraf": "^6.0.1",
 		"rollup": "^4.18.1",
 		"rollup-plugin-visualizer": "^5.12.0"

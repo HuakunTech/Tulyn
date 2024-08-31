@@ -13,6 +13,8 @@ import {
 	WorkerExtension
 } from "@kksh/api/ui/worker"
 
+shell.executeBashScript("echo 'Hello, World!'").then(console.log)
+
 class ExtensionTemplate extends WorkerExtension {
 	async onFormSubmit(value: Record<string, any>): Promise<void> {
 		console.log("Form submitted", value)

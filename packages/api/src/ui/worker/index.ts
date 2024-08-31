@@ -1,7 +1,7 @@
 /* -------------------------------------------------------------------------- */
 /*                                     API                                    */
 /* -------------------------------------------------------------------------- */
-import { windowEndpoint, wrap, type Endpoint, type Remote } from "@huakunshen/comlink"
+import { wrap, type Endpoint, type Remote } from "@huakunshen/comlink"
 import type {
 	IClipboard,
 	IDialog,
@@ -20,12 +20,10 @@ import type {
 import {
 	constructFetchAPI,
 	constructPathAPI,
-	// constructShellAPI,
+	constructShellAPI,
 	constructUpdownloadAPI
 } from "tauri-api-adapter/client"
 import { constructEventAPI } from "../api/event"
-import { constructIframeUiAPI } from "../api/iframe-ui"
-import { constructShellAPI } from "../api/shell"
 import type { IDb, IEvent, IFs, IOpen, ISystem, IToast, IUiWorker } from "../client"
 
 export { expose, wrap } from "@huakunshen/comlink"
@@ -65,7 +63,6 @@ export const shell = constructShellAPI(_api.shell)
 // console.warn('after construct shell API')
 
 export const updownload = constructUpdownloadAPI(_api.updownload)
-// export const ui = constructIframeUiAPI(_api)
 export const {
 	db,
 	os,
