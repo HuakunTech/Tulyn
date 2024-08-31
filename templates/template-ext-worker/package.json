@@ -1,7 +1,7 @@
 {
 	"$schema": "../../packages/schema/manifest-json-schema.json",
 	"name": "template-ext-worker",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"type": "module",
 	"kunkun": {
 		"name": "Extension Template Worker",

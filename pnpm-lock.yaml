@@ -1196,82 +1196,6 @@ importers:
         specifier: ^5.12.0
         version: 5.12.0(rollup@4.20.0)
 
-  vendors/tauri-api-adapter/packages/tauri-api-adapter:
-    dependencies:
-      '@huakunshen/comlink':
-        specifier: ^4.4.1
-        version: 4.4.1
-      '@rollup/plugin-alias':
-        specifier: ^5.1.0
-        version: 5.1.0(rollup@4.20.0)
-      '@rollup/plugin-typescript':
-        specifier: ^11.1.6
-        version: 11.1.6(rollup@4.20.0)(tslib@2.6.3)(typescript@5.5.4)
-      '@tauri-apps/api':
-        specifier: ^2.0.0-rc.4
-        version: 2.0.0-rc.4
-      '@tauri-apps/plugin-dialog':
-        specifier: ~2.0.0-rc.0
-        version: 2.0.0-rc.0
-      '@tauri-apps/plugin-fs':
-        specifier: ~2.0.0-rc.0
-        version: 2.0.0-rc.1
-      '@tauri-apps/plugin-http':
-        specifier: ~2.0.0-rc.1
-        version: 2.0.0-rc.1
-      '@tauri-apps/plugin-log':
-        specifier: ~2.0.0-rc.0
-        version: 2.0.0-rc.0
-      '@tauri-apps/plugin-notification':
-        specifier: ~2.0.0-rc.0
-        version: 2.0.0-rc.0
-      '@tauri-apps/plugin-os':
-        specifier: ~2.0.0-rc.0
-        version: 2.0.0-rc.0
-      '@tauri-apps/plugin-shell':
-        specifier: ~2.0.0-rc.0
-        version: 2.0.0-rc.0
-      '@tauri-apps/plugin-upload':
-        specifier: ~2.0.0-rc.0
-        version: 2.0.0-rc.0
-      rimraf:
-        specifier: ^5.0.7
-        version: 5.0.10
-      rollup:
-        specifier: ^4.18.0
-        version: 4.20.0
-      shx:
-        specifier: ^0.3.4
-        version: 0.3.4
-      tauri-plugin-clipboard-api:
-        specifier: ^2.1.6
-        version: 2.1.6(valibot@0.40.0(typescript@5.5.4))
-      tauri-plugin-network-api:
-        specifier: ^2.0.3-beta.1
-        version: 2.0.3-beta.2
-      tauri-plugin-shellx-api:
-        specifier: ^2.0.8
-        version: 2.0.8
-      tauri-plugin-system-info-api:
-        specifier: ^2.0.2
-        version: 2.0.3
-      tsc-alias:
-        specifier: ^1.8.10
-        version: 1.8.10
-      typescript:
-        specifier: ^5.0.0
-        version: 5.5.4
-      valibot:
-        specifier: ^0.40.0
-        version: 0.40.0(typescript@5.5.4)
-    devDependencies:
-      '@types/bun':
-        specifier: latest
-        version: 1.1.8
-      typedoc:
-        specifier: ^0.26.6
-        version: 0.26.6(typescript@5.5.4)
-
   vendors/tauri-plugin-network:
     dependencies:
       '@tauri-apps/api':
@@ -12123,13 +12047,6 @@ packages:
 
   typedoc@0.26.5:
     resolution: {integrity: sha512-Vn9YKdjKtDZqSk+by7beZ+xzkkr8T8CYoiasqyt4TTRFy5+UHzL/mF/o4wGBjRF+rlWQHDb0t6xCpA3JNL5phg==}
-    engines: {node: '>= 18'}
-    hasBin: true
-    peerDependencies:
-      typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x || 5.2.x || 5.3.x || 5.4.x || 5.5.x
-
-  typedoc@0.26.6:
-    resolution: {integrity: sha512-SfEU3SH3wHNaxhFPjaZE2kNl/NFtLNW5c1oHsg7mti7GjmUj1Roq6osBQeMd+F4kL0BoRBBr8gQAuqBlfFu8LA==}
     engines: {node: '>= 18'}
     hasBin: true
     peerDependencies:
@@ -27237,15 +27154,6 @@ snapshots:
       typescript: 5.5.4
 
   typedoc@0.26.5(typescript@5.5.4):
-    dependencies:
-      lunr: 2.3.9
-      markdown-it: 14.1.0
-      minimatch: 9.0.5
-      shiki: 1.12.1
-      typescript: 5.5.4
-      yaml: 2.5.0
-
-  typedoc@0.26.6(typescript@5.5.4):
     dependencies:
       lunr: 2.3.9
       markdown-it: 14.1.0
