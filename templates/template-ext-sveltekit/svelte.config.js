@@ -24,9 +24,10 @@ const config = {
 			strict: true
 		}),
 		paths: {
-			base: isProduction
-				? '/extensions/template-ext-sveltekit/build'
-				: '/dev-extensions/template-ext-sveltekit/build'
+			base: '/dev-extensions/template-ext-sveltekit/build'
+			// base: isProduction
+			// 	? '/extensions/template-ext-sveltekit/build'
+			// 	: '/dev-extensions/template-ext-sveltekit/build'
 		},
 		alias: {
 			'@/*': './src/lib/*'

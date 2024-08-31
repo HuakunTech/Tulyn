@@ -20,19 +20,13 @@
 				"main": "dist",
 				"devMain": "http://localhost:5173/dev-extensions/template-ext-nuxt/dist",
 				"name": "Nuxt Template Home Page",
-				"cmds": [],
-				"window": {
-					"title": "Nuxt Template Home Page"
-				}
+				"cmds": []
 			},
 			{
 				"main": "dist/about",
 				"devMain": "http://localhost:5173/dev-extensions/template-ext-nuxt/dist/about",
 				"name": "Nuxt Template About Page",
-				"cmds": [],
-				"window": {
-					"title": "Nuxt Template About Page"
-				}
+				"cmds": []
 			}
 		],
 		"templateUiCmds": []

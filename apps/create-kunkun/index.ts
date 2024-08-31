@@ -28,14 +28,15 @@ program
 			"vue",
 			"svelte",
 			"nuxt",
-			"sveltekit"
+			"sveltekit",
+			"next"
 		])
 	)
 	.addOption(new Option("-n, --name <name>", "Extension Name"))
 	.addOption(new Option("-f, --force", "Overwrite existing files").default(false))
 	.addOption(new Option("-o, --outdir <outdir>", "Output directory").default(cwd))
 	.parse(process.argv)
-type Template = "react" | "template" | "vue" | "svelte" | "nuxt" | "sveltekit"
+type Template = "react" | "template" | "vue" | "svelte" | "nuxt" | "sveltekit" | "next"
 const options = program.opts<{
 	template?: Template
 	outdir: string
@@ -111,6 +112,12 @@ function copyTemplate(templateDir: string, targetFolderName: string) {
 						"Extension will be rendered within iframe as a regular web app. The UI can be arbitrarily complex. Choose this if you want to use Nuxt to build complex UI."
 				},
 				{
+					name: "Next.js Custom UI",
+					value: "next",
+					description:
+						"Extension will be rendered within iframe as a regular web app. The UI can be arbitrarily complex. Choose this if you want to use Next.js to build complex UI."
+				},
+				{
 					name: "Sveltekit Custom UI",
 					value: "sveltekit",
 					description:
@@ -129,7 +136,7 @@ function copyTemplate(templateDir: string, targetFolderName: string) {
 	if (template === "template") {
 		destDir = copyTemplate(path.join(templateRoot, "template-ext-worker"), name)
 		cleanExtension(destDir)
-	} else if (["react", "vue", "svelte", "nuxt", "sveltekit"].includes(template)) {
+	} else if (["react", "vue", "svelte", "nuxt", "sveltekit", "next"].includes(template)) {
 		destDir = copyTemplate(path.join(templateRoot, `template-ext-${template}`), name)
 		cleanExtension(destDir)
 	} else {
