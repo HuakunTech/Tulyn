@@ -1,13 +1,7 @@
-// import { getDefaultClientAPI } from "tauri-api-adapter"
-// import { comlinkOs as os } from "tauri-api-adapter"
 import type { Remote } from "@huakunshen/comlink"
 import type { IOs } from "tauri-api-adapter/client"
 import { type IUiIframe } from "../client"
 
-// export const comlinkUI: IUiIframe = getDefaultClientAPI<IUiIframe>()
-// comlinkUI.startDragging = defaultClientAPI.iframeUiStartDragging
-// comlinkUI.internalToggleMaximize = defaultClientAPI.iframeUiInternalToggleMaximize
-// comlinkUI.toggleMaximize = defaultClientAPI.iframeUiToggleMaximize
 export const KK_DRAG_REGION_ATTR = "kunkun-drag-region"
 
 export function constructIframeUiAPI(api: {

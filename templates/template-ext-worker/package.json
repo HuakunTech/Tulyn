@@ -9,22 +9,7 @@
 		"longDescription": "A Worker Extension Template",
 		"identifier": "template-ext-worker",
 		"permissions": [
-			"fetch:all",
-			"clipboard:read-all",
-			{
-				"permission": "shell:execute",
-				"allow": [
-					{
-						"cmd": {
-							"program": "bash",
-							"args": [
-								"-c",
-								".+"
-							]
-						}
-					}
-				]
-			}
+			"fetch:all"
 		],
 		"demoImages": [],
 		"icon": {

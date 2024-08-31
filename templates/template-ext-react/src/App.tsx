@@ -1,4 +1,4 @@
-import { registerDragRegion, ui } from "@kksh/api/ui/iframe"
+import { ui } from "@kksh/api/ui/iframe"
 import {
 	ActionPanel,
 	Button,
@@ -38,16 +38,14 @@ function App() {
 	const listRef = useRef(null)
 	const seachInputEle = useRef<HTMLInputElement | null>(null)
 
-	registerDragRegion()
-
 	useEffect(() => {
+		ui.registerDragRegion()
 		ui.showMoveButton({
 			// top: 10,
 			// right: 20
 			bottom: 0.2,
 			left: 0.2
 		})
-		// ui.showBackButton("top-right")
 	}, [])
 
 	function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {

@@ -24,15 +24,6 @@ import { constructEventAPI } from "../api/event"
 import { constructIframeUiAPI } from "../api/iframe-ui"
 import type { IDb, IEvent, IFs, IOpen, ISystem, IToast, IUiIframe } from "../client"
 
-/**
- * Initialize iframe extension
- * Will
- * 1. registerDragRegion
- */
-// export function initCustomExtension() {
-// 	registerDragRegion()
-// }
-
 export { type IUiIframe } from "../client"
 export { expose, wrap } from "@huakunshen/comlink"
 // export { type IDbServer } from "../server/db"

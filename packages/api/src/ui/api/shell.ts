@@ -14,7 +14,6 @@ import {
 } from "tauri-plugin-shellx-api"
 
 export function constructShellAPI(api: IShellInternal): IShell {
-	console.warn("construct shell API (1)")
 	class Child extends ShellxChild {
 		write(data: IOPayload): Promise<void> {
 			return api.stdinWrite(typeof data === "string" ? data : Array.from(data), this.pid)
@@ -24,8 +23,6 @@ export function constructShellAPI(api: IShellInternal): IShell {
 			return api.kill(this.pid)
 		}
 	}
-	console.warn("construct shell API (2)")
-
 	class Command<O extends IOPayload> extends ShellxCommand<O> {
 		static create<O extends IOPayload>(
 			program: string,
@@ -174,23 +171,3 @@ export function constructShellAPI(api: IShellInternal): IShell {
 		Child
 	}
 }
-
-// export const nativeShell: IShell = {
-//   open: shellxOpen,
-//   makeBashScript: shellxMakeBashScript,
-//   makePowershellScript: shellxMakePowershellScript,
-//   makeAppleScript: shellxMakeAppleScript,
-//   makePythonScript: shellxMakePythonScript,
-//   makeZshScript: shellxMakeZshScript,
-//   makeNodeScript: shellxMakeNodeScript,
-//   executeBashScript: shellxExecuteBashScript,
-//   executePowershellScript: shellxExecutePowershellScript,
-//   executeAppleScript: shellxExecuteAppleScript,
-//   executePythonScript: shellxExecutePythonScript,
-//   executeZshScript: shellxExecuteZshScript,
-//   executeNodeScript: shellxExecuteNodeScript,
-//   hasCommand: shellxHasCommand,
-//   likelyOnWindows: shellxLikelyOnWindows,
-//   Command: ShellxCommand,
-//   Child: ShellxChild
-// }
