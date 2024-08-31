@@ -1,3 +1,4 @@
+import fs from "fs"
 import path from "path"
 
 const res = await fetch("https://dance.kunkun.sh/api/data")
@@ -9,5 +10,5 @@ const res = await fetch("https://dance.kunkun.sh/api/data")
 // console.log(path.dirname(__dirname));
 const pkgPath = path.dirname(__dirname)
 
-const danceFile = Bun.file(path.join(pkgPath, "./assets/dance.json"))
-Bun.write(danceFile, await res.text())
+const danceFilePath = path.join(pkgPath, "./assets/dance.json")
+fs.writeFileSync(danceFilePath, await res.text())
