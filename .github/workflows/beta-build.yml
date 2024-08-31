@@ -221,7 +221,7 @@ jobs:
         run: pnpm tauri build ${{ env.BUILD_MODE}}
 
       - name: Rename macos-aarch64
-        if: matrix.os == 'macos-latest'
+        if: matrix.os == 'macos-14'
         run: mv target/${{ env.BUILD_PATH }}/bundle/dmg/*.dmg target/${{ env.BUILD_PATH }}/bundle/dmg/${{ env.FILE_PREFIX }}-aarch64.dmg
 
       - name: Rename macos-x86_64
@@ -256,7 +256,7 @@ jobs:
         if: startsWith(matrix.os, 'macos')
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.FILE_PREFIX }}_${{ matrix.os == 'macos-latest' && 'macos-aarch64' || 'macos-amd64' }}
+          name: ${{ env.FILE_PREFIX }}_${{ matrix.os == 'macos-14' && 'macos-aarch64' || 'macos-amd64' }}
           path: target/${{ env.BUILD_PATH }}/bundle/dmg/*.dmg
           retention-days: ${{ env.RETENTION_DAYS}}
           compression-level: 0
