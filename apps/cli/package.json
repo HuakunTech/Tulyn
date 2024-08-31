@@ -1,7 +1,7 @@
 {
 	"name": "@kksh/cli",
 	"module": "dist/mod.js",
-	"version": "0.0.4-alpha.4",
+	"version": "0.0.4-alpha.5",
 	"type": "module",
 	"bin": {
 		"@kksh/cli": "./dist/cli.js",
@@ -35,7 +35,7 @@
 		"debug": "^4.3.6",
 		"fs-extra": "^11.2.0",
 		"inquirer": "^10.1.2",
-		"valibot": "^0.36.0"
+		"valibot": "^0.40.0"
 	},
 	"files": [
 		"dist"

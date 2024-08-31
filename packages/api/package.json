@@ -1,6 +1,6 @@
 {
 	"name": "@kksh/api",
-	"version": "0.0.4-beta.1",
+	"version": "0.0.4-beta.2",
 	"type": "module",
 	"exports": {
 		".": {
@@ -67,8 +67,7 @@
 		"tsc-alias": "^1.8.10",
 		"tsup": "^8.1.2",
 		"typedoc": "^0.26.4",
-		"typescript": "^5.0.0",
-		"valibot": "^0.36.0"
+		"typescript": "^5.0.0"
 	},
 	"dependencies": {
 		"@huakunshen/comlink": "^4.4.1",
@@ -84,14 +83,15 @@
 		"@tauri-apps/plugin-store": "2.0.0-rc.0",
 		"@tauri-apps/plugin-updater": "2.0.0-rc.0",
 		"@tauri-apps/plugin-upload": "2.0.0-rc.0",
+		"comlink": "^4.4.1",
 		"minimatch": "^10.0.1",
 		"rollup": "^4.9.6",
 		"rollup-plugin-typescript2": "^0.36.0",
-		"tauri-api-adapter": "0.2.0-alpha.0",
+		"tauri-api-adapter": "0.3.4",
 		"tauri-plugin-network-api": "workspace:*",
 		"tauri-plugin-shellx-api": "^2.0.8",
 		"tauri-plugin-system-info-api": "workspace:*",
-		"valibot": "^0.36.0",
+		"valibot": "^0.40.0",
 		"vue-sonner": "^1.1.3"
 	},
 	"files": [

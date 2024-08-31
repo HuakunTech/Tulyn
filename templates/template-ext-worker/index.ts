@@ -7,6 +7,7 @@ import {
 	IconEnum,
 	List,
 	path,
+	shell,
 	toast,
 	ui,
 	WorkerExtension
@@ -15,6 +16,7 @@ import {
 class ExtensionTemplate extends WorkerExtension {
 	async onFormSubmit(value: Record<string, any>): Promise<void> {
 		console.log("Form submitted", value)
+		toast.success(`Form submitted: ${JSON.stringify(value)}`)
 	}
 	async load() {
 		return ui.render(

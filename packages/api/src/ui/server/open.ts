@@ -8,50 +8,9 @@ import type { IOpen } from "../client"
 
 const UrlSchema = pipe(string("A URL must be string."), url("The URL is badly formatted."))
 
-export interface IOpenServer {
-	openUrl: IOpen["openUrl"]
-	openFile: IOpen["openFile"]
-	openFolder: IOpen["openFolder"]
-}
-
-// async function checkPermission(
-// 	permissions: OpenPermissionScoped[],
-// 	value: string,
-// 	key: "url" | "path"
-// ): Promise<boolean> {
-// 	async function match(value: string, scope: string): Promise<boolean> {
-// 		if (key === "url") {
-// 			return minimatch(value, scope)
-// 		} else if (key === "path") {
-// 			return matchPathAndScope(value, scope)
-// 		} else {
-// 			throw new Error(`Invalid key: ${key}`)
-// 		}
-// 	}
-// 	let pass = false
-// 	for (const permission of permissions) {
-// 		for (const allow of permission.allow || []) {
-// 			if (allow[key] && (await match(value, allow[key]))) {
-// 				pass = true
-// 				break
-// 			}
-// 		}
-// 		if (pass) {
-// 			break
-// 		}
-// 		for (const deny of permission.deny || []) {
-// 			if (deny[key] && (await match(value, deny[key]))) {
-// 				pass = false
-// 				break
-// 			}
-// 		}
-// 	}
-// 	return pass
-// }
-
-export function constructOpenApi(permissions: OpenPermissionScoped[]): IOpenServer {
+export function constructOpenApi(permissions: OpenPermissionScoped[]): IOpen {
 	return {
-		openUrl: async (url: string) => {
+		url: async (url: string) => {
 			const parseResult = safeParse(UrlSchema, url)
 			if (parseResult.success) {
 			} else {
@@ -73,7 +32,7 @@ export function constructOpenApi(permissions: OpenPermissionScoped[]): IOpenServ
 				)
 			}
 		},
-		openFile: async (path: string) => {
+		file: async (path: string) => {
 			// check if path is a file and exists
 			const p = parse(string(), path)
 			if (!(await exists(p))) {
@@ -99,7 +58,7 @@ export function constructOpenApi(permissions: OpenPermissionScoped[]): IOpenServ
 				)
 			}
 		},
-		openFolder: async (path: string) => {
+		folder: async (path: string) => {
 			// check if path is a directory and exists
 			const p = parse(string(), path)
 			if (!(await exists(p))) {

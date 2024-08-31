@@ -3,10 +3,10 @@
 	import { ModeWatcher } from 'mode-watcher';
 	import { ThemeWrapper, updateTheme } from '@kksh/svelte';
 	import { onMount } from 'svelte';
-	import { registerDragRegion, ui } from '@kksh/api/ui/iframe';
+	import { ui } from '@kksh/api/ui/iframe';
 
 	onMount(() => {
-		registerDragRegion();
+		ui.registerDragRegion();
 		ui.getTheme().then((theme) => {
 			updateTheme(theme);
 		});

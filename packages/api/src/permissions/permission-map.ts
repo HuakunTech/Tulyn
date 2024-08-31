@@ -1,5 +1,6 @@
 import type { IShellServer } from "tauri-api-adapter"
-import type { IEventServer, IFsServer, ISystemServer } from "../ui/server/server-types"
+// import type { IEventServer, IFsServer, ISystemServer } from "../ui/server/server-types"
+import type { IEvent, IFs, ISystem } from "../ui/client"
 import type {
 	EventPermission,
 	KunkunFsPermission,
@@ -22,77 +23,77 @@ export {
 	UpdownloadPermissionMap
 } from "tauri-api-adapter/permissions"
 
-export const FsPermissionMap: Record<keyof IFsServer, KunkunFsPermission[]> = {
-	fsReadDir: ["fs:read", "fs:read-dir"],
-	fsReadFile: ["fs:read"],
-	fsReadTextFile: ["fs:read"],
-	fsStat: ["fs:stat", "fs:read"],
-	fsLstat: ["fs:stat", "fs:read"],
-	fsExists: ["fs:exists", "fs:read"],
-	fsMkdir: ["fs:write"],
-	fsCreate: ["fs:write"],
-	fsCopyFile: ["fs:write"],
-	fsRemove: ["fs:write"],
-	fsRename: ["fs:write"],
-	fsTruncate: ["fs:write"],
-	fsWriteFile: ["fs:write"],
-	fsWriteTextFile: ["fs:write"],
-	fsFileSearch: ["fs:search"]
+export const FsPermissionMap: Record<keyof IFs, KunkunFsPermission[]> = {
+	readDir: ["fs:read", "fs:read-dir"],
+	readFile: ["fs:read"],
+	readTextFile: ["fs:read"],
+	stat: ["fs:stat", "fs:read"],
+	lstat: ["fs:stat", "fs:read"],
+	exists: ["fs:exists", "fs:read"],
+	mkdir: ["fs:write"],
+	create: ["fs:write"],
+	copyFile: ["fs:write"],
+	remove: ["fs:write"],
+	rename: ["fs:write"],
+	truncate: ["fs:write"],
+	writeFile: ["fs:write"],
+	writeTextFile: ["fs:write"],
+	fileSearch: ["fs:search"]
 }
 
-export const SystemPermissionMap: Record<keyof ISystemServer, SystemPermission[]> = {
-	systemOpenTrash: [],
-	systemEmptyTrash: ["system:fs"],
-	systemShutdown: ["system:boot"],
-	systemReboot: ["system:boot"],
-	systemSleep: ["system:boot"],
-	systemToggleSystemAppearance: ["system:ui"],
-	systemShowDesktop: ["system:ui"],
-	systemQuitAllApps: ["system:apps"],
-	systemSleepDisplays: ["system:boot"],
-	systemSetVolume: ["system:volumn"],
-	systemSetVolumeTo0: ["system:volumn"],
-	systemSetVolumeTo25: ["system:volumn"],
-	systemSetVolumeTo50: ["system:volumn"],
-	systemSetVolumeTo75: ["system:volumn"],
-	systemSetVolumeTo100: ["system:volumn"],
-	systemTurnVolumeUp: ["system:volumn"],
-	systemTurnVolumeDown: ["system:volumn"],
-	systemToggleStageManager: ["system:ui"],
-	systemToggleBluetooth: [],
-	systemToggleHiddenFiles: ["system:ui"],
-	systemEjectAllDisks: ["system:disk"],
-	systemLogoutUser: ["system:boot"],
-	systemToggleMute: ["system:volumn"],
-	systemMute: ["system:volumn"],
-	systemUnmute: ["system:volumn"],
-	systemGetFrontmostApp: ["system:apps"],
-	systemHideAllAppsExceptFrontmost: ["system:apps"],
-	systemGetSelectedFilesInFileExplorer: ["system:fs"]
+export const SystemPermissionMap: Record<keyof ISystem, SystemPermission[]> = {
+	openTrash: [],
+	emptyTrash: ["system:fs"],
+	shutdown: ["system:boot"],
+	reboot: ["system:boot"],
+	sleep: ["system:boot"],
+	toggleSystemAppearance: ["system:ui"],
+	showDesktop: ["system:ui"],
+	quitAllApps: ["system:apps"],
+	sleepDisplays: ["system:boot"],
+	setVolume: ["system:volumn"],
+	setVolumeTo0: ["system:volumn"],
+	setVolumeTo25: ["system:volumn"],
+	setVolumeTo50: ["system:volumn"],
+	setVolumeTo75: ["system:volumn"],
+	setVolumeTo100: ["system:volumn"],
+	turnVolumeUp: ["system:volumn"],
+	turnVolumeDown: ["system:volumn"],
+	toggleStageManager: ["system:ui"],
+	toggleBluetooth: [],
+	toggleHiddenFiles: ["system:ui"],
+	ejectAllDisks: ["system:disk"],
+	logoutUser: ["system:boot"],
+	toggleMute: ["system:volumn"],
+	mute: ["system:volumn"],
+	unmute: ["system:volumn"],
+	getFrontmostApp: ["system:apps"],
+	hideAllAppsExceptFrontmost: ["system:apps"],
+	getSelectedFilesInFileExplorer: ["system:fs"]
 }
 
-export const EventPermissionMap: Record<keyof IEventServer, EventPermission[]> = {
-	eventOnDragDrop: ["event:drag-drop"],
-	eventOnDragEnter: ["event:drag-enter"],
-	eventOnDragLeave: ["event:drag-leave"],
-	eventOnDragOver: ["event:drag-over"],
-	eventOnWindowBlur: ["event:window-blur"],
-	eventOnWindowCloseRequested: ["event:window-close-requested"],
-	eventOnWindowFocus: ["event:window-focus"]
+export const EventPermissionMap: Record<keyof IEvent, EventPermission[]> = {
+	onDragDrop: ["event:drag-drop"],
+	onDragEnter: ["event:drag-enter"],
+	onDragLeave: ["event:drag-leave"],
+	onDragOver: ["event:drag-over"],
+	onWindowBlur: ["event:window-blur"],
+	onWindowCloseRequested: ["event:window-close-requested"],
+	onWindowFocus: ["event:window-focus"]
 }
 
 export const ShellPermissionMap: Record<keyof IShellServer, ShellPermission[]> = {
-	shellExecute: ["shell:all", "shell:execute"],
-	shellKill: ["shell:all", "shell:kill"],
-	shellStdinWrite: ["shell:all", "shell:stdin-write", "shell:execute"],
-	shellOpen: ["shell:all", "shell:open"],
-	shellRawSpawn: ["shell:all", "shell:spawn"],
-	shellExecuteBashScript: ["shell:all", "shell:execute"],
-	shellExecutePowershellScript: ["shell:all", "shell:execute"],
-	shellExecuteAppleScript: ["shell:all", "shell:execute"],
-	shellExecutePythonScript: ["shell:all", "shell:execute"],
-	shellExecuteZshScript: ["shell:all", "shell:execute"],
-	shellExecuteNodeScript: ["shell:all", "shell:execute"],
-	shellHasCommand: [],
-	shellLikelyOnWindows: ["shell:all", "shell:execute"]
+	execute: ["shell:all", "shell:execute"],
+	kill: ["shell:all", "shell:kill"],
+	stdinWrite: ["shell:all", "shell:stdin-write", "shell:execute"],
+	open: ["shell:all", "shell:open"],
+	rawSpawn: ["shell:all", "shell:spawn"],
+	executeBashScript: ["shell:all", "shell:execute"],
+	executePowershellScript: ["shell:all", "shell:execute"],
+	executeAppleScript: ["shell:all", "shell:execute"],
+	executePythonScript: ["shell:all", "shell:execute"],
+	executeZshScript: ["shell:all", "shell:execute"],
+	executeNodeScript: ["shell:all", "shell:execute"],
+	hasCommand: [],
+	likelyOnWindows: ["shell:all", "shell:execute"]
 }

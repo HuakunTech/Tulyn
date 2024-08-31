@@ -6,17 +6,17 @@ import { db } from "@kksh/api/commands"
 import {
 	constructJarvisServerAPIWithPermissions,
 	exposeApiToWorker,
-	type IUiWorkerServer
+	type IUiWorker
 } from "@kksh/api/ui"
 import {
-	constructJarvisExtDBToServerDbAPI,
+	// constructJarvisExtDBToServerDbAPI,
 	FormNodeNameEnum,
 	FormSchema,
 	ListSchema,
 	NodeNameEnum,
 	wrap,
 	type IComponent,
-	type IDbServer,
+	type IDb,
 	type WorkerExtension
 } from "@kksh/api/ui/worker"
 import { useStore } from "@nanostores/vue"
@@ -48,8 +48,8 @@ const searchBarPlaceholder = ref("")
 const listViewRef = ref<{ onActionSelected: () => void }>()
 let unlistenRefreshWorkerExt: UnlistenFn | undefined
 
-const extUiAPI: IUiWorkerServer = {
-	async workerUiRender(view: IComponent<ListSchema.List | FormSchema.Form>) {
+const extUiAPI: IUiWorker = {
+	async render(view: IComponent<ListSchema.List | FormSchema.Form>) {
 		console.log("render called", view)
 		if (view.nodeName === NodeNameEnum.List) {
 			formViewContent.value = undefined
@@ -65,13 +65,13 @@ const extUiAPI: IUiWorkerServer = {
 			console.log(zodSchema)
 		}
 	},
-	async workerUiSetScrollLoading(_loading: boolean) {
+	async setScrollLoading(_loading: boolean) {
 		loading.value = _loading
 	},
-	async workerUiSetSearchTerm(term: string) {
+	async setSearchTerm(term: string) {
 		searchTerm.value = term
 	},
-	async workerUiSetSearchBarPlaceholder(placeholder: string) {
+	async setSearchBarPlaceholder(placeholder: string) {
 		searchBarPlaceholder.value = placeholder
 	}
 }
@@ -120,13 +120,19 @@ async function launchWorkerExt() {
 	const blobURL = URL.createObjectURL(blob)
 	const worker = new Worker(blobURL)
 	// Expose Jarvis APIs to worker with permissions constraints
-	const dbAPI = new db.JarvisExtDB(extInfoInDB.extId)
-	const extDBApi: IDbServer = constructJarvisExtDBToServerDbAPI(dbAPI)
-	exposeApiToWorker(worker, {
-		...constructJarvisServerAPIWithPermissions(manifest.kunkun.permissions),
-		...extUiAPI,
-		...extDBApi
-	})
+	const serverAPI: Record<string, any> = constructJarvisServerAPIWithPermissions(
+		manifest.kunkun.permissions
+	)
+	serverAPI.iframeUi = undefined
+	serverAPI.workerUi = extUiAPI
+	serverAPI.db = new db.JarvisExtDB(extInfoInDB.extId)
+	// const extDBApi: IDb = constructJarvisExtDBToServerDbAPI(dbAPI)
+	exposeApiToWorker(worker, serverAPI)
+	// exposeApiToWorker(worker, {
+	// 	...constructJarvisServerAPIWithPermissions(manifest.kunkun.permissions),
+	// 	...extUiAPI,
+	// 	...extDBApi
+	// })
 	// exposeApiToWorker(worker, { render }) // Expose render function to worker
 	workerAPI = wrap<WorkerExtension>(worker) // Call worker exposed APIs
 	await workerAPI.load()

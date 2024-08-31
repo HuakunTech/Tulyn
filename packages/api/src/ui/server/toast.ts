@@ -10,14 +10,6 @@ import type {
 	IUiWorker
 } from "../client"
 
-export interface IToastServer {
-	toastMessage: IToast["message"]
-	toastInfo: IToast["info"]
-	toastSuccess: IToast["success"]
-	toastWarning: IToast["warning"]
-	toastError: IToast["error"]
-}
-
 async function constructToast(
 	fn:
 		| typeof toast.message
@@ -43,22 +35,21 @@ async function constructToast(
 	})
 }
 
-export function constructToastApi(): IToastServer {
+export function constructToastApi(): IToast {
 	return {
-		toastMessage: async (message: string, options?: GeneralToastParams, action?: () => void) => {
-			console.log("Server Message")
+		message: async (message: string, options?: GeneralToastParams, action?: () => void) => {
 			constructToast(toast.message, message, options, action)
 		},
-		toastInfo: async (message: string, options?: GeneralToastParams, action?: () => void) => {
+		info: async (message: string, options?: GeneralToastParams, action?: () => void) => {
 			constructToast(toast.info, message, options, action)
 		},
-		toastSuccess: async (message: string, options?: GeneralToastParams, action?: () => void) => {
+		success: async (message: string, options?: GeneralToastParams, action?: () => void) => {
 			constructToast(toast.success, message, options, action)
 		},
-		toastWarning: async (message: string, options?: GeneralToastParams, action?: () => void) => {
+		warning: async (message: string, options?: GeneralToastParams, action?: () => void) => {
 			constructToast(toast.warning, message, options, action)
 		},
-		toastError: async (message: string, options?: GeneralToastParams, action?: () => void) => {
+		error: async (message: string, options?: GeneralToastParams, action?: () => void) => {
 			constructToast(toast.error, message, options, action)
 		}
 	}

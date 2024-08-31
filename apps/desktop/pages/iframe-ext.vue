@@ -9,14 +9,11 @@ import {
 	type Position
 } from "@kksh/api/models"
 import { constructJarvisServerAPIWithPermissions, exposeApiToWindow } from "@kksh/api/ui"
-import {
-	constructJarvisExtDBToServerDbAPI,
-	type IDbServer,
-	type IUiIframeServer
-} from "@kksh/api/ui/iframe"
+import { type IUiIframeServer2 } from "@kksh/api/ui/iframe"
 import { Button } from "@kksh/vue/button"
 import { join } from "@tauri-apps/api/path"
 import { getCurrentWindow } from "@tauri-apps/api/window"
+import { error, warn } from "@tauri-apps/plugin-log"
 import { loadExtensionManifestFromDisk } from "~/lib/commands/extensions"
 import { cn } from "~/lib/utils"
 import { sendNotificationWithPermission } from "~/lib/utils/notification"
@@ -54,10 +51,7 @@ const extStore = useExtDisplayStore()
 const extUrl = ref<string>()
 const loadedExt = ref<ExtPackageJsonExtra>()
 let allExposedApis: Record<string, any> = {}
-const iframeUiAPI: Omit<
-	IUiIframeServer,
-	"iframeUiStartDragging" | "iframeUiToggleMaximize" | "iframeUiInternalToggleMaximize"
-> = {
+const iframeUiAPI: IUiIframeServer2 = {
 	// async iframeUiStartDragging() {
 	// 	console.log("start dragging")
 	// 	appWin.startDragging().catch(console.error)
@@ -65,45 +59,45 @@ const iframeUiAPI: Omit<
 	// iframeUiGoHome: async () => {
 	// 	navigateTo(localePath("/"))
 	// },
-	iframeUiGoBack: async () => {
+	goBack: async () => {
 		if (isInMainWindow()) {
 			navigateTo(localePath("/"))
 		} else {
 			appWin.close()
 		}
 	},
-	iframeUiHideBackButton: async () => {
+	hideBackButton: async () => {
 		ui.showBackBtn = false
 	},
-	iframeUiHideMoveButton: async () => {
+	hideMoveButton: async () => {
 		ui.showMoveBtn = false
 	},
-	iframeUiHideRefreshButton: async () => {
+	hideRefreshButton: async () => {
 		ui.showRefreshBtn = false
 	},
-	iframeUiShowBackButton: async (position?: Position) => {
+	showBackButton: async (position?: Position) => {
 		ui.showBackBtn = true
 		ui.backBtnPosition = position ?? "top-left"
 	},
-	iframeUiShowMoveButton: async (position?: Position) => {
+	showMoveButton: async (position?: Position) => {
 		ui.showMoveBtn = true
 		ui.moveBtnPosition = position ?? "bottom-left"
 	},
-	iframeUiShowRefreshButton: async (position?: Position) => {
+	showRefreshButton: async (position?: Position) => {
 		ui.showRefreshBtn = true
 		ui.refreshBtnPosition = position ?? "top-right"
 	},
-	iframeUiGetTheme: () => {
+	getTheme: () => {
 		return Promise.resolve({
 			theme: appConfig.theme as ThemeColor,
 			radius: appConfig.radius as Radius,
 			lightMode: appConfig.lightMode as LightMode
 		})
 	},
-	async iframeUiReloadPage() {
+	async reloadPage() {
 		location.reload()
 	},
-	async iframeSetTransparentWindowBackground(transparent: boolean) {
+	async setTransparentWindowBackground(transparent: boolean) {
 		if (isInMainWindow()) {
 			throw new Error("Cannot set background in main window")
 		}
@@ -172,18 +166,31 @@ onMounted(async () => {
 		return navigateTo(localePath("/"))
 	}
 	const dbAPI = new db.JarvisExtDB(extInfoInDB.extId)
-	const extDBApi: IDbServer = constructJarvisExtDBToServerDbAPI(dbAPI)
+	// const extDBApi: IDbServer = constructJarvisExtDBToServerDbAPI(dbAPI) // TODO
 	const serverAPI = constructJarvisServerAPIWithPermissions(loadedExt.value.kunkun.permissions)
+	serverAPI.iframeUi = {
+		...serverAPI.iframeUi,
+		...iframeUiAPI
+	}
 	allExposedApis = {
 		...serverAPI,
-		...iframeUiAPI,
-		...extDBApi
+		iframeUi: {
+			...serverAPI.iframeUi,
+			...iframeUiAPI
+		},
+		db: dbAPI
 	}
+	// allExposedApis = {
+	// 	...serverAPI,
+	// 	...iframeUiAPI,
+	// 	...extDBApi
+	// }
 	exposeAPIsToIframe()
 	window.addEventListener("message", (event) => {
 		if (event.data.type === "RELEASE") {
-			console.count("comlink release, will re-expose APIs")
-			exposeAPIsToIframe() // TODO: This may cause memory leak
+			console.count("comlink released")
+			warn(`comlink released in ${identifier}`)
+			// exposeAPIsToIframe() // TODO: This may cause memory leak
 		}
 	})
 })
@@ -307,7 +314,7 @@ function onBackBtnClicked() {
 			:style="positionToCssStyleObj(ui.refreshBtnPosition)"
 			size="icon"
 			variant="outline"
-			@click="iframeUiAPI.iframeUiReloadPage"
+			@click="iframeUiAPI.reloadPage"
 		>
 			<RefreshCcwIcon class="w-4" />
 		</Button>
