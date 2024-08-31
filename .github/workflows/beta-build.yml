@@ -99,7 +99,7 @@ jobs:
               matrix="${matrix}\"windows-latest\","
             fi
             if [ "${{ inputs.platform_linux }}" == "true" ]; then
-              matrix="${matrix}\"ubuntu-20.04\","
+              matrix="${matrix}\"ubuntu-22.04\","
             fi
             if [ "${{ inputs.platform_macos_aarch64 }}" == "true" ]; then
               matrix="${matrix}\"macos-14\","
@@ -175,7 +175,7 @@ jobs:
           bun scripts/init-env.ts
 
       - name: Install dependencies (ubuntu only)
-        if: matrix.os == 'ubuntu-20.04'
+        if: matrix.os == 'ubuntu-22.04'
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.0-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
@@ -217,7 +217,7 @@ jobs:
           mv target/${{ env.BUILD_PATH }}/bundle/nsis/*.exe target/${{ env.BUILD_PATH }}/bundle/nsis/${{ env.FILE_PREFIX }}-amd64.exe
 
       - name: Rename linux
-        if: matrix.os == 'ubuntu-20.04'
+        if: matrix.os == 'ubuntu-22.04'
         run: |
           mv target/${{ env.BUILD_PATH }}/bundle/deb/*.deb target/${{ env.BUILD_PATH }}/bundle/deb/${{ env.FILE_PREFIX }}-amd64.deb
           mv target/${{ env.BUILD_PATH }}/bundle/rpm/*.rpm target/${{ env.BUILD_PATH }}/bundle/rpm/${{ env.FILE_PREFIX }}-amd64.rpm
@@ -244,7 +244,7 @@ jobs:
           compression-level: 0
 
       - name: Upload artifacts (Linux)
-        if: matrix.os == 'ubuntu-20.04'
+        if: matrix.os == 'ubuntu-22.04'
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.FILE_PREFIX }}_linux-amd64
