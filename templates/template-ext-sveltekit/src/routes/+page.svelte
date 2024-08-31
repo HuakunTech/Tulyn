@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { clipboard, notification, ui, initCustomExtension, toast } from '@kksh/api/ui/iframe';
+	import { clipboard, notification, ui, toast } from '@kksh/api/ui/iframe';
 	import {
 		ModeToggle,
 		Button,
@@ -24,7 +24,7 @@
 	import { onMount } from 'svelte';
 
 	onMount(() => {
-		initCustomExtension();
+		ui.registerDragRegion();
 		notification.sendNotification('Hello from template-ext-svelte');
 		ui.getTheme().then((theme) => {
 			updateTheme(theme);

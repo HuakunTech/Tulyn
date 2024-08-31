@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { initCustomExtension, notification, ui } from "@kksh/api/ui/iframe"
+	import { notification, ui } from "@kksh/api/ui/iframe"
 	import {
 		Button,
 		Command,
@@ -22,7 +22,7 @@
 	import { onMount } from "svelte"
 
 	onMount(() => {
-		initCustomExtension()
+		ui.registerDragRegion()
 		ui.getTheme().then((theme) => {
 			updateTheme(theme)
 		})

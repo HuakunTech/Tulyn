@@ -13,6 +13,7 @@ import { type IUiIframeServer2 } from "@kksh/api/ui/iframe"
 import { Button } from "@kksh/vue/button"
 import { join } from "@tauri-apps/api/path"
 import { getCurrentWindow } from "@tauri-apps/api/window"
+import { error, warn } from "@tauri-apps/plugin-log"
 import { loadExtensionManifestFromDisk } from "~/lib/commands/extensions"
 import { cn } from "~/lib/utils"
 import { sendNotificationWithPermission } from "~/lib/utils/notification"
@@ -187,7 +188,8 @@ onMounted(async () => {
 	exposeAPIsToIframe()
 	window.addEventListener("message", (event) => {
 		if (event.data.type === "RELEASE") {
-			console.count("comlink release, will re-expose APIs")
+			console.count("comlink released")
+			warn(`comlink released in ${identifier}`)
 			// exposeAPIsToIframe() // TODO: This may cause memory leak
 		}
 	})

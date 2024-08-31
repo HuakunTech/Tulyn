@@ -30,8 +30,7 @@
 		"build": "rimraf dist && rollup -c"
 	},
 	"dependencies": {
-		"@kksh/api": "workspace:*",
-		"tauri-api-adapter": "workspace:*"
+		"@kksh/api": "workspace:*"
 	},
 	"devDependencies": {
 		"@types/bun": "latest",
