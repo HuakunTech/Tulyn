@@ -161,6 +161,7 @@ fn main() {
         // tauri::RunEvent::Opened { urls } => todo!(),
         // tauri::RunEvent::MenuEvent(_) => todo!(),
         // tauri::RunEvent::TrayIconEvent(_) => todo!(),
+        #[cfg(target_os = "macos")]
         tauri::RunEvent::Reopen {
             has_visible_windows,
             ..
