@@ -17,11 +17,11 @@ export function serverIsRunning(): Promise<boolean> {
 	return invoke(generateJarvisPluginCommand("server_is_running"))
 }
 
-export function setDevExtensionFolder(devExtFolder: string | undefined): Promise<void> {
+export function setDevExtensionFolder(devExtFolder: string | null): Promise<void> {
 	return invoke(generateJarvisPluginCommand("set_dev_extension_folder"), { devExtFolder })
 }
 
-export function setExtensionFolder(extFolder: string | undefined): Promise<void> {
+export function setExtensionFolder(extFolder: string | null): Promise<void> {
 	return invoke(generateJarvisPluginCommand("set_extension_folder"), { extFolder })
 }
 

@@ -32,6 +32,8 @@ const enMessages = {
 	devExtLoadMode: "Dev Extension Load Mode",
 	devMode: "Development Mode",
 	prodMode: "Production Mode",
+	"settings.general.window-blur-bahavior": "Window Blur Behavior",
+	"settings.general.hide-on-blur": "Hide on Blur",
 	/* ------------------------------ Developer Tab ----------------------------- */
 	serverStatus: "Server Status",
 	installation: "Installation",

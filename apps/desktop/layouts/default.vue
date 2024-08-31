@@ -19,6 +19,7 @@ useGoToSettingShortcuts()
 usePreventExit()
 useTestDB()
 unlistenRefreshConfig = await listenToRefreshConfig(async () => {
+	debug("Refreshing config")
 	await appConfig.init()
 	appConfig.refreshWindowStyles()
 	// useRegisterAppShortcuts()

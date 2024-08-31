@@ -21,6 +21,7 @@ pub struct AppSettings {
     pub show_in_tray: bool,
     pub dev_extension_path: Option<PathBuf>,
     pub dev_ext_load_url: bool,
+    pub hide_on_blur: bool,
     pub trigger_hotkey: Option<Vec<String>>,
 }
 
@@ -34,6 +35,7 @@ impl Default for AppSettings {
             show_in_tray: true,
             dev_extension_path: None,
             dev_ext_load_url: false,
+            hide_on_blur: true,
             trigger_hotkey: None,
         }
     }

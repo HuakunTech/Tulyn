@@ -21,10 +21,17 @@ export async function registerAppHotkey(hotkeyStr: string) {
 					"Please open main window first"
 				)
 			}
-			if (await mainWin.isVisible()) {
-				mainWin.hide()
+			const isVisible = await mainWin.isVisible()
+			const isFocused = await mainWin.isFocused()
+			if (isVisible) {
+				if (isFocused) {
+					mainWin.hide()
+				} else {
+					mainWin.setFocus()
+				}
 			} else {
 				mainWin.show()
+				mainWin.setFocus()
 			}
 		}
 	})

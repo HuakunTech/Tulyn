@@ -79,6 +79,17 @@ const builtinCmds: BuiltinCmd[] = [
 			$searchTermSync.set("")
 			toast.success(`Dev Extension Live Load Mode toggled to: ${appConfig.devExtLoadUrl}`)
 		}
+	},
+	{
+		name: "Toggle Hide On Blur",
+		iconifyIcon: "ri:toggle-line",
+		description: "Toggle Hide On Blur",
+		function: async () => {
+			const appConfig = useAppConfigStore()
+			appConfig.setHideOnBlur(!appConfig.hideOnBlur)
+			$searchTermSync.set("")
+			toast.success(`"Hide on Blur" toggled to: ${appConfig.hideOnBlur}`)
+		}
 	}
 ]
 

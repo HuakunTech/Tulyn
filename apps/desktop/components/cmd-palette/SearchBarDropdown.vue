@@ -7,6 +7,7 @@ import {
 	DropdownMenuRadioItem,
 	DropdownMenuTrigger
 } from "@kksh/vue/dropdown-menu"
+import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { EllipsisVerticalIcon, PinIcon } from "lucide-vue-next"
 
 const position = ref("bottom")
@@ -15,6 +16,8 @@ function onChange() {
 }
 
 function onPin() {
+	// const win = getCurrentWebviewWindow()
+	// win.set
 	console.log("Pinned")
 }
 </script>
@@ -27,10 +30,10 @@ function onPin() {
 			</Button>
 		</DropdownMenuTrigger>
 		<DropdownMenuContent class="w-20">
-			<DropdownMenuItem @click="onPin" class="space-x-2" value="top">
+			<!-- <DropdownMenuItem @click="onPin" class="space-x-2" value="top">
 				<PinIcon class="h-4 w-4" />
 				<span>Pin</span>
-			</DropdownMenuItem>
+			</DropdownMenuItem> -->
 		</DropdownMenuContent>
 	</DropdownMenu>
 </template>

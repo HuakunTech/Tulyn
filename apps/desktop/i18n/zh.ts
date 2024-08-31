@@ -35,6 +35,8 @@ const zhMessages: I18nMessages = {
 	devExtLoadMode: "插件开发加载模式",
 	devMode: "开发模式",
 	prodMode: "正常模式",
+	"settings.general.window-blur-bahavior": "窗口失焦行为",
+	"settings.general.hide-on-blur": "失焦隐藏",
 	/* ------------------------------ Developer Tab ----------------------------- */
 	serverStatus: "服务器状态",
 	installation: "安装",

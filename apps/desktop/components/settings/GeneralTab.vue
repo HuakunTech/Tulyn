@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
 	DevExtMode,
+	HideOnBlur,
 	Language,
 	MenuBar,
 	Startup,
@@ -39,6 +40,7 @@ function updateHotkey(keys: string[]) {
 		<TriggerHotkey :saved-hotkey="savedHotkey" @update:saved-hotkey="updateHotkey" />
 		<MenuBar />
 		<Theme />
+		<HideOnBlur />
 		<StrikeSeparator>
 			<span class="whitespace-nowrap break-normal">{{ $t("developerSettings") }}</span>
 		</StrikeSeparator>

@@ -1,27 +1,10 @@
 <script setup lang="ts">
 import ListItem from "@/components/MainSearch/list-item.vue"
-import {
-	CommandEmpty,
-	CommandGroup,
-	CommandInput,
-	CommandItem,
-	CommandList
-} from "@/components/ui/command"
+import { CommandEmpty, CommandGroup, CommandList } from "@/components/ui/command"
 import { $searchTermSync, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
 import { useStore } from "@nanostores/vue"
-import {
-	emit,
-	emitTo,
-	listen,
-	once,
-	type Event,
-	type EventCallback,
-	type EventName,
-	type EventTarget,
-	type Options,
-	type UnlistenFn
-} from "@tauri-apps/api/event"
+import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { getCurrentWindow } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
 import { useListenToWindowBlur } from "~/composables/useEvents"
@@ -75,9 +58,16 @@ appConfig.$subscribe((mutation, state) => {
 })
 
 useListenToWindowBlur(() => {
-	if (!runtimeConfig.public.isDev) {
-		appWindow.hide()
-	}
+	const win = getCurrentWebviewWindow()
+	win.isFocused().then((isFocused) => {
+		// this extra is focused check may be needed because blur event got triggered somehow when window show()
+		// for edge case: when settings page is opened and focused, switch to main window, the blur event is triggered for main window
+		if (!isFocused) {
+			if (appConfig.hideOnBlur) {
+				appWindow.hide()
+			}
+		}
+	})
 })
 
 useListenToWindowFocus(() => {
