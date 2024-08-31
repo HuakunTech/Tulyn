@@ -36,9 +36,9 @@ import {
 	type SystemPermission
 } from "../../permissions"
 import { SystemPermissionMap } from "../../permissions/permission-map"
-import type { ISystemServer } from "./server-types"
+import type { ISystem } from "../client"
 
-export function constructSystemApi(permissions: SystemPermission[]): ISystemServer {
+export function constructSystemApi(permissions: SystemPermission[]): ISystem {
 	return {
 		openTrash: checkPermission<SystemPermission>(
 			SystemPermissionMap.openTrash,

@@ -1118,6 +1118,9 @@ importers:
       '@kksh/api':
         specifier: workspace:*
         version: link:../../packages/api
+      tauri-api-adapter:
+        specifier: workspace:*
+        version: link:../../vendors/tauri-api-adapter/packages/tauri-api-adapter
       typescript:
         specifier: ^5.0.0
         version: 5.5.4

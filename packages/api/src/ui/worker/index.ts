@@ -20,11 +20,12 @@ import type {
 import {
 	constructFetchAPI,
 	constructPathAPI,
-	constructShellAPI,
+	// constructShellAPI,
 	constructUpdownloadAPI
 } from "tauri-api-adapter/client"
 import { constructEventAPI } from "../api/event"
 import { constructIframeUiAPI } from "../api/iframe-ui"
+import { constructShellAPI } from "../api/shell"
 import type { IDb, IEvent, IFs, IOpen, ISystem, IToast, IUiWorker } from "../client"
 
 export { expose, wrap } from "@huakunshen/comlink"
@@ -59,7 +60,10 @@ const _api = wrap(globalThis as Endpoint) as unknown as API
 export const event = constructEventAPI(_api.event) // this is different from event api from tauri-api-adapter
 export const fetch = constructFetchAPI(_api.fetch)
 export const path = constructPathAPI(_api.path)
+// console.warn('before construct shell API')
 export const shell = constructShellAPI(_api.shell)
+// console.warn('after construct shell API')
+
 export const updownload = constructUpdownloadAPI(_api.updownload)
 // export const ui = constructIframeUiAPI(_api)
 export const {

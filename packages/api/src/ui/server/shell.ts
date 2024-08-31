@@ -1,23 +1,23 @@
 import { Channel, invoke } from "@tauri-apps/api/core"
 import { type IShellServer } from "tauri-api-adapter"
 import {
-	Child as ShellxChild,
-	Command as ShellxCommand,
-	executeAppleScript as shellxExecuteAppleScript,
-	executeBashScript as shellxExecuteBashScript,
-	executeNodeScript as shellxExecuteNodeScript,
-	executePowershellScript as shellxExecutePowershellScript,
-	executePythonScript as shellxExecutePythonScript,
-	executeZshScript as shellxExecuteZshScript,
-	hasCommand as shellxHasCommand,
-	likelyOnWindows as shellxLikelyOnWindows,
-	makeAppleScript as shellxMakeAppleScript,
-	makeBashScript as shellxMakeBashScript,
-	makeNodeScript as shellxMakeNodeScript,
-	makePowershellScript as shellxMakePowershellScript,
-	makePythonScript as shellxMakePythonScript,
-	makeZshScript as shellxMakeZshScript,
-	open as shellxOpen,
+	Child,
+	Command,
+	executeAppleScript,
+	executeBashScript,
+	executeNodeScript,
+	executePowershellScript,
+	executePythonScript,
+	executeZshScript,
+	hasCommand,
+	likelyOnWindows,
+	makeAppleScript,
+	makeBashScript,
+	makeNodeScript,
+	makePowershellScript,
+	makePythonScript,
+	makeZshScript,
+	open,
 	type ChildProcess,
 	type CommandEvent,
 	type InternalSpawnOptions,
@@ -134,7 +134,7 @@ export function constructShellApi(
 					"url"
 				)
 			) {
-				return shellxOpen(path, openWith)
+				return open(path, openWith)
 			} else {
 				throw new Error(`Permission denied to open file: ${path}`)
 			}
@@ -174,7 +174,7 @@ export function constructShellApi(
 			) {
 				return Promise.reject(new Error("Shell Execute (Bash) Permission denied"))
 			}
-			return shellxExecuteBashScript(script)
+			return executeBashScript(script)
 		},
 		executePowershellScript: async (script: string): Promise<ChildProcess<string>> => {
 			if (
@@ -187,7 +187,7 @@ export function constructShellApi(
 			) {
 				return Promise.reject(new Error("Shell Execute (PowerShell) Permission denied"))
 			}
-			return shellxExecutePowershellScript(script)
+			return executePowershellScript(script)
 		},
 		executeAppleScript: async (script: string): Promise<ChildProcess<string>> => {
 			console.log("shellExecuteAppleScript", script)
@@ -203,7 +203,7 @@ export function constructShellApi(
 			) {
 				return Promise.reject(new Error("Shell Execute (AppleScript) Permission denied"))
 			}
-			return shellxExecuteAppleScript(script)
+			return executeAppleScript(script)
 		},
 		executePythonScript: async (script: string): Promise<ChildProcess<string>> => {
 			if (
@@ -216,7 +216,7 @@ export function constructShellApi(
 			) {
 				return Promise.reject(new Error("Shell Execute (Python) Permission denied"))
 			}
-			return shellxExecutePythonScript(script)
+			return executePythonScript(script)
 		},
 		executeZshScript: async (script: string): Promise<ChildProcess<string>> => {
 			if (
@@ -229,7 +229,7 @@ export function constructShellApi(
 			) {
 				return Promise.reject(new Error("Shell Execute (ZSH) Permission denied"))
 			}
-			return shellxExecuteZshScript(script)
+			return executeZshScript(script)
 		},
 		executeNodeScript: async (script: string): Promise<ChildProcess<string>> => {
 			if (
@@ -242,15 +242,15 @@ export function constructShellApi(
 			) {
 				return Promise.reject(new Error("Shell Execute (Node) Permission denied"))
 			}
-			return shellxExecuteNodeScript(script)
+			return executeNodeScript(script)
 		},
 		hasCommand: async (command: string): Promise<boolean> => {
 			// check if command is clean, check if it's a single command without arguments or semicolons with regex.
 			if (!/^[a-zA-Z0-9_-]+$/.test(command)) {
 				return Promise.reject(new Error("Invalid command"))
 			}
-			return shellxHasCommand(command)
+			return hasCommand(command)
 		},
-		likelyOnWindows: async (): Promise<boolean> => shellxLikelyOnWindows()
+		likelyOnWindows: async (): Promise<boolean> => likelyOnWindows()
 	}
 }

@@ -1,3 +1,7 @@
+// dialog.confirm('Are you sure?').then((response) => {
+//   console.log('From Worker: ', response)
+// })
+
 import {
 	Action,
 	expose,
@@ -7,14 +11,24 @@ import {
 	IconEnum,
 	List,
 	path,
+	shell,
 	toast,
 	ui,
 	WorkerExtension
 } from "@kksh/api/ui/worker"
 
+// import { clipboard, shell } from "tauri-api-adapter/worker"
+
+// clipboard.readText().then((text) => {
+// 	console.log("Clipboard Text Read From Worker: ", text)
+// })
+
+shell.executeBashScript('echo "Hello from Worker"').then(console.log)
+
 class ExtensionTemplate extends WorkerExtension {
 	async onFormSubmit(value: Record<string, any>): Promise<void> {
 		console.log("Form submitted", value)
+		toast.success(`Form submitted: ${JSON.stringify(value)}`)
 	}
 	async load() {
 		return ui.render(

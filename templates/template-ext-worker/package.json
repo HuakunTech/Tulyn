@@ -9,7 +9,22 @@
 		"longDescription": "A Worker Extension Template",
 		"identifier": "template-ext-worker",
 		"permissions": [
-			"fetch:all"
+			"fetch:all",
+			"clipboard:read-all",
+			{
+				"permission": "shell:execute",
+				"allow": [
+					{
+						"cmd": {
+							"program": "bash",
+							"args": [
+								"-c",
+								".+"
+							]
+						}
+					}
+				]
+			}
 		],
 		"demoImages": [],
 		"icon": {
@@ -30,7 +45,8 @@
 		"build": "rimraf dist && rollup -c"
 	},
 	"dependencies": {
-		"@kksh/api": "workspace:*"
+		"@kksh/api": "workspace:*",
+		"tauri-api-adapter": "workspace:*"
 	},
 	"devDependencies": {
 		"@types/bun": "latest",

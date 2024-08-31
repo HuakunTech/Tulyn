@@ -1,5 +1,6 @@
 import type { IShellServer } from "tauri-api-adapter"
-import type { IEventServer, IFsServer, ISystemServer } from "../ui/server/server-types"
+// import type { IEventServer, IFsServer, ISystemServer } from "../ui/server/server-types"
+import type { IEvent, IFs, ISystem } from "../ui/client"
 import type {
 	EventPermission,
 	KunkunFsPermission,
@@ -22,7 +23,7 @@ export {
 	UpdownloadPermissionMap
 } from "tauri-api-adapter/permissions"
 
-export const FsPermissionMap: Record<keyof IFsServer, KunkunFsPermission[]> = {
+export const FsPermissionMap: Record<keyof IFs, KunkunFsPermission[]> = {
 	readDir: ["fs:read", "fs:read-dir"],
 	readFile: ["fs:read"],
 	readTextFile: ["fs:read"],
@@ -40,7 +41,7 @@ export const FsPermissionMap: Record<keyof IFsServer, KunkunFsPermission[]> = {
 	fileSearch: ["fs:search"]
 }
 
-export const SystemPermissionMap: Record<keyof ISystemServer, SystemPermission[]> = {
+export const SystemPermissionMap: Record<keyof ISystem, SystemPermission[]> = {
 	openTrash: [],
 	emptyTrash: ["system:fs"],
 	shutdown: ["system:boot"],
@@ -71,7 +72,7 @@ export const SystemPermissionMap: Record<keyof ISystemServer, SystemPermission[]
 	getSelectedFilesInFileExplorer: ["system:fs"]
 }
 
-export const EventPermissionMap: Record<keyof IEventServer, EventPermission[]> = {
+export const EventPermissionMap: Record<keyof IEvent, EventPermission[]> = {
 	onDragDrop: ["event:drag-drop"],
 	onDragEnter: ["event:drag-enter"],
 	onDragLeave: ["event:drag-leave"],

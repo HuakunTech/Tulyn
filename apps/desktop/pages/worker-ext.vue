@@ -127,6 +127,7 @@ async function launchWorkerExt() {
 	serverAPI.workerUi = extUiAPI
 	serverAPI.db = new db.JarvisExtDB(extInfoInDB.extId)
 	// const extDBApi: IDb = constructJarvisExtDBToServerDbAPI(dbAPI)
+	exposeApiToWorker(worker, serverAPI)
 	// exposeApiToWorker(worker, {
 	// 	...constructJarvisServerAPIWithPermissions(manifest.kunkun.permissions),
 	// 	...extUiAPI,
