@@ -2,13 +2,16 @@
 import { SUPABASE_URL } from "@/lib/constants"
 import { getDevExtensionFolder, getExtensionFolder, getServerPort } from "@kksh/api/commands"
 import { Button } from "@kksh/vue/button"
+import { appDataDir, join } from "@tauri-apps/api/path"
 import { open } from "tauri-plugin-shellx-api"
 import { onMounted, ref } from "vue"
 
+const runtimeConfig = useRuntimeConfig()
 const extFolder = ref<string | null>()
 const devExtFolder = ref<string | null>()
 const port = ref<number>()
-
+const appDataPath = await appDataDir()
+// const appConfigPath = await join(appDataPath, "appConfig.bin")
 async function refreshFolderFetch() {
 	extFolder.value = await getExtensionFolder()
 	devExtFolder.value = await getDevExtensionFolder()
@@ -42,6 +45,15 @@ onMounted(async () => {
 				@click="devExtFolder && open(`http://localhost:${port}`)"
 			>
 				<strong>Server Port: </strong><span>{{ port }}</span
+				><Icon name="ion:open-outline" />
+			</li>
+
+			<li
+				v-if="runtimeConfig.public.isDev"
+				class="text-muted-foreground flex cursor-pointer items-center space-x-2"
+				@click="open(appDataPath)"
+			>
+				<strong>App Data Dir: </strong><span>{{ appDataPath }}</span
 				><Icon name="ion:open-outline" />
 			</li>
 
