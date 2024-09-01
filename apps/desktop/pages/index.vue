@@ -83,12 +83,6 @@ $searchTermSync.subscribe((val, oldVal) => {
 })
 
 onMounted(async () => {
-	// fetch("ext://template-ext-sveltekit.ext/build/about/")
-	// 	.then((res) => res.text())
-	// 	.then(console.log)
-	// fetch("ext://template-ext-sveltekit.ext/build/about/_app/immutable/chunks/entry.D9f0aZyR.js")
-	// 	.then((res) => res.text())
-	// 	.then(console.log)
 	if (platform() !== "macos") {
 		appWindow.setDecorations(false)
 	}
@@ -140,7 +134,7 @@ const searchTermSyncProxy = computed({
 })
 </script>
 <template>
-	<iframe src="ext://template-ext-sveltekit.ext/about.html" class="w-full h-96" frameborder="0"></iframe>
+	<!-- <iframe src="ext://template-ext-sveltekit.build.dev-ext/about" class="w-full h-96" frameborder="0"></iframe> -->
 	<CmdPaletteCommand
 		class=""
 		v-model:searchTerm="searchTermSyncProxy"

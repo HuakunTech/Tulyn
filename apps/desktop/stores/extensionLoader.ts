@@ -207,8 +207,9 @@ export function constructExtStore(options: { isDev: boolean }) {
 									url = cmd.main
 								} else {
 									// const port = await getServerPort()
-									const postfix = !cmd.main.endsWith(".html") && !cmd.main.endsWith("/") ? "/" : ""
-									url = `ext://${manifest.kunkun.identifier}.${cmd.dist}.${isDev ? "dev-" : ""}ext${cmd.main.startsWith("/") ? "" : "/"}${cmd.main}${postfix}`
+									// const postfix = !cmd.main.endsWith(".html") && !cmd.main.endsWith("/") ? "/" : ""
+									// console.log("postfix: ", postfix)
+									url = `ext://${manifest.kunkun.identifier}.${cmd.dist}.${isDev ? "dev-" : ""}ext${cmd.main.startsWith("/") ? "" : "/"}${cmd.main}`
 								}
 							}
 							// try {

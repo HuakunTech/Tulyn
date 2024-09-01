@@ -26,7 +26,7 @@
 				"cmds": []
 			},
 			{
-				"main": "about.html",
+				"main": "about",
 				"dist": "build",
 				"devMain": "http://localhost:5173/dev-extensions/template-ext-sveltekit/build/about",
 				"name": "Sveltekit Template About Page",
