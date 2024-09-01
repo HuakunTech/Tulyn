@@ -14,7 +14,7 @@ const createKKDistDir = path.join(createKKDir, "dist")
 const createKKIndexjsPath = path.join(createKKDistDir, "index.mjs")
 const testDir = path.join(os.tmpdir(), "kunkun-cli-test")
 console.log("Test Dir: ", testDir)
-const templateNames = ["template", "react", "vue", "nuxt", "svelte", "sveltekit"]
+const templateNames = ["template", "react", "vue", "nuxt", "svelte", "sveltekit", "next"]
 
 fs.rmdirSync(testDir, { recursive: true })
 fs.mkdirpSync(testDir)

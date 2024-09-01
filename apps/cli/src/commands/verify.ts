@@ -7,7 +7,7 @@ import * as v from "valibot"
 
 export function verifyCustomUiCommand(projectRoot: string, cmd: CustomUiCmd): boolean {
 	if (!cmd.main.startsWith("http")) {
-		const mainPath = path.join(projectRoot, cmd.main)
+		const mainPath = path.join(projectRoot, cmd.dist, cmd.main)
 		if (
 			!(
 				fs.existsSync(mainPath) ||
