@@ -4,6 +4,13 @@ import { getRootDir } from "../src/constants"
 import { cleanExtension, patchManifestJsonSchema, patchPkgJsonDep } from "../src/patch"
 
 const distPath = path.join(getRootDir(), "dist")
+
+/* -------------------------------------------------------------------------- */
+/*                   copy ../../templates to dist/templates                   */
+/* -------------------------------------------------------------------------- */
+const templatesPath = path.join(getRootDir(), "../..", "templates")
+await fs.copy(templatesPath, path.join(distPath, "templates"))
+
 /* -------------------------------------------------------------------------- */
 /*                              Clean Dist Folder                             */
 /* -------------------------------------------------------------------------- */
