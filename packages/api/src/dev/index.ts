@@ -1,7 +1,4 @@
-import { type BunPlugin } from "bun"
 import { DESKTOP_SERVICE_NAME, KUNKUN_DESKTOP_APP_SERVER_PORTS } from "../constants"
-
-export { default as prettyBytes } from "pretty-bytes"
 
 export function checkLocalKunkunService(port: number): Promise<boolean> {
 	return fetch(`http://localhost:${port}/info`)
@@ -31,7 +28,7 @@ export async function findLocalhostKunkunPorts(): Promise<number[]> {
 	return onlinePorts
 }
 
-export async function sendRefreshWorkerExtensionRequest() {
+export async function refreshTemplateWorkerExtension() {
 	console.log("Send Refresh Worker Extension Request")
 	const ports = await findLocalhostKunkunPorts()
 	console.log("Kunkun ports", ports)
@@ -52,27 +49,7 @@ export async function sendRefreshWorkerExtensionRequest() {
 export function kununWorkerTemplateExtensionRollupPlugin() {
 	return {
 		async writeBundle() {
-			await sendRefreshWorkerExtensionRequest()
-		}
-	}
-}
-
-/**
- * This plugin will send a refresh worker extension request to the kunkun desktop app
- * so you get the same hot reload experience in the extension as you do in web apps
- *
- * If your extension takes a long time to build, the refresh request may be sent too early,
- * you can set a higher delay to ensure the build is finished before the request is sent
- * @param delay delay refresh request, in milliseconds
- * @returns
- */
-export function kunkunWorkerTemplateExtensionBunPlugin(delay: number = 0): BunPlugin {
-	return {
-		name: "kunkun-template-extension-bun-plugin",
-		async setup(build) {
-			setTimeout(async () => {
-				await sendRefreshWorkerExtensionRequest()
-			}, delay)
+			await refreshTemplateWorkerExtension()
 		}
 	}
 }
