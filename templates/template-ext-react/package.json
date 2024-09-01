@@ -1,5 +1,5 @@
 {
-	"$schema": "../../packages/schema/manifest-json-schema.json",
+	"$schema": "./node_modules/@kksh/api/dist/schema.json",
 	"name": "template-ext-react",
 	"private": true,
 	"version": "0.0.2",
@@ -17,7 +17,8 @@
 		"permissions": [],
 		"customUiCmds": [
 			{
-				"main": "dist",
+				"main": "/",
+				"dist": "dist",
 				"devMain": "http://localhost:5173",
 				"name": "React Extension Template",
 				"cmds": []

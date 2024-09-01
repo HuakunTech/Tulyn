@@ -4,14 +4,14 @@ import { useEffect, useMemo, useRef, useState } from "react"
 import { flatten, safeParse } from "valibot"
 
 const defaultJson = `{
-  "$schema": "https://schema.kunkun.sh",
-  "version": "0.0.1",
+  "$schema": "https://schema.kunkun.sh/",
+  "version": "0.0.2",
   "name": "hacker-news",
   "module": "index.ts",
   "type": "module",
   "kunkun": {
     "name": "Hacker News",
-    "identifier": "sh.kunkun.hacker-news",
+    "identifier": "hacker-news",
     "shortDescription": "List latest top hacker news",
     "icon": {
       "type": "iconify",
@@ -20,7 +20,17 @@ const defaultJson = `{
     "longDescription": "",
     "demoImages": [],
     "permissions": [
-      "shell:open"
+      {
+        "permission": "open:url",
+        "allow": [
+          {
+            "url": "https://**"
+          },
+          {
+            "url": "http://**"
+          }
+        ]
+      }
     ],
     "templateUiCmds": [
       {
@@ -37,8 +47,8 @@ const defaultJson = `{
     "build": "rimraf dist && rollup -c"
   },
   "dependencies": {
-    "@kksh/api": "workspace:*",
-    "valibot": "^0.40.0"
+    "@kksh/api": "0.0.4-beta.0",
+    "valibot": "^0.36.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^26.0.1",

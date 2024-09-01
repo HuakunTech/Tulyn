@@ -134,6 +134,7 @@ const searchTermSyncProxy = computed({
 })
 </script>
 <template>
+	<!-- <iframe src="ext://template-ext-sveltekit.build.dev-ext/about" class="w-full h-96" frameborder="0"></iframe> -->
 	<CmdPaletteCommand
 		class=""
 		v-model:searchTerm="searchTermSyncProxy"

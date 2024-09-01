@@ -1,5 +1,5 @@
 {
-	"$schema": "../../packages/schema/manifest-json-schema.json",
+	"$schema": "./node_modules/@kksh/api/dist/schema.json",
 	"name": "template-ext-sveltekit",
 	"version": "0.0.3",
 	"private": true,
@@ -19,13 +19,15 @@
 		],
 		"customUiCmds": [
 			{
-				"main": "build",
+				"main": "/",
+				"dist": "build",
 				"devMain": "http://localhost:5173/dev-extensions/template-ext-sveltekit/build",
 				"name": "Sveltekit Template Home Page",
 				"cmds": []
 			},
 			{
-				"main": "build/about.html",
+				"main": "about",
+				"dist": "build",
 				"devMain": "http://localhost:5173/dev-extensions/template-ext-sveltekit/build/about",
 				"name": "Sveltekit Template About Page",
 				"cmds": []
@@ -35,8 +37,7 @@
 	},
 	"scripts": {
 		"dev": "vite dev",
-		"build": "cross-env KK_NODE_ENV=production vite build",
-		"build:dev": "cross-env KK_NODE_ENV=development vite build",
+		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
@@ -47,7 +48,6 @@
 		"@kksh/api": "workspace:*",
 		"@kksh/svelte": "0.1.4",
 		"clsx": "^2.1.1",
-		"cross-env": "^7.0.3",
 		"lucide-svelte": "^0.416.0",
 		"mode-watcher": "^0.4.0",
 		"tailwind-merge": "^2.4.0",

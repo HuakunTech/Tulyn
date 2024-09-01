@@ -1,5 +1,5 @@
 {
-	"$schema": "../../packages/schema/manifest-json-schema.json",
+	"$schema": "./node_modules/@kksh/api/dist/schema.json",
 	"name": "template-ext-vue",
 	"private": true,
 	"version": "0.0.2",
@@ -45,7 +45,8 @@
 		],
 		"customUiCmds": [
 			{
-				"main": "dist",
+				"main": "/",
+				"dist": "dist",
 				"devMain": "http://localhost:5173",
 				"name": "Vue Template",
 				"cmds": [],

@@ -1,5 +1,5 @@
 {
-	"$schema": "../../packages/schema/manifest-json-schema.json",
+	"$schema": "./node_modules/@kksh/api/dist/schema.json",
 	"name": "template-ext-next",
 	"version": "0.1.1",
 	"private": true,
@@ -16,13 +16,15 @@
 		"permissions": [],
 		"customUiCmds": [
 			{
-				"main": "out",
+				"main": "/",
+				"dist": "out",
 				"devMain": "http://localhost:5173/dev-extensions/template-ext-next/out",
 				"name": "Next Template Home Page",
 				"cmds": []
 			},
 			{
-				"main": "out/about.html",
+				"main": "/about.html",
+				"dist": "out",
 				"devMain": "http://localhost:5173/dev-extensions/template-ext-next/out/about",
 				"name": "Next Template About Page",
 				"cmds": []
@@ -32,8 +34,7 @@
 	},
 	"scripts": {
 		"dev": "next dev -p 5173",
-		"build": "cross-env KK_NODE_ENV=production next build",
-		"build:dev": "cross-env KK_NODE_ENV=development next build",
+		"build": "next build",
 		"start": "next start -p 5173",
 		"lint": "next lint"
 	},
@@ -49,7 +50,6 @@
 		"@types/node": "^20",
 		"@types/react": "^18",
 		"@types/react-dom": "^18",
-		"cross-env": "^7.0.3",
 		"eslint": "^8",
 		"eslint-config-next": "14.2.7",
 		"postcss": "^8",

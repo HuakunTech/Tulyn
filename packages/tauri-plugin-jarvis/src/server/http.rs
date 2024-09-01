@@ -4,8 +4,8 @@ use super::grpc::greeter::MyGreeter;
 use super::model::ServerState;
 use super::Protocol;
 use crate::utils::path::get_default_extensions_dir;
-use axum::http::{HeaderValue, Method};
-use axum::routing::{get, post};
+use axum::http::{HeaderValue, Method, StatusCode, Uri};
+use axum::routing::{get, get_service, post};
 use axum_server::tls_rustls::RustlsConfig;
 use std::sync::Mutex;
 use std::{net::SocketAddr, path::PathBuf, sync::Arc};
@@ -48,11 +48,17 @@ async fn start_server(
         .layer(CorsLayer::permissive())
         .nest_service("/extensions", ServeDir::new(options.extension_folder))
         .with_state(server_state);
+
+    async fn fallback(uri: Uri) -> (StatusCode, String) {
+        println!("No route for {uri}");
+        (StatusCode::NOT_FOUND, format!("No route for {uri}"))
+    }
     if options.dev_extension_folder.is_some() {
         rest_router = rest_router.nest_service(
             "/dev-extensions",
-            ServeDir::new(options.dev_extension_folder.unwrap()),
+            ServeDir::new(options.dev_extension_folder.unwrap()), // ServeDir::new(options.dev_extension_folder.unwrap()),
         );
+        // .fallback(fallback);
     }
     let combined_router = axum::Router::new()
         .merge(grpc_router)
@@ -87,7 +93,7 @@ pub struct Server {
     pub protocol: Mutex<Protocol>,
     pub port: u16,
     pub server_handle: Arc<std::sync::Mutex<Option<tauri::async_runtime::JoinHandle<()>>>>,
-    pub extension_folder: Arc<Mutex<Option<PathBuf>>>,
+    pub extension_folder: Arc<Mutex<PathBuf>>,
     pub dev_extension_folder: Arc<Mutex<Option<PathBuf>>>,
 }
 
@@ -96,7 +102,7 @@ impl Server {
         app_handle: AppHandle,
         port: u16,
         protocol: Protocol,
-        ext_folder: Option<PathBuf>,
+        ext_folder: PathBuf,
         dev_ext_folder: Option<PathBuf>,
     ) -> Self {
         Self {
@@ -127,16 +133,17 @@ impl Server {
         *shtdown_handle = Some(_shutdown_handle.clone());
         let protocol = self.protocol.lock().unwrap().clone();
 
-        let mut ext_folder = self.extension_folder.lock().unwrap();
-        let extension_folder = match ext_folder.to_owned() {
-            Some(extension_folder) => extension_folder,
-            None => {
-                let path =
-                    get_default_extensions_dir(&app_handle).map_err(|err| err.to_string())?;
-                *ext_folder = Some(path.clone());
-                path
-            }
-        };
+        let ext_folder = self.extension_folder.lock().unwrap();
+        let extension_folder = ext_folder.to_owned();
+        // let extension_folder = match ext_folder.to_owned() {
+        //     Some(extension_folder) => extension_folder,
+        //     None => {
+        //         let path =
+        //             get_default_extensions_dir(&app_handle).map_err(|err| err.to_string())?;
+        //         *ext_folder = Some(path.clone());
+        //         path
+        //     }
+        // };
         let dev_extension_folder = self.dev_extension_folder.lock().unwrap().to_owned();
 
         *server_handle = Some(tauri::async_runtime::spawn(async move {
