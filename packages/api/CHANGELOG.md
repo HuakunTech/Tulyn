@@ -1,5 +1,11 @@
 # @kksh/api
 
+## 0.0.6
+
+### Patch Changes
+
+- Add some helper functions for template worker extension building. Replace rollup with bun.
+
 ## 0.0.5
 
 ### Patch Changes
