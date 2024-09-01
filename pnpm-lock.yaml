@@ -853,9 +853,6 @@ importers:
       '@types/react-dom':
         specifier: ^18
         version: 18.3.0
-      cross-env:
-        specifier: ^7.0.3
-        version: 7.0.3
       eslint:
         specifier: ^8
         version: 8.57.0
@@ -896,9 +893,6 @@ importers:
         specifier: latest
         version: 3.4.38(typescript@5.5.4)
     devDependencies:
-      cross-env:
-        specifier: ^7.0.3
-        version: 7.0.3
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
@@ -1027,9 +1021,6 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      cross-env:
-        specifier: ^7.0.3
-        version: 7.0.3
       lucide-svelte:
         specifier: ^0.416.0
         version: 0.416.0(svelte@4.2.18)
