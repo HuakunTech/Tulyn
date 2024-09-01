@@ -1,7 +1,7 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-use std::path::PathBuf;
+use std::{path::PathBuf, sync::Mutex};
 pub mod commands;
 mod setup;
 use tauri_plugin_jarvis::{
@@ -64,30 +64,42 @@ fn main() {
             let path = PathBuf::from(url);
             return tauri_plugin_jarvis::utils::icns::load_icon(path);
         })
-        .register_uri_scheme_protocol("ext", |_app, request| {
-            println!("ext request: {}", request.uri());
-            println!("ext request path: {}", request.uri().path());
-            println!("ext authority: {:?}", request.uri().authority());
-            println!("ext host: {:?}", request.uri().host());
+        .register_uri_scheme_protocol("ext", |app, request| {
             let host = request.uri().host().unwrap();
             let host_parts: Vec<&str> = host.split(".").collect();
-            // expect 2 parts, ext_identifier and ext_type
+            if host_parts.len() != 3 {
+                return tauri::http::Response::builder()
+                    .status(tauri::http::StatusCode::NOT_FOUND)
+                    .header("Access-Control-Allow-Origin", "*")
+                    .body("Invalid Host".as_bytes().to_vec())
+                    .unwrap();
+            }
+            // expect 3 parts, ext_identifier, dist and ext_type
             let ext_identifier = host_parts[0];
-            println!("ext_identifier: {}", ext_identifier);
-            let ext_type = host_parts[1]; // ext or dev-ext
-                                          // let extension_folder_path = match ext_type {
-                                          //     "ext" => get_default_extensions_dir(app.handle()).unwrap(),
-                                          //     "dev-ext" =>
-                                          // };
-            let extension_folder_path =
-                PathBuf::from("/Users/hacker/Dev/projects/kunkun/kunkun/templates");
+            let dist = host_parts[1];
+            let ext_type = host_parts[2]; // ext or dev-ext
+            let app_state = app.state::<tauri_plugin_jarvis::model::app_state::AppState>();
+            // let app_state: tauri:State<tauri_plugin_jarvis::model::app_state::AppState> = app.state();
+            let extension_folder_path: Option<PathBuf> = match ext_type {
+                "ext" => Some(app_state.extension_path.lock().unwrap().clone()),
+                "dev-ext" => app_state.dev_extension_path.lock().unwrap().clone(),
+                _ => None,
+            };
+            let extension_folder_path = match extension_folder_path {
+                Some(path) => path,
+                None => {
+                    return tauri::http::Response::builder()
+                        .status(tauri::http::StatusCode::NOT_FOUND)
+                        .header("Access-Control-Allow-Origin", "*")
+                        .body("Extension Folder Not Found".as_bytes().to_vec())
+                        .unwrap()
+                }
+            };
             let path = &request.uri().path()[1..]; // skip the first /
-            println!("path: {}", path);
-            let ext_path = extension_folder_path.join(ext_identifier);
-            println!("ext_path: {:?}", ext_path);
-            let url_file_path = ext_path.join("build");
-            let url_file_path = url_file_path.join(path);
-            println!("url_file_path: {:?}", url_file_path);
+            let url_file_path = extension_folder_path
+                .join(ext_identifier)
+                .join(dist)
+                .join(path);
             // check if it's file or directory, if file and exist, return file, if directory, return index.html, if neither, check .html
             if url_file_path.is_file() {
                 println!("1st case url_file_path: {:?}", url_file_path);
@@ -120,18 +132,24 @@ fn main() {
                 }
                 // check if path has a sibling file with .html extension
                 // get folder name
-                let folder_name = url_file_path.file_name().unwrap().to_str().unwrap();
-                // check if url_file_path's parent has a file with name folder_name.html
-                let parent_path = url_file_path.parent().unwrap();
-                let html_file_path = parent_path.join(format!("{}.html", folder_name));
-                if html_file_path.is_file() {
-                    println!("3rd case html_file_path: {:?}", html_file_path);
-                    return tauri::http::Response::builder()
-                        .status(tauri::http::StatusCode::OK)
-                        .header("Access-Control-Allow-Origin", "*")
-                        .body(std::fs::read(html_file_path).unwrap())
-                        .unwrap();
+                match url_file_path.file_name() {
+                    Some(folder_name) => {
+                        let parent_path = url_file_path.parent().unwrap();
+                        let html_file_path =
+                            parent_path.join(format!("{}.html", folder_name.to_str().unwrap()));
+                        if html_file_path.is_file() {
+                            println!("3rd case html_file_path: {:?}", html_file_path);
+                            return tauri::http::Response::builder()
+                                .status(tauri::http::StatusCode::OK)
+                                .header("Access-Control-Allow-Origin", "*")
+                                .body(std::fs::read(html_file_path).unwrap())
+                                .unwrap();
+                        }
+                    }
+                    None => {}
                 }
+
+                // check if url_file_path's parent has a file with name folder_name.html
             } else {
                 // file not found, check if end with .html works. if path ends with /, remove the / and check if adding .html makes a file
                 let mut path_str = url_file_path.to_str().unwrap().to_string();
@@ -169,7 +187,8 @@ fn main() {
                 Ok(settings) => settings,
                 Err(_) => AppSettings::default(),
             };
-            let ext_folder: Option<PathBuf> = get_default_extensions_dir(app.handle()).ok();
+            let dev_extension_path: Option<PathBuf> = app_settings.dev_extension_path.clone();
+            let ext_folder: PathBuf = get_default_extensions_dir(app.handle()).unwrap();
             let my_port = tauri_plugin_network::network::scan::find_available_port_from_list(
                 tauri_plugin_jarvis::server::CANDIDATE_PORTS.to_vec(),
             )
@@ -177,16 +196,20 @@ fn main() {
             log::info!("Jarvis Server Port: {}", my_port);
             log::info!(
                 "App Settings Dev Extension Path: {:?}",
-                app_settings.dev_extension_path,
+                app_settings.dev_extension_path.clone(),
             );
             log::info!("Extension Folder: {:?}", ext_folder);
             app.manage(tauri_plugin_jarvis::server::http::Server::new(
                 app.handle().clone(),
                 my_port,
                 Protocol::Http,
-                ext_folder,
-                app_settings.dev_extension_path,
+                ext_folder.clone(),
+                dev_extension_path.clone(),
             ));
+            app.manage(tauri_plugin_jarvis::model::app_state::AppState {
+                dev_extension_path: Mutex::new(dev_extension_path),
+                extension_path: Mutex::new(ext_folder),
+            });
             tauri_plugin_jarvis::setup::server::setup_server(app.handle())?; // start the server
 
             let mdns = tauri_plugin_jarvis::setup::peer_discovery::setup_mdns(my_port)?;

@@ -81,6 +81,7 @@ export const WindowConfig = object({
 export type WindowConfig = InferOutput<typeof WindowConfig>
 export const CustomUiCmd = object({
 	main: string("HTML file to load, e.g. dist/index.html"),
+	dist: string("Dist folder to load, e.g. dist, build, out"),
 	description: optional(nullable(string("Description of the Command"), ""), ""),
 	devMain: string("URL to load in development to support live reload, e.g. http://localhost:5173/"),
 	name: string("Name of the command"),

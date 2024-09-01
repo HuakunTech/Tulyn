@@ -206,9 +206,9 @@ export function constructExtStore(options: { isDev: boolean }) {
 								if (cmd.main.startsWith("http")) {
 									url = cmd.main
 								} else {
-									const port = await getServerPort()
+									// const port = await getServerPort()
 									const postfix = !cmd.main.endsWith(".html") && !cmd.main.endsWith("/") ? "/" : ""
-									url = `http://localhost:${port}/${isDev ? "dev-" : ""}extensions/${manifest.extFolderName}/${cmd.main}${postfix}`
+									url = `ext://${manifest.kunkun.identifier}.${cmd.dist}.${isDev ? "dev-" : ""}ext${cmd.main.startsWith("/") ? "" : "/"}${cmd.main}${postfix}`
 								}
 							}
 							// try {

@@ -1,5 +1,5 @@
 {
-	"$schema": "../../packages/schema/manifest-json-schema.json",
+	"$schema": "./node_modules/@kksh/api/dist/schema.json",
 	"name": "template-ext-nuxt",
 	"version": "0.0.3",
 	"private": true,
@@ -17,13 +17,15 @@
 		"permissions": [],
 		"customUiCmds": [
 			{
-				"main": "dist",
+				"main": "/",
+				"dist": "dist",
 				"devMain": "http://localhost:5173/dev-extensions/template-ext-nuxt/dist",
 				"name": "Nuxt Template Home Page",
 				"cmds": []
 			},
 			{
-				"main": "dist/about",
+				"main": "/about",
+				"dist": "dist",
 				"devMain": "http://localhost:5173/dev-extensions/template-ext-nuxt/dist/about",
 				"name": "Nuxt Template About Page",
 				"cmds": []
@@ -32,8 +34,7 @@
 		"templateUiCmds": []
 	},
 	"scripts": {
-		"build": "cross-env KK_NODE_ENV=production nuxt generate",
-		"build:dev": "cross-env KK_NODE_ENV=development nuxt generate",
+		"build": "nuxt generate",
 		"dev": "nuxt dev",
 		"generate": "nuxt generate",
 		"preview": "nuxt preview",
@@ -49,7 +50,6 @@
 		"vue": "latest"
 	},
 	"devDependencies": {
-		"cross-env": "^7.0.3",
 		"typescript": "^5.5.4"
 	},
 	"files": [
