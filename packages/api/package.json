@@ -1,6 +1,6 @@
 {
 	"name": "@kksh/api",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"type": "module",
 	"exports": {
 		".": {
@@ -61,7 +61,6 @@
 		"@types/madge": "^5.0.3",
 		"fs-extra": "^11.2.0",
 		"madge": "^7.0.0",
-		"pretty-bytes": "^6.1.1",
 		"rimraf": "^5.0.7",
 		"rollup-plugin-visualizer": "^5.12.0",
 		"tsc-alias": "^1.8.10",
@@ -85,6 +84,7 @@
 		"@tauri-apps/plugin-upload": "2.0.0-rc.0",
 		"comlink": "^4.4.1",
 		"minimatch": "^10.0.1",
+		"pretty-bytes": "^6.1.1",
 		"rollup": "^4.9.6",
 		"rollup-plugin-typescript2": "^0.36.0",
 		"tauri-api-adapter": "0.3.4",
