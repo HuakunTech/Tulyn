@@ -158,7 +158,7 @@ async function uninstallExt() {
 
 			<h2 class="text-lg font-bold">Security and Privacy</h2>
 			<li v-for="perm in stringPermissions" class="flex h-8 items-center gap-2">
-				<span class="font-mono font-semibold">{{ perm }}</span>
+				<span class="font-mono text-sm">{{ perm }}</span>
 				<HoverCard>
 					<HoverCardTrigger class="flex items-center">
 						<IconMultiplexer
@@ -166,12 +166,16 @@ async function uninstallExt() {
 							:icon="{ type: IconEnum.Iconify, value: 'material-symbols:info-outline' }"
 						/>
 					</HoverCardTrigger>
-					<HoverCardContent class="w-96">
-						{{ permissionDescriptions[perm] }}
+					<HoverCardContent class="w-96 max-h-96 overflow-y-auto">
+						<ScrollArea>
+							<span class="text-sm">{{ permissionDescriptions[perm] }}</span>
+							<pre class="text-xs">{{
+								manifest?.permissions.find((p) => p.permission === perm || p === perm)
+							}}</pre>
+						</ScrollArea>
 					</HoverCardContent>
 				</HoverCard>
 			</li>
-
 			<Separator class="my-3" />
 			<h2 class="text-lg font-bold">Description</h2>
 			<span class="text-sm">
