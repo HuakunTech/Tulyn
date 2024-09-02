@@ -11,7 +11,7 @@ import { toast } from "vue-sonner"
 
 const devExtStore = useDevExtStore()
 const appConfig = useAppConfigStore()
-const devExtPath = ref(appConfig.devExtensionPath)
+const devExtPath = ref(appConfig.devExtensionPath ?? undefined)
 const lock = ref(true)
 
 async function pickDirectory() {
@@ -36,7 +36,7 @@ async function pickDirectory() {
 function clear() {
 	devExtPath.value = undefined
 	return appConfig
-		.setDevExtensionPath(devExtPath.value)
+		.setDevExtensionPath(devExtPath.value ?? null)
 		.then(() => {
 			return toast({
 				title: "Cleared"
