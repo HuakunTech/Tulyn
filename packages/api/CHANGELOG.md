@@ -1,5 +1,11 @@
 # @kksh/api
 
+## 0.0.9
+
+### Patch Changes
+
+- Fix toast API action bug. Callback function was not proxied and did't work.
+
 ## 0.0.6
 
 ### Patch Changes

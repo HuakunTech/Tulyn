@@ -24,6 +24,7 @@ import {
 	constructUpdownloadAPI
 } from "tauri-api-adapter/client"
 import { constructEventAPI } from "../api/event"
+import { constructToastAPI } from "../api/toast"
 import type { IDb, IEvent, IFs, IOpen, ISystem, IToast, IUiWorker } from "../client"
 
 export { expose, wrap } from "@huakunshen/comlink"
@@ -61,6 +62,7 @@ export const path = constructPathAPI(_api.path)
 // console.warn('before construct shell API')
 export const shell = constructShellAPI(_api.shell)
 // console.warn('after construct shell API')
+export const toast = constructToastAPI(_api.toast)
 
 export const updownload = constructUpdownloadAPI(_api.updownload)
 export const {
@@ -74,7 +76,6 @@ export const {
 	sysInfo,
 	network,
 	system,
-	toast,
 	open,
 	workerUi: ui
 } = _api

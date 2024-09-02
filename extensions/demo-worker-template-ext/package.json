@@ -1,7 +1,7 @@
 {
 	"$schema": "https://schema.kunkun.sh",
 	"name": "demo-template-extension",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"type": "module",
 	"kunkun": {
 		"name": "Demo Template Extension",

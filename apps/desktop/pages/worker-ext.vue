@@ -50,7 +50,7 @@ let unlistenRefreshWorkerExt: UnlistenFn | undefined
 
 const extUiAPI: IUiWorker = {
 	async render(view: IComponent<ListSchema.List | FormSchema.Form>) {
-		console.log("render called", view)
+		// console.log("render called", view)
 		if (view.nodeName === NodeNameEnum.List) {
 			formViewContent.value = undefined
 			listViewContent.value = parse(ListSchema.List, view)
@@ -61,8 +61,6 @@ const extUiAPI: IUiWorker = {
 			const zodSchema = convertFormToZod(parsedForm)
 			formViewZodSchema.value = zodSchema
 			formFieldConfig.value = buildFieldConfig(parsedForm)
-			console.log("fieldConfig", formFieldConfig.value)
-			console.log(zodSchema)
 		}
 	},
 	async setScrollLoading(_loading: boolean) {

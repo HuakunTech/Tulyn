@@ -54,7 +54,7 @@ class ExtensionTemplate extends WorkerExtension {
 									title: "Hello, World!",
 									value: "Section 2 Hello, World!",
 									icon: new Icon({ type: IconEnum.Iconify, value: "gg:hello" })
-								}),
+								})
 							]
 						})
 					],
