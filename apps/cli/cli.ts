@@ -28,9 +28,13 @@ program
 	.command("verify [project_path]")
 	.description("Verify the validity of a Kunkun extension")
 	.option("-b, --batch", "Batch mode", false)
-	.action((projectPath: string | undefined, opts: { batch: boolean }) => {
+	.option("-p, --publish", "Publish Mode. Will exit with 1 if invalid", false)
+	.action((projectPath: string | undefined, opts: { batch: boolean; publish: boolean }) => {
 		logger.info("cwd:", cwd)
-		verifyCmd(computeProjectDir(projectPath), opts.batch)
+		const valid = verifyCmd(computeProjectDir(projectPath), opts.batch)
+		if (opts.publish && !valid) {
+			process.exit(1)
+		}
 	})
 
 program

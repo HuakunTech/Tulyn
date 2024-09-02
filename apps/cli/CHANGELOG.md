@@ -1,5 +1,11 @@
 # @kksh/cli
 
+## 0.0.7
+
+### Patch Changes
+
+- Add publish mode to verify command, will exit with 1 when invalid.
+
 ## 0.0.6
 
 ### Patch Changes
