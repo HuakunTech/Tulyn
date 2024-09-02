@@ -1,15 +1,191 @@
 ---
-title: Custom UI Extension
+title: Custom UI Command
 sidebar:
   order: 5
+tableOfContents:
+  maxHeadingLevel: 6
 ---
+
+Custom UI command is just a web app. You can use any front-end framework (React, Vue, Angular, Svelte, etc) to build arbitrarily complex UI,
+as long as it can be built into static files (e.g. SSG, CSR, but not SSR).
+
+For example, you can create a transparent window with a 3D model floating on your screen.
+
+Here is an example of KK's git-skyline extension,
+
+<div class="not-content h-64">
+	<iframe
+		src="https://git-skyline.huakun.tech/contribution/github/huakunshen/embed"
+		class="h-full w-full"
+	/>
+</div>
+
+KK provides multiple scaffolding templates to help you get started with your extension development.
+
+Supported templates:
+
+- React
+- Next.js
+- Vue
+- Nuxt.js
+- Svelte
+- SvelteKit
+
+## Installation
+
+```bash
+npm init kunkun@latest  # choose a template
+```
+
+After creating a template project, you need to edit `package.json`.
+
+You don't have to use the template provided, you can always start from scratch with `pnpm create vite`.
+
+You can also convert an existing web app into a KK extension by adding `kunkun` config to `package.json`.
+
+## Development
+
+### Change Dev Extension Path
+
+import ChangeDevExtPath from "./snippets/change-dev-ext-path.mdx"
+
+<ChangeDevExtPath />
+
+### Edit Manifest
+
+KK uses `package.json` to define an extension.
+
+See [Manifest](/developer/manifest/) for more details.
+
+You need to edit the name, description, identifier and icon of your extension.
+
+:::danger
+Make sure the identifier is the same as the extension folder name.
+
+KK uses the identifier to find the extension folder.
+
+If they are not the same, the extension will not be published.
+:::
+
+#### `customUiCmds`
+
+**Sample Config**
+
+```json title="package.json"
+"kunkun": {
+  ...
+  "customUiCmds": [
+    {
+      "main": "/",
+      "dist": "build",
+      "devMain": "http://localhost:5173/dev-extensions/template-ext-sveltekit/build",
+      "name": "Sveltekit Template Home Page",
+      "cmds": []
+    },
+    {
+      "main": "about",
+      "dist": "build",
+      "devMain": "http://localhost:5173/dev-extensions/template-ext-sveltekit/build/about",
+      "name": "Sveltekit Template About Page",
+      "cmds": []
+    }
+  ],
+  ...
+}
+```
+
+- `dist` is the build output folder.
+  - For Vite, it is `dist`.
+  - For SvelteKit, it is `build`.
+  - For Next.js, it is `out`.
+- `devMain` is the development server URL.
+- `name` is the name of the command.
+
+#### Permissions
+
+KK provides many APIs within `@kksh/api` package. See [API Docs](/developer/api/api/) for more details.
+
+Most of them requires adding corresponding permissions in `package.json`.
+
+For example, if you want to read clipboard text, you need to add `clipboard:read-text` permission in `package.json`, under `kunkun.permissions` field.
+
+See [Extension Permissions](/extensions/security/permissions/) for a full list of permissions, and API docs for each API to see how to add permissions.
+
+Some permissions are just a single string, some are scoped permissions.
+
+### Start Coding
+
+It is recommended to use `pnpm` for development because when the extension is built in our CI, it is also built with pnpm.
+
+Developing custom command is the same as developing a web app, HMR is supported.
+
+#### Load Mode
+
+Each custom UI command can have a `devMain` URL. This is the URL of the development server.
+
+To enable dev mode, toggle setting: `Settings -> General -> Dev Extension Load Mode` to `Development Mode`.
+
+When dev mode is enabled, you should see `Live` badge beside the extension commands in KK, and KK will load the `devMain` URL from your development server.
+
+When mode is `Production Mode`, KK loads built extension from `main` field in `package.json`.
+
+For example, given the config above, it loads `build/index.html` and `build/about.html`.
+
+#### Helper Buttons
+
+Custom command by default injects some buttons (back button, move button and refresh button) on top of your extension.
+
+They are useful when your extension is not ready yet. Without these buttons, you may not be able to navigate back to the main menu or move the app window.
+
+See [Iframe UI API](/developer/api/ui/iframe/), for how to move or hide these buttons.
+
+#### Theme
+
+The scaffolded project uses `@kksh/react` or `@kksh/vue` or `@kksh/svelte` as the UI component library.
+
+When these libraries, you can easily keep your extensions' theme consistent with KK.
+
+import UpdateUiTheme from "../developer/API/ui/snippets/update-ui-theme.mdx"
+
+<UpdateUiTheme />
+
+
+#### Window Customization
+
+Under `uiCmds` field, each UI command can have custom window style. All Tauri window styles are supported.
+You can read more in Tauri's documentation. The attributes are passed to `WebviewWindow` class from Tauri to create a Window.
+
+Go to [Developer/Manifest Doc](/developer/manifest/) to see all avaialble window styles with intellisense in the code playground.
+In `Sample Package JSON`, in a UI Command, type double quote in a window object. Then intellisense will display all available window styles.
+
+```json
+...
+    "customUiCmds": [
+        "window": {
+          "titleBarStyle": "overlay"
+        },
+        ...
+    ]
+...
+```
 
 ## Advanced Usage
 
-Although I previously mentioned that KK supports any SSG/CSR web apps as extensions, 
+Although I previously mentioned that KK supports any SSG/CSR web apps as extensions,
 this doesn't mean you can't run a web server in the extension.
 
-If you request shell permission in the manifest file, you can run a web server process in the 
-extension (e.g. with Node, Bun, Deno runtime if installed locally, [read more about runtime](/extensions/runtime)) 
+If you request shell permission in the manifest file, you can run a web server process in the
+extension (e.g. with Node, Bun, Deno runtime if installed locally, [read more about runtime](/extensions/runtime))
 and communicate with the frontend. You can then implement pretty much anything you want.
 
+## Verify
+
+import VerifyInstructions from "./snippets/verify-instructions.mdx"
+
+<VerifyInstructions />
+
+## Publish
+
+import PublishInstruction from "./snippets/publish-instruction.mdx"
+
+<PublishInstruction />

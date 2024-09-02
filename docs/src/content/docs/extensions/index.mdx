@@ -4,27 +4,30 @@ sidebar:
   order: 1
 ---
 
-There are two types of extensions for now:
+There are two types of extension commands for now:
 
-1. Template UI Extension
-2. Custom UI Extension
+1. Template UI Command
+2. Custom UI Command
 
-## Template UI Extension
+An extension can have many commands, or both Template UI command and Custom UI command. 
 
-[Template UI Extension](./worker-template) is a kind of lightweight extension running in web worker, 
+## Template UI Command
+
+[Template UI Command](./worker-template) is a kind of lightweight extension running in web worker,
 following pre-defined template, making it easy to develop extension with consistent GUI.
 
-> Choose this if you don't need complex UI. List view is provided. 
+> Choose this if you don't need complex UI. List view is provided.
 > You can write vanilla JavaScript/TypeScript code to build GUI for extensions.
 
-## Custom UI Extension
+## Custom UI Command
 
-[Custom UI Extension](./custom-ui-ext) is basically a web app. Kunkun is essentially running in a web browser. 
+[Custom UI Command](./custom-ui-ext) is basically a web app. Kunkun is essentially running in a web browser.
 Any web app can be loaded as an extension. You can use any front-end framework to build the UI (React, Vue, Angular, Svelte, etc).
 
 > Choose this if you need complex UI. You can build any UI you want. Even transparent window is supported.
 
-Any CSR/SSG web apps are directly supported. Existing web apps can be easily converted into Kunkun extensions 
-by adding manifest file only.
+Any CSR/SSG web apps are directly supported. Existing web apps can be easily converted into Kunkun extensions
+by adding manifest file.
 
 Multipage app is also supported. You can do routing in your extension.
+Where each route is a command.

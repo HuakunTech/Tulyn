@@ -1,0 +1,34 @@
+---
+title: Change Dev Extension Path
+draft: true
+---
+
+Dev extensions are not installed together with the extensions installed from the extension store.
+
+They can be anywhere on your file system, but you need to tell KK where to find them.
+
+Go to Settings -> Developer -> Installation, there is a field to **Set Dev Extension Path**.
+
+Choose the parent folder containing your extension project.
+
+
+import { FileTree } from '@astrojs/starlight/components';
+
+If you are using the `KunkunExtensions` repo, set it to `KunkunExtensions/extensions`.
+
+<FileTree>
+- KunkunExtensions
+  - extensions
+    - ext-qrcode
+      - package.json
+      - dist
+    - ext-jwt
+      - package.json
+      - dist
+</FileTree>
+
+Now go back to the main search in home page, you should see the extension loaded. Dev extensions should have a <span class="bg-green-600 px-1 dark:text-black text-white font-bold rounded-sm">DEV</span> tag.
+
+> For now, you can only have one dev path. In the future, we may support multiple dev paths.
+
+

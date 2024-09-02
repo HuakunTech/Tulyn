@@ -1,0 +1,17 @@
+---
+title: Publish Instruction
+draft: true
+---
+
+For now, send a PR to [KunkunExtensions](https://github.com/kunkunsh/KunkunExtensions).
+Add the source code in `extensions/` folder of this repo. 
+
+To update the extension and republish, just update the version in `package.json` and send a PR again.
+
+When the version is updated, CI will auto publish the extension to the extension store.
+
+
+:::note
+Later I plan to implement better extension publishing system that allows developers to use their own GitHub repo directly, and [`KunkunExtensions`](https://github.com/kunkunsh/KunkunExtensions)
+will be a mirror of all extensions to make sure the published extensions always have source code available for review.
+:::

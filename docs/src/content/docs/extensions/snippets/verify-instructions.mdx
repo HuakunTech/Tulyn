@@ -1,0 +1,31 @@
+---
+title: Verify Instructions
+draft: true
+---
+
+To verify the extension, you need to build it and run the verification command.
+
+To make sure the build environment is consistent, docker is required to run the build command.
+
+```bash
+npx @kksh/cli build 		# requires docker
+npx @kksh/cli verify --publish
+```
+
+These commands verify whether the extension can be loaded and published to the extension store.
+
+To verify the functionality in production build,
+
+1. Set **Dev Extension Load Mode** to `Production Mode` in settings, general tab.
+2. Run `npm run build`
+3. Try to load the dev extension in KK, i.e. Search for your dev extension and select it to see if the UI can be loaded.
+4. Make sure `files` field in `package.json` only includes necessary files. e.g. `"files": ["dist"]`.
+5. Run `npm pack` to generate a tarball file.
+
+   - Decompress the tarball file to see if only necessary files are included.
+
+6. Go to settings page, developer tab, drag and drop the tarball file to install the extension.
+   - The tarball file is decompressed to the dev extension path.
+   - You may want to change the dev extension path as the new extension will be installed in the dev extension path as well, where your dev project is. And 2 extensions with the same identifier will be loaded.
+7. Check to see if the extension UI can be loaded in KK.
+

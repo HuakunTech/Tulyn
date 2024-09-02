@@ -17,7 +17,7 @@ In the future, KK will be published to package managers and a website will also 
 
 KK is designed to be cross-platform. It not only supports Windows and MacOS, but also Linux.
 
-Linux is usually ignored by app developers as it has a small market share. 
+Linux is usually ignored by software companies and app developers as it has a small market share. 
 
 However, as a developer myself, I admire the open source spirit of Linux and I want to make KK available to Linux users.
 
@@ -31,21 +31,17 @@ KK takes a page out of popular platforms like VSCode, Raycast, and Alfred, offer
 
 Building extensions in KK is a breeze. Each extension is a lightweight JavaScript applet, making development fast and familiar. Need a simple UI? A pre-built template lets you create it with minimal code. But don't be limited! KK supports complex interfaces built with web technologies like React, Vue, or Svelte, as long as the final output is a static website (SSG/CSR).
 
-### Lightweight Champions
+### Lightweight
 
-KK extensions are designed to be featherweights, typically clocking in at a mere 40-200KB (even with UI libraries). Compare that to traditional desktop apps (often in the megabyte range) or Electron apps (sometimes exceeding 100MB). For simple tasks like document searching, file/video convertsions, a full-blown app is overkill. KK extensions provide a streamlined solution within your existing workflow.
+KK extensions are designed to be featherweights, typically clocking in at a mere 30-200KB (even with UI libraries). Compare that to traditional desktop apps (often in the megabyte range) or Electron apps (usually exceeding 100MB). For simple tasks like document searching, file/video conversions, a full-blown app is overkill. KK extensions provide a streamlined solution within your existing workflow.
 
 ### Write Once, Run Everywhere
 
 The magic of web-based extensions? Write your code once and deploy it across platforms. No more compatibility headaches! KK acts as the launchpad for your creations, letting you share them with the community without worrying about native code complexities, distribution hassles, or code signing nightmares.
 
-### Performance Under Control
-
-KK is built for efficiency. It loads extensions on-demand, ensuring smooth performance even if you have 1000+ extensions installed.
-
 ### Open Source and Community-Driven
 
-Transparency and collaboration are core values for KK. All extensions are open-source and readily available on GitHub at [**KunkunExtensions**](https://github.com/HuakunTech/kunkunExtensions). This lets the community contribute, review code, and ensure quality.
+All extensions source code are readily available on GitHub at [**KunkunExtensions**](https://github.com/HuakunTech/kunkunExtensions). This lets the community contribute, review code, and ensure quality.
 
 ### Explore the Extension Store
 
@@ -53,11 +49,7 @@ KK comes with a dedicated extension store like Apple's app store where you can d
 
 ### Beyond the Store
 
-KK offers ultimate flexibility. You're not restricted to the store. Install extensions directly from sources like Github, npm, or even a simple tarball file. But remember, with great power comes great responsibility. Always ensure the source is trustworthy before installing an extension.
-
-### Empower Yourself with KK
-
-With its open-source nature, on-demand loading, and lightweight design, KK grants you the freedom to build and customize your workflow exactly the way you want it. Start exploring the possibilities today!
+KK offers ultimate flexibility. You're not restricted to the store. Install extensions directly from sources like Github, npm, or even a simple tarball file. But always ensure the source is trustworthy before installing an extension.
 
 ## Permissions
 
@@ -77,5 +69,5 @@ Access to unauthorized APIs is strictly blocked and logged by KK. This ensures y
 
 ### Ready to Build?
 
-Head over to the documentation or reach out to me or our Discord community for guidance. Once you've crafted your masterpiece, submit a Pull Request (PR) to the [**KunkunExtensions**](https://github.com/HuakunTech/kunkunExtensions) repository.
+Head over to the [documentation](/extensions/write-extension/) or reach out to me on Discord. Once you've crafted your masterpiece, submit a Pull Request (PR) to the [**KunkunExtensions**](https://github.com/HuakunTech/kunkunExtensions) repository.
 

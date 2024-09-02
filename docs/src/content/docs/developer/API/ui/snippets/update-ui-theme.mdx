@@ -1,0 +1,19 @@
+---
+title: Update UI Theme
+draft: true
+---
+
+```ts
+import { ui } from "@kksh/api/ui/iframe"
+
+import { updateTheme } from "@kksh/vue"
+// or
+import { updateTheme } from "@kksh/react"
+// or
+import { updateTheme } from "@kksh/svelte"
+
+
+ui.getTheme().then((theme) => {
+	updateTheme(theme)
+})
+```

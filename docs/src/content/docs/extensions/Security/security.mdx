@@ -2,7 +2,7 @@
 title: Extension Security
 description: Extension Security Design
 sidebar:
-    order: 2
+  order: 2
 ---
 
 Extension is a powerful feature that allows users to extend the functionality however they want.
@@ -45,7 +45,7 @@ File system APIs will also have different access scopes. e.g.
 2. Access to all files in the user's home directory
 3. Access to all files in the system
 
-Fore more details about permission declaration, see [Extension Permissions](/extensions/security/permissions).
+Fore more details about permission declaration, see [Extension Permissions](/extensions/security/permissions) and the documentation of each API.
 
 ## Application Lifecycle Threats
 
@@ -57,7 +57,7 @@ Buildtime threats are the threats that happen when the extension is being built.
 
 All extensions are open sourced in GitHub Repo [KunkunExtensions](https://github.com/HuakunTech/KunkunExtensions/).
 
-It's a pnpm monorepo, CI will build all extensions to make sure they can be built.
+CI will build all extensions to make sure they can be built on every commit.
 
 However, it is possible that some extensions includes malicious code that can be triggered during build time.
 

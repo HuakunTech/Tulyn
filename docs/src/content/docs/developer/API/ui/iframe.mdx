@@ -92,21 +92,9 @@ ui.setTransparentWindowBackground(true)
 Get KK's color theme, if your extension is using KK component libraries, 
 you can set your extension theme to match KK's theme.
 
-```ts
-import { ui } from "@kksh/api/ui/iframe"
+import UpdateUiTheme from "./snippets/update-ui-theme.mdx"
 
-import { updateTheme } from "@kksh/vue"
-// or
-import { updateTheme } from "@kksh/react"
-// or
-import { updateTheme } from "@kksh/svelte"
-
-
-ui.getTheme().then((theme) => {
-	updateTheme(theme)
-})
-
-```
+<UpdateUiTheme />
 
 :::note
 Dependending on which KK component library you are using, you may need to wrap your app with a `ThemeProvider` 

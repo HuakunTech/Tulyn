@@ -1,37 +1,79 @@
 ---
-title: Worker Template Extension
+title: Template UI Command
 sidebar:
   order: 4
+tableOfContents:
+  maxHeadingLevel: 6
 ---
 
-Worker Template Extension is a kind of lightweight extension running in web worker, 
+Worker Template command is a kind of lightweight extension command running in web worker (30KB+),
 following pre-defined template, making it easy to develop extension with consistent GUI.
 
 ## Installation
 
+Prerequisites:
+
+- Node.js 20+
+- [pnpm](https://pnpm.io/installation#using-corepack)
+- [bun](https://bun.sh/)
+  - bun is used to build extension from TypeScript into JavaScript.
+
 Run the project scaffolding command to create a new project with Worker Template Extension.
 
 ```bash
-npm init kunkun@latest --template template
+npm init kunkun@latest  # choose the template
 ```
 
 After creating a template project, you need to edit `package.json`.
 
 ## Development
 
+### Change Dev Extension Path
+
+import ChangeDevExtPath from "./snippets/change-dev-ext-path.mdx"
+
+<ChangeDevExtPath />
+
+### Edit Manifest
+
+KK uses `package.json` to define an extension.
+
+See [Manifest](/developer/manifest/) for more details.
+
+You need to edit the name, description, identifier and icon of your extension.
+
+:::danger
+Make sure the identifier is the same as the extension folder name.
+
+KK uses the identifier to find the extension folder.
+
+If they are not the same, the extension will not be published.
+:::
+
+#### Permissions
+
+KK provides many APIs within `@kksh/api` package. See [API Docs](/developer/api/api/) for more details.
+
+Most of them requires adding corresponding permissions in `package.json`.
+
+For example, if you want to read clipboard text, you need to add `clipboard:read-text` permission in `package.json`, under `kunkun.permissions` field.
+
+See [Extension Permissions](/extensions/security/permissions/) for a full list of permissions, and API docs for each API to see how to add permissions.
+
+Some permissions are just a single string, some are scoped permissions.
+
+### Start Coding
+
+It is recommended to use pnpm for development because when the extension is built in our CI, it is also built with pnpm.
+
 ```bash
-npm run build # build the extension, generate dist/index.js file, this is the entry file of the extension, make sure it's listed in the package.json
-npm run dev # start the development server, basically running rollup compile with watch mode
+pnpm install
+pnpm build # build the extension, generate dist/index.js file, this is the entry file of the extension, make sure it's listed in the package.json
+pnpm dev # start the development server, basically running `build` with watch mode
 ```
 
-The `@kksh/api/dev` subpackage provides a `kununWorkerTemplateExtensionRollupPlugin` function.
-This is a rollup plugin used to hot reload the extension in development mode. 
-
-In dev mode (`npm run dev`), every time you save the file, the extension will be recompiled and Kunkun desktop app will be notified to reload the extension.
+In dev mode (`pnpm dev`), every time you save the file, the extension will be recompiled and Kunkun desktop app will be notified to reload the extension.
 Otherwise you need to manually reload the extension.
-
-The template should come with the `kununWorkerTemplateExtensionRollupPlugin` plugin already configured in the rollup config file.
-
 
 A template worker extension should extends abstract class `WorkerExtension` (https://docs.api.kunkun.sh/classes/ui_worker.WorkerExtension)
 
@@ -53,22 +95,74 @@ Override the methods of this class to implement your extension.
 - `onFormSubmit`
 
 ```ts
-import { WorkerExtension, expose } from "@kksh/api/ui/worker"
+import { expose, WorkerExtension } from "@kksh/api/ui/worker"
 
 class DemoExtension extends WorkerExtension {
 	async load() {
-    // load method is run when the extension is loaded, you can use it as an initializer
-  }
+		// load method is run when the extension is loaded, you can use it as an initializer
+	}
 }
 
 expose(new DemoExtension()) // expose this extension at the bottom of the file
 ```
+
+There is no concept like routing in worker template extension. Different views can be rendered with `ui.render()` method.
+
+You can add any variables to the Extension class to keep track of the state and render different views based on the state.
+
+Once the command is built, a js file will be generated at `dist/index.js`.
+
+Refresh kunkun app, you should see the command.
+
+### Advanced Usage
+
+The scaffold template uses `bun` to build the extension from TypeScript into JavaScript.
+You can install other dependencies (they need to runn in web worker), add more `.ts` files.
+Eventually they will be bundled into a single js file and run in web worker.
+
+`build.ts` in the template project contains the build script, you can modify it as you want, 
+or replace bun with other build tools like esbuild, rollup, vite, etc.
+
+`@rollup/plugin-terser` is known to have some problems with the current `@kksh/api` package.
+`bun` is the simpliest and fastest tool for this job.
+
+<details>
+<summary>Sample Build Script</summary>
+```ts
+import { watch } from "fs"
+import { join } from "path"
+import { refreshTemplateWorkerExtension } from "@kksh/api/dev"
+import { $ } from "bun"
+
+async function build() {
+await $`bun build --minify --target=browser --outdir=./dist ./src/index.ts`
+await refreshTemplateWorkerExtension()
+}
+
+const srcDir = join(import.meta.dir, "src")
+
+await build()
+
+if (Bun.argv.includes("dev")) {
+console.log(`Watching ${srcDir} for changes...`)
+watch(srcDir, { recursive: true }, async (event, filename) => {
+await build()
+})
+}
+
+````
+</details>
+
+## Views
+
+Template Command follows templates. Each template is a type of view.
 
 ### Form View
 
 A form can be easily rendered with the `ui` API. Every form field is an object.
 
 Available form fields:
+
 - `Form.InputField`
 - `Form.NumberField`
 - `Form.SelectField`
@@ -78,7 +172,7 @@ Available form fields:
 - `Form.Form`
 
 ```ts
-import { WorkerExtension, expose, ui, Form } from "@kksh/api/ui/worker"
+import { expose, Form, ui, WorkerExtension } from "@kksh/api/ui/worker"
 
 class DemoExtension extends WorkerExtension {
 	async onFormSubmit(value: Record<string, any>): Promise<void> {
@@ -100,10 +194,10 @@ class DemoExtension extends WorkerExtension {
 				]
 			})
 		)
-  }
+	}
 }
 expose(new DemoExtension())
-```
+````
 
 ![](./form-view-demo.png)
 
@@ -111,21 +205,13 @@ expose(new DemoExtension())
 
 List view can contain sections and items. Everything is an object.
 
-An list item can can title, value, icon and actions. 
+An list item can have title, value, icon and actions.
 Each item can contain multiple actions. When selected, `onActionSelected()` will be called.
 
 ![](./list-view-demo.png)
 
 ```ts
-import { 
-  Action,
-	expose,
-  Icon,
-	IconEnum,
-	List,
-  ui,
-	WorkerExtension
- } from "@kksh/api/ui/worker"
+import { Action, expose, Icon, IconEnum, List, ui, WorkerExtension } from "@kksh/api/ui/worker"
 
 class DemoExtension extends WorkerExtension {
 	async onFormSubmit(value: Record<string, any>): Promise<void> {
@@ -154,7 +240,7 @@ class DemoExtension extends WorkerExtension {
 									title: "Hello, World!",
 									value: "Section 2 Hello, World!",
 									icon: new Icon({ type: IconEnum.Iconify, value: "gg:hello" })
-								}),
+								})
 							]
 						})
 					],
@@ -198,6 +284,12 @@ class DemoExtension extends WorkerExtension {
 expose(new DemoExtension())
 ```
 
+import VerifyInstructions from "./snippets/verify-instructions.mdx"
 
+<VerifyInstructions />
 
+## Publish
 
+import PublishInstruction from "./snippets/publish-instruction.mdx"
+
+<PublishInstruction />
