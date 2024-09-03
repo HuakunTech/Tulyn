@@ -11,6 +11,7 @@ import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"
 import { initStores } from "~/lib/utils/stores"
 import { listenToRefreshConfig } from "~/lib/utils/tauri-events"
 import { useAppConfigStore } from "~/stores/appConfig"
+import { fixPathEnv } from "tauri-plugin-shellx-api"
 
 const appConfig = useAppConfigStore()
 let unlistenRefreshConfig: UnlistenFn
@@ -34,6 +35,7 @@ onMounted(async () => {
 		.catch((err) => {
 			console.warn(err)
 		})
+	fixPathEnv()
 	// installBun()
 	//   .then((bunVersion) => {
 	//     info(`Bun installed (${bunVersion})`)
