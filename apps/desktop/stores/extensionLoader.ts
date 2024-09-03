@@ -13,6 +13,7 @@ import {
 	TemplateUiCmd,
 	WindowConfig
 } from "@kksh/api/models"
+import { convertFileSrc } from "@tauri-apps/api/core"
 import { join } from "@tauri-apps/api/path"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import * as fs from "@tauri-apps/plugin-fs"
@@ -106,6 +107,10 @@ function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: CustomUi
 		// await unregisterExtensionWindow(window.label)
 	})
 	// })
+}
+
+function trimSlash(str: string) {
+	return str.replace(/^\/+|\/+$/g, "")
 }
 
 /**
@@ -209,7 +214,15 @@ export function constructExtStore(options: { isDev: boolean }) {
 									// const port = await getServerPort()
 									// const postfix = !cmd.main.endsWith(".html") && !cmd.main.endsWith("/") ? "/" : ""
 									// console.log("postfix: ", postfix)
-									url = `ext://${manifest.kunkun.identifier}.${cmd.dist}.${isDev ? "dev-" : ""}ext${cmd.main.startsWith("/") ? "" : "/"}${cmd.main}`
+									// url = `ext://${manifest.kunkun.identifier}.${cmd.dist}.${isDev ? "dev-" : ""}ext${cmd.main.startsWith("/") ? "" : "/"}${cmd.main}`
+
+									url = convertFileSrc(
+										`${manifest.kunkun.identifier}/${trimSlash(cmd.dist)}/${trimSlash(cmd.main)}`,
+										isDev ? "dev-ext" : "ext"
+									)
+									// url decode url
+									url = decodeURIComponent(url)
+									console.log("ext url", url)
 								}
 							}
 							// try {

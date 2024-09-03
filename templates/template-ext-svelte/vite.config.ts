@@ -10,5 +10,6 @@ export default defineConfig({
 			$lib: path.resolve("./src/lib")
 		}
 	},
-	base: "./"
+	// TODO: change this to your identifier
+	base: "/template-ext-svelte/dist"
 })

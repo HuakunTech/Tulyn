@@ -4,15 +4,17 @@ export default defineNuxtConfig({
 	css: ["@kksh/vue/css", "@kksh/vue/themes"],
 	devtools: { enabled: true },
 	ssr: false,
-
 	devServer: {
 		port: 5173 // avoid conflict Desktop App in Dev Mode
 	},
-
 	nitro: {
 		output: {
 			publicDir: "dist"
 		}
+	},
+	app: {
+		// TODO: change this to your identifier
+		baseURL: "/template-ext-nuxt/dist"
 	},
 	modules: ["@nuxtjs/tailwindcss"]
 })

@@ -113,6 +113,116 @@ See [Extension Permissions](/extensions/security/permissions/) for a full list o
 
 Some permissions are just a single string, some are scoped permissions.
 
+### Configure Base Path
+
+Unfortunately, due to a limitation of Tauri's API, KK requires the base url for a web app to be set.
+The default base url "/" won't work. This may be solved in the future.
+
+1. Extension identifier in `package.json` must be the same as folder name
+2. `dist` is the build output folder, this should also be set in `package.json` for each custom ui command
+3. Base Url should be set to `${identifier}/${dist}`
+
+For example,
+
+- an react extension called `my-react-ext`, with build folder `dist`, the base url should be `/my-react-ext/dist`.
+- an sveltekit extension called `my-sveltekit-ext`, with build folder `build`, the base url should be `/my-sveltekit-ext/build`.
+
+Here are some sample configurations:
+
+import { TabItem, Tabs } from "@astrojs/starlight/components"
+import { Code } from '@astrojs/starlight/components';
+
+<Tabs>
+	<TabItem label="Vite">
+  The base url config for vite projects should be the same no matter what framework you choose.
+  Here I use react as an example.
+
+  Vite Public Base Path Docs: https://vitejs.dev/guide/build#public-base-path
+
+  <Code code={`
+import react from "@vitejs/plugin-react"
+import { defineConfig } from "vite"
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  base: "/ext-react/dist"
+})
+  `} lang="ts" title="ext-react/vite.config.ts" mark={[`base: "ext-react/dist"`]} />
+
+
+  </TabItem>
+	<TabItem label="Nuxt.js">
+
+  Nuxt Public Base Path Docs: https://nuxt.com/docs/api/nuxt-config#baseurl
+  <Code code={`
+export default defineNuxtConfig({
+  compatibilityDate: "2024-04-03",
+  css: ["@kksh/vue/css", "@kksh/vue/themes"],
+  devtools: { enabled: true },
+  ssr: false,
+  devServer: {
+    port: 5173
+  },
+  nitro: {
+    output: {
+      publicDir: "dist"
+    }
+  },
+  app: {
+    baseURL: "/ext-nuxt/dist"
+  },
+  modules: ["@nuxtjs/tailwindcss"]
+})
+  `} 
+    lang="ts" title="ext-nuxt/nuxt.config.ts" mark={[`baseURL: "/ext-nuxt/dist"`]}/>
+  </TabItem>
+	<TabItem label="Next.js">
+  
+    <Code code={`
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: "export",
+  basePath: "/ext-next/out"
+}
+
+export default nextConfig
+  `} 
+    lang="ts" title="ext-next/next.config.mjs" mark={[`basePath: "/ext-next/out"`]}/>
+
+  
+  </TabItem>
+	<TabItem label="Sveltekit">
+  
+  Sveltekit Public Base Path Docs: https://kit.svelte.dev/docs/configuration#paths
+
+  Watch out if you are doing routing in your app, you need to make sure the base path is correct.
+  
+  `<a href="{base}/your-page">Link</a>`
+
+    <Code code={`
+import adapter from '@sveltejs/adapter-static';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+
+/** @type {import('@sveltejs/kit').Config} */
+const config = {
+  preprocess: vitePreprocess(),
+  kit: {
+    adapter: adapter({}),
+    paths: {
+      base: '/ext-sveltekit/build'
+    },
+    alias: {
+      '@/*': './src/lib/*'
+    }
+  }
+};
+export default config;
+    `}
+    lang="ts" title="ext-sveltekit/svelte.config.js" mark={[`base: '/ext-sveltekit/build'`]}/>
+  </TabItem>
+</Tabs>
+
 ### Start Coding
 
 It is recommended to use `pnpm` for development because when the extension is built in our CI, it is also built with pnpm.
@@ -148,7 +258,6 @@ When these libraries, you can easily keep your extensions' theme consistent with
 import UpdateUiTheme from "../developer/API/ui/snippets/update-ui-theme.mdx"
 
 <UpdateUiTheme />
-
 
 #### Window Customization
 

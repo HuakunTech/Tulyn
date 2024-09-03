@@ -1,5 +1,11 @@
 # create-kunkun
 
+## 0.1.11
+
+### Patch Changes
+
+- Update templates, custom ui templates now requires base url. Due to a Tauri API problem on Windows.
+
 ## 0.1.10
 
 ### Patch Changes

@@ -17,5 +17,6 @@ export default defineConfig({
 			"@": path.resolve(__dirname, "./src")
 		}
 	},
-	base: "./"
+	// TODO: change this to your identifier
+	base: "/template-ext-vue/dist"
 })
