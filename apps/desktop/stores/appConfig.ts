@@ -104,7 +104,6 @@ export const useAppConfigStore = defineStore("appConfig", {
 		 */
 		async init() {
 			this.isInitialized = true
-			await persistAppConfig.load()
 			const loadedConfig = await persistAppConfig.get("config")
 			const parseRes = safeParse(appConfigSchema, loadedConfig)
 			if (parseRes.success) {
