@@ -27,6 +27,8 @@ import {
 	union,
 	type InferOutput
 } from "valibot"
+import { appDataDir, join } from "@tauri-apps/api/path"
+import { exists } from "@tauri-apps/plugin-fs"
 
 const persistAppConfig = new Store("appConfig.bin")
 
@@ -104,6 +106,11 @@ export const useAppConfigStore = defineStore("appConfig", {
 		 */
 		async init() {
 			this.isInitialized = true
+			const configPath = await join(await appDataDir(), persistAppConfig.path)
+			if (!await exists(configPath)) {
+				await persistAppConfig.set("config", this.$state)
+				await persistAppConfig.save()
+			}
 			const loadedConfig = await persistAppConfig.get("config")
 			const parseRes = safeParse(appConfigSchema, loadedConfig)
 			if (parseRes.success) {
