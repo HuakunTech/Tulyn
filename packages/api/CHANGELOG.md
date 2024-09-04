@@ -1,5 +1,11 @@
 # @kksh/api
 
+## 0.0.10
+
+### Patch Changes
+
+- Add utils.plist.parse API for extension
+
 ## 0.0.9
 
 ### Patch Changes
