@@ -114,6 +114,11 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 		onHighlightedItemChanged(newVal.value)
 	}
 })
+
+function goBack() {
+	props.workerAPI.onBeforeGoBack()
+	navigateTo(localePath("/"))
+}
 </script>
 <template>
 	<Command
@@ -121,7 +126,7 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 		:id="HTMLElementId.WorkerExtInputId"
 		v-model:searchTerm="searchTerm"
 		@update:search-term="onSearchTermChange"
-		@update:model-value="(v) => workerAPI?.onListItemSelected((v as ListSchema.Item).value)"
+		@update:model-value="(v) => props.workerAPI?.onListItemSelected((v as ListSchema.Item).value)"
 		v-model:selected-value="highlightedItemValue"
 		:identity-filter="false"
 		:filterFunction="(items, term) => filterFunction(items as ListSchema.Item[], term)"
@@ -132,7 +137,7 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 			:placeholder="searchBarPlaceholder ?? 'Search...'"
 			@keydown.enter="onEnterKeyPressed"
 		>
-			<Button size="icon" variant="outline" @click="() => navigateTo('/')">
+			<Button size="icon" variant="outline" @click="goBack">
 				<ArrowLeftIcon />
 			</Button>
 		</CmdInput>
@@ -140,16 +145,16 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 			<ResizablePanel :default-size="100 - defaultDetailWidth">
 				<CommandList class="h-full" @scroll="onScroll">
 					<CommandEmpty>No results found.</CommandEmpty>
-					<CommandGroup v-for="section in modelValue.sections" :heading="section.title">
+					<CommandGroup v-for="section in props.modelValue.sections" :heading="section.title">
 						<ListItem v-for="item in section.items" :item="item" />
 					</CommandGroup>
-					<ListItem v-for="item in modelValue.items" :item="item" />
-					<StrikeSeparator v-if="loading" class="h-20"><span>Loading</span></StrikeSeparator>
+					<ListItem v-for="item in props.modelValue.items" :item="item" />
+					<StrikeSeparator v-if="props.loading" class="h-20"><span>Loading</span></StrikeSeparator>
 				</CommandList>
 			</ResizablePanel>
 			<ResizableHandle with-handle />
 			<ResizablePanel :default-size="defaultDetailWidth">
-				<ListDetail v-if="modelValue.detail" :detail="modelValue.detail" />
+				<ListDetail v-if="props.modelValue.detail" :detail="props.modelValue.detail" />
 			</ResizablePanel>
 		</ResizablePanelGroup>
 		<CmdPaletteFooter />

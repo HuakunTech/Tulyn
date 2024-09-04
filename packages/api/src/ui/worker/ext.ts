@@ -20,6 +20,10 @@ export abstract class WorkerExtension {
 	onEnterPressedOnSearchBar(): Promise<void> {
 		return Promise.resolve()
 	}
+
+	onBeforeGoBack(): Promise<void> {
+		return Promise.resolve()
+	}
 	/* -------------------------------------------------------------------------- */
 	/*                                    List                                    */
 	/* -------------------------------------------------------------------------- */

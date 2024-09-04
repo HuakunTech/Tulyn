@@ -90,6 +90,9 @@ const extUiAPI: IUiWorker = {
 	},
 	async setSearchBarPlaceholder(placeholder: string) {
 		searchBarPlaceholder.value = placeholder
+	},
+	async goBack() {
+		navigateTo(localePath("/"))
 	}
 }
 

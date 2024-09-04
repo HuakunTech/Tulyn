@@ -96,6 +96,7 @@ export interface IToast {
 
 export interface IUiWorker {
 	render: (view: IComponent<ListSchema.List | FormSchema.Form>) => Promise<void>
+	goBack: () => Promise<void>
 	setScrollLoading: (loading: boolean) => Promise<void>
 	setSearchTerm: (term: string) => Promise<void>
 	setSearchBarPlaceholder: (placeholder: string) => Promise<void>

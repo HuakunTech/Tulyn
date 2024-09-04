@@ -567,8 +567,8 @@ importers:
         specifier: ^0.36.0
         version: 0.36.0(rollup@4.20.0)(typescript@5.5.4)
       tauri-api-adapter:
-        specifier: 0.3.6
-        version: 0.3.6(tslib@2.6.3)(typescript@5.5.4)
+        specifier: 0.3.7
+        version: 0.3.7(tslib@2.6.3)(typescript@5.5.4)
       tauri-plugin-network-api:
         specifier: workspace:*
         version: link:../../vendors/tauri-plugin-network
@@ -11639,8 +11639,8 @@ packages:
     resolution: {integrity: sha512-5S7Va8hKfV7W5U6g3aYxXmlPoZVAwUMy9AOKyF2fVuZa2UD3qZjg578OrLRt8PcNN1PleVaL/5/yYATNL0ICUw==}
     engines: {node: '>=18'}
 
-  tauri-api-adapter@0.3.6:
-    resolution: {integrity: sha512-kHh42oNRUnQq+NyraLmPazgzIIHBlnwY1AcxjRRz1onP8ZJos276p/0CnXfCd2iiiBfImZx4fzOD2Xxf82145Q==}
+  tauri-api-adapter@0.3.7:
+    resolution: {integrity: sha512-8AQmnePfjvk1nv8JnRIXYMoTv95oRnSphk0TSC2ezCBQ+X8EOTiisH0H711h3wW1YD9jyW1bZ+J3ALx4gT1LjA==}
     peerDependencies:
       typescript: ^5.0.0
 
@@ -11656,8 +11656,8 @@ packages:
   tauri-plugin-shellx-api@2.0.9:
     resolution: {integrity: sha512-0vjE7dPgKzNA2bzW5unc5rkpJCbL0brio8xCNKuZKrRe3V3BpXES52du1HyZgCyk3T+bYPDIQ+Ou8xnOuiu3VQ==}
 
-  tauri-plugin-system-info-api@2.0.4:
-    resolution: {integrity: sha512-wlB4Da1KkfBazP6BT8UDH0t3I504kX24HJC+YQNoWWgFZyKynoFFl82wXIJdSB//IwuKxCv08BCvvliPNh1EkQ==}
+  tauri-plugin-system-info-api@2.0.6:
+    resolution: {integrity: sha512-7q8ieMK1bweMiLDbIWNNX3Dy7KNNwiB+WNEqKQutl0TKEGAb+efpy2SAzVLGu+i9tjDagCai8fZNuLLIpoQ9TA==}
 
   term-size@2.2.1:
     resolution: {integrity: sha512-wK0Ri4fOGjv/XPy8SBHZChl8CM7uMc5VML7SqiQ0zG7+J5Vr+RMQDoHa2CNT6KHUnTGIXH34UDMkPzAUyapBZg==}
@@ -26736,7 +26736,7 @@ snapshots:
       mkdirp: 3.0.1
       yallist: 5.0.0
 
-  tauri-api-adapter@0.3.6(tslib@2.6.3)(typescript@5.5.4):
+  tauri-api-adapter@0.3.7(tslib@2.6.3)(typescript@5.5.4):
     dependencies:
       '@huakunshen/comlink': 4.4.1
       '@rollup/plugin-alias': 5.1.0(rollup@4.20.0)
@@ -26756,7 +26756,7 @@ snapshots:
       tauri-plugin-clipboard-api: 2.1.8(typescript@5.5.4)
       tauri-plugin-network-api: 2.0.3(typescript@5.5.4)
       tauri-plugin-shellx-api: 2.0.9
-      tauri-plugin-system-info-api: 2.0.4(typescript@5.5.4)
+      tauri-plugin-system-info-api: 2.0.6(typescript@5.5.4)
       tsc-alias: 1.8.10
       typescript: 5.5.4
       valibot: 0.40.0(typescript@5.5.4)
@@ -26785,7 +26785,7 @@ snapshots:
     dependencies:
       '@tauri-apps/api': 2.0.0-rc.4
 
-  tauri-plugin-system-info-api@2.0.4(typescript@5.5.4):
+  tauri-plugin-system-info-api@2.0.6(typescript@5.5.4):
     dependencies:
       '@tauri-apps/api': 2.0.0-rc.4
       valibot: 0.40.0(typescript@5.5.4)

@@ -32,6 +32,7 @@ function onSubmit(data: Record<string, any>) {
 }
 
 function goBack() {
+	props.workerAPI.onBeforeGoBack()
 	navigateTo(localePath("/"))
 }
 </script>
@@ -41,7 +42,11 @@ function goBack() {
 			<ArrowLeftIcon />
 		</Button>
 		<div class="mt-10 grow overflow-y-auto px-16 py-3">
-			<AutoForm :schema="formViewZodSchema" @submit="onSubmit" :field-config="fieldConfig">
+			<AutoForm
+				:schema="props.formViewZodSchema"
+				@submit="onSubmit"
+				:field-config="props.fieldConfig"
+			>
 				<Button type="submit" class="float-right mt-3">Submit</Button>
 			</AutoForm>
 		</div>

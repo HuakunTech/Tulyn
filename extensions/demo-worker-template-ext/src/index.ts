@@ -13,6 +13,9 @@ import {
 } from "@kksh/api/ui/worker"
 
 class ExtensionTemplate extends WorkerExtension {
+	async onBeforeGoBack() {
+		console.log("onBeforeGoBack")
+	}
 	async onFormSubmit(value: Record<string, any>): Promise<void> {
 		console.log("Form submitted", value)
 	}

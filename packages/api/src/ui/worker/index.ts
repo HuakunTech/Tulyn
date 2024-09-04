@@ -60,11 +60,8 @@ const _api = wrap(globalThis as Endpoint) as unknown as API
 export const event = constructEventAPI(_api.event) // this is different from event api from tauri-api-adapter
 export const fetch = constructFetchAPI(_api.fetch)
 export const path = constructPathAPI(_api.path)
-// console.warn('before construct shell API')
 export const shell = constructShellAPI(_api.shell)
-// console.warn('after construct shell API')
 export const toast = constructToastAPI(_api.toast)
-
 export const updownload = constructUpdownloadAPI(_api.updownload)
 export const {
 	db,
