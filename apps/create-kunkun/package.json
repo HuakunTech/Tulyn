@@ -1,7 +1,7 @@
 {
 	"name": "create-kunkun",
 	"type": "module",
-	"version": "0.1.12",
+	"version": "0.1.13",
 	"bin": {
 		"create-akun": "dist/index.mjs"
 	},

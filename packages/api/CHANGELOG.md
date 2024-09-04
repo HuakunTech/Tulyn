@@ -1,5 +1,11 @@
 # @kksh/api
 
+## 0.0.11
+
+### Patch Changes
+
+- Update tauri-plugin-system-info-api. Fixed return type typo.
+
 ## 0.0.10
 
 ### Patch Changes
