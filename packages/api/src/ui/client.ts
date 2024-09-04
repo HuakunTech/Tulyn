@@ -28,7 +28,7 @@ type PromiseWrap<T extends (...args: any[]) => any> = (
 
 export interface IPlist {
 	// build: PromiseWrap<typeof plist.build>
-	parse: () => Promise<string>
+	parse: (plistContent: string) => Promise<any>
 }
 
 export interface IUtils {
