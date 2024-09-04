@@ -120,7 +120,7 @@ The scaffold template uses `bun` to build the extension from TypeScript into Jav
 You can install other dependencies (they need to runn in web worker), add more `.ts` files.
 Eventually they will be bundled into a single js file and run in web worker.
 
-`build.ts` in the template project contains the build script, you can modify it as you want, 
+`build.ts` in the template project contains the build script, you can modify it as you want,
 or replace bun with other build tools like esbuild, rollup, vite, etc.
 
 `@rollup/plugin-terser` is known to have some problems with the current `@kksh/api` package.
@@ -156,6 +156,25 @@ await build()
 ## Views
 
 Template Command follows templates. Each template is a type of view.
+
+### Markdown View
+
+Basically renders markdown on page.
+
+```ts
+import { expose, Form, ui, WorkerExtension } from "@kksh/api/ui/worker"
+
+class DemoExtension extends WorkerExtension {
+	load() {
+		return ui.render(new Markdown("# Hello, World!"))
+	}
+	...
+}
+
+expose(new DemoExtension())
+```
+
+![](./markdown-view-demo.png)
 
 ### Form View
 

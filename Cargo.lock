@@ -906,13 +906,15 @@ dependencies = [
 
 [[package]]
 name = "clipboard-rs"
-version = "0.1.11"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c718c0784ab208e35cc764e8b3f864caf5cd82a65d793fb99ddb3565ae028726"
+checksum = "87a53eafcd82176ce44c0d9a4e3e8c27e63f160c919f775a2373ddb20f605e13"
 dependencies = [
  "clipboard-win",
- "cocoa 0.25.0",
  "image 0.25.2",
+ "objc2",
+ "objc2-app-kit",
+ "objc2-foundation",
  "x11rb",
 ]
 
@@ -6018,9 +6020,9 @@ dependencies = [
 
 [[package]]
 name = "tauri-plugin-clipboard"
-version = "2.1.6"
+version = "2.1.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4763e4751432a32dbf14ed35678fc85f88f4bed640d8cc874e836231a38b3337"
+checksum = "6d74451d7bd3d93631e9432471834b807dd8725943cf433e41fbfa41ae56c1d7"
 dependencies = [
  "base64 0.22.1",
  "clipboard-rs",

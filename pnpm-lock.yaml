@@ -12,8 +12,8 @@ importers:
         specifier: ^4.4.1
         version: 4.4.1
       tauri-plugin-clipboard-api:
-        specifier: ^2.1.7
-        version: 2.1.7(typescript@5.5.4)
+        specifier: ^2.1.8
+        version: 2.1.8(typescript@5.5.4)
       tauri-plugin-shellx-api:
         specifier: ^2.0.8
         version: 2.0.8
@@ -567,8 +567,8 @@ importers:
         specifier: ^0.36.0
         version: 0.36.0(rollup@4.20.0)(typescript@5.5.4)
       tauri-api-adapter:
-        specifier: 0.3.5
-        version: 0.3.5(tslib@2.6.3)(typescript@5.5.4)
+        specifier: 0.3.6
+        version: 0.3.6(tslib@2.6.3)(typescript@5.5.4)
       tauri-plugin-network-api:
         specifier: workspace:*
         version: link:../../vendors/tauri-plugin-network
@@ -11612,13 +11612,13 @@ packages:
     resolution: {integrity: sha512-5S7Va8hKfV7W5U6g3aYxXmlPoZVAwUMy9AOKyF2fVuZa2UD3qZjg578OrLRt8PcNN1PleVaL/5/yYATNL0ICUw==}
     engines: {node: '>=18'}
 
-  tauri-api-adapter@0.3.5:
-    resolution: {integrity: sha512-FN4mjTDgEEk9NQL9NKB9pJ8FMuLMGDajNT4bUM5U89KYeQiYXSkM1m3bekdOHOO0KnuU+r3UXIBnbEkxVpKqtQ==}
+  tauri-api-adapter@0.3.6:
+    resolution: {integrity: sha512-kHh42oNRUnQq+NyraLmPazgzIIHBlnwY1AcxjRRz1onP8ZJos276p/0CnXfCd2iiiBfImZx4fzOD2Xxf82145Q==}
     peerDependencies:
       typescript: ^5.0.0
 
-  tauri-plugin-clipboard-api@2.1.7:
-    resolution: {integrity: sha512-A5RZezNB01t2bzL7OvN5X8Mh0vri4qzqLD8LX5CEsXxjR6Gn+70dS9hJrXTWqayeAo1JlAI4kCww9qAC55WTYw==}
+  tauri-plugin-clipboard-api@2.1.8:
+    resolution: {integrity: sha512-oXqiEc03Xxv6eHrlvG+0JUlKaEQLZO3IaczEAfEJH0jiCXlw+P6VsV0juYiT6S/gPfm/gdTH0bLKwB3qOv2ePA==}
 
   tauri-plugin-network-api@2.0.3:
     resolution: {integrity: sha512-aj/o315shIntam+vxVlgRJE8NnKcf0d93CQBK6zOb3Ia4V4HM+kYdFxg8Ji5jM5Yay8nq1HEJaqNIOIv7R1NpA==}
@@ -26665,7 +26665,7 @@ snapshots:
       mkdirp: 3.0.1
       yallist: 5.0.0
 
-  tauri-api-adapter@0.3.5(tslib@2.6.3)(typescript@5.5.4):
+  tauri-api-adapter@0.3.6(tslib@2.6.3)(typescript@5.5.4):
     dependencies:
       '@huakunshen/comlink': 4.4.1
       '@rollup/plugin-alias': 5.1.0(rollup@4.20.0)
@@ -26682,7 +26682,7 @@ snapshots:
       rimraf: 5.0.10
       rollup: 4.20.0
       shx: 0.3.4
-      tauri-plugin-clipboard-api: 2.1.7(typescript@5.5.4)
+      tauri-plugin-clipboard-api: 2.1.8(typescript@5.5.4)
       tauri-plugin-network-api: 2.0.3(typescript@5.5.4)
       tauri-plugin-shellx-api: 2.0.9
       tauri-plugin-system-info-api: 2.0.4(typescript@5.5.4)
@@ -26692,7 +26692,7 @@ snapshots:
     transitivePeerDependencies:
       - tslib
 
-  tauri-plugin-clipboard-api@2.1.7(typescript@5.5.4):
+  tauri-plugin-clipboard-api@2.1.8(typescript@5.5.4):
     dependencies:
       '@tauri-apps/api': 2.0.0-beta.11
       valibot: 0.40.0(typescript@5.5.4)

@@ -13,6 +13,7 @@ import {
 	FormNodeNameEnum,
 	FormSchema,
 	ListSchema,
+	MarkdownSchema,
 	NodeNameEnum,
 	wrap,
 	type IComponent,
@@ -39,6 +40,7 @@ let workerAPI: Remote<WorkerExtension> | undefined = undefined
 const loading = ref(false)
 const listViewContent = ref<ListSchema.List>()
 const formViewContent = ref<FormSchema.Form>()
+const markdownViewContent = ref<MarkdownSchema>()
 const formFieldConfig = ref({})
 const formViewZodSchema = ref<any>()
 const extStateStore = useExtDisplayStore()
@@ -48,19 +50,36 @@ const searchBarPlaceholder = ref("")
 const listViewRef = ref<{ onActionSelected: () => void }>()
 let unlistenRefreshWorkerExt: UnlistenFn | undefined
 
+function clearViewContent(keep?: "list" | "form" | "markdown") {
+	if (keep !== "list") {
+		listViewContent.value = undefined
+	}
+	if (keep !== "form") {
+		formViewContent.value = undefined
+	}
+	if (keep !== "markdown") {
+		markdownViewContent.value = undefined
+	}
+}
+
 const extUiAPI: IUiWorker = {
 	async render(view: IComponent<ListSchema.List | FormSchema.Form>) {
-		// console.log("render called", view)
 		if (view.nodeName === NodeNameEnum.List) {
-			formViewContent.value = undefined
+			clearViewContent("list")
 			listViewContent.value = parse(ListSchema.List, view)
 		} else if (view.nodeName === FormNodeNameEnum.Form) {
 			listViewContent.value = undefined
+			clearViewContent("form")
 			const parsedForm = parse(FormSchema.Form, view)
 			formViewContent.value = parsedForm
 			const zodSchema = convertFormToZod(parsedForm)
 			formViewZodSchema.value = zodSchema
 			formFieldConfig.value = buildFieldConfig(parsedForm)
+		} else if (view.nodeName === NodeNameEnum.Markdown) {
+			clearViewContent("markdown")
+			markdownViewContent.value = parse(MarkdownSchema, view)
+		} else {
+			toast.error(`Unsupported view type: ${view.nodeName}`)
 		}
 	},
 	async setScrollLoading(_loading: boolean) {
@@ -171,5 +190,9 @@ onUnmounted(() => {
 		:model-value="listViewContent"
 		:workerAPI="workerAPI!"
 		:loading="loading"
+	/>
+	<ExtTemplateMarkdownView
+		v-else-if="loaded && markdownViewContent"
+		:markdown="markdownViewContent.content"
 	/>
 </template>
