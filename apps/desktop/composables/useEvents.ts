@@ -35,6 +35,5 @@ export const usePreventExit = () => {
 			event.preventDefault()
 			appWindow.hide()
 		})
-
 	})
 }
