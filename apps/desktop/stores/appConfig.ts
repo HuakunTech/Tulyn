@@ -3,6 +3,8 @@ import {
 	setDevExtensionFolder as setDevExtensionFolderForServer
 } from "@kksh/api/commands"
 import { LightMode } from "@kksh/api/models"
+import { appDataDir, BaseDirectory, join } from "@tauri-apps/api/path"
+import { exists, remove } from "@tauri-apps/plugin-fs"
 import { unregister } from "@tauri-apps/plugin-global-shortcut"
 import { debug, info, warn } from "@tauri-apps/plugin-log"
 import { Store } from "@tauri-apps/plugin-store"
@@ -27,8 +29,6 @@ import {
 	union,
 	type InferOutput
 } from "valibot"
-import { appDataDir, join } from "@tauri-apps/api/path"
-import { exists } from "@tauri-apps/plugin-fs"
 
 const persistAppConfig = new Store("appConfig.bin")
 
@@ -106,10 +106,9 @@ export const useAppConfigStore = defineStore("appConfig", {
 		 */
 		async init() {
 			this.isInitialized = true
-			const configPath = await join(await appDataDir(), persistAppConfig.path)
-			if (!await exists(configPath)) {
-				await persistAppConfig.set("config", this.$state)
-				await persistAppConfig.save()
+			// const configPath = await join(await appDataDir(), persistAppConfig.path)
+			if (!(await exists(persistAppConfig.path, { baseDir: BaseDirectory.AppData }))) {
+				await this.save()
 			}
 			const loadedConfig = await persistAppConfig.get("config")
 			const parseRes = safeParse(appConfigSchema, loadedConfig)
@@ -123,7 +122,13 @@ export const useAppConfigStore = defineStore("appConfig", {
 					"Failed to parse app config",
 					flatten<typeof appConfigSchema>(parseRes.issues)
 				)
+				await remove(persistAppConfig.path, { baseDir: BaseDirectory.AppData })
+				this.save()
 			}
+		},
+		async save() {
+			await persistAppConfig.set("config", this.$state)
+			await persistAppConfig.save()
 		},
 		/**
 		 * Refresh styles (border radius, theme, color mode) for current window
@@ -188,8 +193,7 @@ export const useAppConfigStore = defineStore("appConfig", {
 		watch() {
 			this.$subscribe(async (mutation, state) => {
 				info("appConfig changed, saved to disk")
-				await persistAppConfig.set("config", state)
-				await persistAppConfig.save()
+				await this.save()
 				emitRefreshConfig()
 			})
 		}

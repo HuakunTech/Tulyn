@@ -23,6 +23,7 @@ unlistenRefreshConfig = await listenToRefreshConfig(async () => {
 	debug("Refreshing config")
 	await appConfig.init()
 	appConfig.refreshWindowStyles()
+	initStores()
 	// useRegisterAppShortcuts()
 })
 onMounted(async () => {

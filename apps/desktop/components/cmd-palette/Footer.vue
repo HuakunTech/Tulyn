@@ -6,13 +6,18 @@ import { Icon } from "@iconify/vue"
 import { Button } from "@kksh/vue/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@kksh/vue/tooltip"
 import { platform } from "@tauri-apps/plugin-os"
+import { initStores } from "~/lib/utils/stores"
 import { RefreshCcw } from "lucide-vue-next"
 import ActionPanel from "./ActionPanel.vue"
 
 const _platform = platform()
 const appUiStore = useAppUiStore()
+const appConfig = useAppConfigStore()
+
 function onReload() {
-	location.reload()
+	appConfig.init()
+	initStores()
+	// location.reload()
 }
 
 function onKeyDown(e: KeyboardEvent) {

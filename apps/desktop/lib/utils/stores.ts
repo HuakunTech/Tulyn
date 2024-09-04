@@ -17,7 +17,7 @@ export async function initStores() {
 	const builtinCmdStore = useBuiltInCmdStore()
 	builtinCmdStore.load()
 	const devExtStore = useDevExtStore()
-	devExtStore.setExtPath(appConfig.devExtensionPath)
+	devExtStore.setExtPath(appConfig.devExtensionPath ?? undefined)
 	devExtStore.load()
 	const extStore = useExtStore()
 	extStore.setExtPath(await getExtensionsFolder())
