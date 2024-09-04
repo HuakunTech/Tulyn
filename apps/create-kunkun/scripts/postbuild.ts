@@ -4,24 +4,27 @@ import { getRootDir } from "../src/constants"
 import { cleanExtension, patchManifestJsonSchema, patchPkgJsonDep } from "../src/patch"
 
 const distPath = path.join(getRootDir(), "dist")
+const distTemplatesPath = path.join(distPath, "templates")
+// clear distTemplatesPath
+fs.emptyDirSync(distTemplatesPath)
 
 /* -------------------------------------------------------------------------- */
 /*                   copy ../../templates to dist/templates                   */
 /* -------------------------------------------------------------------------- */
 const templatesPath = path.join(getRootDir(), "../..", "templates")
-await fs.copy(templatesPath, path.join(distPath, "templates"))
+await fs.copy(templatesPath, distTemplatesPath)
 
 /* -------------------------------------------------------------------------- */
 /*                              Clean Dist Folder                             */
 /* -------------------------------------------------------------------------- */
-for (const p of fs.readdirSync(path.join(distPath, "templates"))) {
+for (const p of fs.readdirSync(distTemplatesPath)) {
 	cleanExtension(path.join(distPath, "templates", p))
 }
 
 /* -------------------------------------------------------------------------- */
 /*                               Patch Templates                              */
 /* -------------------------------------------------------------------------- */
-for (const p of fs.readdirSync(path.join(distPath, "templates"))) {
+for (const p of fs.readdirSync(distTemplatesPath)) {
 	const pkgJsonPath = path.join(distPath, "templates", p, "package.json")
 	if (fs.existsSync(pkgJsonPath)) {
 		/* ----------------------- Patch Package Dependencies ----------------------- */
