@@ -125,6 +125,7 @@
 		"global-shortcut:allow-unregister-all",
 		"clipboard:allow-clear",
 		"upload:default",
-		"process:default"
+		"process:default",
+		"system-info:allow-all"
 	]
 }
