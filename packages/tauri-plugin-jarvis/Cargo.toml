@@ -39,6 +39,7 @@ chrono = { workspace = true }
 strum_macros = { workspace = true }
 zip = "1.1.4"
 rust_search = "2.1.0"
+plist = "1.7.0"
 
 [target.'cfg(target_os = "macos")'.dependencies]
 tauri-icns = "0.1.0"

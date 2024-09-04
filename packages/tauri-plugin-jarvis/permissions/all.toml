@@ -80,4 +80,6 @@ commands.allow = [
     # Clipboard
     "add_to_history",
     "get_history",
+    # Utils
+    "plist_to_json",
 ]

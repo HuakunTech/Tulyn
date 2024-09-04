@@ -26,6 +26,15 @@ type PromiseWrap<T extends (...args: any[]) => any> = (
 	...args: Parameters<T>
 ) => Promise<ReturnType<T>>
 
+export interface IPlist {
+	// build: PromiseWrap<typeof plist.build>
+	parse: () => Promise<string>
+}
+
+export interface IUtils {
+	plist: IPlist
+}
+
 export interface ISystem {
 	openTrash(): Promise<void>
 	emptyTrash(): Promise<void>

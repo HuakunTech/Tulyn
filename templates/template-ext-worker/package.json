@@ -10,21 +10,7 @@
 		"identifier": "template-ext-worker",
 		"permissions": [
 			"fetch:all",
-			"clipboard:read-all",
-			{
-				"permission": "shell:execute",
-				"allow": [
-					{
-						"cmd": {
-							"program": "bash",
-							"args": [
-								"-c",
-								".+"
-							]
-						}
-					}
-				]
-			}
+			"clipboard:read-all"
 		],
 		"demoImages": [],
 		"icon": {

@@ -47,7 +47,7 @@ import {
 	type ShellPermissionScoped,
 	type SystemPermission
 } from "../../permissions"
-import type { IEvent, IFs, IOpen, ISystem, IToast } from "../client"
+import type { IEvent, IFs, IOpen, ISystem, IToast, IUtils } from "../client"
 // import type { IDbServer } from "./db"
 import { constructEventApi } from "./event"
 import { constructFsApi } from "./fs"
@@ -65,6 +65,7 @@ import {
 	// type IUiIframeServer,
 	// type IUiWorkerServer
 } from "./ui"
+import { constructUtilsApi } from "./utils"
 
 // export type { IDbServer } from "./db"
 export { constructFsApi } from "./fs"
@@ -115,6 +116,7 @@ export type IKunkunFullServerAPI = {
 	toast: IToast
 	shell: IShellServer
 	iframeUi: IUiIframeServer1
+	utils: IUtils
 }
 
 export function constructJarvisServerAPIWithPermissions(
@@ -182,6 +184,7 @@ export function constructJarvisServerAPIWithPermissions(
 				p.permission.startsWith("shell:")
 			)
 		]),
-		iframeUi: constructIframeUiApi()
+		iframeUi: constructIframeUiApi(),
+		utils: constructUtilsApi()
 	}
 }

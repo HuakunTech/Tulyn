@@ -151,6 +151,10 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             /* -------------------------------- Clipboard ------------------------------- */
             commands::clipboard::get_history,
             commands::clipboard::add_to_history,
+            /* -------------------------------------------------------------------------- */
+            /*                                    Utils                                   */
+            /* -------------------------------------------------------------------------- */
+            commands::utils::plist_to_json,
         ])
         .setup(|app, api| {
             // #[cfg(mobile)]

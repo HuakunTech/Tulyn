@@ -1324,6 +1324,32 @@ Denies the path_exists command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-plist-to-json`
+
+</td>
+<td>
+
+Enables the plist_to_json command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-plist-to-json`
+
+</td>
+<td>
+
+Denies the plist_to_json command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-quit-all-apps`
 
 </td>
