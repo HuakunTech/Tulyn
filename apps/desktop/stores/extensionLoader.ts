@@ -65,9 +65,7 @@ export function cmdToItem(
 	}
 }
 
-function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: CustomUiCmd, url: string) {
-	// return registerExtensionWindow(manifest.extPath).then(async (windowLabel) => {
-	const windowLabel = `main:ext:${uuidv4()}`
+function getNewExtWindow(windowLabel: string, url: string, cmd: CustomUiCmd | TemplateUiCmd) {
 	const window = new WebviewWindow(windowLabel, {
 		center: cmd.window?.center ?? undefined,
 		x: cmd.window?.x ?? undefined,
@@ -102,10 +100,30 @@ function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: CustomUi
 		visibleOnAllWorkspaces: cmd.window?.visibleOnAllWorkspaces ?? undefined,
 		url
 	})
+	console.log(window)
 
-	window.onCloseRequested(async (event) => {
-		// await unregisterExtensionWindow(window.label)
-	})
+	return window
+}
+
+function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: CustomUiCmd, url: string) {
+	// return registerExtensionWindow(manifest.extPath).then(async (windowLabel) => {
+	const windowLabel = `main:ext:${uuidv4()}`
+	const window = getNewExtWindow(windowLabel, url, cmd)
+	// window.onCloseRequested(async (event) => {
+	// await unregisterExtensionWindow(window.label)
+	// })
+	// })
+}
+
+function createNewExtWindowForTemplateCmd(
+	manifest: ExtPackageJsonExtra,
+	cmd: TemplateUiCmd,
+	url: string
+) {
+	const windowLabel = `main:ext:${uuidv4()}`
+	const window = getNewExtWindow(windowLabel, url, cmd)
+	// window.onCloseRequested(async (event) => {
+	// await unregisterExtensionWindow(window.label)
 	// })
 }
 
@@ -259,11 +277,18 @@ export function constructExtStore(options: { isDev: boolean }) {
 								return
 							}
 							debug(`Running Template command: ${scriptPath}`)
-							extStore.setCurrentWorkerExt({
-								manifest,
-								cmdName: cmd.name
-							})
-							navigateTo(localePath("/worker-ext"))
+							// extStore.setCurrentWorkerExt({
+							// 	manifest,
+							// 	cmdName: cmd.name
+							// })
+							const url2 = `/worker-ext?extPath=${encodeURIComponent(manifest.extPath)}&cmdName=${encodeURIComponent(cmd.name)}`
+							console.log("URL: ", url2)
+
+							if (cmd.window) {
+								createNewExtWindowForTemplateCmd(manifest, cmd, url2)
+							} else {
+								navigateTo(url2)
+							}
 						}
 					})
 				} else if (item.type === "Remote Command") {

@@ -2,6 +2,7 @@
 	"name": "@kksh/desktop",
 	"private": true,
 	"type": "module",
+	"version": "0.1.7",
 	"scripts": {
 		"build": "nuxt build",
 		"dev": "nuxt dev",

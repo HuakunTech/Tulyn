@@ -8,17 +8,18 @@ import {
 	DropdownMenuTrigger
 } from "@kksh/vue/dropdown-menu"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
-import { EllipsisVerticalIcon, PinIcon } from "lucide-vue-next"
+import { CircleXIcon, EllipsisVerticalIcon, PinIcon } from "lucide-vue-next"
 
 const position = ref("bottom")
 function onChange() {
 	console.log("Changed")
 }
 
-function onPin() {
-	// const win = getCurrentWebviewWindow()
+function onClose() {
+	const win = getCurrentWebviewWindow()
+	win.close()
 	// win.set
-	console.log("Pinned")
+	// console.log("Pinned")
 }
 </script>
 <template>
@@ -29,11 +30,11 @@ function onPin() {
 				<EllipsisVerticalIcon class="h-4 w-4" />
 			</Button>
 		</DropdownMenuTrigger>
-		<DropdownMenuContent class="w-20">
-			<!-- <DropdownMenuItem @click="onPin" class="space-x-2" value="top">
-				<PinIcon class="h-4 w-4" />
-				<span>Pin</span>
-			</DropdownMenuItem> -->
+		<DropdownMenuContent class=" w-52">
+			<DropdownMenuItem @click="onClose" class="space-x-2" value="top">
+				<CircleXIcon class="h-4 w-4" />
+				<span>Close Window</span>
+			</DropdownMenuItem>
 		</DropdownMenuContent>
 	</DropdownMenu>
 </template>

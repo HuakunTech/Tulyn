@@ -101,6 +101,7 @@ export const TemplateUiCmd = object({
 	main: string(),
 	name: string(),
 	description: optional(nullable(string("Description of the Command"), ""), ""),
+	window: optional(nullable(WindowConfig)),
 	cmds: array(TriggerCmd),
 	platforms: optional(
 		nullable(

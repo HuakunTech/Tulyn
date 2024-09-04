@@ -7,6 +7,7 @@ import { ListSchema, WorkerExtension } from "@kksh/api/ui/worker"
 import { Button } from "@kksh/vue/button"
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@kksh/vue/resizable"
 import { ArrowLeftIcon } from "@radix-icons/vue"
+import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { debug } from "@tauri-apps/plugin-log"
 import { CommandEmpty, CommandGroup, CommandItem, CommandList } from "~/components/ui/command"
 import type { ComboboxInput } from "radix-vue"
@@ -19,6 +20,7 @@ const appUiStore = useAppUiStore()
 const cmdInputRef = ref<InstanceType<typeof ComboboxInput> | null>(null)
 const searchTerm = defineModel<string>("searchTerm", { required: true })
 const searchBarPlaceholder = defineModel<string>("searchBarPlaceholder", { required: true })
+const appWin = getCurrentWebviewWindow()
 
 useListenToWindowFocus(() => {
 	getWorkerExtInputEle()?.focus()
@@ -52,7 +54,7 @@ onKeyStroke("Escape", () => {
 			searchTerm.value = ""
 			return
 		} else {
-			return navigateTo(localePath("/"))
+			return goBack()
 		}
 	} else {
 		getWorkerExtInputEle()?.focus()
@@ -117,7 +119,11 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 
 function goBack() {
 	props.workerAPI.onBeforeGoBack()
-	navigateTo(localePath("/"))
+	if (appWin.label !== "main") {
+		return appWin.close()
+	} else {
+		return navigateTo(localePath("/"))
+	}
 }
 </script>
 <template>
