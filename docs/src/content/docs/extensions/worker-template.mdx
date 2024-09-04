@@ -75,7 +75,7 @@ pnpm dev # start the development server, basically running `build` with watch mo
 In dev mode (`pnpm dev`), every time you save the file, the extension will be recompiled and Kunkun desktop app will be notified to reload the extension.
 Otherwise you need to manually reload the extension.
 
-A template worker extension should extends abstract class `WorkerExtension` (https://docs.api.kunkun.sh/classes/ui_worker.WorkerExtension)
+A template worker extension should `extends` abstract class `WorkerExtension` (https://docs.api.kunkun.sh/classes/ui_worker.WorkerExtension)
 
 Override the methods of this class to implement your extension.
 
@@ -117,7 +117,7 @@ Refresh kunkun app, you should see the command.
 ### Advanced Usage
 
 The scaffold template uses `bun` to build the extension from TypeScript into JavaScript.
-You can install other dependencies (they need to runn in web worker), add more `.ts` files.
+You can install other dependencies (they need to run in web worker), add more `.ts` files.
 Eventually they will be bundled into a single js file and run in web worker.
 
 `build.ts` in the template project contains the build script, you can modify it as you want,
@@ -128,6 +128,7 @@ or replace bun with other build tools like esbuild, rollup, vite, etc.
 
 <details>
 <summary>Sample Build Script</summary>
+
 ```ts
 import { watch } from "fs"
 import { join } from "path"
@@ -135,8 +136,8 @@ import { refreshTemplateWorkerExtension } from "@kksh/api/dev"
 import { $ } from "bun"
 
 async function build() {
-await $`bun build --minify --target=browser --outdir=./dist ./src/index.ts`
-await refreshTemplateWorkerExtension()
+	await $`bun build --minify --target=browser --outdir=./dist ./src/index.ts`
+	await refreshTemplateWorkerExtension()
 }
 
 const srcDir = join(import.meta.dir, "src")
@@ -144,13 +145,13 @@ const srcDir = join(import.meta.dir, "src")
 await build()
 
 if (Bun.argv.includes("dev")) {
-console.log(`Watching ${srcDir} for changes...`)
-watch(srcDir, { recursive: true }, async (event, filename) => {
-await build()
-})
+	console.log(`Watching ${srcDir} for changes...`)
+	watch(srcDir, { recursive: true }, async (event, filename) => {
+		await build()
+	})
 }
+```
 
-````
 </details>
 
 ## Views
@@ -216,7 +217,7 @@ class DemoExtension extends WorkerExtension {
 	}
 }
 expose(new DemoExtension())
-````
+```
 
 ![](./form-view-demo.png)
 

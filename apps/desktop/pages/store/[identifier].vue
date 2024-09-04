@@ -61,12 +61,11 @@ onMounted(async () => {
 		currentExt.value = null
 	}
 })
-const stringPermissions = computed(() =>
-	manifest.value?.permissions.map((p) => (typeof p === "string" ? p : p.permission))
-)
+
 const isInstalled = computed(() => {
 	return extStore.manifests.find((m) => m.kunkun.identifier === extIdentifier) !== undefined
 })
+
 // TODO implement install and uninstall
 const demoImages = computed(() => {
 	return currentExt.value?.demo_images.map((src) => supabase.getFileUrl(src).data.publicUrl) ?? []
@@ -157,8 +156,10 @@ async function uninstallExt() {
 			<Separator class="my-3" />
 
 			<h2 class="text-lg font-bold">Security and Privacy</h2>
-			<li v-for="perm in stringPermissions" class="flex h-8 items-center gap-2">
-				<span class="font-mono text-sm">{{ perm }}</span>
+			<li v-for="perm in manifest?.permissions" class="flex h-8 items-center gap-2">
+				<span class="font-mono text-sm">{{
+					typeof perm === "string" ? perm : perm.permission
+				}}</span>
 				<HoverCard>
 					<HoverCardTrigger class="flex items-center">
 						<IconMultiplexer
@@ -166,24 +167,24 @@ async function uninstallExt() {
 							:icon="{ type: IconEnum.Iconify, value: 'material-symbols:info-outline' }"
 						/>
 					</HoverCardTrigger>
-					<HoverCardContent class="w-96 max-h-96 overflow-y-auto">
+					<HoverCardContent class="max-h-96 w-96 overflow-y-auto">
 						<ScrollArea>
-							<span class="text-sm">{{ permissionDescriptions[perm] }}</span>
-							<pre class="text-xs">{{
-								manifest?.permissions.find((p) => p.permission === perm || p === perm)
-							}}</pre>
+							<span class="text-sm">{{
+								permissionDescriptions[typeof perm === "string" ? perm : perm.permission]
+							}}</span>
+							<pre class="text-xs">{{ perm }}</pre>
 						</ScrollArea>
 					</HoverCardContent>
 				</HoverCard>
 			</li>
 			<Separator class="my-3" />
 			<h2 class="text-lg font-bold">Description</h2>
-			<span class="text-sm">
+			<div class="text-sm">
 				{{ manifest?.shortDescription }}
-			</span>
-			<span class="text-sm">
+			</div>
+			<div class="text-sm">
 				{{ manifest?.longDescription }}
-			</span>
+			</div>
 			<Separator class="my-3" />
 			<h2 class="text-lg font-bold">Commands</h2>
 			<ul>
