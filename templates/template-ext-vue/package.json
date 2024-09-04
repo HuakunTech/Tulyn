@@ -12,10 +12,10 @@
 	"dependencies": {
 		"@radix-icons/vue": "^1.0.0",
 		"@kksh/api": "workspace:*",
-		"@kksh/vue": "0.1.2",
+		"@kksh/vue": "0.1.3",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
-		"radix-vue": "^1.9.2",
+		"radix-vue": "^1.9.5",
 		"tailwind-merge": "^2.4.0",
 		"tailwindcss-animate": "^1.0.7",
 		"vue": "^3.4.31"

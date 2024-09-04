@@ -20,7 +20,7 @@
 		"@kksh/api": "workspace:*",
 		"@kksh/react": "^0.1.1",
 		"@kksh/svelte": "^0.1.4",
-		"@kksh/vue": "^0.1.2",
+		"@kksh/vue": "^0.1.3",
 		"@monaco-editor/react": "^4.6.0",
 		"@radix-icons/vue": "^1.0.0",
 		"@radix-ui/react-icons": "^1.3.0",

@@ -216,8 +216,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/supabase
       '@kksh/vue':
-        specifier: 0.1.2
-        version: 0.1.2(@popperjs/core@2.11.8)(@vue/devtools-api@6.6.3)(tailwindcss@3.4.9)(vue@3.5.0(typescript@5.5.4))
+        specifier: 0.1.3
+        version: 0.1.3(@popperjs/core@2.11.8)(@vue/devtools-api@6.6.3)(tailwindcss@3.4.9)(vue@3.5.0(typescript@5.5.4))
       '@nanostores/vue':
         specifier: ^0.10.0
         version: 0.10.0(@vue/devtools-api@6.6.3)(nanostores@0.10.3)(vue@3.5.0(typescript@5.5.4))
@@ -324,8 +324,8 @@ importers:
         specifier: ^1.154.2
         version: 1.155.0
       radix-vue:
-        specifier: ^1.9.2
-        version: 1.9.3(vue@3.5.0(typescript@5.5.4))
+        specifier: ^1.9.5
+        version: 1.9.5(vue@3.5.0(typescript@5.5.4))
       shadcn-nuxt:
         specifier: ^0.10.4
         version: 0.10.4(magicast@0.3.4)(rollup@4.20.0)
@@ -355,7 +355,7 @@ importers:
         version: 9.0.1
       vaul-vue:
         specifier: ^0.2.0
-        version: 0.2.0(radix-vue@1.9.3(vue@3.5.0(typescript@5.5.4)))(vue@3.5.0(typescript@5.5.4))
+        version: 0.2.0(radix-vue@1.9.5(vue@3.5.0(typescript@5.5.4)))(vue@3.5.0(typescript@5.5.4))
       vee-validate:
         specifier: ^4.13.2
         version: 4.13.2(vue@3.5.0(typescript@5.5.4))
@@ -442,8 +442,8 @@ importers:
         specifier: ^0.1.4
         version: 0.1.4(@sveltejs/kit@2.5.21(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.4.0(@types/node@22.2.0)(terser@5.31.5)))(svelte@4.2.18)(vite@5.4.0(@types/node@22.2.0)(terser@5.31.5)))(svelte@4.2.18)(tailwindcss@3.4.9)
       '@kksh/vue':
-        specifier: ^0.1.2
-        version: 0.1.2(@popperjs/core@2.11.8)(@vue/devtools-api@6.6.3)(tailwindcss@3.4.9)(vue@3.4.37(typescript@5.5.4))
+        specifier: ^0.1.3
+        version: 0.1.3(@popperjs/core@2.11.8)(@vue/devtools-api@6.6.3)(tailwindcss@3.4.9)(vue@3.4.37(typescript@5.5.4))
       '@monaco-editor/react':
         specifier: ^4.6.0
         version: 4.6.0(monaco-editor@0.48.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -845,8 +845,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/api
       '@kksh/vue':
-        specifier: 0.1.2
-        version: 0.1.2(@popperjs/core@2.11.8)(@vue/devtools-api@6.6.3)(tailwindcss@3.4.9)(vue@3.5.0(typescript@5.5.4))
+        specifier: 0.1.3
+        version: 0.1.3(@popperjs/core@2.11.8)(@vue/devtools-api@6.6.3)(tailwindcss@3.4.9)(vue@3.5.0(typescript@5.5.4))
       '@nuxtjs/tailwindcss':
         specifier: ^6.12.1
         version: 6.12.1(magicast@0.3.4)(rollup@4.20.0)
@@ -1074,8 +1074,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/api
       '@kksh/vue':
-        specifier: 0.1.2
-        version: 0.1.2(@popperjs/core@2.11.8)(@vue/devtools-api@6.6.3)(tailwindcss@3.4.9)(vue@3.4.37(typescript@5.5.4))
+        specifier: 0.1.3
+        version: 0.1.3(@popperjs/core@2.11.8)(@vue/devtools-api@6.6.3)(tailwindcss@3.4.9)(vue@3.4.37(typescript@5.5.4))
       '@radix-icons/vue':
         specifier: ^1.0.0
         version: 1.0.0(vue@3.4.37(typescript@5.5.4))
@@ -1086,8 +1086,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       radix-vue:
-        specifier: ^1.9.2
-        version: 1.9.3(vue@3.4.37(typescript@5.5.4))
+        specifier: ^1.9.5
+        version: 1.9.5(vue@3.4.37(typescript@5.5.4))
       tailwind-merge:
         specifier: ^2.4.0
         version: 2.4.0
@@ -3109,10 +3109,10 @@ packages:
     peerDependencies:
       svelte: ^4.0.0
 
-  '@kksh/vue@0.1.2':
-    resolution: {integrity: sha512-QV5urOO7o92CY7QEFRYckxgkdIXPlYm8+GIOMKkBOUr93sYRKn2OUBcZ2X8urupcTk+vpVDb3SIq++KJwxFSrw==}
+  '@kksh/vue@0.1.3':
+    resolution: {integrity: sha512-iKwU39lHgmkqMkPjwKcxMsL/cqlR3A6exz3FENtyZXa2q9QA687SF/8imbMUeV72Vn2+Y3OLT71KRO44DposMQ==}
     peerDependencies:
-      vue: ^3.4.31
+      vue: ^3.4.37
 
   '@koa/router@12.0.1':
     resolution: {integrity: sha512-ribfPYfHb+Uw3b27Eiw6NPqjhIhTpVFzEWLwyc/1Xp+DCdwRRyIlAUODX+9bPARF6aQtUu1+/PHzdNvRzcs/+Q==}
@@ -9110,6 +9110,11 @@ packages:
     peerDependencies:
       vue: '>=3.0.1'
 
+  lucide-vue-next@0.438.0:
+    resolution: {integrity: sha512-xlPIeYbhfI0gDJwolST7cjc6KAi1oWN9HEWGuK+5gMmoi+a6bJ3mI062+7tqzOdjSE07l7jyBH4mladQVLIQRA==}
+    peerDependencies:
+      vue: '>=3.0.1'
+
   lunr@2.3.9:
     resolution: {integrity: sha512-zTU3DaZaF3Rt9rhN3uBMGQD3dD2/vFQqnvZCDv4dl5iOzq2IZQqTxu90r4E5J+nP70J3ilqVCrbho2eWaeW8Ow==}
 
@@ -10550,8 +10555,8 @@ packages:
   quote-unquote@1.0.0:
     resolution: {integrity: sha512-twwRO/ilhlG/FIgYeKGFqyHhoEhqgnKVkcmqMKi2r524gz3ZbDTcyFt38E9xjJI2vT+KbRNHVbnJ/e0I25Azwg==}
 
-  radix-vue@1.9.3:
-    resolution: {integrity: sha512-9pewcgzghM+B+FO1h9mMsZa/csVH6hElpN1sqmG4/qoeieiDG0i4nhMjS7p2UOz11EEdVm7eLandHSPyx7hYhg==}
+  radix-vue@1.9.5:
+    resolution: {integrity: sha512-vtCq+WDAZj5BQtJiChGf/oC7w3y7jaod3agcntgph7fD6aqdcghLZYcUWdgT/XNJs2bEsk+3cjK3ONPRNeFcuQ==}
     peerDependencies:
       vue: '>= 3.2.0'
 
@@ -11589,6 +11594,9 @@ packages:
 
   tailwind-merge@2.4.0:
     resolution: {integrity: sha512-49AwoOQNKdqKPd9CViyH5wJoSKsCDjUlzL8DxuGp3P1FsGY36NJDAa18jLZcaHAUUuTj+JB8IAo8zWgBNvBF7A==}
+
+  tailwind-merge@2.5.2:
+    resolution: {integrity: sha512-kjEBm+pvD+6eAwzJL2Bi+02/9LFLal1Gs61+QB7HvTfQQ0aXwC5LGT8PEt1gS0CWKktKe6ysPTAy3cBC5MeiIg==}
 
   tailwind-variants@0.2.1:
     resolution: {integrity: sha512-2xmhAf4UIc3PijOUcJPA1LP4AbxhpcHuHM2C26xM0k81r0maAO6uoUSHl3APmvHZcY5cZCY/bYuJdfFa4eGoaw==}
@@ -15723,7 +15731,7 @@ snapshots:
       - '@sveltejs/kit'
       - tailwindcss
 
-  '@kksh/vue@0.1.2(@popperjs/core@2.11.8)(@vue/devtools-api@6.6.3)(tailwindcss@3.4.9)(vue@3.4.37(typescript@5.5.4))':
+  '@kksh/vue@0.1.3(@popperjs/core@2.11.8)(@vue/devtools-api@6.6.3)(tailwindcss@3.4.9)(vue@3.4.37(typescript@5.5.4))':
     dependencies:
       '@internationalized/date': 3.5.5
       '@nanostores/persistent': 0.10.2(nanostores@0.10.3)
@@ -15736,13 +15744,13 @@ snapshots:
       class-variance-authority: 0.7.0
       clsx: 2.1.1
       embla-carousel-vue: 8.1.8(vue@3.4.37(typescript@5.5.4))
-      lucide-vue-next: 0.414.0(vue@3.4.37(typescript@5.5.4))
+      lucide-vue-next: 0.438.0(vue@3.4.37(typescript@5.5.4))
       nanostores: 0.10.3
-      radix-vue: 1.9.3(vue@3.4.37(typescript@5.5.4))
-      tailwind-merge: 2.4.0
+      radix-vue: 1.9.5(vue@3.4.37(typescript@5.5.4))
+      tailwind-merge: 2.5.2
       tailwindcss-animate: 1.0.7(tailwindcss@3.4.9)
       v-calendar: 3.1.2(@popperjs/core@2.11.8)(vue@3.4.37(typescript@5.5.4))
-      vaul-vue: 0.2.0(radix-vue@1.9.3(vue@3.4.37(typescript@5.5.4)))(vue@3.4.37(typescript@5.5.4))
+      vaul-vue: 0.2.0(radix-vue@1.9.5(vue@3.4.37(typescript@5.5.4)))(vue@3.4.37(typescript@5.5.4))
       vee-validate: 4.13.2(vue@3.4.37(typescript@5.5.4))
       vue: 3.4.37(typescript@5.5.4)
       vue-sonner: 1.1.4
@@ -15755,7 +15763,7 @@ snapshots:
       - supports-color
       - tailwindcss
 
-  '@kksh/vue@0.1.2(@popperjs/core@2.11.8)(@vue/devtools-api@6.6.3)(tailwindcss@3.4.9)(vue@3.5.0(typescript@5.5.4))':
+  '@kksh/vue@0.1.3(@popperjs/core@2.11.8)(@vue/devtools-api@6.6.3)(tailwindcss@3.4.9)(vue@3.5.0(typescript@5.5.4))':
     dependencies:
       '@internationalized/date': 3.5.5
       '@nanostores/persistent': 0.10.2(nanostores@0.10.3)
@@ -15768,13 +15776,13 @@ snapshots:
       class-variance-authority: 0.7.0
       clsx: 2.1.1
       embla-carousel-vue: 8.1.8(vue@3.5.0(typescript@5.5.4))
-      lucide-vue-next: 0.414.0(vue@3.5.0(typescript@5.5.4))
+      lucide-vue-next: 0.438.0(vue@3.5.0(typescript@5.5.4))
       nanostores: 0.10.3
-      radix-vue: 1.9.3(vue@3.5.0(typescript@5.5.4))
-      tailwind-merge: 2.4.0
+      radix-vue: 1.9.5(vue@3.5.0(typescript@5.5.4))
+      tailwind-merge: 2.5.2
       tailwindcss-animate: 1.0.7(tailwindcss@3.4.9)
       v-calendar: 3.1.2(@popperjs/core@2.11.8)(vue@3.5.0(typescript@5.5.4))
-      vaul-vue: 0.2.0(radix-vue@1.9.3(vue@3.5.0(typescript@5.5.4)))(vue@3.5.0(typescript@5.5.4))
+      vaul-vue: 0.2.0(radix-vue@1.9.5(vue@3.5.0(typescript@5.5.4)))(vue@3.5.0(typescript@5.5.4))
       vee-validate: 4.13.2(vue@3.5.0(typescript@5.5.4))
       vue: 3.5.0(typescript@5.5.4)
       vue-sonner: 1.1.4
@@ -23447,11 +23455,15 @@ snapshots:
     dependencies:
       svelte: 4.2.18
 
-  lucide-vue-next@0.414.0(vue@3.4.37(typescript@5.5.4)):
+  lucide-vue-next@0.414.0(vue@3.5.0(typescript@5.5.4)):
+    dependencies:
+      vue: 3.5.0(typescript@5.5.4)
+
+  lucide-vue-next@0.438.0(vue@3.4.37(typescript@5.5.4)):
     dependencies:
       vue: 3.4.37(typescript@5.5.4)
 
-  lucide-vue-next@0.414.0(vue@3.5.0(typescript@5.5.4)):
+  lucide-vue-next@0.438.0(vue@3.5.0(typescript@5.5.4)):
     dependencies:
       vue: 3.5.0(typescript@5.5.4)
 
@@ -25288,7 +25300,7 @@ snapshots:
 
   quote-unquote@1.0.0: {}
 
-  radix-vue@1.9.3(vue@3.4.37(typescript@5.5.4)):
+  radix-vue@1.9.5(vue@3.4.37(typescript@5.5.4)):
     dependencies:
       '@floating-ui/dom': 1.6.10
       '@floating-ui/vue': 1.1.4(vue@3.4.37(typescript@5.5.4))
@@ -25305,7 +25317,7 @@ snapshots:
     transitivePeerDependencies:
       - '@vue/composition-api'
 
-  radix-vue@1.9.3(vue@3.5.0(typescript@5.5.4)):
+  radix-vue@1.9.5(vue@3.5.0(typescript@5.5.4)):
     dependencies:
       '@floating-ui/dom': 1.6.10
       '@floating-ui/vue': 1.1.4(vue@3.5.0(typescript@5.5.4))
@@ -26637,6 +26649,8 @@ snapshots:
 
   tailwind-merge@2.4.0: {}
 
+  tailwind-merge@2.5.2: {}
+
   tailwind-variants@0.2.1(tailwindcss@3.4.9):
     dependencies:
       tailwind-merge: 2.4.0
@@ -27455,18 +27469,18 @@ snapshots:
       bits-ui: 0.21.13(svelte@4.2.18)
       svelte: 4.2.18
 
-  vaul-vue@0.2.0(radix-vue@1.9.3(vue@3.4.37(typescript@5.5.4)))(vue@3.4.37(typescript@5.5.4)):
+  vaul-vue@0.2.0(radix-vue@1.9.5(vue@3.4.37(typescript@5.5.4)))(vue@3.4.37(typescript@5.5.4)):
     dependencies:
       '@vueuse/core': 10.11.1(vue@3.4.37(typescript@5.5.4))
-      radix-vue: 1.9.3(vue@3.4.37(typescript@5.5.4))
+      radix-vue: 1.9.5(vue@3.4.37(typescript@5.5.4))
       vue: 3.4.37(typescript@5.5.4)
     transitivePeerDependencies:
       - '@vue/composition-api'
 
-  vaul-vue@0.2.0(radix-vue@1.9.3(vue@3.5.0(typescript@5.5.4)))(vue@3.5.0(typescript@5.5.4)):
+  vaul-vue@0.2.0(radix-vue@1.9.5(vue@3.5.0(typescript@5.5.4)))(vue@3.5.0(typescript@5.5.4)):
     dependencies:
       '@vueuse/core': 10.11.1(vue@3.5.0(typescript@5.5.4))
-      radix-vue: 1.9.3(vue@3.5.0(typescript@5.5.4))
+      radix-vue: 1.9.5(vue@3.5.0(typescript@5.5.4))
       vue: 3.5.0(typescript@5.5.4)
     transitivePeerDependencies:
       - '@vue/composition-api'

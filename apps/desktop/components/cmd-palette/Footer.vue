@@ -9,6 +9,7 @@ import { platform } from "@tauri-apps/plugin-os"
 import { initStores } from "~/lib/utils/stores"
 import { RefreshCcw } from "lucide-vue-next"
 import ActionPanel from "./ActionPanel.vue"
+import { toast } from "vue-sonner"
 
 const _platform = platform()
 const appUiStore = useAppUiStore()
@@ -16,7 +17,11 @@ const appConfig = useAppConfigStore()
 
 function onReload() {
 	appConfig.init()
-	initStores()
+	initStores().then(() => {
+		toast.success("Reloaded configurations and data")
+	}).catch((err) => {
+		toast.error("Failed to reload configurations and data")
+	})
 	// location.reload()
 }
 
