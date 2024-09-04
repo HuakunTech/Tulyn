@@ -6122,6 +6122,7 @@ dependencies = [
  "ico",
  "log",
  "mdns-sd",
+ "plist",
  "prost",
  "rust_search",
  "serde",

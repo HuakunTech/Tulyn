@@ -1002,6 +1002,20 @@
           ]
         },
         {
+          "description": "allow-plist-to-json -> Enables the plist_to_json command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "allow-plist-to-json"
+          ]
+        },
+        {
+          "description": "deny-plist-to-json -> Denies the plist_to_json command without any pre-configured scope.",
+          "type": "string",
+          "enum": [
+            "deny-plist-to-json"
+          ]
+        },
+        {
           "description": "allow-quit-all-apps -> Enables the quit_all_apps command without any pre-configured scope.",
           "type": "string",
           "enum": [

@@ -25,7 +25,7 @@ import {
 } from "tauri-api-adapter/client"
 import { constructEventAPI } from "../api/event"
 import { constructToastAPI } from "../api/toast"
-import type { IDb, IEvent, IFs, IOpen, ISystem, IToast, IUiWorker } from "../client"
+import type { IDb, IEvent, IFs, IOpen, ISystem, IToast, IUiWorker, IUtils } from "../client"
 
 export { expose, wrap } from "@huakunshen/comlink"
 export { WorkerExtension } from "./ext"
@@ -53,6 +53,7 @@ type API = {
 	sysInfo: Remote<ISystemInfo> // inherit from tauri-api-adapter
 	network: Remote<INetwork> // inherit from tauri-api-adapter
 	workerUi: Remote<IUiWorker> // for kunkun
+	utils: IUtils // for kunkun
 }
 
 const _api = wrap(globalThis as Endpoint) as unknown as API
@@ -77,6 +78,7 @@ export const {
 	network,
 	system,
 	open,
+	utils,
 	workerUi: ui
 } = _api
 
