@@ -98,7 +98,9 @@ jobs:
           pnpm build
       - name: Get App Version
         id: appversion
-        run: echo "version=$(node -p "require('./apps/desktop/package.json').version")" >> $GITHUB_OUTPUT
+        run: |
+          echo "version=$(node -p "require('./apps/desktop/package.json').version")" >> $GITHUB_OUTPUT
+          echo "version=$(node -p "require('./apps/desktop/package.json').version")"
       - uses: tauri-apps/tauri-action@v0
 
         env:
@@ -122,5 +124,5 @@ jobs:
           releaseBody: "See the assets to download this version and install."
           releaseDraft: true
           prerelease: false
-          args: ${{ matrix.settings.args }} ${{ contains(steps.appversion.outputs.version, 'beta') && matrix.settings.platform == 'windows-latest' || '' }}
+          args: ${{ matrix.settings.args }} ${{ contains(steps.appversion.outputs.version, 'beta') && matrix.settings.platform == 'windows-latest' && '-b nsis' || '' }}
           projectPath: "./apps/desktop"
