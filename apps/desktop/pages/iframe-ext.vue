@@ -126,7 +126,6 @@ onMounted(async () => {
 			return navigateTo(localePath("/"))
 		}
 	}
-	extUrl.value = parseUrl.output
 
 	const parseExtPath = v.safeParse(v.string(), route.query.extPath)
 	if (!parseExtPath.success) {
@@ -154,7 +153,7 @@ onMounted(async () => {
 		return
 	}
 	const identifier = loadedExt.value.kunkun.identifier
-	if (!identifier || !extUrl.value) {
+	if (!identifier || !parseUrl.output) {
 		return navigateTo(localePath("/"))
 	}
 	const extInfoInDB = await db.getExtensionByIdentifier(identifier)
@@ -166,6 +165,7 @@ onMounted(async () => {
 		return navigateTo(localePath("/"))
 	}
 	const dbAPI = new db.JarvisExtDB(extInfoInDB.extId)
+
 	// const extDBApi: IDbServer = constructJarvisExtDBToServerDbAPI(dbAPI) // TODO
 	const serverAPI = constructJarvisServerAPIWithPermissions(loadedExt.value.kunkun.permissions)
 	serverAPI.iframeUi = {
@@ -186,9 +186,12 @@ onMounted(async () => {
 	// 	...extDBApi
 	// }
 	exposeAPIsToIframe()
+	// load iframe after API exposed to window
+	extUrl.value = parseUrl.output
 	window.addEventListener("message", (event) => {
 		if (event.data.type === "RELEASE") {
 			console.count("comlink released")
+			console.error("comlink released")
 			warn(`comlink released in ${identifier}`)
 			// exposeAPIsToIframe() // TODO: This may cause memory leak
 		}
@@ -209,6 +212,8 @@ async function exposeAPIsToIframe() {
 	// console.log("iframeEle", iframeEle, iframeEle?.contentWindow)
 
 	if (iframeRef.value && iframeRef.value.contentWindow) {
+		console.log("expose	api to iframe", iframeRef.value.contentWindow, allExposedApis, Date.now())
+
 		exposeApiToWindow(iframeRef.value.contentWindow, allExposedApis)
 	} else if (iframeEle) {
 		exposeApiToWindow(iframeEle.contentWindow!, allExposedApis)
