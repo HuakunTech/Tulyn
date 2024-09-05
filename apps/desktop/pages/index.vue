@@ -8,7 +8,6 @@ import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { getCurrentWindow } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
 import { useListenToWindowBlur } from "~/composables/useEvents"
-import { initStores } from "~/lib/utils/stores"
 import { useAppConfigStore } from "~/stores/appConfig"
 import { useAppsLoaderStore } from "~/stores/appLoader"
 import { useAppStateStore } from "~/stores/appState"
@@ -17,6 +16,7 @@ import { useDevExtStore, useExtStore } from "~/stores/extensionLoader"
 import { useRemoteCmdStore } from "~/stores/remoteCmds"
 import { useSystemCmdsStore } from "~/stores/systemCmds"
 import { ComboboxInput } from "radix-vue"
+import { toast } from "vue-sonner"
 
 const builtinCmdStore = useBuiltInCmdStore()
 const appsStore = useAppsLoaderStore()
@@ -25,7 +25,6 @@ const appStateStore = useAppStateStore()
 const remoteCmdStore = useRemoteCmdStore()
 const devExtStore = useDevExtStore()
 const extStore = useExtStore()
-
 const searchTermSync = useStore($searchTermSync)
 const appConfig = useAppConfigStore()
 await appConfig.init()
@@ -83,6 +82,12 @@ $searchTermSync.subscribe((val, oldVal) => {
 })
 
 onMounted(async () => {
+	if (appWindow.label !== "main") {
+		setTimeout(() => {
+			toast.error("Non-main window should not open this page.")
+			appWindow.close()
+		}, 2_000)
+	}
 	if (platform() !== "macos") {
 		appWindow.setDecorations(false)
 	}
@@ -101,10 +106,10 @@ onKeyStroke("Escape", (e) => {
 		if ($searchTermSync.get() !== "") {
 			$searchTermSync.set("")
 		} else {
-			getCurrentWindow().close()
+			appWindow.close()
 		}
 	} else {
-		getCurrentWindow().close()
+		appWindow.close()
 	}
 })
 

@@ -100,7 +100,6 @@ function getNewExtWindow(windowLabel: string, url: string, cmd: CustomUiCmd | Te
 		visibleOnAllWorkspaces: cmd.window?.visibleOnAllWorkspaces ?? undefined,
 		url
 	})
-	console.log(window)
 
 	return window
 }
@@ -201,7 +200,6 @@ export function constructExtStore(options: { isDev: boolean }) {
 
 		function uninstallExt(identifier: string): Promise<ExtPackageJsonExtra> {
 			const found = manifests.value.find((m) => m.kunkun.identifier === identifier)
-			console.log(found)
 			if (found) {
 				return fs.remove(found.extPath, { recursive: true }).then(() => {
 					return found
@@ -213,13 +211,10 @@ export function constructExtStore(options: { isDev: boolean }) {
 		}
 
 		function onSelect(item: TListItem): Promise<void> {
-			console.log("on select", item)
-
 			const extStore = useExtDisplayStore()
 			const appConfig = useAppConfigStore()
 			manifests.value.forEach((manifest) => {
 				if (item.type == "UI Command") {
-					// console.log(manifest.kunkun.customUiCmds)
 					manifest.kunkun.customUiCmds.forEach(async (cmd) => {
 						if (item.value === generateItemValue(manifest, cmd, isDev)) {
 							let url = cmd.main
@@ -240,7 +235,6 @@ export function constructExtStore(options: { isDev: boolean }) {
 									)
 									// url decode url
 									url = decodeURIComponent(url)
-									console.log("ext url", url)
 								}
 							}
 							// try {
@@ -255,7 +249,6 @@ export function constructExtStore(options: { isDev: boolean }) {
 							// }
 							// extStore.setCurrentCustomUiExt({ url, cmd, manifest })
 							const url2 = `/iframe-ext?url=${encodeURIComponent(url)}&extPath=${encodeURIComponent(manifest.extPath)}`
-							console.log("URL: ", url2)
 							if (cmd.window) {
 								createNewExtWindowForUiCmd(manifest, cmd, url2)
 							} else {
@@ -264,8 +257,6 @@ export function constructExtStore(options: { isDev: boolean }) {
 						}
 					})
 				} else if (item.type === "Template Command") {
-					console.log("Launch Template Command")
-
 					manifest.kunkun.templateUiCmds.forEach(async (cmd) => {
 						const localePath = useLocalePath()
 						if (item.value === generateItemValue(manifest, cmd, isDev)) {
@@ -282,7 +273,6 @@ export function constructExtStore(options: { isDev: boolean }) {
 							// 	cmdName: cmd.name
 							// })
 							const url2 = `/worker-ext?extPath=${encodeURIComponent(manifest.extPath)}&cmdName=${encodeURIComponent(cmd.name)}`
-							console.log("URL: ", url2)
 
 							if (cmd.window) {
 								createNewExtWindowForTemplateCmd(manifest, cmd, url2)
