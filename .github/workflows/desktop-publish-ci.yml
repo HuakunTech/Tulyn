@@ -97,12 +97,11 @@ jobs:
           pnpm install # change this to npm or pnpm depending on which one you use.
           pnpm build
       - name: Get App Version
+        if: matrix.settings.platform == 'windows-latest'
         id: appversion
         run: |
-          echo "version=$(node -p "require('./apps/desktop/package.json').version")" >> $GITHUB_OUTPUT
-          echo "version=$(node -p "require('./apps/desktop/package.json').version")"
+          echo "version=$(node -p "require('./apps/desktop/package.json').version")" >> $env:GITHUB_OUTPUT
       - uses: tauri-apps/tauri-action@v0
-
         env:
           CI: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
