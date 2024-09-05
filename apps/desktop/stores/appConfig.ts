@@ -194,7 +194,7 @@ export const useAppConfigStore = defineStore("appConfig", {
 			this.$subscribe(async (mutation, state) => {
 				info("appConfig changed, saved to disk")
 				await this.save()
-				emitRefreshConfig()
+				// emitRefreshConfig()
 			})
 		}
 	}
