@@ -71,7 +71,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tauri-config
-          path: src-tauri/tauri.conf.json
+          path: apps/desktop/src-tauri/tauri.conf.json
           retention-days: 1
 
       - name: Get file name

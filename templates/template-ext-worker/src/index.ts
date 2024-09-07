@@ -106,7 +106,7 @@ class ExtensionTemplate extends WorkerExtension {
 		return Promise.resolve()
 	}
 
-	onItemSelected(value: string): Promise<void> {
+	onListItemSelected(value: string): Promise<void> {
 		console.log("Item selected:", value)
 		return Promise.resolve()
 	}

@@ -20,21 +20,6 @@ class ExtensionTemplate extends WorkerExtension {
 		console.log("Form submitted", value)
 	}
 	async load() {
-		return ui.render(
-			new Form.Form({
-				key: "form1",
-				fields: [
-					new Form.NumberField({
-						key: "age",
-						label: "Age",
-						placeholder: "Enter your age"
-					}),
-					new Form.InputField({
-						key: "name"
-					})
-				]
-			})
-		)
 		return ui.setSearchBarPlaceholder("Enter search term").then(() => {
 			return ui.render(
 				new List.List({
@@ -75,6 +60,7 @@ class ExtensionTemplate extends WorkerExtension {
 								items: [
 									new Action.Action({
 										title: "Open",
+										value: "open",
 										icon: new Icon({ type: IconEnum.Iconify, value: "ion:open-outline" })
 									})
 								]
@@ -90,7 +76,7 @@ class ExtensionTemplate extends WorkerExtension {
 		console.log("Search term changed to:", term)
 	}
 
-	async onItemSelected(value: string): Promise<void> {
+	async onListItemSelected(value: string): Promise<void> {
 		console.log("Item selected:", value)
 	}
 

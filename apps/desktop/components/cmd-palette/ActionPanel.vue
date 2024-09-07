@@ -59,7 +59,7 @@ function onActionSelected(val: string) {
 					<CommandItem
 						v-if="appUiStore.actionPanel"
 						v-for="action in appUiStore.actionPanel?.items"
-						:value="action.title"
+						:value="action.value"
 						class="gap-2"
 					>
 						<IconMultiplexer v-if="action.icon" :icon="action.icon" />
