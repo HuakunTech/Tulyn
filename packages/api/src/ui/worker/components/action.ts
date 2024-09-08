@@ -8,7 +8,7 @@ export class Action implements ActionSchema.Action, IComponent<ActionSchema.Acti
 	nodeName: NodeName = NodeNameEnum.Action
 	icon?: Icon
 	title: string
-	value?: string
+	value: string
 
 	constructor(model: IconConstructorPatch<ActionSchema.Action>) {
 		this.icon = model.icon
@@ -19,11 +19,13 @@ export class Action implements ActionSchema.Action, IComponent<ActionSchema.Acti
 	toModel(): {
 		nodeName: NodeNameEnum
 		title: string
+		value: string
 		icon?: Icon
 	} {
 		return {
 			nodeName: this.nodeName,
 			title: this.title,
+			value: this.value,
 			icon: this.icon
 		}
 	}

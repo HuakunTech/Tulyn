@@ -21,10 +21,15 @@ import type { LightMode, Position, Radius, ThemeColor } from "../models/styles"
 import { type IComponent } from "./worker/components/interfaces"
 import * as FormSchema from "./worker/schema/form"
 import * as ListSchema from "./worker/schema/list"
+import type { IPath as IPath1 } from "tauri-api-adapter"
 
 type PromiseWrap<T extends (...args: any[]) => any> = (
 	...args: Parameters<T>
 ) => Promise<ReturnType<T>>
+
+export type IPath = IPath1  & {
+	extensionDir: (name: string) => Promise<string>
+}
 
 export interface IPlist {
 	// build: PromiseWrap<typeof plist.build>

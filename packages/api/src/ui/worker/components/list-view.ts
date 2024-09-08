@@ -360,24 +360,28 @@ export class List implements ListSchema.List, IComponent<ListSchema.List> {
 	sections?: Section[]
 	items?: Item[]
 	detail?: ItemDetail
+	filter: "none" | "default"
 
 	constructor(
-		model: OmitNodeName<ListSchema.List> & {
+		model: Omit<OmitNodeName<ListSchema.List>, "filter"> & {
 			sections?: Section[]
 			items?: Item[]
 			detail?: ItemDetail
+			filter?: "none" | "default"
 		}
 	) {
 		this.sections = model.sections
 		this.items = model.items
 		this.detail = model.detail
+		this.filter = model.filter ?? "default"
 	}
 
 	toModel(): ListSchema.List {
 		return {
 			nodeName: this.nodeName,
 			sections: this.sections?.map((section) => section.toModel()),
-			items: this.items?.map((item) => item.toModel())
+			items: this.items?.map((item) => item.toModel()),
+			filter: this.filter
 		}
 	}
 }

@@ -167,6 +167,7 @@ export const List = object({
 	nodeName: NodeName,
 	sections: optional(array(Section)),
 	items: optional(array(Item)),
+	filter: union([literal("none"), literal("default")]),
 	detail: optional(ItemDetail)
 })
 // export type List = InferOutput<typeof List>
@@ -181,5 +182,6 @@ export type List = {
 	nodeName: NodeName
 	sections?: Section[]
 	items?: Item[]
+	filter: "none" | "default"
 	detail?: ItemDetail
 }

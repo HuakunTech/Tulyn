@@ -21,7 +21,7 @@ export const Action = object({
 	nodeName: NodeName,
 	icon: optional(Icon),
 	title: string(),
-	value: optional(string())
+	value: string()
 	//   shortcut: optional(string())
 })
 export type Action = InferOutput<typeof Action>

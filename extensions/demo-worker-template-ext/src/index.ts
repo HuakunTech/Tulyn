@@ -12,6 +12,16 @@ import {
 	WorkerExtension
 } from "@kksh/api/ui/worker"
 
+const nums = Array.from({ length: 20 }, (_, i) => i + 1)
+const categories = ["Suggestion", "Advice", "Idea"]
+const itemsTitle = nums.map((n) => categories.map((c) => `${c} ${n}`)).flat()
+const allItems: List.Item[] = itemsTitle.map(
+	(title) =>
+		new List.Item({
+			title,
+			value: title
+		})
+)
 class ExtensionTemplate extends WorkerExtension {
 	async onBeforeGoBack() {
 		console.log("onBeforeGoBack")
@@ -20,60 +30,17 @@ class ExtensionTemplate extends WorkerExtension {
 		console.log("Form submitted", value)
 	}
 	async load() {
-		return ui.setSearchBarPlaceholder("Enter search term").then(() => {
-			return ui.render(
-				new List.List({
-					sections: [
-						new List.Section({
-							title: "Section 1",
-							items: [
-								new List.Item({
-									title: "Hello, World!",
-									value: "Section 1 Hello, World!",
-									icon: new Icon({ type: IconEnum.Iconify, value: "gg:hello" })
-								}),
-								new List.Item({ title: "Hello, World 2!", value: "Section 1 Hello, World 2!" })
-							]
-						}),
-						new List.Section({
-							title: "Section 2",
-							items: [
-								new List.Item({
-									title: "Hello, World!",
-									value: "Section 2 Hello, World!",
-									icon: new Icon({ type: IconEnum.Iconify, value: "gg:hello" })
-								})
-							]
-						})
-					],
-					items: [
-						new List.Item({
-							title: "Hello, World!",
-							value: "Hello, World!",
-							icon: new Icon({ type: IconEnum.Iconify, value: "ri:star-s-fill" })
-						}),
-						new List.Item({
-							title: "Hello, World 2!",
-							value: "Hello, World 2!",
-							icon: new Icon({ type: IconEnum.Iconify, value: "gg:hello" }),
-							actions: new Action.ActionPanel({
-								items: [
-									new Action.Action({
-										title: "Open",
-										value: "open",
-										icon: new Icon({ type: IconEnum.Iconify, value: "ion:open-outline" })
-									})
-								]
-							})
-						})
-					]
-				})
-			)
-		})
+		return ui.render(new List.List({ items: allItems, filter: "none" }))
 	}
 
 	async onSearchTermChange(term: string): Promise<void> {
 		console.log("Search term changed to:", term)
+		return ui.render(
+			new List.List({
+				items: allItems.filter((item) => item.title.toLowerCase().includes(term.toLowerCase())),
+				filter: "none"
+			})
+		)
 	}
 
 	async onListItemSelected(value: string): Promise<void> {

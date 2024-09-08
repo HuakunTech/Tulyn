@@ -9,7 +9,13 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@kksh/vue/
 import { ArrowLeftIcon } from "@radix-icons/vue"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { debug } from "@tauri-apps/plugin-log"
-import { CommandEmpty, CommandGroup, CommandItem, CommandList } from "~/components/ui/command"
+import {
+	Command,
+	CommandEmpty,
+	CommandGroup,
+	CommandItem,
+	CommandList
+} from "~/components/ui/command"
 import type { ComboboxInput } from "radix-vue"
 import type { HTMLAttributes } from "vue"
 import ListDetail from "./ListDetail.vue"
@@ -84,6 +90,9 @@ function onSearchTermChange(searchTerm: string) {
 }
 
 function filterFunction(items: ListSchema.Item[], searchTerm: string) {
+	if (props.modelValue.filter === "none") {
+		return items
+	}
 	return items.filter((item) => {
 		if (item.title.toLowerCase().includes(searchTerm.toLowerCase())) {
 			return true
@@ -134,7 +143,6 @@ function goBack() {
 		@update:search-term="onSearchTermChange"
 		@update:model-value="(v) => props.workerAPI?.onListItemSelected((v as ListSchema.Item).value)"
 		v-model:selected-value="highlightedItemValue"
-		:identity-filter="false"
 		:filterFunction="(items, term) => filterFunction(items as ListSchema.Item[], term)"
 	>
 		<CmdInput
