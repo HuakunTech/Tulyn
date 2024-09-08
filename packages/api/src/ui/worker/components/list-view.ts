@@ -361,19 +361,28 @@ export class List implements ListSchema.List, IComponent<ListSchema.List> {
 	items?: Item[]
 	detail?: ItemDetail
 	filter: "none" | "default"
+	updateDetailOnly: boolean
 
+	/**
+	 * - `updateDetailOnly`: If true, the list view inherits previous list view items and only updates the detail view.
+	 * This is useful when you want to update the detail view without changing the list view items.
+	 * For example, when user goes over item by item, you can update the detail view without resending the items data. This could be more efficient when there are many items.
+	 * @param model
+	 */
 	constructor(
-		model: Omit<OmitNodeName<ListSchema.List>, "filter"> & {
+		model: Omit<OmitNodeName<ListSchema.List>, "filter" | "updateDetailOnly"> & {
 			sections?: Section[]
 			items?: Item[]
 			detail?: ItemDetail
 			filter?: "none" | "default"
+			updateDetailOnly?: boolean
 		}
 	) {
 		this.sections = model.sections
 		this.items = model.items
 		this.detail = model.detail
 		this.filter = model.filter ?? "default"
+		this.updateDetailOnly = model.updateDetailOnly ?? false
 	}
 
 	toModel(): ListSchema.List {
@@ -381,7 +390,9 @@ export class List implements ListSchema.List, IComponent<ListSchema.List> {
 			nodeName: this.nodeName,
 			sections: this.sections?.map((section) => section.toModel()),
 			items: this.items?.map((item) => item.toModel()),
-			filter: this.filter
+			filter: this.filter,
+			detail: this.detail?.toModel(),
+			updateDetailOnly: this.updateDetailOnly
 		}
 	}
 }

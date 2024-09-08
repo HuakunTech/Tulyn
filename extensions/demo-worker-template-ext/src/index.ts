@@ -34,7 +34,7 @@ class ExtensionTemplate extends WorkerExtension {
 		return ui.render(
 			new List.List({
 				items: allItems,
-				filter: "none",
+				filter: "default",
 				detail: new List.ItemDetail({
 					children: [
 						new Markdown(`
@@ -54,7 +54,9 @@ class ExtensionTemplate extends WorkerExtension {
 		return ui.render(
 			new List.List({
 				items: allItems.filter((item) => item.title.toLowerCase().includes(term.toLowerCase())),
-				filter: "none",
+				// filter: "none",
+				// inherit: true,
+				updateDetailOnly: true,
 				detail: new List.ItemDetail({
 					children: [
 						new Markdown(`

@@ -85,7 +85,16 @@ const extUiAPI: IUiWorker = {
 	async render(view: IComponent<ListSchema.List | FormSchema.Form>) {
 		if (view.nodeName === NodeNameEnum.List) {
 			clearViewContent("list")
-			listViewContent.value = parse(ListSchema.List, view)
+			const parsedListView = parse(ListSchema.List, view)
+			if (parsedListView.updateDetailOnly) {
+				if (listViewContent.value) {
+					listViewContent.value.detail = parsedListView.detail
+				} else {
+					listViewContent.value = parsedListView
+				}
+			} else {
+				listViewContent.value = parsedListView
+			}
 		} else if (view.nodeName === FormNodeNameEnum.Form) {
 			listViewContent.value = undefined
 			clearViewContent("form")

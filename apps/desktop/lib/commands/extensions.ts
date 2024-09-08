@@ -11,6 +11,7 @@ import { flatten, safeParse } from "valibot"
  * @returns
  */
 export function loadExtensionManifestFromDisk(manifestPath: string): Promise<ExtPackageJsonExtra> {
+	debug(`loadExtensionManifestFromDisk: ${manifestPath}`)
 	return readTextFile(manifestPath).then(async (content) => {
 		const parse = safeParse(ExtPackageJson, JSON.parse(content))
 		if (parse.issues) {
