@@ -59,7 +59,7 @@ export function cmdToItem(
 		description: cmd.description ?? "",
 		flags: { isDev, isRemovable: false },
 		type,
-		icon: manifest.kunkun.icon,
+		icon: cmd.icon ? cmd.icon : manifest.kunkun.icon,
 		keywords: cmd.cmds.map((c) => c.value), // TODO: handle regex as well
 		identityFilter: true
 	}

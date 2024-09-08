@@ -16,11 +16,14 @@
 
 ## Documentation: https://kunkun.sh/
 
+> [!CAUTION]
+> Kunkun is still in early development. As of v0.1.x the app is only tested on MacOS, extensions API are not stable and may not load correctly. Please report any issues you encounter.
+> In v0.2.x, the app will be more stable and tested on Linux and Windows. v0.2.0 is expected to be released in Oct 2024.
+
 ## Download
 
-Due to a redesign of the app, the download link is temporarily disabled.
-
-A new release will be available before September 2024.
+- https://kunkun.sh/download/ (Download links here support regions without access to GitHub)
+- https://github.com/kunkunsh/kunkun/releases
 
 ## Platforms
 
