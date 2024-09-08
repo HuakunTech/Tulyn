@@ -87,6 +87,7 @@ export const CustomUiCmd = object({
 	name: string("Name of the command"),
 	window: optional(nullable(WindowConfig)),
 	cmds: array(TriggerCmd, "Commands to trigger the UI"),
+	icon: optional(Icon),
 	platforms: optional(
 		nullable(
 			array(OSPlatform, "Platforms available on. Leave empty for all platforms."),
@@ -103,6 +104,7 @@ export const TemplateUiCmd = object({
 	description: optional(nullable(string("Description of the Command"), ""), ""),
 	window: optional(nullable(WindowConfig)),
 	cmds: array(TriggerCmd),
+	icon: optional(Icon),
 	platforms: optional(
 		nullable(
 			array(OSPlatform, "Platforms available on. Leave empty for all platforms."),

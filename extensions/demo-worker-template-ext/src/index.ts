@@ -6,6 +6,7 @@ import {
 	Icon,
 	IconEnum,
 	List,
+	Markdown,
 	path,
 	toast,
 	ui,
@@ -30,7 +31,22 @@ class ExtensionTemplate extends WorkerExtension {
 		console.log("Form submitted", value)
 	}
 	async load() {
-		return ui.render(new List.List({ items: allItems, filter: "none" }))
+		return ui.render(
+			new List.List({
+				items: allItems,
+				filter: "none",
+				detail: new List.ItemDetail({
+					children: [
+						new Markdown(`
+<img src="https://github.com/huakunshen.png" />
+<img src="https://github.com/huakunshen.png" />
+<img src="https://github.com/huakunshen.png" />
+				`)
+					],
+					width: 10
+				})
+			})
+		)
 	}
 
 	async onSearchTermChange(term: string): Promise<void> {
@@ -38,7 +54,18 @@ class ExtensionTemplate extends WorkerExtension {
 		return ui.render(
 			new List.List({
 				items: allItems.filter((item) => item.title.toLowerCase().includes(term.toLowerCase())),
-				filter: "none"
+				filter: "none",
+				detail: new List.ItemDetail({
+					children: [
+						new Markdown(`
+## Search results for "${term}"
+<img src="https://github.com/huakunshen.png" />
+<img src="https://github.com/huakunshen.png" />
+<img src="https://github.com/huakunshen.png" />
+						`)
+					],
+					width: term.length > 3 ? 70 : 30
+				})
 			})
 		)
 	}

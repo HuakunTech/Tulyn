@@ -21,6 +21,8 @@ import type { HTMLAttributes } from "vue"
 import ListDetail from "./ListDetail.vue"
 import ListItem from "./ListItem.vue"
 
+const panelRef1 = ref<InstanceType<typeof ResizablePanel>>()
+const panelRef2 = ref<InstanceType<typeof ResizablePanel>>()
 const localePath = useLocalePath()
 const appUiStore = useAppUiStore()
 const cmdInputRef = ref<InstanceType<typeof ComboboxInput> | null>(null)
@@ -39,8 +41,18 @@ const props = defineProps<{
 	class?: HTMLAttributes["class"]
 }>()
 
+watch(
+	() => props.modelValue.detail?.width,
+	(newVal) => {
+		if (newVal) {
+			console.log("newVal", newVal);
+			panelRef2.value?.resize(newVal)
+		}
+	}
+)
+
 let isScrolling = false
-let defaultDetailWidth = props.modelValue.detail ? (props.modelValue.detail?.width ?? 70) : 0
+const defaultDetailWidth = ref(props.modelValue.detail ? (props.modelValue.detail?.width ?? 70) : 0)
 
 function getWorkerExtInputEle(): HTMLInputElement | null {
 	return cmdInputRef.value?.$el.querySelector("input")
@@ -156,7 +168,7 @@ function goBack() {
 			</Button>
 		</CmdInput>
 		<ResizablePanelGroup direction="horizontal" :class="props.class">
-			<ResizablePanel :default-size="100 - defaultDetailWidth">
+			<ResizablePanel :default-size="100 - defaultDetailWidth" ref="panelRef1">
 				<CommandList class="h-full" @scroll="onScroll">
 					<CommandEmpty>No results found.</CommandEmpty>
 					<CommandGroup v-for="section in props.modelValue.sections" :heading="section.title">
@@ -167,7 +179,7 @@ function goBack() {
 				</CommandList>
 			</ResizablePanel>
 			<ResizableHandle with-handle />
-			<ResizablePanel :default-size="defaultDetailWidth">
+			<ResizablePanel :default-size="defaultDetailWidth" ref="panelRef2">
 				<ListDetail v-if="props.modelValue.detail" :detail="props.modelValue.detail" />
 			</ResizablePanel>
 		</ResizablePanelGroup>

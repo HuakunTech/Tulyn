@@ -14,7 +14,7 @@ const props = defineProps<{
 </script>
 
 <template>
-	<div v-for="child in detail.children">
+	<div v-for="child in detail.children" class="max-h-full overflow-y-auto">
 		<Markdown
 			v-if="child.nodeName === NodeNameEnum.Markdown"
 			:markdown="(child as MarkdownSchema).content"
