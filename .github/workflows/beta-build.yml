@@ -217,7 +217,7 @@ jobs:
         run: pnpm build
 
       - name: Get App Version
-        if: inputs.platform_windows == 'windows-latest'
+        if: inputs.platform_windows == 'true'
         id: appversion
         run: |
           echo "version=$(node -p "require('./apps/desktop/package.json').version")"
