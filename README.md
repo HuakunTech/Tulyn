@@ -38,4 +38,10 @@
 
 ![Alt](https://repobeats.axiom.co/api/embed/283a4ee3d0e8777cfadc89752189164a1f9670c9.svg "Repobeats analytics image")
 
-[![Star History Chart](https://api.star-history.com/svg?repos=kunkunsh/kunkun&type=Date)](https://star-history.com/#kunkunsh/kunkun&Date)
+<a href="https://star-history.com/#kunkunsh/kunkun&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=kunkunsh/kunkun&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=kunkunsh/kunkun&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=kunkunsh/kunkun&type=Date" />
+ </picture>
+</a>
