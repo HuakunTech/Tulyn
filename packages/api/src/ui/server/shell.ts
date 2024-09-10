@@ -71,10 +71,12 @@ async function verifyShellCmdPermission(
  * `tauri-api-adapter` provides shell API.
  * In kunkun I provide a more granular permission system and extra shell script execution APIs, so I rewrite the shell server API constructor
  * @param permissions
+ * @param extPath absolute path to the extension
  * @returns
  */
 export function constructShellApi(
-	permissions: (ShellPermissionScoped | ShellPermission)[]
+	permissions: (ShellPermissionScoped | ShellPermission)[],
+	extPath: string
 ): IShellServer {
 	const stringPermissiongs = permissions.filter((p) => typeof p === "string") as ShellPermission[]
 	const objectPermissions = permissions.filter(

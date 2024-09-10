@@ -14,21 +14,22 @@ import type {
 	writeFile,
 	writeTextFile
 } from "@tauri-apps/plugin-fs"
+import type { IPath as ITauriPath } from "tauri-api-adapter"
 import { type JarvisExtDB } from "../commands/db"
 import type { fileSearch } from "../commands/fileSearch"
 import { type AppInfo } from "../models/apps"
 import type { LightMode, Position, Radius, ThemeColor } from "../models/styles"
+import type { DenoSysOptions } from "../permissions/schema"
 import { type IComponent } from "./worker/components/interfaces"
 import * as FormSchema from "./worker/schema/form"
 import * as ListSchema from "./worker/schema/list"
-import type { IPath as IPath1 } from "tauri-api-adapter"
 
 type PromiseWrap<T extends (...args: any[]) => any> = (
 	...args: Parameters<T>
 ) => Promise<ReturnType<T>>
 
-export type IPath = IPath1  & {
-	extensionDir: (name: string) => Promise<string>
+export type IPath = ITauriPath & {
+	extensionDir: () => Promise<string>
 }
 
 export interface IPlist {
@@ -224,4 +225,35 @@ export interface IEvent {
 	 * Listen to window on focus event
 	 */
 	onWindowFocus: (callback: () => void) => void
+}
+
+export interface DenoRunConfig {
+	allowNet: string[]
+	allowAllNet: boolean
+	allowRead: string[]
+	allowAllRead: boolean
+	allowWrite: string[]
+	allowAllWrite: boolean
+	allowRun: string[]
+	allowAllRun: boolean
+	allowEnv: string[]
+	allowAllEnv: boolean
+	allowFfi: string[]
+	allowAllFfi: boolean
+	allowSys: DenoSysOptions[]
+	allowAllSys: boolean
+	denyNet: string[]
+	denyAllNet: boolean
+	denyRead: string[]
+	denyAllRead: boolean
+	denyWrite: string[]
+	denyAllWrite: boolean
+	denyRun: string[]
+	denyAllRun: boolean
+	denyEnv: string[]
+	denyAllEnv: boolean
+	denyFfi: string[]
+	denyAllFfi: boolean
+	denySys: DenoSysOptions[]
+	denyAllSys: boolean
 }

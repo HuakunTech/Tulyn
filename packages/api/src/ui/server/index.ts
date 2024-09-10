@@ -7,7 +7,7 @@ import {
 	constructNetworkApi,
 	constructNotificationApi,
 	constructOsApi,
-	constructPathApi,
+	// constructPathApi,
 	// constructShellApi, // a local custom constructShellApi is defined
 	constructSystemInfoApi,
 	constructUpdownloadApi,
@@ -39,6 +39,7 @@ import {
 } from "tauri-api-adapter/permissions"
 import {
 	AllKunkunPermission,
+	type DenoPermissionScoped,
 	type EventPermission,
 	type FsPermissionScoped,
 	type KunkunFsPermission,
@@ -66,6 +67,7 @@ import {
 	// type IUiWorkerServer
 } from "./ui"
 import { constructUtilsApi } from "./utils"
+import { constructPathApi } from "./path"
 
 // export type { IDbServer } from "./db"
 export { constructFsApi } from "./fs"
@@ -83,18 +85,17 @@ export {
 // export type IJarvisFullAPI =
 // 	// IFullAPI &
 // 	ISystemServer & IToastServer & IDbServer & IUiWorkerServer & IUiIframeServer & IFsServer // IFsServer will override some methods in IFullAPI, it's fine because it's a superset
-type AllPermissions =
-	| AllKunkunPermission
+type AllScopedPermissions =
 	| FsPermissionScoped
 	| OpenPermissionScoped
 	| ShellPermissionScoped
+	| DenoPermissionScoped
+type AllPermissions = AllKunkunPermission | AllScopedPermissions
 function getStringPermissions(permissions: AllPermissions[]): AllKunkunPermission[] {
 	return permissions.filter((p) => typeof p === "string") as AllKunkunPermission[]
 }
 
-function getObjectPermissions(
-	permissions: AllPermissions[]
-): (FsPermissionScoped | OpenPermissionScoped | ShellPermissionScoped)[] {
+function getObjectPermissions(permissions: AllPermissions[]): AllScopedPermissions[] {
 	return permissions.filter((p) => typeof p !== "string")
 }
 
@@ -119,8 +120,15 @@ export type IKunkunFullServerAPI = {
 	utils: IUtils
 }
 
+/**
+ * Construct Jarvis Server API with permissions constraints
+ * @param permissions all permissions user has
+ * @param extPath absolute path to the extension
+ * @returns
+ */
 export function constructJarvisServerAPIWithPermissions(
-	permissions: AllPermissions[]
+	permissions: AllPermissions[],
+	extPath: string
 ): IKunkunFullServerAPI {
 	return {
 		clipboard: constructClipboardApi(
@@ -143,7 +151,7 @@ export function constructJarvisServerAPIWithPermissions(
 			)
 		),
 		log: constructLoggerApi(),
-		path: constructPathApi(),
+		path: constructPathApi(extPath),
 		notification: constructNotificationApi(
 			getStringPermissions(permissions).filter((p) =>
 				p.startsWith("notification:")
@@ -176,14 +184,17 @@ export function constructJarvisServerAPIWithPermissions(
 			getStringPermissions(permissions).filter((p) => p.startsWith("system:")) as SystemPermission[]
 		),
 		toast: constructToastApi(),
-		shell: constructShellApi([
-			...(getStringPermissions(permissions).filter((p) =>
-				p.startsWith("shell:")
-			) as ShellPermission[]),
-			...(getObjectPermissions(permissions) as ShellPermissionScoped[]).filter((p) =>
-				p.permission.startsWith("shell:")
-			)
-		]),
+		shell: constructShellApi(
+			[
+				...(getStringPermissions(permissions).filter((p) =>
+					p.startsWith("shell:")
+				) as ShellPermission[]),
+				...(getObjectPermissions(permissions) as ShellPermissionScoped[]).filter((p) =>
+					p.permission.startsWith("shell:")
+				)
+			],
+			extPath
+		),
 		iframeUi: constructIframeUiApi(),
 		utils: constructUtilsApi()
 	}

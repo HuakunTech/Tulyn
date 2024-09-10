@@ -212,7 +212,8 @@ async function launchWorkerExt() {
 	const worker = new Worker(blobURL)
 	// Expose Jarvis APIs to worker with permissions constraints
 	const serverAPI: Record<string, any> = constructJarvisServerAPIWithPermissions(
-		loadedExt.value.kunkun.permissions
+		loadedExt.value.kunkun.permissions,
+		loadedExt.value.extPath
 	)
 	serverAPI.iframeUi = undefined
 	serverAPI.workerUi = extUiAPI

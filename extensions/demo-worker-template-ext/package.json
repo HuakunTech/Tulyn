@@ -1,5 +1,5 @@
 {
-	"$schema": "https://schema.kunkun.sh",
+	"$schema": "../../packages/schema/manifest-json-schema.json",
 	"name": "demo-template-extension",
 	"version": "0.0.3",
 	"type": "module",
@@ -9,7 +9,15 @@
 		"longDescription": "Demo Template Extension",
 		"identifier": "demo-worker-template-ext",
 		"permissions": [
-			"fetch:all"
+			"fetch:all",
+			{
+				"permission": "deno:read",
+				"allow": [
+					{
+						"run": ""
+					}
+				]
+			}
 		],
 		"demoImages": [],
 		"icon": {

@@ -4,8 +4,12 @@ import { refreshTemplateWorkerExtension } from "@kksh/api/dev"
 import { $ } from "bun"
 
 async function build() {
-	await $`bun build --minify --target=browser --outdir=./dist ./src/index.ts`
-	await refreshTemplateWorkerExtension()
+	try {
+		await $`bun build --minify --target=browser --outdir=./dist ./src/index.ts`
+		await refreshTemplateWorkerExtension()
+	} catch (error) {
+		console.error(error)
+	}
 }
 
 const srcDir = join(import.meta.dir, "src")
