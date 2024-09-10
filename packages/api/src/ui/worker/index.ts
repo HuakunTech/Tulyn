@@ -12,20 +12,21 @@ import type {
 	INetwork,
 	INotification,
 	IOs,
-	IPath,
+	// IPath,
 	IShellInternal,
 	ISystemInfo,
 	IUpdownload
 } from "tauri-api-adapter"
 import {
 	constructFetchAPI,
-	constructPathAPI,
+	// constructPathAPI,
 	constructShellAPI,
 	constructUpdownloadAPI
 } from "tauri-api-adapter/client"
 import { constructEventAPI } from "../api/event"
+import { constructPathAPI } from "../api/path"
 import { constructToastAPI } from "../api/toast"
-import type { IDb, IEvent, IFs, IOpen, ISystem, IToast, IUiWorker, IUtils } from "../client"
+import type { IDb, IEvent, IFs, IOpen, IPath, ISystem, IToast, IUiWorker, IUtils } from "../client"
 
 export { expose, wrap } from "@huakunshen/comlink"
 export { WorkerExtension } from "./ext"

@@ -9,20 +9,21 @@ import type {
 	INetwork,
 	INotification,
 	IOs,
-	IPath,
+	// IPath,
 	IShellInternal,
 	ISystemInfo,
 	IUpdownload
 } from "tauri-api-adapter"
 import {
 	constructFetchAPI,
-	constructPathAPI,
+	// constructPathAPI,
 	constructShellAPI,
 	constructUpdownloadAPI
 } from "tauri-api-adapter/client"
 import { constructEventAPI } from "../api/event"
 import { constructIframeUiAPI } from "../api/iframe-ui"
-import type { IDb, IEvent, IFs, IOpen, ISystem, IToast, IUiIframe, IUtils } from "../client"
+import { constructPathAPI } from "../api/path"
+import type { IDb, IEvent, IFs, IOpen, IPath, ISystem, IToast, IUiIframe, IUtils } from "../client"
 
 export { type IUiIframe } from "../client"
 export { expose, wrap } from "@huakunshen/comlink"

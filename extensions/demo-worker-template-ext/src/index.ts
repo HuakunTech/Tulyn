@@ -31,6 +31,8 @@ class ExtensionTemplate extends WorkerExtension {
 		console.log("Form submitted", value)
 	}
 	async load() {
+		const extPath = await path.extensionDir()
+		console.log("Extension path:", extPath)
 		return ui.render(
 			new List.List({
 				items: allItems,
