@@ -135,7 +135,6 @@ function onActionSelected(actionVal: string) {
 async function launchWorkerExt() {
 	// const currentWorkerExt = extStateStore.currentWorkerExt
 	const route = useRoute()
-	console.log(route.query)
 	// const parseUrl = v.safeParse(v.string(), route.query.url)
 
 	// if (!parseUrl.success) {

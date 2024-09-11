@@ -45,7 +45,6 @@ watch(
 	() => props.modelValue.detail?.width,
 	(newVal) => {
 		if (newVal) {
-			console.log("newVal", newVal);
 			panelRef2.value?.resize(newVal)
 		}
 	}

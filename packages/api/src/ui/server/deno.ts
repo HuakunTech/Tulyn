@@ -9,7 +9,12 @@ import {
 	type ShellPermission,
 	type ShellPermissionScoped
 } from "../../permissions/schema"
-import { AllPathAliases, matchPathAndScope, translateScopeToPath } from "../../utils/path"
+import {
+	AllPathAliases,
+	matchPathAndScope,
+	pathStartsWithAlias,
+	translateScopeToPath
+} from "../../utils/path"
 import { type DenoRunConfig } from "../client"
 
 /**
@@ -201,23 +206,23 @@ export async function verifyDenoCmdPermission(
 	/* ------------- Translate Paths for read and write Permissions ------------- */
 	allowRead = await Promise.all(
 		allowRead.map(async (p) =>
-			AllPathAliases.includes(p) ? await translateScopeToPath(p, extensionDir) : p
+			pathStartsWithAlias(p) ? await translateScopeToPath(p, extensionDir) : p
 		)
 	)
 
 	denyRead = await Promise.all(
 		denyRead.map(async (p) =>
-			AllPathAliases.includes(p) ? await translateScopeToPath(p, extensionDir) : p
+			pathStartsWithAlias(p) ? await translateScopeToPath(p, extensionDir) : p
 		)
 	)
 	allowWrite = await Promise.all(
 		allowWrite.map(async (p) =>
-			AllPathAliases.includes(p) ? await translateScopeToPath(p, extensionDir) : p
+			pathStartsWithAlias(p) ? await translateScopeToPath(p, extensionDir) : p
 		)
 	)
 	denyWrite = await Promise.all(
 		denyWrite.map(async (p) =>
-			AllPathAliases.includes(p) ? await translateScopeToPath(p, extensionDir) : p
+			pathStartsWithAlias(p) ? await translateScopeToPath(p, extensionDir) : p
 		)
 	)
 

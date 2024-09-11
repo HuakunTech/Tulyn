@@ -27,6 +27,8 @@ export const permissionDescriptions: PermissionDescriptions = {
 	"shell:all":
 		"Grant all shell related permissions. Path scope and args regex validation is still required.",
 	"shell:stdin-write": "Allows writing to a command created.",
+	"shell:deno:execute": "Allows executing deno script",
+	"shell:deno:spawn": "Allow spawning a new deno process and listen to the streaming of its output",
 	"fetch:all": "Allows making network requests",
 	"system-info:all": "Allows access to all system information",
 	"system-info:memory": "Allows access to system memory information",

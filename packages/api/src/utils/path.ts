@@ -35,6 +35,10 @@ export const mapDirAliasToDirFn: Record<string, () => Promise<string>> = {
 
 export const AllPathAliases = [...Object.keys(mapDirAliasToDirFn), "$EXTENSION"]
 
+export function pathStartsWithAlias(path: string) {
+	return AllPathAliases.some((alias) => path.startsWith(alias))
+}
+
 /**
  * @example
  * Translate $DESKTOP/* to /Users/username/Desktop/*

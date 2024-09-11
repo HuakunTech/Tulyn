@@ -3,12 +3,18 @@ import { minimatch } from "minimatch"
 import { open } from "tauri-plugin-shellx-api"
 import { flatten, parse, pipe, safeParse, string, url, type InferOutput } from "valibot"
 import type { OpenPermissionScoped } from "../../permissions"
-import { combinePathAndBaseDir, matchPathAndScope, verifyScopedPermission } from "../../utils/path"
+import {
+	combinePathAndBaseDir,
+	matchPathAndScope,
+	pathStartsWithAlias,
+	translateScopeToPath,
+	verifyScopedPermission
+} from "../../utils/path"
 import type { IOpen } from "../client"
 
 const UrlSchema = pipe(string("A URL must be string."), url("The URL is badly formatted."))
 
-export function constructOpenApi(permissions: OpenPermissionScoped[]): IOpen {
+export function constructOpenApi(permissions: OpenPermissionScoped[], extDir: string): IOpen {
 	return {
 		url: async (url: string) => {
 			const parseResult = safeParse(UrlSchema, url)
@@ -22,19 +28,24 @@ export function constructOpenApi(permissions: OpenPermissionScoped[]): IOpen {
 				await verifyScopedPermission(
 					permissions.filter((p) => p.permission === "open:url"),
 					parseResult.output,
-					"url"
+					"url",
+					extDir
 				)
 			) {
 				open(parseResult.output)
 			} else {
 				throw new Error(
-					`Permission denied to open URL: ${parseResult.output}, add permission rule to match URL pattern.`
+					`Permission denied to open URL: ${parseResult.output}, add "open:url" permission with scope rule to match URL pattern.`
 				)
 			}
 		},
 		file: async (path: string) => {
 			// check if path is a file and exists
-			const p = parse(string(), path)
+			let p = parse(string(), path)
+			if (pathStartsWithAlias(p)) {
+				p = await translateScopeToPath(p, extDir)
+			}
+			console.log("open file path", path)
 			if (!(await exists(p))) {
 				throw new Error(`File does not exist: ${path}`)
 			} else {
@@ -48,13 +59,14 @@ export function constructOpenApi(permissions: OpenPermissionScoped[]): IOpen {
 				await verifyScopedPermission(
 					permissions.filter((p) => p.permission === "open:file"),
 					p,
-					"path"
+					"path",
+					extDir
 				)
 			) {
 				open(p)
 			} else {
 				throw new Error(
-					`Permission denied to open file: ${path}, add permission to match path pattern.`
+					`Permission denied to open file: ${path}, add "open:file" permission with scope to match path pattern.`
 				)
 			}
 		},
@@ -73,13 +85,14 @@ export function constructOpenApi(permissions: OpenPermissionScoped[]): IOpen {
 				await verifyScopedPermission(
 					permissions.filter((p) => p.permission === "open:folder"),
 					p,
-					"path"
+					"path",
+					extDir
 				)
 			) {
 				open(p)
 			} else {
 				throw new Error(
-					`Permission denied to open foeld: ${path}, add permission to match path pattern.`
+					`Permission denied to open field: ${path}, add "open:folder" permission with scope to match path pattern.`
 				)
 			}
 		}
