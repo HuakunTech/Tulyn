@@ -167,7 +167,10 @@ onMounted(async () => {
 	const dbAPI = new db.JarvisExtDB(extInfoInDB.extId)
 
 	// const extDBApi: IDbServer = constructJarvisExtDBToServerDbAPI(dbAPI) // TODO
-	const serverAPI = constructJarvisServerAPIWithPermissions(loadedExt.value.kunkun.permissions)
+	const serverAPI = constructJarvisServerAPIWithPermissions(
+		loadedExt.value.kunkun.permissions,
+		loadedExt.value.extPath
+	)
 	serverAPI.iframeUi = {
 		...serverAPI.iframeUi,
 		...iframeUiAPI
@@ -213,7 +216,6 @@ async function exposeAPIsToIframe() {
 
 	if (iframeRef.value && iframeRef.value.contentWindow) {
 		console.log("expose	api to iframe", iframeRef.value.contentWindow, allExposedApis, Date.now())
-
 		exposeApiToWindow(iframeRef.value.contentWindow, allExposedApis)
 	} else if (iframeEle) {
 		exposeApiToWindow(iframeEle.contentWindow!, allExposedApis)
@@ -223,6 +225,7 @@ async function exposeAPIsToIframe() {
 }
 
 function onIframeLoad() {
+	iframeRef.value?.focus()
 	setTimeout(() => {
 		// avoid flickering, especially on slow connections and dark mode
 		ui.iframeLoaded = true

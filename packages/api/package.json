@@ -1,6 +1,6 @@
 {
 	"name": "@kksh/api",
-	"version": "0.0.12-beta.0",
+	"version": "0.0.12-beta.1",
 	"type": "module",
 	"exports": {
 		".": {

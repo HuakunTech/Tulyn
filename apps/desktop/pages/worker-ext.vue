@@ -15,6 +15,7 @@ import {
 	FormSchema,
 	ListSchema,
 	MarkdownSchema,
+	Markdown,
 	NodeNameEnum,
 	wrap,
 	type IComponent,
@@ -38,9 +39,9 @@ import { parse } from "valibot"
 import * as v from "valibot"
 import { toast } from "vue-sonner"
 
-definePageMeta({
-	layout: "ui-only"
-})
+// definePageMeta({
+// 	layout: "ui-only"
+// })
 const localePath = useLocalePath()
 const route = useRoute()
 const appWin = getCurrentWindow()
@@ -83,7 +84,7 @@ function goBack() {
 }
 
 const extUiAPI: IUiWorker = {
-	async render(view: IComponent<ListSchema.List | FormSchema.Form>) {
+	async render(view: IComponent<ListSchema.List | FormSchema.Form | Markdown>) {
 		if (view.nodeName === NodeNameEnum.List) {
 			clearViewContent("list")
 			const parsedListView = parse(ListSchema.List, view)

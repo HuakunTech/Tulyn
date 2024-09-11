@@ -17,7 +17,14 @@ function matchRegexArgs(args: string[], regexes: string[]): boolean {
 		return false
 	}
 	for (let i = 0; i < args.length; i++) {
-		if (!new RegExp(regexes[i]).test(args[i])) {
+		let regex = regexes[i]
+		if (!regex.startsWith("^")) {
+			regex = `^${regex}`
+		}
+		if (!regex.endsWith("$")) {
+			regex = `${regex}$`
+		}
+		if (!new RegExp(regex).test(args[i])) {
 			return false
 		}
 	}
@@ -29,12 +36,12 @@ async function verifyShellCmdPermission(
 	userPermissionScopes: ShellPermissionScoped[],
 	program: string,
 	args: string[]
-): Promise<boolean> {
+): Promise<void> {
 	for (const permission of userPermissionScopes) {
 		if (requiredPermissions.includes(permission.permission)) {
 			for (const deny of permission.deny || []) {
 				if (deny.cmd && deny.cmd.program === program && matchRegexArgs(args, deny.cmd.args || [])) {
-					return false
+					return Promise.reject("Shell Command Permission Denied by deny rule")
 				}
 			}
 			for (const allow of permission.allow || []) {
@@ -43,12 +50,12 @@ async function verifyShellCmdPermission(
 					allow.cmd.program === program &&
 					matchRegexArgs(args, allow.cmd.args || [])
 				) {
-					return true
+					return Promise.resolve()
 				}
 			}
 		}
 	}
-	return false
+	return Promise.reject("Shell Command Permission Denied, no allow rule found")
 }
 
 /**
@@ -72,16 +79,7 @@ export function constructShellApi(
 		args: string[],
 		options: InternalSpawnOptions
 	): Promise<ChildProcess<IOPayload>> {
-		if (
-			!(await verifyShellCmdPermission(
-				ShellPermissionMap.execute,
-				objectPermissions,
-				program,
-				args
-			))
-		) {
-			return Promise.reject(new Error("Shell Execute Permission denied"))
-		}
+		await verifyShellCmdPermission(ShellPermissionMap.execute, objectPermissions, program, args)
 		return invoke<ChildProcess<IOPayload>>("plugin:shellx|execute", {
 			program: program,
 			args: args,
@@ -133,16 +131,7 @@ export function constructShellApi(
 		options: InternalSpawnOptions,
 		cb: (evt: CommandEvent<O>) => void
 	) {
-		if (
-			!(await verifyShellCmdPermission(
-				ShellPermissionMap.rawSpawn,
-				objectPermissions,
-				program,
-				args
-			))
-		) {
-			return Promise.reject(new Error("Shell Spawn Permission denied"))
-		}
+		await verifyShellCmdPermission(ShellPermissionMap.rawSpawn, objectPermissions, program, args)
 		const onEvent = new Channel<CommandEvent<O>>()
 		onEvent.onmessage = cb
 		return invoke<number>("plugin:shellx|spawn", {
@@ -153,82 +142,53 @@ export function constructShellApi(
 		})
 	}
 	async function executeBashScript(script: string): Promise<ChildProcess<string>> {
-		if (
-			!(await verifyShellCmdPermission(ShellPermissionMap.execute, objectPermissions, "bash", [
-				"-c",
-				script
-			]))
-		) {
-			return Promise.reject(new Error("Shell Execute (Bash) Permission denied"))
-		}
+		await verifyShellCmdPermission(ShellPermissionMap.execute, objectPermissions, "bash", [
+			"-c",
+			script
+		])
 		return executeBashScript(script)
 	}
 	async function executePowershellScript(script: string): Promise<ChildProcess<string>> {
-		if (
-			!(await verifyShellCmdPermission(
-				ShellPermissionMap.executePowershellScript,
-				objectPermissions,
-				"powershell",
-				["-Command", script]
-			))
-		) {
-			return Promise.reject(new Error("Shell Execute (PowerShell) Permission denied"))
-		}
+		await verifyShellCmdPermission(
+			ShellPermissionMap.executePowershellScript,
+			objectPermissions,
+			"powershell",
+			["-Command", script]
+		)
 		return executePowershellScript(script)
 	}
 	async function executeAppleScript(script: string): Promise<ChildProcess<string>> {
-		console.log("shellExecuteAppleScript", script)
-		console.log("objectPermissions", objectPermissions)
-
-		if (
-			!(await verifyShellCmdPermission(
-				ShellPermissionMap.executeAppleScript,
-				objectPermissions,
-				"osascript",
-				["-e", script]
-			))
-		) {
-			return Promise.reject(new Error("Shell Execute (AppleScript) Permission denied"))
-		}
+		await verifyShellCmdPermission(
+			ShellPermissionMap.executeAppleScript,
+			objectPermissions,
+			"osascript",
+			["-e", script]
+		)
 		return executeAppleScript(script)
 	}
 	async function executePythonScript(script: string): Promise<ChildProcess<string>> {
-		if (
-			!(await verifyShellCmdPermission(
-				ShellPermissionMap.executePythonScript,
-				objectPermissions,
-				"python",
-				["-c", script]
-			))
-		) {
-			return Promise.reject(new Error("Shell Execute (Python) Permission denied"))
-		}
+		await verifyShellCmdPermission(
+			ShellPermissionMap.executePythonScript,
+			objectPermissions,
+			"python",
+			["-c", script]
+		)
 		return executePythonScript(script)
 	}
 	async function executeZshScript(script: string): Promise<ChildProcess<string>> {
-		if (
-			!(await verifyShellCmdPermission(
-				ShellPermissionMap.executeZshScript,
-				objectPermissions,
-				"zsh",
-				["-c", script]
-			))
-		) {
-			return Promise.reject(new Error("Shell Execute (ZSH) Permission denied"))
-		}
+		await verifyShellCmdPermission(ShellPermissionMap.executeZshScript, objectPermissions, "zsh", [
+			"-c",
+			script
+		])
 		return executeZshScript(script)
 	}
 	async function executeNodeScript(script: string): Promise<ChildProcess<string>> {
-		if (
-			!(await verifyShellCmdPermission(
-				ShellPermissionMap.executeNodeScript,
-				objectPermissions,
-				"node",
-				["-e", script]
-			))
-		) {
-			return Promise.reject(new Error("Shell Execute (Node) Permission denied"))
-		}
+		await verifyShellCmdPermission(
+			ShellPermissionMap.executeNodeScript,
+			objectPermissions,
+			"node",
+			["-e", script]
+		)
 		return executeNodeScript(script)
 	}
 	async function hasCommand(command: string): Promise<boolean> {
@@ -243,7 +203,11 @@ export function constructShellApi(
 	}
 
 	return {
-		async denoExecute(scriptPath: string, config: DenoRunConfig, args1: string[]): Promise<ChildProcess<IOPayload>> {
+		async denoExecute(
+			scriptPath: string,
+			config: DenoRunConfig,
+			args1: string[]
+		): Promise<ChildProcess<IOPayload>> {
 			await verifyDenoCmdPermission(
 				objectPermissions.filter((p) => p.permission.startsWith("shell:deno:")),
 				"deno",
@@ -251,7 +215,12 @@ export function constructShellApi(
 				config,
 				extPath
 			)
-			const { program, args, options } = await translateDenoCommand(scriptPath, config, args1, extPath)
+			const { program, args, options } = await translateDenoCommand(
+				scriptPath,
+				config,
+				args1,
+				extPath
+			)
 			console.log("denoExecute", program, args, options)
 			return invoke<ChildProcess<IOPayload>>("plugin:shellx|execute", {
 				program,
@@ -273,7 +242,12 @@ export function constructShellApi(
 				config,
 				extPath
 			)
-			const { program, args, options } = await translateDenoCommand(scriptPath, config, args1, extPath)
+			const { program, args, options } = await translateDenoCommand(
+				scriptPath,
+				config,
+				args1,
+				extPath
+			)
 			return rawSpawn(program, args, options, cb)
 		},
 		execute,

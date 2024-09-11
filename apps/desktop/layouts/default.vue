@@ -6,6 +6,7 @@ import { Toaster } from "@kksh/vue/sonner"
 import { Toaster as Toaster2 } from "@kksh/vue/toast"
 import { TooltipProvider } from "@kksh/vue/tooltip"
 import type { UnlistenFn } from "@tauri-apps/api/event"
+import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { attachConsole, debug, error, info, warn } from "@tauri-apps/plugin-log"
 import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"
 import { initStores } from "~/lib/utils/stores"
@@ -14,6 +15,8 @@ import { useAppConfigStore } from "~/stores/appConfig"
 import { fixPathEnv } from "tauri-plugin-shellx-api"
 
 const appConfig = useAppConfigStore()
+const appWindow = getCurrentWebviewWindow()
+const isMainWindow = appWindow.label === "main"
 let unlistenRefreshConfig: UnlistenFn
 let detach: UnlistenFn
 useGoToSettingShortcuts()
@@ -27,6 +30,9 @@ unlistenRefreshConfig = await listenToRefreshConfig(async () => {
 	// useRegisterAppShortcuts()
 })
 onMounted(async () => {
+	if (!isMainWindow) {
+		return
+	}
 	await appConfig.init()
 	appConfig.refreshWindowStyles()
 	useRegisterAppShortcuts()
