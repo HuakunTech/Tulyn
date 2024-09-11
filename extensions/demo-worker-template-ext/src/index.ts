@@ -6,6 +6,7 @@ import {
 	Icon,
 	IconEnum,
 	List,
+	open,
 	Markdown,
 	path,
 	shell,
@@ -40,26 +41,7 @@ class ExtensionTemplate extends WorkerExtension {
 		// const res = await cmd.execute()
 		// console.log(res.stdout)
 		console.log("echo $PWD", await shell.executeBashScript("echo $PWD"))
-
-		console.log(
-			// await shell.executeBashScript(
-			// 	"deno run -A /Users/hacker/Dev/projects/kunkun/kunkun/extensions/demo-worker-template-ext/src/deno-script.ts --name=huakun"
-			// )
-			await shell
-				.createCommand(
-					"deno",
-					[
-						"-A",
-						"/Users/hacker/Dev/projects/kunkun/kunkun/extensions/demo-worker-template-ext/src/deno-script.ts",
-						"--name=huakun"
-					],
-					{
-						cwd: "/Users/hacker/Desktop"
-					}
-				)
-				.execute()
-		)
-
+		// open.file("$EXTENSION/src/deno-script.ts")
 		const denoCmd = shell.createDenoCommand("$EXTENSION/src/deno-script.ts", ["--name=huakun"], {
 			allowAllWrite: true,
 			allowEnv: ["HOME", "CWD"],

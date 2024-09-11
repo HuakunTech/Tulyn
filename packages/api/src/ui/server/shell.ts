@@ -251,8 +251,6 @@ export function constructShellApi(
 				config,
 				extPath
 			)
-			console.log("after verify")
-
 			const { program, args, options } = await translateDenoCommand(scriptPath, config, args1, extPath)
 			console.log("denoExecute", program, args, options)
 			return invoke<ChildProcess<IOPayload>>("plugin:shellx|execute", {

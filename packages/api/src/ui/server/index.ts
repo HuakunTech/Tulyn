@@ -84,10 +84,7 @@ export {
 // export type IJarvisFullAPI =
 // 	// IFullAPI &
 // 	ISystemServer & IToastServer & IDbServer & IUiWorkerServer & IUiIframeServer & IFsServer // IFsServer will override some methods in IFullAPI, it's fine because it's a superset
-type AllScopedPermissions =
-	| FsPermissionScoped
-	| OpenPermissionScoped
-	| ShellPermissionScoped
+type AllScopedPermissions = FsPermissionScoped | OpenPermissionScoped | ShellPermissionScoped
 type AllPermissions = AllKunkunPermission | AllScopedPermissions
 function getStringPermissions(permissions: AllPermissions[]): AllKunkunPermission[] {
 	return permissions.filter((p) => typeof p === "string") as AllKunkunPermission[]
@@ -172,7 +169,8 @@ export function constructJarvisServerAPIWithPermissions(
 		open: constructOpenApi(
 			(getObjectPermissions(permissions) as OpenPermissionScoped[]).filter((p) =>
 				p.permission.startsWith("open:")
-			)
+			),
+			extPath
 		),
 		sysInfo: constructSystemInfoApi(
 			getStringPermissions(permissions).filter((p) =>

@@ -22,6 +22,14 @@
 				]
 			},
 			{
+				"permission": "open:file",
+				"allow": [
+					{
+						"path": "$EXTENSION/src/deno-script.ts"
+					}
+				]
+			},
+			{
 				"permission": "shell:execute",
 				"allow": [
 					{
