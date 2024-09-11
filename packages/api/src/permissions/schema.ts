@@ -37,16 +37,16 @@ export const EventPermissionSchema = union([
 	literal("event:window-focus")
 ])
 export type EventPermission = InferOutput<typeof EventPermissionSchema>
-export const DenoRuntimePermissionSchema = union([
-	literal("deno:net"),
-	literal("deno:env"),
-	literal("deno:read"),
-	literal("deno:write"),
-	literal("deno:run"),
-	literal("deno:ffi"),
-	literal("deno:sys")
-])
-export type DenoRuntimePermission = InferOutput<typeof DenoRuntimePermissionSchema>
+// export const DenoRuntimePermissionSchema = union([
+// 	literal("deno:net"),
+// 	literal("deno:env"),
+// 	literal("deno:read"),
+// 	literal("deno:write"),
+// 	literal("deno:run"),
+// 	literal("deno:ffi"),
+// 	literal("deno:sys")
+// ])
+// export type DenoRuntimePermission = InferOutput<typeof DenoRuntimePermissionSchema>
 export const DenoSysOptions = union([
 	literal("hostname"),
 	literal("osRelease"),
@@ -61,13 +61,20 @@ export const DenoSysOptions = union([
 export type DenoSysOptions = InferOutput<typeof DenoSysOptions>
 export const DenoPermissionScopeSchema = object({
 	/* ------------------------------ Deno Related ------------------------------ */
-	net: optional(string()),
-	env: optional(string()),
-	read: optional(string()),
-	write: optional(string()),
-	run: optional(string()),
-	ffi: optional(string()),
-	sys: optional(DenoSysOptions)
+	// net: optional(array(string())),
+	// env: optional(array(string())),
+	// read: optional(array(string())),
+	// write: optional(array(string())),
+	// run: optional(array(string())),
+	// ffi: optional(array(string())),
+	// sys: optional(array(DenoSysOptions)),
+	net: optional(union([literal("*"), array(string())])),
+	env: optional(union([literal("*"), array(string())])),
+	read: optional(union([literal("*"), array(string())])),
+	write: optional(union([literal("*"), array(string())])),
+	run: optional(union([literal("*"), array(string())])),
+	ffi: optional(union([literal("*"), array(string())])),
+	sys: optional(union([literal("*"), array(DenoSysOptions)]))
 })
 export const PermissionScopeSchema = object({
 	path: optional(string()),
@@ -81,12 +88,12 @@ export const PermissionScopeSchema = object({
 	...DenoPermissionScopeSchema.entries
 })
 
-export const DenoPermissionScopedSchema = object({
-	permission: DenoRuntimePermissionSchema,
-	allow: optional(array(PermissionScopeSchema)),
-	deny: optional(array(PermissionScopeSchema))
-})
-export type DenoPermissionScoped = InferOutput<typeof DenoPermissionScopedSchema>
+// export const DenoPermissionScopedSchema = object({
+// 	permission: DenoRuntimePermissionSchema,
+// 	allow: optional(array(PermissionScopeSchema)),
+// 	deny: optional(array(PermissionScopeSchema))
+// })
+// export type DenoPermissionScoped = InferOutput<typeof DenoPermissionScopedSchema>
 export type KunkunFsPermission = InferOutput<typeof KunkunFsPermissionSchema>
 export const FsPermissionScopedSchema = object({
 	permission: KunkunFsPermissionSchema,
@@ -109,7 +116,9 @@ export type OpenPermissionScoped = InferOutput<typeof OpenPermissionScopedSchema
 
 export const ShellPermissionSchema = union([
 	literal("shell:execute"),
+	literal("shell:deno:execute"),
 	literal("shell:spawn"),
+	literal("shell:deno:spawn"),
 	literal("shell:open"),
 	literal("shell:kill"),
 	literal("shell:all"),

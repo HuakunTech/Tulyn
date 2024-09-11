@@ -47,7 +47,7 @@ import type { IFs } from "../client"
  * @param permissions
  * @returns
  */
-export function constructFsApi(permissions: FsPermissionScoped[]): IFs {
+export function constructFsApi(permissions: FsPermissionScoped[], extensionDir: string): IFs {
 	/**
 	 * This is a helper function to simplify the creation of methods that takes one path and one options object
 	 * @param requiredPermissions
@@ -59,9 +59,13 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFs {
 		fn: T
 	) => {
 		return (path: string | URL, options?: { baseDir?: BaseDirectory }): ReturnType<T> =>
-			verifyGeneralPathScopedPermission(requiredPermissions, permissions, path, options).then(
-				(result) => fn(path, options)
-			) as ReturnType<T>
+			verifyGeneralPathScopedPermission(
+				requiredPermissions,
+				permissions,
+				path,
+				extensionDir,
+				options
+			).then((result) => fn(path, options)) as ReturnType<T>
 	}
 	return {
 		readDir: createMethod(FsPermissionMap.readDir, fsReadDir),
@@ -80,10 +84,16 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFs {
 						oldPathPermissions.push("fs:read-dir")
 					}
 					return Promise.all([
-						verifyGeneralPathScopedPermission(oldPathPermissions, permissions, fromPath, {
-							baseDir: options?.fromPathBaseDir
-						}),
-						verifyGeneralPathScopedPermission(["fs:write"], permissions, toPath, {
+						verifyGeneralPathScopedPermission(
+							oldPathPermissions,
+							permissions,
+							fromPath,
+							extensionDir,
+							{
+								baseDir: options?.fromPathBaseDir
+							}
+						),
+						verifyGeneralPathScopedPermission(["fs:write"], permissions, toPath, extensionDir, {
 							baseDir: options?.toPathBaseDir
 						})
 					])
@@ -99,10 +109,16 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFs {
 						oldPathPermissions.push("fs:read-dir")
 					}
 					return Promise.all([
-						verifyGeneralPathScopedPermission(oldPathPermissions, permissions, oldPath, {
-							baseDir: options?.oldPathBaseDir
-						}),
-						verifyGeneralPathScopedPermission(["fs:write"], permissions, newPath, {
+						verifyGeneralPathScopedPermission(
+							oldPathPermissions,
+							permissions,
+							oldPath,
+							extensionDir,
+							{
+								baseDir: options?.oldPathBaseDir
+							}
+						),
+						verifyGeneralPathScopedPermission(["fs:write"], permissions, newPath, extensionDir, {
 							baseDir: options?.oldPathBaseDir
 						})
 					])
@@ -110,17 +126,29 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFs {
 				.then(() => fsRename(oldPath, newPath, options))
 		},
 		truncate: (path: string | URL, len?: number, options?: TruncateOptions) =>
-			verifyGeneralPathScopedPermission(FsPermissionMap.truncate, permissions, path, options).then(
-				() => fsTruncate(path, len, options)
-			),
+			verifyGeneralPathScopedPermission(
+				FsPermissionMap.truncate,
+				permissions,
+				path,
+				extensionDir,
+				options
+			).then(() => fsTruncate(path, len, options)),
 		writeFile: (path: string | URL, data: Uint8Array, options?: WriteFileOptions) =>
-			verifyGeneralPathScopedPermission(FsPermissionMap.truncate, permissions, path, options).then(
-				() => fsWriteFile(path, data, options)
-			),
+			verifyGeneralPathScopedPermission(
+				FsPermissionMap.truncate,
+				permissions,
+				path,
+				extensionDir,
+				options
+			).then(() => fsWriteFile(path, data, options)),
 		writeTextFile: (path: string | URL, data: string, options?: WriteFileOptions) =>
-			verifyGeneralPathScopedPermission(FsPermissionMap.truncate, permissions, path, options).then(
-				() => fsWriteTextFile(path, data, options)
-			),
+			verifyGeneralPathScopedPermission(
+				FsPermissionMap.truncate,
+				permissions,
+				path,
+				extensionDir,
+				options
+			).then(() => fsWriteTextFile(path, data, options)),
 		fileSearch: (
 			searchParams: Omit<FileSearchParams, "hidden" | "ignore_case"> & {
 				hidden?: boolean
@@ -130,7 +158,12 @@ export function constructFsApi(permissions: FsPermissionScoped[]): IFs {
 			return Promise.all(
 				// TODO: first verify all search locations are allowed, for now, recursive search is allowed even if scope allows one level only
 				searchParams.locations.map((loc) =>
-					verifyGeneralPathScopedPermission(FsPermissionMap.fileSearch, permissions, loc)
+					verifyGeneralPathScopedPermission(
+						FsPermissionMap.fileSearch,
+						permissions,
+						loc,
+						extensionDir
+					)
 				)
 			).then(() => fileSearch(searchParams))
 		}

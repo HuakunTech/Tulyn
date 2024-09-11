@@ -11,10 +11,36 @@
 		"permissions": [
 			"fetch:all",
 			{
-				"permission": "deno:read",
+				"permission": "shell:deno:execute",
 				"allow": [
 					{
-						"run": ""
+						"path": "$EXTENSION/src/deno-script.ts",
+						"env": ["HOME", "CWD"],
+						"read": "*",
+						"write": "*"
+					}
+				]
+			},
+			{
+				"permission": "shell:execute",
+				"allow": [
+					{
+						"cmd": {
+							"program": "ls",
+							"args": ["-l"]
+						}
+					},
+					{
+						"cmd": {
+							"program": "bash",
+							"args": ["-c", ".+"]
+						}
+					},
+					{
+						"cmd": {
+							"program": "deno",
+							"args": ["-A", ".+", ".+"]
+						}
 					}
 				]
 			}

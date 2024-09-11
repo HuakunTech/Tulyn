@@ -14,7 +14,6 @@ import {
 } from "valibot"
 import {
 	AllKunkunPermission,
-	DenoPermissionScopedSchema,
 	FsPermissionScopedSchema,
 	KunkunFsPermissionSchema,
 	KunkunManifestPermission,
@@ -129,8 +128,7 @@ export const KunkunExtManifest = object({
 			KunkunManifestPermission,
 			FsPermissionScopedSchema,
 			OpenPermissionScopedSchema,
-			ShellPermissionScopedSchema,
-			DenoPermissionScopedSchema
+			ShellPermissionScopedSchema
 		]),
 		"Permissions Declared by the extension. e.g. clipboard-all. Not declared APIs will be blocked."
 	),

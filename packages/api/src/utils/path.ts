@@ -33,13 +33,18 @@ export const mapDirAliasToDirFn: Record<string, () => Promise<string>> = {
 	$APPDATA: pathAPI.appDataDir
 }
 
+export const AllPathAliases = [...Object.keys(mapDirAliasToDirFn), "$EXTENSION"]
+
 /**
  * @example
  * Translate $DESKTOP/* to /Users/username/Desktop/*
  * Translate $DOWNLOAD/** to /Users/username/Downloads/**
  * @param scope expected to be like $DESKTOP/*, $DOWNLOAD/**, $DOCUMENT/abc/*.txt
  */
-export async function translateScopeToPath(scope: string): Promise<string> {
+export async function translateScopeToPath(scope: string, extensionDir: string): Promise<string> {
+	if (scope.startsWith("$EXTENSION")) {
+		return pathAPI.join(extensionDir, scope.slice("$EXTENSION".length))
+	}
 	for (const key of Object.keys(mapDirAliasToDirFn)) {
 		if (scope.startsWith(key)) {
 			const alias = key
@@ -52,18 +57,23 @@ export async function translateScopeToPath(scope: string): Promise<string> {
 			return pathAPI.join(fullDir, pattern)
 		}
 	}
+	return scope
 	throw new Error(`Invalid scope: ${scope}`)
 }
 
 /**
- * Target should be full path
  * TODO: but this function also does security check to prevent parent directory traversal
  * @param target full path to file
  * @param scope expected to be like $DESKTOP/*, $DOWNLOAD/**
  */
-export async function matchPathAndScope(target: string, scope: string): Promise<boolean> {
-	const translatedScope = await translateScopeToPath(scope)
-	return minimatch(target, translatedScope)
+export async function matchPathAndScope(
+	target: string,
+	scope: string,
+	extensionDir: string
+): Promise<boolean> {
+	const translatedTarget = await translateScopeToPath(target, extensionDir)
+	const translatedScope = await translateScopeToPath(scope, extensionDir)
+	return minimatch(translatedTarget, translatedScope)
 }
 
 /**
@@ -79,6 +89,7 @@ export async function verifyGeneralPathScopedPermission<T extends string[]>(
 	requiredPermissions: T,
 	userPermissionScopes: (FsPermissionScoped | OpenPermissionScoped | ShellPermissionScoped)[],
 	path: string | URL,
+	extensionDir: string,
 	options?: { baseDir?: BaseDirectory }
 ) {
 	path = path.toString()
@@ -99,13 +110,13 @@ export async function verifyGeneralPathScopedPermission<T extends string[]>(
 		// deny has priority, if deny rule is matched, we ignore allow rule
 		for (const deny of permission.deny || []) {
 			if (!deny.path) continue
-			if (await matchPathAndScope(fullPath, deny.path)) {
+			if (await matchPathAndScope(fullPath, deny.path, extensionDir)) {
 				throw new Error(`Permission denied for path: ${fullPath} by rule ${deny.path}`)
 			}
 		}
 		for (const allow of permission.allow || []) {
 			if (!allow.path) continue
-			if (await matchPathAndScope(fullPath, allow.path)) {
+			if (await matchPathAndScope(fullPath, allow.path, extensionDir)) {
 				return
 			}
 		}
@@ -125,13 +136,14 @@ export async function verifyGeneralPathScopedPermission<T extends string[]>(
 export async function verifyScopedPermission(
 	userPermissionScopes: (FsPermissionScoped | OpenPermissionScoped | ShellPermissionScoped)[],
 	value: string,
-	key: "url" | "path"
+	key: "url" | "path",
+	extensionDir: string
 ): Promise<boolean> {
 	async function match(value: string, scope: string): Promise<boolean> {
 		if (key === "url") {
 			return minimatch(value, scope)
 		} else if (key === "path") {
-			return matchPathAndScope(value, scope)
+			return matchPathAndScope(value, scope, extensionDir)
 		} else {
 			throw new Error(`Invalid key: ${key}`)
 		}

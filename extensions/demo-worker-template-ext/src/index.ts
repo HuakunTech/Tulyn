@@ -8,6 +8,7 @@ import {
 	List,
 	Markdown,
 	path,
+	shell,
 	toast,
 	ui,
 	WorkerExtension
@@ -31,6 +32,44 @@ class ExtensionTemplate extends WorkerExtension {
 		console.log("Form submitted", value)
 	}
 	async load() {
+		// const cmd = shell.createCommand("ls", ["-l"])
+		// cmd.stdout.on("data", (data) => {
+		// 	console.log(data)
+		// })
+		// cmd.spawn()
+		// const res = await cmd.execute()
+		// console.log(res.stdout)
+		console.log("echo $PWD", await shell.executeBashScript("echo $PWD"))
+
+		console.log(
+			// await shell.executeBashScript(
+			// 	"deno run -A /Users/hacker/Dev/projects/kunkun/kunkun/extensions/demo-worker-template-ext/src/deno-script.ts --name=huakun"
+			// )
+			await shell
+				.createCommand(
+					"deno",
+					[
+						"-A",
+						"/Users/hacker/Dev/projects/kunkun/kunkun/extensions/demo-worker-template-ext/src/deno-script.ts",
+						"--name=huakun"
+					],
+					{
+						cwd: "/Users/hacker/Desktop"
+					}
+				)
+				.execute()
+		)
+
+		const denoCmd = shell.createDenoCommand("$EXTENSION/src/deno-script.ts", ["--name=huakun"], {
+			allowAllWrite: true,
+			allowEnv: ["HOME", "CWD"],
+			allowAllRead: true,
+			cwd: "/Users/hacker/Desktop"
+		})
+		const denoRes = await denoCmd.execute()
+		console.log("denoRes.stdout", denoRes.stdout)
+		console.log(denoRes)
+
 		const extPath = await path.extensionDir()
 		console.log("Extension path:", extPath)
 		return ui.render(

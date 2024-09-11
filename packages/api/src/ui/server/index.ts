@@ -39,7 +39,6 @@ import {
 } from "tauri-api-adapter/permissions"
 import {
 	AllKunkunPermission,
-	type DenoPermissionScoped,
 	type EventPermission,
 	type FsPermissionScoped,
 	type KunkunFsPermission,
@@ -53,6 +52,7 @@ import type { IEvent, IFs, IOpen, ISystem, IToast, IUtils } from "../client"
 import { constructEventApi } from "./event"
 import { constructFsApi } from "./fs"
 import { constructOpenApi } from "./open"
+import { constructPathApi } from "./path"
 import type { IUiIframeServer1 } from "./server-types"
 // import type { IFsServer, ISystemServer } from "./server-types"
 import { constructShellApi } from "./shell"
@@ -67,7 +67,6 @@ import {
 	// type IUiWorkerServer
 } from "./ui"
 import { constructUtilsApi } from "./utils"
-import { constructPathApi } from "./path"
 
 // export type { IDbServer } from "./db"
 export { constructFsApi } from "./fs"
@@ -89,7 +88,6 @@ type AllScopedPermissions =
 	| FsPermissionScoped
 	| OpenPermissionScoped
 	| ShellPermissionScoped
-	| DenoPermissionScoped
 type AllPermissions = AllKunkunPermission | AllScopedPermissions
 function getStringPermissions(permissions: AllPermissions[]): AllKunkunPermission[] {
 	return permissions.filter((p) => typeof p === "string") as AllKunkunPermission[]
@@ -148,7 +146,8 @@ export function constructJarvisServerAPIWithPermissions(
 		fs: constructFsApi(
 			(getObjectPermissions(permissions) as FsPermissionScoped[]).filter((p) =>
 				p.permission.startsWith("fs:")
-			)
+			),
+			extPath
 		),
 		log: constructLoggerApi(),
 		path: constructPathApi(extPath),
