@@ -14,22 +14,6 @@ import { type DenoRunConfig } from "../client"
 
 /**
  *
- * @param path absolute path or path starts with $EXTENSION
- * @param pattern
- * @returns
- */
-// async function match(scriptPath: string, scope: string, extensionDir: string) {
-// 	if (scriptPath.startsWith("$EXTENSION")) {
-// 		scriptPath = await join(extensionDir, scriptPath.slice("$EXTENSION".length))
-// 	}
-// 	if (scope.startsWith("$EXTENSION")) {
-// 		scope = await join(extensionDir, scope.slice("$EXTENSION".length))
-// 	}
-// 	return minimatch(scriptPath, scope)
-// }
-
-/**
- *
  * @param userPermissionScopes
  * @param program should be deno for now, may be I will support custom deno path in the future
  * @param scriptPath absolute path to deno script
@@ -404,7 +388,7 @@ export async function translateDenoCommand(
 	if (args) {
 		shellArgs.push(...args)
 	}
-	
+
 	return {
 		program,
 		args: shellArgs,
