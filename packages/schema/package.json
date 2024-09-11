@@ -23,8 +23,9 @@
 	},
 	"dependencies": {
 		"@aws-sdk/client-s3": "^3.583.0",
-		"@gcornut/valibot-json-schema": "^0.36.0",
+		"@gcornut/valibot-json-schema": "^0.41.1",
+		"@kksh/api": "workspace:*",
 		"@supabase/supabase-js": "^2.43.4",
-		"@kksh/api": "workspace:*"
+		"valibot": "^0.40.0"
 	}
 }

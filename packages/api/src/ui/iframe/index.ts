@@ -17,13 +17,14 @@ import type {
 import {
 	constructFetchAPI,
 	// constructPathAPI,
-	constructShellAPI,
 	constructUpdownloadAPI
 } from "tauri-api-adapter/client"
 import { constructEventAPI } from "../api/event"
 import { constructIframeUiAPI } from "../api/iframe-ui"
 import { constructPathAPI } from "../api/path"
 import type { IDb, IEvent, IFs, IOpen, IPath, ISystem, IToast, IUiIframe, IUtils } from "../client"
+import type { IShellServer } from "../server/server-types"
+import { constructShellAPI } from "../api/shell"
 
 export { type IUiIframe } from "../client"
 export { expose, wrap } from "@huakunshen/comlink"
@@ -48,7 +49,7 @@ type API = {
 	toast: Remote<IToast> // for kunkun
 	os: Remote<IOs> // inherit from tauri-api-adapter
 	path: Remote<IPath> // inherit from tauri-api-adapter
-	shell: IShellInternal // inherit from tauri-api-adapter
+	shell: Remote<IShellServer> // inherit from tauri-api-adapter
 	updownload: IUpdownload // inherit from tauri-api-adapter
 	sysInfo: Remote<ISystemInfo> // inherit from tauri-api-adapter
 	network: Remote<INetwork> // inherit from tauri-api-adapter

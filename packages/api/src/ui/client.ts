@@ -14,7 +14,19 @@ import type {
 	writeFile,
 	writeTextFile
 } from "@tauri-apps/plugin-fs"
-import type { IPath as ITauriPath } from "tauri-api-adapter"
+import type { IShell as IShell1, IPath as ITauriPath } from "tauri-api-adapter"
+import type {
+	Child,
+	ChildProcess,
+	CommandEvents,
+	hasCommand,
+	InternalSpawnOptions,
+	IOPayload,
+	likelyOnWindows,
+	OutputEvents,
+	SpawnOptions
+} from "tauri-plugin-shellx-api"
+import { EventEmitter, open as shellxOpen } from "tauri-plugin-shellx-api"
 import { type JarvisExtDB } from "../commands/db"
 import type { fileSearch } from "../commands/fileSearch"
 import { type AppInfo } from "../models/apps"
@@ -228,32 +240,32 @@ export interface IEvent {
 }
 
 export interface DenoRunConfig {
-	allowNet: string[]
-	allowAllNet: boolean
-	allowRead: string[]
-	allowAllRead: boolean
-	allowWrite: string[]
-	allowAllWrite: boolean
-	allowRun: string[]
-	allowAllRun: boolean
-	allowEnv: string[]
-	allowAllEnv: boolean
-	allowFfi: string[]
-	allowAllFfi: boolean
-	allowSys: DenoSysOptions[]
-	allowAllSys: boolean
-	denyNet: string[]
-	denyAllNet: boolean
-	denyRead: string[]
-	denyAllRead: boolean
-	denyWrite: string[]
-	denyAllWrite: boolean
-	denyRun: string[]
-	denyAllRun: boolean
-	denyEnv: string[]
-	denyAllEnv: boolean
-	denyFfi: string[]
-	denyAllFfi: boolean
-	denySys: DenoSysOptions[]
-	denyAllSys: boolean
+	allowNet?: string[]
+	allowAllNet?: boolean
+	allowRead?: string[]
+	allowAllRead?: boolean
+	allowWrite?: string[]
+	allowAllWrite?: boolean
+	allowRun?: string[]
+	allowAllRun?: boolean
+	allowEnv?: string[]
+	allowAllEnv?: boolean
+	allowFfi?: string[]
+	allowAllFfi?: boolean
+	allowSys?: DenoSysOptions[]
+	allowAllSys?: boolean
+	denyNet?: string[]
+	denyAllNet?: boolean
+	denyRead?: string[]
+	denyAllRead?: boolean
+	denyWrite?: string[]
+	denyAllWrite?: boolean
+	denyRun?: string[]
+	denyAllRun?: boolean
+	denyEnv?: string[]
+	denyAllEnv?: boolean
+	denyFfi?: string[]
+	denyAllFfi?: boolean
+	denySys?: DenoSysOptions[]
+	denyAllSys?: boolean
 }

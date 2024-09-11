@@ -1,42 +1,57 @@
-import type { InternalSpawnOptions } from "tauri-plugin-shellx-api"
+import { join } from "@tauri-apps/api/path"
+import { exists } from "@tauri-apps/plugin-fs"
+import { difference } from "lodash"
+import type { InternalSpawnOptions, SpawnOptions } from "tauri-plugin-shellx-api"
 import { safeParse } from "valibot"
 import {
-	DenoPermissionScopedSchema,
-	DenoPermissionScopeSchema,
-	DenoRuntimePermissionSchema,
 	PermissionScopeSchema,
-	type DenoPermissionScoped,
-	type DenoRuntimePermission,
+	ShellPermissionScopedSchema,
 	type ShellPermission,
 	type ShellPermissionScoped
 } from "../../permissions/schema"
+import { AllPathAliases, matchPathAndScope, translateScopeToPath } from "../../utils/path"
 import { type DenoRunConfig } from "../client"
 
-function match(path: string, pattern: string) {
-	return false // TODO
-}
+/**
+ *
+ * @param path absolute path or path starts with $EXTENSION
+ * @param pattern
+ * @returns
+ */
+// async function match(scriptPath: string, scope: string, extensionDir: string) {
+// 	if (scriptPath.startsWith("$EXTENSION")) {
+// 		scriptPath = await join(extensionDir, scriptPath.slice("$EXTENSION".length))
+// 	}
+// 	if (scope.startsWith("$EXTENSION")) {
+// 		scope = await join(extensionDir, scope.slice("$EXTENSION".length))
+// 	}
+// 	return minimatch(scriptPath, scope)
+// }
 
 /**
- * 
- * @param userPermissionScopes 
+ *
+ * @param userPermissionScopes
  * @param program should be deno for now, may be I will support custom deno path in the future
  * @param scriptPath absolute path to deno script
- * @param config 
+ * @param config Deno config from extension API call
  */
-export function verifyDenoCmdPermission(
-	userPermissionScopes: DenoPermissionScoped[],
+export async function verifyDenoCmdPermission(
+	userPermissionScopes: ShellPermissionScoped[],
 	program: string,
 	scriptPath: string,
-	config: Partial<DenoRunConfig> & InternalSpawnOptions
+	config: Partial<DenoRunConfig> & SpawnOptions,
+	extensionDir: string
 ) {
-	// DenoRuntimePermissionSchema
-	// PermissionScopeSchema
-	const userPerms = userPermissionScopes.filter(
-		(p) => p.permission && p.permission.startsWith("deno:")
+	scriptPath = await translateScopeToPath(scriptPath, extensionDir)
+	if (!(await exists(scriptPath)) && config.cwd) {
+		scriptPath = await join(config.cwd, scriptPath)
+	}
+	const userDenoPerms = userPermissionScopes.filter(
+		(p) => p.permission && p.permission.startsWith("shell:deno:")
 	)
-	const pathMatchedPerms: DenoPermissionScoped[] = []
-	for (const perm of userPerms) {
-		const safeParsed = safeParse(DenoPermissionScopedSchema, perm)
+	const pathMatchedPerms: ShellPermissionScoped[] = []
+	for (const perm of userDenoPerms) {
+		const safeParsed = safeParse(ShellPermissionScopedSchema, perm)
 		if (!safeParsed.success) {
 			throw new Error(`Invalid permission: ${perm}`)
 		}
@@ -45,14 +60,14 @@ export function verifyDenoCmdPermission(
 		let pathMatched = false
 		if (parsedPerm.allow) {
 			for (const allow of parsedPerm.allow) {
-				if (allow.path && match(scriptPath, allow.path)) {
+				if (allow.path && (await matchPathAndScope(scriptPath, allow.path, extensionDir))) {
 					pathMatched = true
 				}
 			}
 		}
 		if (parsedPerm.deny) {
 			for (const deny of parsedPerm.deny) {
-				if (deny.path && match(scriptPath, deny.path)) {
+				if (deny.path && (await matchPathAndScope(scriptPath, deny.path, extensionDir))) {
 					pathMatched = true
 				}
 			}
@@ -63,129 +78,340 @@ export function verifyDenoCmdPermission(
 	}
 
 	/* -------------------- Start Verifying Deno Permissions -------------------- */
+	const allowEnv: string[] = []
+	let allowAllEnv = false
+	const denyEnv: string[] = []
+	let denyAllEnv = false
+	const allowNet: string[] = []
+	let allowAllNet = false
+	const denyNet: string[] = []
+	let denyAllNet = false
+	let allowRead: string[] = []
+	let allowAllRead = false
+	let denyRead: string[] = []
+	let denyAllRead = false
+	let allowWrite: string[] = []
+	let allowAllWrite = false
+	let denyWrite: string[] = []
+	let denyAllWrite = false
+	const allowRun: string[] = []
+	let allowAllRun = false
+	const denyRun: string[] = []
+	let denyAllRun = false
+	const allowFfi: string[] = []
+	let allowAllFfi = false
+	const denyFfi: string[] = []
+	let denyAllFfi = false
+	const allowSys: string[] = []
+	let allowAllSys = false
+	const denySys: string[] = []
+	let denyAllSys = false
 	for (const perm of pathMatchedPerms) {
 		if (perm.allow) {
 			for (const allow of perm.allow) {
-				
+				if (allow.env) {
+					if (allow.env === "*") {
+						allowAllEnv = true
+					} else {
+						allowEnv.push(...allow.env)
+					}
+				}
+				if (allow.net) {
+					if (allow.net === "*") {
+						allowAllNet = true
+					} else {
+						allowNet.push(...allow.net)
+					}
+				}
+				if (allow.read) {
+					if (allow.read === "*") {
+						allowAllRead = true
+					} else {
+						allowRead.push(...allow.read)
+					}
+				}
+				if (allow.write) {
+					if (allow.write === "*") {
+						allowAllWrite = true
+					} else {
+						allowWrite.push(...allow.write)
+					}
+				}
+				if (allow.run) {
+					if (allow.run === "*") {
+						allowAllRun = true
+					} else {
+						allowRun.push(...allow.run)
+					}
+				}
+				if (allow.ffi) {
+					if (allow.ffi === "*") {
+						allowAllFfi = true
+					} else {
+						allowFfi.push(...allow.ffi)
+					}
+				}
+				if (allow.sys) {
+					if (allow.sys === "*") {
+						allowAllSys = true
+					} else {
+						allowSys.push(...allow.sys)
+					}
+				}
 			}
 		}
+		if (perm.deny) {
+			for (const deny of perm.deny) {
+				if (deny.env) {
+					if (deny.env === "*") {
+						denyAllEnv = true
+					} else {
+						denyEnv.push(...deny.env)
+					}
+				}
+				if (deny.net) {
+					if (deny.net === "*") {
+						denyAllNet = true
+					} else {
+						denyNet.push(...deny.net)
+					}
+				}
+				if (deny.read) {
+					if (deny.read === "*") {
+						denyAllRead = true
+					} else {
+						denyRead.push(...deny.read)
+					}
+				}
+				if (deny.write) {
+					if (deny.write === "*") {
+						denyAllWrite = true
+					} else {
+						denyWrite.push(...deny.write)
+					}
+				}
+				if (deny.run) {
+					if (deny.run === "*") {
+						denyAllRun = true
+					} else {
+						denyRun.push(...deny.run)
+					}
+				}
+				if (deny.ffi) {
+					if (deny.ffi === "*") {
+						denyAllFfi = true
+					} else {
+						denyFfi.push(...deny.ffi)
+					}
+				}
+				if (deny.sys) {
+					if (deny.sys === "*") {
+						denyAllSys = true
+					} else {
+						denySys.push(...deny.sys)
+					}
+				}
+			}
+		}
+	}
+	/* ------------- Translate Paths for read and write Permissions ------------- */
+	allowRead = await Promise.all(
+		allowRead.map(async (p) =>
+			AllPathAliases.includes(p) ? await translateScopeToPath(p, extensionDir) : p
+		)
+	)
+
+	denyRead = await Promise.all(
+		denyRead.map(async (p) =>
+			AllPathAliases.includes(p) ? await translateScopeToPath(p, extensionDir) : p
+		)
+	)
+	allowWrite = await Promise.all(
+		allowWrite.map(async (p) =>
+			AllPathAliases.includes(p) ? await translateScopeToPath(p, extensionDir) : p
+		)
+	)
+	denyWrite = await Promise.all(
+		denyWrite.map(async (p) =>
+			AllPathAliases.includes(p) ? await translateScopeToPath(p, extensionDir) : p
+		)
+	)
+
+	// now we have command requested permissions, we need to compare with permissions defined in manifest
+	/* ----------------------- Check Allow All Permissions ---------------------- */
+
+	if (config.allowAllEnv && !allowAllEnv) {
+		throw new Error("allowAllEnv is not allowed")
+	}
+	if (config.allowAllNet && !allowAllNet) {
+		throw new Error("allowAllNet is not allowed")
+	}
+	if (config.allowAllRead && !allowAllRead) {
+		throw new Error("allowAllRead is not allowed")
+	}
+	if (config.allowAllWrite && !allowAllWrite) {
+		throw new Error("allowAllWrite is not allowed")
+	}
+	if (config.allowAllRun && !allowAllRun) {
+		throw new Error("allowAllRun is not allowed")
+	}
+	if (config.allowAllFfi && !allowAllFfi) {
+		throw new Error("allowAllFfi is not allowed")
+	}
+	if (config.allowAllSys && !allowAllSys) {
+		throw new Error("allowAllSys is not allowed")
+	}
+
+	if (difference(config.allowEnv, allowEnv).length > 0) {
+		throw new Error(`allowEnv is not allowed: ${difference(config.allowEnv, allowEnv)}`)
+	}
+	if (difference(config.allowNet, allowNet).length > 0) {
+		throw new Error(`allowNet is not allowed: ${difference(config.allowNet, allowNet)}`)
+	}
+	if (difference(config.allowRead, allowRead).length > 0) {
+		throw new Error(`allowRead is not allowed: ${difference(config.allowRead, allowRead)}`)
+	}
+	if (difference(config.allowWrite, allowWrite).length > 0) {
+		throw new Error(`allowWrite is not allowed: ${difference(config.allowWrite, allowWrite)}`)
+	}
+	if (difference(config.allowRun, allowRun).length > 0) {
+		throw new Error(`allowRun is not allowed: ${difference(config.allowRun, allowRun)}`)
+	}
+	if (difference(config.allowFfi, allowFfi).length > 0) {
+		throw new Error(`allowFfi is not allowed: ${difference(config.allowFfi, allowFfi)}`)
+	}
+	if (difference(config.allowSys, allowSys).length > 0) {
+		throw new Error(`allowSys is not allowed: ${difference(config.allowSys, allowSys)}`)
 	}
 }
 
 /* -------------------------------------------------------------------------- */
 /*                 Translate Deno Command to a regular command                */
 /* -------------------------------------------------------------------------- */
-export function translateDenoCommand(
+
+/**
+ * Translate deno script command to a regular shell command
+ * @param scriptPath
+ * @param config
+ * @returns
+ */
+export async function translateDenoCommand(
 	scriptPath: string,
-	config: Partial<DenoRunConfig> & InternalSpawnOptions
-): {
+	config: Partial<DenoRunConfig> & SpawnOptions,
+	args: string[],
+	extensionDir: string
+): Promise<{
 	program: string
 	args: string[]
 	options: InternalSpawnOptions
-} {
+}> {
 	const program = "deno" // TODO: support custom deno path
-	const args = ["run"]
+	const shellArgs: string[] = ["run"]
 	/* ----------------------------------- Env ---------------------------------- */
 	if (config.allowAllEnv) {
-		args.push("--allow-env")
+		shellArgs.push("--allow-env")
 	} else if (config.allowEnv) {
 		const allowEnvStr = config.allowEnv.join(",")
-		args.push(`--allow-env=${allowEnvStr}`)
+		shellArgs.push(`--allow-env=${allowEnvStr}`)
 	}
 	if (config.denyAllEnv) {
-		args.push("--deny-env")
+		shellArgs.push("--deny-env")
 	} else if (config.denyEnv) {
 		const denyEnvStr = config.denyEnv.join(",")
-		args.push(`--deny-env=${denyEnvStr}`)
+		shellArgs.push(`--deny-env=${denyEnvStr}`)
 	}
 	/* ----------------------------------- Net ---------------------------------- */
 	if (config.allowAllNet) {
-		args.push("--allow-net")
+		shellArgs.push("--allow-net")
 	} else if (config.allowNet) {
 		const allowNetStr = config.allowNet.join(",")
-		args.push(`--allow-net=${allowNetStr}`)
+		shellArgs.push(`--allow-net=${allowNetStr}`)
 	}
 	if (config.denyAllNet) {
-		args.push("--deny-net")
+		shellArgs.push("--deny-net")
 	} else if (config.denyNet) {
 		const denyNetStr = config.denyNet.join(",")
-		args.push(`--deny-net=${denyNetStr}`)
+		shellArgs.push(`--deny-net=${denyNetStr}`)
 	}
 	/* ----------------------------------- Read ---------------------------------- */
 	if (config.allowAllRead) {
-		args.push("--allow-read")
+		shellArgs.push("--allow-read")
 	} else if (config.allowRead) {
 		const allowReadStr = config.allowRead.join(",")
-		args.push(`--allow-read=${allowReadStr}`)
+		shellArgs.push(`--allow-read=${allowReadStr}`)
 	}
 	if (config.denyAllRead) {
-		args.push("--deny-read")
+		shellArgs.push("--deny-read")
 	} else if (config.denyRead) {
 		const denyReadStr = config.denyRead.join(",")
-		args.push(`--deny-read=${denyReadStr}`)
+		shellArgs.push(`--deny-read=${denyReadStr}`)
 	}
 	/* ----------------------------------- Write ---------------------------------- */
 	if (config.allowAllWrite) {
-		args.push("--allow-write")
+		shellArgs.push("--allow-write")
 	} else if (config.allowWrite) {
 		const allowWriteStr = config.allowWrite.join(",")
-		args.push(`--allow-write=${allowWriteStr}`)
+		shellArgs.push(`--allow-write=${allowWriteStr}`)
 	}
 	if (config.denyAllWrite) {
-		args.push("--deny-write")
+		shellArgs.push("--deny-write")
 	} else if (config.denyWrite) {
 		const denyWriteStr = config.denyWrite.join(",")
-		args.push(`--deny-write=${denyWriteStr}`)
+		shellArgs.push(`--deny-write=${denyWriteStr}`)
 	}
 	/* ----------------------------------- Run ---------------------------------- */
 	if (config.allowAllRun) {
-		args.push("--allow-run")
+		shellArgs.push("--allow-run")
 	} else if (config.allowRun) {
 		const allowRunStr = config.allowRun.join(",")
-		args.push(`--allow-run=${allowRunStr}`)
+		shellArgs.push(`--allow-run=${allowRunStr}`)
 	}
 	if (config.denyAllRun) {
-		args.push("--deny-run")
+		shellArgs.push("--deny-run")
 	} else if (config.denyRun) {
 		const denyRunStr = config.denyRun.join(",")
-		args.push(`--deny-run=${denyRunStr}`)
+		shellArgs.push(`--deny-run=${denyRunStr}`)
 	}
 	/* ----------------------------------- Ffi ---------------------------------- */
 	if (config.allowAllFfi) {
-		args.push("--allow-ffi")
+		shellArgs.push("--allow-ffi")
 	} else if (config.allowFfi) {
 		const allowFfiStr = config.allowFfi.join(",")
-		args.push(`--allow-ffi=${allowFfiStr}`)
+		shellArgs.push(`--allow-ffi=${allowFfiStr}`)
 	}
 	if (config.denyAllFfi) {
-		args.push("--deny-ffi")
+		shellArgs.push("--deny-ffi")
 	} else if (config.denyFfi) {
 		const denyFfiStr = config.denyFfi.join(",")
-		args.push(`--deny-ffi=${denyFfiStr}`)
+		shellArgs.push(`--deny-ffi=${denyFfiStr}`)
 	}
 	/* ----------------------------------- Sys ---------------------------------- */
 	if (config.allowAllSys) {
-		args.push("--allow-sys")
+		shellArgs.push("--allow-sys")
 	} else if (config.allowSys) {
 		const allowSysStr = config.allowSys.join(",")
-		args.push(`--allow-sys=${allowSysStr}`)
+		shellArgs.push(`--allow-sys=${allowSysStr}`)
 	}
 	if (config.denyAllSys) {
-		args.push("--deny-sys")
+		shellArgs.push("--deny-sys")
 	} else if (config.denySys) {
 		const denySysStr = config.denySys.join(",")
-		args.push(`--deny-sys=${denySysStr}`)
+		shellArgs.push(`--deny-sys=${denySysStr}`)
 	}
 	/* ----------------------------------- Script ---------------------------------- */
-	args.push(scriptPath)
+	scriptPath = await translateScopeToPath(scriptPath, extensionDir)
+	shellArgs.push(scriptPath)
+	if (args) {
+		shellArgs.push(...args)
+	}
+	
 	return {
 		program,
-		args,
+		args: shellArgs,
 		options: {
 			cwd: config.cwd,
 			env: config.env,
-			encoding: config.encoding,
-			sidecar: config.sidecar
+			encoding: config.encoding
 		}
 	}
 }
