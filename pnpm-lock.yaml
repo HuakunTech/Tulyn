@@ -461,14 +461,14 @@ importers:
         specifier: ^0.36.0
         version: 0.36.0(rollup@4.20.0)(typescript@5.5.4)
       tauri-api-adapter:
-        specifier: 0.3.7
-        version: 0.3.7(tslib@2.6.3)(typescript@5.5.4)
+        specifier: 0.3.8
+        version: 0.3.8(tslib@2.6.3)(typescript@5.5.4)
       tauri-plugin-network-api:
         specifier: workspace:*
         version: link:../../vendors/tauri-plugin-network
       tauri-plugin-shellx-api:
-        specifier: ^2.0.8
-        version: 2.0.8
+        specifier: ^2.0.10
+        version: 2.0.10
       tauri-plugin-system-info-api:
         specifier: workspace:*
         version: link:../../vendors/tauri-plugin-system-info
@@ -11170,8 +11170,8 @@ packages:
     resolution: {integrity: sha512-5S7Va8hKfV7W5U6g3aYxXmlPoZVAwUMy9AOKyF2fVuZa2UD3qZjg578OrLRt8PcNN1PleVaL/5/yYATNL0ICUw==}
     engines: {node: '>=18'}
 
-  tauri-api-adapter@0.3.7:
-    resolution: {integrity: sha512-8AQmnePfjvk1nv8JnRIXYMoTv95oRnSphk0TSC2ezCBQ+X8EOTiisH0H711h3wW1YD9jyW1bZ+J3ALx4gT1LjA==}
+  tauri-api-adapter@0.3.8:
+    resolution: {integrity: sha512-HX6VMCWLzMIhTVuEaKbgLbQXR3YpIrzAgZGPv0Nge7zIn352G5vA/QJxQ9rlpFO4Y8S+Ro7VXR7DpVPMisTHaQ==}
     peerDependencies:
       typescript: ^5.0.0
 
@@ -11181,11 +11181,11 @@ packages:
   tauri-plugin-network-api@2.0.3:
     resolution: {integrity: sha512-aj/o315shIntam+vxVlgRJE8NnKcf0d93CQBK6zOb3Ia4V4HM+kYdFxg8Ji5jM5Yay8nq1HEJaqNIOIv7R1NpA==}
 
+  tauri-plugin-shellx-api@2.0.10:
+    resolution: {integrity: sha512-rRu91cqzU3ylCP9r0uA5diSj/3ZFFwm8Jc1Ai5Fn3bFVbo7XAb80EEgqYwn9JzDttOq9WbxaCFGjhzblXYENiw==}
+
   tauri-plugin-shellx-api@2.0.8:
     resolution: {integrity: sha512-N2Xv5JOyEw8Mqh29rDmIUzZaluB8zhG18jcbTrXj0bTBNqWyeO0mAlVi2WPb6y4VCz7t4hpmoddwtXaPI1dc+g==}
-
-  tauri-plugin-shellx-api@2.0.9:
-    resolution: {integrity: sha512-0vjE7dPgKzNA2bzW5unc5rkpJCbL0brio8xCNKuZKrRe3V3BpXES52du1HyZgCyk3T+bYPDIQ+Ou8xnOuiu3VQ==}
 
   tauri-plugin-system-info-api@2.0.6:
     resolution: {integrity: sha512-7q8ieMK1bweMiLDbIWNNX3Dy7KNNwiB+WNEqKQutl0TKEGAb+efpy2SAzVLGu+i9tjDagCai8fZNuLLIpoQ9TA==}
@@ -20145,7 +20145,7 @@ snapshots:
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.6.3(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0)
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
       eslint-plugin-jsx-a11y: 6.9.0(eslint@8.57.0)
       eslint-plugin-react: 7.35.0(eslint@8.57.0)
       eslint-plugin-react-hooks: 4.6.2(eslint@8.57.0)
@@ -20180,7 +20180,7 @@ snapshots:
       is-bun-module: 1.1.0
       is-glob: 4.0.3
     optionalDependencies:
-      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)
+      eslint-plugin-import: 2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0)
     transitivePeerDependencies:
       - '@typescript-eslint/parser'
       - eslint-import-resolver-node
@@ -20198,7 +20198,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0):
+  eslint-plugin-import@2.29.1(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@7.2.0(eslint@8.57.0)(typescript@5.5.4))(eslint-import-resolver-node@0.3.9)(eslint-plugin-import@2.29.1(eslint@8.57.0))(eslint@8.57.0))(eslint@8.57.0):
     dependencies:
       array-includes: 3.1.8
       array.prototype.findlastindex: 1.2.5
@@ -25244,7 +25244,7 @@ snapshots:
       mkdirp: 3.0.1
       yallist: 5.0.0
 
-  tauri-api-adapter@0.3.7(tslib@2.6.3)(typescript@5.5.4):
+  tauri-api-adapter@0.3.8(tslib@2.6.3)(typescript@5.5.4):
     dependencies:
       '@huakunshen/comlink': 4.4.1
       '@rollup/plugin-alias': 5.1.0(rollup@4.20.0)
@@ -25263,7 +25263,7 @@ snapshots:
       shx: 0.3.4
       tauri-plugin-clipboard-api: 2.1.8(typescript@5.5.4)
       tauri-plugin-network-api: 2.0.3(typescript@5.5.4)
-      tauri-plugin-shellx-api: 2.0.9
+      tauri-plugin-shellx-api: 2.0.10
       tauri-plugin-system-info-api: 2.0.6(typescript@5.5.4)
       tsc-alias: 1.8.10
       typescript: 5.5.4
@@ -25285,13 +25285,13 @@ snapshots:
     transitivePeerDependencies:
       - typescript
 
+  tauri-plugin-shellx-api@2.0.10:
+    dependencies:
+      '@tauri-apps/api': 2.0.0-rc.4
+
   tauri-plugin-shellx-api@2.0.8:
     dependencies:
       '@tauri-apps/api': 2.0.0-rc.3
-
-  tauri-plugin-shellx-api@2.0.9:
-    dependencies:
-      '@tauri-apps/api': 2.0.0-rc.4
 
   tauri-plugin-system-info-api@2.0.6(typescript@5.5.4):
     dependencies:
