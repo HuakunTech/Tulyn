@@ -6,8 +6,8 @@ import {
 	Icon,
 	IconEnum,
 	List,
-	open,
 	Markdown,
+	open,
 	path,
 	shell,
 	toast,
@@ -22,7 +22,8 @@ const allItems: List.Item[] = itemsTitle.map(
 	(title) =>
 		new List.Item({
 			title,
-			value: title
+			value: title,
+			defaultAction: "Item Default Action"
 		})
 )
 class ExtensionTemplate extends WorkerExtension {
@@ -57,7 +58,8 @@ class ExtensionTemplate extends WorkerExtension {
 		return ui.render(
 			new List.List({
 				items: allItems,
-				filter: "default",
+				// filter: "none",
+				defaultAction: "Top Default Action",
 				detail: new List.ItemDetail({
 					children: [
 						new Markdown(`
@@ -76,10 +78,9 @@ class ExtensionTemplate extends WorkerExtension {
 		console.log("Search term changed to:", term)
 		return ui.render(
 			new List.List({
-				items: allItems.filter((item) => item.title.toLowerCase().includes(term.toLowerCase())),
-				// filter: "none",
-				// inherit: true,
-				updateDetailOnly: true,
+				// items: allItems.filter((item) => item.title.toLowerCase().includes(term.toLowerCase())),
+				inherits: ["items", "sections"],
+				// defaultAction: "Top Default Action",
 				detail: new List.ItemDetail({
 					children: [
 						new Markdown(`

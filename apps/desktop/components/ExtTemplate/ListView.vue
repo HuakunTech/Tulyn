@@ -118,10 +118,23 @@ function filterFunction(items: ListSchema.Item[], searchTerm: string) {
 }
 
 function onHighlightedItemChanged(itemValue: string) {
+	console.log("onHighlightedItemChanged", itemValue)
+	console.log("props.modelValue.defaultAction", props.modelValue.defaultAction)
+
 	props.workerAPI?.onHighlightedListItemChanged(itemValue)
 	const item = props.modelValue.items?.find((item) => item.value === itemValue)
-	appUiStore.setActionPanel(item?.actions)
-	appUiStore.setDefaultAction(item?.defaultAction)
+	console.log("item", item)
+	// if an action or defaultAction is set in List directly, the item's action or defaultAction will be overridden
+	if (props.modelValue.actions) {
+		appUiStore.setActionPanel(props.modelValue.actions)
+	} else {
+		appUiStore.setActionPanel(item?.actions)
+	}
+	if (props.modelValue.defaultAction) {
+		appUiStore.setDefaultAction(props.modelValue.defaultAction)
+	} else {
+		appUiStore.setDefaultAction(item?.defaultAction)
+	}
 }
 
 /* ------ Preserve highlighted item when mouse moves away from the list ----- */

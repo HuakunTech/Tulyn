@@ -361,8 +361,9 @@ export class List implements ListSchema.List, IComponent<ListSchema.List> {
 	items?: Item[]
 	detail?: ItemDetail
 	filter: "none" | "default"
-	updateDetailOnly: boolean
-
+	inherits?: ListSchema.ListInheritOptions[]
+	actions?: Action.ActionPanel
+	defaultAction?: string
 	/**
 	 * - `updateDetailOnly`: If true, the list view inherits previous list view items and only updates the detail view.
 	 * This is useful when you want to update the detail view without changing the list view items.
@@ -375,14 +376,18 @@ export class List implements ListSchema.List, IComponent<ListSchema.List> {
 			items?: Item[]
 			detail?: ItemDetail
 			filter?: "none" | "default"
-			updateDetailOnly?: boolean
+			inherits?: ListSchema.ListInheritOptions[]
+			actions?: Action.ActionPanel
+			defaultAction?: string
 		}
 	) {
 		this.sections = model.sections
 		this.items = model.items
 		this.detail = model.detail
 		this.filter = model.filter ?? "default"
-		this.updateDetailOnly = model.updateDetailOnly ?? false
+		this.inherits = model.inherits ?? []
+		this.actions = model.actions
+		this.defaultAction = model.defaultAction
 	}
 
 	toModel(): ListSchema.List {
@@ -392,7 +397,9 @@ export class List implements ListSchema.List, IComponent<ListSchema.List> {
 			items: this.items?.map((item) => item.toModel()),
 			filter: this.filter,
 			detail: this.detail?.toModel(),
-			updateDetailOnly: this.updateDetailOnly
+			inherits: this.inherits,
+			actions: this.actions?.toModel(),
+			defaultAction: this.defaultAction
 		}
 	}
 }

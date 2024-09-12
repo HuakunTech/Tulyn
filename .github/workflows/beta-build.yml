@@ -240,7 +240,7 @@ jobs:
       - name: Rename windows
         if: matrix.os == 'windows-latest'
         run: |
-          mv target/${{ env.BUILD_PATH }}/bundle/msi/*.msi target/${{ env.BUILD_PATH }}/bundle/msi/${{ env.FILE_PREFIX }}-amd64.msi
+          # mv target/${{ env.BUILD_PATH }}/bundle/msi/*.msi target/${{ env.BUILD_PATH }}/bundle/msi/${{ env.FILE_PREFIX }}-amd64.msi
           mv target/${{ env.BUILD_PATH }}/bundle/nsis/*.exe target/${{ env.BUILD_PATH }}/bundle/nsis/${{ env.FILE_PREFIX }}-amd64.exe
 
       - name: Rename linux

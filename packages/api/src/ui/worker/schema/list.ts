@@ -163,13 +163,24 @@ export const Section = object({
 })
 export type Section = InferOutput<typeof Section>
 
+export const ListInheritOptions = union([
+	literal("items"),
+	literal("detail"),
+	literal("filter"),
+	literal("sections"),
+	literal("actions"),
+	literal("defaultAction")
+])
+export type ListInheritOptions = InferOutput<typeof ListInheritOptions>
 export const List = object({
 	nodeName: NodeName,
 	sections: optional(array(Section)),
 	items: optional(array(Item)),
 	filter: union([literal("none"), literal("default")]),
 	detail: optional(ItemDetail),
-	updateDetailOnly: boolean()
+	actions: optional(ActionSchema.ActionPanel),
+	defaultAction: optional(string()),
+	inherits: optional(array(ListInheritOptions))
 })
 // export type List = InferOutput<typeof List>
 /**
@@ -185,5 +196,7 @@ export type List = {
 	items?: Item[]
 	filter: "none" | "default"
 	detail?: ItemDetail
-	updateDetailOnly: boolean
+	actions?: ActionSchema.ActionPanel
+	defaultAction?: string
+	inherits?: ListInheritOptions[]
 }

@@ -14,8 +14,8 @@ import {
 	FormNodeNameEnum,
 	FormSchema,
 	ListSchema,
-	MarkdownSchema,
 	Markdown,
+	MarkdownSchema,
 	NodeNameEnum,
 	wrap,
 	type IComponent,
@@ -88,15 +88,80 @@ const extUiAPI: IUiWorker = {
 		if (view.nodeName === NodeNameEnum.List) {
 			clearViewContent("list")
 			const parsedListView = parse(ListSchema.List, view)
-			if (parsedListView.updateDetailOnly) {
-				if (listViewContent.value) {
-					listViewContent.value.detail = parsedListView.detail
+			const updateFields = {
+				sections: true,
+				items: true,
+				detail: true,
+				filter: true,
+				actions: true,
+				defaultAction: true
+			}
+			if (listViewContent.value) {
+				if (parsedListView.inherits && parsedListView.inherits.length > 0) {
+					if (parsedListView.inherits.includes("items")) {
+						updateFields.items = false
+					}
+					if (parsedListView.inherits.includes("sections")) {
+						updateFields.sections = false
+					}
+					if (parsedListView.inherits.includes("detail")) {
+						updateFields.detail = false
+					}
+					if (parsedListView.inherits.includes("filter")) {
+						updateFields.filter = false
+					}
+					if (parsedListView.inherits.includes("actions")) {
+						updateFields.actions = false
+					}
+					if (parsedListView.inherits.includes("defaultAction")) {
+						updateFields.defaultAction = false
+					}
+					console.log("Update", updateFields)
+
+					if (updateFields.items) {
+						listViewContent.value.items = parsedListView.items
+						console.log("Update items")
+					}
+					if (updateFields.sections) {
+						listViewContent.value.sections = parsedListView.sections
+						console.log("Update sections")
+					}
+					if (updateFields.detail) {
+						listViewContent.value.detail = parsedListView.detail
+						console.log("Update detail")
+					}
+					if (updateFields.filter) {
+						listViewContent.value.filter = parsedListView.filter
+						console.log("Update filter")
+					}
+					if (updateFields.actions) {
+						listViewContent.value.actions = parsedListView.actions
+						console.log("Update actions")
+					}
+					if (updateFields.defaultAction) {
+						listViewContent.value.defaultAction = parsedListView.defaultAction
+						console.log("Update defaultAction")
+					}
+					listViewContent.value.inherits = parsedListView.inherits
+					console.log("Update inherits")
 				} else {
+					console.log("Update all")
 					listViewContent.value = parsedListView
 				}
 			} else {
+				console.log("Update all")
 				listViewContent.value = parsedListView
 			}
+
+			// if (parsedListView.updateDetailOnly) {
+			// 	if (listViewContent.value) {
+			// 		listViewContent.value.detail = parsedListView.detail
+			// 	} else {
+			// 		listViewContent.value = parsedListView
+			// 	}
+			// } else {
+			// 	listViewContent.value = parsedListView
+			// }
 		} else if (view.nodeName === FormNodeNameEnum.Form) {
 			listViewContent.value = undefined
 			clearViewContent("form")
