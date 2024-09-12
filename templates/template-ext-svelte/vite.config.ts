@@ -11,5 +11,5 @@ export default defineConfig({
 		}
 	},
 	// TODO: change this to your identifier
-	base: "/template-ext-svelte/dist"
+	base: "/{{projectName}}/dist"
 })

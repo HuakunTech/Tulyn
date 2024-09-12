@@ -7,7 +7,7 @@ import { Command, Option } from "commander"
 import fs from "fs-extra"
 import pkgJson from "./package.json"
 import { getTemplateRoot, isProduction } from "./src/constants"
-import { cleanExtension, patchManifestJsonSchema, patchPkgJsonDep } from "./src/patch"
+import { cleanExtension, patchHBS, patchManifestJsonSchema, patchPkgJsonDep } from "./src/patch"
 
 const cwd = process.cwd()
 const templateRoot = getTemplateRoot()
@@ -147,5 +147,33 @@ function copyTemplate(templateDir: string, targetFolderName: string) {
 		const pkgJsonPath = path.join(destDir, "package.json")
 		patchManifestJsonSchema(pkgJsonPath)
 		patchPkgJsonDep(pkgJsonPath)
+	}
+
+	/* -------------------------------------------------------------------------- */
+	/*                             Patch HBS Templates                            */
+	/* -------------------------------------------------------------------------- */
+	await new Promise((resolve) => setTimeout(resolve, 1000)) // add some delay after files are created, otherwsie files can't be overwritten
+	patchHBS(path.resolve(path.join(name, "package.json")), { projectName: name })
+	switch (template) {
+		case "nuxt":
+			patchHBS(path.resolve(path.join(name, "nuxt.config.ts")), { projectName: name })
+			break
+		case "react":
+			patchHBS(path.resolve(path.join(name, "vite.config.ts")), { projectName: name })
+			break
+		case "vue":
+			patchHBS(path.resolve(path.join(name, "vite.config.ts")), { projectName: name })
+			break
+		case "svelte":
+			patchHBS(path.resolve(path.join(name, "vite.config.ts")), { projectName: name })
+			break
+		case "sveltekit":
+			patchHBS(path.resolve(path.join(name, "svelte.config.js")), { projectName: name })
+			break
+		case "next":
+			patchHBS(path.resolve(path.join(name, "next.config.mjs")), { projectName: name })
+			break
+		default:
+			break
 	}
 })()

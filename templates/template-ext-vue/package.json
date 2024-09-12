@@ -1,6 +1,6 @@
 {
 	"$schema": "./node_modules/@kksh/api/dist/schema.json",
-	"name": "template-ext-vue",
+	"name": "{{projectName}}",
 	"private": true,
 	"version": "0.0.2",
 	"type": "module",
@@ -31,10 +31,10 @@
 		"vue-tsc": "^2.0.24"
 	},
 	"kunkun": {
-		"name": "template-ext-vue",
+		"name": "TODO: Change Display Name",
 		"shortDescription": "A Custom UI template for vue",
 		"longDescription": "A Custom UI template for vue",
-		"identifier": "template-ext-vue",
+		"identifier": "{{projectName}}",
 		"icon": {
 			"type": "iconify",
 			"value": "logos:vue"

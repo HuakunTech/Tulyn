@@ -18,5 +18,5 @@ export default defineConfig({
 		}
 	},
 	// TODO: change this to your identifier
-	base: "/template-ext-vue/dist"
+	base: "/{{projectName}}/dist"
 })

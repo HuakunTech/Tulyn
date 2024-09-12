@@ -1,7 +1,9 @@
 import { execSync } from "child_process"
 import path from "path"
 import { ExtPackageJson } from "@kksh/api/models"
+import { $ } from "bun"
 import fs from "fs-extra"
+import Handlebars from "handlebars"
 import { flatten, safeParse } from "valibot"
 import { isProduction } from "./constants"
 import { findPkgVersions } from "./utils"
@@ -69,4 +71,14 @@ export function patchInstallAPI(dir: string) {
 	// TODO: Uncomment the following line after @kksh/react is published
 	// console.info(`Running: npm install @kksh/react`)
 	// execSync("npm install @kksh/react", { cwd: dir, stdio: "inherit" })
+}
+
+export function patchHBS(filePath: string, data: Record<string, any>) {
+	if (!fs.existsSync(filePath)) {
+		console.error(`Patch HBS: File ${filePath} not found`)
+		process.exit(1)
+	}
+	const template = Handlebars.compile(fs.readFileSync(filePath, "utf-8"))
+	const result = template(data)
+	fs.writeFileSync(filePath, result)
 }

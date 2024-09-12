@@ -5,5 +5,5 @@ import { defineConfig } from "vite"
 export default defineConfig({
 	plugins: [react()],
 	// TODO: change this to your identifier
-	base: "/template-ext-react/dist"
+	base: "/{{projectName}}/dist"
 })

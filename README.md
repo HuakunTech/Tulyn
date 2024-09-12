@@ -1,6 +1,6 @@
 # Kunkun
 
-![kunkun](https://socialify.git.ci/kunkunsh/kunkun/image?description=1&font=Source%20Code%20Pro&forks=1&issues=1&logo=https%3A%2F%2Fi.imgur.com%2F4MjHiKK.png&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Auto)
+![kunkun](https://socialify.git.ci/kunkunsh/kunkun/image?description=1&forks=1&issues=1&logo=https%3A%2F%2Fstorage.huakun.tech%2F2024%2F9%2F12%2F4MjHiKK.png&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Auto)
 
 [![wakatime](https://wakatime.com/badge/user/94be0fbf-cb9d-411d-8526-d0c4a4e82e1a/project/455bfd3f-4faf-4c2a-afe9-556d9ee1a0f7.svg)](https://wakatime.com/badge/user/94be0fbf-cb9d-411d-8526-d0c4a4e82e1a/project/455bfd3f-4faf-4c2a-afe9-556d9ee1a0f7)
 ![GitHub last commit](https://img.shields.io/github/last-commit/kunkunsh/kunkun)

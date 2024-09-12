@@ -1,13 +1,13 @@
 {
 	"$schema": "./node_modules/@kksh/api/dist/schema.json",
-	"name": "template-ext-next",
+	"name": "{{projectName}}",
 	"version": "0.1.1",
 	"private": true,
 	"kunkun": {
-		"name": "template-ext-next",
+		"name": "TODO: Change Display Name",
 		"shortDescription": "A Custom UI template for next",
 		"longDescription": "A Custom UI template for next",
-		"identifier": "template-ext-next",
+		"identifier": "{{projectName}}",
 		"icon": {
 			"type": "iconify",
 			"value": "logos:nextjs-icon"
@@ -18,14 +18,14 @@
 			{
 				"main": "/",
 				"dist": "out",
-				"devMain": "http://localhost:5173/dev-extensions/template-ext-next/out",
+				"devMain": "http://localhost:5173/{{projectName}}/out",
 				"name": "Next Template Home Page",
 				"cmds": []
 			},
 			{
 				"main": "/about.html",
 				"dist": "out",
-				"devMain": "http://localhost:5173/dev-extensions/template-ext-next/out/about",
+				"devMain": "http://localhost:5173/{{projectName}}/out/about",
 				"name": "Next Template About Page",
 				"cmds": []
 			}

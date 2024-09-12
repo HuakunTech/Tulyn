@@ -14,7 +14,7 @@ const config = {
 		adapter: adapter({}),
 		paths: {
 			// TODO: change this to your identifier
-			base: '/template-ext-sveltekit/build'
+			base: '/{{projectName}}/build'
 		},
 		alias: {
 			'@/*': './src/lib/*'
