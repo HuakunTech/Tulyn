@@ -225,8 +225,8 @@ async function exposeAPIsToIframe() {
 }
 
 function onIframeLoad() {
-	iframeRef.value?.focus()
 	setTimeout(() => {
+		iframeRef.value?.focus()
 		// avoid flickering, especially on slow connections and dark mode
 		ui.iframeLoaded = true
 		// if (iframeRef.value) {
