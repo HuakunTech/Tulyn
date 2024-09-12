@@ -53,7 +53,7 @@ if (!fs.existsSync(outdir)) {
 	fs.mkdirSync(outdir, { recursive: true })
 }
 
-function copyTemplate(templateDir: string, targetFolderName: string) {
+function copyTemplate(templateDir: string, targetFolderName: string): string {
 	if (!fs.existsSync(templateDir)) {
 		console.error(`Worker Extension Template not found at ${templateDir}`)
 		process.exit(1)
@@ -143,6 +143,7 @@ function copyTemplate(templateDir: string, targetFolderName: string) {
 		console.error("Invalid template")
 		process.exit(1)
 	}
+	console.log("Destination Dir:", destDir)
 	if (!isProduction) {
 		const pkgJsonPath = path.join(destDir, "package.json")
 		patchManifestJsonSchema(pkgJsonPath)
@@ -152,26 +153,28 @@ function copyTemplate(templateDir: string, targetFolderName: string) {
 	/* -------------------------------------------------------------------------- */
 	/*                             Patch HBS Templates                            */
 	/* -------------------------------------------------------------------------- */
+	console.log(`Start Patching ${name}`)
+
 	await new Promise((resolve) => setTimeout(resolve, 1000)) // add some delay after files are created, otherwsie files can't be overwritten
-	patchHBS(path.resolve(path.join(name, "package.json")), { projectName: name })
+	patchHBS(path.join(destDir, "package.json"), { projectName: name })
 	switch (template) {
 		case "nuxt":
-			patchHBS(path.resolve(path.join(name, "nuxt.config.ts")), { projectName: name })
+			patchHBS(path.join(destDir, "nuxt.config.ts"), { projectName: name })
 			break
 		case "react":
-			patchHBS(path.resolve(path.join(name, "vite.config.ts")), { projectName: name })
+			patchHBS(path.join(destDir, "vite.config.ts"), { projectName: name })
 			break
 		case "vue":
-			patchHBS(path.resolve(path.join(name, "vite.config.ts")), { projectName: name })
+			patchHBS(path.join(destDir, "vite.config.ts"), { projectName: name })
 			break
 		case "svelte":
-			patchHBS(path.resolve(path.join(name, "vite.config.ts")), { projectName: name })
+			patchHBS(path.join(destDir, "vite.config.ts"), { projectName: name })
 			break
 		case "sveltekit":
-			patchHBS(path.resolve(path.join(name, "svelte.config.js")), { projectName: name })
+			patchHBS(path.join(destDir, "svelte.config.js"), { projectName: name })
 			break
 		case "next":
-			patchHBS(path.resolve(path.join(name, "next.config.mjs")), { projectName: name })
+			patchHBS(path.join(destDir, "next.config.mjs"), { projectName: name })
 			break
 		default:
 			break
