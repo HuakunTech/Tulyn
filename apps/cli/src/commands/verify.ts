@@ -58,6 +58,13 @@ export function verifySingleProject(projectPath: string): boolean {
 	}
 	// check if kunkun extension name is the same as the folder name
 	const folderName = path.basename(projectPath)
+
+	if (process.env.ENV === "test") {
+		if (pkg.kunkun.identifier === "{{projectName}}") {
+			console.log("Patching project name from {{projectName}} to", folderName)
+			pkg.kunkun.identifier = folderName
+		}
+	}
 	if (pkg.kunkun.identifier !== folderName) {
 		logger.error(
 			`Extension package name at [pkg.kunkun.identifier](${pkg.kunkun.identifier}) is not the same as the folder name [${folderName}], please fix it`
