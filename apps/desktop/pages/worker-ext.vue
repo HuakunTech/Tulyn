@@ -116,40 +116,29 @@ const extUiAPI: IUiWorker = {
 					if (parsedListView.inherits.includes("defaultAction")) {
 						updateFields.defaultAction = false
 					}
-					console.log("Update", updateFields)
-
 					if (updateFields.items) {
 						listViewContent.value.items = parsedListView.items
-						console.log("Update items")
 					}
 					if (updateFields.sections) {
 						listViewContent.value.sections = parsedListView.sections
-						console.log("Update sections")
 					}
 					if (updateFields.detail) {
 						listViewContent.value.detail = parsedListView.detail
-						console.log("Update detail")
 					}
 					if (updateFields.filter) {
 						listViewContent.value.filter = parsedListView.filter
-						console.log("Update filter")
 					}
 					if (updateFields.actions) {
 						listViewContent.value.actions = parsedListView.actions
-						console.log("Update actions")
 					}
 					if (updateFields.defaultAction) {
 						listViewContent.value.defaultAction = parsedListView.defaultAction
-						console.log("Update defaultAction")
 					}
 					listViewContent.value.inherits = parsedListView.inherits
-					console.log("Update inherits")
 				} else {
-					console.log("Update all")
 					listViewContent.value = parsedListView
 				}
 			} else {
-				console.log("Update all")
 				listViewContent.value = parsedListView
 			}
 

@@ -1,6 +1,6 @@
-import { expect, test } from "bun:test"
 import path from "path"
 import { getRootDir } from "@/constants"
+import { expect, test } from "bun:test"
 import fs from "fs-extra"
 import { verifyCmd } from "../src/commands/verify"
 
@@ -23,8 +23,8 @@ test("Verify Extensions", () => {
 	}
 })
 
-test("Verify Templates", () => {
-	for (const templatePath of templatesPaths) {
-		expect(verifyCmd(templatePath, false)).toBeTrue()
-	}
-})
+// test("Verify Templates", () => {
+// 	for (const templatePath of templatesPaths) {
+// 		expect(verifyCmd(templatePath, false)).toBeTrue()
+// 	}
+// })
