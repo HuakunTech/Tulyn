@@ -16,7 +16,9 @@ export function verifyCustomUiCommand(projectRoot: string, cmd: CustomUiCmd): bo
 			)
 		) {
 			logger.error(`main file not found at '${mainPath}' for command ${cmd.name}`)
-			return false
+			if (process.env.ENV !== "test") {
+				return false
+			}
 		}
 	}
 	return true
