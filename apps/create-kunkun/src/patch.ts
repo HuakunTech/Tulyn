@@ -1,7 +1,7 @@
+import { $ } from "bun"
 import { execSync } from "child_process"
 import path from "path"
 import { ExtPackageJson } from "@kksh/api/models"
-import { $ } from "bun"
 import fs from "fs-extra"
 import Handlebars from "handlebars"
 import { flatten, safeParse } from "valibot"

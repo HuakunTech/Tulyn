@@ -1,5 +1,5 @@
-import fs from "fs"
 import { $ } from "bun"
+import fs from "fs"
 
 // add package version
 

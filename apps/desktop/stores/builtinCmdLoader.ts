@@ -5,12 +5,12 @@ import { newSettingsPage } from "@/lib/utils/router"
 import { IconType } from "@kksh/api/models"
 import { getAllWebviewWindows, WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { filterListItem } from "~/lib/utils/search"
+import { checkUpdateAndInstall } from "~/lib/utils/updater"
 import { ElMessage, ElNotification } from "element-plus"
 import { defineStore } from "pinia"
 import { v4 as uuidv4 } from "uuid"
 import { toast } from "vue-sonner"
 import { useAppStateStore } from "./appState"
-import { checkUpdateAndInstall } from "~/lib/utils/updater"
 
 const localePath = useLocalePath()
 const rtConfig = useRuntimeConfig()

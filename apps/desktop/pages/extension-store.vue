@@ -5,12 +5,20 @@ import ExtDrawer from "@/components/extension-store/ExtDrawer.vue"
 // import Command from "@/components/extension-store/Command.vue";
 import { ExtItem, ExtItemParser } from "@/components/extension-store/types"
 import { getExtensionsFolder, SUPABASE_ANON_KEY, SUPABASE_GRAPHQL_ENDPOINT } from "@/lib/constants"
-import * as supabase from "@/lib/utils/supabase"
 // import { Extension } from "@/lib/extension/ext"
 import { gqlClient } from "@/lib/utils/graphql"
+import * as supabase from "@/lib/utils/supabase"
 import { ApolloClient, gql, HttpLink, InMemoryCache, type ApolloQueryResult } from "@apollo/client"
+import { isCompatible } from "@kksh/api"
+import { getExtensionFolder } from "@kksh/api/commands"
 import type { ExtPackageJsonExtra } from "@kksh/api/models"
-import { AllExtensionsDocument, FindLatestExtDocument, type AllExtensionsQuery, type FindLatestExtQuery, type FindLatestExtQueryVariables } from "@kksh/gql"
+import {
+	AllExtensionsDocument,
+	FindLatestExtDocument,
+	type AllExtensionsQuery,
+	type FindLatestExtQuery,
+	type FindLatestExtQueryVariables
+} from "@kksh/gql"
 import { type Tables } from "@kksh/supabase"
 import { Button } from "@kksh/vue/button"
 import { ArrowLeftIcon } from "@radix-icons/vue"
@@ -24,14 +32,12 @@ import {
 	CommandSeparator,
 	CommandShortcut
 } from "~/components/ui/command"
+import { installTarballUrl } from "~/lib/utils/tarball"
 import { useExtStore } from "~/stores/extensionLoader"
 import { ElMessage } from "element-plus"
+import { gt } from "semver"
 import { parse } from "valibot"
 import { onMounted, ref } from "vue"
-import { gt } from 'semver'
-import { getExtensionFolder } from "@kksh/api/commands"
-import { installTarballUrl } from "~/lib/utils/tarball"
-import { isCompatible } from '@kksh/api'
 
 const localePath = useLocalePath()
 const selectedExt = ref<ExtItem>()
@@ -50,10 +56,13 @@ function refreshListing() {
  * Map extension identifier to the extension item
  */
 const installedExtMap = computed(() => {
-	return installedManifests.value.reduce((acc, curr) => {
-		acc[curr.kunkun.identifier] = curr
-		return acc
-	}, {} as Record<string, ExtPackageJsonExtra>)
+	return installedManifests.value.reduce(
+		(acc, curr) => {
+			acc[curr.kunkun.identifier] = curr
+			return acc
+		},
+		{} as Record<string, ExtPackageJsonExtra>
+	)
 })
 
 onKeyStroke("Escape", () => {
@@ -74,17 +83,20 @@ onMounted(async () => {
 })
 
 const sortedExtList = computed(() => {
-	return extList.value.sort((a, b) => isUpgradeable(b) ? 1 : isUpgradeable(a) ? -1 : 0)
+	return extList.value.sort((a, b) => (isUpgradeable(b) ? 1 : isUpgradeable(a) ? -1 : 0))
 })
 
 /**
  * Map extension identifier to the extension item
  */
 const extListMap = computed(() => {
-	return extList.value.reduce((acc, curr) => {
-		acc[curr.identifier] = curr
-		return acc
-	}, {} as Record<string, ExtItem>)
+	return extList.value.reduce(
+		(acc, curr) => {
+			acc[curr.identifier] = curr
+			return acc
+		},
+		{} as Record<string, ExtItem>
+	)
 })
 
 function select(item: ExtItem) {
@@ -133,7 +145,10 @@ function isUpgradeable(item: ExtItem) {
 	if (!item.version) return true // latest extensions always have version, this check should be removed later
 	const installed = installedExtMap.value[item.identifier]
 	if (!installed) return false
-	return gt(item.version, installed.version) && (item.api_version ? isCompatible(item.api_version) : true)
+	return (
+		gt(item.version, installed.version) &&
+		(item.api_version ? isCompatible(item.api_version) : true)
+	)
 }
 
 function upgrade(item: ExtItem) {

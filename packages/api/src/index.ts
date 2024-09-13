@@ -1,1 +1,6 @@
-export { version, breakingChangesVersionCheckpoints, isVersionBetween, isCompatible } from "./version"
+export {
+	version,
+	breakingChangesVersionCheckpoints,
+	isVersionBetween,
+	isCompatible
+} from "./version"

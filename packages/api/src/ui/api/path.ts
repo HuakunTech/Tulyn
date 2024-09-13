@@ -39,6 +39,6 @@ export function constructPathAPI(api: Remote<IPath>): IPath {
 		templateDir: api.templateDir,
 		videoDir: api.videoDir,
 		/* --------------------------- Custom Directories --------------------------- */
-		extensionDir: api.extensionDir,
+		extensionDir: api.extensionDir
 	}
 }

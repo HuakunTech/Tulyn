@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { default as TauriLink } from "@/components/tauri/link.vue"
 import { cn } from "@/lib/utils"
+import { checkUpdateAndInstall } from "@/lib/utils/updater"
 import { Button } from "@kksh/vue/button"
 import { Card, CardContent } from "@kksh/vue/card"
 import { getVersion } from "@tauri-apps/api/app"
 import { onMounted, ref, type HTMLAttributes } from "vue"
-import { checkUpdateAndInstall } from "@/lib/utils/updater"
 
 const appVersion = ref("")
 onMounted(() => {
@@ -16,7 +16,6 @@ onMounted(() => {
 const props = defineProps<{
 	class?: HTMLAttributes["class"]
 }>()
-
 </script>
 <template>
 	<Card :class="cn('flex h-full items-center justify-center border-none', props.class)">
@@ -40,7 +39,9 @@ const props = defineProps<{
 					{{ $t("extensionsSourceCode") }}
 					<Icon name="mdi:github" class="inline -translate-y-0.5 text-white" />
 				</TauriLink>
-				<Button @click="checkUpdateAndInstall" size="xs" variant="secondary">{{ $t("checkUpdate") }}</Button>
+				<Button @click="checkUpdateAndInstall" size="xs" variant="secondary">{{
+					$t("checkUpdate")
+				}}</Button>
 			</div>
 		</CardContent>
 	</Card>

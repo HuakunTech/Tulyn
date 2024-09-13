@@ -25,9 +25,9 @@ import {
 } from "tauri-api-adapter/client"
 import { constructEventAPI } from "../api/event"
 import { constructPathAPI } from "../api/path"
+import { constructShellAPI } from "../api/shell"
 import { constructToastAPI } from "../api/toast"
 import type { IDb, IEvent, IFs, IOpen, IPath, ISystem, IToast, IUiWorker, IUtils } from "../client"
-import { constructShellAPI } from "../api/shell"
 import type { IShellServer } from "../server/server-types"
 
 export { expose, wrap } from "@huakunshen/comlink"

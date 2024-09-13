@@ -22,9 +22,9 @@ import {
 import { constructEventAPI } from "../api/event"
 import { constructIframeUiAPI } from "../api/iframe-ui"
 import { constructPathAPI } from "../api/path"
+import { constructShellAPI } from "../api/shell"
 import type { IDb, IEvent, IFs, IOpen, IPath, ISystem, IToast, IUiIframe, IUtils } from "../client"
 import type { IShellServer } from "../server/server-types"
-import { constructShellAPI } from "../api/shell"
 
 export { type IUiIframe } from "../client"
 export { expose, wrap } from "@huakunshen/comlink"

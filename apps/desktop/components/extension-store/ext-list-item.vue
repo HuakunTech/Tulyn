@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import IconMultiplexer from "@/components/IconMultiplexer.vue"
 import { humanReadableNumber } from "@/lib/utils/format"
-import { CommandItem } from "~/components/ui/command"
-import { CircleCheckBigIcon, MoveRightIcon, ArrowRightIcon } from "lucide-vue-next"
-import { ExtItem } from "./types"
-import {Button} from '@kksh/vue'
 import { IconEnum } from "@kksh/api/models"
+import { Button } from "@kksh/vue"
+import { CommandItem } from "~/components/ui/command"
+import { ArrowRightIcon, CircleCheckBigIcon, MoveRightIcon } from "lucide-vue-next"
+import { ExtItem } from "./types"
 
 const props = defineProps<{
 	data: ExtItem
@@ -36,10 +36,15 @@ function onUpgradeClicked(e: MouseEvent) {
 					</div>
 				</div>
 			</div>
-			<div class="flex space-x-2 items-center">
+			<div class="flex items-center space-x-2">
 				<CircleCheckBigIcon v-if="props.installed" class="w-4 text-green-400" />
-				<Button v-if="props.upgradeable" class="flex space-x-1 items-center px-2" variant="outline" @click="onUpgradeClicked">
-					<small>{{ props.installedVersion}}</small>
+				<Button
+					v-if="props.upgradeable"
+					class="flex items-center space-x-1 px-2"
+					variant="outline"
+					@click="onUpgradeClicked"
+				>
+					<small>{{ props.installedVersion }}</small>
 					<MoveRightIcon class="w-4" />
 					<small>{{ props.data.version }}</small>
 				</Button>
