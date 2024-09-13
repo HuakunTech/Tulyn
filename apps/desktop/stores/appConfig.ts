@@ -42,7 +42,8 @@ export const appConfigSchema = object({
 	showInTray: boolean(),
 	devExtensionPath: nullable(string()),
 	devExtLoadUrl: boolean(),
-	hideOnBlur: boolean()
+	hideOnBlur: boolean(),
+	extensionAutoUpgrade: boolean()
 })
 type State = InferOutput<typeof appConfigSchema>
 
@@ -57,7 +58,8 @@ export const useAppConfigStore = defineStore("appConfig", {
 		showInTray: true,
 		devExtensionPath: null,
 		devExtLoadUrl: false,
-		hideOnBlur: true
+		hideOnBlur: true,
+		extensionAutoUpgrade: true
 	}),
 	getters: {
 		themeClass(state) {
@@ -143,7 +145,12 @@ export const useAppConfigStore = defineStore("appConfig", {
 			this.showInTray = showInTray
 		},
 		setHideOnBlur(hideOnBlur: boolean) {
+			emitRefreshConfig()
 			this.hideOnBlur = hideOnBlur
+		},
+		setExtensionAutoUpgrade(extensionAutoUpgrade: boolean) {
+			emitRefreshConfig()
+			this.extensionAutoUpgrade = extensionAutoUpgrade
 		},
 		setDevExtensionPath(devExtensionPath: string | null) {
 			this.devExtensionPath = devExtensionPath
@@ -158,6 +165,7 @@ export const useAppConfigStore = defineStore("appConfig", {
 		watch() {
 			this.$subscribe(async (mutation, state) => {
 				info("appConfig changed, saved to disk")
+				console.log(state)
 				await this.save()
 				// emitRefreshConfig()
 			})

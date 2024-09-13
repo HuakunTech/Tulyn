@@ -38,6 +38,7 @@ import { ElMessage } from "element-plus"
 import { gt } from "semver"
 import { parse } from "valibot"
 import { onMounted, ref } from "vue"
+import { installExtension } from "~/lib/utils/updater"
 
 const localePath = useLocalePath()
 const selectedExt = ref<ExtItem>()
@@ -154,26 +155,7 @@ function isUpgradeable(item: ExtItem) {
 function upgrade(item: ExtItem) {
 	extStore
 		.uninstallExt(item.identifier)
-		.then(() => getExtensionFolder())
-		.then(async (targetInstallDir) => {
-			if (!targetInstallDir) {
-				return Promise.reject("Unexpected Error: Extension Folder is Null")
-			} else {
-				const response = await gqlClient.query<FindLatestExtQuery, FindLatestExtQueryVariables>({
-					query: FindLatestExtDocument,
-					variables: {
-						identifier: item.identifier
-					}
-				})
-				const exts = response.data.ext_publishCollection?.edges
-				if (exts && exts.length > 0) {
-					const tarballUrl = supabase.getFileUrl(exts[0].node.tarball_path).data.publicUrl
-					return installTarballUrl(tarballUrl, targetInstallDir)
-				} else {
-					return Promise.reject("Couldn't find the extension to install from the server")
-				}
-			}
-		})
+		.then(() => installExtension(item.identifier))
 		.then(() => {
 			ElMessage.success(`Upgraded: ${item.name}; Version: ${item.version}`)
 			refreshListing()

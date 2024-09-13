@@ -95,9 +95,10 @@ onMounted(async () => {
 	if (platform() !== "macos") {
 		appWindow.setDecorations(false)
 	}
+
 	if (lastTimeStore.expired()) {
 		checkUpdateAndInstall()
-		checkExtensionUpdate()
+		checkExtensionUpdate(appConfig.extensionAutoUpgrade)
 	}
 	appWindow.show()
 	// force rerender groups
