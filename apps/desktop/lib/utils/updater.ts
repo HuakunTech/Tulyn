@@ -13,6 +13,7 @@ import { gt } from "semver"
 
 export async function checkUpdateAndInstall() {
 	const update = await check()
+	console.log("update", update)
 	if (update?.available) {
 		const confirmUpdate = await confirm(
 			`A new version ${update.version} is available. Do you want to install and relaunch?`
@@ -26,8 +27,10 @@ export async function checkUpdateAndInstall() {
 	}
 }
 
-export async function checkSingleExtensionUpdate(installedExt: ExtPackageJsonExtra) {
-	const extStore = useExtStore()
+export async function checkSingleExtensionUpdate(
+	installedExt: ExtPackageJsonExtra,
+	autoupgrade: boolean
+) {
 	const response = await gqlClient.query<FindLatestExtQuery, FindLatestExtQueryVariables>({
 		query: FindLatestExtDocument,
 		variables: {
@@ -35,7 +38,6 @@ export async function checkSingleExtensionUpdate(installedExt: ExtPackageJsonExt
 		}
 	})
 	const exts = response.data.ext_publishCollection?.edges
-	console.log(exts)
 	if (!exts || exts?.length <= 0) {
 		return
 	}
@@ -48,11 +50,9 @@ export async function checkSingleExtensionUpdate(installedExt: ExtPackageJsonExt
 	}
 }
 
-export async function checkExtensionUpdate() {
-	console.log("checkExtensionUpdate")
-
+export async function checkExtensionUpdate(autoupgrade: boolean = false) {
 	const extStore = useExtStore()
 	extStore.manifests.forEach(async (ext) => {
-		await checkSingleExtensionUpdate(ext)
+		await checkSingleExtensionUpdate(ext, autoupgrade)
 	})
 }

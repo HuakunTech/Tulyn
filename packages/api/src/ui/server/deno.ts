@@ -210,16 +210,42 @@ export async function verifyDenoCmdPermission(
 		)
 	)
 
+	if (config.allowRead) {
+		config.allowRead = await Promise.all(
+			config.allowRead.map(async (p) => await translateScopeToPath(p, extensionDir))
+		)
+	}
+
+	if (config.denyRead) {
+		config.denyRead = await Promise.all(
+			config.denyRead.map(async (p) => await translateScopeToPath(p, extensionDir))
+		)
+	}
+
+	if (config.allowWrite) {
+		config.allowWrite = await Promise.all(
+			config.allowWrite.map(async (p) => await translateScopeToPath(p, extensionDir))
+		)
+	}
+
+	if (config.denyWrite) {
+		config.denyWrite = await Promise.all(
+			config.denyWrite.map(async (p) => await translateScopeToPath(p, extensionDir))
+		)
+	}
+
 	denyRead = await Promise.all(
 		denyRead.map(async (p) =>
 			pathStartsWithAlias(p) ? await translateScopeToPath(p, extensionDir) : p
 		)
 	)
+
 	allowWrite = await Promise.all(
 		allowWrite.map(async (p) =>
 			pathStartsWithAlias(p) ? await translateScopeToPath(p, extensionDir) : p
 		)
 	)
+
 	denyWrite = await Promise.all(
 		denyWrite.map(async (p) =>
 			pathStartsWithAlias(p) ? await translateScopeToPath(p, extensionDir) : p

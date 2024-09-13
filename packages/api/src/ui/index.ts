@@ -33,9 +33,10 @@ export type {
 	INotification,
 	IOs,
 	IPath,
-	IShell,
+	// IShell,
 	ISystemInfo,
 	IUpdownload
 	// IFetch
 } from "tauri-api-adapter"
 export type { ISystem, IToast, IUiWorker, IUiIframe, IDb, IFs, IOpen, IEvent } from "../ui/client"
+export type { IShell } from "./api/shell"

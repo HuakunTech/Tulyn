@@ -15,9 +15,9 @@
 				"allow": [
 					{
 						"path": "$EXTENSION/src/deno-script.ts",
-						"env": ["HOME", "CWD"],
-						"read": "*",
-						"write": "*"
+						"env": ["npm_package_config_libvips", "CWD"],
+						"ffi": "*",
+						"read": ["$DESKTOP"]
 					}
 				]
 			},
