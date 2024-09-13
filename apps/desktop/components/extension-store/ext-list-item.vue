@@ -39,7 +39,7 @@ function onUpgradeClicked(e: MouseEvent) {
 			<div class="flex space-x-2 items-center">
 				<CircleCheckBigIcon v-if="props.installed" class="w-4 text-green-400" />
 				<Button v-if="props.upgradeable" class="flex space-x-1 items-center px-2" variant="outline" @click="onUpgradeClicked">
-					<small>{{ props.installedVersion}} </small>
+					<small>{{ props.installedVersion}}</small>
 					<MoveRightIcon class="w-4" />
 					<small>{{ props.data.version }}</small>
 				</Button>
