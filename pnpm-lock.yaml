@@ -329,6 +329,9 @@ importers:
       radix-vue:
         specifier: ^1.9.5
         version: 1.9.5(vue@3.5.4(typescript@5.5.4))
+      semver:
+        specifier: ^7.6.3
+        version: 7.6.3
       shadcn-nuxt:
         specifier: ^0.10.4
         version: 0.10.4(magicast@0.3.4)(rollup@4.20.0)
@@ -345,14 +348,14 @@ importers:
         specifier: workspace:*
         version: link:../../packages/tauri-plugin-jarvis
       tauri-plugin-network-api:
-        specifier: workspace:*
-        version: link:../../vendors/tauri-plugin-network
+        specifier: 2.0.3
+        version: 2.0.3(typescript@5.5.4)
       tauri-plugin-shellx-api:
         specifier: ^2.0.8
         version: 2.0.8
       tauri-plugin-system-info-api:
-        specifier: workspace:*
-        version: link:../../vendors/tauri-plugin-system-info
+        specifier: 2.0.6
+        version: 2.0.6(typescript@5.5.4)
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
@@ -460,21 +463,21 @@ importers:
       rollup:
         specifier: ^4.9.6
         version: 4.20.0
-      rollup-plugin-typescript2:
-        specifier: ^0.36.0
-        version: 0.36.0(rollup@4.20.0)(typescript@5.5.4)
+      semver:
+        specifier: ^7.6.3
+        version: 7.6.3
       tauri-api-adapter:
         specifier: 0.3.8
         version: 0.3.8(tslib@2.6.3)(typescript@5.5.4)
       tauri-plugin-network-api:
-        specifier: workspace:*
-        version: link:../../vendors/tauri-plugin-network
+        specifier: 2.0.3
+        version: 2.0.3(typescript@5.5.4)
       tauri-plugin-shellx-api:
         specifier: ^2.0.10
         version: 2.0.10
       tauri-plugin-system-info-api:
-        specifier: workspace:*
-        version: link:../../vendors/tauri-plugin-system-info
+        specifier: 2.0.6
+        version: 2.0.6(typescript@5.5.4)
       valibot:
         specifier: ^0.40.0
         version: 0.40.0(typescript@5.5.4)
@@ -482,6 +485,9 @@ importers:
         specifier: ^1.1.3
         version: 1.1.4
     devDependencies:
+      '@rollup/plugin-json':
+        specifier: ^6.1.0
+        version: 6.1.0(rollup@4.20.0)
       '@rollup/plugin-terser':
         specifier: ^0.4.4
         version: 0.4.4(rollup@4.20.0)
@@ -494,6 +500,9 @@ importers:
       '@types/madge':
         specifier: ^5.0.3
         version: 5.0.3
+      '@types/semver':
+        specifier: ^7.5.8
+        version: 7.5.8
       fs-extra:
         specifier: ^11.2.0
         version: 11.2.0
@@ -503,6 +512,9 @@ importers:
       rimraf:
         specifier: ^5.0.7
         version: 5.0.10
+      rollup-plugin-typescript2:
+        specifier: ^0.36.0
+        version: 0.36.0(rollup@4.20.0)(typescript@5.5.4)
       rollup-plugin-visualizer:
         specifier: ^5.12.0
         version: 5.12.0(rollup@4.20.0)

@@ -1,6 +1,8 @@
 {
+	"$schema": "https://jsr.io/schema/config-file.v1.json",
 	"name": "@kunkun/api",
-	"version": "0.0.4",
+	"version": "0.0.12",
+	"license": "MIT",
 	"exports": {
 		".": "./src/index.ts",
 		"./ui": "./src/ui/index.ts",

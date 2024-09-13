@@ -40,5 +40,9 @@
 		"tauri-plugin-clipboard-api": "^2.1.8",
 		"tauri-plugin-shellx-api": "^2.0.8",
 		"valibot": "^0.40.0"
-	}
+	},
+	"workspaces": [
+		"apps/*",
+		"packages/*"
+	]
 }

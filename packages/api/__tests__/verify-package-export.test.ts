@@ -2,7 +2,9 @@ import path from "path"
 import { describe, expect, test } from "bun:test"
 import madge from "madge"
 import * as v from "valibot"
-import { buildEntries } from "../src/common-config.js"
+import { exports } from "../package.json"
+
+const buildEntries: string[] = Object.entries(exports).filter((e) => typeof e === "string")
 
 describe("Verify Bundled Package", () => {
 	test("Test Circular Dependency", async () => {

@@ -26,8 +26,8 @@ await Promise.all(
 		await $`node ${createKKIndexjsPath} --outdir ${testDir} --name ${folderName} --template ${templateName}`
 		const templateDir = path.join(testDir, folderName)
 		console.log("templateDir", templateDir)
-		await $`pnpm install`.cwd(templateDir)
-		await $`pnpm build`.cwd(templateDir)
+		await $`pnpm install`.cwd(templateDir).quiet()
+		await $`pnpm build`.cwd(templateDir).quiet()
 		testTemplateDirs.push(templateDir)
 	})
 )

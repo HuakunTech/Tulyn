@@ -17,6 +17,7 @@ import { useRemoteCmdStore } from "~/stores/remoteCmds"
 import { useSystemCmdsStore } from "~/stores/systemCmds"
 import { ComboboxInput } from "radix-vue"
 import { toast } from "vue-sonner"
+import {version} from '@kksh/api/package.json'
 
 const builtinCmdStore = useBuiltInCmdStore()
 const appsStore = useAppsLoaderStore()
@@ -139,6 +140,7 @@ const searchTermSyncProxy = computed({
 })
 </script>
 <template>
+	<span>{{version}}</span>
 	<!-- <iframe src="ext://template-ext-sveltekit.build.dev-ext/about" class="w-full h-96" frameborder="0"></iframe> -->
 	<CmdPaletteCommand
 		class=""
