@@ -303,6 +303,10 @@ export function constructExtStore(options: { isDev: boolean }) {
 			return Promise.resolve()
 		}
 
+		function findExtByIdentifier(identifier: string) {
+			return manifests.value.find((m) => m.kunkun.identifier === identifier)
+		}
+
 		return {
 			id: uuidv4(),
 			extensionName,
@@ -312,6 +316,7 @@ export function constructExtStore(options: { isDev: boolean }) {
 			extPath,
 			setExtPath,
 			manifests,
+			findExtByIdentifier,
 			$listItems,
 			$filteredListItems,
 			uninstallExt,

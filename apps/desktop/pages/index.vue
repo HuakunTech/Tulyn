@@ -18,6 +18,8 @@ import { useSystemCmdsStore } from "~/stores/systemCmds"
 import { ComboboxInput } from "radix-vue"
 import { toast } from "vue-sonner"
 import {version} from '@kksh/api/package.json'
+import { useLastTimeStore } from "~/stores/lastTime"
+import { checkExtensionUpdate, checkUpdateAndInstall } from "~/lib/utils/updater"
 
 const builtinCmdStore = useBuiltInCmdStore()
 const appsStore = useAppsLoaderStore()
@@ -29,6 +31,8 @@ const extStore = useExtStore()
 const searchTermSync = useStore($searchTermSync)
 const appConfig = useAppConfigStore()
 await appConfig.init()
+const lastTimeStore = useLastTimeStore()
+await lastTimeStore.init()
 const extLoaders = ref([
 	devExtStore,
 	extStore,
@@ -91,6 +95,10 @@ onMounted(async () => {
 	}
 	if (platform() !== "macos") {
 		appWindow.setDecorations(false)
+	}
+	if (lastTimeStore.expired()) {
+		checkUpdateAndInstall()
+		checkExtensionUpdate()
 	}
 	appWindow.show()
 	// force rerender groups

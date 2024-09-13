@@ -10,6 +10,7 @@ import { defineStore } from "pinia"
 import { v4 as uuidv4 } from "uuid"
 import { toast } from "vue-sonner"
 import { useAppStateStore } from "./appState"
+import { checkUpdateAndInstall } from "~/lib/utils/updater"
 
 const localePath = useLocalePath()
 const rtConfig = useRuntimeConfig()
@@ -51,6 +52,14 @@ const builtinCmds: BuiltinCmd[] = [
 				}, 800)
 			}
 			$searchTermSync.set("")
+		}
+	},
+	{
+		name: "Check Update",
+		iconifyIcon: "material-symbols:update",
+		description: "Check for updates",
+		function: async () => {
+			checkUpdateAndInstall()
 		}
 	},
 	{

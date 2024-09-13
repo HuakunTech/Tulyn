@@ -4,11 +4,8 @@ import { cn } from "@/lib/utils"
 import { Button } from "@kksh/vue/button"
 import { Card, CardContent } from "@kksh/vue/card"
 import { getVersion } from "@tauri-apps/api/app"
-import { confirm } from "@tauri-apps/plugin-dialog"
-import { relaunch } from "@tauri-apps/plugin-process"
-import { check } from "@tauri-apps/plugin-updater"
-import { ElMessage, ElNotification } from "element-plus"
 import { onMounted, ref, type HTMLAttributes } from "vue"
+import { checkUpdateAndInstall } from "@/lib/utils/updater"
 
 const appVersion = ref("")
 onMounted(() => {
@@ -20,20 +17,6 @@ const props = defineProps<{
 	class?: HTMLAttributes["class"]
 }>()
 
-async function checkUpdate() {
-	const update = await check()
-	if (update?.available) {
-		const confirmUpdate = await confirm(
-			`A new version ${update.version} is available. Do you want to install and relaunch?`
-		)
-		if (confirmUpdate) {
-			await update.downloadAndInstall()
-			await relaunch()
-		}
-	} else {
-		ElNotification.info("You are on the latest version")
-	}
-}
 </script>
 <template>
 	<Card :class="cn('flex h-full items-center justify-center border-none', props.class)">
@@ -57,7 +40,7 @@ async function checkUpdate() {
 					{{ $t("extensionsSourceCode") }}
 					<Icon name="mdi:github" class="inline -translate-y-0.5 text-white" />
 				</TauriLink>
-				<Button @click="checkUpdate" size="xs" variant="secondary">{{ $t("checkUpdate") }}</Button>
+				<Button @click="checkUpdateAndInstall" size="xs" variant="secondary">{{ $t("checkUpdate") }}</Button>
 			</div>
 		</CardContent>
 	</Card>

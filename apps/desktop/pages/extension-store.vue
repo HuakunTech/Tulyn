@@ -31,6 +31,7 @@ import { onMounted, ref } from "vue"
 import { gt } from 'semver'
 import { getExtensionFolder } from "@kksh/api/commands"
 import { installTarballUrl } from "~/lib/utils/tarball"
+import { isCompatible } from '@kksh/api'
 
 const localePath = useLocalePath()
 const selectedExt = ref<ExtItem>()
@@ -70,7 +71,10 @@ onMounted(async () => {
 		response.data.extensionsCollection?.edges.map((x) =>
 			parse(ExtItem, parse(ExtItemParser, x.node))
 		) ?? []
-	// console.log(extList.value)
+})
+
+const sortedExtList = computed(() => {
+	return extList.value.sort((a, b) => isUpgradeable(b) ? 1 : isUpgradeable(a) ? -1 : 0)
 })
 
 /**
@@ -129,21 +133,14 @@ function isUpgradeable(item: ExtItem) {
 	if (!item.version) return true // latest extensions always have version, this check should be removed later
 	const installed = installedExtMap.value[item.identifier]
 	if (!installed) return false
-	return gt(item.version, installed.version)
+	return gt(item.version, installed.version) && (item.api_version ? isCompatible(item.api_version) : true)
 }
 
 function upgrade(item: ExtItem) {
-	console.log(item)
-	
 	extStore
 		.uninstallExt(item.identifier)
-		.then((manifest) => {
-			ElMessage.success(`Uninstalled: ${manifest.name}`)
-			extStore.load() // used to refresh isInstalled
-		})
 		.then(() => getExtensionFolder())
 		.then(async (targetInstallDir) => {
-			console.log("targetInstallDir", targetInstallDir)
 			if (!targetInstallDir) {
 				return Promise.reject("Unexpected Error: Extension Folder is Null")
 			} else {
@@ -163,7 +160,7 @@ function upgrade(item: ExtItem) {
 			}
 		})
 		.then(() => {
-			ElMessage.success(`Installed: ${item.name}; Version: ${item.version}`)
+			ElMessage.success(`Upgraded: ${item.name}; Version: ${item.version}`)
 			refreshListing()
 		})
 		.catch((err) => {
@@ -188,7 +185,7 @@ function goBack() {
 				<CommandEmpty>No results found.</CommandEmpty>
 				<CommandGroup heading="Extensions">
 					<ExtListItem
-						v-for="item in extList"
+						v-for="item in sortedExtList"
 						:data="item"
 						@upgrade="upgrade(item)"
 						:upgradeable="isUpgradeable(item)"
