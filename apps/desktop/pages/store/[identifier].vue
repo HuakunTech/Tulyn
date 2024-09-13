@@ -28,6 +28,8 @@ import { z } from "zod"
 const route = useRoute()
 const extIdentifier = route.params.identifier as string
 const imageDialogOpen = ref(false)
+const installLoading = ref(false)
+const uninstallLoading = ref(false)
 const currentExt = ref<Tables<"ext_publish"> | null>(null)
 const manifest = ref<KunkunExtManifest | null>(null)
 const extStore = useExtStore()
@@ -71,6 +73,7 @@ const demoImages = computed(() => {
 })
 
 async function installExt() {
+	installLoading.value = true
 	if (!currentExt.value) {
 		return ElMessage.error("Unexpected Error: No Extension Selected")
 	}
@@ -103,9 +106,13 @@ async function installExt() {
 			ElMessage.error("Fail to install tarball")
 			ElMessage.error(err)
 		})
+		.finally(() => {
+			installLoading.value = false
+		})
 }
 
 async function uninstallExt() {
+	uninstallLoading.value = true
 	if (!currentExt.value) {
 		return ElMessage.error("Unexpected Error: No Extension Selected")
 	}
@@ -118,6 +125,9 @@ async function uninstallExt() {
 		.catch((err) => {
 			ElMessage.error("Fail to uninstall extension")
 			error(`Failed to uninstall extension ${extIdentifier}: ${err}`)
+		})
+		.finally(() => {
+			uninstallLoading.value = false
 		})
 }
 </script>
@@ -200,20 +210,34 @@ async function uninstallExt() {
 			</ul>
 		</ScrollArea>
 	</main>
+
 	<Button
-		class="absolute bottom-0 w-full rounded-none bg-green-600 hover:bg-green-500"
+		class="absolute bottom-0 flex w-full space-x-2 rounded-none bg-green-700 text-white hover:bg-green-600"
 		v-if="!isInstalled"
+		:disabled="installLoading"
 		@click="installExt"
 	>
-		Install <Icon name="mi:enter" class="ml-2 h-5 w-5" />
+		<span>Install</span>
+		<IconMultiplexer
+			v-if="installLoading"
+			:icon="{ type: IconEnum.Iconify, value: 'uil:spinner-alt' }"
+			class="h-6 w-6 animate-spin"
+		/>
+		<Icon v-else name="mi:enter" class="h-5 w-5" />
 	</Button>
 	<Button
-		class="absolute bottom-0 w-full rounded-none bg-red-600 hover:bg-red-500"
+		class="absolute bottom-0 w-full rounded-none bg-red-600 hover:bg-red-500 space-x-2"
 		v-else
+		:disabled="uninstallLoading"
 		variant="destructive"
 		@click="uninstallExt"
 	>
-		Uninstall
-		<Trash2Icon class="ml-2 h-5 w-5" />
+		<span>Uninstall</span>
+		<IconMultiplexer
+			v-if="uninstallLoading"
+			:icon="{ type: IconEnum.Iconify, value: 'uil:spinner-alt' }"
+			class="h-6 w-6 animate-spin"
+		/>
+		<Trash2Icon v-else class="h-5 w-5" />
 	</Button>
 </template>

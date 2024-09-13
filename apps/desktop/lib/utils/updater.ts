@@ -1,4 +1,5 @@
 import { gqlClient } from "@/lib/utils/graphql"
+import { isCompatible } from "@kksh/api"
 import type { ExtPackageJsonExtra } from "@kksh/api/models"
 import {
 	FindLatestExtDocument,
@@ -42,11 +43,15 @@ export async function checkSingleExtensionUpdate(
 		return
 	}
 	const ext = exts[0].node
-	if (gt(ext.version, installedExt.version)) {
+	if (
+		gt(ext.version, installedExt.version) &&
+		(ext.api_version ? isCompatible(ext.api_version) : true)
+	) {
 		console.log(`new version available ${installedExt.kunkun.identifier} ${ext.version}`)
-		ElNotification.info(
-			`Extension ${installedExt.kunkun.identifier} has a new version ${ext.version}, you can upgrade in Store.`
-		)
+		ElNotification.info({
+			message: `Extension ${installedExt.kunkun.identifier} has a new version ${ext.version}, you can upgrade in Store.`,
+			duration: 10_000
+		})
 	}
 }
 
