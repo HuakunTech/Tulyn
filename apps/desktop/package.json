@@ -57,6 +57,7 @@
 		"pinia": "^2.1.7",
 		"posthog-js": "^1.154.2",
 		"radix-vue": "^1.9.5",
+		"semver": "^7.6.3",
 		"shadcn-nuxt": "^0.10.4",
 		"tailwind-merge": "^2.4.0",
 		"tailwindcss": "^3.4.7",
