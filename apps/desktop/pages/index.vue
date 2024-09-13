@@ -8,16 +8,17 @@ import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { getCurrentWindow } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
 import { useListenToWindowBlur } from "~/composables/useEvents"
+import { checkExtensionUpdate, checkUpdateAndInstall } from "~/lib/utils/updater"
 import { useAppConfigStore } from "~/stores/appConfig"
 import { useAppsLoaderStore } from "~/stores/appLoader"
 import { useAppStateStore } from "~/stores/appState"
 import { useBuiltInCmdStore } from "~/stores/builtinCmdLoader"
 import { useDevExtStore, useExtStore } from "~/stores/extensionLoader"
+import { useLastTimeStore } from "~/stores/lastTime"
 import { useRemoteCmdStore } from "~/stores/remoteCmds"
 import { useSystemCmdsStore } from "~/stores/systemCmds"
 import { ComboboxInput } from "radix-vue"
 import { toast } from "vue-sonner"
-import {version} from '@kksh/api/package.json'
 
 const builtinCmdStore = useBuiltInCmdStore()
 const appsStore = useAppsLoaderStore()
@@ -29,6 +30,8 @@ const extStore = useExtStore()
 const searchTermSync = useStore($searchTermSync)
 const appConfig = useAppConfigStore()
 await appConfig.init()
+const lastTimeStore = useLastTimeStore()
+await lastTimeStore.init()
 const extLoaders = ref([
 	devExtStore,
 	extStore,
@@ -92,6 +95,11 @@ onMounted(async () => {
 	if (platform() !== "macos") {
 		appWindow.setDecorations(false)
 	}
+
+	if (lastTimeStore.expired()) {
+		checkUpdateAndInstall()
+		checkExtensionUpdate(appConfig.extensionAutoUpgrade)
+	}
 	appWindow.show()
 	// force rerender groups
 	const cache = extLoaders.value
@@ -140,8 +148,6 @@ const searchTermSyncProxy = computed({
 })
 </script>
 <template>
-	<span>{{version}}</span>
-	<!-- <iframe src="ext://template-ext-sveltekit.build.dev-ext/about" class="w-full h-96" frameborder="0"></iframe> -->
 	<CmdPaletteCommand
 		class=""
 		v-model:searchTerm="searchTermSyncProxy"

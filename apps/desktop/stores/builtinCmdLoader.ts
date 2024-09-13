@@ -5,6 +5,7 @@ import { newSettingsPage } from "@/lib/utils/router"
 import { IconType } from "@kksh/api/models"
 import { getAllWebviewWindows, WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { filterListItem } from "~/lib/utils/search"
+import { checkUpdateAndInstall } from "~/lib/utils/updater"
 import { ElMessage, ElNotification } from "element-plus"
 import { defineStore } from "pinia"
 import { v4 as uuidv4 } from "uuid"
@@ -51,6 +52,14 @@ const builtinCmds: BuiltinCmd[] = [
 				}, 800)
 			}
 			$searchTermSync.set("")
+		}
+	},
+	{
+		name: "Check Update",
+		iconifyIcon: "material-symbols:update",
+		description: "Check for updates",
+		function: async () => {
+			checkUpdateAndInstall()
 		}
 	},
 	{

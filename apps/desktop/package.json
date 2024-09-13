@@ -2,7 +2,7 @@
 	"name": "@kksh/desktop",
 	"private": true,
 	"type": "module",
-	"version": "0.1.8-beta.0",
+	"version": "0.1.8",
 	"scripts": {
 		"build": "nuxt build",
 		"dev": "nuxt dev",
@@ -78,6 +78,7 @@
 		"@pinia-plugin-persistedstate/nuxt": "^1.2.1",
 		"@tailwindcss/typography": "^0.5.13",
 		"@types/lodash": "^4.17.7",
+		"@types/semver": "^7.5.8",
 		"@types/uuid": "^9.0.7",
 		"@vue/devtools-api": "^6.6.3",
 		"release-it": "^17.6.0"

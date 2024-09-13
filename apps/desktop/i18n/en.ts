@@ -34,6 +34,10 @@ const enMessages = {
 	prodMode: "Production Mode",
 	"settings.general.window-blur-bahavior": "Window Blur Behavior",
 	"settings.general.hide-on-blur": "Hide on Blur",
+	"settings.general.extension-auto-upgrade": "Extension Auto Upgrade",
+	"settings.general.extension-auto-upgrade.auto": "Auto",
+	"settings.general.extension-auto-upgrade.manual": "Manual",
+
 	/* ------------------------------ Developer Tab ----------------------------- */
 	serverStatus: "Server Status",
 	installation: "Installation",

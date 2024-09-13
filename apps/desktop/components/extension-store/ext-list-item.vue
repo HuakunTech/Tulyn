@@ -1,18 +1,28 @@
 <script setup lang="ts">
 import IconMultiplexer from "@/components/IconMultiplexer.vue"
 import { humanReadableNumber } from "@/lib/utils/format"
+import { IconEnum } from "@kksh/api/models"
+import { Button } from "@kksh/vue"
 import { CommandItem } from "~/components/ui/command"
-import { CircleCheckBigIcon } from "lucide-vue-next"
+import { ArrowRightIcon, CircleCheckBigIcon, MoveRightIcon } from "lucide-vue-next"
 import { ExtItem } from "./types"
 
 const props = defineProps<{
 	data: ExtItem
+	installedVersion?: string
 	installed: boolean
+	upgradeable: boolean
 }>()
 
 const emits = defineEmits<{
 	(e: "select"): void
+	(e: "upgrade"): void
 }>()
+
+function onUpgradeClicked(e: MouseEvent) {
+	e.stopPropagation()
+	emits("upgrade")
+}
 </script>
 <template>
 	<CommandItem :value="props.data" class="" @select="emits('select')">
@@ -26,10 +36,23 @@ const emits = defineEmits<{
 					</div>
 				</div>
 			</div>
-			<div class="flex space-x-4">
+			<div class="flex items-center space-x-2">
 				<CircleCheckBigIcon v-if="props.installed" class="w-4 text-green-400" />
+				<Button
+					v-if="props.upgradeable"
+					class="flex items-center space-x-1 px-2"
+					variant="outline"
+					@click="onUpgradeClicked"
+				>
+					<small>{{ props.installedVersion }}</small>
+					<MoveRightIcon class="w-4" />
+					<small>{{ props.data.version }}</small>
+				</Button>
+				<small v-else>{{ props.data.version }}</small>
 				<div class="flex items-center space-x-1">
-					<Icon name="ic:round-download" class="inline h-5 w-5" />
+					<Button v-if="!props.installed" variant="ghost" size="icon">
+						<Icon name="ic:round-download" class="inline h-5 w-5" />
+					</Button>
 					<span class="w-8 text-center">{{ humanReadableNumber(props.data.downloads) }}</span>
 				</div>
 			</div>

@@ -7,9 +7,18 @@ import { ExtItem, ExtItemParser } from "@/components/extension-store/types"
 import { getExtensionsFolder, SUPABASE_ANON_KEY, SUPABASE_GRAPHQL_ENDPOINT } from "@/lib/constants"
 // import { Extension } from "@/lib/extension/ext"
 import { gqlClient } from "@/lib/utils/graphql"
+import * as supabase from "@/lib/utils/supabase"
 import { ApolloClient, gql, HttpLink, InMemoryCache, type ApolloQueryResult } from "@apollo/client"
+import { isCompatible } from "@kksh/api"
+import { getExtensionFolder } from "@kksh/api/commands"
 import type { ExtPackageJsonExtra } from "@kksh/api/models"
-import { AllExtensionsDocument, type AllExtensionsQuery } from "@kksh/gql"
+import {
+	AllExtensionsDocument,
+	FindLatestExtDocument,
+	type AllExtensionsQuery,
+	type FindLatestExtQuery,
+	type FindLatestExtQueryVariables
+} from "@kksh/gql"
 import { type Tables } from "@kksh/supabase"
 import { Button } from "@kksh/vue/button"
 import { ArrowLeftIcon } from "@radix-icons/vue"
@@ -23,10 +32,13 @@ import {
 	CommandSeparator,
 	CommandShortcut
 } from "~/components/ui/command"
+import { installTarballUrl } from "~/lib/utils/tarball"
 import { useExtStore } from "~/stores/extensionLoader"
 import { ElMessage } from "element-plus"
+import { gt } from "semver"
 import { parse } from "valibot"
 import { onMounted, ref } from "vue"
+import { installExtension } from "~/lib/utils/updater"
 
 const localePath = useLocalePath()
 const selectedExt = ref<ExtItem>()
@@ -40,6 +52,19 @@ function refreshListing() {
 		installedManifests.value = extStore.manifests
 	})
 }
+
+/**
+ * Map extension identifier to the extension item
+ */
+const installedExtMap = computed(() => {
+	return installedManifests.value.reduce(
+		(acc, curr) => {
+			acc[curr.kunkun.identifier] = curr
+			return acc
+		},
+		{} as Record<string, ExtPackageJsonExtra>
+	)
+})
 
 onKeyStroke("Escape", () => {
 	if (document.activeElement?.nodeName === "INPUT") {
@@ -56,7 +81,23 @@ onMounted(async () => {
 		response.data.extensionsCollection?.edges.map((x) =>
 			parse(ExtItem, parse(ExtItemParser, x.node))
 		) ?? []
-	// console.log(extList.value)
+})
+
+const sortedExtList = computed(() => {
+	return extList.value.sort((a, b) => (isUpgradeable(b) ? 1 : isUpgradeable(a) ? -1 : 0))
+})
+
+/**
+ * Map extension identifier to the extension item
+ */
+const extListMap = computed(() => {
+	return extList.value.reduce(
+		(acc, curr) => {
+			acc[curr.identifier] = curr
+			return acc
+		},
+		{} as Record<string, ExtItem>
+	)
 })
 
 function select(item: ExtItem) {
@@ -65,8 +106,12 @@ function select(item: ExtItem) {
 	extDrawerOpen.value = true
 }
 
-function isInstalled(identifier: string) {
-	return !!installedManifests.value.find((x) => x.kunkun.identifier === identifier)
+// function isInstalled(identifier: string) {
+// 	return !!installedManifests.value.find((x) => x.kunkun.identifier === identifier)
+// }
+
+function getInstalledVersion(identifier: string) {
+	return installedManifests.value.find((x) => x.kunkun.identifier === identifier)?.version
 }
 
 function onInstalled(downloads: number) {
@@ -97,19 +142,36 @@ const filterFunc = (items: ExtItem[], searchTerm: string) => {
 	})
 }
 
+function isUpgradeable(item: ExtItem) {
+	if (!item.version) return true // latest extensions always have version, this check should be removed later
+	const installed = installedExtMap.value[item.identifier]
+	if (!installed) return false
+	return (
+		gt(item.version, installed.version) &&
+		(item.api_version ? isCompatible(item.api_version) : true)
+	)
+}
+
+function upgrade(item: ExtItem) {
+	extStore
+		.uninstallExt(item.identifier)
+		.then(() => installExtension(item.identifier))
+		.then(() => {
+			ElMessage.success(`Upgraded: ${item.name}; Version: ${item.version}`)
+			refreshListing()
+		})
+		.catch((err) => {
+			ElMessage.error(`${err}`)
+			// error(`Failed to uninstall extension ${extIdentifier}: ${err}`)
+		})
+}
+
 function goBack() {
 	navigateTo(localePath("/"))
 }
 </script>
 <template>
 	<div>
-		<!-- <ExtDrawer
-			v-model:open="extDrawerOpen"
-			:selectedExt="selectedExt"
-			:installed="selectedExt?.identifier ? isInstalled(selectedExt?.identifier) : false"
-			@installed="onInstalled"
-			@uninstall="uninstall"
-		/> -->
 		<Command :filterFunction="(val, searchTerm) => filterFunc(val as ExtItem[], searchTerm)">
 			<CommandInput placeholder="Type to search..." class="text-md h-12">
 				<Button size="icon" variant="outline" @click="goBack">
@@ -120,9 +182,12 @@ function goBack() {
 				<CommandEmpty>No results found.</CommandEmpty>
 				<CommandGroup heading="Extensions">
 					<ExtListItem
-						v-for="item in extList"
+						v-for="item in sortedExtList"
 						:data="item"
-						:installed="isInstalled(item.identifier)"
+						@upgrade="upgrade(item)"
+						:upgradeable="isUpgradeable(item)"
+						:installedVersion="getInstalledVersion(item.identifier)"
+						:installed="!!getInstalledVersion(item.identifier)"
 						@select="select(item)"
 					/>
 				</CommandGroup>

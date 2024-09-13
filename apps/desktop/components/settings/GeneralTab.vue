@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
 	DevExtMode,
+	ExtensionAutoUpgrade,
 	HideOnBlur,
 	Language,
 	MenuBar,
@@ -41,6 +42,7 @@ function updateHotkey(keys: string[]) {
 		<MenuBar />
 		<Theme />
 		<HideOnBlur />
+		<ExtensionAutoUpgrade />
 		<StrikeSeparator>
 			<span class="whitespace-nowrap break-normal">{{ $t("developerSettings") }}</span>
 		</StrikeSeparator>

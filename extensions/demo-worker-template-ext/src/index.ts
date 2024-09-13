@@ -43,14 +43,16 @@ class ExtensionTemplate extends WorkerExtension {
 		// console.log(res.stdout)
 		console.log("echo $PWD", await shell.executeBashScript("echo $PWD"))
 		// open.file("$EXTENSION/src/deno-script.ts")
-		const denoCmd = shell.createDenoCommand("$EXTENSION/src/deno-script.ts", ["--name=huakun"], {
-			allowAllWrite: true,
-			allowEnv: ["HOME", "CWD"],
-			allowAllRead: true,
-			cwd: "/Users/hacker/Desktop"
+		const desktopPath = await path.desktopDir()
+		const denoCmd = shell.createDenoCommand("$EXTENSION/src/deno-script.ts", ["-i=./avatar.png", "-o=./avatar-blur.jpeg"], {
+			allowEnv: ["npm_package_config_libvips", "CWD"],
+			allowRead: ["$DESKTOP"],
+			allowAllFfi: true,
+			cwd: desktopPath
 		})
 		const denoRes = await denoCmd.execute()
 		console.log("denoRes.stdout", denoRes.stdout)
+		console.log("denoRes.stderr", denoRes.stderr)
 		console.log(denoRes)
 
 		const extPath = await path.extensionDir()

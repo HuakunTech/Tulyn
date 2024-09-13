@@ -108,7 +108,12 @@ class DenoCommand<O extends IOPayload> extends BaseShellCommand<O> {
 	scriptPath: string
 	api: Remote<IShellServer>
 
-	constructor(scriptPath: string, args: string[], config: DenoRunConfig, api: Remote<IShellServer>) {
+	constructor(
+		scriptPath: string,
+		args: string[],
+		config: DenoRunConfig,
+		api: Remote<IShellServer>
+	) {
 		super("deno", args)
 		this.config = config
 		this.scriptPath = scriptPath
@@ -183,7 +188,11 @@ export function constructShellAPI(api: Remote<IShellServer>): IShell {
 		return new Command<string>(program, args, api, options)
 	}
 
-	function createDenoCommand(scriptPath: string, args: string[], config: Partial<DenoRunConfig> & SpawnOptions) {
+	function createDenoCommand(
+		scriptPath: string,
+		args: string[],
+		config: Partial<DenoRunConfig> & SpawnOptions
+	) {
 		return new DenoCommand<string>(scriptPath, args, config, api)
 	}
 

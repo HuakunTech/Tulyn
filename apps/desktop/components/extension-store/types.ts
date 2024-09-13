@@ -1,5 +1,5 @@
 import { Icon } from "@kksh/api/models"
-import { number, object, pipe, string, transform, type InferOutput } from "valibot"
+import { number, object, optional, pipe, string, transform, type InferOutput } from "valibot"
 
 export const ExtItemParser = object({
 	identifier: string(),
@@ -7,6 +7,8 @@ export const ExtItemParser = object({
 	downloads: number(),
 	short_description: string(),
 	long_description: string(),
+	version: optional(string()),
+	api_version: optional(string()),
 	icon: pipe(
 		string(),
 		transform((val) => JSON.parse(val))

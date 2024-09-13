@@ -30,7 +30,7 @@ function onClose() {
 				<EllipsisVerticalIcon class="h-4 w-4" />
 			</Button>
 		</DropdownMenuTrigger>
-		<DropdownMenuContent class=" w-52">
+		<DropdownMenuContent class="w-52">
 			<DropdownMenuItem @click="onClose" class="space-x-2" value="top">
 				<CircleXIcon class="h-4 w-4" />
 				<span>Close Window</span>

@@ -11,6 +11,7 @@ query FindLatestExt($identifier: String) {
         created_at
         name
         version
+        api_version
         manifest
         shasum
         size

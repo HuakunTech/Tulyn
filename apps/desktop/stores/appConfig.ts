@@ -42,44 +42,10 @@ export const appConfigSchema = object({
 	showInTray: boolean(),
 	devExtensionPath: nullable(string()),
 	devExtLoadUrl: boolean(),
-	hideOnBlur: boolean()
+	hideOnBlur: boolean(),
+	extensionAutoUpgrade: boolean()
 })
 type State = InferOutput<typeof appConfigSchema>
-
-// function isAppConfigEqual(a: State, b: State) {
-// 	if (a.isInitialized !== b.isInitialized) {
-// 		return false
-// 	}
-// 	if (a.theme !== b.theme) {
-// 		return false
-// 	}
-// 	if (a.radius !== b.radius) {
-// 		return false
-// 	}
-// 	if (a.triggerHotkey !== b.triggerHotkey) {
-// 		return false
-// 	}
-// 	if (a.lightMode !== b.lightMode) {
-// 		return false
-// 	}
-// 	if (a.launchAtLogin !== b.launchAtLogin) {
-// 		return false
-// 	}
-// 	if (a.showInTray !== b.showInTray) {
-// 		return false
-// 	}
-// 	if (a.devExtensionPath != b.devExtensionPath) {
-// 		console.log("devExtensionPath unequal", a.devExtensionPath, b.devExtensionPath);
-// 		return false
-// 	}
-// 	if (a.devExtLoadUrl !== b.devExtLoadUrl) {
-// 		return false
-// 	}
-// 	if (a.hideOnBlur !== b.hideOnBlur) {
-// 		return false
-// 	}
-// 	return true
-// }
 
 export const useAppConfigStore = defineStore("appConfig", {
 	state: (): State => ({
@@ -92,7 +58,8 @@ export const useAppConfigStore = defineStore("appConfig", {
 		showInTray: true,
 		devExtensionPath: null,
 		devExtLoadUrl: false,
-		hideOnBlur: true
+		hideOnBlur: true,
+		extensionAutoUpgrade: true
 	}),
 	getters: {
 		themeClass(state) {
@@ -178,7 +145,12 @@ export const useAppConfigStore = defineStore("appConfig", {
 			this.showInTray = showInTray
 		},
 		setHideOnBlur(hideOnBlur: boolean) {
+			emitRefreshConfig()
 			this.hideOnBlur = hideOnBlur
+		},
+		setExtensionAutoUpgrade(extensionAutoUpgrade: boolean) {
+			emitRefreshConfig()
+			this.extensionAutoUpgrade = extensionAutoUpgrade
 		},
 		setDevExtensionPath(devExtensionPath: string | null) {
 			this.devExtensionPath = devExtensionPath
@@ -193,6 +165,7 @@ export const useAppConfigStore = defineStore("appConfig", {
 		watch() {
 			this.$subscribe(async (mutation, state) => {
 				info("appConfig changed, saved to disk")
+				console.log(state)
 				await this.save()
 				// emitRefreshConfig()
 			})

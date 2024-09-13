@@ -3,6 +3,8 @@ query AllExtensions {
     edges {
       node {
         identifier
+        version
+        api_version
         name
         downloads
         short_description

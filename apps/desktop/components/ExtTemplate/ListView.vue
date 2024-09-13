@@ -118,12 +118,8 @@ function filterFunction(items: ListSchema.Item[], searchTerm: string) {
 }
 
 function onHighlightedItemChanged(itemValue: string) {
-	console.log("onHighlightedItemChanged", itemValue)
-	console.log("props.modelValue.defaultAction", props.modelValue.defaultAction)
-
 	props.workerAPI?.onHighlightedListItemChanged(itemValue)
 	const item = props.modelValue.items?.find((item) => item.value === itemValue)
-	console.log("item", item)
 	// if an action or defaultAction is set in List directly, the item's action or defaultAction will be overridden
 	if (props.modelValue.actions) {
 		appUiStore.setActionPanel(props.modelValue.actions)
