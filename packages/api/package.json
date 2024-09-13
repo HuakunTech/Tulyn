@@ -13,13 +13,12 @@
 		"./dev": "./src/dev/index.ts",
 		"./package.json": "./package.json"
 	},
+	"license": "MIT",
 	"scripts": {
 		"test": "bun test --coverage",
 		"build:docs": "npx typedoc",
-		"dev": "rollup -c --watch",
+		"dev": "bun --watch build.ts",
 		"build": "bun build.ts",
-		"build:rollup": "rollup -c",
-		"build:tsup": "tsup",
 		"format": "prettier --write \"**/*.{ts,tsx,md,vue,json,yaml,yml}\"",
 		"develop": "rollup -c --watch"
 	},
@@ -42,6 +41,7 @@
 	"dependencies": {
 		"@huakunshen/comlink": "^4.4.1",
 		"@rollup/plugin-typescript": "^11.1.6",
+		"@std/semver": "npm:@jsr/std__semver",
 		"@tauri-apps/api": "2.0.0-rc.3",
 		"@tauri-apps/plugin-dialog": ">=2.0.0-rc.0",
 		"@tauri-apps/plugin-fs": "2.0.0-rc.1",
@@ -58,9 +58,9 @@
 		"minimatch": "^10.0.1",
 		"rollup": "^4.9.6",
 		"tauri-api-adapter": "0.3.8",
-		"tauri-plugin-network-api": "workspace:*",
+		"tauri-plugin-network-api": "2.0.3",
 		"tauri-plugin-shellx-api": "^2.0.10",
-		"tauri-plugin-system-info-api": "workspace:*",
+		"tauri-plugin-system-info-api": "2.0.6",
 		"valibot": "^0.40.0",
 		"vue-sonner": "^1.1.3"
 	},

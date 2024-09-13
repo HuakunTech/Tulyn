@@ -345,14 +345,14 @@ importers:
         specifier: workspace:*
         version: link:../../packages/tauri-plugin-jarvis
       tauri-plugin-network-api:
-        specifier: workspace:*
-        version: link:../../vendors/tauri-plugin-network
+        specifier: 2.0.3
+        version: 2.0.3(typescript@5.5.4)
       tauri-plugin-shellx-api:
         specifier: ^2.0.8
         version: 2.0.8
       tauri-plugin-system-info-api:
-        specifier: workspace:*
-        version: link:../../vendors/tauri-plugin-system-info
+        specifier: 2.0.6
+        version: 2.0.6(typescript@5.5.4)
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
@@ -415,6 +415,9 @@ importers:
       '@rollup/plugin-typescript':
         specifier: ^11.1.6
         version: 11.1.6(rollup@4.20.0)(tslib@2.6.3)(typescript@5.5.4)
+      '@std/semver':
+        specifier: npm:@jsr/std__semver
+        version: '@jsr/std__semver@1.0.3'
       '@tauri-apps/api':
         specifier: 2.0.0-rc.3
         version: 2.0.0-rc.3
@@ -464,14 +467,14 @@ importers:
         specifier: 0.3.8
         version: 0.3.8(tslib@2.6.3)(typescript@5.5.4)
       tauri-plugin-network-api:
-        specifier: workspace:*
-        version: link:../../vendors/tauri-plugin-network
+        specifier: 2.0.3
+        version: 2.0.3(typescript@5.5.4)
       tauri-plugin-shellx-api:
         specifier: ^2.0.10
         version: 2.0.10
       tauri-plugin-system-info-api:
-        specifier: workspace:*
-        version: link:../../vendors/tauri-plugin-system-info
+        specifier: 2.0.6
+        version: 2.0.6(typescript@5.5.4)
       valibot:
         specifier: ^0.40.0
         version: 0.40.0(typescript@5.5.4)
@@ -2356,6 +2359,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@jsr/std__semver@1.0.3':
+    resolution: {integrity: sha512-d1uBT0Muxhd3yBIw9ZE1Q/4N1Y0td0EJe1AqwM3hP05IMwaWQV/miksQOPR3rup3bVovuIvqBm7WJcoUripdQA==, tarball: https://npm.jsr.io/~/11/@jsr/std__semver/1.0.3.tgz}
 
   '@juggle/resize-observer@3.4.0':
     resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
@@ -12078,6 +12084,8 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@jsr/std__semver@1.0.3': {}
 
   '@juggle/resize-observer@3.4.0': {}
 
