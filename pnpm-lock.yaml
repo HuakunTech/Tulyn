@@ -500,6 +500,9 @@ importers:
       '@types/madge':
         specifier: ^5.0.3
         version: 5.0.3
+      '@types/semver':
+        specifier: ^7.5.8
+        version: 7.5.8
       fs-extra:
         specifier: ^11.2.0
         version: 11.2.0
