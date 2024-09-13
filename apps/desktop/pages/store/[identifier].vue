@@ -66,7 +66,6 @@ const isInstalled = computed(() => {
 	return extStore.manifests.find((m) => m.kunkun.identifier === extIdentifier) !== undefined
 })
 
-// TODO implement install and uninstall
 const demoImages = computed(() => {
 	return currentExt.value?.demo_images.map((src) => supabase.getFileUrl(src).data.publicUrl) ?? []
 })
