@@ -1,5 +1,6 @@
 import { loadAllExtensionsFromDisk } from "@/lib/commands/extensions"
 import { ListItemType, TListGroup, TListItem } from "@/lib/types/list"
+import { constructExtensionSupportDir } from "@kksh/api"
 import {
 	getServerPort,
 	pathExists,
@@ -14,10 +15,10 @@ import {
 	WindowConfig
 } from "@kksh/api/models"
 import { convertFileSrc } from "@tauri-apps/api/core"
-import { join } from "@tauri-apps/api/path"
+import { appDataDir, join } from "@tauri-apps/api/path"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import * as fs from "@tauri-apps/plugin-fs"
-import { exists } from "@tauri-apps/plugin-fs"
+import { exists, mkdir } from "@tauri-apps/plugin-fs"
 import { debug, error, info, warn } from "@tauri-apps/plugin-log"
 import { computedAsync } from "@vueuse/core"
 import { filterListItem } from "~/lib/utils/search"
@@ -145,6 +146,13 @@ export function manifestToCmdItems(manifest: ExtPackageJsonExtra, isDev: boolean
 	return [...uiItems, ...inlineItems]
 }
 
+async function createExtSupportDir(extPath: string) {
+	const extSupportDir = await constructExtensionSupportDir(extPath)
+	if (!(await exists(extSupportDir))) {
+		await mkdir(extSupportDir, { recursive: true })
+	}
+}
+
 export function constructExtStore(options: { isDev: boolean }) {
 	const storeName = options.isDev ? "dev-extensions" : "extensions"
 	return defineStore(storeName, () => {
@@ -217,6 +225,7 @@ export function constructExtStore(options: { isDev: boolean }) {
 				if (item.type == "UI Command") {
 					manifest.kunkun.customUiCmds.forEach(async (cmd) => {
 						if (item.value === generateItemValue(manifest, cmd, isDev)) {
+							createExtSupportDir(manifest.kunkun.identifier)
 							let url = cmd.main
 							if (appConfig.devExtLoadUrl && isDev && cmd.devMain) {
 								url = cmd.devMain
@@ -260,6 +269,7 @@ export function constructExtStore(options: { isDev: boolean }) {
 					manifest.kunkun.templateUiCmds.forEach(async (cmd) => {
 						const localePath = useLocalePath()
 						if (item.value === generateItemValue(manifest, cmd, isDev)) {
+							createExtSupportDir(manifest.kunkun.identifier)
 							const main = cmd.main
 							const scriptPath = await join(manifest.extPath, main)
 							if (!(await exists(scriptPath))) {

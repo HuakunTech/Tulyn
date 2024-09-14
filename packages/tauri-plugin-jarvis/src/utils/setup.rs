@@ -40,7 +40,7 @@ pub fn setup_mac_transparent_bg(handle: &AppHandle) {
  */
 pub fn setup_extension_storage<R: Runtime>(handle: &AppHandle<R>) {
     let app_data_dir = handle.path().app_data_dir().unwrap();
-    let ext_dir = app_data_dir.join("extensions_storage");
+    let ext_dir = app_data_dir.join("extensions_support");
     if !ext_dir.exists() {
         std::fs::create_dir_all(&ext_dir).unwrap();
     }

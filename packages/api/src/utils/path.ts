@@ -1,5 +1,6 @@
 import * as pathAPI from "@tauri-apps/api/path"
 import { BaseDirectory } from "@tauri-apps/api/path"
+import { exists, mkdir } from "@tauri-apps/plugin-fs"
 import { minimatch } from "minimatch"
 import type {
 	FsPermissionScoped,
@@ -33,7 +34,11 @@ export const mapDirAliasToDirFn: Record<string, () => Promise<string>> = {
 	$APPDATA: pathAPI.appDataDir
 }
 
-export const AllPathAliases = [...Object.keys(mapDirAliasToDirFn), "$EXTENSION"]
+export const AllPathAliases = [
+	...Object.keys(mapDirAliasToDirFn),
+	"$EXTENSION",
+	"$EXTENSION_SUPPORT"
+]
 
 export function pathStartsWithAlias(path: string) {
 	return AllPathAliases.some((alias) => path.startsWith(alias))
@@ -48,6 +53,18 @@ export function pathStartsWithAlias(path: string) {
 export async function translateScopeToPath(scope: string, extensionDir: string): Promise<string> {
 	if (scope.startsWith("$EXTENSION")) {
 		return pathAPI.join(extensionDir, scope.slice("$EXTENSION".length))
+	}
+	if (scope.startsWith("$EXTENSION_SUPPORT")) {
+		const appDataDir = await pathAPI.appDataDir()
+		if (extensionDir.startsWith(appDataDir)) {
+			return pathAPI.join(appDataDir, "extensions_support", await pathAPI.basename(extensionDir))
+		} else {
+			const extSupportDir = await pathAPI.join(extensionDir, "extensions_support")
+			if (!(await exists(extSupportDir))) {
+				await mkdir(extSupportDir, { recursive: true })
+			}
+			return extSupportDir
+		}
 	}
 	for (const key of Object.keys(mapDirAliasToDirFn)) {
 		if (scope.startsWith(key)) {

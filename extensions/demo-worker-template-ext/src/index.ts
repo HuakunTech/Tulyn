@@ -42,6 +42,8 @@ class ExtensionTemplate extends WorkerExtension {
 		// const res = await cmd.execute()
 		// console.log(res.stdout)
 		console.log("echo $PWD", await shell.executeBashScript("echo $PWD"))
+		console.log(await path.extensionSupportDir());
+		
 		// open.file("$EXTENSION/src/deno-script.ts")
 		const desktopPath = await path.desktopDir()
 		const denoCmd = shell.createDenoCommand("$EXTENSION/src/deno-script.ts", ["-i=./avatar.png", "-o=./avatar-blur.jpeg"], {

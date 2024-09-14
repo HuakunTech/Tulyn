@@ -63,6 +63,14 @@ const builtinCmds: BuiltinCmd[] = [
 		}
 	},
 	{
+		name: "Check Beta Update",
+		iconifyIcon: "material-symbols:update",
+		description: "Check for Beta updates",
+		function: async () => {
+			checkUpdateAndInstall(true)
+		}
+	},
+	{
 		name: "Reload",
 		iconifyIcon: "tabler:reload",
 		description: "Reload this page",

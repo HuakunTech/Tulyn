@@ -43,6 +43,7 @@ type PromiseWrap<T extends (...args: any[]) => any> = (
 
 export type IPath = ITauriPath & {
 	extensionDir: () => Promise<string>
+	extensionSupportDir: () => Promise<string>
 }
 
 export interface IPlist {

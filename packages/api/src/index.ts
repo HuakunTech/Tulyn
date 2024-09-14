@@ -4,3 +4,4 @@ export {
 	isVersionBetween,
 	isCompatible
 } from "./version"
+export { constructExtensionSupportDir } from "./ui/server/path"
