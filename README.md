@@ -31,10 +31,10 @@
 - [x] Linux
 - [x] Windows
 
-## Demo
-
+![](https://i.imgur.com/PRuhafm.gif)
 ![](./README.assets/main.png)
 ![](./README.assets/store.png)
+
 
 ![Alt](https://repobeats.axiom.co/api/embed/283a4ee3d0e8777cfadc89752189164a1f9670c9.svg "Repobeats analytics image")
 

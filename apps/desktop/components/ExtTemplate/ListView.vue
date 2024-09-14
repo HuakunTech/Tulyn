@@ -5,6 +5,7 @@ import { HTMLElementId } from "@/lib/constants"
 import { type Remote } from "@huakunshen/comlink"
 import { ListSchema, WorkerExtension } from "@kksh/api/ui/worker"
 import { Button } from "@kksh/vue/button"
+import { Progress } from "@kksh/vue/progress"
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@kksh/vue/resizable"
 import { ArrowLeftIcon } from "@radix-icons/vue"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
@@ -38,6 +39,7 @@ const props = defineProps<{
 	modelValue: ListSchema.List
 	workerAPI: Remote<WorkerExtension>
 	loading: boolean
+	pbar: number | null
 	class?: HTMLAttributes["class"]
 }>()
 
@@ -175,6 +177,7 @@ function goBack() {
 				<ArrowLeftIcon />
 			</Button>
 		</CmdInput>
+		<Progress v-if="pbar" :model-value="pbar" class="h-[1.5px] rounded-none" />
 		<ResizablePanelGroup direction="horizontal" :class="props.class">
 			<ResizablePanel :default-size="100 - defaultDetailWidth" ref="panelRef1">
 				<CommandList class="h-full" @scroll="onScroll">

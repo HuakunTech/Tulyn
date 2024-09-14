@@ -61,6 +61,7 @@ const searchTerm = ref("")
 const searchBarPlaceholder = ref("")
 const listViewRef = ref<{ onActionSelected: () => void }>()
 const loadedExt = ref<ExtPackageJsonExtra>()
+const pbar = ref<number | null>(null)
 let unlistenRefreshWorkerExt: UnlistenFn | undefined
 
 function clearViewContent(keep?: "list" | "form" | "markdown") {
@@ -165,6 +166,9 @@ const extUiAPI: IUiWorker = {
 		} else {
 			toast.error(`Unsupported view type: ${view.nodeName}`)
 		}
+	},
+	async setProgressBar(progress: number | null) {
+		pbar.value = progress
 	},
 	async setScrollLoading(_loading: boolean) {
 		loading.value = _loading
@@ -319,6 +323,7 @@ onUnmounted(() => {
 		class=""
 		v-model:search-term="searchTerm"
 		v-model:search-bar-placeholder="searchBarPlaceholder"
+		:pbar="pbar"
 		ref="listViewRef"
 		:model-value="listViewContent"
 		:workerAPI="workerAPI!"

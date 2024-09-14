@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useGoToSettingShortcuts } from "@/composables/useShortcuts"
 import { useTestDB } from "@/lib/dev/exp"
-import { installBun } from "@/lib/utils/runtime"
 import { Toaster } from "@kksh/vue/sonner"
 import { Toaster as Toaster2 } from "@kksh/vue/toast"
 import { TooltipProvider } from "@kksh/vue/tooltip"

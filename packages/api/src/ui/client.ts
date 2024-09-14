@@ -119,6 +119,7 @@ export interface IUiWorker {
 	setScrollLoading: (loading: boolean) => Promise<void>
 	setSearchTerm: (term: string) => Promise<void>
 	setSearchBarPlaceholder: (placeholder: string) => Promise<void>
+	setProgressBar: (progress: number | null) => Promise<void>
 }
 
 export interface IUiIframe {
