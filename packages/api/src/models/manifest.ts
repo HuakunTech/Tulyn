@@ -138,9 +138,30 @@ export const KunkunExtManifest = object({
 })
 export type KunkunExtManifest = InferOutput<typeof KunkunExtManifest>
 
+const Person = union([
+	object({
+		name: string("GitHub Username"),
+		email: string("Email of the person"),
+		url: optional(nullable(string("URL of the person")))
+	}),
+	string("GitHub Username")
+])
+
 export const ExtPackageJson = object({
 	name: string("Package name for the extension (just a regular npm package name)"),
 	version: string("Version of the extension"),
+	author: optional(Person),
+	contributors: optional(array(Person, "Contributors of the extension")),
+	repository: optional(
+		union([
+			string("URL of the repository"),
+			object({
+				type: string("Type of the repository"),
+				url: string("URL of the repository"),
+				directory: string("Directory of the repository")
+			})
+		])
+	),
 	kunkun: KunkunExtManifest,
 	files: array(string("Files to include in the extension. e.g. ['dist']"))
 })
