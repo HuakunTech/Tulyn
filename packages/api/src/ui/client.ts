@@ -241,6 +241,9 @@ export interface IEvent {
 	onWindowFocus: (callback: () => void) => void
 }
 
+/**
+ * https://docs.deno.com/runtime/fundamentals/security/
+ */
 export interface DenoRunConfig {
 	allowNet?: string[]
 	allowAllNet?: boolean

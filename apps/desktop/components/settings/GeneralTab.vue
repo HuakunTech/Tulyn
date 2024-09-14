@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {
+	BetaProgram,
 	DevExtMode,
 	ExtensionAutoUpgrade,
 	HideOnBlur,
@@ -48,5 +49,6 @@ function updateHotkey(keys: string[]) {
 		</StrikeSeparator>
 		<DevExtMode />
 		<Language />
+		<BetaProgram />
 	</Card>
 </template>

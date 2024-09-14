@@ -43,7 +43,8 @@ export const appConfigSchema = object({
 	devExtensionPath: nullable(string()),
 	devExtLoadUrl: boolean(),
 	hideOnBlur: boolean(),
-	extensionAutoUpgrade: boolean()
+	extensionAutoUpgrade: boolean(),
+	joinBetaProgram: boolean()
 })
 type State = InferOutput<typeof appConfigSchema>
 
@@ -59,7 +60,8 @@ export const useAppConfigStore = defineStore("appConfig", {
 		devExtensionPath: null,
 		devExtLoadUrl: false,
 		hideOnBlur: true,
-		extensionAutoUpgrade: true
+		extensionAutoUpgrade: true,
+		joinBetaProgram: false
 	}),
 	getters: {
 		themeClass(state) {
@@ -145,12 +147,16 @@ export const useAppConfigStore = defineStore("appConfig", {
 			this.showInTray = showInTray
 		},
 		setHideOnBlur(hideOnBlur: boolean) {
-			emitRefreshConfig()
 			this.hideOnBlur = hideOnBlur
+			emitRefreshConfig()
 		},
 		setExtensionAutoUpgrade(extensionAutoUpgrade: boolean) {
-			emitRefreshConfig()
 			this.extensionAutoUpgrade = extensionAutoUpgrade
+			emitRefreshConfig()
+		},
+		setJoinBetaProgram(join: boolean) {
+			this.joinBetaProgram = join
+			emitRefreshConfig()
 		},
 		setDevExtensionPath(devExtensionPath: string | null) {
 			this.devExtensionPath = devExtensionPath

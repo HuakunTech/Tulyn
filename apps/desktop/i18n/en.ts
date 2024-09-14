@@ -37,6 +37,9 @@ const enMessages = {
 	"settings.general.extension-auto-upgrade": "Extension Auto Upgrade",
 	"settings.general.extension-auto-upgrade.auto": "Auto",
 	"settings.general.extension-auto-upgrade.manual": "Manual",
+	"settings.general.join-beta": "Join Beta Program",
+	"settings.general.join-beta.explain-true": "Receive both stable and beta versions",
+	"settings.general.join-beta.explain-false": "Receive only stable versions",
 
 	/* ------------------------------ Developer Tab ----------------------------- */
 	serverStatus: "Server Status",

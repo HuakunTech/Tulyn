@@ -9,16 +9,19 @@ import {
 	type FindLatestExtQueryVariables
 } from "@kksh/gql"
 import { confirm } from "@tauri-apps/plugin-dialog"
+import { error } from "@tauri-apps/plugin-log"
 import { relaunch } from "@tauri-apps/plugin-process"
 import { check } from "@tauri-apps/plugin-updater"
 import { ElMessage, ElNotification } from "element-plus"
 import { gt } from "semver"
 import { installTarballUrl } from "./tarball"
-import { error } from "@tauri-apps/plugin-log"
 
-export async function checkUpdateAndInstall() {
-	const update = await check()
-	console.log("update", update)
+export async function checkUpdateAndInstall(beta?: boolean) {
+	const update = await check({
+		headers: {
+			"kk-updater-mode": beta ? "beta" : "stable"
+		}
+	})
 	if (update?.available) {
 		const confirmUpdate = await confirm(
 			`A new version ${update.version} is available. Do you want to install and relaunch?`

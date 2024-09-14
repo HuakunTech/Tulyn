@@ -98,6 +98,9 @@ onMounted(async () => {
 
 	if (lastTimeStore.expired()) {
 		checkUpdateAndInstall()
+		if (appConfig.joinBetaProgram) {
+			checkUpdateAndInstall(true)
+		}
 		checkExtensionUpdate(appConfig.extensionAutoUpgrade)
 	}
 	appWindow.show()
