@@ -37,6 +37,12 @@ const zhMessages: I18nMessages = {
 	prodMode: "正常模式",
 	"settings.general.window-blur-bahavior": "窗口失焦行为",
 	"settings.general.hide-on-blur": "失焦隐藏",
+	"settings.general.extension-upgrade": "插件更新模式",
+	"settings.general.extension-upgrade.auto": "自动更新",
+	"settings.general.extension-upgrade.manual": "手动更新(插件商店中)",
+	"settings.general.join-beta": "加入测试版",
+	"settings.general.join-beta.explain-true": "接收稳定版和测试版",
+	"settings.general.join-beta.explain-false": "仅接收稳定版",
 	/* ------------------------------ Developer Tab ----------------------------- */
 	serverStatus: "服务器状态",
 	installation: "安装",
@@ -48,7 +54,7 @@ const zhMessages: I18nMessages = {
 	version: "版本",
 	sourceCode: "源代码",
 	extensionsSourceCode: "插件源代码",
-	checkUpdate: "检查更新"
+	checkUpdate: "检查更新",
 }
 
 export default zhMessages

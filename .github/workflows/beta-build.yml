@@ -217,7 +217,7 @@ jobs:
         run: pnpm build
 
       - name: Get App Version
-        if: inputs.platform_windows == true
+        if: inputs.platform_windows
         id: appversion
         run: |
           echo "version=$(node -p "require('./apps/desktop/package.json').version")"
@@ -227,7 +227,7 @@ jobs:
         working-directory: apps/desktop
         env:
           CI: false
-        run: pnpm tauri build ${{ env.BUILD_MODE}} ${{ contains(steps.appversion.outputs.version, 'beta') && inputs.platform_windows == true && '-b nsis' || '' }}
+        run: pnpm tauri build ${{ env.BUILD_MODE}} ${{ contains(steps.appversion.outputs.version, 'beta') && inputs.platform_windows && '-b nsis' || '' }}
 
       - name: Rename macos-aarch64
         if: matrix.os == 'macos-14'

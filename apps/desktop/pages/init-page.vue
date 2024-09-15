@@ -2,11 +2,17 @@
 import { getCurrentWindow } from "@tauri-apps/api/window"
 
 const localePath = useLocalePath()
+const appConfig = useAppConfigStore()
 
-onMounted(() => {
+onMounted(async () => {
+	await appConfig.init()
 	getCurrentWindow().show()
 	setTimeout(() => {
-		navigateTo(localePath("/"))
+		if (appConfig.onBoarded) {
+			navigateTo(localePath("/"))
+		} else {
+			navigateTo(localePath("/onboarding"))
+		}
 	}, 500)
 })
 </script>

@@ -44,7 +44,8 @@ export const appConfigSchema = object({
 	devExtLoadUrl: boolean(),
 	hideOnBlur: boolean(),
 	extensionAutoUpgrade: boolean(),
-	joinBetaProgram: boolean()
+	joinBetaProgram: boolean(),
+	onBoarded: boolean()
 })
 type State = InferOutput<typeof appConfigSchema>
 
@@ -61,7 +62,8 @@ export const useAppConfigStore = defineStore("appConfig", {
 		devExtLoadUrl: false,
 		hideOnBlur: true,
 		extensionAutoUpgrade: true,
-		joinBetaProgram: false
+		joinBetaProgram: false,
+		onBoarded: false
 	}),
 	getters: {
 		themeClass(state) {
@@ -164,6 +166,9 @@ export const useAppConfigStore = defineStore("appConfig", {
 			return setDevExtensionFolderForServer(devExtensionPath).then(() => {
 				return restartServer()
 			})
+		},
+		setOnBoarded(onBoarded: boolean) {
+			this.onBoarded = onBoarded
 		},
 		setDevExtLoadUrl(devExtLoadUrl: boolean) {
 			this.devExtLoadUrl = devExtLoadUrl

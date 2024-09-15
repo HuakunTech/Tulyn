@@ -37,7 +37,7 @@ function updateHotkey(keys: string[]) {
 }
 </script>
 <template>
-	<Card class="flex h-full flex-col space-y-4 border-none bg-transparent py-5 shadow-none">
+	<Card class="flex flex-col space-y-4 border-none bg-transparent py-5 shadow-none">
 		<Startup />
 		<TriggerHotkey :saved-hotkey="savedHotkey" @update:saved-hotkey="updateHotkey" />
 		<MenuBar />
