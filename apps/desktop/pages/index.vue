@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import ListItem from "@/components/MainSearch/list-item.vue"
 import { CommandEmpty, CommandGroup, CommandList } from "@/components/ui/command"
-import { $searchTermSync, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
-import { useStore } from "@nanostores/vue"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { getCurrentWindow } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
@@ -27,7 +25,6 @@ const appStateStore = useAppStateStore()
 const remoteCmdStore = useRemoteCmdStore()
 const devExtStore = useDevExtStore()
 const extStore = useExtStore()
-const searchTermSync = useStore($searchTermSync)
 const appConfig = useAppConfigStore()
 await appConfig.init()
 const lastTimeStore = useLastTimeStore()
@@ -77,14 +74,6 @@ useListenToWindowFocus(() => {
 	cmdInputRef.value?.$el.querySelector("input").focus()
 })
 
-$searchTermSync.subscribe((val, oldVal) => {
-	clearTimeout(updateSearchTermTimeout)
-	updateSearchTermTimeout = setTimeout(() => {
-		setSearchTerm(val)
-		appStateStore.setSearchTerm(val)
-	}, 100)
-})
-
 onMounted(async () => {
 	if (appWindow.label !== "main") {
 		setTimeout(() => {
@@ -115,8 +104,8 @@ onMounted(async () => {
 // when close window if not focused on input. If input element has content, clear the content
 onKeyStroke("Escape", (e) => {
 	if (getActiveElementNodeName() === "INPUT") {
-		if ($searchTermSync.get() !== "") {
-			$searchTermSync.set("")
+		if (appStateStore.searchTermSync !== "") {
+			appStateStore.setSearchTermSync("")
 		} else {
 			appWindow.close()
 		}
@@ -144,11 +133,12 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 })
 
 const searchTermSyncProxy = computed({
-	get: () => searchTermSync.value,
+	get: () => appStateStore.searchTermSync,
 	set: (val: string) => {
-		$searchTermSync.set(val)
+		appStateStore.setSearchTermSync(val)
 	}
 })
+// const searchTermSyncProxy = ref("")
 </script>
 <template>
 	<CmdPaletteCommand

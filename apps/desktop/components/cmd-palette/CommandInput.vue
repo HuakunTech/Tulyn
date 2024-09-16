@@ -7,9 +7,13 @@ defineOptions({
 	inheritAttrs: false
 })
 
+const quickLinkInputs = defineModel<QuickLinkQuery[]>("quickLinkInputs")
+
 const props = defineProps<
 	ComboboxInputProps & {
 		class?: HTMLAttributes["class"]
+		searchTerm: string
+		// quickLinkInputs: QuickLinkQuery[]
 	}
 >()
 
@@ -35,6 +39,7 @@ const forwardedProps = useForwardProps(delegatedProps)
 				)
 			"
 		/>
+		<CmdPaletteQuickLinks :searchTerm="searchTerm" v-model:quickLinkInputs="quickLinkInputs" />
 		<slot name="end" />
 	</div>
 </template>
