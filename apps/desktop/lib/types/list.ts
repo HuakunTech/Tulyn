@@ -17,7 +17,8 @@ export enum ListItemTypeEnum {
 	InlineCmd = "Template Command",
 	SystemCmd = "System Command",
 	Application = "Application",
-	BuiltInCmd = "Built-In Command"
+	BuiltInCmd = "Built-In Command",
+	QuickLink = "Quick Link"
 }
 export const ListItemType = enum_(ListItemTypeEnum)
 export type ListItemType = InferOutput<typeof ListItemType>

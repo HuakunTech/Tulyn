@@ -33,12 +33,12 @@ import {
 	CommandShortcut
 } from "~/components/ui/command"
 import { installTarballUrl } from "~/lib/utils/tarball"
+import { installExtension } from "~/lib/utils/updater"
 import { useExtStore } from "~/stores/extensionLoader"
 import { ElMessage } from "element-plus"
 import { gt } from "semver"
 import { parse } from "valibot"
 import { onMounted, ref } from "vue"
-import { installExtension } from "~/lib/utils/updater"
 
 const localePath = useLocalePath()
 const selectedExt = ref<ExtItem>()
@@ -46,6 +46,7 @@ const extDrawerOpen = ref(false)
 const extList = ref<ExtItem[]>([])
 const installedManifests = ref<ExtPackageJsonExtra[]>([])
 const extStore = useExtStore()
+const searchTerm = ref("")
 
 function refreshListing() {
 	return extStore.load().then(() => {
@@ -172,8 +173,11 @@ function goBack() {
 </script>
 <template>
 	<div>
-		<Command :filterFunction="(val, searchTerm) => filterFunc(val as ExtItem[], searchTerm)">
-			<CommandInput placeholder="Type to search..." class="text-md h-12">
+		<Command
+			:filterFunction="(val, searchTerm) => filterFunc(val as ExtItem[], searchTerm)"
+			v-model:searchTerm="searchTerm"
+		>
+			<CommandInput placeholder="Type to search..." class="text-md h-12" :searchTerm="searchTerm">
 				<Button size="icon" variant="outline" @click="goBack">
 					<ArrowLeftIcon class="h-5 w-5 shrink-0" />
 				</Button>

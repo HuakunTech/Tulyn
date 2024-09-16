@@ -10,10 +10,9 @@ const quickLinkInputs = useQuickLinksStore()
 		ref="cmdInputRef"
 		:searchTerm="appState.searchTermSync"
 		class="text-md ml-1 h-12"
-		:placeholder="''"
+		:placeholder="$t('searchBarSearchForAppsOrCmds')"
 		:quickLinkInputs="quickLinkInputs.quickLinkInputs"
 	>
-		<!-- :placeholder="$t('searchBarSearchForAppsOrCmds')" -->
 		<template v-slot:end>
 			<CmdPaletteSearchBarDropdown />
 		</template>

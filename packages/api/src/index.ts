@@ -5,3 +5,4 @@ export {
 	isCompatible
 } from "./version"
 export { constructExtensionSupportDir } from "./ui/server/path"
+export * from "./constants"

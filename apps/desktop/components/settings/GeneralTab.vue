@@ -13,6 +13,7 @@ import {
 } from "@/components/settings/General"
 import StrikeSeparator from "@/components/StrikeSeparator.vue"
 import { Card } from "@kksh/vue/card"
+import { Separator } from "@kksh/vue/separator"
 import { emitRefreshConfig } from "~/lib/utils/tauri-events"
 import { useAppConfigStore } from "~/stores/appConfig"
 import { toast } from "vue-sonner"
@@ -44,9 +45,10 @@ function updateHotkey(keys: string[]) {
 		<Theme />
 		<HideOnBlur />
 		<ExtensionAutoUpgrade />
-		<StrikeSeparator>
-			<span class="whitespace-nowrap break-normal">{{ $t("developerSettings") }}</span>
-		</StrikeSeparator>
+		<!-- <StrikeSeparator>
+			<span class="font-mono whitespace-nowrap break-normal text-muted-foreground">{{ $t("developerSettings") }}</span>
+		</StrikeSeparator> -->
+		<Separator class="font-mono" :label="$t('developerSettings')" />
 		<DevExtMode />
 		<Language />
 		<BetaProgram />

@@ -12,18 +12,18 @@ interface State {
 export const useQuickLinksStore = defineStore("quick-links", {
 	state: (): State => ({
 		quickLinkInputs: [
-			{
-				value: "",
-				name: "Tauri"
-			},
-			{
-				value: "",
-				name: "Vue"
-			},
-			{
-				value: "",
-				name: "React"
-			}
+			// {
+			// 	value: "",
+			// 	name: "Tauri"
+			// },
+			// {
+			// 	value: "",
+			// 	name: "Vue"
+			// },
+			// {
+			// 	value: "",
+			// 	name: "React"
+			// }
 		]
 	}),
 	actions: {}

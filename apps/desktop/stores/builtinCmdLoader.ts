@@ -34,6 +34,17 @@ const builtinCmds: BuiltinCmd[] = [
 		}
 	},
 	{
+		name: "Create Quicklink",
+		iconifyIcon: "material-symbols:link",
+		description: "Create a Quicklink",
+		function: async () => {
+			const appStateStore = useAppStateStore()
+			appStateStore.setSearchTermSync("")
+			navigateTo("/create-quicklink")
+			// navigateTo(localePath("/extension-store"))
+		}
+	},
+	{
 		name: "Settings",
 		iconifyIcon: "solar:settings-linear",
 		description: "Open Settings",

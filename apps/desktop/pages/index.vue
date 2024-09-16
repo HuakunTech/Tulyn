@@ -13,6 +13,7 @@ import { useAppStateStore } from "~/stores/appState"
 import { useBuiltInCmdStore } from "~/stores/builtinCmdLoader"
 import { useDevExtStore, useExtStore } from "~/stores/extensionLoader"
 import { useLastTimeStore } from "~/stores/lastTime"
+import { useQuicklinkLoader } from "~/stores/quicklinkLoader"
 import { useRemoteCmdStore } from "~/stores/remoteCmds"
 import { useSystemCmdsStore } from "~/stores/systemCmds"
 import { ComboboxInput } from "radix-vue"
@@ -28,8 +29,10 @@ const extStore = useExtStore()
 const appConfig = useAppConfigStore()
 await appConfig.init()
 const lastTimeStore = useLastTimeStore()
+const quicklinkLoader = useQuicklinkLoader()
 await lastTimeStore.init()
 const extLoaders = ref([
+	quicklinkLoader,
 	devExtStore,
 	extStore,
 	builtinCmdStore,
@@ -91,6 +94,7 @@ onMounted(async () => {
 			checkUpdateAndInstall(true)
 		}
 		checkExtensionUpdate(appConfig.extensionAutoUpgrade)
+		lastTimeStore.update()
 	}
 	appWindow.show()
 	// force rerender groups

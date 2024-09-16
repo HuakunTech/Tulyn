@@ -2,6 +2,7 @@ import { getExtensionsFolder } from "~/lib/constants"
 import { useAppsLoaderStore } from "~/stores/appLoader"
 import { useBuiltInCmdStore } from "~/stores/builtinCmdLoader"
 import { useDevExtStore, useExtStore } from "~/stores/extensionLoader"
+import { useQuicklinkLoader } from "~/stores/quicklinkLoader"
 import { useRemoteCmdStore } from "~/stores/remoteCmds"
 import { useSystemCmdsStore } from "~/stores/systemCmds"
 
@@ -22,4 +23,6 @@ export async function initStores() {
 	const extStore = useExtStore()
 	extStore.setExtPath(await getExtensionsFolder())
 	extStore.load()
+	const quicklinkLoader = useQuicklinkLoader()
+	quicklinkLoader.load()
 }
