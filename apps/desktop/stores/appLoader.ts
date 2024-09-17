@@ -8,6 +8,7 @@ import { filterListItem } from "~/lib/utils/search"
 import { defineStore } from "pinia"
 import { executeBashScript, open } from "tauri-plugin-shellx-api"
 import { v4 as uuidv4 } from "uuid"
+import { z } from "zod"
 import { useAppStateStore } from "./appState"
 
 /**
@@ -32,7 +33,10 @@ export function computeItemValue(app: AppInfo & { app_path_exe: string }): strin
 export function appInfoToListItem(app: AppInfo & { app_path_exe: string }): TListItem {
 	return {
 		title: app.name,
-		value: computeItemValue(app),
+		value: {
+			type: ListItemTypeEnum.Application,
+			data: computeItemValue(app)
+		},
 		description: "",
 		type: ListItemTypeEnum.Application,
 		icon: app.icon_path
@@ -51,6 +55,7 @@ export const useAppsLoaderStore = defineStore("appLoader", () => {
 			.filter((app) => !!app.app_path_exe)
 			.map((app) => appInfoToListItem(app as AppInfo & { app_path_exe: string }))
 	)
+
 	const appStateStore = useAppStateStore()
 	const $filteredListItems = computed<TListItem[]>(() => {
 		return appStateStore.searchTerm.length === 0
@@ -58,10 +63,15 @@ export const useAppsLoaderStore = defineStore("appLoader", () => {
 			: filterListItem(appStateStore.searchTerm, $listItems.value).slice(0, 30)
 	})
 	function load() {
+		console.log("apps load")
 		return refreshApplicationsList()
 			.then(() => getAllApps())
 			.then((_apps) => {
+				console.log("apps: ", _apps)
 				apps.value = _apps
+				setTimeout(() => {
+					console.log($listItems.value)
+				}, 1000)
 			})
 	}
 	function setApps(_apps: AppInfo[]): void {
@@ -70,7 +80,7 @@ export const useAppsLoaderStore = defineStore("appLoader", () => {
 
 	function onSelect(item: TListItem): Promise<void> {
 		const platform = $appState.get().platform
-		const foundApp = apps.value.find((app) => app.app_desktop_path === item.value)
+		const foundApp = apps.value.find((app) => app.app_desktop_path === item.value.data)
 		if (platform === "macos") {
 			if (foundApp?.app_desktop_path) {
 				return open(foundApp.app_desktop_path)
@@ -96,7 +106,7 @@ export const useAppsLoaderStore = defineStore("appLoader", () => {
 				return Promise.resolve()
 			}
 		} else if (platform === "windows") {
-			return open(item.value)
+			return open(z.string().parse(item.value.data))
 		} else {
 			ElNotification({
 				title: "Unsupported Platform",

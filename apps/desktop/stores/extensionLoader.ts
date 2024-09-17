@@ -56,7 +56,10 @@ export function cmdToItem(
 ): TListItem {
 	return {
 		title: cmd.name,
-		value: generateItemValue(manifest, cmd as CustomUiCmd, isDev),
+		value: {
+			type,
+			data: generateItemValue(manifest, cmd as CustomUiCmd, isDev)
+		},
 		description: cmd.description ?? "",
 		flags: { isDev, isRemovable: false },
 		type,
@@ -224,7 +227,7 @@ export function constructExtStore(options: { isDev: boolean }) {
 			manifests.value.forEach((manifest) => {
 				if (item.type == "UI Command") {
 					manifest.kunkun.customUiCmds.forEach(async (cmd) => {
-						if (item.value === generateItemValue(manifest, cmd, isDev)) {
+						if (item.value.data === generateItemValue(manifest, cmd, isDev)) {
 							createExtSupportDir(manifest.kunkun.identifier)
 							let url = cmd.main
 							if (appConfig.devExtLoadUrl && isDev && cmd.devMain) {
@@ -268,7 +271,7 @@ export function constructExtStore(options: { isDev: boolean }) {
 				} else if (item.type === "Template Command") {
 					manifest.kunkun.templateUiCmds.forEach(async (cmd) => {
 						const localePath = useLocalePath()
-						if (item.value === generateItemValue(manifest, cmd, isDev)) {
+						if (item.value.data === generateItemValue(manifest, cmd, isDev)) {
 							createExtSupportDir(manifest.kunkun.identifier)
 							const main = cmd.main
 							const scriptPath = await join(manifest.extPath, main)

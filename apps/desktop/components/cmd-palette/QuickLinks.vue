@@ -16,6 +16,10 @@ function queryWidth(quickLink: QuickLinkQuery) {
 		return quickLink.name.length + 2
 	}
 }
+
+const emit = defineEmits<{
+	(e: "enter"): void
+}>()
 </script>
 
 <template>
@@ -26,6 +30,7 @@ function queryWidth(quickLink: QuickLinkQuery) {
 		<input
 			v-for="(quickLink, idx) in quickLinkInputs"
 			:key="idx"
+			@keydown.enter="emit('enter')"
 			class="bg-muted rounded-md border border-gray-300 pl-2 font-mono focus:outline-none dark:border-gray-600"
 			type="text"
 			:placeholder="quickLink.name"

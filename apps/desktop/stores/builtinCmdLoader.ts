@@ -1,5 +1,5 @@
 import { DebugWindowLabel, DevWindowLabel, SettingsWindowLabel } from "@/lib/constants"
-import { ListItemType, TListItem } from "@/lib/types/list"
+import { ListItemType, ListItemTypeEnum, TListItem } from "@/lib/types/list"
 import { newSettingsPage } from "@/lib/utils/router"
 import { IconType } from "@kksh/api/models"
 import { getAllWebviewWindows, WebviewWindow } from "@tauri-apps/api/webviewWindow"
@@ -173,7 +173,10 @@ function genListItemValue(name: string): string {
 const buildinCmdsListItems: TListItem[] = builtinCmds.map(
 	(cmd): TListItem => ({
 		title: cmd.name,
-		value: genListItemValue(cmd.name),
+		value: {
+			type: ListItemTypeEnum.BuiltInCmd,
+			data: "builtin:" + cmd.name
+		},
 		description: cmd.description,
 		type: ListItemType.enum.BuiltInCmd,
 		icon: {
@@ -188,7 +191,7 @@ const buildinCmdsListItems: TListItem[] = builtinCmds.map(
 
 export const useBuiltInCmdStore = defineStore("built-in-cmd-loader", () => {
 	function onSelect(item: TListItem): Promise<void> {
-		const cmd = builtinCmds.find((cmd) => genListItemValue(cmd.name) === item.value)
+		const cmd = builtinCmds.find((cmd) => genListItemValue(cmd.name) === item.value.data)
 		if (cmd) {
 			return cmd.function()
 		} else {

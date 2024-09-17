@@ -13,7 +13,7 @@ const emits = defineEmits<{
 </script>
 
 <template>
-	<CommandItem @select="() => emits('select')" :value="`${item.value}`">
+	<CommandItem @select="() => emits('select')" :value="item.value">
 		<img
 			width="20"
 			class="mr-2"

@@ -6,6 +6,7 @@ import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { getCurrentWindow } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
 import { useListenToWindowBlur } from "~/composables/useEvents"
+import { CmdListItemValue, ExtCmdListItemValue, ListItemTypeEnum } from "~/lib/types/list"
 import { checkExtensionUpdate, checkUpdateAndInstall } from "~/lib/utils/updater"
 import { useAppConfigStore } from "~/stores/appConfig"
 import { useAppsLoaderStore } from "~/stores/appLoader"
@@ -13,11 +14,13 @@ import { useAppStateStore } from "~/stores/appState"
 import { useBuiltInCmdStore } from "~/stores/builtinCmdLoader"
 import { useDevExtStore, useExtStore } from "~/stores/extensionLoader"
 import { useLastTimeStore } from "~/stores/lastTime"
-import { useQuicklinkLoader } from "~/stores/quicklinkLoader"
+import { findAllArgsInLink, useQuicklinkLoader } from "~/stores/quickLink"
 import { useRemoteCmdStore } from "~/stores/remoteCmds"
 import { useSystemCmdsStore } from "~/stores/systemCmds"
 import { ComboboxInput } from "radix-vue"
+import { flatten, parse, safeParse } from "valibot"
 import { toast } from "vue-sonner"
+import { z } from "zod"
 
 const builtinCmdStore = useBuiltInCmdStore()
 const appsStore = useAppsLoaderStore()
@@ -32,13 +35,13 @@ const lastTimeStore = useLastTimeStore()
 const quicklinkLoader = useQuicklinkLoader()
 await lastTimeStore.init()
 const extLoaders = ref([
-	quicklinkLoader,
-	devExtStore,
-	extStore,
-	builtinCmdStore,
-	remoteCmdStore,
-	sysCmdsStore,
-	appsStore
+	quicklinkLoader
+	// devExtStore,
+	// extStore,
+	// builtinCmdStore,
+	// remoteCmdStore,
+	// sysCmdsStore,
+	// appsStore
 ])
 
 let updateSearchTermTimeout: ReturnType<typeof setTimeout>
@@ -127,12 +130,22 @@ onKeyStroke("/", (e) => {
 		}
 	}
 })
-const highlightedItemValue = ref<string | undefined>()
+const highlightedItemValue = ref<CmdListItemValue | string | undefined>()
 watch(highlightedItemValue, (newVal, oldVal) => {
-	if ((!newVal || newVal.length === 0) && oldVal) {
+	if ((!newVal || (typeof newVal === "string" && (newVal as string).length === 0)) && oldVal) {
 		setTimeout(() => {
 			highlightedItemValue.value = oldVal
 		}, 1)
+		return
+	}
+	const parsedItemValue = parse(CmdListItemValue, newVal)
+	if (parsedItemValue.type === ListItemTypeEnum.QuickLink) {
+		const qlink = z.string().parse(parse(ExtCmdListItemValue, parsedItemValue.data).data)
+		const args = findAllArgsInLink(qlink)
+		quicklinkLoader.quickLinkInputs = args.map((arg) => ({
+			name: arg,
+			value: ""
+		}))
 	}
 })
 
@@ -142,7 +155,19 @@ const searchTermSyncProxy = computed({
 		appStateStore.setSearchTermSync(val)
 	}
 })
-// const searchTermSyncProxy = ref("")
+
+function handleQuicklinkEnter() {
+	console.log("handleQuicklinkEnter", highlightedItemValue.value)
+	if (highlightedItemValue.value === "") {
+		return
+	}
+	const parse = safeParse(CmdListItemValue, highlightedItemValue.value)
+	if (parse.success) {
+		quicklinkLoader.onQuicklinkEnter(parse.output)
+	} else {
+		console.error("handleQuicklinkEnter error:", flatten<typeof CmdListItemValue>(parse.issues))
+	}
+}
 </script>
 <template>
 	<CmdPaletteCommand
@@ -151,7 +176,7 @@ const searchTermSyncProxy = computed({
 		:identity-filter="true"
 		v-model:selected-value="highlightedItemValue"
 	>
-		<CmdPaletteMainSearchBar />
+		<CmdPaletteMainSearchBar @quicklink-enter="handleQuicklinkEnter" />
 		<CommandList class="h-full max-h-screen">
 			<CommandEmpty>No results found.</CommandEmpty>
 			<CommandGroup
