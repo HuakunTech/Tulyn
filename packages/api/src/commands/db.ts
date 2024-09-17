@@ -42,7 +42,6 @@ export function deleteExtensionByIdentifier(identifier: string) {
 
 /* -------------------------------------------------------------------------- */
 /*                           Extension Command CRUD                           */
-
 /* -------------------------------------------------------------------------- */
 export function createCommand(data: {
 	extId: number
@@ -85,7 +84,6 @@ export function updateCommandById(data: {
 
 /* -------------------------------------------------------------------------- */
 /*                             Extension Data CRUD                            */
-
 /* -------------------------------------------------------------------------- */
 export const ExtDataField = union([literal("data"), literal("search_text")])
 export type ExtDataField = InferOutput<typeof ExtDataField>

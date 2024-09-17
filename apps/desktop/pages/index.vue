@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import ListItem from "@/components/MainSearch/list-item.vue"
 import { CommandEmpty, CommandGroup, CommandList } from "@/components/ui/command"
-import { $searchTermSync, setSearchTerm } from "@/lib/stores/appState"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
-import { useStore } from "@nanostores/vue"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { getCurrentWindow } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
 import { useListenToWindowBlur } from "~/composables/useEvents"
+import { CmdListItemValue, ExtCmdListItemValue, ListItemTypeEnum } from "~/lib/types/list"
 import { checkExtensionUpdate, checkUpdateAndInstall } from "~/lib/utils/updater"
 import { useAppConfigStore } from "~/stores/appConfig"
 import { useAppsLoaderStore } from "~/stores/appLoader"
@@ -15,10 +14,13 @@ import { useAppStateStore } from "~/stores/appState"
 import { useBuiltInCmdStore } from "~/stores/builtinCmdLoader"
 import { useDevExtStore, useExtStore } from "~/stores/extensionLoader"
 import { useLastTimeStore } from "~/stores/lastTime"
+import { findAllArgsInLink, useQuicklinkLoader } from "~/stores/quickLink"
 import { useRemoteCmdStore } from "~/stores/remoteCmds"
 import { useSystemCmdsStore } from "~/stores/systemCmds"
 import { ComboboxInput } from "radix-vue"
+import { flatten, parse, safeParse } from "valibot"
 import { toast } from "vue-sonner"
+import { z } from "zod"
 
 const builtinCmdStore = useBuiltInCmdStore()
 const appsStore = useAppsLoaderStore()
@@ -27,12 +29,13 @@ const appStateStore = useAppStateStore()
 const remoteCmdStore = useRemoteCmdStore()
 const devExtStore = useDevExtStore()
 const extStore = useExtStore()
-const searchTermSync = useStore($searchTermSync)
 const appConfig = useAppConfigStore()
 await appConfig.init()
 const lastTimeStore = useLastTimeStore()
+const quicklinkLoader = useQuicklinkLoader()
 await lastTimeStore.init()
 const extLoaders = ref([
+	quicklinkLoader,
 	devExtStore,
 	extStore,
 	builtinCmdStore,
@@ -77,14 +80,6 @@ useListenToWindowFocus(() => {
 	cmdInputRef.value?.$el.querySelector("input").focus()
 })
 
-$searchTermSync.subscribe((val, oldVal) => {
-	clearTimeout(updateSearchTermTimeout)
-	updateSearchTermTimeout = setTimeout(() => {
-		setSearchTerm(val)
-		appStateStore.setSearchTerm(val)
-	}, 100)
-})
-
 onMounted(async () => {
 	if (appWindow.label !== "main") {
 		setTimeout(() => {
@@ -102,6 +97,7 @@ onMounted(async () => {
 			checkUpdateAndInstall(true)
 		}
 		checkExtensionUpdate(appConfig.extensionAutoUpgrade)
+		lastTimeStore.update()
 	}
 	appWindow.show()
 	// force rerender groups
@@ -115,8 +111,8 @@ onMounted(async () => {
 // when close window if not focused on input. If input element has content, clear the content
 onKeyStroke("Escape", (e) => {
 	if (getActiveElementNodeName() === "INPUT") {
-		if ($searchTermSync.get() !== "") {
-			$searchTermSync.set("")
+		if (appStateStore.searchTermSync !== "") {
+			appStateStore.setSearchTermSync("")
 		} else {
 			appWindow.close()
 		}
@@ -134,21 +130,44 @@ onKeyStroke("/", (e) => {
 		}
 	}
 })
-const highlightedItemValue = ref<string | undefined>()
+const highlightedItemValue = ref<CmdListItemValue | string | undefined>()
 watch(highlightedItemValue, (newVal, oldVal) => {
-	if ((!newVal || newVal.length === 0) && oldVal) {
+	if ((!newVal || (typeof newVal === "string" && (newVal as string).length === 0)) && oldVal) {
 		setTimeout(() => {
 			highlightedItemValue.value = oldVal
 		}, 1)
+		return
+	}
+	const parsedItemValue = parse(CmdListItemValue, newVal)
+	if (parsedItemValue.type === ListItemTypeEnum.QuickLink) {
+		const qlink = z.string().parse(parse(ExtCmdListItemValue, parsedItemValue.data).data)
+		const args = findAllArgsInLink(qlink)
+		quicklinkLoader.quickLinkInputs = args.map((arg) => ({
+			name: arg,
+			value: ""
+		}))
 	}
 })
 
 const searchTermSyncProxy = computed({
-	get: () => searchTermSync.value,
+	get: () => appStateStore.searchTermSync,
 	set: (val: string) => {
-		$searchTermSync.set(val)
+		appStateStore.setSearchTermSync(val)
 	}
 })
+
+function handleQuicklinkEnter() {
+	console.log("handleQuicklinkEnter", highlightedItemValue.value)
+	if (highlightedItemValue.value === "") {
+		return
+	}
+	const parse = safeParse(CmdListItemValue, highlightedItemValue.value)
+	if (parse.success) {
+		quicklinkLoader.onQuicklinkEnter(parse.output)
+	} else {
+		console.error("handleQuicklinkEnter error:", flatten<typeof CmdListItemValue>(parse.issues))
+	}
+}
 </script>
 <template>
 	<CmdPaletteCommand
@@ -157,7 +176,7 @@ const searchTermSyncProxy = computed({
 		:identity-filter="true"
 		v-model:selected-value="highlightedItemValue"
 	>
-		<CmdPaletteMainSearchBar />
+		<CmdPaletteMainSearchBar @quicklink-enter="handleQuicklinkEnter" />
 		<CommandList class="h-full max-h-screen">
 			<CommandEmpty>No results found.</CommandEmpty>
 			<CommandGroup

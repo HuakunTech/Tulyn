@@ -1,6 +1,5 @@
 import { DebugWindowLabel, DevWindowLabel, SettingsWindowLabel } from "@/lib/constants"
-import { $searchTermSync } from "@/lib/stores/appState"
-import { ListItemType, TListItem } from "@/lib/types/list"
+import { ListItemType, ListItemTypeEnum, TListItem } from "@/lib/types/list"
 import { newSettingsPage } from "@/lib/utils/router"
 import { IconType } from "@kksh/api/models"
 import { getAllWebviewWindows, WebviewWindow } from "@tauri-apps/api/webviewWindow"
@@ -28,8 +27,20 @@ const builtinCmds: BuiltinCmd[] = [
 		iconifyIcon: "streamline:store-2-solid",
 		description: "Go to Extension Store",
 		function: async () => {
-			$searchTermSync.set("")
+			const appStateStore = useAppStateStore()
+			appStateStore.setSearchTermSync("")
 			navigateTo("/extension-store")
+			// navigateTo(localePath("/extension-store"))
+		}
+	},
+	{
+		name: "Create Quicklink",
+		iconifyIcon: "material-symbols:link",
+		description: "Create a Quicklink",
+		function: async () => {
+			const appStateStore = useAppStateStore()
+			appStateStore.setSearchTermSync("")
+			navigateTo("/create-quicklink")
 			// navigateTo(localePath("/extension-store"))
 		}
 	},
@@ -51,7 +62,8 @@ const builtinCmds: BuiltinCmd[] = [
 					win.show()
 				}, 800)
 			}
-			$searchTermSync.set("")
+			const appStateStore = useAppStateStore()
+			appStateStore.setSearchTermSync("")
 		}
 	},
 	{
@@ -93,7 +105,8 @@ const builtinCmds: BuiltinCmd[] = [
 		function: async () => {
 			const appConfig = useAppConfigStore()
 			appConfig.setDevExtLoadUrl(!appConfig.devExtLoadUrl)
-			$searchTermSync.set("")
+			const appStateStore = useAppStateStore()
+			appStateStore.setSearchTermSync("")
 			toast.success(`Dev Extension Live Load Mode toggled to: ${appConfig.devExtLoadUrl}`)
 		}
 	},
@@ -104,7 +117,8 @@ const builtinCmds: BuiltinCmd[] = [
 		function: async () => {
 			const appConfig = useAppConfigStore()
 			appConfig.setHideOnBlur(!appConfig.hideOnBlur)
-			$searchTermSync.set("")
+			const appStateStore = useAppStateStore()
+			appStateStore.setSearchTermSync("")
 			toast.success(`"Hide on Blur" toggled to: ${appConfig.hideOnBlur}`)
 		}
 	}
@@ -159,7 +173,10 @@ function genListItemValue(name: string): string {
 const buildinCmdsListItems: TListItem[] = builtinCmds.map(
 	(cmd): TListItem => ({
 		title: cmd.name,
-		value: genListItemValue(cmd.name),
+		value: {
+			type: ListItemTypeEnum.BuiltInCmd,
+			data: "builtin:" + cmd.name
+		},
 		description: cmd.description,
 		type: ListItemType.enum.BuiltInCmd,
 		icon: {
@@ -174,7 +191,7 @@ const buildinCmdsListItems: TListItem[] = builtinCmds.map(
 
 export const useBuiltInCmdStore = defineStore("built-in-cmd-loader", () => {
 	function onSelect(item: TListItem): Promise<void> {
-		const cmd = builtinCmds.find((cmd) => genListItemValue(cmd.name) === item.value)
+		const cmd = builtinCmds.find((cmd) => genListItemValue(cmd.name) === item.value.data)
 		if (cmd) {
 			return cmd.function()
 		} else {

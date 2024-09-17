@@ -1,13 +1,12 @@
-import { ListItemType, TListItem } from "@/lib/types/list"
+import { ListItemType, ListItemTypeEnum, TListItem } from "@/lib/types/list"
 import { getSystemCommands } from "@kksh/api/commands"
-import { IconType, SysCommand } from "@kksh/api/models"
+import { IconEnum, IconType, SysCommand } from "@kksh/api/models"
 import * as dialog from "@tauri-apps/plugin-dialog"
 import { error } from "@tauri-apps/plugin-log"
 import { filterListItem } from "~/lib/utils/search"
 import { ElNotification } from "element-plus"
 import { defineStore } from "pinia"
 import { v4 as uuidv4 } from "uuid"
-import { parse, safeParse } from "valibot"
 import { useAppStateStore } from "./appState"
 
 export const useSystemCmdsStore = defineStore("system-cmds", () => {
@@ -24,29 +23,29 @@ export const useSystemCmdsStore = defineStore("system-cmds", () => {
 		systemCommands.value = await getSystemCommands()
 		$listItems.value = systemCommands.value
 			.map((cmd) => {
-				const candidate = {
+				return {
 					title: cmd.name,
-					value: cmd.value,
 					description: "System",
-					type: ListItemType.enum.SystemCmd,
+					type: ListItemTypeEnum.SystemCmd,
+					identityFilter: true,
+					keywords: cmd.keywords ?? [],
+					flags: {
+						isDev: false,
+						isRemovable: false
+					},
 					icon: cmd.icon,
-					keywords: cmd.keywords
-				}
-				const parseRes = safeParse(TListItem, candidate)
-				if (parseRes.success) {
-					return parseRes.output
-				} else {
-					error(`Failed to parse system command: ${cmd.name}; See console for more details`)
-					console.error(`Failed to parse system command: ${cmd.name}`, candidate)
-					console.error(parseRes.issues)
-					return null
+					value: {
+						type: ListItemTypeEnum.SystemCmd,
+						data: cmd.value
+					}
 				}
 			})
 			.filter((item) => item !== null)
 	}
 
 	async function onSelect(item: TListItem) {
-		const cmd = systemCommands.value.find((c) => c.value === item.value)
+		console.log(item)
+		const cmd = systemCommands.value.find((c) => c.value === item.value.data)
 		if (!cmd) {
 			ElNotification({
 				title: "Unexpected Error",

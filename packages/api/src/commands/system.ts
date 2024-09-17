@@ -171,7 +171,8 @@ export const rawSystemCommands = [
 		icon: "charm:cross",
 		confirmRequired: false,
 		function: quitAllApps,
-		platforms: ["macos"]
+		platforms: []
+		// platforms: ["macos"]
 	},
 	{
 		name: "Sleep Displays",

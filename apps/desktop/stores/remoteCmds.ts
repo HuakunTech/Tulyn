@@ -2,10 +2,7 @@ import { ListItemType, TListGroup, TListItem } from "@/lib/types/list"
 import { db } from "@kksh/api/commands"
 import { CmdType, ExtCmd, Icon, IconType } from "@kksh/api/models"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
-import { info } from "@tauri-apps/plugin-log"
 import { filterListItem } from "~/lib/utils/search"
-import { ElMessage } from "element-plus"
-import { atom, task, type ReadableAtom, type WritableAtom } from "nanostores"
 import { defineStore } from "pinia"
 import { v4 as uuidv4 } from "uuid"
 import {
@@ -46,7 +43,10 @@ function convertRawCmdToRemoteExt(rawExt: ExtCmd): RemoteCmd {
 function convertToListItem(rawExt: RemoteCmd): TListItem {
 	return {
 		title: rawExt.name,
-		value: rawExt.id.toString(),
+		value: {
+			type: ListItemType.enum.RemoteCmd,
+			data: rawExt.id.toString()
+		},
 		description: "Remote Extension",
 		type: ListItemType.enum.RemoteCmd,
 		icon: {
@@ -128,7 +128,7 @@ export const useRemoteCmdStore = defineStore("remote-cmds", () => {
 	}
 
 	function onSelect(item: TListItem): Promise<void> {
-		const ext = findRemoteExt(parseInt(item.value))
+		const ext = findRemoteExt(parseInt(parse(string(), item.value.data)))
 		if (!ext) {
 			return Promise.reject("Remote Extension not found")
 		}
