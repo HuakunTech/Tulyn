@@ -67,11 +67,7 @@ export const useAppsLoaderStore = defineStore("appLoader", () => {
 		return refreshApplicationsList()
 			.then(() => getAllApps())
 			.then((_apps) => {
-				console.log("apps: ", _apps)
 				apps.value = _apps
-				setTimeout(() => {
-					console.log($listItems.value)
-				}, 1000)
 			})
 	}
 	function setApps(_apps: AppInfo[]): void {

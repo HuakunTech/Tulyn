@@ -37,7 +37,7 @@ import { installExtension } from "~/lib/utils/updater"
 import { useExtStore } from "~/stores/extensionLoader"
 import { ElMessage } from "element-plus"
 import { gt } from "semver"
-import { parse } from "valibot"
+import { flatten, parse, safeParse } from "valibot"
 import { onMounted, ref } from "vue"
 
 const localePath = useLocalePath()
@@ -78,10 +78,18 @@ onMounted(async () => {
 	const response: ApolloQueryResult<AllExtensionsQuery> = await gqlClient.query({
 		query: AllExtensionsDocument
 	})
+
 	extList.value =
-		response.data.extensionsCollection?.edges.map((x) =>
-			parse(ExtItem, parse(ExtItemParser, x.node))
-		) ?? []
+		response.data.extensionsCollection?.edges
+			.map((x) => {
+				const parsedNode = safeParse(ExtItemParser, x.node)
+				if (!parsedNode.success) {
+					console.error(`Fail to parse extension`, x.node)
+					console.error(flatten(parsedNode.issues))
+				}
+				return parsedNode.success ? parse(ExtItem, parsedNode.output) : null
+			})
+			.filter((x) => x !== null) ?? []
 })
 
 const sortedExtList = computed(() => {
@@ -172,30 +180,29 @@ function goBack() {
 }
 </script>
 <template>
-	<div>
-		<Command
-			:filterFunction="(val, searchTerm) => filterFunc(val as ExtItem[], searchTerm)"
-			v-model:searchTerm="searchTerm"
-		>
-			<CommandInput placeholder="Type to search..." class="text-md h-12" :searchTerm="searchTerm">
-				<Button size="icon" variant="outline" @click="goBack">
-					<ArrowLeftIcon class="h-5 w-5 shrink-0" />
-				</Button>
-			</CommandInput>
-			<CommandList>
-				<CommandEmpty>No results found.</CommandEmpty>
-				<CommandGroup heading="Extensions">
-					<ExtListItem
-						v-for="item in sortedExtList"
-						:data="item"
-						@upgrade="upgrade(item)"
-						:upgradeable="isUpgradeable(item)"
-						:installedVersion="getInstalledVersion(item.identifier)"
-						:installed="!!getInstalledVersion(item.identifier)"
-						@select="select(item)"
-					/>
-				</CommandGroup>
-			</CommandList>
-		</Command>
-	</div>
+	<Command
+		:filterFunction="(val, searchTerm) => filterFunc(val as ExtItem[], searchTerm)"
+		v-model:searchTerm="searchTerm"
+	>
+		<CommandInput placeholder="Type to search..." class="text-md h-12" :searchTerm="searchTerm">
+			<Button size="icon" variant="outline" @click="goBack">
+				<ArrowLeftIcon class="h-5 w-5 shrink-0" />
+			</Button>
+		</CommandInput>
+		<CommandList>
+			<CommandEmpty>No results found.</CommandEmpty>
+			<CommandGroup heading="Extensions">
+				<ExtListItem
+					v-for="item in sortedExtList"
+					:data="item"
+					@upgrade="upgrade(item)"
+					:upgradeable="isUpgradeable(item)"
+					:installedVersion="getInstalledVersion(item.identifier)"
+					:installed="!!getInstalledVersion(item.identifier)"
+					@select="select(item)"
+				/>
+			</CommandGroup>
+		</CommandList>
+		<CmdPaletteFooter />
+	</Command>
 </template>

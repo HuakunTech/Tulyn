@@ -35,9 +35,9 @@ const lastTimeStore = useLastTimeStore()
 const quicklinkLoader = useQuicklinkLoader()
 await lastTimeStore.init()
 const extLoaders = ref([
-	quicklinkLoader,
 	devExtStore,
 	extStore,
+	quicklinkLoader,
 	builtinCmdStore,
 	remoteCmdStore,
 	sysCmdsStore,
@@ -146,6 +146,8 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 			name: arg,
 			value: ""
 		}))
+	} else {
+		quicklinkLoader.quickLinkInputs = []
 	}
 })
 
