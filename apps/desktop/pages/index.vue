@@ -35,13 +35,13 @@ const lastTimeStore = useLastTimeStore()
 const quicklinkLoader = useQuicklinkLoader()
 await lastTimeStore.init()
 const extLoaders = ref([
-	quicklinkLoader
-	// devExtStore,
-	// extStore,
-	// builtinCmdStore,
-	// remoteCmdStore,
-	// sysCmdsStore,
-	// appsStore
+	quicklinkLoader,
+	devExtStore,
+	extStore,
+	builtinCmdStore,
+	remoteCmdStore,
+	sysCmdsStore,
+	appsStore
 ])
 
 let updateSearchTermTimeout: ReturnType<typeof setTimeout>
