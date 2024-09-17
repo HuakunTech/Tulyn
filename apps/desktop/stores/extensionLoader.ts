@@ -228,7 +228,7 @@ export function constructExtStore(options: { isDev: boolean }) {
 				if (item.type == "UI Command") {
 					manifest.kunkun.customUiCmds.forEach(async (cmd) => {
 						if (item.value.data === generateItemValue(manifest, cmd, isDev)) {
-							createExtSupportDir(manifest.kunkun.identifier)
+							createExtSupportDir(manifest.extPath)
 							let url = cmd.main
 							if (appConfig.devExtLoadUrl && isDev && cmd.devMain) {
 								url = cmd.devMain
@@ -272,7 +272,7 @@ export function constructExtStore(options: { isDev: boolean }) {
 					manifest.kunkun.templateUiCmds.forEach(async (cmd) => {
 						const localePath = useLocalePath()
 						if (item.value.data === generateItemValue(manifest, cmd, isDev)) {
-							createExtSupportDir(manifest.kunkun.identifier)
+							createExtSupportDir(manifest.extPath)
 							const main = cmd.main
 							const scriptPath = await join(manifest.extPath, main)
 							if (!(await exists(scriptPath))) {

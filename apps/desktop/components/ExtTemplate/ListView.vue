@@ -169,6 +169,7 @@ function goBack() {
 	>
 		<CmdInput
 			ref="cmdInputRef"
+			:search-term="searchTerm"
 			class="text-md h-12"
 			:placeholder="searchBarPlaceholder ?? 'Search...'"
 			@keydown.enter="onEnterKeyPressed"
