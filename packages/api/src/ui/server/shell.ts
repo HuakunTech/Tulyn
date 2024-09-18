@@ -248,7 +248,15 @@ export function constructShellApi(
 				args1,
 				extPath
 			)
-			return rawSpawn(program, args, options, cb)
+			const onEvent = new Channel<CommandEvent<O>>()
+			onEvent.onmessage = cb
+			return invoke<number>("plugin:shellx|spawn", {
+				program,
+				args,
+				options,
+				onEvent
+			})
+			// return rawSpawn(program, args, options, cb)
 		},
 		execute,
 		kill,
