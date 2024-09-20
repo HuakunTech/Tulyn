@@ -7,6 +7,7 @@ import type { ExtPackageJsonExtra } from "@kksh/api/models"
 import {
 	constructJarvisServerAPIWithPermissions,
 	exposeApiToWorker,
+	type IApp,
 	type IUiWorker
 } from "@kksh/api/ui"
 import {
@@ -62,6 +63,8 @@ const searchBarPlaceholder = ref("")
 const listViewRef = ref<{ onActionSelected: () => void }>()
 const loadedExt = ref<ExtPackageJsonExtra>()
 const pbar = ref<number | null>(null)
+const { locale } = useI18n()
+
 let unlistenRefreshWorkerExt: UnlistenFn | undefined
 
 function clearViewContent(keep?: "list" | "form" | "markdown") {
@@ -277,6 +280,9 @@ async function launchWorkerExt() {
 	serverAPI.iframeUi = undefined
 	serverAPI.workerUi = extUiAPI
 	serverAPI.db = new db.JarvisExtDB(extInfoInDB.extId)
+	serverAPI.app = {
+		language: () => Promise.resolve(locale.value as "en" | "zh")
+	} satisfies IApp
 	// const extDBApi: IDb = constructJarvisExtDBToServerDbAPI(dbAPI)
 	exposeApiToWorker(worker, serverAPI)
 	// exposeApiToWorker(worker, {

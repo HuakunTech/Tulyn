@@ -275,3 +275,7 @@ export interface DenoRunConfig {
 	denySys?: DenoSysOptions[]
 	denyAllSys?: boolean
 }
+
+export interface IApp {
+	language: () => Promise<"en" | "zh">
+}

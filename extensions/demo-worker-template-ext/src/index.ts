@@ -12,6 +12,7 @@ import {
 	shell,
 	toast,
 	ui,
+	app,
 	WorkerExtension
 } from "@kksh/api/ui/worker"
 
@@ -41,6 +42,9 @@ class ExtensionTemplate extends WorkerExtension {
 		// cmd.spawn()
 		// const res = await cmd.execute()
 		// console.log(res.stdout)
+		app.language().then((lang) => {
+			console.log("Language:", lang)
+		})
 		console.log("echo $PWD", await shell.executeBashScript("echo $PWD"))
 		console.log(await path.extensionSupportDir());
 		

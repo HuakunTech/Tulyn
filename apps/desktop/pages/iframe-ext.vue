@@ -8,7 +8,7 @@ import {
 	ThemeColor,
 	type Position
 } from "@kksh/api/models"
-import { constructJarvisServerAPIWithPermissions, exposeApiToWindow } from "@kksh/api/ui"
+import { constructJarvisServerAPIWithPermissions, exposeApiToWindow, type IApp, type IUiIframe } from "@kksh/api/ui"
 import { type IUiIframeServer2 } from "@kksh/api/ui/iframe"
 import { Button } from "@kksh/vue/button"
 import { join } from "@tauri-apps/api/path"
@@ -24,6 +24,7 @@ import * as v from "valibot"
 import { toast } from "vue-sonner"
 import { useExtDisplayStore } from "../stores/extState"
 
+const { locale } = useI18n()
 const localePath = useLocalePath()
 const appConfig = useAppConfigStore()
 const ui = reactive<{
@@ -164,25 +165,19 @@ onMounted(async () => {
 		})
 		return navigateTo(localePath("/"))
 	}
-	const dbAPI = new db.JarvisExtDB(extInfoInDB.extId)
-
 	// const extDBApi: IDbServer = constructJarvisExtDBToServerDbAPI(dbAPI) // TODO
-	const serverAPI = constructJarvisServerAPIWithPermissions(
+	const serverAPI: Record<string, any> = constructJarvisServerAPIWithPermissions(
 		loadedExt.value.kunkun.permissions,
 		loadedExt.value.extPath
 	)
 	serverAPI.iframeUi = {
 		...serverAPI.iframeUi,
 		...iframeUiAPI
-	}
-	allExposedApis = {
-		...serverAPI,
-		iframeUi: {
-			...serverAPI.iframeUi,
-			...iframeUiAPI
-		},
-		db: dbAPI
-	}
+	} satisfies IUiIframe
+	serverAPI.db = new db.JarvisExtDB(extInfoInDB.extId)
+	serverAPI.app = {
+		language: () => Promise.resolve(locale.value as "en" | "zh")
+	} satisfies IApp
 	// allExposedApis = {
 	// 	...serverAPI,
 	// 	...iframeUiAPI,
