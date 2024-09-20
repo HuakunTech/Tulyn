@@ -711,6 +711,19 @@ importers:
         specifier: ^5.3.3
         version: 5.5.4
 
+  templates/template-ext-worker:
+    dependencies:
+      '@kksh/api':
+        specifier: workspace:*
+        version: link:../../packages/api
+      i18next:
+        specifier: ^23.15.1
+        version: 23.15.1
+    devDependencies:
+      '@types/bun':
+        specifier: latest
+        version: 1.1.9
+
   vendors/tauri-plugin-network:
     dependencies:
       '@tauri-apps/api':
@@ -6003,6 +6016,9 @@ packages:
     resolution: {integrity: sha512-bho94YyReb4JV7LYWRWxZ/xr6TtOTt8cMfmQ39MQYJ7f/YE268s3GdghGwi+y4zAeqewE5zYLvuhV0M0ijsDEA==}
     engines: {node: '>=18'}
     hasBin: true
+
+  i18next@23.15.1:
+    resolution: {integrity: sha512-wB4abZ3uK7EWodYisHl/asf8UYEhrI/vj/8aoSsrj/ZDxj4/UXPOa1KvFt1Fq5hkUHquNqwFlDprmjZ8iySgYA==}
 
   iconv-lite@0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}
@@ -13730,7 +13746,7 @@ snapshots:
 
   '@types/ws@8.5.12':
     dependencies:
-      '@types/node': 20.14.15
+      '@types/node': 22.2.0
 
   '@typescript-eslint/types@5.62.0': {}
 
@@ -16803,6 +16819,10 @@ snapshots:
   human-signals@5.0.0: {}
 
   husky@9.1.4: {}
+
+  i18next@23.15.1:
+    dependencies:
+      '@babel/runtime': 7.25.0
 
   iconv-lite@0.4.24:
     dependencies:

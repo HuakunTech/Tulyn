@@ -12,6 +12,7 @@ import {
 	ui,
 	WorkerExtension
 } from "@kksh/api/ui/worker"
+import { t } from "./i18n"
 
 class ExtensionTemplate extends WorkerExtension {
 	async onFormSubmit(value: Record<string, any>): Promise<void> {
@@ -19,6 +20,60 @@ class ExtensionTemplate extends WorkerExtension {
 		toast.success(`Form submitted: ${JSON.stringify(value)}`)
 	}
 	async load() {
+		
+		// console.log(t("welcome")) // It's recommended to support i18n. It costs ~40KB extra
+
+		return ui.setSearchBarPlaceholder("Enter a search term, and press enter to search").then(() => {
+			return ui.render(
+				new List.List({
+					sections: [
+						new List.Section({
+							title: "Section 1",
+							items: [
+								new List.Item({
+									title: "Hello, World!",
+									value: "Section 1 Hello, World!",
+									icon: new Icon({ type: IconEnum.Iconify, value: "gg:hello" })
+								}),
+								new List.Item({ title: "Hello, World 2!", value: "Section 1 Hello, World 2!" })
+							]
+						}),
+						new List.Section({
+							title: "Section 2",
+							items: [
+								new List.Item({
+									title: "Hello, World!",
+									value: "Section 2 Hello, World!",
+									icon: new Icon({ type: IconEnum.Iconify, value: "gg:hello" })
+								}),
+								new List.Item({ title: "Hello, World 2!", value: "Section 2 Hello, World 2!" })
+							]
+						})
+					],
+					items: [
+						new List.Item({
+							title: "Hello, World!",
+							value: "Hello, World!",
+							icon: new Icon({ type: IconEnum.Iconify, value: "ri:star-s-fill" })
+						}),
+						new List.Item({
+							title: "Hello, World 2!",
+							value: "Hello, World 2!",
+							icon: new Icon({ type: IconEnum.Iconify, value: "gg:hello" }),
+							actions: new Action.ActionPanel({
+								items: [
+									new Action.Action({
+										title: "Open",
+										icon: new Icon({ type: IconEnum.Iconify, value: "ion:open-outline" }),
+										value: "open"
+									})
+								]
+							})
+						})
+					]
+				})
+			)
+		})
 		return ui.render(
 			new Form.Form({
 				key: "form1",
@@ -44,61 +99,16 @@ class ExtensionTemplate extends WorkerExtension {
 				]
 			})
 		)
-		return toast
-			.info("Worker Template Extension loaded")
-			.then(() => {
-				return ui.setSearchBarPlaceholder("Enter a search term, and press enter to search")
-			})
-			.then(() => {
-				return ui.render(
-					new List.List({
-						sections: [
-							new List.Section({
-								title: "Section 1",
-								items: [
-									new List.Item({
-										title: "Hello, World!",
-										value: "Section 1 Hello, World!",
-										icon: new Icon({ type: IconEnum.Iconify, value: "gg:hello" })
-									}),
-									new List.Item({ title: "Hello, World 2!", value: "Section 1 Hello, World 2!" })
-								]
-							}),
-							new List.Section({
-								title: "Section 2",
-								items: [
-									new List.Item({
-										title: "Hello, World!",
-										value: "Section 2 Hello, World!",
-										icon: new Icon({ type: IconEnum.Iconify, value: "gg:hello" })
-									}),
-									new List.Item({ title: "Hello, World 2!", value: "Section 2 Hello, World 2!" })
-								]
-							})
-						],
-						items: [
-							new List.Item({
-								title: "Hello, World!",
-								value: "Hello, World!",
-								icon: new Icon({ type: IconEnum.Iconify, value: "ri:star-s-fill" })
-							}),
-							new List.Item({
-								title: "Hello, World 2!",
-								value: "Hello, World 2!",
-								icon: new Icon({ type: IconEnum.Iconify, value: "gg:hello" }),
-								actions: new Action.ActionPanel({
-									items: [
-										new Action.Action({
-											title: "Open",
-											icon: new Icon({ type: IconEnum.Iconify, value: "ion:open-outline" })
-										})
-									]
-								})
-							})
-						]
-					})
-				)
-			})
+	}
+
+	async onActionSelected(actionValue: string): Promise<void> {
+		switch (actionValue) {
+			case "open":
+				break
+
+			default:
+				break
+		}
 	}
 
 	onSearchTermChange(term: string): Promise<void> {
