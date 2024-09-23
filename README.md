@@ -13,7 +13,9 @@
 
 > Kunkun is a cross-platform extensible app launcher like Raycast or Alfred.
 
-## Documentation: https://kunkun.sh/
+## Website: https://kunkun.sh/
+
+## Documentation: https://docs.kunkun.sh/
 
 > [!CAUTION]
 > Kunkun is still in early development. As of v0.1.x the app is only tested on MacOS, extensions API are not stable and may not load correctly. Please report any issues you encounter.
