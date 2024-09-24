@@ -4,14 +4,12 @@ import "@/styles/globals.css"
 import "@/styles/toast.css"
 import { $toasts, dequeueToast } from "@/lib/stores/toast"
 import { useStore } from "@nanostores/vue"
-import { useColorMode } from "@vueuse/core"
 import { useAppConfigStore } from "~/stores/appConfig"
 
 const appConfig = useAppConfigStore()
 const toasts = useStore($toasts)
 const message = ref()
 
-useColorMode()
 function handleKeyPress(e: KeyboardEvent) {
 	if (e.key === "Escape") {
 		// window.closeWindow();

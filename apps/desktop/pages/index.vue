@@ -45,7 +45,7 @@ const extLoaders = ref([
 ])
 
 let updateSearchTermTimeout: ReturnType<typeof setTimeout>
-
+const colorMode = useColorMode()
 const appWindow = getCurrentWindow()
 const runtimeConfig = useRuntimeConfig()
 const cmdInputRef = ref<InstanceType<typeof ComboboxInput> | null>(null)

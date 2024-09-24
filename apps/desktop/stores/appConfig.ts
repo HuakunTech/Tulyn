@@ -8,7 +8,6 @@ import { exists, remove } from "@tauri-apps/plugin-fs"
 import { unregister } from "@tauri-apps/plugin-global-shortcut"
 import { debug, info, warn } from "@tauri-apps/plugin-log"
 import { Store } from "@tauri-apps/plugin-store"
-import { useColorMode } from "@vueuse/core"
 import { allColors } from "~/lib/themes/themes"
 import { registerAppHotkey } from "~/lib/utils/hotkey"
 import { mapKeyToTauriKey } from "~/lib/utils/js"
@@ -106,10 +105,14 @@ export const useAppConfigStore = defineStore("appConfig", {
 		 */
 		refreshWindowStyles() {
 			document.documentElement.style.setProperty("--radius", `${this.radius}rem`)
-			document.documentElement.classList.remove(...allColors.map((color) => `theme-${color}`))
-			document.documentElement.classList.add(`theme-${this.theme}`)
+			// document.documentElement.classList.remove(...allColors.map((color) => `theme-${color}`))
+			// document.documentElement.classList.add(`theme-${this.theme}`)
+			this.setTheme(this.theme)
 			const colorMode = useColorMode()
-			colorMode.value = this.lightMode ?? "auto"
+			console.log(colorMode.value);
+			
+			colorMode.preference = this.lightMode ?? "system"
+			// colorMode.value = this.lightMode ?? "auto"
 		},
 		setTheme(theme: string) {
 			this.theme = theme
@@ -140,7 +143,8 @@ export const useAppConfigStore = defineStore("appConfig", {
 		setLightMode(mode: LightMode) {
 			const colorMode = useColorMode()
 			this.lightMode = mode
-			colorMode.value = mode
+			colorMode.preference = mode === "auto" ? "system" : mode
+			emitRefreshConfig() // Trigger theme change in main window
 		},
 		setLaunchAtLogin(launchAtLogin: boolean) {
 			this.launchAtLogin = launchAtLogin

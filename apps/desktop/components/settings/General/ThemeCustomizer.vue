@@ -6,7 +6,6 @@ import { Button } from "@kksh/vue/button"
 import { Label } from "@kksh/vue/label"
 import { useStore } from "@nanostores/vue"
 import { CheckIcon, MoonIcon, SunIcon } from "@radix-icons/vue"
-import { useColorMode, useDark } from "@vueuse/core"
 import { useAppConfigStore } from "~/stores/appConfig"
 
 const appConfig = useAppConfigStore()
@@ -14,10 +13,21 @@ const appConfig = useAppConfigStore()
 // const isDark = useDark();
 const RADII = [0, 0.25, 0.5, 0.75, 1]
 // const appConfig = useAppConfigStore();
-const colorMode = useColorMode()
+const colorMode = useColorMode();
 
 function changeLightMode(mode: LightMode) {
-	colorMode.value = mode
+	// colorMode.value = mode
+	switch (mode) {
+		case "light":
+			colorMode.preference = "light"
+			break
+		case "dark":
+			colorMode.preference = "dark"
+			break
+		case "auto":
+			colorMode.preference = "system"
+			break
+	}
 	appConfig.setLightMode(mode)
 }
 </script>

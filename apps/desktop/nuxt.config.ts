@@ -4,7 +4,7 @@ import { z } from "zod"
 export default defineNuxtConfig({
 	compatibilityDate: "2024-04-03",
 	ssr: false,
-	css: ["@kksh/vue/css", "@kksh/vue/themes"],
+	css: ["@kksh/vue/css", "@kksh/vue/themes", "./assets/css/app.css"],
 	devtools: { enabled: true },
 	modules: [
 		"@nuxtjs/i18n",
@@ -16,7 +16,8 @@ export default defineNuxtConfig({
 		"@nuxt/icon",
 		"@nuxtjs/tailwindcss",
 		"shadcn-nuxt",
-		"@nuxt/image"
+		"@nuxt/image",
+		"@nuxtjs/color-mode"
 	],
 	i18n: {
 		locales: ["en", "zh"],
@@ -58,5 +59,8 @@ export default defineNuxtConfig({
 				.parse(process.env.POSTHOG_PUBLIC_KEY),
 			posthogHost: z.string().describe("POSTHOG_HOST").parse(process.env.POSTHOG_HOST)
 		}
+	},
+	colorMode: {
+		classSuffix: ""
 	}
 })
