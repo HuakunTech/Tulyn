@@ -17,5 +17,7 @@ onMounted(async () => {
 })
 </script>
 <template>
-	<FunDance />
+	<div class="h-full grow">
+		<FunDance />
+	</div>
 </template>

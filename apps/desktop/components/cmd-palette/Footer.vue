@@ -45,17 +45,19 @@ onUnmounted(() => {
 	<div data-tauri-drag-region class="z-50 flex h-12 items-center justify-between border p-2">
 		<img class="h-6 w-6 invert dark:invert-0" src="/img/logo-w-bg.png" alt="logo" />
 		<span class="flex gap-2">
-			<Tooltip>
-				<TooltipTrigger>
-					<Button variant="ghost" size="icon" @click="onReload">
-						<RefreshCcw class="w-4" />
-					</Button>
-				</TooltipTrigger>
-				<TooltipContent>
-					<span v-if="_platform === 'macos'">Command + R</span>
-					<span v-else>Control + R</span>
-				</TooltipContent>
-			</Tooltip>
+			<TooltipProvider>
+				<Tooltip>
+					<TooltipTrigger>
+						<Button variant="ghost" size="icon" @click="onReload">
+							<RefreshCcw class="w-4" />
+						</Button>
+					</TooltipTrigger>
+					<TooltipContent>
+						<span v-if="_platform === 'macos'">Command + R</span>
+						<span v-else>Control + R</span>
+					</TooltipContent>
+				</Tooltip>
+			</TooltipProvider>
 			<Button v-if="appUiStore.defaultAction" variant="ghost" class="gap-2">
 				{{ appUiStore.defaultAction }}
 				<Kbd><Icon icon="tdesign:enter" /></Kbd>

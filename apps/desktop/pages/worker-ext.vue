@@ -316,27 +316,28 @@ onUnmounted(() => {
 })
 </script>
 <template>
-	<FunDance v-if="!loaded" />
-
-	<ExtTemplateFormView
-		v-if="loaded && formViewContent && formViewZodSchema"
-		:workerAPI="workerAPI!"
-		:formViewZodSchema="formViewZodSchema"
-		:fieldConfig="formFieldConfig"
-	/>
-	<ExtTemplateListView
-		v-else-if="loaded && listViewContent"
-		class=""
-		v-model:search-term="searchTerm"
-		v-model:search-bar-placeholder="searchBarPlaceholder"
-		:pbar="pbar"
-		ref="listViewRef"
-		:model-value="listViewContent"
-		:workerAPI="workerAPI!"
-		:loading="loading"
-	/>
-	<ExtTemplateMarkdownView
-		v-else-if="loaded && markdownViewContent"
-		:markdown="markdownViewContent.content"
-	/>
+	<div class="h-full grow">
+		<FunDance v-if="!loaded" />
+		<ExtTemplateFormView
+			v-if="loaded && formViewContent && formViewZodSchema"
+			:workerAPI="workerAPI!"
+			:formViewZodSchema="formViewZodSchema"
+			:fieldConfig="formFieldConfig"
+		/>
+		<ExtTemplateListView
+			v-else-if="loaded && listViewContent"
+			class=""
+			v-model:search-term="searchTerm"
+			v-model:search-bar-placeholder="searchBarPlaceholder"
+			:pbar="pbar"
+			ref="listViewRef"
+			:model-value="listViewContent"
+			:workerAPI="workerAPI!"
+			:loading="loading"
+		/>
+		<ExtTemplateMarkdownView
+			v-else-if="loaded && markdownViewContent"
+			:markdown="markdownViewContent.content"
+		/>
+	</div>
 </template>

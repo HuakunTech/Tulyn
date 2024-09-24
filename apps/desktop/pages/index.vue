@@ -172,28 +172,30 @@ function handleQuicklinkEnter() {
 }
 </script>
 <template>
-	<CmdPaletteCommand
-		class=""
-		v-model:searchTerm="searchTermSyncProxy"
-		:identity-filter="true"
-		v-model:selected-value="highlightedItemValue"
-	>
-		<CmdPaletteMainSearchBar @quicklink-enter="handleQuicklinkEnter" />
-		<CommandList class="h-full max-h-screen">
-			<CommandEmpty>No results found.</CommandEmpty>
-			<CommandGroup
-				v-for="extLoader in extLoaders"
-				:heading="extLoader.extensionName"
-				:key="extLoader.id"
-			>
-				<ListItem
-					v-for="(item, idx) in extLoader.$filteredListItems"
-					:item="item"
-					:isDevExt="extLoader.extensionName === 'Dev Extensions'"
-					@select="extLoader.onSelect(item)"
-				/>
-			</CommandGroup>
-		</CommandList>
-		<CmdPaletteFooter />
-	</CmdPaletteCommand>
+	<div class="grow h-full">
+		<CmdPaletteCommand
+			class=""
+			v-model:searchTerm="searchTermSyncProxy"
+			:identity-filter="true"
+			v-model:selected-value="highlightedItemValue"
+		>
+			<CmdPaletteMainSearchBar @quicklink-enter="handleQuicklinkEnter" />
+			<CommandList class="h-full max-h-screen">
+				<CommandEmpty>No results found.</CommandEmpty>
+				<CommandGroup
+					v-for="extLoader in extLoaders"
+					:heading="extLoader.extensionName"
+					:key="extLoader.id"
+				>
+					<ListItem
+						v-for="(item, idx) in extLoader.$filteredListItems"
+						:item="item"
+						:isDevExt="extLoader.extensionName === 'Dev Extensions'"
+						@select="extLoader.onSelect(item)"
+					/>
+				</CommandGroup>
+			</CommandList>
+			<CmdPaletteFooter />
+		</CmdPaletteCommand>
+	</div>
 </template>
