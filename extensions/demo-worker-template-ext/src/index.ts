@@ -35,6 +35,10 @@ class ExtensionTemplate extends WorkerExtension {
 		console.log("Form submitted", value)
 	}
 	async load() {
+		ui.showLoadingBar(true)
+		setTimeout(() => {
+			ui.showLoadingBar(false)
+		}, 2000)
 		// const cmd = shell.createCommand("ls", ["-l"])
 		// cmd.stdout.on("data", (data) => {
 		// 	console.log(data)

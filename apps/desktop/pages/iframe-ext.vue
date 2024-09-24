@@ -296,6 +296,9 @@ function onBackBtnClicked() {
 </script>
 <template>
 	<main class="h-screen">
+		<Transition>
+			<FunDance v-if="!ui.iframeLoaded" class="absolute w-full" />
+		</Transition>
 		<Button
 			v-if="ui.showBackBtn"
 			:class="cn('absolute z-40', positionToTailwindClasses(ui.backBtnPosition))"
@@ -337,6 +340,16 @@ function onBackBtnClicked() {
 			frameborder="0"
 			:src="extUrl"
 		/>
-		<FunDance v-if="!ui.iframeLoaded" class="-z-30" />
 	</main>
 </template>
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+	transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+	opacity: 0;
+}
+</style>

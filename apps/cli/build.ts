@@ -11,13 +11,14 @@ if (Bun.env.NODE_ENV !== "production") {
 await $`rm -rf dist`
 // building with bun doesn't work with debug
 fs.mkdirSync("./dist")
-
+process.env.NODE_ENV = "production"
 await Bun.build({
 	entrypoints: ["./cli.ts"],
 	outdir: "./dist",
 	target: "node",
 	// minify: true,
-	format: "esm"
+	format: "esm",
+	
 })
 
 // await $`bun build --target node cli.ts > dist/cli.js`

@@ -172,7 +172,7 @@ function handleQuicklinkEnter() {
 }
 </script>
 <template>
-	<div class="grow h-full">
+	<div class="h-full grow">
 		<CmdPaletteCommand
 			class=""
 			v-model:searchTerm="searchTermSyncProxy"
@@ -181,6 +181,7 @@ function handleQuicklinkEnter() {
 		>
 			<CmdPaletteMainSearchBar @quicklink-enter="handleQuicklinkEnter" />
 			<CommandList class="h-full max-h-screen">
+				<LoadingBar v-if="appStateStore.loadingBar" class="absolute" />
 				<CommandEmpty>No results found.</CommandEmpty>
 				<CommandGroup
 					v-for="extLoader in extLoaders"

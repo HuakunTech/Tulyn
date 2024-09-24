@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import ExtTemplateListView from "@/components/ExtTemplate/ListView.vue"
-import { $appState } from "@/lib/stores/appState"
 import { type Remote } from "@huakunshen/comlink"
 import { db } from "@kksh/api/commands"
 import type { ExtPackageJsonExtra } from "@kksh/api/models"
@@ -46,10 +45,11 @@ import { toast } from "vue-sonner"
 const localePath = useLocalePath()
 const route = useRoute()
 const appWin = getCurrentWindow()
-const appState = useStore($appState)
 const loaded = ref(false)
+const appState = useAppStateStore()
 let workerAPI: Remote<WorkerExtension> | undefined = undefined
 const loading = ref(false)
+const extensionLoadingBar = ref(false) // whether extension called showLoadingBar
 const listViewContent = ref<ListSchema.List>()
 const formViewContent = ref<FormSchema.Form>()
 const markdownViewContent = ref<MarkdownSchema>()
@@ -64,6 +64,8 @@ const listViewRef = ref<{ onActionSelected: () => void }>()
 const loadedExt = ref<ExtPackageJsonExtra>()
 const pbar = ref<number | null>(null)
 const { locale } = useI18n()
+
+const loadingBar = computed(() => appState.loadingBar || extensionLoadingBar.value)
 
 let unlistenRefreshWorkerExt: UnlistenFn | undefined
 
@@ -169,6 +171,10 @@ const extUiAPI: IUiWorker = {
 		} else {
 			toast.error(`Unsupported view type: ${view.nodeName}`)
 		}
+	},
+	async showLoadingBar(loading: boolean) {
+		// appState.setLoadingBar(loading)
+		extensionLoadingBar.value = loading
 	},
 	async setProgressBar(progress: number | null) {
 		pbar.value = progress
@@ -297,6 +303,7 @@ async function launchWorkerExt() {
 
 onMounted(async () => {
 	setTimeout(() => {
+		appState.setLoadingBar(true)
 		appWin.show()
 	}, 100)
 	unlistenRefreshWorkerExt = await listenToRefreshWorkerExt(() => {
@@ -306,18 +313,23 @@ onMounted(async () => {
 	launchWorkerExt()
 	GlobalEventBus.onActionSelected(onActionSelected)
 	setTimeout(() => {
+		appState.setLoadingBar(false)
 		loaded.value = true
-	}, 300)
+	}, 500)
 })
 
 onUnmounted(() => {
 	unlistenRefreshWorkerExt?.()
+	extensionLoadingBar.value = false
 	GlobalEventBus.offActionSelected(onActionSelected)
 })
 </script>
 <template>
 	<div class="h-full grow">
-		<FunDance v-if="!loaded" />
+		<LoadingBar v-if="loadingBar" class="absolute" />
+		<Transition>
+			<FunDance v-if="!loaded" class="absolute w-full" />
+		</Transition>
 		<ExtTemplateFormView
 			v-if="loaded && formViewContent && formViewZodSchema"
 			:workerAPI="workerAPI!"
@@ -341,3 +353,14 @@ onUnmounted(() => {
 		/>
 	</div>
 </template>
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+	transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+	opacity: 0;
+}
+</style>
