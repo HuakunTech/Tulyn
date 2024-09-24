@@ -8,7 +8,12 @@ import {
 	ThemeColor,
 	type Position
 } from "@kksh/api/models"
-import { constructJarvisServerAPIWithPermissions, exposeApiToWindow, type IApp, type IUiIframe } from "@kksh/api/ui"
+import {
+	constructJarvisServerAPIWithPermissions,
+	exposeApiToWindow,
+	type IApp,
+	type IUiIframe
+} from "@kksh/api/ui"
 import { type IUiIframeServer2 } from "@kksh/api/ui/iframe"
 import { Button } from "@kksh/vue/button"
 import { join } from "@tauri-apps/api/path"
@@ -51,7 +56,8 @@ const iframeRef = ref<HTMLIFrameElement | null>(null)
 const extStore = useExtDisplayStore()
 const extUrl = ref<string>()
 const loadedExt = ref<ExtPackageJsonExtra>()
-let allExposedApis: Record<string, any> = {}
+// let allExposedApis: Record<string, any> = {}
+let serverAPI: Record<string, any> = {}
 const iframeUiAPI: IUiIframeServer2 = {
 	// async iframeUiStartDragging() {
 	// 	console.log("start dragging")
@@ -166,7 +172,7 @@ onMounted(async () => {
 		return navigateTo(localePath("/"))
 	}
 	// const extDBApi: IDbServer = constructJarvisExtDBToServerDbAPI(dbAPI) // TODO
-	const serverAPI: Record<string, any> = constructJarvisServerAPIWithPermissions(
+	serverAPI = constructJarvisServerAPIWithPermissions(
 		loadedExt.value.kunkun.permissions,
 		loadedExt.value.extPath
 	)
@@ -210,10 +216,10 @@ async function exposeAPIsToIframe() {
 	// console.log("iframeEle", iframeEle, iframeEle?.contentWindow)
 
 	if (iframeRef.value && iframeRef.value.contentWindow) {
-		console.log("expose	api to iframe", iframeRef.value.contentWindow, allExposedApis, Date.now())
-		exposeApiToWindow(iframeRef.value.contentWindow, allExposedApis)
+		console.log("expose	api to iframe", iframeRef.value.contentWindow, serverAPI, Date.now())
+		exposeApiToWindow(iframeRef.value.contentWindow, serverAPI)
 	} else if (iframeEle) {
-		exposeApiToWindow(iframeEle.contentWindow!, allExposedApis)
+		exposeApiToWindow(iframeEle.contentWindow!, serverAPI)
 	} else {
 		console.error("iframeRef not available", document.querySelector("iframe"))
 	}
