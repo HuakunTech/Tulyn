@@ -8,7 +8,7 @@
 [![CI Build & Test](https://github.com/HuakunTech/Kunkun/actions/workflows/ci.yml/badge.svg)](https://github.com/HuakunTech/Kunkun/actions/workflows/ci.yml)
 [![Desktop App Publish](https://github.com/kunkunsh/kunkun/actions/workflows/desktop-publish-ci.yml/badge.svg)](https://github.com/kunkunsh/kunkun/actions/workflows/desktop-publish-ci.yml)
 
-[![](https://dcbadge.limes.pink/api/server/7dzw3TYeTU)]([https://discord.gg/INVITE](https://discord.gg/7dzw3TYeTU))
+[![Discord Invite](https://dcbadge.limes.pink/api/server/7dzw3TYeTU)](https://discord.gg/7dzw3TYeTU)
 
 
 > Kunkun is a cross-platform extensible app launcher like Raycast or Alfred.
