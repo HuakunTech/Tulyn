@@ -1,15 +1,13 @@
 # Kunkun
 
-![kunkun](https://socialify.git.ci/kunkunsh/kunkun/image?description=1&forks=1&issues=1&logo=https%3A%2F%2Fstorage.huakun.tech%2F2024%2F9%2F12%2F4MjHiKK.png&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Auto)
-
 [![wakatime](https://wakatime.com/badge/user/94be0fbf-cb9d-411d-8526-d0c4a4e82e1a/project/455bfd3f-4faf-4c2a-afe9-556d9ee1a0f7.svg)](https://wakatime.com/badge/user/94be0fbf-cb9d-411d-8526-d0c4a4e82e1a/project/455bfd3f-4faf-4c2a-afe9-556d9ee1a0f7)
 ![GitHub last commit](https://img.shields.io/github/last-commit/kunkunsh/kunkun)
-
 [![CI Build & Test](https://github.com/HuakunTech/Kunkun/actions/workflows/ci.yml/badge.svg)](https://github.com/HuakunTech/Kunkun/actions/workflows/ci.yml)
 [![Desktop App Publish](https://github.com/kunkunsh/kunkun/actions/workflows/desktop-publish-ci.yml/badge.svg)](https://github.com/kunkunsh/kunkun/actions/workflows/desktop-publish-ci.yml)
-
+[![YouTube badge][]][YouTube link]
 [![Discord Invite](https://dcbadge.limes.pink/api/server/7dzw3TYeTU)](https://discord.gg/7dzw3TYeTU)
 
+![kunkun](https://socialify.git.ci/kunkunsh/kunkun/image?description=1&forks=1&issues=1&logo=https%3A%2F%2Fstorage.huakun.tech%2F2024%2F9%2F12%2F4MjHiKK.png&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Auto)
 
 > Kunkun is a cross-platform extensible app launcher like Raycast or Alfred.
 
@@ -46,3 +44,8 @@
    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=kunkunsh/kunkun&type=Date" />
  </picture>
 </a>
+
+
+
+[YouTube badge]: https://img.shields.io/youtube/channel/subscribers/UC1gJeFbvRcQXDC_C8nKetdA?style=social
+[YouTube link]: https://www.youtube.com/@huakun
