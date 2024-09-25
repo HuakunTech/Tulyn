@@ -48,7 +48,7 @@ function updateHotkey(keys: string[]) {
 		<!-- <StrikeSeparator>
 			<span class="font-mono whitespace-nowrap break-normal text-muted-foreground">{{ $t("developerSettings") }}</span>
 		</StrikeSeparator> -->
-		<Separator class="font-mono" :label="$t('developerSettings')" />
+		<Separator class="font-mono" :label="$t('settings.general.developerSettings')" />
 		<DevExtMode />
 		<Language />
 		<BetaProgram />
