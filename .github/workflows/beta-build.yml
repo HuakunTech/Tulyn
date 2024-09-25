@@ -215,11 +215,11 @@ jobs:
 
       - name: Build Packages
         run: pnpm build
-
+          
       - name: Get App Version
-        if: inputs.platform_windows
         id: appversion
         run: |
+          echo "platform_windows: ${{ inputs.platform_windows }}"
           echo "version=$(node -p "require('./apps/desktop/package.json').version")"
           echo "version=$(node -p "require('./apps/desktop/package.json').version")" >> $env:GITHUB_OUTPUT
 
