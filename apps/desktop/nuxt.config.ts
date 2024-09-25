@@ -14,7 +14,8 @@ export default defineNuxtConfig({
 		"@nuxtjs/mdc",
 		"@element-plus/nuxt",
 		"@nuxt/icon",
-		"@nuxtjs/tailwindcss",
+		// "@nuxtjs/tailwindcss",
+		"@unocss/nuxt",
 		"shadcn-nuxt",
 		"@nuxt/image",
 		"@nuxtjs/color-mode"
