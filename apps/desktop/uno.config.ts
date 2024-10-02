@@ -1,4 +1,11 @@
-import { defineConfig, presetAttributify, presetTagify, presetUno, presetWebFonts } from "unocss"
+import {
+	defineConfig,
+	presetAttributify,
+	presetTagify,
+	presetTypography,
+	presetUno,
+	presetWebFonts
+} from "unocss"
 
 export default defineConfig({
 	presets: [
@@ -9,7 +16,8 @@ export default defineConfig({
 		}),
 		presetTagify({
 			prefix: "un-"
-		})
+		}),
+		presetTypography()
 	],
 	rules: []
 })
