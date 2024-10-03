@@ -48,6 +48,8 @@ watch(
 	(newVal) => {
 		if (newVal) {
 			panelRef2.value?.resize(newVal)
+		} else {
+			panelRef2.value?.resize(0)
 		}
 	}
 )

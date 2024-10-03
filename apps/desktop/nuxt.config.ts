@@ -20,6 +20,7 @@ export default defineNuxtConfig({
 		"@nuxt/image",
 		"@nuxtjs/color-mode"
 	],
+	mdc: {},
 	i18n: {
 		locales: ["en", "zh"],
 		defaultLocale: "en",

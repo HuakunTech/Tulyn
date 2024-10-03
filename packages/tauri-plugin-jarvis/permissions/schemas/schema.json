@@ -295,1180 +295,844 @@
       "type": "string",
       "oneOf": [
         {
-          "description": "allow-all -> This enables all permissions for Jarvis",
+          "description": "This enables all permissions for Jarvis",
           "type": "string",
-          "enum": [
-            "allow-all"
-          ]
+          "const": "allow-all"
         },
         {
-          "description": "allow-add-to-history -> Enables the add_to_history command without any pre-configured scope.",
+          "description": "Enables the add_to_history command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-add-to-history"
-          ]
+          "const": "allow-add-to-history"
         },
         {
-          "description": "deny-add-to-history -> Denies the add_to_history command without any pre-configured scope.",
+          "description": "Denies the add_to_history command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-add-to-history"
-          ]
+          "const": "deny-add-to-history"
         },
         {
-          "description": "allow-app-is-dev -> Enables the app_is_dev command without any pre-configured scope.",
+          "description": "Enables the app_is_dev command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-app-is-dev"
-          ]
+          "const": "allow-app-is-dev"
         },
         {
-          "description": "deny-app-is-dev -> Denies the app_is_dev command without any pre-configured scope.",
+          "description": "Denies the app_is_dev command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-app-is-dev"
-          ]
+          "const": "deny-app-is-dev"
         },
         {
-          "description": "allow-close-devtools -> Enables the close_devtools command without any pre-configured scope.",
+          "description": "Enables the close_devtools command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-close-devtools"
-          ]
+          "const": "allow-close-devtools"
         },
         {
-          "description": "deny-close-devtools -> Denies the close_devtools command without any pre-configured scope.",
+          "description": "Denies the close_devtools command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-close-devtools"
-          ]
+          "const": "deny-close-devtools"
         },
         {
-          "description": "allow-compress-tarball -> Enables the compress_tarball command without any pre-configured scope.",
+          "description": "Enables the compress_tarball command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-compress-tarball"
-          ]
+          "const": "allow-compress-tarball"
         },
         {
-          "description": "deny-compress-tarball -> Denies the compress_tarball command without any pre-configured scope.",
+          "description": "Denies the compress_tarball command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-compress-tarball"
-          ]
+          "const": "deny-compress-tarball"
         },
         {
-          "description": "allow-create-command -> Enables the create_command command without any pre-configured scope.",
+          "description": "Enables the create_command command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-create-command"
-          ]
+          "const": "allow-create-command"
         },
         {
-          "description": "deny-create-command -> Denies the create_command command without any pre-configured scope.",
+          "description": "Denies the create_command command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-create-command"
-          ]
+          "const": "deny-create-command"
         },
         {
-          "description": "allow-create-extension -> Enables the create_extension command without any pre-configured scope.",
+          "description": "Enables the create_extension command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-create-extension"
-          ]
+          "const": "allow-create-extension"
         },
         {
-          "description": "deny-create-extension -> Denies the create_extension command without any pre-configured scope.",
+          "description": "Denies the create_extension command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-create-extension"
-          ]
+          "const": "deny-create-extension"
         },
         {
-          "description": "allow-create-extension-data -> Enables the create_extension_data command without any pre-configured scope.",
+          "description": "Enables the create_extension_data command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-create-extension-data"
-          ]
+          "const": "allow-create-extension-data"
         },
         {
-          "description": "deny-create-extension-data -> Denies the create_extension_data command without any pre-configured scope.",
+          "description": "Denies the create_extension_data command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-create-extension-data"
-          ]
+          "const": "deny-create-extension-data"
         },
         {
-          "description": "allow-decompress-tarball -> Enables the decompress_tarball command without any pre-configured scope.",
+          "description": "Enables the decompress_tarball command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-decompress-tarball"
-          ]
+          "const": "allow-decompress-tarball"
         },
         {
-          "description": "deny-decompress-tarball -> Denies the decompress_tarball command without any pre-configured scope.",
+          "description": "Denies the decompress_tarball command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-decompress-tarball"
-          ]
+          "const": "deny-decompress-tarball"
         },
         {
-          "description": "allow-delete-command-by-id -> Enables the delete_command_by_id command without any pre-configured scope.",
+          "description": "Enables the delete_command_by_id command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-delete-command-by-id"
-          ]
+          "const": "allow-delete-command-by-id"
         },
         {
-          "description": "deny-delete-command-by-id -> Denies the delete_command_by_id command without any pre-configured scope.",
+          "description": "Denies the delete_command_by_id command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-delete-command-by-id"
-          ]
+          "const": "deny-delete-command-by-id"
         },
         {
-          "description": "allow-delete-extension-by-identifier -> Enables the delete_extension_by_identifier command without any pre-configured scope.",
+          "description": "Enables the delete_extension_by_identifier command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-delete-extension-by-identifier"
-          ]
+          "const": "allow-delete-extension-by-identifier"
         },
         {
-          "description": "deny-delete-extension-by-identifier -> Denies the delete_extension_by_identifier command without any pre-configured scope.",
+          "description": "Denies the delete_extension_by_identifier command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-delete-extension-by-identifier"
-          ]
+          "const": "deny-delete-extension-by-identifier"
         },
         {
-          "description": "allow-delete-extension-data-by-id -> Enables the delete_extension_data_by_id command without any pre-configured scope.",
+          "description": "Enables the delete_extension_data_by_id command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-delete-extension-data-by-id"
-          ]
+          "const": "allow-delete-extension-data-by-id"
         },
         {
-          "description": "deny-delete-extension-data-by-id -> Denies the delete_extension_data_by_id command without any pre-configured scope.",
+          "description": "Denies the delete_extension_data_by_id command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-delete-extension-data-by-id"
-          ]
+          "const": "deny-delete-extension-data-by-id"
         },
         {
-          "description": "allow-eject-all-disks -> Enables the eject_all_disks command without any pre-configured scope.",
+          "description": "Enables the eject_all_disks command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-eject-all-disks"
-          ]
+          "const": "allow-eject-all-disks"
         },
         {
-          "description": "deny-eject-all-disks -> Denies the eject_all_disks command without any pre-configured scope.",
+          "description": "Denies the eject_all_disks command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-eject-all-disks"
-          ]
+          "const": "deny-eject-all-disks"
         },
         {
-          "description": "allow-empty-trash -> Enables the empty_trash command without any pre-configured scope.",
+          "description": "Enables the empty_trash command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-empty-trash"
-          ]
+          "const": "allow-empty-trash"
         },
         {
-          "description": "deny-empty-trash -> Denies the empty_trash command without any pre-configured scope.",
+          "description": "Denies the empty_trash command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-empty-trash"
-          ]
+          "const": "deny-empty-trash"
         },
         {
-          "description": "allow-ext-store-wrapper-clear -> Enables the ext_store_wrapper_clear command without any pre-configured scope.",
+          "description": "Enables the ext_store_wrapper_clear command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-ext-store-wrapper-clear"
-          ]
+          "const": "allow-ext-store-wrapper-clear"
         },
         {
-          "description": "deny-ext-store-wrapper-clear -> Denies the ext_store_wrapper_clear command without any pre-configured scope.",
+          "description": "Denies the ext_store_wrapper_clear command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-ext-store-wrapper-clear"
-          ]
+          "const": "deny-ext-store-wrapper-clear"
         },
         {
-          "description": "allow-ext-store-wrapper-delete -> Enables the ext_store_wrapper_delete command without any pre-configured scope.",
+          "description": "Enables the ext_store_wrapper_delete command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-ext-store-wrapper-delete"
-          ]
+          "const": "allow-ext-store-wrapper-delete"
         },
         {
-          "description": "deny-ext-store-wrapper-delete -> Denies the ext_store_wrapper_delete command without any pre-configured scope.",
+          "description": "Denies the ext_store_wrapper_delete command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-ext-store-wrapper-delete"
-          ]
+          "const": "deny-ext-store-wrapper-delete"
         },
         {
-          "description": "allow-ext-store-wrapper-entries -> Enables the ext_store_wrapper_entries command without any pre-configured scope.",
+          "description": "Enables the ext_store_wrapper_entries command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-ext-store-wrapper-entries"
-          ]
+          "const": "allow-ext-store-wrapper-entries"
         },
         {
-          "description": "deny-ext-store-wrapper-entries -> Denies the ext_store_wrapper_entries command without any pre-configured scope.",
+          "description": "Denies the ext_store_wrapper_entries command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-ext-store-wrapper-entries"
-          ]
+          "const": "deny-ext-store-wrapper-entries"
         },
         {
-          "description": "allow-ext-store-wrapper-get -> Enables the ext_store_wrapper_get command without any pre-configured scope.",
+          "description": "Enables the ext_store_wrapper_get command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-ext-store-wrapper-get"
-          ]
+          "const": "allow-ext-store-wrapper-get"
         },
         {
-          "description": "deny-ext-store-wrapper-get -> Denies the ext_store_wrapper_get command without any pre-configured scope.",
+          "description": "Denies the ext_store_wrapper_get command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-ext-store-wrapper-get"
-          ]
+          "const": "deny-ext-store-wrapper-get"
         },
         {
-          "description": "allow-ext-store-wrapper-has -> Enables the ext_store_wrapper_has command without any pre-configured scope.",
+          "description": "Enables the ext_store_wrapper_has command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-ext-store-wrapper-has"
-          ]
+          "const": "allow-ext-store-wrapper-has"
         },
         {
-          "description": "deny-ext-store-wrapper-has -> Denies the ext_store_wrapper_has command without any pre-configured scope.",
+          "description": "Denies the ext_store_wrapper_has command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-ext-store-wrapper-has"
-          ]
+          "const": "deny-ext-store-wrapper-has"
         },
         {
-          "description": "allow-ext-store-wrapper-keys -> Enables the ext_store_wrapper_keys command without any pre-configured scope.",
+          "description": "Enables the ext_store_wrapper_keys command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-ext-store-wrapper-keys"
-          ]
+          "const": "allow-ext-store-wrapper-keys"
         },
         {
-          "description": "deny-ext-store-wrapper-keys -> Denies the ext_store_wrapper_keys command without any pre-configured scope.",
+          "description": "Denies the ext_store_wrapper_keys command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-ext-store-wrapper-keys"
-          ]
+          "const": "deny-ext-store-wrapper-keys"
         },
         {
-          "description": "allow-ext-store-wrapper-length -> Enables the ext_store_wrapper_length command without any pre-configured scope.",
+          "description": "Enables the ext_store_wrapper_length command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-ext-store-wrapper-length"
-          ]
+          "const": "allow-ext-store-wrapper-length"
         },
         {
-          "description": "deny-ext-store-wrapper-length -> Denies the ext_store_wrapper_length command without any pre-configured scope.",
+          "description": "Denies the ext_store_wrapper_length command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-ext-store-wrapper-length"
-          ]
+          "const": "deny-ext-store-wrapper-length"
         },
         {
-          "description": "allow-ext-store-wrapper-load -> Enables the ext_store_wrapper_load command without any pre-configured scope.",
+          "description": "Enables the ext_store_wrapper_load command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-ext-store-wrapper-load"
-          ]
+          "const": "allow-ext-store-wrapper-load"
         },
         {
-          "description": "deny-ext-store-wrapper-load -> Denies the ext_store_wrapper_load command without any pre-configured scope.",
+          "description": "Denies the ext_store_wrapper_load command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-ext-store-wrapper-load"
-          ]
+          "const": "deny-ext-store-wrapper-load"
         },
         {
-          "description": "allow-ext-store-wrapper-reset -> Enables the ext_store_wrapper_reset command without any pre-configured scope.",
+          "description": "Enables the ext_store_wrapper_reset command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-ext-store-wrapper-reset"
-          ]
+          "const": "allow-ext-store-wrapper-reset"
         },
         {
-          "description": "deny-ext-store-wrapper-reset -> Denies the ext_store_wrapper_reset command without any pre-configured scope.",
+          "description": "Denies the ext_store_wrapper_reset command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-ext-store-wrapper-reset"
-          ]
+          "const": "deny-ext-store-wrapper-reset"
         },
         {
-          "description": "allow-ext-store-wrapper-save -> Enables the ext_store_wrapper_save command without any pre-configured scope.",
+          "description": "Enables the ext_store_wrapper_save command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-ext-store-wrapper-save"
-          ]
+          "const": "allow-ext-store-wrapper-save"
         },
         {
-          "description": "deny-ext-store-wrapper-save -> Denies the ext_store_wrapper_save command without any pre-configured scope.",
+          "description": "Denies the ext_store_wrapper_save command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-ext-store-wrapper-save"
-          ]
+          "const": "deny-ext-store-wrapper-save"
         },
         {
-          "description": "allow-ext-store-wrapper-set -> Enables the ext_store_wrapper_set command without any pre-configured scope.",
+          "description": "Enables the ext_store_wrapper_set command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-ext-store-wrapper-set"
-          ]
+          "const": "allow-ext-store-wrapper-set"
         },
         {
-          "description": "deny-ext-store-wrapper-set -> Denies the ext_store_wrapper_set command without any pre-configured scope.",
+          "description": "Denies the ext_store_wrapper_set command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-ext-store-wrapper-set"
-          ]
+          "const": "deny-ext-store-wrapper-set"
         },
         {
-          "description": "allow-ext-store-wrapper-values -> Enables the ext_store_wrapper_values command without any pre-configured scope.",
+          "description": "Enables the ext_store_wrapper_values command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-ext-store-wrapper-values"
-          ]
+          "const": "allow-ext-store-wrapper-values"
         },
         {
-          "description": "deny-ext-store-wrapper-values -> Denies the ext_store_wrapper_values command without any pre-configured scope.",
+          "description": "Denies the ext_store_wrapper_values command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-ext-store-wrapper-values"
-          ]
+          "const": "deny-ext-store-wrapper-values"
         },
         {
-          "description": "allow-file-search -> Enables the file_search command without any pre-configured scope.",
+          "description": "Enables the file_search command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-file-search"
-          ]
+          "const": "allow-file-search"
         },
         {
-          "description": "deny-file-search -> Denies the file_search command without any pre-configured scope.",
+          "description": "Denies the file_search command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-file-search"
-          ]
+          "const": "deny-file-search"
         },
         {
-          "description": "allow-get-all-extensions -> Enables the get_all_extensions command without any pre-configured scope.",
+          "description": "Enables the get_all_extensions command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-get-all-extensions"
-          ]
+          "const": "allow-get-all-extensions"
         },
         {
-          "description": "deny-get-all-extensions -> Denies the get_all_extensions command without any pre-configured scope.",
+          "description": "Denies the get_all_extensions command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-get-all-extensions"
-          ]
+          "const": "deny-get-all-extensions"
         },
         {
-          "description": "allow-get-applications -> Enables the get_applications command without any pre-configured scope.",
+          "description": "Enables the get_applications command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-get-applications"
-          ]
+          "const": "allow-get-applications"
         },
         {
-          "description": "deny-get-applications -> Denies the get_applications command without any pre-configured scope.",
+          "description": "Denies the get_applications command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-get-applications"
-          ]
+          "const": "deny-get-applications"
         },
         {
-          "description": "allow-get-command-by-id -> Enables the get_command_by_id command without any pre-configured scope.",
+          "description": "Enables the get_command_by_id command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-get-command-by-id"
-          ]
+          "const": "allow-get-command-by-id"
         },
         {
-          "description": "deny-get-command-by-id -> Denies the get_command_by_id command without any pre-configured scope.",
+          "description": "Denies the get_command_by_id command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-get-command-by-id"
-          ]
+          "const": "deny-get-command-by-id"
         },
         {
-          "description": "allow-get-commands-by-ext-id -> Enables the get_commands_by_ext_id command without any pre-configured scope.",
+          "description": "Enables the get_commands_by_ext_id command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-get-commands-by-ext-id"
-          ]
+          "const": "allow-get-commands-by-ext-id"
         },
         {
-          "description": "deny-get-commands-by-ext-id -> Denies the get_commands_by_ext_id command without any pre-configured scope.",
+          "description": "Denies the get_commands_by_ext_id command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-get-commands-by-ext-id"
-          ]
+          "const": "deny-get-commands-by-ext-id"
         },
         {
-          "description": "allow-get-default-extensions-dir -> Enables the get_default_extensions_dir command without any pre-configured scope.",
+          "description": "Enables the get_default_extensions_dir command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-get-default-extensions-dir"
-          ]
+          "const": "allow-get-default-extensions-dir"
         },
         {
-          "description": "deny-get-default-extensions-dir -> Denies the get_default_extensions_dir command without any pre-configured scope.",
+          "description": "Denies the get_default_extensions_dir command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-get-default-extensions-dir"
-          ]
+          "const": "deny-get-default-extensions-dir"
         },
         {
-          "description": "allow-get-default-extensions-storage-dir -> Enables the get_default_extensions_storage_dir command without any pre-configured scope.",
+          "description": "Enables the get_default_extensions_storage_dir command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-get-default-extensions-storage-dir"
-          ]
+          "const": "allow-get-default-extensions-storage-dir"
         },
         {
-          "description": "deny-get-default-extensions-storage-dir -> Denies the get_default_extensions_storage_dir command without any pre-configured scope.",
+          "description": "Denies the get_default_extensions_storage_dir command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-get-default-extensions-storage-dir"
-          ]
+          "const": "deny-get-default-extensions-storage-dir"
         },
         {
-          "description": "allow-get-dev-extension-folder -> Enables the get_dev_extension_folder command without any pre-configured scope.",
+          "description": "Enables the get_dev_extension_folder command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-get-dev-extension-folder"
-          ]
+          "const": "allow-get-dev-extension-folder"
         },
         {
-          "description": "deny-get-dev-extension-folder -> Denies the get_dev_extension_folder command without any pre-configured scope.",
+          "description": "Denies the get_dev_extension_folder command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-get-dev-extension-folder"
-          ]
+          "const": "deny-get-dev-extension-folder"
         },
         {
-          "description": "allow-get-ext-label-map -> Enables the get_ext_label_map command without any pre-configured scope.",
+          "description": "Enables the get_ext_label_map command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-get-ext-label-map"
-          ]
+          "const": "allow-get-ext-label-map"
         },
         {
-          "description": "deny-get-ext-label-map -> Denies the get_ext_label_map command without any pre-configured scope.",
+          "description": "Denies the get_ext_label_map command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-get-ext-label-map"
-          ]
+          "const": "deny-get-ext-label-map"
         },
         {
-          "description": "allow-get-extension-by-identifier -> Enables the get_extension_by_identifier command without any pre-configured scope.",
+          "description": "Enables the get_extension_by_identifier command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-get-extension-by-identifier"
-          ]
+          "const": "allow-get-extension-by-identifier"
         },
         {
-          "description": "deny-get-extension-by-identifier -> Denies the get_extension_by_identifier command without any pre-configured scope.",
+          "description": "Denies the get_extension_by_identifier command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-get-extension-by-identifier"
-          ]
+          "const": "deny-get-extension-by-identifier"
         },
         {
-          "description": "allow-get-extension-data-by-id -> Enables the get_extension_data_by_id command without any pre-configured scope.",
+          "description": "Enables the get_extension_data_by_id command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-get-extension-data-by-id"
-          ]
+          "const": "allow-get-extension-data-by-id"
         },
         {
-          "description": "deny-get-extension-data-by-id -> Denies the get_extension_data_by_id command without any pre-configured scope.",
+          "description": "Denies the get_extension_data_by_id command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-get-extension-data-by-id"
-          ]
+          "const": "deny-get-extension-data-by-id"
         },
         {
-          "description": "allow-get-extension-folder -> Enables the get_extension_folder command without any pre-configured scope.",
+          "description": "Enables the get_extension_folder command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-get-extension-folder"
-          ]
+          "const": "allow-get-extension-folder"
         },
         {
-          "description": "deny-get-extension-folder -> Denies the get_extension_folder command without any pre-configured scope.",
+          "description": "Denies the get_extension_folder command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-get-extension-folder"
-          ]
+          "const": "deny-get-extension-folder"
         },
         {
-          "description": "allow-get-history -> Enables the get_history command without any pre-configured scope.",
+          "description": "Enables the get_history command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-get-history"
-          ]
+          "const": "allow-get-history"
         },
         {
-          "description": "deny-get-history -> Denies the get_history command without any pre-configured scope.",
+          "description": "Denies the get_history command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-get-history"
-          ]
+          "const": "deny-get-history"
         },
         {
-          "description": "allow-get-selected-files-in-file-explorer -> Enables the get_selected_files_in_file_explorer command without any pre-configured scope.",
+          "description": "Enables the get_selected_files_in_file_explorer command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-get-selected-files-in-file-explorer"
-          ]
+          "const": "allow-get-selected-files-in-file-explorer"
         },
         {
-          "description": "deny-get-selected-files-in-file-explorer -> Denies the get_selected_files_in_file_explorer command without any pre-configured scope.",
+          "description": "Denies the get_selected_files_in_file_explorer command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-get-selected-files-in-file-explorer"
-          ]
+          "const": "deny-get-selected-files-in-file-explorer"
         },
         {
-          "description": "allow-get-server-port -> Enables the get_server_port command without any pre-configured scope.",
+          "description": "Enables the get_server_port command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-get-server-port"
-          ]
+          "const": "allow-get-server-port"
         },
         {
-          "description": "deny-get-server-port -> Denies the get_server_port command without any pre-configured scope.",
+          "description": "Denies the get_server_port command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-get-server-port"
-          ]
+          "const": "deny-get-server-port"
         },
         {
-          "description": "allow-hide-all-apps-except-frontmost -> Enables the hide_all_apps_except_frontmost command without any pre-configured scope.",
+          "description": "Enables the hide_all_apps_except_frontmost command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-hide-all-apps-except-frontmost"
-          ]
+          "const": "allow-hide-all-apps-except-frontmost"
         },
         {
-          "description": "deny-hide-all-apps-except-frontmost -> Denies the hide_all_apps_except_frontmost command without any pre-configured scope.",
+          "description": "Denies the hide_all_apps_except_frontmost command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-hide-all-apps-except-frontmost"
-          ]
+          "const": "deny-hide-all-apps-except-frontmost"
         },
         {
-          "description": "allow-is-devtools-open -> Enables the is_devtools_open command without any pre-configured scope.",
+          "description": "Enables the is_devtools_open command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-is-devtools-open"
-          ]
+          "const": "allow-is-devtools-open"
         },
         {
-          "description": "deny-is-devtools-open -> Denies the is_devtools_open command without any pre-configured scope.",
+          "description": "Denies the is_devtools_open command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-is-devtools-open"
-          ]
+          "const": "deny-is-devtools-open"
         },
         {
-          "description": "allow-is-window-label-registered -> Enables the is_window_label_registered command without any pre-configured scope.",
+          "description": "Enables the is_window_label_registered command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-is-window-label-registered"
-          ]
+          "const": "allow-is-window-label-registered"
         },
         {
-          "description": "deny-is-window-label-registered -> Denies the is_window_label_registered command without any pre-configured scope.",
+          "description": "Denies the is_window_label_registered command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-is-window-label-registered"
-          ]
+          "const": "deny-is-window-label-registered"
         },
         {
-          "description": "allow-load-all-extensions -> Enables the load_all_extensions command without any pre-configured scope.",
+          "description": "Enables the load_all_extensions command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-load-all-extensions"
-          ]
+          "const": "allow-load-all-extensions"
         },
         {
-          "description": "deny-load-all-extensions -> Denies the load_all_extensions command without any pre-configured scope.",
+          "description": "Denies the load_all_extensions command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-load-all-extensions"
-          ]
+          "const": "deny-load-all-extensions"
         },
         {
-          "description": "allow-load-manifest -> Enables the load_manifest command without any pre-configured scope.",
+          "description": "Enables the load_manifest command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-load-manifest"
-          ]
+          "const": "allow-load-manifest"
         },
         {
-          "description": "deny-load-manifest -> Denies the load_manifest command without any pre-configured scope.",
+          "description": "Denies the load_manifest command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-load-manifest"
-          ]
+          "const": "deny-load-manifest"
         },
         {
-          "description": "allow-logout-user -> Enables the logout_user command without any pre-configured scope.",
+          "description": "Enables the logout_user command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-logout-user"
-          ]
+          "const": "allow-logout-user"
         },
         {
-          "description": "deny-logout-user -> Denies the logout_user command without any pre-configured scope.",
+          "description": "Denies the logout_user command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-logout-user"
-          ]
+          "const": "deny-logout-user"
         },
         {
-          "description": "allow-mute -> Enables the mute command without any pre-configured scope.",
+          "description": "Enables the mute command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-mute"
-          ]
+          "const": "allow-mute"
         },
         {
-          "description": "deny-mute -> Denies the mute command without any pre-configured scope.",
+          "description": "Denies the mute command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-mute"
-          ]
+          "const": "deny-mute"
         },
         {
-          "description": "allow-open-devtools -> Enables the open_devtools command without any pre-configured scope.",
+          "description": "Enables the open_devtools command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-open-devtools"
-          ]
+          "const": "allow-open-devtools"
         },
         {
-          "description": "deny-open-devtools -> Denies the open_devtools command without any pre-configured scope.",
+          "description": "Denies the open_devtools command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-open-devtools"
-          ]
+          "const": "deny-open-devtools"
         },
         {
-          "description": "allow-open-trash -> Enables the open_trash command without any pre-configured scope.",
+          "description": "Enables the open_trash command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-open-trash"
-          ]
+          "const": "allow-open-trash"
         },
         {
-          "description": "deny-open-trash -> Denies the open_trash command without any pre-configured scope.",
+          "description": "Denies the open_trash command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-open-trash"
-          ]
+          "const": "deny-open-trash"
         },
         {
-          "description": "allow-path-exists -> Enables the path_exists command without any pre-configured scope.",
+          "description": "Enables the path_exists command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-path-exists"
-          ]
+          "const": "allow-path-exists"
         },
         {
-          "description": "deny-path-exists -> Denies the path_exists command without any pre-configured scope.",
+          "description": "Denies the path_exists command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-path-exists"
-          ]
+          "const": "deny-path-exists"
         },
         {
-          "description": "allow-plist-to-json -> Enables the plist_to_json command without any pre-configured scope.",
+          "description": "Enables the plist_to_json command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-plist-to-json"
-          ]
+          "const": "allow-plist-to-json"
         },
         {
-          "description": "deny-plist-to-json -> Denies the plist_to_json command without any pre-configured scope.",
+          "description": "Denies the plist_to_json command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-plist-to-json"
-          ]
+          "const": "deny-plist-to-json"
         },
         {
-          "description": "allow-quit-all-apps -> Enables the quit_all_apps command without any pre-configured scope.",
+          "description": "Enables the quit_all_apps command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-quit-all-apps"
-          ]
+          "const": "allow-quit-all-apps"
         },
         {
-          "description": "deny-quit-all-apps -> Denies the quit_all_apps command without any pre-configured scope.",
+          "description": "Denies the quit_all_apps command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-quit-all-apps"
-          ]
+          "const": "deny-quit-all-apps"
         },
         {
-          "description": "allow-reboot -> Enables the reboot command without any pre-configured scope.",
+          "description": "Enables the reboot command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-reboot"
-          ]
+          "const": "allow-reboot"
         },
         {
-          "description": "deny-reboot -> Denies the reboot command without any pre-configured scope.",
+          "description": "Denies the reboot command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-reboot"
-          ]
+          "const": "deny-reboot"
         },
         {
-          "description": "allow-refresh-applications-list -> Enables the refresh_applications_list command without any pre-configured scope.",
+          "description": "Enables the refresh_applications_list command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-refresh-applications-list"
-          ]
+          "const": "allow-refresh-applications-list"
         },
         {
-          "description": "deny-refresh-applications-list -> Denies the refresh_applications_list command without any pre-configured scope.",
+          "description": "Denies the refresh_applications_list command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-refresh-applications-list"
-          ]
+          "const": "deny-refresh-applications-list"
         },
         {
-          "description": "allow-refresh-applications-list-in-bg -> Enables the refresh_applications_list_in_bg command without any pre-configured scope.",
+          "description": "Enables the refresh_applications_list_in_bg command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-refresh-applications-list-in-bg"
-          ]
+          "const": "allow-refresh-applications-list-in-bg"
         },
         {
-          "description": "deny-refresh-applications-list-in-bg -> Denies the refresh_applications_list_in_bg command without any pre-configured scope.",
+          "description": "Denies the refresh_applications_list_in_bg command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-refresh-applications-list-in-bg"
-          ]
+          "const": "deny-refresh-applications-list-in-bg"
         },
         {
-          "description": "allow-register-extension-window -> Enables the register_extension_window command without any pre-configured scope.",
+          "description": "Enables the register_extension_window command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-register-extension-window"
-          ]
+          "const": "allow-register-extension-window"
         },
         {
-          "description": "deny-register-extension-window -> Denies the register_extension_window command without any pre-configured scope.",
+          "description": "Denies the register_extension_window command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-register-extension-window"
-          ]
+          "const": "deny-register-extension-window"
         },
         {
-          "description": "allow-restart-server -> Enables the restart_server command without any pre-configured scope.",
+          "description": "Enables the restart_server command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-restart-server"
-          ]
+          "const": "allow-restart-server"
         },
         {
-          "description": "deny-restart-server -> Denies the restart_server command without any pre-configured scope.",
+          "description": "Denies the restart_server command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-restart-server"
-          ]
+          "const": "deny-restart-server"
         },
         {
-          "description": "allow-run-apple-script -> Enables the run_apple_script command without any pre-configured scope.",
+          "description": "Enables the run_apple_script command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-run-apple-script"
-          ]
+          "const": "allow-run-apple-script"
         },
         {
-          "description": "deny-run-apple-script -> Denies the run_apple_script command without any pre-configured scope.",
+          "description": "Denies the run_apple_script command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-run-apple-script"
-          ]
+          "const": "deny-run-apple-script"
         },
         {
-          "description": "allow-run-powershell -> Enables the run_powershell command without any pre-configured scope.",
+          "description": "Enables the run_powershell command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-run-powershell"
-          ]
+          "const": "allow-run-powershell"
         },
         {
-          "description": "deny-run-powershell -> Denies the run_powershell command without any pre-configured scope.",
+          "description": "Denies the run_powershell command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-run-powershell"
-          ]
+          "const": "deny-run-powershell"
         },
         {
-          "description": "allow-search-extension-data -> Enables the search_extension_data command without any pre-configured scope.",
+          "description": "Enables the search_extension_data command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-search-extension-data"
-          ]
+          "const": "allow-search-extension-data"
         },
         {
-          "description": "deny-search-extension-data -> Denies the search_extension_data command without any pre-configured scope.",
+          "description": "Denies the search_extension_data command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-search-extension-data"
-          ]
+          "const": "deny-search-extension-data"
         },
         {
-          "description": "allow-server-is-running -> Enables the server_is_running command without any pre-configured scope.",
+          "description": "Enables the server_is_running command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-server-is-running"
-          ]
+          "const": "allow-server-is-running"
         },
         {
-          "description": "deny-server-is-running -> Denies the server_is_running command without any pre-configured scope.",
+          "description": "Denies the server_is_running command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-server-is-running"
-          ]
+          "const": "deny-server-is-running"
         },
         {
-          "description": "allow-set-dev-extension-folder -> Enables the set_dev_extension_folder command without any pre-configured scope.",
+          "description": "Enables the set_dev_extension_folder command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-set-dev-extension-folder"
-          ]
+          "const": "allow-set-dev-extension-folder"
         },
         {
-          "description": "deny-set-dev-extension-folder -> Denies the set_dev_extension_folder command without any pre-configured scope.",
+          "description": "Denies the set_dev_extension_folder command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-set-dev-extension-folder"
-          ]
+          "const": "deny-set-dev-extension-folder"
         },
         {
-          "description": "allow-set-extension-folder -> Enables the set_extension_folder command without any pre-configured scope.",
+          "description": "Enables the set_extension_folder command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-set-extension-folder"
-          ]
+          "const": "allow-set-extension-folder"
         },
         {
-          "description": "deny-set-extension-folder -> Denies the set_extension_folder command without any pre-configured scope.",
+          "description": "Denies the set_extension_folder command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-set-extension-folder"
-          ]
+          "const": "deny-set-extension-folder"
         },
         {
-          "description": "allow-set-volume -> Enables the set_volume command without any pre-configured scope.",
+          "description": "Enables the set_volume command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-set-volume"
-          ]
+          "const": "allow-set-volume"
         },
         {
-          "description": "deny-set-volume -> Denies the set_volume command without any pre-configured scope.",
+          "description": "Denies the set_volume command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-set-volume"
-          ]
+          "const": "deny-set-volume"
         },
         {
-          "description": "allow-show-desktop -> Enables the show_desktop command without any pre-configured scope.",
+          "description": "Enables the show_desktop command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-show-desktop"
-          ]
+          "const": "allow-show-desktop"
         },
         {
-          "description": "deny-show-desktop -> Denies the show_desktop command without any pre-configured scope.",
+          "description": "Denies the show_desktop command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-show-desktop"
-          ]
+          "const": "deny-show-desktop"
         },
         {
-          "description": "allow-shutdown -> Enables the shutdown command without any pre-configured scope.",
+          "description": "Enables the shutdown command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-shutdown"
-          ]
+          "const": "allow-shutdown"
         },
         {
-          "description": "deny-shutdown -> Denies the shutdown command without any pre-configured scope.",
+          "description": "Denies the shutdown command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-shutdown"
-          ]
+          "const": "deny-shutdown"
         },
         {
-          "description": "allow-sleep -> Enables the sleep command without any pre-configured scope.",
+          "description": "Enables the sleep command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-sleep"
-          ]
+          "const": "allow-sleep"
         },
         {
-          "description": "deny-sleep -> Denies the sleep command without any pre-configured scope.",
+          "description": "Denies the sleep command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-sleep"
-          ]
+          "const": "deny-sleep"
         },
         {
-          "description": "allow-sleep-displays -> Enables the sleep_displays command without any pre-configured scope.",
+          "description": "Enables the sleep_displays command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-sleep-displays"
-          ]
+          "const": "allow-sleep-displays"
         },
         {
-          "description": "deny-sleep-displays -> Denies the sleep_displays command without any pre-configured scope.",
+          "description": "Denies the sleep_displays command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-sleep-displays"
-          ]
+          "const": "deny-sleep-displays"
         },
         {
-          "description": "allow-start-server -> Enables the start_server command without any pre-configured scope.",
+          "description": "Enables the start_server command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-start-server"
-          ]
+          "const": "allow-start-server"
         },
         {
-          "description": "deny-start-server -> Denies the start_server command without any pre-configured scope.",
+          "description": "Denies the start_server command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-start-server"
-          ]
+          "const": "deny-start-server"
         },
         {
-          "description": "allow-stop-server -> Enables the stop_server command without any pre-configured scope.",
+          "description": "Enables the stop_server command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-stop-server"
-          ]
+          "const": "allow-stop-server"
         },
         {
-          "description": "deny-stop-server -> Denies the stop_server command without any pre-configured scope.",
+          "description": "Denies the stop_server command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-stop-server"
-          ]
+          "const": "deny-stop-server"
         },
         {
-          "description": "allow-toggle-bluetooth -> Enables the toggle_bluetooth command without any pre-configured scope.",
+          "description": "Enables the toggle_bluetooth command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-toggle-bluetooth"
-          ]
+          "const": "allow-toggle-bluetooth"
         },
         {
-          "description": "deny-toggle-bluetooth -> Denies the toggle_bluetooth command without any pre-configured scope.",
+          "description": "Denies the toggle_bluetooth command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-toggle-bluetooth"
-          ]
+          "const": "deny-toggle-bluetooth"
         },
         {
-          "description": "allow-toggle-devtools -> Enables the toggle_devtools command without any pre-configured scope.",
+          "description": "Enables the toggle_devtools command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-toggle-devtools"
-          ]
+          "const": "allow-toggle-devtools"
         },
         {
-          "description": "deny-toggle-devtools -> Denies the toggle_devtools command without any pre-configured scope.",
+          "description": "Denies the toggle_devtools command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-toggle-devtools"
-          ]
+          "const": "deny-toggle-devtools"
         },
         {
-          "description": "allow-toggle-hidden-files -> Enables the toggle_hidden_files command without any pre-configured scope.",
+          "description": "Enables the toggle_hidden_files command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-toggle-hidden-files"
-          ]
+          "const": "allow-toggle-hidden-files"
         },
         {
-          "description": "deny-toggle-hidden-files -> Denies the toggle_hidden_files command without any pre-configured scope.",
+          "description": "Denies the toggle_hidden_files command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-toggle-hidden-files"
-          ]
+          "const": "deny-toggle-hidden-files"
         },
         {
-          "description": "allow-toggle-mute -> Enables the toggle_mute command without any pre-configured scope.",
+          "description": "Enables the toggle_mute command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-toggle-mute"
-          ]
+          "const": "allow-toggle-mute"
         },
         {
-          "description": "deny-toggle-mute -> Denies the toggle_mute command without any pre-configured scope.",
+          "description": "Denies the toggle_mute command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-toggle-mute"
-          ]
+          "const": "deny-toggle-mute"
         },
         {
-          "description": "allow-toggle-stage-manager -> Enables the toggle_stage_manager command without any pre-configured scope.",
+          "description": "Enables the toggle_stage_manager command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-toggle-stage-manager"
-          ]
+          "const": "allow-toggle-stage-manager"
         },
         {
-          "description": "deny-toggle-stage-manager -> Denies the toggle_stage_manager command without any pre-configured scope.",
+          "description": "Denies the toggle_stage_manager command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-toggle-stage-manager"
-          ]
+          "const": "deny-toggle-stage-manager"
         },
         {
-          "description": "allow-toggle-system-appearance -> Enables the toggle_system_appearance command without any pre-configured scope.",
+          "description": "Enables the toggle_system_appearance command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-toggle-system-appearance"
-          ]
+          "const": "allow-toggle-system-appearance"
         },
         {
-          "description": "deny-toggle-system-appearance -> Denies the toggle_system_appearance command without any pre-configured scope.",
+          "description": "Denies the toggle_system_appearance command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-toggle-system-appearance"
-          ]
+          "const": "deny-toggle-system-appearance"
         },
         {
-          "description": "allow-turn-volume-down -> Enables the turn_volume_down command without any pre-configured scope.",
+          "description": "Enables the turn_volume_down command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-turn-volume-down"
-          ]
+          "const": "allow-turn-volume-down"
         },
         {
-          "description": "deny-turn-volume-down -> Denies the turn_volume_down command without any pre-configured scope.",
+          "description": "Denies the turn_volume_down command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-turn-volume-down"
-          ]
+          "const": "deny-turn-volume-down"
         },
         {
-          "description": "allow-turn-volume-up -> Enables the turn_volume_up command without any pre-configured scope.",
+          "description": "Enables the turn_volume_up command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-turn-volume-up"
-          ]
+          "const": "allow-turn-volume-up"
         },
         {
-          "description": "deny-turn-volume-up -> Denies the turn_volume_up command without any pre-configured scope.",
+          "description": "Denies the turn_volume_up command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-turn-volume-up"
-          ]
+          "const": "deny-turn-volume-up"
         },
         {
-          "description": "allow-unmute -> Enables the unmute command without any pre-configured scope.",
+          "description": "Enables the unmute command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-unmute"
-          ]
+          "const": "allow-unmute"
         },
         {
-          "description": "deny-unmute -> Denies the unmute command without any pre-configured scope.",
+          "description": "Denies the unmute command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-unmute"
-          ]
+          "const": "deny-unmute"
         },
         {
-          "description": "allow-unregister-extension-window -> Enables the unregister_extension_window command without any pre-configured scope.",
+          "description": "Enables the unregister_extension_window command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-unregister-extension-window"
-          ]
+          "const": "allow-unregister-extension-window"
         },
         {
-          "description": "deny-unregister-extension-window -> Denies the unregister_extension_window command without any pre-configured scope.",
+          "description": "Denies the unregister_extension_window command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-unregister-extension-window"
-          ]
+          "const": "deny-unregister-extension-window"
         },
         {
-          "description": "allow-unzip -> Enables the unzip command without any pre-configured scope.",
+          "description": "Enables the unzip command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-unzip"
-          ]
+          "const": "allow-unzip"
         },
         {
-          "description": "deny-unzip -> Denies the unzip command without any pre-configured scope.",
+          "description": "Denies the unzip command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-unzip"
-          ]
+          "const": "deny-unzip"
         },
         {
-          "description": "allow-update-command-by-id -> Enables the update_command_by_id command without any pre-configured scope.",
+          "description": "Enables the update_command_by_id command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-update-command-by-id"
-          ]
+          "const": "allow-update-command-by-id"
         },
         {
-          "description": "deny-update-command-by-id -> Denies the update_command_by_id command without any pre-configured scope.",
+          "description": "Denies the update_command_by_id command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-update-command-by-id"
-          ]
+          "const": "deny-update-command-by-id"
         },
         {
-          "description": "allow-update-extension-data-by-id -> Enables the update_extension_data_by_id command without any pre-configured scope.",
+          "description": "Enables the update_extension_data_by_id command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "allow-update-extension-data-by-id"
-          ]
+          "const": "allow-update-extension-data-by-id"
         },
         {
-          "description": "deny-update-extension-data-by-id -> Denies the update_extension_data_by_id command without any pre-configured scope.",
+          "description": "Denies the update_extension_data_by_id command without any pre-configured scope.",
           "type": "string",
-          "enum": [
-            "deny-update-extension-data-by-id"
-          ]
+          "const": "deny-update-extension-data-by-id"
         },
         {
-          "description": "allow-all-store -> This enables all permissions for Jarvis",
+          "description": "This enables all permissions for Jarvis",
           "type": "string",
-          "enum": [
-            "allow-all-store"
-          ]
+          "const": "allow-all-store"
         }
       ]
     }
