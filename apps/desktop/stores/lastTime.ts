@@ -1,8 +1,8 @@
-import { Store } from "@tauri-apps/plugin-store"
+import { getPersistedAppConfigStore } from "~/lib/stores/appConfig"
 import { defineStore } from "pinia"
 import * as v from "valibot"
 
-const persistAppConfig = new Store("appConfig.bin")
+const persistAppConfig = await getPersistedAppConfigStore()
 
 export const useLastTimeStore = defineStore("kk-last-time", {
 	state: () => ({

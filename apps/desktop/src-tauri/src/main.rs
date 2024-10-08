@@ -12,7 +12,7 @@ use tauri_plugin_jarvis::{
         settings::AppSettings,
     },
 };
-use tauri_plugin_store::StoreBuilder;
+use tauri_plugin_store::{StoreBuilder, StoreExt};
 pub mod utils;
 use log;
 #[cfg(target_os = "macos")]
@@ -25,6 +25,7 @@ fn main() {
     let context = tauri::generate_context!();
     let shell_unlocked = true;
     let app = tauri::Builder::default()
+        .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_process::init())
         .plugin(tauri_plugin_upload::init())
@@ -47,7 +48,7 @@ fn main() {
                 })
                 .build(),
         )
-        .plugin(tauri_plugin_store::Builder::new().build())
+        .plugin(tauri_plugin_store::Builder::default().build())
         .plugin(tauri_plugin_global_shortcut::Builder::new().build())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_http::init())
@@ -66,15 +67,17 @@ fn main() {
             return tauri_plugin_jarvis::utils::icns::load_icon(path);
         })
         .register_uri_scheme_protocol("ext", |app, request| {
-            let app_state = app.state::<tauri_plugin_jarvis::model::app_state::AppState>();
+            let app_handle = app.app_handle();
+            let app_state = app_handle.state::<tauri_plugin_jarvis::model::app_state::AppState>();
             let extension_path = app_state.extension_path.lock().unwrap().clone();
-            tauri_file_server(app, request, extension_path)
+            tauri_file_server(app_handle, request, extension_path)
         })
         .register_uri_scheme_protocol("dev-ext", |app, request| {
-            let app_state = app.state::<tauri_plugin_jarvis::model::app_state::AppState>();
+            let app_handle = app.app_handle();
+            let app_state = app_handle.state::<tauri_plugin_jarvis::model::app_state::AppState>();
             let dev_extension_path = app_state.dev_extension_path.lock().unwrap().clone();
             if let Some(path) = dev_extension_path {
-                tauri_file_server(app, request, path)
+                tauri_file_server(app_handle, request, path)
             } else {
                 tauri::http::Response::builder()
                     .status(tauri::http::StatusCode::NOT_FOUND)
@@ -89,7 +92,9 @@ fn main() {
 
             // #[cfg(all(target_os = "macos", debug_assertions))]
             // app.set_activation_policy(ActivationPolicy::Accessory);
-            let mut store = StoreBuilder::new("appConfig.bin").build(app.handle().clone());
+            // let mut store = StoreBuilder::new("appConfig.bin").build(app.handle().clone());
+            let store = app.handle().store_builder("appConfig.bin").build();
+
             let _ = store.load();
 
             let app_settings = match AppSettings::load_from_store(&store) {

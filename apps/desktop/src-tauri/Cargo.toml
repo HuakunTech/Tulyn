@@ -18,7 +18,7 @@ tauri = { version = "2.0.1", features = [ "macos-private-api",
     "tray-icon",
     "devtools",
 ] }
-tauri-plugin-shell = "2.0.1"
+tauri-plugin-shell = "2"
 serde = { workspace = true }
 serde_json = { workspace = true }
 anyhow = { workspace = true }

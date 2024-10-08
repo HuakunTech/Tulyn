@@ -7,7 +7,7 @@ import { appDataDir, BaseDirectory, join } from "@tauri-apps/api/path"
 import { exists, remove } from "@tauri-apps/plugin-fs"
 import { unregister } from "@tauri-apps/plugin-global-shortcut"
 import { debug, info, warn } from "@tauri-apps/plugin-log"
-import { Store } from "@tauri-apps/plugin-store"
+import { createStore, Store } from "@tauri-apps/plugin-store"
 import { allColors } from "~/lib/themes/themes"
 import { registerAppHotkey } from "~/lib/utils/hotkey"
 import { mapKeyToTauriKey } from "~/lib/utils/js"
@@ -28,8 +28,10 @@ import {
 	union,
 	type InferOutput
 } from "valibot"
+import { getPersistedAppConfigStore } from "~/lib/stores/appConfig"
 
-const persistAppConfig = new Store("appConfig.bin")
+// const persistAppConfig = new Store("appConfig.bin")
+const persistAppConfig = await getPersistedAppConfigStore()
 
 export const appConfigSchema = object({
 	isInitialized: boolean(),
@@ -77,9 +79,9 @@ export const useAppConfigStore = defineStore("appConfig", {
 		async init() {
 			this.isInitialized = true
 			// const configPath = await join(await appDataDir(), persistAppConfig.path)
-			if (!(await exists(persistAppConfig.path, { baseDir: BaseDirectory.AppData }))) {
-				await this.save()
-			}
+			// if (!(await exists(persistAppConfig.path, { baseDir: BaseDirectory.AppData }))) {
+			// 	await this.save()
+			// }
 			const loadedConfig = await persistAppConfig.get("config")
 			const parseRes = safeParse(appConfigSchema, loadedConfig)
 			if (parseRes.success) {
@@ -92,8 +94,8 @@ export const useAppConfigStore = defineStore("appConfig", {
 					"Failed to parse app config",
 					flatten<typeof appConfigSchema>(parseRes.issues)
 				)
-				await remove(persistAppConfig.path, { baseDir: BaseDirectory.AppData })
-				this.save()
+				// await remove(persistAppConfig.path, { baseDir: BaseDirectory.AppData })
+				// this.save()
 			}
 		},
 		async save() {
@@ -109,8 +111,8 @@ export const useAppConfigStore = defineStore("appConfig", {
 			// document.documentElement.classList.add(`theme-${this.theme}`)
 			this.setTheme(this.theme)
 			const colorMode = useColorMode()
-			console.log(colorMode.value);
-			
+			console.log(colorMode.value)
+
 			colorMode.preference = this.lightMode ?? "system"
 			// colorMode.value = this.lightMode ?? "auto"
 		},

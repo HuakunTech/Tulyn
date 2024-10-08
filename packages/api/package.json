@@ -40,6 +40,8 @@
 		"typescript": "^5.0.0"
 	},
 	"dependencies": {
+		"@hk/comlink-stdio": "npm:@jsr/hk__comlink-stdio@^0.1.2",
+		"comlink-stdio": "link:/Users/hacker/Dev/projects/comlink-stdio",
 		"@huakunshen/comlink": "^4.4.1",
 		"@rollup/plugin-typescript": "^11.1.6",
 		"@tauri-apps/api": "2.0.0-rc.3",

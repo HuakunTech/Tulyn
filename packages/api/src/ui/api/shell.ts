@@ -1,3 +1,4 @@
+import { DenoStdio, ProcessChannel } from "@hk/comlink-stdio"
 import { proxy as comlinkProxy, type Remote } from "@huakunshen/comlink"
 import { Channel, invoke } from "@tauri-apps/api/core"
 import { constructShellAPI as constructShellAPI1 } from "tauri-api-adapter/client"

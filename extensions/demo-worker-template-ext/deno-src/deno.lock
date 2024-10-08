@@ -2,12 +2,27 @@
   "version": "3",
   "packages": {
     "specifiers": {
+      "jsr:@hk/comlink-stdio@^0.1.2": "jsr:@hk/comlink-stdio@0.1.2",
+      "jsr:@std/assert@1": "jsr:@std/assert@1.0.6",
       "jsr:@std/cli": "jsr:@std/cli@1.0.5",
+      "jsr:@std/internal@^1.0.4": "jsr:@std/internal@1.0.4",
       "npm:sharp": "npm:sharp@0.33.5"
     },
     "jsr": {
+      "@hk/comlink-stdio@0.1.2": {
+        "integrity": "b729f3c18d51221f4fd8a5cedbb3cfde444cc40337f1dcc39dc7647846fd90fc"
+      },
+      "@std/assert@1.0.6": {
+        "integrity": "1904c05806a25d94fe791d6d883b685c9e2dcd60e4f9fc30f4fc5cf010c72207",
+        "dependencies": [
+          "jsr:@std/internal@^1.0.4"
+        ]
+      },
       "@std/cli@1.0.5": {
         "integrity": "c93cce26ffd26f617c15a12874e1bfeabc90b1eee86017c9639093734c2bf587"
+      },
+      "@std/internal@1.0.4": {
+        "integrity": "62e8e4911527e5e4f307741a795c0b0a9e6958d0b3790716ae71ce085f755422"
       }
     },
     "npm": {
@@ -189,12 +204,8 @@
   "remote": {},
   "workspace": {
     "dependencies": [
+      "jsr:@hk/comlink-stdio@^0.1.2",
       "jsr:@std/assert@1"
-    ],
-    "packageJson": {
-      "dependencies": [
-        "npm:@types/bun@latest"
-      ]
-    }
+    ]
   }
 }

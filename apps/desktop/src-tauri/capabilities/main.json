@@ -108,14 +108,30 @@
 		{
 			"identifier": "fs:scope",
 			"allow": [
-				{ "path": "$DESKTOP" },
-				{ "path": "$DESKTOP/**" },
-				{ "path": "$DOWNLOAD" },
-				{ "path": "$DOWNLOAD/**" },
-				{ "path": "$DOCUMENT" },
-				{ "path": "$DOCUMENT/**" },
-				{ "path": "$TEMP/**" },
-				{ "path": "$TEMP" }
+				{
+					"path": "$DESKTOP"
+				},
+				{
+					"path": "$DESKTOP/**"
+				},
+				{
+					"path": "$DOWNLOAD"
+				},
+				{
+					"path": "$DOWNLOAD/**"
+				},
+				{
+					"path": "$DOCUMENT"
+				},
+				{
+					"path": "$DOCUMENT/**"
+				},
+				{
+					"path": "$TEMP/**"
+				},
+				{
+					"path": "$TEMP"
+				}
 			]
 		},
 		"notification:allow-is-permission-granted",
@@ -126,6 +142,21 @@
 		"clipboard:allow-clear",
 		"upload:default",
 		"process:default",
-		"system-info:allow-all"
+		"system-info:allow-all",
+		"shell:default",
+		{
+			"identifier": "shell:allow-spawn",
+			"allow": [
+				{
+					"name": "deno",
+					"cmd": "deno",
+					"args": [
+						{
+							"validator": ".+"
+						}
+					]
+				}
+			]
+		}
 	]
 }

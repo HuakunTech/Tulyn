@@ -14,10 +14,19 @@
 				"permission": "shell:deno:execute",
 				"allow": [
 					{
-						"path": "$EXTENSION/src/deno-script.ts",
-						"env": ["npm_package_config_libvips", "CWD"],
+						"path": "$EXTENSION/deno-src/deno-script.ts",
+						"env": [
+							"npm_package_config_libvips",
+							"CWD"
+						],
 						"ffi": "*",
-						"read": ["$DESKTOP"]
+						"read": [
+							"$DESKTOP"
+						]
+					},
+					{
+						"path": "$EXTENSION/deno-src/rpc.ts",
+						"ffi": "*"
 					}
 				]
 			},
@@ -29,25 +38,35 @@
 					}
 				]
 			},
+			"shell:stdin-write",
 			{
 				"permission": "shell:execute",
 				"allow": [
 					{
 						"cmd": {
 							"program": "ls",
-							"args": ["-l"]
+							"args": [
+								"-l"
+							]
 						}
 					},
 					{
 						"cmd": {
 							"program": "bash",
-							"args": ["-c", ".+"]
+							"args": [
+								"-c",
+								".+"
+							]
 						}
 					},
 					{
 						"cmd": {
 							"program": "deno",
-							"args": ["-A", ".+", ".+"]
+							"args": [
+								"-A",
+								".+",
+								".+"
+							]
 						}
 					}
 				]
@@ -72,10 +91,16 @@
 		"build": "bun build.ts"
 	},
 	"dependencies": {
+		"@hk/comlink-stdio": "npm:@jsr/hk__comlink-stdio@^0.1.2",
+		"comlink-stdio": "link:/Users/hacker/Dev/projects/comlink-stdio",
 		"@kksh/api": "workspace:*"
 	},
 	"devDependencies": {
-		"@types/bun": "latest"
+		"@rollup/plugin-commonjs": "^26.0.1",
+		"@rollup/plugin-node-resolve": "^15.2.3",
+		"@rollup/plugin-typescript": "^11.1.6",
+		"@types/bun": "latest",
+		"rollup-plugin-visualizer": "^5.12.0"
 	},
 	"peerDependencies": {
 		"typescript": "^5.0.0"

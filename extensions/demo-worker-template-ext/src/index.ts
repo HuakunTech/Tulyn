@@ -1,5 +1,8 @@
+// import { ProcessChannel } from "@hk/comlink-stdio/browser"
+import { TauriShellStdio } from "@kksh/api"
 import {
 	Action,
+	app,
 	expose,
 	Form,
 	fs,
@@ -12,9 +15,9 @@ import {
 	shell,
 	toast,
 	ui,
-	app,
 	WorkerExtension
 } from "@kksh/api/ui/worker"
+import { ProcessChannel } from "comlink-stdio/browser"
 
 const nums = Array.from({ length: 20 }, (_, i) => i + 1)
 const categories = ["Suggestion", "Advice", "Idea"]
@@ -39,34 +42,63 @@ class ExtensionTemplate extends WorkerExtension {
 		setTimeout(() => {
 			ui.showLoadingBar(false)
 		}, 2000)
-		// const cmd = shell.createCommand("ls", ["-l"])
-		// cmd.stdout.on("data", (data) => {
-		// 	console.log(data)
+		const cmd = shell.createCommand("ls", ["-l"])
+		cmd.stdout.on("data", (data) => {
+			console.log(data)
+		})
+		const denoMathCmd = shell.createDenoCommand("$EXTENSION/deno-src/rpc.ts", [], {})
+		const denoMathProcess = await denoMathCmd.spawn()
+		const stdio = new TauriShellStdio(denoMathCmd.stdout, denoMathProcess)
+
+		const cmd2 = shell.createDenoCommand(
+			"/Users/hacker/Dev/projects/kunkun/kunkun/extensions/demo-worker-template-ext/deno-src/deno-script.ts",
+			[],
+			{}
+		)
+		await cmd2.spawn()
+		const parent = new ProcessChannel<
+			{},
+			{
+				add(a: number, b: number): Promise<number>
+				subtract(a: number, b: number): Promise<number>
+			}
+		>(stdio, {})
+		const api = parent.getApi()
+		api.add(1, 2).then(console.log)
+		api.subtract(1, 2).then(console.log)
+
+		// app.language().then((lang) => {
+		// 	console.log("Language:", lang)
 		// })
-		// cmd.spawn()
-		// const res = await cmd.execute()
-		// console.log(res.stdout)
-		app.language().then((lang) => {
-			console.log("Language:", lang)
-		})
-		console.log("echo $PWD", await shell.executeBashScript("echo $PWD"))
-		console.log(await path.extensionSupportDir());
-		
+		// console.log("echo $PWD", await shell.executeBashScript("echo $PWD"))
+		// console.log(await path.extensionSupportDir())
+
 		// open.file("$EXTENSION/src/deno-script.ts")
-		const desktopPath = await path.desktopDir()
-		const denoCmd = shell.createDenoCommand("$EXTENSION/src/deno-script.ts", ["-i=./avatar.png", "-o=./avatar-blur.jpeg"], {
-			allowEnv: ["npm_package_config_libvips", "CWD"],
-			allowRead: ["$DESKTOP"],
-			allowAllFfi: true,
-			cwd: desktopPath
-		})
-		const denoRes = await denoCmd.execute()
-		console.log("denoRes.stdout", denoRes.stdout)
-		console.log("denoRes.stderr", denoRes.stderr)
-		console.log(denoRes)
+		// const desktopPath = await path.desktopDir()
+		// const denoCmd = shell.createDenoCommand(
+		// 	"$EXTENSION/deno-src/deno-script.ts",
+		// 	["-i=./avatar.png", "-o=./avatar-blur.jpeg"],
+		// 	{
+		// 		// allowEnv: ["npm_package_config_libvips", "CWD"],
+		// 		// allowRead: ["$DESKTOP"],
+		// 		// allowAllFfi: true,
+		// 		// cwd: desktopPath
+		// 	}
+		// )
+		// denoCmd.stdout.on("data", (data) => {
+		// 	console.log("denoCmd.stdout", data)
+		// })
+		// denoCmd.stderr.on("data", (data) => {
+		// 	console.warn("denoCmd.stderr", data)
+		// })
+		// await denoCmd.spawn()
+		// const denoRes = await denoCmd.execute()
+		// console.log("denoRes.stdout", denoRes.stdout)
+		// console.log("denoRes.stderr", denoRes.stderr)
+		// console.log(denoRes)
 
 		const extPath = await path.extensionDir()
-		console.log("Extension path:", extPath)
+		// console.log("Extension path:", extPath)
 		return ui.render(
 			new List.List({
 				items: allItems,

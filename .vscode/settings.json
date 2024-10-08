@@ -12,5 +12,6 @@
   "json.schemas": [],
   "editor.tabSize": 2,
   "editor.indentSize": 2,
-  "editor.insertSpaces": false
+  "editor.insertSpaces": false,
+  "deno.enable": false
 }

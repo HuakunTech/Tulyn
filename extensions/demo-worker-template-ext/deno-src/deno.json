@@ -1,0 +1,9 @@
+{
+  "tasks": {
+    "dev": "deno run --watch main.ts"
+  },
+  "imports": {
+    "@hk/comlink-stdio": "jsr:@hk/comlink-stdio@^0.1.2",
+    "@std/assert": "jsr:@std/assert@1",
+  }
+}
