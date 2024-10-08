@@ -1,5 +1,3 @@
-import { ProcessChannel } from "@hk/comlink-stdio/browser"
-import { TauriShellStdio } from "@kksh/api"
 import {
 	Action,
 	app,
@@ -45,24 +43,26 @@ class ExtensionTemplate extends WorkerExtension {
 		cmd.stdout.on("data", (data) => {
 			console.log(data)
 		})
-		const denoMathCmd = shell.createDenoCommand("$EXTENSION/deno-src/rpc.ts", [], {})
-		const denoMathProcess = await denoMathCmd.spawn()
-		const stdio = new TauriShellStdio(denoMathCmd.stdout, denoMathProcess)
+		// const denoMathCmd = shell.createDenoCommand("$EXTENSION/deno-src/rpc.ts", [], {})
+		// const denoMathProcess = await denoMathCmd.spawn()
+		// const stdio = new shell.TauriShellStdio(denoMathCmd.stdout, denoMathProcess)
 
-		const cmd2 = shell.createDenoCommand(
-			"/Users/hacker/Dev/projects/kunkun/kunkun/extensions/demo-worker-template-ext/deno-src/deno-script.ts",
-			[],
-			{}
-		)
-		await cmd2.spawn()
-		const parent = new ProcessChannel<
+		// const parent = new ProcessChannel<
+		// 	{},
+		// 	{
+		// 		add(a: number, b: number): Promise<number>
+		// 		subtract(a: number, b: number): Promise<number>
+		// 	}
+		// >(stdio, {})
+		// const api = parent.getApi()
+		const api = await shell.createDenoRpcAPI<
 			{},
 			{
 				add(a: number, b: number): Promise<number>
 				subtract(a: number, b: number): Promise<number>
 			}
-		>(stdio, {})
-		const api = parent.getApi()
+		>("$EXTENSION/deno-src/rpc.ts", [], {}, {})
+
 		api.add(1, 2).then(console.log)
 		api.subtract(1, 2).then(console.log)
 

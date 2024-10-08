@@ -8,7 +8,7 @@ export interface API {
 }
 
 // Define your API methods
-export const apiMethods = {
+export const apiMethods: API = {
 	add: async (a: number, b: number) => a + b,
 	subtract: async (a: number, b: number) => a - b
 }

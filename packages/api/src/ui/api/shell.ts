@@ -1,4 +1,4 @@
-import { DenoStdio, ProcessChannel } from "@hk/comlink-stdio"
+import { ProcessChannel, type StdioInterface } from "@hk/comlink-stdio/browser"
 import { proxy as comlinkProxy, type Remote } from "@huakunshen/comlink"
 import { Channel, invoke } from "@tauri-apps/api/core"
 import { constructShellAPI as constructShellAPI1 } from "tauri-api-adapter/client"
@@ -231,6 +231,31 @@ export type IShell = {
 	hasCommand: typeof hasCommand
 	likelyOnWindows: typeof likelyOnWindows
 	Child: typeof Child
+	TauriShellStdio: typeof TauriShellStdio
+	createDenoRpcAPI<LocalAPI extends {}, RemoteAPI extends {}>(
+		scriptPath: string,
+		args: string[],
+		config: Partial<DenoRunConfig> & SpawnOptions,
+		localAPIImplementation: LocalAPI
+	): Promise<RemoteAPI>
+}
+
+export class TauriShellStdio implements StdioInterface {
+	constructor(
+		private readStream: EventEmitter<OutputEvents<IOPayload>>, // stdout of child process
+		private childProcess: Child
+	) {}
+
+	read(): Promise<string | Buffer | Uint8Array | null> {
+		return new Promise((resolve, reject) => {
+			this.readStream.on("data", (chunk) => {
+				resolve(chunk)
+			})
+		})
+	}
+	async write(data: string): Promise<void> {
+		return this.childProcess.write(data + "\n")
+	}
 }
 
 export function constructShellAPI(api: Remote<IShellServer>): IShell {
@@ -245,6 +270,19 @@ export function constructShellAPI(api: Remote<IShellServer>): IShell {
 		config: Partial<DenoRunConfig> & SpawnOptions
 	) {
 		return new DenoCommand<string>(scriptPath, args, config, api)
+	}
+
+	async function createDenoRpcAPI<LocalAPI extends {}, RemoteAPI extends {}>(
+		scriptPath: string,
+		args: string[],
+		config: Partial<DenoRunConfig> & SpawnOptions,
+		localAPIImplementation: LocalAPI
+	): Promise<RemoteAPI> {
+		const denoCmd = createDenoCommand(scriptPath, args, config)
+		const denoProcess = await denoCmd.spawn()
+		const stdio = new TauriShellStdio(denoCmd.stdout, denoProcess)
+		const stdioRPC = new ProcessChannel<LocalAPI, RemoteAPI>(stdio, localAPIImplementation)
+		return stdioRPC.getApi()
 	}
 
 	function makeBashScript(script: string): Command<string> {
@@ -340,6 +378,8 @@ export function constructShellAPI(api: Remote<IShellServer>): IShell {
 		likelyOnWindows,
 		createCommand,
 		createDenoCommand,
-		Child
+		Child,
+		TauriShellStdio,
+		createDenoRpcAPI
 	}
 }
