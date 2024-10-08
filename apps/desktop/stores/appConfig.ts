@@ -8,6 +8,7 @@ import { exists, remove } from "@tauri-apps/plugin-fs"
 import { unregister } from "@tauri-apps/plugin-global-shortcut"
 import { debug, info, warn } from "@tauri-apps/plugin-log"
 import { createStore, Store } from "@tauri-apps/plugin-store"
+import { getPersistedAppConfigStore } from "~/lib/stores/appConfig"
 import { allColors } from "~/lib/themes/themes"
 import { registerAppHotkey } from "~/lib/utils/hotkey"
 import { mapKeyToTauriKey } from "~/lib/utils/js"
@@ -28,10 +29,6 @@ import {
 	union,
 	type InferOutput
 } from "valibot"
-import { getPersistedAppConfigStore } from "~/lib/stores/appConfig"
-
-// const persistAppConfig = new Store("appConfig.bin")
-const persistAppConfig = await getPersistedAppConfigStore()
 
 export const appConfigSchema = object({
 	isInitialized: boolean(),
@@ -82,6 +79,7 @@ export const useAppConfigStore = defineStore("appConfig", {
 			// if (!(await exists(persistAppConfig.path, { baseDir: BaseDirectory.AppData }))) {
 			// 	await this.save()
 			// }
+			const persistAppConfig = await getPersistedAppConfigStore()
 			const loadedConfig = await persistAppConfig.get("config")
 			const parseRes = safeParse(appConfigSchema, loadedConfig)
 			if (parseRes.success) {
@@ -99,6 +97,7 @@ export const useAppConfigStore = defineStore("appConfig", {
 			}
 		},
 		async save() {
+			const persistAppConfig = await getPersistedAppConfigStore()
 			await persistAppConfig.set("config", this.$state)
 			await persistAppConfig.save()
 		},

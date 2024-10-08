@@ -2,8 +2,6 @@ import { getPersistedAppConfigStore } from "~/lib/stores/appConfig"
 import { defineStore } from "pinia"
 import * as v from "valibot"
 
-const persistAppConfig = await getPersistedAppConfigStore()
-
 export const useLastTimeStore = defineStore("kk-last-time", {
 	state: () => ({
 		lastCheckUpdateTime: new Date()
@@ -18,6 +16,7 @@ export const useLastTimeStore = defineStore("kk-last-time", {
 			return this.elapsedTime() > 1000 * 60 * 60 * 24
 		},
 		async init() {
+			const persistAppConfig = await getPersistedAppConfigStore()
 			const lastCheckUpdateTime = await persistAppConfig.get("lastCheckUpdateTime")
 			if (lastCheckUpdateTime) {
 				this.lastCheckUpdateTime = new Date(v.parse(v.string(), lastCheckUpdateTime))
@@ -25,8 +24,9 @@ export const useLastTimeStore = defineStore("kk-last-time", {
 				await this.update()
 			}
 		},
-		update() {
+		async update() {
 			this.lastCheckUpdateTime = new Date()
+			const persistAppConfig = await getPersistedAppConfigStore()
 			persistAppConfig.set("lastCheckUpdateTime", this.lastCheckUpdateTime.toISOString())
 		}
 	}
