@@ -1,5 +1,4 @@
-import { type StdioInterface } from "comlink-stdio/browser"
-// import { type StdioInterface } from "@hk/comlink-stdio/browser"
+import { type StdioInterface } from "@hk/comlink-stdio/browser"
 import type { EventEmitter, IOPayload, OutputEvents } from "tauri-plugin-shellx-api"
 import type { Child } from "../ui/api/shell"
 

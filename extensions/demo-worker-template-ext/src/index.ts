@@ -1,4 +1,4 @@
-// import { ProcessChannel } from "@hk/comlink-stdio/browser"
+import { ProcessChannel } from "@hk/comlink-stdio/browser"
 import { TauriShellStdio } from "@kksh/api"
 import {
 	Action,
@@ -17,7 +17,6 @@ import {
 	ui,
 	WorkerExtension
 } from "@kksh/api/ui/worker"
-import { ProcessChannel } from "comlink-stdio/browser"
 
 const nums = Array.from({ length: 20 }, (_, i) => i + 1)
 const categories = ["Suggestion", "Advice", "Idea"]

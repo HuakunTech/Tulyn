@@ -1,4 +1,4 @@
-import { DenoStdio, ProcessChannel } from "/Users/hacker/Dev/projects/comlink-stdio/mod.ts"
+import { DenoStdio, ProcessChannel } from "@hk/comlink-stdio"
 
 // import { DenoStdio, ProcessChannel } from "@hk/comlink-stdio"
 
