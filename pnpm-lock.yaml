@@ -429,9 +429,6 @@ importers:
       '@kunkun/api':
         specifier: npm:@jsr/kunkun__api@^0.0.13
         version: '@jsr/kunkun__api@0.0.13(tslib@2.6.3)(typescript@5.5.4)'
-      comlink-stdio:
-        specifier: ^0.1.5
-        version: 0.1.5(typescript@5.5.4)
       typescript:
         specifier: ^5.0.0
         version: 5.5.4
@@ -4694,11 +4691,6 @@ packages:
   combined-stream@1.0.8:
     resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==}
     engines: {node: '>= 0.8'}
-
-  comlink-stdio@0.1.5:
-    resolution: {integrity: sha512-aZtmEo4IH+SSjkO2VqPESolTeQBSvFIHpXE2lySnjpy78el1Kmi1aRmNfozjHNKU8yM890eTvz9pPCumFZ9auA==}
-    peerDependencies:
-      typescript: ^5.0.0
 
   comlink@4.4.1:
     resolution: {integrity: sha512-+1dlx0aY5Jo1vHy/tSsIGpSkN4tS9rZSW8FIhG0JH/crs9wwweswIo/POr451r7bZww3hFbPAKnTpimzL/mm4Q==}
@@ -15835,10 +15827,6 @@ snapshots:
   combined-stream@1.0.8:
     dependencies:
       delayed-stream: 1.0.0
-
-  comlink-stdio@0.1.5(typescript@5.5.4):
-    dependencies:
-      typescript: 5.5.4
 
   comlink@4.4.1: {}
 
