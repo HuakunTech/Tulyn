@@ -2,9 +2,12 @@
 import ListItem from "@/components/MainSearch/list-item.vue"
 import { CommandEmpty, CommandGroup, CommandList } from "@/components/ui/command"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
+import { RPCChannel } from "@hk/comlink-stdio"
+import { TauriShellStdio } from "@kksh/api"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { getCurrentWindow } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
+// import { Command } from "@tauri-apps/plugin-shell"
 import { useListenToWindowBlur } from "~/composables/useEvents"
 import { CmdListItemValue, ExtCmdListItemValue, ListItemTypeEnum } from "~/lib/types/list"
 import { checkExtensionUpdate, checkUpdateAndInstall } from "~/lib/utils/updater"
@@ -18,6 +21,8 @@ import { findAllArgsInLink, useQuicklinkLoader } from "~/stores/quickLink"
 import { useRemoteCmdStore } from "~/stores/remoteCmds"
 import { useSystemCmdsStore } from "~/stores/systemCmds"
 import { ComboboxInput } from "radix-vue"
+import { Command } from "tauri-plugin-shellx-api"
+import type { EventEmitter, IOPayload, OutputEvents } from "tauri-plugin-shellx-api"
 import { flatten, parse, safeParse } from "valibot"
 import { toast } from "vue-sonner"
 import { z } from "zod"
@@ -45,7 +50,7 @@ const extLoaders = ref([
 ])
 
 let updateSearchTermTimeout: ReturnType<typeof setTimeout>
-
+const colorMode = useColorMode()
 const appWindow = getCurrentWindow()
 const runtimeConfig = useRuntimeConfig()
 const cmdInputRef = ref<InstanceType<typeof ComboboxInput> | null>(null)
@@ -172,28 +177,31 @@ function handleQuicklinkEnter() {
 }
 </script>
 <template>
-	<CmdPaletteCommand
-		class=""
-		v-model:searchTerm="searchTermSyncProxy"
-		:identity-filter="true"
-		v-model:selected-value="highlightedItemValue"
-	>
-		<CmdPaletteMainSearchBar @quicklink-enter="handleQuicklinkEnter" />
-		<CommandList class="h-full max-h-screen">
-			<CommandEmpty>No results found.</CommandEmpty>
-			<CommandGroup
-				v-for="extLoader in extLoaders"
-				:heading="extLoader.extensionName"
-				:key="extLoader.id"
-			>
-				<ListItem
-					v-for="(item, idx) in extLoader.$filteredListItems"
-					:item="item"
-					:isDevExt="extLoader.extensionName === 'Dev Extensions'"
-					@select="extLoader.onSelect(item)"
-				/>
-			</CommandGroup>
-		</CommandList>
-		<CmdPaletteFooter />
-	</CmdPaletteCommand>
+	<div class="h-full grow">
+		<CmdPaletteCommand
+			class=""
+			v-model:searchTerm="searchTermSyncProxy"
+			:identity-filter="true"
+			v-model:selected-value="highlightedItemValue"
+		>
+			<CmdPaletteMainSearchBar @quicklink-enter="handleQuicklinkEnter" />
+			<CommandList class="h-full max-h-screen">
+				<LoadingBar v-if="appStateStore.loadingBar" class="absolute" />
+				<CommandEmpty>No results found.</CommandEmpty>
+				<CommandGroup
+					v-for="extLoader in extLoaders"
+					:heading="extLoader.extensionName"
+					:key="extLoader.id"
+				>
+					<ListItem
+						v-for="(item, idx) in extLoader.$filteredListItems"
+						:item="item"
+						:isDevExt="extLoader.extensionName === 'Dev Extensions'"
+						@select="extLoader.onSelect(item)"
+					/>
+				</CommandGroup>
+			</CommandList>
+			<CmdPaletteFooter />
+		</CmdPaletteCommand>
+	</div>
 </template>

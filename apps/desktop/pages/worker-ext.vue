@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import ExtTemplateListView from "@/components/ExtTemplate/ListView.vue"
-import { $appState } from "@/lib/stores/appState"
 import { type Remote } from "@huakunshen/comlink"
 import { db } from "@kksh/api/commands"
 import type { ExtPackageJsonExtra } from "@kksh/api/models"
 import {
 	constructJarvisServerAPIWithPermissions,
 	exposeApiToWorker,
+	type IApp,
 	type IUiWorker
 } from "@kksh/api/ui"
 import {
@@ -45,10 +45,11 @@ import { toast } from "vue-sonner"
 const localePath = useLocalePath()
 const route = useRoute()
 const appWin = getCurrentWindow()
-const appState = useStore($appState)
 const loaded = ref(false)
+const appState = useAppStateStore()
 let workerAPI: Remote<WorkerExtension> | undefined = undefined
 const loading = ref(false)
+const extensionLoadingBar = ref(false) // whether extension called showLoadingBar
 const listViewContent = ref<ListSchema.List>()
 const formViewContent = ref<FormSchema.Form>()
 const markdownViewContent = ref<MarkdownSchema>()
@@ -62,6 +63,10 @@ const searchBarPlaceholder = ref("")
 const listViewRef = ref<{ onActionSelected: () => void }>()
 const loadedExt = ref<ExtPackageJsonExtra>()
 const pbar = ref<number | null>(null)
+const { locale } = useI18n()
+
+const loadingBar = computed(() => appState.loadingBar || extensionLoadingBar.value)
+
 let unlistenRefreshWorkerExt: UnlistenFn | undefined
 
 function clearViewContent(keep?: "list" | "form" | "markdown") {
@@ -166,6 +171,10 @@ const extUiAPI: IUiWorker = {
 		} else {
 			toast.error(`Unsupported view type: ${view.nodeName}`)
 		}
+	},
+	async showLoadingBar(loading: boolean) {
+		// appState.setLoadingBar(loading)
+		extensionLoadingBar.value = loading
 	},
 	async setProgressBar(progress: number | null) {
 		pbar.value = progress
@@ -277,6 +286,9 @@ async function launchWorkerExt() {
 	serverAPI.iframeUi = undefined
 	serverAPI.workerUi = extUiAPI
 	serverAPI.db = new db.JarvisExtDB(extInfoInDB.extId)
+	serverAPI.app = {
+		language: () => Promise.resolve(locale.value as "en" | "zh")
+	} satisfies IApp
 	// const extDBApi: IDb = constructJarvisExtDBToServerDbAPI(dbAPI)
 	exposeApiToWorker(worker, serverAPI)
 	// exposeApiToWorker(worker, {
@@ -291,6 +303,7 @@ async function launchWorkerExt() {
 
 onMounted(async () => {
 	setTimeout(() => {
+		appState.setLoadingBar(true)
 		appWin.show()
 	}, 100)
 	unlistenRefreshWorkerExt = await listenToRefreshWorkerExt(() => {
@@ -300,37 +313,54 @@ onMounted(async () => {
 	launchWorkerExt()
 	GlobalEventBus.onActionSelected(onActionSelected)
 	setTimeout(() => {
+		appState.setLoadingBar(false)
 		loaded.value = true
-	}, 300)
+	}, 500)
 })
 
 onUnmounted(() => {
 	unlistenRefreshWorkerExt?.()
+	extensionLoadingBar.value = false
 	GlobalEventBus.offActionSelected(onActionSelected)
 })
 </script>
 <template>
-	<FunDance v-if="!loaded" />
-
-	<ExtTemplateFormView
-		v-if="loaded && formViewContent && formViewZodSchema"
-		:workerAPI="workerAPI!"
-		:formViewZodSchema="formViewZodSchema"
-		:fieldConfig="formFieldConfig"
-	/>
-	<ExtTemplateListView
-		v-else-if="loaded && listViewContent"
-		class=""
-		v-model:search-term="searchTerm"
-		v-model:search-bar-placeholder="searchBarPlaceholder"
-		:pbar="pbar"
-		ref="listViewRef"
-		:model-value="listViewContent"
-		:workerAPI="workerAPI!"
-		:loading="loading"
-	/>
-	<ExtTemplateMarkdownView
-		v-else-if="loaded && markdownViewContent"
-		:markdown="markdownViewContent.content"
-	/>
+	<div class="h-full grow">
+		<LoadingBar v-if="loadingBar" class="absolute" />
+		<Transition>
+			<FunDance v-if="!loaded" class="absolute w-full" />
+		</Transition>
+		<ExtTemplateFormView
+			v-if="loaded && formViewContent && formViewZodSchema"
+			:workerAPI="workerAPI!"
+			:formViewZodSchema="formViewZodSchema"
+			:fieldConfig="formFieldConfig"
+		/>
+		<ExtTemplateListView
+			v-else-if="loaded && listViewContent"
+			class=""
+			v-model:search-term="searchTerm"
+			v-model:search-bar-placeholder="searchBarPlaceholder"
+			:pbar="pbar"
+			ref="listViewRef"
+			:model-value="listViewContent"
+			:workerAPI="workerAPI!"
+			:loading="loading"
+		/>
+		<ExtTemplateMarkdownView
+			v-else-if="loaded && markdownViewContent"
+			:markdown="markdownViewContent.content"
+		/>
+	</div>
 </template>
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+	transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+	opacity: 0;
+}
+</style>

@@ -1,6 +1,6 @@
 {
 	"name": "@kksh/api",
-	"version": "0.0.12-beta.4",
+	"version": "0.0.16",
 	"type": "module",
 	"exports": {
 		".": "./src/index.ts",
@@ -8,6 +8,7 @@
 		"./ui/iframe": "./src/ui/iframe/index.ts",
 		"./ui/worker": "./src/ui/worker/index.ts",
 		"./models": "./src/models/index.ts",
+		"./runtime/deno": "./src/runtime/deno.ts",
 		"./commands": "./src/commands/index.ts",
 		"./permissions": "./src/permissions/index.ts",
 		"./dev": "./src/dev/index.ts",
@@ -16,6 +17,7 @@
 	"license": "MIT",
 	"scripts": {
 		"test": "bun test --coverage",
+		"gen:deno:types": "deno types > deno.d.ts",
 		"build:docs": "npx typedoc",
 		"dev": "bun --watch build.ts",
 		"build": "bun build.ts",
@@ -40,6 +42,7 @@
 		"typescript": "^5.0.0"
 	},
 	"dependencies": {
+		"@hk/comlink-stdio": "npm:comlink-stdio@^0.1.6",
 		"@huakunshen/comlink": "^4.4.1",
 		"@rollup/plugin-typescript": "^11.1.6",
 		"@tauri-apps/api": "2.0.0-rc.3",

@@ -6,6 +6,7 @@ interface AppState {
 	searchTermSync: string
 	platform: string
 	updateSearchTermTimeout?: ReturnType<typeof setTimeout>
+	loadingBar: boolean
 }
 
 export const useAppStateStore = defineStore("app-state", {
@@ -13,7 +14,8 @@ export const useAppStateStore = defineStore("app-state", {
 		searchTerm: "",
 		searchTermSync: "",
 		platform: platform(),
-		updateSearchTermTimeout: undefined
+		updateSearchTermTimeout: undefined,
+		loadingBar: false
 	}),
 	actions: {
 		setSearchTerm(searchTerm: string) {
@@ -25,6 +27,9 @@ export const useAppStateStore = defineStore("app-state", {
 			this.updateSearchTermTimeout = setTimeout(() => {
 				this.searchTerm = searchTermSync
 			}, 100)
+		},
+		setLoadingBar(loadingBar: boolean) {
+			this.loadingBar = loadingBar
 		}
 	}
 })

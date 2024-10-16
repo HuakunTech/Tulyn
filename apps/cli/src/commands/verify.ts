@@ -4,6 +4,7 @@ import { CustomUiCmd, ExtPackageJson, TemplateUiCmd } from "@kksh/api/models"
 import { printTable } from "console-table-printer"
 import fs from "fs-extra"
 import * as v from "valibot"
+import { NODE_ENV } from "@/constants"
 
 export function verifyCustomUiCommand(projectRoot: string, cmd: CustomUiCmd): boolean {
 	if (!cmd.main.startsWith("http")) {
@@ -59,7 +60,7 @@ export function verifySingleProject(projectPath: string): boolean {
 	// check if kunkun extension name is the same as the folder name
 	const folderName = path.basename(projectPath)
 
-	if (process.env.ENV === "test") {
+	if (NODE_ENV === "test") {
 		if (pkg.kunkun.identifier === "{{projectName}}") {
 			console.log("Patching project name from {{projectName}} to", folderName)
 			pkg.kunkun.identifier = folderName

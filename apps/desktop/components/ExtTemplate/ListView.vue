@@ -48,6 +48,8 @@ watch(
 	(newVal) => {
 		if (newVal) {
 			panelRef2.value?.resize(newVal)
+		} else {
+			panelRef2.value?.resize(0)
 		}
 	}
 )
@@ -169,6 +171,7 @@ function goBack() {
 	>
 		<CmdInput
 			ref="cmdInputRef"
+			:search-term="searchTerm"
 			class="text-md h-12"
 			:placeholder="searchBarPlaceholder ?? 'Search...'"
 			@keydown.enter="onEnterKeyPressed"

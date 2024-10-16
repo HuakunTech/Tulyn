@@ -57,13 +57,11 @@ onMounted(async () => {
 </script>
 
 <template>
-	<TooltipProvider>
-		<main class="z-10 h-screen">
-			<Toaster :rich-colors="true" :expand="true" />
-			<Toaster2 />
-			<slot />
-		</main>
-	</TooltipProvider>
+	<main class="z-10 flex h-screen flex-col">
+		<Toaster :rich-colors="true" :expand="true" />
+		<Toaster2 />
+		<slot />
+	</main>
 </template>
 
 <style>

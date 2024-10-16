@@ -4,7 +4,7 @@ import { z } from "zod"
 export default defineNuxtConfig({
 	compatibilityDate: "2024-04-03",
 	ssr: false,
-	css: ["@kksh/vue/css", "@kksh/vue/themes"],
+	css: ["@kksh/vue/css", "@kksh/vue/themes", "./assets/css/app.css"],
 	devtools: { enabled: true },
 	modules: [
 		"@nuxtjs/i18n",
@@ -14,10 +14,13 @@ export default defineNuxtConfig({
 		"@nuxtjs/mdc",
 		"@element-plus/nuxt",
 		"@nuxt/icon",
-		"@nuxtjs/tailwindcss",
+		// "@nuxtjs/tailwindcss",
+		"@unocss/nuxt",
 		"shadcn-nuxt",
-		"@nuxt/image"
+		"@nuxt/image",
+		"@nuxtjs/color-mode"
 	],
+	mdc: {},
 	i18n: {
 		locales: ["en", "zh"],
 		defaultLocale: "en",
@@ -58,5 +61,11 @@ export default defineNuxtConfig({
 				.parse(process.env.POSTHOG_PUBLIC_KEY),
 			posthogHost: z.string().describe("POSTHOG_HOST").parse(process.env.POSTHOG_HOST)
 		}
+	},
+	colorMode: {
+		classSuffix: ""
+	},
+	app: {
+		pageTransition: { name: "page", mode: "out-in" }
 	}
 })

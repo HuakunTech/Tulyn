@@ -1,7 +1,7 @@
 {
 	"name": "@kksh/cli",
 	"module": "dist/mod.js",
-	"version": "0.0.9",
+	"version": "0.0.10-beta.1",
 	"type": "module",
 	"bin": {
 		"@kksh/cli": "./dist/cli.js",
@@ -10,7 +10,7 @@
 	"author": "Huakun",
 	"scripts": {
 		"build": "bun build.ts",
-		"test": "ENV=test bun test --coverage"
+		"test": "cross-env NODE_ENV=test bun test --coverage"
 	},
 	"devDependencies": {
 		"@rollup/plugin-json": "^6.1.0",
@@ -20,6 +20,7 @@
 		"@types/bun": "latest",
 		"@types/debug": "^4.1.12",
 		"@types/fs-extra": "^11.0.4",
+		"cross-env": "^7.0.3",
 		"rollup": "^4.20.0",
 		"rollup-plugin-visualizer": "^5.12.0"
 	},

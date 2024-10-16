@@ -115,7 +115,7 @@ export const useQuicklinkLoader = defineStore("quicklink-store", () => {
 		load,
 		quickLinkInputs,
 		onQuicklinkEnter,
-		extensionName: "Builtin Commands",
+		extensionName: "Quick Link Commands",
 		$listItems,
 		$filteredListItems,
 		onSelect

@@ -117,6 +117,7 @@ export interface IToast {
 export interface IUiWorker {
 	render: (view: IComponent<ListSchema.List | FormSchema.Form | Markdown>) => Promise<void>
 	goBack: () => Promise<void>
+	showLoadingBar: (loading: boolean) => Promise<void>
 	setScrollLoading: (loading: boolean) => Promise<void>
 	setSearchTerm: (term: string) => Promise<void>
 	setSearchBarPlaceholder: (placeholder: string) => Promise<void>
@@ -274,4 +275,8 @@ export interface DenoRunConfig {
 	denyAllFfi?: boolean
 	denySys?: DenoSysOptions[]
 	denyAllSys?: boolean
+}
+
+export interface IApp {
+	language: () => Promise<"en" | "zh">
 }

@@ -14,7 +14,7 @@ const emit = defineEmits<{
 		ref="cmdInputRef"
 		:searchTerm="appState.searchTermSync"
 		class="text-md ml-1 h-12"
-		:placeholder="$t('searchBarSearchForAppsOrCmds')"
+		:placeholder="$t('main.searchBarSearchForAppsOrCmds')"
 		:quickLinkInputs="qlinkStore.quickLinkInputs"
 	>
 		<template v-slot:end>

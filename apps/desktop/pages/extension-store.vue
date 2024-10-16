@@ -180,29 +180,31 @@ function goBack() {
 }
 </script>
 <template>
-	<Command
-		:filterFunction="(val, searchTerm) => filterFunc(val as ExtItem[], searchTerm)"
-		v-model:searchTerm="searchTerm"
-	>
-		<CommandInput placeholder="Type to search..." class="text-md h-12" :searchTerm="searchTerm">
-			<Button size="icon" variant="outline" @click="goBack">
-				<ArrowLeftIcon class="h-5 w-5 shrink-0" />
-			</Button>
-		</CommandInput>
-		<CommandList>
-			<CommandEmpty>No results found.</CommandEmpty>
-			<CommandGroup heading="Extensions">
-				<ExtListItem
-					v-for="item in sortedExtList"
-					:data="item"
-					@upgrade="upgrade(item)"
-					:upgradeable="isUpgradeable(item)"
-					:installedVersion="getInstalledVersion(item.identifier)"
-					:installed="!!getInstalledVersion(item.identifier)"
-					@select="select(item)"
-				/>
-			</CommandGroup>
-		</CommandList>
-		<CmdPaletteFooter />
-	</Command>
+	<div class="grow h-full">
+		<Command
+			:filterFunction="(val, searchTerm) => filterFunc(val as ExtItem[], searchTerm)"
+			v-model:searchTerm="searchTerm"
+		>
+			<CommandInput placeholder="Type to search..." class="text-md h-12" :searchTerm="searchTerm">
+				<Button size="icon" variant="outline" @click="goBack">
+					<ArrowLeftIcon class="h-5 w-5 shrink-0" />
+				</Button>
+			</CommandInput>
+			<CommandList>
+				<CommandEmpty>No results found.</CommandEmpty>
+				<CommandGroup heading="Extensions">
+					<ExtListItem
+						v-for="item in sortedExtList"
+						:data="item"
+						@upgrade="upgrade(item)"
+						:upgradeable="isUpgradeable(item)"
+						:installedVersion="getInstalledVersion(item.identifier)"
+						:installed="!!getInstalledVersion(item.identifier)"
+						@select="select(item)"
+					/>
+				</CommandGroup>
+			</CommandList>
+			<CmdPaletteFooter />
+		</Command>
+	</div>
 </template>

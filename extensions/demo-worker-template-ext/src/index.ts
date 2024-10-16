@@ -1,5 +1,7 @@
+import { RPCChannel } from "@hk/comlink-stdio/browser"
 import {
 	Action,
+	app,
 	expose,
 	Form,
 	fs,
@@ -34,31 +36,25 @@ class ExtensionTemplate extends WorkerExtension {
 		console.log("Form submitted", value)
 	}
 	async load() {
-		// const cmd = shell.createCommand("ls", ["-l"])
-		// cmd.stdout.on("data", (data) => {
-		// 	console.log(data)
-		// })
-		// cmd.spawn()
-		// const res = await cmd.execute()
-		// console.log(res.stdout)
-		console.log("echo $PWD", await shell.executeBashScript("echo $PWD"))
-		console.log(await path.extensionSupportDir());
-		
-		// open.file("$EXTENSION/src/deno-script.ts")
-		const desktopPath = await path.desktopDir()
-		const denoCmd = shell.createDenoCommand("$EXTENSION/src/deno-script.ts", ["-i=./avatar.png", "-o=./avatar-blur.jpeg"], {
-			allowEnv: ["npm_package_config_libvips", "CWD"],
-			allowRead: ["$DESKTOP"],
-			allowAllFfi: true,
-			cwd: desktopPath
-		})
-		const denoRes = await denoCmd.execute()
-		console.log("denoRes.stdout", denoRes.stdout)
-		console.log("denoRes.stderr", denoRes.stderr)
-		console.log(denoRes)
+		ui.showLoadingBar(true)
+		setTimeout(() => {
+			ui.showLoadingBar(false)
+		}, 2000)
+		const stdioRPC = await shell.createDenoRpcChannel<
+			{},
+			{
+				add(a: number, b: number): Promise<number>
+				subtract(a: number, b: number): Promise<number>
+			}
+		>("$EXTENSION/deno-src/rpc.ts", [], {}, {})
+		console.log("stdio", stdioRPC);
+
+		const api = stdioRPC.getApi()
+		api.add(1, 2).then(console.log)
+		api.subtract(1, 2).then(console.log)
 
 		const extPath = await path.extensionDir()
-		console.log("Extension path:", extPath)
+		// console.log("Extension path:", extPath)
 		return ui.render(
 			new List.List({
 				items: allItems,

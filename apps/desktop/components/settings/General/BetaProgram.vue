@@ -15,7 +15,7 @@ const checked = computed({
 </script>
 <template>
 	<div class="grid grid-cols-2 gap-4">
-		<span class="justify-self-end">{{ $t("settings.general.join-beta") }}</span>
+		<span class="justify-self-end">{{ $t("settings.general.join-beta.name") }}</span>
 		<div class="flex items-center space-x-2">
 			<Checkbox id="join-beta" v-model:checked="checked" />
 			<label

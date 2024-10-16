@@ -45,7 +45,7 @@ function onModeChange(devMode: string) {
 </script>
 <template>
 	<div class="grid grid-cols-2 items-center gap-4">
-		<span class="justify-self-end">{{ $t("devExtLoadMode") }}</span>
+		<span class="justify-self-end">{{ $t("settings.general.devExtLoadMode") }}</span>
 		<div class="w-48">
 			<Select
 				@update:model-value="onModeChange"
@@ -53,11 +53,11 @@ function onModeChange(devMode: string) {
 				:default-value="appConfig.devExtLoadUrl ? 'dev' : 'prod'"
 			>
 				<SelectTrigger>
-					<SelectValue :placeholder="$t('pickDevExtensionLoadMode')" />
+					<SelectValue :placeholder="$t('settings.general.pickDevExtensionLoadMode')" />
 				</SelectTrigger>
 				<SelectContent>
-					<SelectItem value="dev">{{ $t("devMode") }}</SelectItem>
-					<SelectItem value="prod">{{ $t("prodMode") }}</SelectItem>
+					<SelectItem value="dev">{{ $t("settings.general.devMode") }}</SelectItem>
+					<SelectItem value="prod">{{ $t("settings.general.prodMode") }}</SelectItem>
 				</SelectContent>
 			</Select>
 		</div>

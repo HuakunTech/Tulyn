@@ -23,7 +23,18 @@ import { constructEventAPI } from "../api/event"
 import { constructIframeUiAPI } from "../api/iframe-ui"
 import { constructPathAPI } from "../api/path"
 import { constructShellAPI } from "../api/shell"
-import type { IDb, IEvent, IFs, IOpen, IPath, ISystem, IToast, IUiIframe, IUtils } from "../client"
+import type {
+	IApp,
+	IDb,
+	IEvent,
+	IFs,
+	IOpen,
+	IPath,
+	ISystem,
+	IToast,
+	IUiIframe,
+	IUtils
+} from "../client"
 import type { IShellServer } from "../server/server-types"
 
 export { type IUiIframe } from "../client"
@@ -55,6 +66,7 @@ type API = {
 	network: Remote<INetwork> // inherit from tauri-api-adapter
 	iframeUi: Remote<IUiIframe> // for kunkun
 	utils: IUtils // for kunkun
+	app: IApp
 }
 const _api = wrap(windowEndpoint(globalThis.parent)) as unknown as API
 export const event = constructEventAPI(_api.event) // this is different from event api from tauri-api-adapter
@@ -76,5 +88,6 @@ export const {
 	system,
 	toast,
 	utils,
-	open
+	open,
+	app
 } = _api

@@ -1,8 +1,9 @@
+import { RPCChannel, type StdioInterface } from "@hk/comlink-stdio/browser"
 import { proxy as comlinkProxy, type Remote } from "@huakunshen/comlink"
 import { Channel, invoke } from "@tauri-apps/api/core"
 import { constructShellAPI as constructShellAPI1 } from "tauri-api-adapter/client"
 import {
-	Child,
+	// Child,
 	EventEmitter,
 	hasCommand,
 	likelyOnWindows,
@@ -17,8 +18,59 @@ import {
 	type OutputEvents,
 	type SpawnOptions
 } from "tauri-plugin-shellx-api"
-import { type DenoRunConfig } from "../client"
-import type { IShellServer } from "../server/server-types"
+import { type DenoRunConfig } from "../client.ts"
+import type { IShellServer } from "../server/server-types.ts"
+import { Buffer } from "node:buffer";
+
+export class Child {
+	/** The child process `pid`. */
+	pid: number
+	api: Remote<IShellServer>
+	constructor(pid: number, api: Remote<IShellServer>) {
+		this.pid = pid
+		this.api = api
+	}
+
+	/**
+	 * Writes `data` to the `stdin`.
+	 *
+	 * @param data The message to write, either a string or a byte array.
+	 * @example
+	 * ```typescript
+	 * import { Command } from '@tauri-apps/plugin-shell';
+	 * const command = Command.create('node');
+	 * const child = await command.spawn();
+	 * await child.write('message');
+	 * await child.write([0, 1, 2, 3, 4, 5]);
+	 * ```
+	 *
+	 * @returns A promise indicating the success or failure of the operation.
+	 *
+	 * @since 2.0.0
+	 */
+	async write(data: IOPayload | number[]): Promise<void> {
+		// await invoke('plugin:shellx|stdin_write', {
+		//   pid: this.pid,
+		//   buffer: data
+		// })
+		this.api.stdinWrite(data.toString(), this.pid)
+	}
+
+	/**
+	 * Kills the child process.
+	 *
+	 * @returns A promise indicating the success or failure of the operation.
+	 *
+	 * @since 2.0.0
+	 */
+	async kill(): Promise<void> {
+		this.api.kill(this.pid)
+		// await invoke("plugin:shellx|kill", {
+		// 	cmd: "killChild",
+		// 	pid: this.pid
+		// })
+	}
+}
 
 class BaseShellCommand<O extends IOPayload> extends EventEmitter<CommandEvents> {
 	/** @ignore Program to execute. */
@@ -91,7 +143,7 @@ class Command<O extends IOPayload> extends BaseShellCommand<O> {
 					}
 				})
 			)
-			.then((pid) => new Child(pid))
+			.then((pid) => new Child(pid, this.api))
 	}
 
 	async execute(): Promise<ChildProcess<O>> {
@@ -147,7 +199,7 @@ class DenoCommand<O extends IOPayload> extends BaseShellCommand<O> {
 					}
 				})
 			)
-			.then((pid) => new Child(pid))
+			.then((pid) => new Child(pid, this.api))
 	}
 }
 
@@ -180,6 +232,31 @@ export type IShell = {
 	hasCommand: typeof hasCommand
 	likelyOnWindows: typeof likelyOnWindows
 	Child: typeof Child
+	TauriShellStdio: typeof TauriShellStdio
+	createDenoRpcChannel<LocalAPI extends {}, RemoteAPI extends {}>(
+		scriptPath: string,
+		args: string[],
+		config: Partial<DenoRunConfig> & SpawnOptions,
+		localAPIImplementation: LocalAPI
+	): Promise<RPCChannel<LocalAPI, RemoteAPI>>
+}
+
+export class TauriShellStdio implements StdioInterface {
+	constructor(
+		private readStream: EventEmitter<OutputEvents<IOPayload>>, // stdout of child process
+		private childProcess: Child
+	) { }
+
+	read(): Promise<string | Buffer | Uint8Array | null> {
+		return new Promise((resolve, reject) => {
+			this.readStream.on("data", (chunk) => {
+				resolve(chunk)
+			})
+		})
+	}
+	async write(data: string): Promise<void> {
+		return this.childProcess.write(data + "\n")
+	}
 }
 
 export function constructShellAPI(api: Remote<IShellServer>): IShell {
@@ -194,6 +271,32 @@ export function constructShellAPI(api: Remote<IShellServer>): IShell {
 		config: Partial<DenoRunConfig> & SpawnOptions
 	) {
 		return new DenoCommand<string>(scriptPath, args, config, api)
+	}
+
+	async function createDenoRpcChannel<LocalAPI extends {}, RemoteAPI extends {}>(
+		scriptPath: string,
+		args: string[],
+		config: Partial<DenoRunConfig> & SpawnOptions,
+		localAPIImplementation: LocalAPI
+	) {
+		// ): Promise<RemoteAPI> {
+		// const denoMathCmd = createDenoCommand("$EXTENSION/deno-src/rpc.ts", [], {})
+		// const denoMathProcess = await denoMathCmd.spawn()
+		// const stdio = new TauriShellStdio(denoMathCmd.stdout, denoMathProcess)
+
+		// const parent = new RPCChannel<
+		// 	{},
+		// 	RemoteAPI
+		// >(stdio, {})
+		// const api = parent.getApi()
+		// return api
+		const denoCmd = createDenoCommand(scriptPath, args, config)
+		const denoProcess = await denoCmd.spawn()
+		const stdio = new TauriShellStdio(denoCmd.stdout, denoProcess)
+		// return stdio
+		const stdioRPC = new RPCChannel<LocalAPI, RemoteAPI>(stdio, localAPIImplementation)
+		return stdioRPC
+		// return stdioRPC.getApi()
 	}
 
 	function makeBashScript(script: string): Command<string> {
@@ -289,6 +392,8 @@ export function constructShellAPI(api: Remote<IShellServer>): IShell {
 		likelyOnWindows,
 		createCommand,
 		createDenoCommand,
-		Child
+		Child,
+		TauriShellStdio,
+		createDenoRpcChannel
 	}
 }
