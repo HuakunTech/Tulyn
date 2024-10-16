@@ -2,6 +2,8 @@
 import ListItem from "@/components/MainSearch/list-item.vue"
 import { CommandEmpty, CommandGroup, CommandList } from "@/components/ui/command"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
+import { RPCChannel } from "@hk/comlink-stdio"
+import { TauriShellStdio } from "@kksh/api"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { getCurrentWindow } from "@tauri-apps/api/window"
 import { platform } from "@tauri-apps/plugin-os"
@@ -19,7 +21,8 @@ import { findAllArgsInLink, useQuicklinkLoader } from "~/stores/quickLink"
 import { useRemoteCmdStore } from "~/stores/remoteCmds"
 import { useSystemCmdsStore } from "~/stores/systemCmds"
 import { ComboboxInput } from "radix-vue"
-// import { Command } from "tauri-plugin-shellx-api"
+import { Command } from "tauri-plugin-shellx-api"
+import type { EventEmitter, IOPayload, OutputEvents } from "tauri-plugin-shellx-api"
 import { flatten, parse, safeParse } from "valibot"
 import { toast } from "vue-sonner"
 import { z } from "zod"
@@ -83,30 +86,6 @@ useListenToWindowFocus(() => {
 })
 
 onMounted(async () => {
-	// const cmd = Command.create("deno", [
-	// 	"/Users/hacker/Dev/projects/kunkun/kunkun/extensions/demo-worker-template-ext/deno-src/deno-script.ts"
-	// ])
-	// cmd.stdout.on("data", (data) => {
-	// 	console.log(data)
-	// })
-	// cmd.stderr.on("data", (data) => {
-	// 	console.log(data)
-	// })
-
-	// await cmd.spawn()
-
-	// const cmd = Command.create("deno", [
-	// 	"/Users/hacker/Dev/projects/kunkun/kunkun/extensions/demo-worker-template-ext/deno-src/deno-script.ts"
-	// ])
-	// cmd.stdout.on("data", (data) => {
-	// 	console.log(data)
-	// })
-	// cmd.stderr.on("data", (data) => {
-	// 	console.log(data)
-	// })
-
-	// await cmd.spawn()
-
 	if (appWindow.label !== "main") {
 		setTimeout(() => {
 			toast.error("Non-main window should not open this page.")

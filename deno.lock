@@ -1,0 +1,11 @@
+{
+  "version": "4",
+  "specifiers": {
+    "jsr:@hk/comlink-stdio@0.1.2": "0.1.2"
+  },
+  "jsr": {
+    "@hk/comlink-stdio@0.1.2": {
+      "integrity": "b729f3c18d51221f4fd8a5cedbb3cfde444cc40337f1dcc39dc7647846fd90fc"
+    }
+  }
+}

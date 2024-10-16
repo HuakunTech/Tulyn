@@ -34,7 +34,7 @@
 		"turbo": "^2.1.1",
 		"typescript": "^5.4.5"
 	},
-	"packageManager": "pnpm@9.9.0",
+	"packageManager": "pnpm@9.12.1",
 	"dependencies": {
 		"@huakunshen/comlink": "^4.4.1",
 		"tauri-plugin-clipboard-api": "^2.1.8",

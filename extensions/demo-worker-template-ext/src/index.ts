@@ -1,3 +1,4 @@
+import { RPCChannel } from "@hk/comlink-stdio/browser"
 import {
 	Action,
 	app,
@@ -39,62 +40,18 @@ class ExtensionTemplate extends WorkerExtension {
 		setTimeout(() => {
 			ui.showLoadingBar(false)
 		}, 2000)
-		const cmd = shell.createCommand("ls", ["-l"])
-		cmd.stdout.on("data", (data) => {
-			console.log(data)
-		})
-		// const denoMathCmd = shell.createDenoCommand("$EXTENSION/deno-src/rpc.ts", [], {})
-		// const denoMathProcess = await denoMathCmd.spawn()
-		// const stdio = new shell.TauriShellStdio(denoMathCmd.stdout, denoMathProcess)
-
-		// const parent = new ProcessChannel<
-		// 	{},
-		// 	{
-		// 		add(a: number, b: number): Promise<number>
-		// 		subtract(a: number, b: number): Promise<number>
-		// 	}
-		// >(stdio, {})
-		// const api = parent.getApi()
-		const api = await shell.createDenoRpcAPI<
+		const stdioRPC = await shell.createDenoRpcChannel<
 			{},
 			{
 				add(a: number, b: number): Promise<number>
 				subtract(a: number, b: number): Promise<number>
 			}
 		>("$EXTENSION/deno-src/rpc.ts", [], {}, {})
+		console.log("stdio", stdioRPC);
 
+		const api = stdioRPC.getApi()
 		api.add(1, 2).then(console.log)
 		api.subtract(1, 2).then(console.log)
-
-		// app.language().then((lang) => {
-		// 	console.log("Language:", lang)
-		// })
-		// console.log("echo $PWD", await shell.executeBashScript("echo $PWD"))
-		// console.log(await path.extensionSupportDir())
-
-		// open.file("$EXTENSION/src/deno-script.ts")
-		// const desktopPath = await path.desktopDir()
-		// const denoCmd = shell.createDenoCommand(
-		// 	"$EXTENSION/deno-src/deno-script.ts",
-		// 	["-i=./avatar.png", "-o=./avatar-blur.jpeg"],
-		// 	{
-		// 		// allowEnv: ["npm_package_config_libvips", "CWD"],
-		// 		// allowRead: ["$DESKTOP"],
-		// 		// allowAllFfi: true,
-		// 		// cwd: desktopPath
-		// 	}
-		// )
-		// denoCmd.stdout.on("data", (data) => {
-		// 	console.log("denoCmd.stdout", data)
-		// })
-		// denoCmd.stderr.on("data", (data) => {
-		// 	console.warn("denoCmd.stderr", data)
-		// })
-		// await denoCmd.spawn()
-		// const denoRes = await denoCmd.execute()
-		// console.log("denoRes.stdout", denoRes.stdout)
-		// console.log("denoRes.stderr", denoRes.stderr)
-		// console.log(denoRes)
 
 		const extPath = await path.extensionDir()
 		// console.log("Extension path:", extPath)
