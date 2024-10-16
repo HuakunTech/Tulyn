@@ -174,5 +174,3 @@ dist
 # Finder (MacOS) folder config
 .DS_Store
 docs
-
-deno.d.ts

@@ -9,7 +9,6 @@
 		"src/commands/index.ts",
 		"src/ui/api/permissions.ts"
 	],
-	"skipErrorChecking": true,
 	"visibilityFilters": {
 		"protected": false,
 		"private": false,

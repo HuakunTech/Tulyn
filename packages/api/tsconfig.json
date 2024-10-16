@@ -2,6 +2,7 @@
 	"compilerOptions": {
 		// Enable latest features
 		"lib": ["ESNext", "DOM"],
+		"types": ["./deno.d.ts"],
 		"target": "ESNext",
 		"module": "ESNext",
 		"moduleDetection": "force",
@@ -13,11 +14,6 @@
 		"allowImportingTsExtensions": true,
 		"verbatimModuleSyntax": true,
 		"noEmit": true,
-		"declaration": true,
-		"declarationMap": true,
-		"declarationDir": "dist",
-		"outDir": "dist",
-		"baseUrl": ".",
 
 		// Best practices
 		"strict": true,
@@ -29,6 +25,5 @@
 		"noUnusedParameters": false,
 		"noPropertyAccessFromIndexSignature": false
 	},
-	"include": ["src", "ui", "models", "commands"],
 	"exclude": ["dist", "node_modules"]
 }
