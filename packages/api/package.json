@@ -17,6 +17,7 @@
 	"license": "MIT",
 	"scripts": {
 		"test": "bun test --coverage",
+		"prebuild:docs": "deno types > deno.d.ts",
 		"build:docs": "npx typedoc",
 		"dev": "bun --watch build.ts",
 		"build": "bun build.ts",
