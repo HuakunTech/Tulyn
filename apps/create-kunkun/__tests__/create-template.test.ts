@@ -28,7 +28,7 @@ await Promise.all(
 	})
 )
 
-test("Build Artifact Existense", () => {
+test("Build Artifact Existence", () => {
 	templateNames.forEach(async (templateName) => {
 		const expectedOutDir = templateName === "sveltekit" ? "build" : "dist"
 		const folderName = `${templateName}-ext`
