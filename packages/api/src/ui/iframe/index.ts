@@ -91,3 +91,4 @@ export const {
 	open,
 	app
 } = _api
+export { Child, RPCChannel } from "../api/shell"

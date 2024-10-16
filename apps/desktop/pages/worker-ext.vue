@@ -34,6 +34,7 @@ import { buildFieldConfig, convertFormToZod } from "~/lib/utils/form"
 import { sendNotificationWithPermission } from "~/lib/utils/notification"
 import { listenToRefreshWorkerExt } from "~/lib/utils/tauri-events"
 import { useExtDisplayStore } from "~/stores/extState"
+import { useWindowExtMapStore } from "~/stores/windowExtMap"
 import { Command, executeBashScript } from "tauri-plugin-shellx-api"
 import { parse } from "valibot"
 import * as v from "valibot"
@@ -47,6 +48,7 @@ const route = useRoute()
 const appWin = getCurrentWindow()
 const loaded = ref(false)
 const appState = useAppStateStore()
+const windowExtMapStore = useWindowExtMapStore()
 let workerAPI: Remote<WorkerExtension> | undefined = undefined
 const loading = ref(false)
 const extensionLoadingBar = ref(false) // whether extension called showLoadingBar
@@ -323,6 +325,14 @@ onUnmounted(() => {
 	extensionLoadingBar.value = false
 	GlobalEventBus.offActionSelected(onActionSelected)
 })
+
+/**
+ * This go back is triggered from the back button, not extension's ui.goBack() API
+ */
+function onGoBack() {
+	console.log("onGoBack")
+	windowExtMapStore.unregisterExtensionFromWindow(appWin.label)
+}
 </script>
 <template>
 	<div class="h-full grow">
@@ -332,12 +342,14 @@ onUnmounted(() => {
 		</Transition>
 		<ExtTemplateFormView
 			v-if="loaded && formViewContent && formViewZodSchema"
+			@go-back="onGoBack"
 			:workerAPI="workerAPI!"
 			:formViewZodSchema="formViewZodSchema"
 			:fieldConfig="formFieldConfig"
 		/>
 		<ExtTemplateListView
 			v-else-if="loaded && listViewContent"
+			@go-back="onGoBack"
 			class=""
 			v-model:search-term="searchTerm"
 			v-model:search-bar-placeholder="searchBarPlaceholder"

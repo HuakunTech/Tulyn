@@ -12,7 +12,8 @@
 		"./runtime/deno": "./src/runtime/deno.ts",
 		"./commands": "./src/commands/index.ts",
 		"./permissions": "./src/permissions/index.ts",
-		"./dev": "./src/dev/index.ts"
+		"./dev": "./src/dev/index.ts",
+		"./events": "./src/events.ts"
 	},
 	"imports": {
 		"@hk/comlink-stdio": "jsr:@hk/comlink-stdio@^0.1.6"

@@ -66,28 +66,46 @@ pub async fn register_extension_window<R: Runtime>(
     _app: AppHandle<R>,
     state: State<'_, JarvisState>,
     extension_path: PathBuf,
+    window_label: Option<String>,
 ) -> Result<String, String> {
-    let manifest = load_jarvis_ext_manifest(extension_path.clone()).map_err(|e| e.to_string())?;
-    let permissions = manifest.kunkun.permissions.unwrap_or_default();
-    let permissions_str: Vec<String> = permissions
-        .iter()
-        .map(|p| p.to_owned().to_string())
-        .collect();
-    let window_label = format!("ext:{}:{}", permissions_str.join(":"), uuid::Uuid::new_v4());
+    let window_label_2 = match window_label {
+        Some(label) => label,
+        None => format!("main:ext:{}", uuid::Uuid::new_v4()),
+    };
     let mut label_ext_map = state.window_label_ext_map.lock().unwrap();
-    if label_ext_map.contains_key(window_label.as_str()) {
+    if label_ext_map.contains_key(window_label_2.as_str()) {
         return Err(format!(
             "Window with label {} is already registered",
-            &window_label
+            &window_label_2
         ));
     }
     let ext = Extension {
         path: extension_path,
-        identifier: manifest.kunkun.identifier,
-        permissions,
+        processes: vec![],
+        // identifier: manifest.kunkun.identifier,
     };
-    label_ext_map.insert(window_label.clone(), ext);
-    Ok(window_label)
+    label_ext_map.insert(window_label_2.clone(), ext);
+    Ok(window_label_2)
+}
+
+#[tauri::command]
+pub async fn register_extension_spawned_process<R: Runtime>(
+    _app: AppHandle<R>,
+    state: State<'_, JarvisState>,
+    window_label: String,
+    pid: u32,
+) -> Result<(), String> {
+    let mut label_ext_map = state.window_label_ext_map.lock().unwrap();
+    // check if window_label is registered, if not, return error
+    if !label_ext_map.contains_key(window_label.as_str()) {
+        return Err(format!(
+            "Window with label {} is not registered",
+            &window_label
+        ));
+    }
+    let ext = label_ext_map.get_mut(window_label.as_str()).unwrap();
+    ext.processes.push(pid);
+    Ok(())
 }
 
 #[tauri::command]

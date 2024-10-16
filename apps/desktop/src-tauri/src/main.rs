@@ -68,6 +68,9 @@ fn main() {
         })
         .register_uri_scheme_protocol("ext", |app, request| {
             let app_handle = app.app_handle();
+            // app_handle.
+            let win_label = app.webview_label();
+            // let window_ext_map = app_handle.state::<tauri_plugin_jarvis::stores::window_ext_map::WindowExtMap>();
             let app_state = app_handle.state::<tauri_plugin_jarvis::model::app_state::AppState>();
             let extension_path = app_state.extension_path.lock().unwrap().clone();
             tauri_file_server(app_handle, request, extension_path)

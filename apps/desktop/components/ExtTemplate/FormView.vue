@@ -13,6 +13,10 @@ const props = defineProps<{
 	fieldConfig: Record<string, any>
 }>()
 
+const emit = defineEmits<{
+	(e: "goBack"): void
+}>()
+
 onKeyStroke("Escape", () => {
 	if (document.activeElement?.nodeName === "INPUT") {
 		const inputEle = document.activeElement as HTMLInputElement
@@ -32,6 +36,7 @@ function onSubmit(data: Record<string, any>) {
 }
 
 function goBack() {
+	emit('goBack')
 	props.workerAPI.onBeforeGoBack()
 	navigateTo(localePath("/"))
 }

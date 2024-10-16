@@ -10,12 +10,19 @@ export function isWindowLabelRegistered(label: string): Promise<boolean> {
  * @param extensionPath
  * @returns Window Label
  */
-export function registerExtensionWindow(extensionPath: string): Promise<string> {
-	return invoke(generateJarvisPluginCommand("register_extension_window"), { extensionPath })
+export function registerExtensionWindow(extensionPath: string, windowLabel?: string): Promise<string> {
+	return invoke(generateJarvisPluginCommand("register_extension_window"), { extensionPath, windowLabel })
 }
 
 export function unregisterExtensionWindow(label: string): Promise<void> {
 	return invoke(generateJarvisPluginCommand("unregister_extension_window"), { label })
+}
+
+export function registerExtensionSpawnedProcess(windowLabel: string, pid: number): Promise<void> {
+	return invoke(generateJarvisPluginCommand("register_extension_spawned_process"), {
+		windowLabel,
+		pid
+	})
 }
 
 export function getExtLabelMap(): Promise<ExtensionLabelMap> {

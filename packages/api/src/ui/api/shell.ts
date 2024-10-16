@@ -1,3 +1,4 @@
+import { type Buffer } from "node:buffer"
 import { RPCChannel, type StdioInterface } from "@hk/comlink-stdio/browser"
 import { proxy as comlinkProxy, type Remote } from "@huakunshen/comlink"
 import { Channel, invoke } from "@tauri-apps/api/core"
@@ -20,7 +21,6 @@ import {
 } from "tauri-plugin-shellx-api"
 import { type DenoRunConfig } from "../client.ts"
 import type { IShellServer } from "../server/server-types.ts"
-import { Buffer } from "node:buffer";
 
 export class Child {
 	/** The child process `pid`. */
@@ -143,7 +143,10 @@ class Command<O extends IOPayload> extends BaseShellCommand<O> {
 					}
 				})
 			)
-			.then((pid) => new Child(pid, this.api))
+			.then(async (pid) => {
+				await this.api.recordSpawnedProcess(pid) // report spawned process to main process for process auto cleanup
+				return new Child(pid, this.api)
+			})
 	}
 
 	async execute(): Promise<ChildProcess<O>> {
@@ -199,7 +202,10 @@ class DenoCommand<O extends IOPayload> extends BaseShellCommand<O> {
 					}
 				})
 			)
-			.then((pid) => new Child(pid, this.api))
+			.then(async (pid) => {
+				await this.api.recordSpawnedProcess(pid)
+				return new Child(pid, this.api)
+			})
 	}
 }
 
@@ -238,14 +244,18 @@ export type IShell = {
 		args: string[],
 		config: Partial<DenoRunConfig> & SpawnOptions,
 		localAPIImplementation: LocalAPI
-	): Promise<RPCChannel<LocalAPI, RemoteAPI>>
+	): Promise<{
+		rpcChannel: RPCChannel<LocalAPI, RemoteAPI>
+		process: Child
+	}>
+	RPCChannel: typeof RPCChannel
 }
 
 export class TauriShellStdio implements StdioInterface {
 	constructor(
 		private readStream: EventEmitter<OutputEvents<IOPayload>>, // stdout of child process
 		private childProcess: Child
-	) { }
+	) {}
 
 	read(): Promise<string | Buffer | Uint8Array | null> {
 		return new Promise((resolve, reject) => {
@@ -279,24 +289,14 @@ export function constructShellAPI(api: Remote<IShellServer>): IShell {
 		config: Partial<DenoRunConfig> & SpawnOptions,
 		localAPIImplementation: LocalAPI
 	) {
-		// ): Promise<RemoteAPI> {
-		// const denoMathCmd = createDenoCommand("$EXTENSION/deno-src/rpc.ts", [], {})
-		// const denoMathProcess = await denoMathCmd.spawn()
-		// const stdio = new TauriShellStdio(denoMathCmd.stdout, denoMathProcess)
-
-		// const parent = new RPCChannel<
-		// 	{},
-		// 	RemoteAPI
-		// >(stdio, {})
-		// const api = parent.getApi()
-		// return api
 		const denoCmd = createDenoCommand(scriptPath, args, config)
 		const denoProcess = await denoCmd.spawn()
 		const stdio = new TauriShellStdio(denoCmd.stdout, denoProcess)
-		// return stdio
 		const stdioRPC = new RPCChannel<LocalAPI, RemoteAPI>(stdio, localAPIImplementation)
-		return stdioRPC
-		// return stdioRPC.getApi()
+		return {
+			rpcChannel: stdioRPC,
+			process: denoProcess
+		}
 	}
 
 	function makeBashScript(script: string): Command<string> {
@@ -394,6 +394,9 @@ export function constructShellAPI(api: Remote<IShellServer>): IShell {
 		createDenoCommand,
 		Child,
 		TauriShellStdio,
-		createDenoRpcChannel
+		createDenoRpcChannel,
+		RPCChannel
 	}
 }
+
+export { RPCChannel } from "@hk/comlink-stdio/browser"
