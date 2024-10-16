@@ -15,6 +15,6 @@
 		"./dev": "./src/dev/index.ts"
 	},
 	"imports": {
-		"@hk/comlink-stdio": "jsr:@hk/comlink-stdio@^0.1.5"
+		"@hk/comlink-stdio": "jsr:@hk/comlink-stdio@^0.1.6"
 	}
 }

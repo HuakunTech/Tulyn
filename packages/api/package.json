@@ -42,7 +42,7 @@
 		"typescript": "^5.0.0"
 	},
 	"dependencies": {
-		"@hk/comlink-stdio": "npm:comlink-stdio@^0.1.5",
+		"@hk/comlink-stdio": "npm:comlink-stdio@^0.1.6",
 		"@huakunshen/comlink": "^4.4.1",
 		"@rollup/plugin-typescript": "^11.1.6",
 		"@tauri-apps/api": "2.0.0-rc.3",
