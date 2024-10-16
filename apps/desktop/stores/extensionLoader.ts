@@ -29,6 +29,7 @@ import { defineStore } from "pinia"
 import { v4 as uuidv4 } from "uuid"
 import { toast } from "vue-sonner"
 import { useAppStateStore } from "./appState"
+import { useWindowExtMapStore } from "./windowExtMap"
 
 /**
  * Generate a value (unique identified) for a command in an extension
@@ -108,27 +109,33 @@ function getNewExtWindow(windowLabel: string, url: string, cmd: CustomUiCmd | Te
 	return window
 }
 
-function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: CustomUiCmd, url: string) {
-	// return registerExtensionWindow(manifest.extPath).then(async (windowLabel) => {
-	const windowLabel = `main:ext:${uuidv4()}`
-	const window = getNewExtWindow(windowLabel, url, cmd)
-	// window.onCloseRequested(async (event) => {
-	// await unregisterExtensionWindow(window.label)
-	// })
-	// })
-}
-
-function createNewExtWindowForTemplateCmd(
+function createNewExtWindowForUiCmd(
 	manifest: ExtPackageJsonExtra,
-	cmd: TemplateUiCmd,
+	cmd: CustomUiCmd | TemplateUiCmd,
 	url: string
 ) {
-	const windowLabel = `main:ext:${uuidv4()}`
-	const window = getNewExtWindow(windowLabel, url, cmd)
-	// window.onCloseRequested(async (event) => {
-	// await unregisterExtensionWindow(window.label)
-	// })
+	const windowExtMapStore = useWindowExtMapStore()
+	return registerExtensionWindow(manifest.extPath).then(async (windowLabel) => {
+		windowExtMapStore.registerExtensionWithWindow(windowLabel, manifest.extPath)
+		const window = getNewExtWindow(windowLabel, url, cmd)
+		window.onCloseRequested(async (event) => {
+			await unregisterExtensionWindow(window.label)
+			windowExtMapStore.unregisterExtensionFromWindow(windowLabel)
+		})
+	})
 }
+
+// function createNewExtWindowForTemplateCmd(
+// 	manifest: ExtPackageJsonExtra,
+// 	cmd: TemplateUiCmd,
+// 	url: string
+// ) {
+// 	const windowLabel = `main:ext:${uuidv4()}`
+// 	const window = getNewExtWindow(windowLabel, url, cmd)
+// 	// window.onCloseRequested(async (event) => {
+// 	// await unregisterExtensionWindow(window.label)
+// 	// })
+// }
 
 function trimSlash(str: string) {
 	return str.replace(/^\/+|\/+$/g, "")
@@ -264,6 +271,9 @@ export function constructExtStore(options: { isDev: boolean }) {
 							if (cmd.window) {
 								createNewExtWindowForUiCmd(manifest, cmd, url2)
 							} else {
+								const windowExtMapStore = useWindowExtMapStore()
+								windowExtMapStore.registerExtensionWithWindow("main", manifest.extPath)
+								registerExtensionWindow(manifest.extPath, "main")
 								navigateTo(url2)
 							}
 						}
@@ -288,8 +298,13 @@ export function constructExtStore(options: { isDev: boolean }) {
 							const url2 = `/worker-ext?extPath=${encodeURIComponent(manifest.extPath)}&cmdName=${encodeURIComponent(cmd.name)}`
 
 							if (cmd.window) {
-								createNewExtWindowForTemplateCmd(manifest, cmd, url2)
+								createNewExtWindowForUiCmd(manifest, cmd, url2)
+								// createNewExtWindowForTemplateCmd(manifest, cmd, url2)
 							} else {
+								console.log("registerExtensionWithWindow", "main", manifest.extPath)
+								const windowExtMapStore = useWindowExtMapStore()
+								windowExtMapStore.registerExtensionWithWindow("main", manifest.extPath)
+								registerExtensionWindow(manifest.extPath, "main")
 								navigateTo(url2)
 							}
 						}

@@ -12,6 +12,7 @@
 		"./commands": "./src/commands/index.ts",
 		"./permissions": "./src/permissions/index.ts",
 		"./dev": "./src/dev/index.ts",
+		"./events": "./src/events.ts",
 		"./package.json": "./package.json"
 	},
 	"license": "MIT",

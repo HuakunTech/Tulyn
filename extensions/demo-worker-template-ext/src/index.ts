@@ -1,7 +1,8 @@
-import { RPCChannel } from "@hk/comlink-stdio/browser"
+import type { RPCChannel } from "@hk/comlink-stdio/browser"
 import {
 	Action,
 	app,
+	Child,
 	expose,
 	Form,
 	fs,
@@ -28,13 +29,20 @@ const allItems: List.Item[] = itemsTitle.map(
 			defaultAction: "Item Default Action"
 		})
 )
+
 class ExtensionTemplate extends WorkerExtension {
+	apiProcess?: Child
+
 	async onBeforeGoBack() {
 		console.log("onBeforeGoBack")
+		// console.log(`Try killing pid: ${this.apiProcess?.pid}`)
+		// await this.apiProcess?.kill()
+		// console.log("apiProcess killed")
 	}
 	async onFormSubmit(value: Record<string, any>): Promise<void> {
 		console.log("Form submitted", value)
 	}
+
 	async load() {
 		ui.showLoadingBar(true)
 		setTimeout(() => {
@@ -47,12 +55,12 @@ class ExtensionTemplate extends WorkerExtension {
 				subtract(a: number, b: number): Promise<number>
 			}
 		>("$EXTENSION/deno-src/rpc.ts", [], {}, {})
-		console.log("stdio", stdioRPC);
-
-		const api = stdioRPC.getApi()
-		api.add(1, 2).then(console.log)
-		api.subtract(1, 2).then(console.log)
-
+		console.log("stdio", stdioRPC)
+		this.apiProcess = stdioRPC.process
+		const api = stdioRPC.rpcChannel.getApi()
+		await api.add(1, 2).then(console.log)
+		await api.subtract(1, 2).then(console.log)
+		// await stdioRPC.process.kill()
 		const extPath = await path.extensionDir()
 		// console.log("Extension path:", extPath)
 		return ui.render(

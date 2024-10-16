@@ -22,6 +22,7 @@ export type IShellServer = IShellServer1 & {
 		args: string[],
 		cb: (evt: CommandEvent<O>) => void
 	): Promise<number>
+	recordSpawnedProcess(pid: number): Promise<void>
 }
 
 // This will be implemented in the @kksh/api package

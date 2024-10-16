@@ -20,7 +20,8 @@ import { Icon } from "./icon"
 export const ExtensionLabelMap = record(
 	string("Window label"),
 	object({
-		path: string("Path to the extension")
+		path: string("Path to the extension"),
+		processes: array(number())
 	})
 )
 export type ExtensionLabelMap = InferOutput<typeof ExtensionLabelMap>

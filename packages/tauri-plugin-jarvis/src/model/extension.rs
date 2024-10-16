@@ -5,6 +5,6 @@ use std::path::PathBuf;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Extension {
     pub path: PathBuf,
-    pub identifier: String,
-    pub permissions: Vec<Permissions>,
+    pub processes: Vec<u32>,
+    // pub identifier: String,
 }

@@ -1,10 +1,13 @@
 import { Channel, invoke } from "@tauri-apps/api/core"
+import { emitTo } from "@tauri-apps/api/event"
+import { getCurrentWindow } from "@tauri-apps/api/window"
 import {
 	type ChildProcess,
 	type CommandEvent,
 	type InternalSpawnOptions,
 	type IOPayload
 } from "tauri-plugin-shellx-api"
+import { RECORD_EXTENSION_PROCESS_EVENT, type IRecordExtensionProcessEvent } from "../../events"
 import { ShellPermissionMap } from "../../permissions/permission-map"
 import { type ShellPermission, type ShellPermissionScoped } from "../../permissions/schema"
 import { verifyScopedPermission } from "../../utils/path"
@@ -203,6 +206,17 @@ export function constructShellApi(
 	}
 
 	return {
+		async recordSpawnedProcess(pid: number): Promise<void> {
+			// get window label
+			const curWin = await getCurrentWindow()
+			console.log("recordSpawnedProcess", pid, curWin.label)
+			await emitTo("main", RECORD_EXTENSION_PROCESS_EVENT, {
+				windowLabel: curWin.label,
+				pid
+			} satisfies IRecordExtensionProcessEvent)
+			// TODO: record process in a store
+			return Promise.resolve()
+		},
 		async denoExecute(
 			scriptPath: string,
 			config: DenoRunConfig,

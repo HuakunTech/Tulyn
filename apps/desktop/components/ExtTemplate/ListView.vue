@@ -35,6 +35,10 @@ useListenToWindowFocus(() => {
 	getWorkerExtInputEle()?.focus()
 })
 
+const emit = defineEmits<{
+	(e: "goBack"): void
+}>()
+
 const props = defineProps<{
 	modelValue: ListSchema.List
 	workerAPI: Remote<WorkerExtension>
@@ -151,6 +155,7 @@ watch(highlightedItemValue, (newVal, oldVal) => {
 })
 
 function goBack() {
+	emit('goBack')
 	props.workerAPI.onBeforeGoBack()
 	if (appWin.label !== "main") {
 		return appWin.close()

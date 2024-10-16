@@ -94,6 +94,7 @@ export const {
 	app,
 	workerUi: ui
 } = _api
+export { Child, RPCChannel } from "../api/shell"
 
 /* -------------------------------------------------------------------------- */
 /*                             UI Component Schema                            */

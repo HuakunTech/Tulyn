@@ -38,6 +38,7 @@ const appConfig = useAppConfigStore()
 await appConfig.init()
 const lastTimeStore = useLastTimeStore()
 const quicklinkLoader = useQuicklinkLoader()
+const windowExtMapStore = useWindowExtMapStore()
 await lastTimeStore.init()
 const extLoaders = ref([
 	devExtStore,

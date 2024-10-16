@@ -10,6 +10,7 @@
     "identifier": "demo-worker-template-ext",
     "permissions": [
       "fetch:all",
+      "shell:kill",
       {
         "permission": "shell:deno:execute",
         "allow": [

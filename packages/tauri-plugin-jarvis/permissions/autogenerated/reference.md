@@ -1454,6 +1454,32 @@ Denies the refresh_applications_list_in_bg command without any pre-configured sc
 <tr>
 <td>
 
+`jarvis:allow-register-extension-spawned-process`
+
+</td>
+<td>
+
+Enables the register_extension_spawned_process command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-register-extension-spawned-process`
+
+</td>
+<td>
+
+Denies the register_extension_spawned_process command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-register-extension-window`
 
 </td>
