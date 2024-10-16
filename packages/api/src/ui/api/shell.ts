@@ -20,6 +20,7 @@ import {
 } from "tauri-plugin-shellx-api"
 import { type DenoRunConfig } from "../client.ts"
 import type { IShellServer } from "../server/server-types.ts"
+import { Buffer } from "node:buffer";
 
 export class Child {
 	/** The child process `pid`. */
