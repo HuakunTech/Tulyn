@@ -109,13 +109,27 @@ function getNewExtWindow(windowLabel: string, url: string, cmd: CustomUiCmd | Te
 	return window
 }
 
-function createNewExtWindowForUiCmd(
+function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: CustomUiCmd, url: string) {
+	const windowExtMapStore = useWindowExtMapStore()
+	return registerExtensionWindow({ extensionPath: manifest.extPath, dist: cmd.dist }).then(
+		async (windowLabel) => {
+			windowExtMapStore.registerExtensionWithWindow(windowLabel, manifest.extPath)
+			const window = getNewExtWindow(windowLabel, url, cmd)
+			window.onCloseRequested(async (event) => {
+				await unregisterExtensionWindow(window.label)
+				windowExtMapStore.unregisterExtensionFromWindow(windowLabel)
+			})
+		}
+	)
+}
+
+function createNewExtWindowForTemplateCmd(
 	manifest: ExtPackageJsonExtra,
-	cmd: CustomUiCmd | TemplateUiCmd,
+	cmd: TemplateUiCmd,
 	url: string
 ) {
 	const windowExtMapStore = useWindowExtMapStore()
-	return registerExtensionWindow(manifest.extPath).then(async (windowLabel) => {
+	return registerExtensionWindow({ extensionPath: manifest.extPath }).then(async (windowLabel) => {
 		windowExtMapStore.registerExtensionWithWindow(windowLabel, manifest.extPath)
 		const window = getNewExtWindow(windowLabel, url, cmd)
 		window.onCloseRequested(async (event) => {
@@ -124,18 +138,6 @@ function createNewExtWindowForUiCmd(
 		})
 	})
 }
-
-// function createNewExtWindowForTemplateCmd(
-// 	manifest: ExtPackageJsonExtra,
-// 	cmd: TemplateUiCmd,
-// 	url: string
-// ) {
-// 	const windowLabel = `main:ext:${uuidv4()}`
-// 	const window = getNewExtWindow(windowLabel, url, cmd)
-// 	// window.onCloseRequested(async (event) => {
-// 	// await unregisterExtensionWindow(window.label)
-// 	// })
-// }
 
 function trimSlash(str: string) {
 	return str.replace(/^\/+|\/+$/g, "")
@@ -247,11 +249,11 @@ export function constructExtStore(options: { isDev: boolean }) {
 									// const postfix = !cmd.main.endsWith(".html") && !cmd.main.endsWith("/") ? "/" : ""
 									// console.log("postfix: ", postfix)
 									// url = `ext://${manifest.kunkun.identifier}.${cmd.dist}.${isDev ? "dev-" : ""}ext${cmd.main.startsWith("/") ? "" : "/"}${cmd.main}`
-
-									url = convertFileSrc(
-										`${manifest.kunkun.identifier}/${trimSlash(cmd.dist)}/${trimSlash(cmd.main)}`,
-										isDev ? "dev-ext" : "ext"
-									)
+									url = convertFileSrc(`${trimSlash(cmd.main)}`, isDev ? "dev-ext" : "ext")
+									// url = convertFileSrc(
+									// 	`${manifest.kunkun.identifier}/${trimSlash(cmd.dist)}/${trimSlash(cmd.main)}`,
+									// 	isDev ? "dev-ext" : "ext"
+									// )
 									// url decode url
 									url = decodeURIComponent(url)
 								}
@@ -267,13 +269,19 @@ export function constructExtStore(options: { isDev: boolean }) {
 							// 	})
 							// }
 							// extStore.setCurrentCustomUiExt({ url, cmd, manifest })
+							console.log("url", url)
+
 							const url2 = `/iframe-ext?url=${encodeURIComponent(url)}&extPath=${encodeURIComponent(manifest.extPath)}`
 							if (cmd.window) {
 								createNewExtWindowForUiCmd(manifest, cmd, url2)
 							} else {
 								const windowExtMapStore = useWindowExtMapStore()
 								windowExtMapStore.registerExtensionWithWindow("main", manifest.extPath)
-								registerExtensionWindow(manifest.extPath, "main")
+								registerExtensionWindow({
+									extensionPath: manifest.extPath,
+									windowLabel: "main",
+									dist: cmd.dist
+								})
 								navigateTo(url2)
 							}
 						}
@@ -298,13 +306,13 @@ export function constructExtStore(options: { isDev: boolean }) {
 							const url2 = `/worker-ext?extPath=${encodeURIComponent(manifest.extPath)}&cmdName=${encodeURIComponent(cmd.name)}`
 
 							if (cmd.window) {
-								createNewExtWindowForUiCmd(manifest, cmd, url2)
+								createNewExtWindowForTemplateCmd(manifest, cmd, url2)
 								// createNewExtWindowForTemplateCmd(manifest, cmd, url2)
 							} else {
 								console.log("registerExtensionWithWindow", "main", manifest.extPath)
 								const windowExtMapStore = useWindowExtMapStore()
 								windowExtMapStore.registerExtensionWithWindow("main", manifest.extPath)
-								registerExtensionWindow(manifest.extPath, "main")
+								registerExtensionWindow({ extensionPath: manifest.extPath, windowLabel: "main" })
 								navigateTo(url2)
 							}
 						}

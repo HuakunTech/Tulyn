@@ -6,5 +6,6 @@ use std::path::PathBuf;
 pub struct Extension {
     pub path: PathBuf,
     pub processes: Vec<u32>,
+    pub dist: Option<String>,
     // pub identifier: String,
 }

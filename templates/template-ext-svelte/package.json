@@ -1,6 +1,6 @@
 {
 	"$schema": "./node_modules/@kksh/api/dist/schema.json",
-	"name": "{{projectName}}",
+	"name": "template-ext-svelte",
 	"private": true,
 	"version": "0.0.2",
 	"type": "module",
@@ -8,7 +8,7 @@
 		"name": "TODO: Change Display Name",
 		"shortDescription": "A Custom UI template for svelte",
 		"longDescription": "A Custom UI template for svelte",
-		"identifier": "{{projectName}}",
+		"identifier": "template-ext-svelte",
 		"icon": {
 			"type": "iconify",
 			"value": "logos:svelte-icon"

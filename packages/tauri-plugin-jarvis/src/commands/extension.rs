@@ -66,6 +66,7 @@ pub async fn register_extension_window<R: Runtime>(
     _app: AppHandle<R>,
     state: State<'_, JarvisState>,
     extension_path: PathBuf,
+    dist: Option<String>,
     window_label: Option<String>,
 ) -> Result<String, String> {
     let window_label_2 = match window_label {
@@ -82,6 +83,7 @@ pub async fn register_extension_window<R: Runtime>(
     let ext = Extension {
         path: extension_path,
         processes: vec![],
+        dist: dist,
         // identifier: manifest.kunkun.identifier,
     };
     label_ext_map.insert(window_label_2.clone(), ext);

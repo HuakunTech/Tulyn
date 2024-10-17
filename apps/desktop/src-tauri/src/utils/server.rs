@@ -6,6 +6,7 @@ pub fn tauri_file_server(
     app: &AppHandle,
     request: tauri::http::Request<Vec<u8>>,
     extension_folder_path: PathBuf,
+    dist: Option<String>,
 ) -> tauri::http::Response<Vec<u8>> {
     // let host = request.uri().host().unwrap();
     // let host_parts: Vec<&str> = host.split(".").collect();
@@ -37,13 +38,17 @@ pub fn tauri_file_server(
     //             .unwrap()
     //     }
     // };
+    println!("dist: {:?}", dist);
     let path = &request.uri().path()[1..]; // skip the first /
     let path = urlencoding::decode(path).unwrap().to_string();
-    let url_file_path = extension_folder_path
-        // .join(ext_identifier)
-        // .join(dist)
-        .join(path);
-    // println!("url_file_path: {:?}", url_file_path);
+    let mut url_file_path = extension_folder_path;
+    // .join(ext_identifier)
+    match dist {
+        Some(dist) => url_file_path = url_file_path.join(dist),
+        None => {}
+    }
+    url_file_path = url_file_path.join(path);
+    println!("url_file_path: {:?}", url_file_path);
     // check if it's file or directory, if file and exist, return file, if directory, return index.html, if neither, check .html
     if url_file_path.is_file() {
         // println!("1st case url_file_path: {:?}", url_file_path);
