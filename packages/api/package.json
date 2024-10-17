@@ -13,7 +13,7 @@
 		"./permissions": "./src/permissions/index.ts",
 		"./dev": "./src/dev/index.ts",
 		"./events": "./src/events.ts",
-		"./package.json": "./package.json"
+		"./package.json": "./package.json" 
 	},
 	"license": "MIT",
 	"scripts": {
@@ -29,7 +29,7 @@
 		"@rollup/plugin-json": "^6.1.0",
 		"@rollup/plugin-terser": "^0.4.4",
 		"@types/bun": "latest",
-		"@types/lodash": "^4.17.7",
+		"@types/lodash": "^4.17.10",
 		"@types/madge": "^5.0.3",
 		"@types/semver": "^7.5.8",
 		"fs-extra": "^11.2.0",
@@ -60,7 +60,7 @@
 		"comlink": "^4.4.1",
 		"lodash": "^4.17.21",
 		"minimatch": "^10.0.1",
-		"rollup": "^4.9.6",
+		"rollup": "^4.24.0",
 		"semver": "^7.6.3",
 		"tauri-api-adapter": "0.3.8",
 		"tauri-plugin-network-api": "2.0.3",
