@@ -1,10 +1,10 @@
 import path from "path"
+import { NODE_ENV } from "@/constants"
 import logger from "@/logger"
 import { CustomUiCmd, ExtPackageJson, TemplateUiCmd } from "@kksh/api/models"
 import { printTable } from "console-table-printer"
 import fs from "fs-extra"
 import * as v from "valibot"
-import { NODE_ENV } from "@/constants"
 
 export function verifyCustomUiCommand(projectRoot: string, cmd: CustomUiCmd): boolean {
 	if (!cmd.main.startsWith("http")) {
@@ -61,10 +61,10 @@ export function verifySingleProject(projectPath: string): boolean {
 	const folderName = path.basename(projectPath)
 
 	if (NODE_ENV === "test") {
-		if (pkg.kunkun.identifier === "{{projectName}}") {
-			console.log("Patching project name from {{projectName}} to", folderName)
-			pkg.kunkun.identifier = folderName
-		}
+		// if (pkg.kunkun.identifier === "{{projectName}}") {
+		console.log("Patching project name from {{projectName}} to", folderName)
+		pkg.kunkun.identifier = folderName
+		// }
 	}
 	if (pkg.kunkun.identifier !== folderName) {
 		logger.error(

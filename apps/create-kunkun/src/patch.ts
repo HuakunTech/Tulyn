@@ -39,6 +39,8 @@ export async function patchPkgJsonDep(pkgJsonPath: string) {
 		throw new Error("This function is only available in development mode")
 	}
 	const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, "utf-8"))
+	pkgJson.name = `{{projectName}}`
+	pkgJson.kunkun.identifier = `{{projectName}}`
 	const monorepoPkgVersions = await findPkgVersions()
 	for (const [dep, v] of Object.entries(pkgJson.dependencies)) {
 		if ((v as string).startsWith("workspace:")) {

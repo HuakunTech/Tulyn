@@ -31,7 +31,6 @@ const allItems: List.Item[] = itemsTitle.map(
 )
 
 class ExtensionTemplate extends WorkerExtension {
-	apiProcess?: Child
 
 	async onBeforeGoBack() {
 		console.log("onBeforeGoBack")
@@ -48,19 +47,17 @@ class ExtensionTemplate extends WorkerExtension {
 		setTimeout(() => {
 			ui.showLoadingBar(false)
 		}, 2000)
-		const stdioRPC = await shell.createDenoRpcChannel<
+		const { rpcChannel, process } = await shell.createDenoRpcChannel<
 			{},
 			{
 				add(a: number, b: number): Promise<number>
 				subtract(a: number, b: number): Promise<number>
 			}
 		>("$EXTENSION/deno-src/rpc.ts", [], {}, {})
-		console.log("stdio", stdioRPC)
-		this.apiProcess = stdioRPC.process
-		const api = stdioRPC.rpcChannel.getApi()
+		const api = rpcChannel.getApi()
 		await api.add(1, 2).then(console.log)
 		await api.subtract(1, 2).then(console.log)
-		// await stdioRPC.process.kill()
+		await process.kill()
 		const extPath = await path.extensionDir()
 		// console.log("Extension path:", extPath)
 		return ui.render(

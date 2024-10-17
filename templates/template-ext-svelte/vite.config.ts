@@ -9,7 +9,5 @@ export default defineConfig({
 		alias: {
 			$lib: path.resolve("./src/lib")
 		}
-	},
-	// TODO: change this to your identifier
-	base: "/{{projectName}}/dist"
+	}
 })

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ExtTemplateListView from "@/components/ExtTemplate/ListView.vue"
 import { type Remote } from "@huakunshen/comlink"
-import { db } from "@kksh/api/commands"
+import { db, unregisterExtensionWindow } from "@kksh/api/commands"
 import type { ExtPackageJsonExtra } from "@kksh/api/models"
 import {
 	constructJarvisServerAPIWithPermissions,
@@ -39,6 +39,7 @@ import { Command, executeBashScript } from "tauri-plugin-shellx-api"
 import { parse } from "valibot"
 import * as v from "valibot"
 import { toast } from "vue-sonner"
+import { isInMainWindow } from "~/lib/utils/window"
 
 // definePageMeta({
 // 	layout: "ui-only"
@@ -84,7 +85,8 @@ function clearViewContent(keep?: "list" | "form" | "markdown") {
 }
 
 function goBack() {
-	if (appWin.label === "main") {
+	if (isInMainWindow()) {
+		unregisterExtensionWindow(appWin.label)
 		navigateTo(localePath("/"))
 	} else {
 		appWin.close()

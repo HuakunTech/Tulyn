@@ -3,7 +3,11 @@ import { clean, gte, parse, satisfies, sort } from "semver"
 export const breakingChangesVersionCheckpoints = [
 	{ version: "0.0.1", changelog: "" },
 	{ version: "0.0.12-beta.0", changelog: "" },
-	{ version: "0.0.12-beta.1", changelog: "" }
+	{ version: "0.0.12-beta.1", changelog: "" },
+	{
+		version: "0.0.17",
+		changelog: "New Custom UI loading method, remove base url config requirement."
+	}
 ]
 const checkpointVersions = breakingChangesVersionCheckpoints.map((c) => c.version)
 const sortedCheckpointVersions = sort(checkpointVersions)

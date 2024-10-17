@@ -1,6 +1,6 @@
 {
 	"$schema": "./node_modules/@kksh/api/dist/schema.json",
-	"name": "{{projectName}}",
+	"name": "template-ext-nuxt",
 	"version": "0.0.3",
 	"private": true,
 	"type": "module",
@@ -8,7 +8,7 @@
 		"name": "TODO: Change Display Name",
 		"shortDescription": "A Custom UI template for nuxt",
 		"longDescription": "A Custom UI template for nuxt",
-		"identifier": "{{projectName}}",
+		"identifier": "template-ext-nuxt",
 		"icon": {
 			"type": "iconify",
 			"value": "logos:nuxt-icon"
@@ -19,14 +19,14 @@
 			{
 				"main": "/",
 				"dist": "dist",
-				"devMain": "http://localhost:5173/{{projectName}}/dist",
+				"devMain": "http://localhost:5173",
 				"name": "Nuxt Template Home Page",
 				"cmds": []
 			},
 			{
 				"main": "/about",
 				"dist": "dist",
-				"devMain": "http://localhost:5173/{{projectName}}/dist/about",
+				"devMain": "http://localhost:5173/about",
 				"name": "Nuxt Template About Page",
 				"cmds": []
 			}

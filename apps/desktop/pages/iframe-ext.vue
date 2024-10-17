@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { db } from "@kksh/api/commands"
+import { db, unregisterExtensionWindow } from "@kksh/api/commands"
 import {
 	CustomPosition,
 	ExtPackageJsonExtra,
@@ -288,6 +288,7 @@ function positionToCssStyleObj(position?: Position) {
 
 function onBackBtnClicked() {
 	if (isInMainWindow()) {
+		unregisterExtensionWindow(appWin.label)
 		navigateTo(localePath("/"))
 	} else {
 		appWin.close()

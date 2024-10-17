@@ -1,13 +1,13 @@
 {
 	"$schema": "./node_modules/@kksh/api/dist/schema.json",
-	"name": "{{projectName}}",
+	"name": "template-ext-worker",
 	"version": "0.0.2",
 	"type": "module",
 	"kunkun": {
 		"name": "TODO: Extension Display Name",
 		"shortDescription": "A Worker Extension Template",
 		"longDescription": "A Worker Extension Template",
-		"identifier": "{{projectName}}",
+		"identifier": "template-ext-worker",
 		"permissions": [
 			"fetch:all",
 			"clipboard:read-all"

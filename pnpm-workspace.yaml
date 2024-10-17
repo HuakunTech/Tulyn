@@ -2,6 +2,7 @@ packages:
   - "apps/*"
   - "packages/*"
   - "extensions/*"
+  - "templates/*"
   - "dev/docs"
   - "docs"
   - "vendors/tauri-plugin-network"

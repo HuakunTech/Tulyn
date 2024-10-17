@@ -70,24 +70,51 @@ fn main() {
             let app_handle = app.app_handle();
             // app_handle.
             let win_label = app.webview_label();
-            // let window_ext_map = app_handle.state::<tauri_plugin_jarvis::stores::window_ext_map::WindowExtMap>();
-            let app_state = app_handle.state::<tauri_plugin_jarvis::model::app_state::AppState>();
-            let extension_path = app_state.extension_path.lock().unwrap().clone();
-            tauri_file_server(app_handle, request, extension_path)
+            let jarvis_state = app_handle.state::<tauri_plugin_jarvis::JarvisState>();
+            let window_ext_map = jarvis_state.window_label_ext_map.lock().unwrap();
+            match window_ext_map.get(win_label) {
+                Some(ext) => {
+                    // let app_state = app_handle.state::<tauri_plugin_jarvis::model::app_state::AppState>();
+                    // let extension_path = app_state.extension_path.lock().unwrap().clone();
+                    // tauri_file_server(app_handle, request, extension_path)
+                    tauri_file_server(app_handle, request, ext.path.clone(), ext.dist.clone())
+                }
+                None => tauri::http::Response::builder()
+                    .status(tauri::http::StatusCode::NOT_FOUND)
+                    .header("Access-Control-Allow-Origin", "*")
+                    .body("Extension Not Found".as_bytes().to_vec())
+                    .unwrap(),
+            }
         })
         .register_uri_scheme_protocol("dev-ext", |app, request| {
             let app_handle = app.app_handle();
             let app_state = app_handle.state::<tauri_plugin_jarvis::model::app_state::AppState>();
             let dev_extension_path = app_state.dev_extension_path.lock().unwrap().clone();
-            if let Some(path) = dev_extension_path {
-                tauri_file_server(app_handle, request, path)
-            } else {
-                tauri::http::Response::builder()
+            let win_label = app.webview_label();
+            let jarvis_state = app_handle.state::<tauri_plugin_jarvis::JarvisState>();
+            let window_ext_map = jarvis_state.window_label_ext_map.lock().unwrap();
+            match window_ext_map.get(win_label) {
+                Some(ext) => {
+                    // let app_state = app_handle.state::<tauri_plugin_jarvis::model::app_state::AppState>();
+                    // let extension_path = app_state.extension_path.lock().unwrap().clone();
+                    // tauri_file_server(app_handle, request, extension_path)
+                    tauri_file_server(app_handle, request, ext.path.clone(), ext.dist.clone())
+                }
+                None => tauri::http::Response::builder()
                     .status(tauri::http::StatusCode::NOT_FOUND)
                     .header("Access-Control-Allow-Origin", "*")
-                    .body("Dev Extension Folder Not Found".as_bytes().to_vec())
-                    .unwrap()
+                    .body("Extension Not Found".as_bytes().to_vec())
+                    .unwrap(),
             }
+            // if let Some(path) = dev_extension_path {
+            //     tauri_file_server(app_handle, request, path)
+            // } else {
+            //     tauri::http::Response::builder()
+            //         .status(tauri::http::StatusCode::NOT_FOUND)
+            //         .header("Access-Control-Allow-Origin", "*")
+            //         .body("Dev Extension Folder Not Found".as_bytes().to_vec())
+            //         .unwrap()
+            // }
         })
         .setup(|app| {
             setup::window::setup_window(app.handle());

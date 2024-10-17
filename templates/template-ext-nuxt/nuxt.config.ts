@@ -12,9 +12,5 @@ export default defineNuxtConfig({
 			publicDir: "dist"
 		}
 	},
-	app: {
-		// TODO: change this to your identifier
-		baseURL: "/{{projectName}}/dist"
-	},
 	modules: ["@nuxtjs/tailwindcss"]
 })

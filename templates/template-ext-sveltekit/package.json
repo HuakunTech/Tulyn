@@ -1,13 +1,13 @@
 {
 	"$schema": "./node_modules/@kksh/api/dist/schema.json",
-	"name": "{{projectName}}",
+	"name": "template-ext-sveltekit",
 	"version": "0.0.3",
 	"private": true,
 	"kunkun": {
 		"name": "TODO: Change Display Name",
 		"shortDescription": "A Custom UI template for sveltekit",
 		"longDescription": "A Custom UI template for sveltekit",
-		"identifier": "{{projectName}}",
+		"identifier": "template-ext-sveltekit",
 		"icon": {
 			"type": "iconify",
 			"value": "logos:svelte-icon"
@@ -21,14 +21,14 @@
 			{
 				"main": "/",
 				"dist": "build",
-				"devMain": "http://localhost:5173/{{projectName}}/build",
+				"devMain": "http://localhost:5173",
 				"name": "Sveltekit Template Home Page",
 				"cmds": []
 			},
 			{
 				"main": "about",
 				"dist": "build",
-				"devMain": "http://localhost:5173/{{projectName}}/build/about",
+				"devMain": "http://localhost:5173/about",
 				"name": "Sveltekit Template About Page",
 				"cmds": []
 			}
