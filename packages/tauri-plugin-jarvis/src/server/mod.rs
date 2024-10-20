@@ -2,6 +2,7 @@ pub mod grpc;
 pub mod http;
 pub mod model;
 pub mod rest;
+pub mod tls;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

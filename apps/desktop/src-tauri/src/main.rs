@@ -89,7 +89,6 @@ fn main() {
         .register_uri_scheme_protocol("dev-ext", |app, request| {
             let app_handle = app.app_handle();
             let app_state = app_handle.state::<tauri_plugin_jarvis::model::app_state::AppState>();
-            let dev_extension_path = app_state.dev_extension_path.lock().unwrap().clone();
             let win_label = app.webview_label();
             let jarvis_state = app_handle.state::<tauri_plugin_jarvis::JarvisState>();
             let window_ext_map = jarvis_state.window_label_ext_map.lock().unwrap();
@@ -119,7 +118,6 @@ fn main() {
         .setup(|app| {
             setup::window::setup_window(app.handle());
             setup::tray::create_tray(app.handle())?;
-
             // #[cfg(all(target_os = "macos", debug_assertions))]
             // app.set_activation_policy(ActivationPolicy::Accessory);
             // let mut store = StoreBuilder::new("appConfig.bin").build(app.handle().clone());
@@ -132,7 +130,6 @@ fn main() {
                 Err(_) => AppSettings::default(),
             };
             let dev_extension_path: Option<PathBuf> = app_settings.dev_extension_path.clone();
-            let ext_folder: PathBuf = get_default_extensions_dir(app.handle()).unwrap();
             let my_port = tauri_plugin_network::network::scan::find_available_port_from_list(
                 tauri_plugin_jarvis::server::CANDIDATE_PORTS.to_vec(),
             )
@@ -142,18 +139,13 @@ fn main() {
                 "App Settings Dev Extension Path: {:?}",
                 app_settings.dev_extension_path.clone(),
             );
-            log::info!("Extension Folder: {:?}", ext_folder);
             app.manage(tauri_plugin_jarvis::server::http::Server::new(
                 app.handle().clone(),
                 my_port,
                 Protocol::Http,
-                ext_folder.clone(),
-                dev_extension_path.clone(),
+                // Protocol::Https,
             ));
-            app.manage(tauri_plugin_jarvis::model::app_state::AppState {
-                dev_extension_path: Mutex::new(dev_extension_path),
-                extension_path: Mutex::new(ext_folder),
-            });
+            app.manage(tauri_plugin_jarvis::model::app_state::AppState {});
             tauri_plugin_jarvis::setup::server::setup_server(app.handle())?; // start the server
 
             let mdns = tauri_plugin_jarvis::setup::peer_discovery::setup_mdns(my_port)?;

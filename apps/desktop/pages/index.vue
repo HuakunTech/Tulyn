@@ -6,6 +6,7 @@ import { RPCChannel } from "@hk/comlink-stdio"
 import { TauriShellStdio } from "@kksh/api"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { getCurrentWindow } from "@tauri-apps/api/window"
+import { fetch } from "@tauri-apps/plugin-http"
 import { platform } from "@tauri-apps/plugin-os"
 // import { Command } from "@tauri-apps/plugin-shell"
 import { useListenToWindowBlur } from "~/composables/useEvents"
@@ -87,6 +88,9 @@ useListenToWindowFocus(() => {
 })
 
 onMounted(async () => {
+	// fetch("https://localhost:1566/info").then((res) => {
+	// 	console.log("res", res)
+	// }).catch(console.err)
 	if (appWindow.label !== "main") {
 		setTimeout(() => {
 			toast.error("Non-main window should not open this page.")
