@@ -3,6 +3,7 @@ use super::grpc::greeter::MyGreeter;
 /// This module is responsible for controlling the main server
 use super::model::ServerState;
 use super::Protocol;
+use crate::server::tls::{CERT_PEM, KEY_PEM};
 use crate::utils::path::get_default_extensions_dir;
 use axum::http::{HeaderValue, Method, StatusCode, Uri};
 use axum::routing::{get, get_service, post};
@@ -13,10 +14,7 @@ use tauri::AppHandle;
 use tonic::transport::Server as TonicServer;
 use tower_http::{cors::CorsLayer, services::ServeDir};
 
-struct ServerOptions {
-    extension_folder: PathBuf,
-    dev_extension_folder: Option<PathBuf>,
-}
+struct ServerOptions {}
 
 async fn start_server(
     protocol: Protocol,
@@ -46,19 +44,11 @@ async fn start_server(
         )
         .route("/info", get(super::rest::get_server_info))
         .layer(CorsLayer::permissive())
-        .nest_service("/extensions", ServeDir::new(options.extension_folder))
         .with_state(server_state);
 
     async fn fallback(uri: Uri) -> (StatusCode, String) {
         println!("No route for {uri}");
         (StatusCode::NOT_FOUND, format!("No route for {uri}"))
-    }
-    if options.dev_extension_folder.is_some() {
-        rest_router = rest_router.nest_service(
-            "/dev-extensions",
-            ServeDir::new(options.dev_extension_folder.unwrap()), // ServeDir::new(options.dev_extension_folder.unwrap()),
-        );
-        // .fallback(fallback);
     }
     let combined_router = axum::Router::new()
         .merge(grpc_router)
@@ -73,11 +63,13 @@ async fn start_server(
         }
         Protocol::Https => {
             let manifest_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-            let tls_config = RustlsConfig::from_pem_file(
-                manifest_dir.join("self_signed_certs").join("server.crt"),
-                manifest_dir.join("self_signed_certs").join("server.key"),
-            )
-            .await?;
+            println!("manifest_dir: {}", manifest_dir.display());
+            let tls_config = RustlsConfig::from_pem(CERT_PEM.to_vec(), KEY_PEM.to_vec()).await?;
+            // let tls_config = RustlsConfig::from_pem_file(
+            //     manifest_dir.join("self_signed_certs").join("server.crt"),
+            //     manifest_dir.join("self_signed_certs").join("server.key"),
+            // )
+            // .await?;
             axum_server::bind_rustls(server_addr, tls_config)
                 .handle(shtdown_handle)
                 .serve(combined_router.into_make_service())
@@ -93,26 +85,16 @@ pub struct Server {
     pub protocol: Mutex<Protocol>,
     pub port: u16,
     pub server_handle: Arc<std::sync::Mutex<Option<tauri::async_runtime::JoinHandle<()>>>>,
-    pub extension_folder: Arc<Mutex<PathBuf>>,
-    pub dev_extension_folder: Arc<Mutex<Option<PathBuf>>>,
 }
 
 impl Server {
-    pub fn new(
-        app_handle: AppHandle,
-        port: u16,
-        protocol: Protocol,
-        ext_folder: PathBuf,
-        dev_ext_folder: Option<PathBuf>,
-    ) -> Self {
+    pub fn new(app_handle: AppHandle, port: u16, protocol: Protocol) -> Self {
         Self {
             app_handle,
             protocol: Mutex::new(protocol),
             port,
             server_handle: Arc::new(std::sync::Mutex::new(None)),
             shtdown_handle: Arc::new(Mutex::new(None)),
-            extension_folder: Arc::new(Mutex::new(ext_folder)),
-            dev_extension_folder: Arc::new(Mutex::new(dev_ext_folder)),
         }
     }
 
@@ -133,29 +115,13 @@ impl Server {
         *shtdown_handle = Some(_shutdown_handle.clone());
         let protocol = self.protocol.lock().unwrap().clone();
 
-        let ext_folder = self.extension_folder.lock().unwrap();
-        let extension_folder = ext_folder.to_owned();
-        // let extension_folder = match ext_folder.to_owned() {
-        //     Some(extension_folder) => extension_folder,
-        //     None => {
-        //         let path =
-        //             get_default_extensions_dir(&app_handle).map_err(|err| err.to_string())?;
-        //         *ext_folder = Some(path.clone());
-        //         path
-        //     }
-        // };
-        let dev_extension_folder = self.dev_extension_folder.lock().unwrap().to_owned();
-
         *server_handle = Some(tauri::async_runtime::spawn(async move {
             match start_server(
                 protocol,
                 server_addr,
                 app_handle,
                 _shutdown_handle,
-                ServerOptions {
-                    extension_folder,
-                    dev_extension_folder,
-                },
+                ServerOptions {},
             )
             .await
             {

@@ -28,46 +28,46 @@ pub async fn get_server_port(server: tauri::State<'_, Server>) -> Result<u16, St
     Ok(server.port)
 }
 
-#[tauri::command]
-pub async fn set_dev_extension_folder(
-    server: tauri::State<'_, Server>,
-    app_state: tauri::State<'_, app_state::AppState>,
-    dev_ext_folder: Option<PathBuf>,
-) -> Result<(), String> {
-    let mut dev_extension_folder = server.dev_extension_folder.lock().unwrap();
-    *dev_extension_folder = dev_ext_folder.clone();
-    let mut app_state_dev_ext_path = app_state.dev_extension_path.lock().unwrap();
-    *app_state_dev_ext_path = dev_ext_folder.clone();
-    Ok(())
-}
+// #[tauri::command]
+// pub async fn set_dev_extension_folder(
+//     server: tauri::State<'_, Server>,
+//     app_state: tauri::State<'_, app_state::AppState>,
+//     dev_ext_folder: Option<PathBuf>,
+// ) -> Result<(), String> {
+//     let mut dev_extension_folder = server.dev_extension_folder.lock().unwrap();
+//     *dev_extension_folder = dev_ext_folder.clone();
+//     let mut app_state_dev_ext_path = app_state.dev_extension_path.lock().unwrap();
+//     *app_state_dev_ext_path = dev_ext_folder.clone();
+//     Ok(())
+// }
 
-#[tauri::command]
-pub async fn set_extension_folder(
-    server: tauri::State<'_, Server>,
-    app_state: tauri::State<'_, app_state::AppState>,
-    ext_folder: PathBuf,
-) -> Result<(), String> {
-    let mut extension_folder = server.extension_folder.lock().unwrap();
-    *extension_folder = ext_folder.clone();
-    let mut extension_path = app_state.extension_path.lock().unwrap();
-    *extension_path = ext_folder;
-    Ok(())
-}
+// #[tauri::command]
+// pub async fn set_extension_folder(
+//     server: tauri::State<'_, Server>,
+//     app_state: tauri::State<'_, app_state::AppState>,
+//     ext_folder: PathBuf,
+// ) -> Result<(), String> {
+//     let mut extension_folder = server.extension_folder.lock().unwrap();
+//     *extension_folder = ext_folder.clone();
+//     let mut extension_path = app_state.extension_path.lock().unwrap();
+//     *extension_path = ext_folder;
+//     Ok(())
+// }
 
-#[tauri::command]
-pub async fn get_extension_folder(
-    app_state: tauri::State<'_, app_state::AppState>,
-    // server: tauri::State<'_, Server>,
-) -> Result<PathBuf, String> {
-    Ok(app_state.extension_path.lock().unwrap().to_owned())
-    // Ok(server.extension_folder.lock().unwrap().to_owned())
-}
+// #[tauri::command]
+// pub async fn get_extension_folder(
+//     app_state: tauri::State<'_, app_state::AppState>,
+//     // server: tauri::State<'_, Server>,
+// ) -> Result<PathBuf, String> {
+//     Ok(app_state.extension_path.lock().unwrap().to_owned())
+//     // Ok(server.extension_folder.lock().unwrap().to_owned())
+// }
 
-#[tauri::command]
-pub async fn get_dev_extension_folder(
-    app_state: tauri::State<'_, app_state::AppState>,
-    // server: tauri::State<'_, Server>,
-) -> Result<Option<PathBuf>, String> {
-    Ok(app_state.dev_extension_path.lock().unwrap().to_owned())
-    // Ok(server.dev_extension_folder.lock().unwrap().to_owned())
-}
+// #[tauri::command]
+// pub async fn get_dev_extension_folder(
+//     app_state: tauri::State<'_, app_state::AppState>,
+//     // server: tauri::State<'_, Server>,
+// ) -> Result<Option<PathBuf>, String> {
+//     Ok(app_state.dev_extension_path.lock().unwrap().to_owned())
+//     // Ok(server.dev_extension_folder.lock().unwrap().to_owned())
+// }

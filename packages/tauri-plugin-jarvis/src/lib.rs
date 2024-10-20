@@ -103,10 +103,6 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             commands::server::start_server,
             commands::server::stop_server,
             commands::server::restart_server,
-            commands::server::set_dev_extension_folder,
-            commands::server::set_extension_folder,
-            commands::server::get_extension_folder,
-            commands::server::get_dev_extension_folder,
             commands::server::server_is_running,
             commands::server::get_server_port,
             /* ----------------------------------- fs ----------------------------------- */
