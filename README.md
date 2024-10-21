@@ -21,8 +21,8 @@
 
 ## Download
 
-- https://kunkun.sh/download/ (Download links here support regions without access to GitHub)
-- https://github.com/kunkunsh/kunkun/releases
+- From the Website: https://kunkun.sh/download/
+- From GitHub Releases: https://github.com/kunkunsh/kunkun/releases
 
 ## Platforms
 
@@ -37,12 +37,21 @@
 
 ![Alt](https://repobeats.axiom.co/api/embed/283a4ee3d0e8777cfadc89752189164a1f9670c9.svg "Repobeats analytics image")
 
-<a href="https://star-history.com/#kunkunsh/kunkun&Date">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=kunkunsh/kunkun&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=kunkunsh/kunkun&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=kunkunsh/kunkun&type=Date" />
- </picture>
+<!-- Copy-paste in your Readme.md file -->
+
+<a href="https://next.ossinsight.io/widgets/official/analyze-repo-stars-history?repo_id=798632455" target="_blank" style="display: block" align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://next.ossinsight.io/widgets/official/analyze-repo-stars-history/thumbnail.png?repo_id=798632455&image_size=auto&color_scheme=dark" width="721" height="auto">
+    <img alt="Star History of kunkunsh/kunkun" src="https://next.ossinsight.io/widgets/official/analyze-repo-stars-history/thumbnail.png?repo_id=798632455&image_size=auto&color_scheme=light" width="721" height="auto">
+  </picture>
+</a>
+
+
+<a href="https://next.ossinsight.io/widgets/official/compose-last-28-days-stats?repo_id=798632455" target="_blank" style="display: block" align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://next.ossinsight.io/widgets/official/compose-last-28-days-stats/thumbnail.png?repo_id=798632455&image_size=auto&color_scheme=dark" width="655" height="auto">
+    <img alt="Performance Stats of kunkunsh/kunkun - Last 28 days" src="https://next.ossinsight.io/widgets/official/compose-last-28-days-stats/thumbnail.png?repo_id=798632455&image_size=auto&color_scheme=light" width="655" height="auto">
+  </picture>
 </a>
 
 

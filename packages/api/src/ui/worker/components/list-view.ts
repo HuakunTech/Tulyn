@@ -130,7 +130,7 @@ export class ItemAccessory
 export class ItemDetailMetadataLabel
 	implements ListSchema.ItemDetailMetadataLabel, IComponent<ListSchema.ItemDetailMetadataLabel>
 {
-	nodeName: NodeName = NodeNameEnum.ListItemDetailMetadataLabel
+	nodeName: NodeNameEnum.ListItemDetailMetadataLabel = NodeNameEnum.ListItemDetailMetadataLabel
 	title: string
 	icon?: Icon
 	text?: string | { color: Color; text: string }
@@ -154,7 +154,7 @@ export class ItemDetailMetadataLabel
 export class ItemDetailMetadataLink
 	implements ListSchema.ItemDetailMetadataLink, IComponent<ListSchema.ItemDetailMetadataLink>
 {
-	nodeName: NodeName = NodeNameEnum.ListItemDetailMetadataLink
+	nodeName: NodeNameEnum.ListItemDetailMetadataLink = NodeNameEnum.ListItemDetailMetadataLink
 	title: string
 	text: string
 	url: string
@@ -180,7 +180,8 @@ export class ItemDetailMetadataTagListItem
 		ListSchema.ItemDetailMetadataTagListItem,
 		IComponent<ListSchema.ItemDetailMetadataTagListItem>
 {
-	nodeName: NodeName = NodeNameEnum.ListItemDetailMetadataTagListItem
+	nodeName: NodeNameEnum.ListItemDetailMetadataTagListItem =
+		NodeNameEnum.ListItemDetailMetadataTagListItem
 	text?: string
 	color?: Color
 	icon?: Icon
@@ -195,8 +196,7 @@ export class ItemDetailMetadataTagListItem
 		return {
 			nodeName: this.nodeName,
 			text: this.text,
-			color: this.color,
-			icon: this.icon?.toModel()
+			color: this.color
 		}
 	}
 }
@@ -204,7 +204,7 @@ export class ItemDetailMetadataTagListItem
 export class ItemDetailMetadataTagList
 	implements ListSchema.ItemDetailMetadataTagList, IComponent<ListSchema.ItemDetailMetadataTagList>
 {
-	nodeName: NodeName = NodeNameEnum.ListItemDetailMetadataTagList
+	nodeName: NodeNameEnum.ListItemDetailMetadataTagList = NodeNameEnum.ListItemDetailMetadataTagList
 	title: string
 	tags: ItemDetailMetadataTagListItem[]
 
@@ -231,7 +231,8 @@ export class ItemDetailMetadataSeparator
 		ListSchema.ItemDetailMetadataSeparator,
 		IComponent<ListSchema.ItemDetailMetadataSeparator>
 {
-	nodeName: NodeName = NodeNameEnum.ListItemDetailMetadataSeparator
+	nodeName: NodeNameEnum.ListItemDetailMetadataSeparator =
+		NodeNameEnum.ListItemDetailMetadataSeparator
 
 	toModel(): ListSchema.ItemDetailMetadataSeparator {
 		return {
@@ -243,11 +244,10 @@ export class ItemDetailMetadataSeparator
 export class ItemDetailMetadata
 	implements ListSchema.ItemDetailMetadata, IComponent<ListSchema.ItemDetailMetadata>
 {
-	nodeName: NodeName = NodeNameEnum.ListItemDetailMetadata
+	nodeName: NodeNameEnum.ListItemDetailMetadata = NodeNameEnum.ListItemDetailMetadata
 	items: (
 		| ItemDetailMetadataLabel
 		| ItemDetailMetadataLink
-		| ItemDetailMetadataTagListItem
 		| ItemDetailMetadataTagList
 		| ItemDetailMetadataSeparator
 	)[]
@@ -256,7 +256,6 @@ export class ItemDetailMetadata
 		items: (
 			| ItemDetailMetadataLabel
 			| ItemDetailMetadataLink
-			| ItemDetailMetadataTagListItem
 			| ItemDetailMetadataTagList
 			| ItemDetailMetadataSeparator
 		)[]
@@ -273,7 +272,7 @@ export class ItemDetailMetadata
 }
 
 export class ItemDetail implements ListSchema.ItemDetail, IComponent<ListSchema.ItemDetail> {
-	nodeName: NodeName = NodeNameEnum.ListItemDetail
+	nodeName: NodeNameEnum.ListItemDetail = NodeNameEnum.ListItemDetail
 	children: (ItemDetailMetadata | Markdown)[]
 	width?: number
 
@@ -294,7 +293,7 @@ export class ItemDetail implements ListSchema.ItemDetail, IComponent<ListSchema.
 }
 
 export class Item implements ListSchema.Item, IComponent<ListSchema.Item> {
-	nodeName: NodeName = NodeNameEnum.ListItem
+	nodeName: NodeNameEnum.ListItem = NodeNameEnum.ListItem
 	title: string
 	value: string
 	subTitle?: string
@@ -337,7 +336,7 @@ export class Item implements ListSchema.Item, IComponent<ListSchema.Item> {
 }
 
 export class Section implements ListSchema.Section, IComponent<ListSchema.Section> {
-	nodeName: NodeName = NodeNameEnum.ListSection
+	nodeName: NodeNameEnum.ListSection = NodeNameEnum.ListSection
 	title?: string
 	items: Item[]
 
@@ -356,7 +355,7 @@ export class Section implements ListSchema.Section, IComponent<ListSchema.Sectio
 }
 
 export class List implements ListSchema.List, IComponent<ListSchema.List> {
-	nodeName: NodeName = NodeNameEnum.List
+	nodeName: NodeNameEnum.List = NodeNameEnum.List
 	sections?: Section[]
 	items?: Item[]
 	detail?: ItemDetail
