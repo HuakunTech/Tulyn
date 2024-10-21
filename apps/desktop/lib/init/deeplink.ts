@@ -1,6 +1,12 @@
+import {
+	DEEP_LINK_PATH_OPEN,
+	DEEP_LINK_PATH_REFRESH_DEV_EXTENSION,
+	DEEP_LINK_PATH_STORE
+} from "@kksh/api"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { onOpenUrl } from "@tauri-apps/plugin-deep-link"
 import { error } from "@tauri-apps/plugin-log"
+import { emitRefreshDevExt } from "~/lib/utils/tauri-events"
 import * as v from "valibot"
 import { toast } from "vue-sonner"
 
@@ -65,10 +71,10 @@ export async function handleDeepLink(url: string) {
 	// TODO: Handle the parsed deep link based on your application's needs
 	// For example:
 	switch (path) {
-		case "open":
+		case DEEP_LINK_PATH_OPEN:
 			openMainWindow()
 			break
-		case "store":
+		case DEEP_LINK_PATH_STORE:
 			const parsed = v.parse(StorePathSearchParams, params)
 			openMainWindow()
 			if (parsed.identifier) {
@@ -76,6 +82,9 @@ export async function handleDeepLink(url: string) {
 			} else {
 				navigateTo("/extension-store")
 			}
+			break
+		case DEEP_LINK_PATH_REFRESH_DEV_EXTENSION:
+			emitRefreshDevExt()
 			break
 		default:
 			console.warn("Unknown deep link path:", path)
