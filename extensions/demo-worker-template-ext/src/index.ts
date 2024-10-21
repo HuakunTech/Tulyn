@@ -17,6 +17,7 @@ import {
 	ui,
 	WorkerExtension
 } from "@kksh/api/ui/worker"
+import { IconType } from "@kunkun/api/models"
 
 const nums = Array.from({ length: 20 }, (_, i) => i + 1)
 const categories = ["Suggestion", "Advice", "Idea"]
@@ -31,7 +32,6 @@ const allItems: List.Item[] = itemsTitle.map(
 )
 
 class ExtensionTemplate extends WorkerExtension {
-
 	async onBeforeGoBack() {
 		console.log("onBeforeGoBack")
 		// console.log(`Try killing pid: ${this.apiProcess?.pid}`)
@@ -60,20 +60,62 @@ class ExtensionTemplate extends WorkerExtension {
 		await process.kill()
 		const extPath = await path.extensionDir()
 		// console.log("Extension path:", extPath)
+		const tagList = new List.ItemDetailMetadataTagList({
+			title: "Tag List Title",
+			tags: [
+				new List.ItemDetailMetadataTagListItem({
+					text: "red",
+					color: "#ff0000"
+				}),
+				new List.ItemDetailMetadataTagListItem({
+					text: "yellow",
+					color: "#ffff00"
+				})
+			]
+		})
+
 		return ui.render(
 			new List.List({
 				items: allItems,
-				// filter: "none",
 				defaultAction: "Top Default Action",
 				detail: new List.ItemDetail({
 					children: [
-						new Markdown(`
-<img src="https://github.com/huakunshen.png" />
-<img src="https://github.com/huakunshen.png" />
-<img src="https://github.com/huakunshen.png" />
-				`)
+						new List.ItemDetailMetadata([
+							new List.ItemDetailMetadataLabel({
+								title: "Label Title",
+								text: "Label Text"
+							}),
+							new List.ItemDetailMetadataLabel({
+								title: "Label Title",
+								text: "Label Text",
+								icon: new Icon({
+									type: IconType.enum.Iconify,
+									value: "mingcute:appstore-fill"
+								})
+							}),
+							new List.ItemDetailMetadataSeparator(),
+							new List.ItemDetailMetadataLabel({
+								title: "Label Title",
+								text: "Label Text"
+							}),
+							new List.ItemDetailMetadataLink({
+								title: "Link Title",
+								text: "Link Text",
+								url: "https://github.com/huakunshen"
+							}),
+							new List.ItemDetailMetadataLabel({
+								title: "Label Title",
+								text: "Label Text"
+							}),
+							tagList
+						]),
+// 						new Markdown(`
+// <img src="https://github.com/huakunshen.png" />
+// <img src="https://github.com/huakunshen.png" />
+// <img src="https://github.com/huakunshen.png" />
+// 										`)
 					],
-					width: 10
+					width: 70
 				})
 			})
 		)
@@ -88,12 +130,18 @@ class ExtensionTemplate extends WorkerExtension {
 				// defaultAction: "Top Default Action",
 				detail: new List.ItemDetail({
 					children: [
-						new Markdown(`
-## Search results for "${term}"
-<img src="https://github.com/huakunshen.png" />
-<img src="https://github.com/huakunshen.png" />
-<img src="https://github.com/huakunshen.png" />
-						`)
+						new List.ItemDetailMetadata([
+							new List.ItemDetailMetadataLabel({
+								title: "Label Title",
+								text: "Label Text"
+							})
+						])
+						// 						new Markdown(`
+						// ## Search results for "${term}"
+						// <img src="https://github.com/huakunshen.png" />
+						// <img src="https://github.com/huakunshen.png" />
+						// <img src="https://github.com/huakunshen.png" />
+						// 						`)
 					],
 					width: term.length > 3 ? 70 : 30
 				})

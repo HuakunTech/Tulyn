@@ -17,7 +17,10 @@ const props = defineProps<{
 </script>
 <template>
 	<div class="flex justify-between gap-1 py-1">
-		<span class="text-muted-foreground">{{ props.title }}</span>
-		<span class="">{{ props.text }}</span>
+		<span class="text-muted-foreground text-sm font-semibold">{{ props.title }}</span>
+		<span class="flex items-center gap-2">
+			<IconMultiplexer v-if="props.icon" :icon="props.icon" h-4 w-4 />
+			<span class="text-sm">{{ props.text }}</span>
+		</span>
 	</div>
 </template>

@@ -7,6 +7,7 @@ import {
 	WorkerExtension
 } from "@kksh/api/ui/worker"
 import Markdown from "./Markdown.vue"
+import Metadata from "./Metadata.vue"
 
 const props = defineProps<{
 	detail: ListSchema.ItemDetail
@@ -18,6 +19,10 @@ const props = defineProps<{
 		<Markdown
 			v-if="child.nodeName === NodeNameEnum.Markdown"
 			:markdown="(child as MarkdownSchema).content"
+		/>
+		<Metadata
+			v-if="child.nodeName === NodeNameEnum.ListItemDetailMetadata"
+			:items="(child as ListSchema.ItemDetailMetadata).items"
 		/>
 	</div>
 </template>

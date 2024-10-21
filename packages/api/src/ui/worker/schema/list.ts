@@ -78,7 +78,7 @@ export const ItemAccessory = object({
 export type ItemAccessory = InferOutput<typeof ItemAccessory>
 
 export const ItemDetailMetadataLabel = object({
-	nodeName: NodeName,
+	nodeName: literal(NodeNameEnum.ListItemDetailMetadataLabel),
 	title: string(),
 	icon: optional(Icon),
 	text: optional(
@@ -94,7 +94,7 @@ export const ItemDetailMetadataLabel = object({
 export type ItemDetailMetadataLabel = InferOutput<typeof ItemDetailMetadataLabel>
 
 export const ItemDetailMetadataLink = object({
-	nodeName: NodeName,
+	nodeName: literal(NodeNameEnum.ListItemDetailMetadataLink),
 	title: string(),
 	text: string(),
 	url: string()
@@ -102,47 +102,48 @@ export const ItemDetailMetadataLink = object({
 export type ItemDetailMetadataLink = InferOutput<typeof ItemDetailMetadataLink>
 
 export const ItemDetailMetadataTagListItem = object({
-	nodeName: NodeName,
+	nodeName: literal(NodeNameEnum.ListItemDetailMetadataTagListItem),
 	text: optional(string()),
 	color: optional(Color),
-	icon: optional(Icon)
 })
 export type ItemDetailMetadataTagListItem = InferOutput<typeof ItemDetailMetadataTagListItem>
 
 export const ItemDetailMetadataTagList = object({
-	nodeName: NodeName,
+	nodeName: literal(NodeNameEnum.ListItemDetailMetadataTagList),
 	title: string(),
 	tags: array(ItemDetailMetadataTagListItem)
 })
 export type ItemDetailMetadataTagList = InferOutput<typeof ItemDetailMetadataTagList>
 
 export const ItemDetailMetadataSeparator = object({
-	nodeName: NodeName
+	nodeName: literal(NodeNameEnum.ListItemDetailMetadataSeparator)
 })
 export type ItemDetailMetadataSeparator = InferOutput<typeof ItemDetailMetadataSeparator>
 
+export const ItemDetailMetadataItem = union([
+	ItemDetailMetadataLabel,
+	ItemDetailMetadataLink,
+	ItemDetailMetadataTagList,
+	ItemDetailMetadataSeparator
+])
+export type ItemDetailMetadataItem = InferOutput<typeof ItemDetailMetadataItem>
+
 export const ItemDetailMetadata = object({
-	nodeName: NodeName,
-	items: array(
-		union([
-			ItemDetailMetadataLabel,
-			ItemDetailMetadataLink,
-			ItemDetailMetadataTagList,
-			ItemDetailMetadataSeparator
-		])
-	)
+	nodeName: literal(NodeNameEnum.ListItemDetailMetadata),
+	items: array(ItemDetailMetadataItem)
 })
 export type ItemDetailMetadata = InferOutput<typeof ItemDetailMetadata>
 
 export const ItemDetail = object({
-	nodeName: NodeName,
+	// nodeName: NodeName,
+	nodeName: literal(NodeNameEnum.ListItemDetail),
 	children: array(union([Markdown, ItemDetailMetadata])),
 	width: optional(number())
 })
 export type ItemDetail = InferOutput<typeof ItemDetail>
 
 export const Item = object({
-	nodeName: NodeName,
+	nodeName: literal(NodeNameEnum.ListItem),
 	title: string(),
 	subTitle: optional(string()),
 	accessories: optional(array(ItemAccessory)),
@@ -156,7 +157,7 @@ export const Item = object({
 export type Item = InferOutput<typeof Item>
 
 export const Section = object({
-	nodeName: NodeName,
+	nodeName: literal(NodeNameEnum.ListSection),
 	title: optional(string()),
 	subtitle: optional(string()),
 	items: array(Item)
@@ -173,7 +174,7 @@ export const ListInheritOptions = union([
 ])
 export type ListInheritOptions = InferOutput<typeof ListInheritOptions>
 export const List = object({
-	nodeName: NodeName,
+	nodeName: literal(NodeNameEnum.List),
 	sections: optional(array(Section)),
 	items: optional(array(Item)),
 	filter: union([literal("none"), literal("default")]),
@@ -191,7 +192,7 @@ export const List = object({
  * but only when it's packaged and published as JavaScript.
  */
 export type List = {
-	nodeName: NodeName
+	nodeName: NodeNameEnum.List
 	sections?: Section[]
 	items?: Item[]
 	filter: "none" | "default"

@@ -74,12 +74,12 @@ pub async fn register_extension_window<R: Runtime>(
         None => format!("main:ext:{}", uuid::Uuid::new_v4()),
     };
     let mut label_ext_map = state.window_label_ext_map.lock().unwrap();
-    if label_ext_map.contains_key(window_label_2.as_str()) {
-        return Err(format!(
-            "Window with label {} is already registered",
-            &window_label_2
-        ));
-    }
+    // if label_ext_map.contains_key(window_label_2.as_str()) {
+    //     return Err(format!(
+    //         "Window with label {} is already registered",
+    //         &window_label_2
+    //     ));
+    // }
     let ext = Extension {
         path: extension_path,
         processes: vec![],
