@@ -8,6 +8,7 @@ import { TooltipProvider } from "@kksh/vue/tooltip"
 import type { UnlistenFn } from "@tauri-apps/api/event"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { attachConsole, debug, error, info, warn } from "@tauri-apps/plugin-log"
+import { initDeeplink } from "~/lib/init/deeplink"
 import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"
 import { initStores } from "~/lib/utils/stores"
 import { listenToRefreshConfig } from "~/lib/utils/tauri-events"
@@ -30,6 +31,7 @@ unlistenRefreshConfig = await listenToRefreshConfig(async () => {
 	initStores()
 	// useRegisterAppShortcuts()
 })
+initDeeplink()
 
 const windowExtMapStore = useWindowExtMapStore()
 if (appWindow.label === "main") {

@@ -2,7 +2,7 @@
 	"name": "@kksh/desktop",
 	"private": true,
 	"type": "module",
-	"version": "0.1.9-beta.3",
+	"version": "0.1.9-beta.4",
 	"scripts": {
 		"build": "nuxt build",
 		"dev": "nuxt dev",
@@ -33,6 +33,7 @@
 		"@supabase/supabase-js": "^2.43.4",
 		"@tauri-apps/api": "2.0.1",
 		"@tauri-apps/cli": "2.0.1",
+		"@tauri-apps/plugin-deep-link": "^2.0.0",
 		"@tauri-apps/plugin-dialog": "~2.0.0",
 		"@tauri-apps/plugin-fs": "2.0.0",
 		"@tauri-apps/plugin-global-shortcut": "2.0.0",
