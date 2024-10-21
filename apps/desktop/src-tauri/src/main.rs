@@ -4,6 +4,7 @@
 use std::{path::PathBuf, sync::Mutex};
 pub mod commands;
 mod setup;
+use tauri_plugin_deep_link::DeepLinkExt;
 use tauri_plugin_jarvis::{
     db::JarvisDB,
     server::Protocol,
@@ -25,6 +26,13 @@ fn main() {
     let context = tauri::generate_context!();
     let shell_unlocked = true;
     let app = tauri::Builder::default()
+        .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
+            let _ = app
+                .get_webview_window("main")
+                .expect("no main window")
+                .set_focus();
+        }))
+        .plugin(tauri_plugin_deep_link::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_process::init())
@@ -118,6 +126,7 @@ fn main() {
         .setup(|app| {
             setup::window::setup_window(app.handle());
             setup::tray::create_tray(app.handle())?;
+            // setup::deeplink::setup_deeplink(app);
             // #[cfg(all(target_os = "macos", debug_assertions))]
             // app.set_activation_policy(ActivationPolicy::Accessory);
             // let mut store = StoreBuilder::new("appConfig.bin").build(app.handle().clone());
