@@ -38,10 +38,10 @@ async fn start_server(
         .add_service(GreeterServer::new(greeter))
         .into_router();
     let mut rest_router = axum::Router::new()
-        .route(
-            "/refresh-worker-extension",
-            post(super::rest::refresh_worker_extension),
-        )
+        // .route(
+        //     "/refresh-worker-extension",
+        //     post(super::rest::refresh_worker_extension),
+        // )
         .route("/info", get(super::rest::get_server_info))
         .layer(CorsLayer::permissive())
         .with_state(server_state);

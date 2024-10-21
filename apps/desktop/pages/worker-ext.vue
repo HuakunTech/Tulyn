@@ -32,7 +32,7 @@ import { loadExtensionManifestFromDisk } from "~/lib/commands/extensions"
 import { GlobalEventBus } from "~/lib/utils/events"
 import { buildFieldConfig, convertFormToZod } from "~/lib/utils/form"
 import { sendNotificationWithPermission } from "~/lib/utils/notification"
-import { listenToRefreshWorkerExt } from "~/lib/utils/tauri-events"
+import { listenToRefreshDevExt } from "~/lib/utils/tauri-events"
 import { isInMainWindow } from "~/lib/utils/window"
 import { useExtDisplayStore } from "~/stores/extState"
 import { useWindowExtMapStore } from "~/stores/windowExtMap"
@@ -310,7 +310,7 @@ onMounted(async () => {
 		appState.setLoadingBar(true)
 		appWin.show()
 	}, 100)
-	unlistenRefreshWorkerExt = await listenToRefreshWorkerExt(() => {
+	unlistenRefreshWorkerExt = await listenToRefreshDevExt(() => {
 		debug("Refreshing Worker Extension")
 		launchWorkerExt()
 	})

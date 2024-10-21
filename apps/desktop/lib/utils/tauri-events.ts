@@ -1,3 +1,4 @@
+import { DEEP_LINK_PATH_REFRESH_DEV_EXTENSION } from "@kksh/api"
 import {
 	emit,
 	emitTo,
@@ -15,7 +16,7 @@ export const FileDragOver = "tauri://drag-over"
 export const NewClipboardItemAddedEvent = "new_clipboard_item_added"
 export const RefreshConfigEvent = "kksh://refresh-config"
 export const RefreshExtEvent = "kksh://refresh-extensions"
-export const RefreshWorkerExtEvent = "kksh://refresh-worker-ext"
+export const RefreshDevExtEvent = `kksh://${DEEP_LINK_PATH_REFRESH_DEV_EXTENSION}`
 
 export function listenToFileDrop(cb: EventCallback<{ paths: string[] }>) {
 	return listen<{ paths: string[] }>(FileDrop, cb)
@@ -49,10 +50,10 @@ export function listenToRefreshExt(cb: EventCallback<null>) {
 	return listen(RefreshExtEvent, cb)
 }
 
-export function emitRefreshWorkerExt() {
-	return emit(RefreshWorkerExtEvent)
+export function emitRefreshDevExt() {
+	return emit(RefreshDevExtEvent)
 }
 
-export function listenToRefreshWorkerExt(cb: EventCallback<null>) {
-	return listen(RefreshWorkerExtEvent, cb)
+export function listenToRefreshDevExt(cb: EventCallback<null>) {
+	return listen(RefreshDevExtEvent, cb)
 }
