@@ -35,6 +35,14 @@
 	},
 	"bundle": {
 		"createUpdaterArtifacts": true,
+		"fileAssociations": [
+			{
+				"ext": ["kunkun"],
+				"mimeType": "text/plain",
+				"description": "Used to install Kunkun Extensions with a installer file",
+				"role": "Viewer"
+			}
+		],
 		"active": true,
 		"targets": "all",
 		"icon": [
@@ -54,6 +62,16 @@
 			"desktop": {
 				"schemes": ["kunkun"]
 			}
+		},
+		"cli": {
+			"description": "Kunkun CLI",
+			"args": [
+				{
+					"short": "v",
+					"name": "verbose",
+					"description": "Verbosity level"
+				}
+			]
 		}
 	}
 }

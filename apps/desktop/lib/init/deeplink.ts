@@ -3,6 +3,7 @@ import {
 	DEEP_LINK_PATH_REFRESH_DEV_EXTENSION,
 	DEEP_LINK_PATH_STORE
 } from "@kksh/api"
+import { extname } from "@tauri-apps/api/path"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { onOpenUrl } from "@tauri-apps/plugin-deep-link"
 import { error } from "@tauri-apps/plugin-log"
@@ -43,33 +44,9 @@ function openMainWindow() {
 		})
 }
 
-/**
- *
- * @param url Deep Link URl, e.g. kunkun://open
- */
-export async function handleDeepLink(url: string) {
-	// Parse the URL
-	const parsedUrl = new URL(url)
-
-	// Check if the protocol is correct
-	if (parsedUrl.protocol !== "kunkun:") {
-		console.error("Invalid protocol:", parsedUrl.protocol)
-		return
-	}
-
-	// Get the path (content after kunkun://)
+export async function handleKunkunProtocol(parsedUrl: URL) {
 	const path = parsedUrl.host // Remove the leading '//' kunkun://open gives "open"
-
-	// Parse query parameters if any
 	const params = Object.fromEntries(parsedUrl.searchParams)
-
-	console.log("Parsed deep link:", {
-		path,
-		params
-	})
-
-	// TODO: Handle the parsed deep link based on your application's needs
-	// For example:
 	switch (path) {
 		case DEEP_LINK_PATH_OPEN:
 			openMainWindow()
@@ -88,5 +65,47 @@ export async function handleDeepLink(url: string) {
 			break
 		default:
 			console.warn("Unknown deep link path:", path)
+	}
+}
+
+export async function handleFileProtocol(parsedUrl: URL) {
+	console.log("File protocol:", parsedUrl)
+	const filePath = parsedUrl.pathname // Remove the leading '//' kunkun://open?identifier=qrcode gives "open"
+	console.log("File path:", filePath)
+	// from file absolute path, get file extension
+	const fileExt = await extname(filePath)
+	console.log("File extension:", fileExt)
+	switch (fileExt) {
+		case "kunkun":
+			// TODO: Handle file protocol, install extension from file (essentially a .tgz file)
+			break
+		default:
+			console.error("Unknown file extension:", fileExt)
+			toast.error({
+				title: "Unknown file extension",
+				description: fileExt
+			})
+			break
+	}
+}
+
+/**
+ *
+ * @param url Deep Link URl, e.g. kunkun://open
+ */
+export async function handleDeepLink(url: string) {
+	const parsedUrl = new URL(url)
+	switch (parsedUrl.protocol) {
+		case "kunkun:":
+			return handleKunkunProtocol(parsedUrl)
+		case "file:":
+			return handleFileProtocol(parsedUrl)
+		default:
+			console.error("Invalid Protocol:", parsedUrl.protocol)
+			toast.error({
+				title: "Invalid Protocol",
+				description: parsedUrl.protocol
+			})
+			break
 	}
 }
