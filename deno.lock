@@ -41,6 +41,7 @@
     "npm:@tauri-apps/api@2.0.1": "2.0.1",
     "npm:@tauri-apps/api@^1.5.4": "1.6.0",
     "npm:@tauri-apps/cli@2.0.1": "2.0.1",
+    "npm:@tauri-apps/plugin-deep-link@2": "2.0.0",
     "npm:@tauri-apps/plugin-dialog@2.0": "2.0.0",
     "npm:@tauri-apps/plugin-dialog@>=2.0.0-rc.0": "2.0.0",
     "npm:@tauri-apps/plugin-fs@2.0.0": "2.0.0",
@@ -5857,6 +5858,12 @@
         "@tauri-apps/cli-win32-arm64-msvc",
         "@tauri-apps/cli-win32-ia32-msvc",
         "@tauri-apps/cli-win32-x64-msvc"
+      ]
+    },
+    "@tauri-apps/plugin-deep-link@2.0.0": {
+      "integrity": "sha512-cDa2k1OrRU5DoKc0IXl1Y8RlFOU107u2phdZfT7FkApsC6TL/VAPs3YOUTT8p9/PZ50EjOKP104HFMqVqnQ0bw==",
+      "dependencies": [
+        "@tauri-apps/api@2.0.1"
       ]
     },
     "@tauri-apps/plugin-dialog@2.0.0": {
@@ -16101,6 +16108,7 @@
             "npm:@tailwindcss/typography@~0.5.13",
             "npm:@tauri-apps/api@2.0.1",
             "npm:@tauri-apps/cli@2.0.1",
+            "npm:@tauri-apps/plugin-deep-link@2",
             "npm:@tauri-apps/plugin-dialog@2.0",
             "npm:@tauri-apps/plugin-fs@2.0.0",
             "npm:@tauri-apps/plugin-global-shortcut@2.0.0",
