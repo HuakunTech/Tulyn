@@ -37,16 +37,20 @@ export async function refreshTemplateWorkerExtension() {
 	console.log("Send Refresh Worker Extension Request")
 
 	const platform = await os.platform()
-	switch (platform) {
-		case "darwin":
-			await Bun.spawn(["open", `kunkun://${DEEP_LINK_PATH_REFRESH_DEV_EXTENSION}`])
-			break
-		case "win32":
-			await Bun.spawn(["start", `kunkun://${DEEP_LINK_PATH_REFRESH_DEV_EXTENSION}`])
-			break
-		case "linux":
-			await Bun.spawn(["xdg-open", `kunkun://${DEEP_LINK_PATH_REFRESH_DEV_EXTENSION}`])
-			break
+	try {
+		switch (platform) {
+			case "darwin":
+				await Bun.spawn(["open", `kunkun://${DEEP_LINK_PATH_REFRESH_DEV_EXTENSION}`])
+				break
+			case "win32":
+				await Bun.spawn(["start", `kunkun://${DEEP_LINK_PATH_REFRESH_DEV_EXTENSION}`])
+				break
+			case "linux":
+				await Bun.spawn(["xdg-open", `kunkun://${DEEP_LINK_PATH_REFRESH_DEV_EXTENSION}`])
+				break
+		}
+	} catch (error) {
+		console.error("Failed to refresh worker extension:", error)
 	}
 }
 
