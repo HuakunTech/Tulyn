@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import DialogImage from "@/components/extension-store/DialogImage.vue"
+import PlatformsIcons from "@/components/extension-store/platforms-icons.vue"
 import { gqlClient } from "@/lib/utils/graphql"
 import * as supabase from "@/lib/utils/supabase"
 import { supabaseClient } from "@/lib/utils/supabase"
@@ -205,6 +206,7 @@ async function uninstallExt() {
 								<span class="text-dm">{{ cmd.name }}</span>
 								<h2 class="text-xs">{{ cmd.description }}</h2>
 							</div>
+							<PlatformsIcons :platforms="cmd.platforms" />
 						</div>
 						<Separator class="my-3" />
 					</li>
