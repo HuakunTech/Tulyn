@@ -31,7 +31,7 @@ export const SecurityPermissionMap: { mac: Record<keyof ISecurity["mac"], Securi
 			verifyFingerprint: ["security:mac:all", "security:mac:verify-fingerprint"],
 			requestScreenCapturePermission: ["security:mac:all", "security:mac:request-permission"],
 			checkScreenCapturePermission: ["security:mac:all", "security:mac:check-permission"],
-			resetPermission: ["security:mac:all", "security:mac:reset-screenshot-permission"]
+			resetPermission: ["security:mac:all", "security:mac:reset-screencapture-permission"]
 		}
 	}
 

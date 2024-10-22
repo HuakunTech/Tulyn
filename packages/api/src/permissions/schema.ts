@@ -38,13 +38,8 @@ export const EventPermissionSchema = union([
 ])
 export const SecurityPermissionSchema = union([
 	literal("security:mac:reveal-security-pane"),
-	literal("security:mac:reveal-screen-capture-pane"),
-	literal("security:mac:reveal-camera-pane"),
-	literal("security:mac:reveal-microphone-pane"),
-	literal("security:mac:reveal-accessibility-pane"),
-	literal("security:mac:reveal-all-files-pane"),
 	literal("security:mac:verify-fingerprint"),
-	literal("security:mac:reset-screenshot-permission"),
+	literal("security:mac:reset-screencapture-permission"),
 	literal("security:mac:request-permission"),
 	literal("security:mac:check-permission"),
 	literal("security:mac:all")
