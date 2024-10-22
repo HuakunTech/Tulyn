@@ -11,6 +11,7 @@ import {
 	CustomUiCmd,
 	ExtPackageJsonExtra,
 	KunkunExtManifest,
+	OSPlatform,
 	TemplateUiCmd,
 	WindowConfig
 } from "@kksh/api/models"
@@ -20,6 +21,7 @@ import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import * as fs from "@tauri-apps/plugin-fs"
 import { exists, mkdir } from "@tauri-apps/plugin-fs"
 import { debug, error, info, warn } from "@tauri-apps/plugin-log"
+import { platform, type Platform } from "@tauri-apps/plugin-os"
 import { computedAsync } from "@vueuse/core"
 import { filterListItem } from "~/lib/utils/search"
 import { useAppConfigStore } from "~/stores/appConfig"
@@ -149,12 +151,13 @@ function trimSlash(str: string) {
  * @returns
  */
 export function manifestToCmdItems(manifest: ExtPackageJsonExtra, isDev: boolean): TListItem[] {
-	const uiItems = manifest.kunkun.customUiCmds.map((cmd) =>
-		cmdToItem(cmd, manifest, ListItemType.enum.UICmd, isDev)
-	)
-	const inlineItems = manifest.kunkun.templateUiCmds.map((cmd) =>
-		cmdToItem(cmd, manifest, ListItemType.enum.InlineCmd, isDev)
-	)
+	const _platform = platform() as OSPlatform
+	const uiItems = manifest.kunkun.customUiCmds
+		.filter((cmd) => cmd.platforms.includes(_platform))
+		.map((cmd) => cmdToItem(cmd, manifest, ListItemType.enum.UICmd, isDev))
+	const inlineItems = manifest.kunkun.templateUiCmds
+		.filter((cmd) => cmd.platforms.includes(_platform))
+		.map((cmd) => cmdToItem(cmd, manifest, ListItemType.enum.InlineCmd, isDev))
 	return [...uiItems, ...inlineItems]
 }
 
