@@ -29,6 +29,7 @@ export enum OSPlatformEnum {
 }
 
 export const OSPlatform = enum_(OSPlatformEnum)
+export type OSPlatform = InferOutput<typeof OSPlatform>
 const allPlatforms = Object.values(OSPlatformEnum)
 export const TriggerCmd = object({
 	type: union([literal("text"), literal("regex")]),
