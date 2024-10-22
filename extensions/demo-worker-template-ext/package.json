@@ -11,6 +11,7 @@
     "permissions": [
       "fetch:all",
       "shell:kill",
+      "security:mac:all",
       {
         "permission": "shell:deno:execute",
         "allow": [

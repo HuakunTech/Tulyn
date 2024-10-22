@@ -34,6 +34,7 @@ import type {
 	IFs,
 	IOpen,
 	IPath,
+	ISecurity,
 	ISystem,
 	IToast,
 	IUiWorker,
@@ -67,6 +68,7 @@ type API = {
 	sysInfo: Remote<ISystemInfo> // inherit from tauri-api-adapter
 	network: Remote<INetwork> // inherit from tauri-api-adapter
 	workerUi: Remote<IUiWorker> // for kunkun
+	security: ISecurity // for kunkun
 	utils: IUtils // for kunkun
 	app: IApp
 }
@@ -92,6 +94,7 @@ export const {
 	open,
 	utils,
 	app,
+	security,
 	workerUi: ui
 } = _api
 export { Child, RPCChannel } from "../api/shell"

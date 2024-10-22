@@ -83,4 +83,7 @@ commands.allow = [
     "get_history",
     # Utils
     "plist_to_json",
+    "verify_auth",
+    "request_screen_capture_access",
+    "check_screen_capture_access",
 ]
