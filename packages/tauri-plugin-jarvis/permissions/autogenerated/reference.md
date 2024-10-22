@@ -76,6 +76,32 @@ Denies the app_is_dev command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-check-screen-capture-access`
+
+</td>
+<td>
+
+Enables the check_screen_capture_access command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-check-screen-capture-access`
+
+</td>
+<td>
+
+Denies the check_screen_capture_access command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-close-devtools`
 
 </td>
@@ -1506,6 +1532,32 @@ Denies the register_extension_window command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-request-screen-capture-access`
+
+</td>
+<td>
+
+Enables the request_screen_capture_access command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-request-screen-capture-access`
+
+</td>
+<td>
+
+Denies the request_screen_capture_access command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-restart-server`
 
 </td>
@@ -2201,6 +2253,32 @@ Enables the update_extension_data_by_id command without any pre-configured scope
 <td>
 
 Denies the update_extension_data_by_id command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-verify-auth`
+
+</td>
+<td>
+
+Enables the verify_auth command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-verify-auth`
+
+</td>
+<td>
+
+Denies the verify_auth command without any pre-configured scope.
 
 </td>
 </tr>

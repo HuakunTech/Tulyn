@@ -3155,6 +3155,7 @@ dependencies = [
  "chrono",
  "cocoa 0.24.1",
  "log",
+ "mac-security-rs",
  "mdns-sd",
  "objc",
  "serde",
@@ -3308,6 +3309,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "localauthentication-rs"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8b8efa96bad8c96e1e41778854c6ca043733dd93c8cf2f291c2d66ec34fafc26"
+dependencies = [
+ "swift-rs",
+]
+
+[[package]]
 name = "lock_api"
 version = "0.4.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3368,6 +3378,16 @@ dependencies = [
  "objc-foundation",
  "objc_id",
  "time",
+]
+
+[[package]]
+name = "mac-security-rs"
+version = "0.1.0"
+dependencies = [
+ "core-foundation 0.10.0",
+ "localauthentication-rs",
+ "objc",
+ "serde",
 ]
 
 [[package]]
@@ -6239,6 +6259,7 @@ dependencies = [
  "flate2",
  "ico",
  "log",
+ "mac-security-rs",
  "mdns-sd",
  "plist",
  "prost",

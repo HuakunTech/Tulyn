@@ -1,9 +1,10 @@
 import type { IShellServer } from "tauri-api-adapter"
 // import type { IEventServer, IFsServer, ISystemServer } from "../ui/server/server-types"
-import type { IEvent, IFs, ISystem } from "../ui/client"
+import type { IEvent, IFs, ISecurity, ISystem } from "../ui/client"
 import type {
 	EventPermission,
 	KunkunFsPermission,
+	SecurityPermission,
 	ShellPermission,
 	SystemPermission
 } from "./schema"
@@ -22,6 +23,17 @@ export {
 	// ShellPermissionMap, // we defined a custom one below
 	UpdownloadPermissionMap
 } from "tauri-api-adapter/permissions"
+
+export const SecurityPermissionMap: { mac: Record<keyof ISecurity["mac"], SecurityPermission[]> } =
+	{
+		mac: {
+			revealSecurityPane: ["security:mac:all", "security:mac:reveal-security-pane"],
+			verifyFingerprint: ["security:mac:all", "security:mac:verify-fingerprint"],
+			requestScreenCapturePermission: ["security:mac:all", "security:mac:request-permission"],
+			checkScreenCapturePermission: ["security:mac:all", "security:mac:check-permission"],
+			resetPermission: ["security:mac:all", "security:mac:reset-screenshot-permission"]
+		}
+	}
 
 export const FsPermissionMap: Record<keyof IFs, KunkunFsPermission[]> = {
 	readDir: ["fs:read", "fs:read-dir"],

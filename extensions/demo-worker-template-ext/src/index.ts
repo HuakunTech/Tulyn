@@ -15,6 +15,7 @@ import {
 	shell,
 	toast,
 	ui,
+	security,
 	WorkerExtension
 } from "@kksh/api/ui/worker"
 import { IconType } from "@kunkun/api/models"
@@ -43,6 +44,9 @@ class ExtensionTemplate extends WorkerExtension {
 	}
 
 	async load() {
+		// console.log("Check screen capture permission:", await security.mac.checkScreenCapturePermission())
+		// await security.mac.revealSecurityPane("AllFiles")
+		console.log(await security.mac.verifyFingerprint())
 		ui.showLoadingBar(true)
 		setTimeout(() => {
 			ui.showLoadingBar(false)

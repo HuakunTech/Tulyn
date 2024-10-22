@@ -99,6 +99,10 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             // commands::extension::load_all_extensions,
             /* ---------------------------------- utils --------------------------------- */
             commands::fs::path_exists,
+            /* -------------------------------- security -------------------------------- */
+            commands::security::verify_auth,
+            commands::security::request_screen_capture_access,
+            commands::security::check_screen_capture_access,
             /* --------------------------------- server --------------------------------- */
             commands::server::start_server,
             commands::server::stop_server,

@@ -27,6 +27,7 @@ import type {
 	SpawnOptions
 } from "tauri-plugin-shellx-api"
 import { EventEmitter, open as shellxOpen } from "tauri-plugin-shellx-api"
+import * as v from "valibot"
 import { type JarvisExtDB } from "../commands/db"
 import type { fileSearch } from "../commands/fileSearch"
 import { type AppInfo } from "../models/apps"
@@ -279,4 +280,23 @@ export interface DenoRunConfig {
 
 export interface IApp {
 	language: () => Promise<"en" | "zh">
+}
+
+export const MacSecurityOptions = v.union([
+	v.literal("ScreenCapture"),
+	v.literal("Camera"),
+	v.literal("Microphone"),
+	v.literal("Accessibility"),
+	v.literal("AllFiles")
+])
+export type MacSecurityOptions = v.InferOutput<typeof MacSecurityOptions>
+
+export interface ISecurity {
+	mac: {
+		revealSecurityPane: (privacyOption?: MacSecurityOptions) => Promise<void>
+		resetPermission: (privacyOption: MacSecurityOptions) => Promise<void>
+		verifyFingerprint: () => Promise<boolean>
+		requestScreenCapturePermission: () => Promise<boolean>
+		checkScreenCapturePermission: () => Promise<boolean>
+	}
 }

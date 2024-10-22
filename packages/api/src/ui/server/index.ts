@@ -43,11 +43,12 @@ import {
 	type FsPermissionScoped,
 	type KunkunFsPermission,
 	type OpenPermissionScoped,
+	type SecurityPermission,
 	type ShellPermission,
 	type ShellPermissionScoped,
 	type SystemPermission
 } from "../../permissions"
-import type { IEvent, IFs, IOpen, ISystem, IToast, IUtils } from "../client"
+import type { IEvent, IFs, IOpen, ISecurity, ISystem, IToast, IUtils } from "../client"
 // import type { IDbServer } from "./db"
 import { constructEventApi } from "./event"
 import { constructFsApi } from "./fs"
@@ -67,6 +68,7 @@ import {
 	// type IUiWorkerServer
 } from "./ui"
 import { constructUtilsApi } from "./utils"
+import { constructSecurityAPI } from "./security"
 
 // export type { IDbServer } from "./db"
 export { constructFsApi } from "./fs"
@@ -113,6 +115,7 @@ export type IKunkunFullServerAPI = {
 	shell: IShellServer
 	iframeUi: IUiIframeServer1
 	utils: IUtils
+	security: ISecurity
 }
 
 /**
@@ -193,6 +196,9 @@ export function constructJarvisServerAPIWithPermissions(
 			extPath
 		),
 		iframeUi: constructIframeUiApi(),
-		utils: constructUtilsApi()
+		utils: constructUtilsApi(),
+		security: constructSecurityAPI(getStringPermissions(permissions).filter((p) =>
+			p.startsWith("security:")
+		) as SecurityPermission[])
 	}
 }

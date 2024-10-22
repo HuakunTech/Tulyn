@@ -320,6 +320,16 @@
           "const": "deny-app-is-dev"
         },
         {
+          "description": "Enables the check_screen_capture_access command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-check-screen-capture-access"
+        },
+        {
+          "description": "Denies the check_screen_capture_access command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-check-screen-capture-access"
+        },
+        {
           "description": "Enables the close_devtools command without any pre-configured scope.",
           "type": "string",
           "const": "allow-close-devtools"
@@ -870,6 +880,16 @@
           "const": "deny-register-extension-window"
         },
         {
+          "description": "Enables the request_screen_capture_access command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-request-screen-capture-access"
+        },
+        {
+          "description": "Denies the request_screen_capture_access command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-request-screen-capture-access"
+        },
+        {
           "description": "Enables the restart_server command without any pre-configured scope.",
           "type": "string",
           "const": "allow-restart-server"
@@ -1138,6 +1158,16 @@
           "description": "Denies the update_extension_data_by_id command without any pre-configured scope.",
           "type": "string",
           "const": "deny-update-extension-data-by-id"
+        },
+        {
+          "description": "Enables the verify_auth command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-verify-auth"
+        },
+        {
+          "description": "Denies the verify_auth command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-verify-auth"
         },
         {
           "description": "This enables all permissions for Jarvis",
