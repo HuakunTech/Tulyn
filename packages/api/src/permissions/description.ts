@@ -86,5 +86,15 @@ export const permissionDescriptions: PermissionDescriptions = {
 	"event:drag-over": "Listen to drag over event",
 	"event:window-blur": "Listen to window blur event",
 	"event:window-close-requested": "Listen to window close requested event",
-	"event:window-focus": "Listen to window focus event"
+	"event:window-focus": "Listen to window focus event",
+	/* -------------------------------------------------------------------------- */
+	/*                                  Security                                  */
+	/* -------------------------------------------------------------------------- */
+	"security:mac:reveal-security-pane":
+		"Reveal security privacy settings panel in Mac's System Preferences",
+	"security:mac:verify-fingerprint": "Verify fingerprint",
+	"security:mac:reset-screencapture-permission": "Reset  permission",
+	"security:mac:request-permission": "Request security permission",
+	"security:mac:check-permission": "Check security permission",
+	"security:mac:all": "All Mac Security APIs"
 }
