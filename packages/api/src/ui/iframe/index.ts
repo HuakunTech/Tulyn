@@ -30,6 +30,7 @@ import type {
 	IFs,
 	IOpen,
 	IPath,
+	ISecurity,
 	ISystem,
 	IToast,
 	IUiIframe,
@@ -66,6 +67,7 @@ type API = {
 	network: Remote<INetwork> // inherit from tauri-api-adapter
 	iframeUi: Remote<IUiIframe> // for kunkun
 	utils: IUtils // for kunkun
+	security: ISecurity // for kunkun
 	app: IApp
 }
 const _api = wrap(windowEndpoint(globalThis.parent)) as unknown as API
