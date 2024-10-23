@@ -1,4 +1,5 @@
 import { invoke } from "@tauri-apps/api/core"
+import { appDataDir, join } from "@tauri-apps/api/path"
 import { generateJarvisPluginCommand } from "./common"
 
 export function startServer(): Promise<void> {
@@ -17,21 +18,23 @@ export function serverIsRunning(): Promise<boolean> {
 	return invoke(generateJarvisPluginCommand("server_is_running"))
 }
 
-export function setDevExtensionFolder(devExtFolder: string | null): Promise<void> {
-	return invoke(generateJarvisPluginCommand("set_dev_extension_folder"), { devExtFolder })
-}
+// TODO: clean this up
+// export function setDevExtensionFolder(devExtFolder: string | null): Promise<void> {
+// 	return invoke(generateJarvisPluginCommand("set_dev_extension_folder"), { devExtFolder })
+// }
 
-export function setExtensionFolder(extFolder: string | null): Promise<void> {
-	return invoke(generateJarvisPluginCommand("set_extension_folder"), { extFolder })
-}
+// export function setExtensionFolder(extFolder: string | null): Promise<void> {
+// 	return invoke(generateJarvisPluginCommand("set_extension_folder"), { extFolder })
+// }
 
-export function getExtensionFolder(): Promise<string | null> {
-	return invoke(generateJarvisPluginCommand("get_extension_folder"))
-}
+// export function getExtensionFolder(): Promise<string | null> {
+// return invoke(generateJarvisPluginCommand("get_extension_folder"))
+// 	return appDataDir().then((dir) => join(dir, "extensions"))
+// }
 
-export function getDevExtensionFolder(): Promise<string | null> {
-	return invoke(generateJarvisPluginCommand("get_dev_extension_folder"))
-}
+// export function getDevExtensionFolder(): Promise<string | null> {
+// return invoke(generateJarvisPluginCommand("get_dev_extension_folder"))
+// }
 
 export function getServerPort() {
 	return invoke<number>(generateJarvisPluginCommand("get_server_port"))

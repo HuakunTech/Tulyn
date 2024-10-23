@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {
-	getDevExtensionFolder,
 	getExtensionFolder,
 	getServerPort,
 	restartServer,
@@ -10,6 +9,7 @@ import {
 } from "@kksh/api/commands"
 import { Badge } from "@kksh/vue/badge"
 import { Button } from "@kksh/vue/button"
+import { getExtensionsFolder } from "~/lib/constants"
 import { open } from "tauri-plugin-shellx-api"
 import { onMounted, onUnmounted, ref } from "vue"
 import { toast } from "vue-sonner"
@@ -18,13 +18,11 @@ import { z } from "zod"
 const serverRunning = ref(false)
 let interval: NodeJS.Timeout
 const extFolder = ref<string | null>()
-const devExtFolder = ref<string | null>()
 const port = ref<number>()
 
 async function refreshStatus() {
 	serverRunning.value = z.boolean().parse(await serverIsRunning())
-	extFolder.value = await getExtensionFolder()
-	devExtFolder.value = await getDevExtensionFolder()
+	extFolder.value = await getExtensionsFolder()
 	port.value = await getServerPort()
 }
 
@@ -102,15 +100,6 @@ function restart() {
 			<span class="text-muted-foreground cursor-pointer" @click="extFolder && open(extFolder)">{{
 				extFolder
 			}}</span>
-		</p>
-		<p>
-			<strong>Dev Extension Folder: </strong>
-			<span
-				class="text-muted-foreground cursor-pointer"
-				@click="devExtFolder && open(devExtFolder)"
-			>
-				{{ devExtFolder }}
-			</span>
 		</p>
 	</div>
 </template>

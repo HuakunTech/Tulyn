@@ -1,7 +1,6 @@
 import { gqlClient } from "@/lib/utils/graphql"
 import * as supabase from "@/lib/utils/supabase"
 import { isCompatible } from "@kksh/api"
-import { getExtensionFolder } from "@kksh/api/commands"
 import type { ExtPackageJsonExtra } from "@kksh/api/models"
 import {
 	FindLatestExtDocument,
@@ -14,6 +13,7 @@ import { relaunch } from "@tauri-apps/plugin-process"
 import { check } from "@tauri-apps/plugin-updater"
 import { ElMessage, ElNotification } from "element-plus"
 import { gt } from "semver"
+import { getExtensionsFolder } from "../constants"
 import { installTarballUrl } from "./tarball"
 
 export async function checkUpdateAndInstall(beta?: boolean) {
@@ -36,7 +36,7 @@ export async function checkUpdateAndInstall(beta?: boolean) {
 }
 
 export function installExtension(identifier: string) {
-	return getExtensionFolder().then(async (targetInstallDir) => {
+	return getExtensionsFolder().then(async (targetInstallDir) => {
 		if (!targetInstallDir) {
 			return Promise.reject("Unexpected Error: Extension Folder is Null")
 		} else {

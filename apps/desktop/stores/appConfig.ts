@@ -1,7 +1,4 @@
-import {
-	restartServer,
-	setDevExtensionFolder as setDevExtensionFolderForServer
-} from "@kksh/api/commands"
+import { restartServer } from "@kksh/api/commands"
 import { LightMode } from "@kksh/api/models"
 import { appDataDir, BaseDirectory, join } from "@tauri-apps/api/path"
 import { exists, remove } from "@tauri-apps/plugin-fs"
@@ -165,13 +162,14 @@ export const useAppConfigStore = defineStore("appConfig", {
 			this.joinBetaProgram = join
 			emitRefreshConfig()
 		},
-		setDevExtensionPath(devExtensionPath: string | null) {
-			this.devExtensionPath = devExtensionPath
-			emitRefreshConfig()
-			return setDevExtensionFolderForServer(devExtensionPath).then(() => {
-				return restartServer()
-			})
-		},
+		// TODO: clean this up
+		// setDevExtensionPath(devExtensionPath: string | null) {
+		// 	this.devExtensionPath = devExtensionPath
+		// 	emitRefreshConfig()
+		// 	return setDevExtensionFolderForServer(devExtensionPath).then(() => {
+		// 		return restartServer()
+		// 	})
+		// },
 		setOnBoarded(onBoarded: boolean) {
 			this.onBoarded = onBoarded
 		},

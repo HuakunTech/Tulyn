@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { SUPABASE_URL } from "@/lib/constants"
-import { getDevExtensionFolder, getExtensionFolder, getServerPort } from "@kksh/api/commands"
+import { getExtensionsFolder, SUPABASE_URL } from "@/lib/constants"
+import { getServerPort } from "@kksh/api/commands"
 import { Button } from "@kksh/vue/button"
 import { appDataDir, join } from "@tauri-apps/api/path"
 import { open } from "tauri-plugin-shellx-api"
@@ -8,13 +8,11 @@ import { onMounted, ref } from "vue"
 
 const runtimeConfig = useRuntimeConfig()
 const extFolder = ref<string | null>()
-const devExtFolder = ref<string | null>()
 const port = ref<number>()
 const appDataPath = await appDataDir()
 // const appConfigPath = await join(appDataPath, "appConfig.bin")
 async function refreshFolderFetch() {
-	extFolder.value = await getExtensionFolder()
-	devExtFolder.value = await getDevExtensionFolder()
+	extFolder.value = await getExtensionsFolder()
 }
 
 onMounted(async () => {
@@ -30,21 +28,6 @@ onMounted(async () => {
 				@click="extFolder && open(extFolder)"
 			>
 				<strong>Extension Path: </strong><span class="">{{ extFolder }}</span
-				><Icon name="ion:open-outline" />
-			</li>
-			<li
-				class="text-muted-foreground flex cursor-pointer items-center space-x-2"
-				@click="devExtFolder && open(devExtFolder)"
-			>
-				<strong>Dev Extension Path: </strong><span>{{ devExtFolder }}</span
-				><Icon name="ion:open-outline" />
-			</li>
-
-			<li
-				class="text-muted-foreground flex cursor-pointer items-center space-x-2"
-				@click="devExtFolder && open(`http://localhost:${port}`)"
-			>
-				<strong>Server Port: </strong><span>{{ port }}</span
 				><Icon name="ion:open-outline" />
 			</li>
 
