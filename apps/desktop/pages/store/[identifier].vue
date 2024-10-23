@@ -5,7 +5,6 @@ import { gqlClient } from "@/lib/utils/graphql"
 import * as supabase from "@/lib/utils/supabase"
 import { supabaseClient } from "@/lib/utils/supabase"
 import { installTarballUrl } from "@/lib/utils/tarball"
-import { getDevExtensionFolder, getExtensionFolder } from "@kksh/api/commands"
 import { IconEnum, KunkunExtManifest } from "@kksh/api/models"
 import { AllKunkunPermission, FsPermissionMap, permissionDescriptions } from "@kksh/api/permissions"
 import {
@@ -21,6 +20,7 @@ import { Separator } from "@kksh/vue/separator"
 import { ArrowLeftIcon } from "@radix-icons/vue"
 import { error } from "@tauri-apps/plugin-log"
 import { onKeyStroke } from "@vueuse/core"
+import { getExtensionsFolder } from "~/lib/constants"
 import { ElMessage } from "element-plus"
 import { CircleCheckBigIcon, Trash2Icon } from "lucide-vue-next"
 import * as v from "valibot"
@@ -81,7 +81,7 @@ async function installExt() {
 	const tarballUrl = supabase.getFileUrl(currentExt.value.tarball_path).data.publicUrl
 	console.log(`Install tarball: ${tarballUrl}`)
 
-	getExtensionFolder()
+	getExtensionsFolder()
 		.then((targetInstallDir) => {
 			console.log("targetInstallDir", targetInstallDir)
 

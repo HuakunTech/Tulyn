@@ -6,7 +6,6 @@ import DeveloperWarning from "@/components/settings/Developer/Warning.vue"
 import { default as TauriLink } from "@/components/tauri/link.vue"
 import { cn } from "@/lib/utils"
 import { installTarball, installTarballUrl } from "@/lib/utils/tarball"
-import { getDevExtensionFolder, getExtensionFolder } from "@kksh/api/commands"
 import { IconEnum } from "@kksh/api/models"
 import { Alert, AlertDescription, AlertTitle } from "@kksh/vue/alert"
 import { Button } from "@kksh/vue/button"
@@ -15,7 +14,7 @@ import { Input } from "@kksh/vue/input"
 import { Label } from "@kksh/vue/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@kksh/vue/popover"
 import { useStore } from "@nanostores/vue"
-import { downloadDir, join as pathJoin, tempDir } from "@tauri-apps/api/path"
+import { appDataDir, downloadDir, join, join as pathJoin, tempDir } from "@tauri-apps/api/path"
 import { open as openFileSelector } from "@tauri-apps/plugin-dialog"
 import { useAppConfigStore } from "~/stores/appConfig"
 import axios from "axios"
@@ -24,6 +23,7 @@ import { CloudDownloadIcon, DownloadIcon, ExternalLinkIcon, InfoIcon } from "luc
 import { ref, type HTMLAttributes } from "vue"
 import { z } from "zod"
 import RemoteURLInstall from "./RemoteURLInstall.vue"
+import { getDevExtensionFolder } from "~/lib/constants"
 
 const appConfig = useAppConfigStore()
 const props = defineProps<{
@@ -48,7 +48,7 @@ async function pickProject() {
 	if (!selected) {
 		return ElMessage.warning("No File Selected")
 	}
-	installTarball(selected.path, devExtFolder)
+	installTarball(selected, devExtFolder)
 }
 
 const downloadUrl = ref<string>("")

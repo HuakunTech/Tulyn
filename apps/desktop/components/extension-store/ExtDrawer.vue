@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { PERMISSIONS_EXPLANATION } from "@/lib/constants"
+import { getExtensionsFolder, PERMISSIONS_EXPLANATION } from "@/lib/constants"
 import { GlobalEventBus } from "@/lib/utils/events"
 import { gqlClient } from "@/lib/utils/graphql"
 import * as supabase from "@/lib/utils/supabase"
 import { supabaseClient } from "@/lib/utils/supabase"
 import { installTarballUrl } from "@/lib/utils/tarball"
-import { getDevExtensionFolder, getExtensionFolder } from "@kksh/api/commands"
 import { KunkunExtManifest } from "@kksh/api/models"
 import {
 	FindLatestExtDocument,
@@ -71,7 +70,7 @@ watch(
 	}
 )
 
-const manifest = computed<KunkunExtManifest>(() => {
+const manifest = computed<KunkunExtManifest | null>(() => {
 	if (currentExt.value) {
 		// @ts-ignore
 		return v.parse(KunkunExtManifest, JSON.parse(currentExt.value?.manifest as string))
@@ -87,7 +86,7 @@ async function installExt() {
 	const tarballUrl = supabase.getFileUrl(currentExt.value.tarball_path).data.publicUrl
 	console.log(`Install tarball: ${tarballUrl}`)
 
-	getExtensionFolder()
+	getExtensionsFolder()
 		.then((targetInstallDir) => {
 			if (!targetInstallDir) {
 				return Promise.reject("Unexpected Error: Extension Folder is Null")

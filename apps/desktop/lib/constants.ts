@@ -1,5 +1,5 @@
 import { AllKunkunPermission } from "@kksh/api/models"
-import { appDataDir, join } from "@tauri-apps/api/path"
+import { appDataDir, desktopDir, join } from "@tauri-apps/api/path"
 import WorkerExt from "~/pages/worker-ext.vue"
 // import { z } from "zod"
 import { object, record, string, type InferOutput } from "valibot"
@@ -10,6 +10,12 @@ import { loadEnvVarWithNotification } from "./utils/envvar"
 export function getExtensionsFolder() {
 	return appDataDir().then((appDataDirPath) => join(appDataDirPath, "extensions"))
 }
+
+// TODO: this is a temporary replacement for old getDevExtensionFolder, I am getting rid of this while have to have this placeholder before everything is migrated to the new design
+export function getDevExtensionFolder() {
+	return desktopDir().then((dir) => join(dir, "dev-ext"))
+}
+
 const rtConfig = useRuntimeConfig()
 /* ---------------------------- Get Supabase URL ---------------------------- */
 export const SUPABASE_URL = rtConfig.public.SUPABASE_URL

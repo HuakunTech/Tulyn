@@ -10,7 +10,6 @@ import { gqlClient } from "@/lib/utils/graphql"
 import * as supabase from "@/lib/utils/supabase"
 import { ApolloClient, gql, HttpLink, InMemoryCache, type ApolloQueryResult } from "@apollo/client"
 import { isCompatible } from "@kksh/api"
-import { getExtensionFolder } from "@kksh/api/commands"
 import type { ExtPackageJsonExtra } from "@kksh/api/models"
 import {
 	AllExtensionsDocument,
@@ -180,7 +179,7 @@ function goBack() {
 }
 </script>
 <template>
-	<div class="grow h-full">
+	<div class="h-full grow">
 		<Command
 			:filterFunction="(val, searchTerm) => filterFunc(val as ExtItem[], searchTerm)"
 			v-model:searchTerm="searchTerm"
@@ -190,7 +189,7 @@ function goBack() {
 					<ArrowLeftIcon class="h-5 w-5 shrink-0" />
 				</Button>
 			</CommandInput>
-			<CommandList>
+			<CommandList class="h-full">
 				<CommandEmpty>No results found.</CommandEmpty>
 				<CommandGroup heading="Extensions">
 					<ExtListItem

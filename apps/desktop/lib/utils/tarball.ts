@@ -1,6 +1,6 @@
 import { loadExtensionManifestFromDisk } from "@/lib/commands/extensions"
-import { decompressTarball, getDevExtensionFolder, getExtensionFolder } from "@kksh/api/commands"
-import { desktopDir, downloadDir, join as pathJoin, tempDir } from "@tauri-apps/api/path"
+import { decompressTarball } from "@kksh/api/commands"
+import { join as pathJoin, tempDir } from "@tauri-apps/api/path"
 import * as dialog from "@tauri-apps/plugin-dialog"
 import * as fs from "@tauri-apps/plugin-fs"
 import { download } from "@tauri-apps/plugin-upload"
