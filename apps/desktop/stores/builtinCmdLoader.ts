@@ -10,6 +10,7 @@ import { defineStore } from "pinia"
 import { v4 as uuidv4 } from "uuid"
 import { toast } from "vue-sonner"
 import { useAppStateStore } from "./appState"
+import type { IExtensionLoader } from "./types"
 
 const localePath = useLocalePath()
 const rtConfig = useRuntimeConfig()
@@ -218,5 +219,5 @@ export const useBuiltInCmdStore = defineStore("built-in-cmd-loader", () => {
 		$listItems,
 		$filteredListItems,
 		onSelect
-	}
+	} satisfies IExtensionLoader
 })
