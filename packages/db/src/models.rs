@@ -6,6 +6,8 @@ use serde::{Deserialize, Serialize};
 pub struct Ext {
     pub ext_id: i32,
     pub identifier: String,
+    pub path: Option<String>,
+    pub data: Option<String>,
     pub version: String,
     pub enabled: bool,
     pub installed_at: String,
@@ -27,7 +29,8 @@ pub struct ExtData {
 #[serde(rename_all = "snake_case")]
 pub enum CmdType {
     Iframe,
-    Worker,
+    UiWorker,
+    HeadlessWorker,
     QuickLink,
     Remote,
 }
@@ -45,7 +48,8 @@ impl FromSql for CmdType {
         let type_: String = value.as_str()?.to_string();
         match type_.as_str() {
             "iframe" => Ok(CmdType::Iframe),
-            "worker" => Ok(CmdType::Worker),
+            "ui_worker" => Ok(CmdType::UiWorker),
+            "headless_worker" => Ok(CmdType::HeadlessWorker),
             "quick_link" => Ok(CmdType::QuickLink),
             "remote" => Ok(CmdType::Remote),
             _ => Err(rusqlite::types::FromSqlError::InvalidType),
@@ -74,10 +78,12 @@ mod tests {
     #[test]
     fn test_cmd_type() {
         let iframe = CmdType::Iframe;
-        let worker = CmdType::Worker;
+        let worker = CmdType::UiWorker;
+        let headless_worker = CmdType::HeadlessWorker;
         let quick_link = CmdType::QuickLink;
         assert_eq!(iframe.to_string(), "iframe");
-        assert_eq!(worker.to_string(), "worker");
+        assert_eq!(worker.to_string(), "ui_worker");
+        assert_eq!(headless_worker.to_string(), "headless_worker");
         assert_eq!(quick_link.to_string(), "quick_link");
     }
 }

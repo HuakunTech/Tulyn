@@ -37,7 +37,8 @@ export type Ext = InferOutput<typeof Ext>
 
 export enum CmdTypeEnum {
 	Iframe = "iframe",
-	Worker = "worker",
+	HeadlessWorker = "headless_worker",
+	UiWorker = "ui_worker",
 	QuickLink = "quick_link",
 	Remote = "remote"
 }

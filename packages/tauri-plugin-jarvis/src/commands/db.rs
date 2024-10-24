@@ -28,11 +28,13 @@ pub async fn create_extension(
     identifier: &str,
     version: &str,
     enabled: Option<bool>,
+    path: Option<&str>,
+    data: Option<&str>,
 ) -> Result<(), String> {
     db.db
         .lock()
         .unwrap()
-        .create_extension(identifier, version, enabled.unwrap_or(true))
+        .create_extension(identifier, version, enabled.unwrap_or(true), path, data)
         .map_err(|err| err.to_string())
 }
 
@@ -58,14 +60,20 @@ pub async fn get_extension_by_identifier(
 }
 
 #[tauri::command]
-pub async fn delete_extension_by_identifier(
-    identifier: &str,
-    db: State<'_, DBState>,
-) -> Result<(), String> {
+pub async fn delete_extension_by_path(path: &str, db: State<'_, DBState>) -> Result<(), String> {
     db.db
         .lock()
         .unwrap()
-        .delete_extension_by_identifier(identifier)
+        .delete_extension_by_path(path)
+        .map_err(|err| err.to_string())
+}
+
+#[tauri::command]
+pub async fn delete_extension_by_ext_id(ext_id: i32, db: State<'_, DBState>) -> Result<(), String> {
+    db.db
+        .lock()
+        .unwrap()
+        .delete_extension_by_ext_id(ext_id)
         .map_err(|err| err.to_string())
 }
 
