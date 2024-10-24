@@ -400,6 +400,16 @@
           "const": "deny-delete-command-by-id"
         },
         {
+          "description": "Enables the delete_extension_by_ext_id command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-delete-extension-by-ext-id"
+        },
+        {
+          "description": "Denies the delete_extension_by_ext_id command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-delete-extension-by-ext-id"
+        },
+        {
           "description": "Enables the delete_extension_by_identifier command without any pre-configured scope.",
           "type": "string",
           "const": "allow-delete-extension-by-identifier"
@@ -408,6 +418,16 @@
           "description": "Denies the delete_extension_by_identifier command without any pre-configured scope.",
           "type": "string",
           "const": "deny-delete-extension-by-identifier"
+        },
+        {
+          "description": "Enables the delete_extension_by_path command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-delete-extension-by-path"
+        },
+        {
+          "description": "Denies the delete_extension_by_path command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-delete-extension-by-path"
         },
         {
           "description": "Enables the delete_extension_data_by_id command without any pre-configured scope.",

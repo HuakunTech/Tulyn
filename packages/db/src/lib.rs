@@ -3,8 +3,10 @@ pub mod schema;
 use models::CmdType;
 use rusqlite::{params, params_from_iter, Connection, Result, ToSql};
 use serde::{Deserialize, Serialize};
-use std::path::Path;
+use std::path::{self, Path};
 use strum_macros::{Display, EnumString};
+
+pub const DB_VERSION: u32 = 1;
 
 pub fn get_connection<P: AsRef<Path>>(
     file_path: P,
@@ -42,35 +44,111 @@ impl JarvisDB {
         Ok(Self { conn })
     }
 
+    /**
+     * Run this when app starts everytime, to ensure the db is up to date.
+     */
     pub fn init(&self) -> Result<()> {
-        self.conn
-            .execute_batch(&format!("BEGIN; {} COMMIT;", &schema::SCHEMA))?;
+        let schema_version_exists = self.schema_version_exists()?;
+        if !schema_version_exists {
+            // this means the db is not initialized at all, so we need to migrate from version 0, i.e. run all migration scripts
+            self.migrate_after_version(0)?;
+        } else {
+            let current_version = self.get_schema_version()?;
+            self.migrate_after_version(current_version.unwrap())?;
+        }
         Ok(())
+    }
+
+    pub fn migrate_after_version(&self, version: u16) -> Result<()> {
+        for migration in schema::MIGRATIONS.iter() {
+            if migration.version > version {
+                println!(
+                    "Migrating from version {} to {}",
+                    version, migration.version
+                );
+                // self.conn.execute(&migration.schema, params![])?;
+                match self
+                    .conn
+                    .execute_batch(&format!("BEGIN; {} COMMIT;", migration.script))
+                {
+                    Ok(_) => {
+                        self.upsert_schema_version(migration.version)?;
+                    }
+                    Err(e) => {
+                        eprintln!("Failed to execute migration script: {}", e);
+                        return Err(e);
+                    }
+                }
+            }
+        }
+        Ok(())
+    }
+
+    /**
+     * Insert the schema version into the schema_version table if it doesn't exist yet
+     */
+    pub fn upsert_schema_version(&self, version: u16) -> Result<()> {
+        self.conn.execute(
+            "INSERT OR IGNORE INTO schema_version (version) VALUES (?1)",
+            params![version],
+        )?;
+        Ok(())
+    }
+
+    pub fn schema_version_exists(&self) -> Result<bool> {
+        match self.get_schema_version() {
+            Ok(Some(_)) => Ok(true),
+            _ => Ok(false),
+        }
+    }
+
+    pub fn get_schema_version(&self) -> Result<Option<u16>> {
+        let mut stmt = self
+            .conn
+            .prepare("SELECT version FROM schema_version ORDER BY version DESC LIMIT 1;")?;
+        let version_iter = stmt.query_map(params![], |row| {
+            let version: u16 = row.get(0)?;
+            Ok(version)
+        })?;
+        let mut versions: Vec<u16> = Vec::new();
+        for version in version_iter {
+            versions.push(version?);
+        }
+        Ok(versions.first().copied())
     }
 
     /* -------------------------------------------------------------------------- */
     /*                               Extensions CRUD                              */
     /* -------------------------------------------------------------------------- */
 
-    pub fn create_extension(&self, identifier: &str, version: &str, enabled: bool) -> Result<()> {
+    pub fn create_extension(
+        &self,
+        identifier: &str,
+        version: &str,
+        enabled: bool,
+        path: Option<&str>,
+        data: Option<&str>,
+    ) -> Result<()> {
         self.conn.execute(
-            "INSERT INTO extensions (identifier, version, enabled) VALUES (?1, ?2, ?3)",
-            params![identifier, version, enabled],
+            "INSERT INTO extensions (identifier, version, enabled, path, data) VALUES (?1, ?2, ?3, ?4, ?5)",
+            params![identifier, version, enabled, path, data],
         )?;
         Ok(())
     }
 
     pub fn get_all_extensions(&self) -> Result<Vec<models::Ext>> {
-        let mut stmt = self
-            .conn
-            .prepare("SELECT ext_id, identifier, version, enabled, installed_at FROM extensions")?;
+        let mut stmt = self.conn.prepare(
+            "SELECT ext_id, identifier, path, data, version, enabled, installed_at FROM extensions",
+        )?;
         let ext_iter = stmt.query_map(params![], |row| {
             Ok(models::Ext {
                 ext_id: row.get(0)?,
                 identifier: row.get(1)?,
-                version: row.get(2)?,
-                enabled: row.get(3)?,
-                installed_at: row.get(4)?,
+                path: row.get(2)?,
+                data: row.get(3)?,
+                version: row.get(4)?,
+                enabled: row.get(5)?,
+                installed_at: row.get(6)?,
             })
         })?;
         let mut exts = Vec::new();
@@ -82,15 +160,17 @@ impl JarvisDB {
 
     pub fn get_extension_by_identifier(&self, identifier: &str) -> Result<Option<models::Ext>> {
         let mut stmt = self.conn.prepare(
-            "SELECT ext_id, identifier, version, enabled, installed_at FROM extensions WHERE identifier = ?1",
+            "SELECT ext_id, identifier, path, data, version, enabled, installed_at FROM extensions WHERE identifier = ?1",
         )?;
         let ext_iter = stmt.query_map(params![identifier], |row| {
             Ok(models::Ext {
                 ext_id: row.get(0)?,
                 identifier: row.get(1)?,
-                version: row.get(2)?,
-                enabled: row.get(3)?,
-                installed_at: row.get(4)?,
+                path: row.get(2)?,
+                data: row.get(3)?,
+                version: row.get(4)?,
+                enabled: row.get(5)?,
+                installed_at: row.get(6)?,
             })
         })?;
         let mut exts = Vec::new();
@@ -100,11 +180,24 @@ impl JarvisDB {
         Ok(exts.first().cloned())
     }
 
-    pub fn delete_extension_by_identifier(&self, identifier: &str) -> Result<()> {
-        self.conn.execute(
-            "DELETE FROM extensions WHERE identifier = ?1",
-            params![identifier],
-        )?;
+    // TODO: clean this up
+    // pub fn delete_extension_by_identifier(&self, identifier: &str) -> Result<()> {
+    //     self.conn.execute(
+    //         "DELETE FROM extensions WHERE identifier = ?1",
+    //         params![identifier],
+    //     )?;
+    //     Ok(())
+    // }
+
+    pub fn delete_extension_by_path(&self, path: &str) -> Result<()> {
+        self.conn
+            .execute("DELETE FROM extensions WHERE path = ?1", params![path])?;
+        Ok(())
+    }
+
+    pub fn delete_extension_by_ext_id(&self, ext_id: i32) -> Result<()> {
+        self.conn
+            .execute("DELETE FROM extensions WHERE ext_id = ?1", params![ext_id])?;
         Ok(())
     }
 
@@ -403,12 +496,15 @@ mod tests {
         let db = JarvisDB::new(&db_path, None).unwrap();
         assert!(fs::metadata(&db_path).is_ok());
         db.init().unwrap();
-        db.create_extension("test", "0.1.0", true).unwrap();
+        db.create_extension("test", "0.1.0", true, Some("/abc/def"), None)
+            .unwrap();
         let exts = db.get_all_extensions().unwrap();
         assert_eq!(exts.len(), 1);
 
         // expect error due to unique identifier constraint
-        assert!(db.create_extension("test", "0.1.0", true).is_err());
+        assert!(db
+            .create_extension("test", "0.1.0", true, Some("/abc/def"), None)
+            .is_err());
 
         // get ext by identifier
         let ext = db.get_extension_by_identifier("test").unwrap();
@@ -424,7 +520,8 @@ mod tests {
         assert!(ext.is_none());
 
         /* ----------------------- Delete ext by identifier ---------------------- */
-        db.delete_extension_by_identifier("test").unwrap();
+        // db.delete_extension_by_identifier("test").unwrap();
+        db.delete_extension_by_path("/abc/def").unwrap();
         let exts = db.get_all_extensions().unwrap();
         assert_eq!(exts.len(), 0);
 
@@ -444,7 +541,8 @@ mod tests {
         let db = JarvisDB::new(&db_path, None).unwrap();
         assert!(fs::metadata(&db_path).is_ok());
         db.init().unwrap();
-        db.create_extension("test", "0.1.0", true).unwrap();
+        db.create_extension("test", "0.1.0", true, Some("/abc/def"), None)
+            .unwrap();
         let ext = db.get_extension_by_identifier("test").unwrap().unwrap();
 
         db.create_extension_data(ext.ext_id, "test", "{}", None)
@@ -685,7 +783,8 @@ mod tests {
         let db = JarvisDB::new(&db_path, None).unwrap();
         assert!(fs::metadata(&db_path).is_ok());
         db.init().unwrap();
-        db.create_extension("test", "0.1.0", true).unwrap();
+        db.create_extension("test", "0.1.0", true, None, None)
+            .unwrap();
         let ext = db.get_extension_by_identifier("test").unwrap().unwrap();
 
         db.create_command(ext.ext_id, "test", CmdType::Iframe, "{}", true, None, None)
@@ -693,7 +792,7 @@ mod tests {
         db.create_command(
             ext.ext_id,
             "test2",
-            CmdType::Worker,
+            CmdType::UiWorker,
             "{}",
             true,
             Some("t2"),
@@ -724,7 +823,7 @@ mod tests {
         db.update_command_by_id(
             cmds[0].cmd_id,
             "test3",
-            CmdType::Worker,
+            CmdType::UiWorker,
             "{}",
             false,
             Some("alias"),
@@ -733,7 +832,7 @@ mod tests {
         .unwrap();
         let cmd = db.get_command_by_id(cmds[0].cmd_id).unwrap().unwrap();
         assert_eq!(cmd.name, "test3");
-        assert_eq!(cmd.type_, models::CmdType::Worker);
+        assert_eq!(cmd.type_, models::CmdType::UiWorker);
         assert_eq!(cmd.data, "{}");
         assert_eq!(cmd.enabled, false);
         assert_eq!(cmd.alias.unwrap(), "alias");

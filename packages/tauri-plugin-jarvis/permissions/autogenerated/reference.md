@@ -284,6 +284,32 @@ Denies the delete_command_by_id command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-delete-extension-by-ext-id`
+
+</td>
+<td>
+
+Enables the delete_extension_by_ext_id command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-delete-extension-by-ext-id`
+
+</td>
+<td>
+
+Denies the delete_extension_by_ext_id command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-delete-extension-by-identifier`
 
 </td>
@@ -303,6 +329,32 @@ Enables the delete_extension_by_identifier command without any pre-configured sc
 <td>
 
 Denies the delete_extension_by_identifier command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-delete-extension-by-path`
+
+</td>
+<td>
+
+Enables the delete_extension_by_path command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-delete-extension-by-path`
+
+</td>
+<td>
+
+Denies the delete_extension_by_path command without any pre-configured scope.
 
 </td>
 </tr>

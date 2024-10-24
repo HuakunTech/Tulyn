@@ -11,7 +11,7 @@ use tauri::{AppHandle, Manager, Runtime};
 fn create_ext_if_not_exist(identifier: &str, db: &db::JarvisDB) -> anyhow::Result<()> {
     let ext = db.get_extension_by_identifier(identifier)?;
     if ext.is_none() {
-        db.create_extension(identifier, "1.0.0", true)?;
+        db.create_extension(identifier, "1.0.0", true, None, None)?;
         log::info!("Created extension: {}", identifier)
     }
     Ok(())

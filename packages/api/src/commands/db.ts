@@ -36,8 +36,17 @@ export function getExtensionByIdentifierExpectExists(identifier: string): Promis
 	})
 }
 
-export function deleteExtensionByIdentifier(identifier: string) {
-	return invoke<void>(generateJarvisPluginCommand("delete_extension_by_identifier"), { identifier })
+// TODO: clean this up
+// export function deleteExtensionByIdentifier(identifier: string) {
+// 	return invoke<void>(generateJarvisPluginCommand("delete_extension_by_identifier"), { identifier })
+// }
+
+export function deleteExtensionByPath(path: string) {
+	return invoke<void>(generateJarvisPluginCommand("delete_extension_by_path"), { path })
+}
+
+export function deleteExtensionByExtId(extId: string) {
+	return invoke<void>(generateJarvisPluginCommand("delete_extension_by_ext_id"), { extId })
 }
 
 /* -------------------------------------------------------------------------- */
