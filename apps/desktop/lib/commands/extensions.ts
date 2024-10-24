@@ -45,14 +45,7 @@ export function loadAllExtensionsFromDisk(
 			} catch (error) {
 				continue
 			}
-			const extInDb = await db.getExtensionByIdentifier(extPkgJson.kunkun.identifier)
-			if (!extInDb) {
-				// create this extension in database
-				await db.createExtension({
-					identifier: extPkgJson.kunkun.identifier,
-					version: extPkgJson.version
-				})
-			}
+			upsertExtension(extPkgJson, extFullPath)
 			results.push(
 				Object.assign(extPkgJson, {
 					extPath: extFullPath,
@@ -62,4 +55,16 @@ export function loadAllExtensionsFromDisk(
 		}
 		return results
 	})
+}
+
+export async function upsertExtension(extPkgJson: ExtPackageJson, extFullPath: string) {
+	const extInDb = await db.getExtensionByIdentifier(extPkgJson.kunkun.identifier)
+	if (!extInDb) {
+		// create this extension in database
+		await db.createExtension({
+			identifier: extPkgJson.kunkun.identifier,
+			version: extPkgJson.version,
+			path: extFullPath
+		})
+	}
 }

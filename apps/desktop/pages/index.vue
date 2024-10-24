@@ -33,8 +33,9 @@ const appsStore = useAppsLoaderStore()
 const sysCmdsStore = useSystemCmdsStore()
 const appStateStore = useAppStateStore()
 const remoteCmdStore = useRemoteCmdStore()
-const devExtStore = useDevExtStore()
-const extStore = useExtStore()
+const extStore = useExtensionStore()
+// const devExtStore = useDevExtStore()
+// const extStore = useExtStore()
 const appConfig = useAppConfigStore()
 await appConfig.init()
 const lastTimeStore = useLastTimeStore()
@@ -42,7 +43,7 @@ const quicklinkLoader = useQuicklinkLoader()
 const windowExtMapStore = useWindowExtMapStore()
 await lastTimeStore.init()
 const extLoaders = ref([
-	devExtStore,
+	// devExtStore,
 	extStore,
 	quicklinkLoader,
 	builtinCmdStore,

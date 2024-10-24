@@ -8,7 +8,13 @@ import { generateJarvisPluginCommand } from "./common"
 /* -------------------------------------------------------------------------- */
 /*                               Extension CRUD                               */
 /* -------------------------------------------------------------------------- */
-export function createExtension(ext: { identifier: string; version: string }) {
+export function createExtension(ext: {
+	identifier: string
+	version: string
+	enabled?: boolean
+	path?: string
+	data?: any
+}) {
 	return invoke<void>(generateJarvisPluginCommand("create_extension"), ext)
 }
 
