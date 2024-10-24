@@ -33,6 +33,7 @@ import {
 } from "~/components/ui/command"
 import { installTarballUrl } from "~/lib/utils/tarball"
 import { installExtension } from "~/lib/utils/updater"
+import { useExtensionStore } from "~/stores/extension"
 import { useExtStore } from "~/stores/extensionLoader"
 import { ElMessage } from "element-plus"
 import { gt } from "semver"
@@ -44,7 +45,8 @@ const selectedExt = ref<ExtItem>()
 const extDrawerOpen = ref(false)
 const extList = ref<ExtItem[]>([])
 const installedManifests = ref<ExtPackageJsonExtra[]>([])
-const extStore = useExtStore()
+const extStore = useExtensionStore()
+// const extStore = useExtStore()
 const searchTerm = ref("")
 
 function refreshListing() {

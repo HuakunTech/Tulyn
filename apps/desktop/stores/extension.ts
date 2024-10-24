@@ -1,5 +1,5 @@
 import { constructExtensionSupportDir } from "@kksh/api"
-import { registerExtensionWindow, unregisterExtensionWindow } from "@kksh/api/commands"
+import { db, registerExtensionWindow, unregisterExtensionWindow } from "@kksh/api/commands"
 import type { CustomUiCmd, ExtPackageJsonExtra, OSPlatform, TemplateUiCmd } from "@kksh/api/models"
 import { convertFileSrc } from "@tauri-apps/api/core"
 import { appDataDir, join } from "@tauri-apps/api/path"
@@ -243,7 +243,31 @@ export const useExtensionStore = defineStore("kk-extensions", () => {
 			: filterListItem(appStateStore.searchTerm, $listItems.value)
 	})
 
-	function uninstallExt(extPath: string) {
+	/**
+	 * This function uninstalls extensions installed from store by identifier
+	 * Identifier could repeat in database if there is dev extensions, but extensions installed from store should only have one instance
+	 * @param identifier
+	 * @returns
+	 */
+	async function uninstallStoreExtByIdentifier(identifier: string): Promise<ExtPackageJsonExtra> {
+		const storeExtDir = await getExtensionsFolder()
+		const found = manifests.value.find(
+			(m) => m.kunkun.identifier === identifier && m.extPath.startsWith(storeExtDir)
+		)
+		if (found) {
+			return fs.remove(found.extPath, { recursive: true }).then(() => {
+				return db.deleteExtensionByPath(found.extPath).then(() => {
+					return found
+				})
+			})
+		} else {
+			console.error("Extension not found", identifier)
+			return Promise.reject("Extension not found")
+		}
+	}
+
+	function uninstallExtByExtPath(extPath: string) {
+		console.log("uninstallExt", extPath)
 		const found = manifests.value.find((m) => m.extPath === extPath)
 		if (found) {
 			return fs.remove(found.extPath, { recursive: true }).then(() => {
@@ -259,11 +283,13 @@ export const useExtensionStore = defineStore("kk-extensions", () => {
 		id: uuidv4(),
 		extensionName: "Extensions",
 		$listItems,
+		manifests,
 		$filteredListItems,
 		onSelect,
 		load,
-		uninstallExt
+		uninstallExt: uninstallStoreExtByIdentifier
 	} satisfies IExtensionLoader & {
 		uninstallExt: (extPath: string) => Promise<ExtPackageJsonExtra>
+		manifests: Ref<ExtPackageJsonExtra[]>
 	}
 })
