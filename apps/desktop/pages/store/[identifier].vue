@@ -21,6 +21,7 @@ import { ArrowLeftIcon } from "@radix-icons/vue"
 import { error } from "@tauri-apps/plugin-log"
 import { onKeyStroke } from "@vueuse/core"
 import { getExtensionsFolder } from "~/lib/constants"
+import { useExtensionStore } from "~/stores/extension"
 import { ElMessage } from "element-plus"
 import { CircleCheckBigIcon, Trash2Icon } from "lucide-vue-next"
 import * as v from "valibot"
@@ -33,7 +34,8 @@ const installLoading = ref(false)
 const uninstallLoading = ref(false)
 const currentExt = ref<Tables<"ext_publish"> | null>(null)
 const manifest = ref<KunkunExtManifest | null>(null)
-const extStore = useExtStore()
+const extStore = useExtensionStore()
+// const extStore = useExtStore()
 
 onKeyStroke("Escape", (e) => {
 	e.preventDefault()
