@@ -37,8 +37,7 @@ function openMainWindow() {
 		.catch((err) => {
 			console.error(err)
 			error(`Failed to show window upon deep link: ${err.message}`)
-			toast.error({
-				title: "Failed to show window upon deep link",
+			toast.error("Failed to show window upon deep link", {
 				description: err.message
 			})
 		})
@@ -81,8 +80,7 @@ export async function handleFileProtocol(parsedUrl: URL) {
 			break
 		default:
 			console.error("Unknown file extension:", fileExt)
-			toast.error({
-				title: "Unknown file extension",
+			toast.error("Unknown file extension", {
 				description: fileExt
 			})
 			break
@@ -102,8 +100,7 @@ export async function handleDeepLink(url: string) {
 			return handleFileProtocol(parsedUrl)
 		default:
 			console.error("Invalid Protocol:", parsedUrl.protocol)
-			toast.error({
-				title: "Invalid Protocol",
+			toast.error("Invalid Protocol", {
 				description: parsedUrl.protocol
 			})
 			break

@@ -18,7 +18,7 @@ export function loadExtensionManifestFromDisk(manifestPath: string): Promise<Ext
 			error(`Fail to load extension from ${manifestPath}. See console for parse error.`)
 			console.error(parse.issues)
 			console.error(JSON.stringify(flatten<typeof ExtPackageJson>(parse.issues), null, 2))
-			throw new Error(`Invalid manifest: ${manifestPath} - ${parse.issues}`)
+			throw new Error(`Invalid manifest: ${manifestPath}`)
 		} else {
 			// debug(`Loaded extension ${parse.output.kunkun.identifier} from ${manifestPath}`)
 			const extPath = await dirname(manifestPath)
