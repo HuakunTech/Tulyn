@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import DragNDrop from "@/components/DragNDrop.vue"
+import AddDevExtForm from "@/components/forms/add-dev-ext.vue"
 import IconMultiplexer from "@/components/IconMultiplexer.vue"
 import DevExtPathForm from "@/components/settings/Developer/DevExtPathForm.vue"
 import DeveloperWarning from "@/components/settings/Developer/Warning.vue"
 import { default as TauriLink } from "@/components/tauri/link.vue"
 import { cn } from "@/lib/utils"
-import { installTarball, installTarballUrl } from "~/lib/utils/install"
 import { IconEnum } from "@kksh/api/models"
 import { Alert, AlertDescription, AlertTitle } from "@kksh/vue/alert"
 import { Button } from "@kksh/vue/button"
@@ -16,6 +16,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@kksh/vue/popover"
 import { useStore } from "@nanostores/vue"
 import { appDataDir, downloadDir, join, join as pathJoin, tempDir } from "@tauri-apps/api/path"
 import { open as openFileSelector } from "@tauri-apps/plugin-dialog"
+import { getDevExtensionFolder } from "~/lib/constants"
+import { installTarball, installTarballUrl } from "~/lib/utils/install"
 import { useAppConfigStore } from "~/stores/appConfig"
 import axios from "axios"
 import { ElMessage, ElNotification } from "element-plus"
@@ -23,7 +25,6 @@ import { CloudDownloadIcon, DownloadIcon, ExternalLinkIcon, InfoIcon } from "luc
 import { ref, type HTMLAttributes } from "vue"
 import { z } from "zod"
 import RemoteURLInstall from "./RemoteURLInstall.vue"
-import { getDevExtensionFolder } from "~/lib/constants"
 
 const appConfig = useAppConfigStore()
 const props = defineProps<{
@@ -131,6 +132,7 @@ async function handleDragNDropInstall(paths: string[]) {
 			</p>
 			<Label class="text-xl" for="pick">Set Dev Extension Path</Label>
 			<DevExtPathForm />
+			<AddDevExtForm />
 			<!-- Dev Extensions can only be installed when a dev extension path is set -->
 			<div v-if="appConfig.devExtensionPath" class="flex flex-col space-y-2">
 				<Label class="text-xl" for="pick"
@@ -209,7 +211,7 @@ async function handleDragNDropInstall(paths: string[]) {
 					<Button type="submit" size="sm">Download<DownloadIcon class="ml-2 h-4 w-4" /></Button>
 				</form>
 
-				<Label for="url" class="text-xl">
+				<!-- <Label for="url" class="text-xl">
 					Remote URL
 					<Popover>
 						<PopoverTrigger as-child>
@@ -218,7 +220,6 @@ async function handleDragNDropInstall(paths: string[]) {
 							</button>
 						</PopoverTrigger>
 						<PopoverContent class="ml-5 w-[45em] text-xs">
-							<!-- TODO: Fix the Links -->
 							Akun allows you to install a remote url as a command. Instead of loading UI from
 							locally-installed extension, Akun will load UI from the remote website. The website
 							may call Akun API to access native APIs and file system.
@@ -265,7 +266,7 @@ async function handleDragNDropInstall(paths: string[]) {
 						</PopoverContent>
 					</Popover>
 				</Label>
-				<RemoteURLInstall />
+				<RemoteURLInstall /> -->
 			</div>
 		</div>
 	</div>
