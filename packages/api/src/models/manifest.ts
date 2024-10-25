@@ -115,7 +115,13 @@ export const TemplateUiCmd = object({
 	)
 })
 export type TemplateUiCmd = InferOutput<typeof TemplateUiCmd>
-
+export const PermissionUnion = union([
+	KunkunManifestPermission,
+	FsPermissionScopedSchema,
+	OpenPermissionScopedSchema,
+	ShellPermissionScopedSchema
+])
+export type PermissionUnion = InferOutput<typeof PermissionUnion>
 export const KunkunExtManifest = object({
 	name: string("Name of the extension (Human Readable)"),
 	shortDescription: string("Description of the extension (Will be displayed in store)"),
@@ -125,12 +131,7 @@ export const KunkunExtManifest = object({
 	),
 	icon: Icon,
 	permissions: array(
-		union([
-			KunkunManifestPermission,
-			FsPermissionScopedSchema,
-			OpenPermissionScopedSchema,
-			ShellPermissionScopedSchema
-		]),
+		PermissionUnion,
 		"Permissions Declared by the extension. e.g. clipboard-all. Not declared APIs will be blocked."
 	),
 	demoImages: array(string("Demo images for the extension")),

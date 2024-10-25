@@ -132,86 +132,9 @@ async function handleDragNDropInstall(paths: string[]) {
 			</p>
 			<Label class="text-xl" for="pick">Set Dev Extension Path</Label>
 			<DevExtPathForm />
-			<AddDevExtForm />
+			<AddDevExtForm v-if="appConfig.devExtensionPath" />
 			<!-- Dev Extensions can only be installed when a dev extension path is set -->
-			<div v-if="appConfig.devExtensionPath" class="flex flex-col space-y-2">
-				<Label class="text-xl" for="pick"
-					>Pick Project Folder to Install
-
-					<Popover>
-						<PopoverTrigger as-child>
-							<button class="-translate-y-0.5">
-								<InfoIcon class="inline w-4 cursor-pointer" />
-							</button>
-						</PopoverTrigger>
-						<PopoverContent class="w-96">
-							Drag tarballs to the window to install extensions.
-						</PopoverContent>
-					</Popover>
-				</Label>
-				<div class="flex justify-center">
-					<DragNDrop
-						@drop="handleDragNDropInstall"
-						@drag="dragging = true"
-						@drag-cancelled="dragging = false"
-					>
-						<Card :class="cn('h-36 w-96', dragging ? 'border-lime-400/30' : 'text-blue')">
-							<div
-								class="flex h-full cursor-pointer items-center justify-center"
-								@click="pickProject"
-							>
-								<div :class="cn('flex flex-col items-center', dragging ? 'text-lime-400/70' : '')">
-									<IconMultiplexer
-										:icon="{ value: 'mdi:folder-cog-outline', type: IconEnum.Iconify }"
-										class="h-10 w-10"
-									/>
-									<small class="select-none text-xs">Click or Drag and Drop</small>
-								</div>
-							</div>
-						</Card>
-					</DragNDrop>
-				</div>
-
-				<Label for="url" class="text-xl">
-					Tarball URL / NPM Package Name
-					<Popover>
-						<PopoverTrigger as-child>
-							<button class="-translate-y-0.5">
-								<InfoIcon class="inline w-4 cursor-pointer" />
-							</button>
-						</PopoverTrigger>
-						<PopoverContent class="w-96">
-							<!-- TODO: Fix the Links -->
-							<TauriLink
-								class="block"
-								href="https://jarvis.huakun.tech/design/extensions/installation/"
-							>
-								Read Docs For More Details <ExternalLinkIcon class="inline w-4 -translate-y-0.5" />
-							</TauriLink>
-							<div class="text-xs">
-								It can be an npm package name like
-								<TauriLink class="block" href="@huakunshen/jarvis-ext-myip">
-									@huakunshen/jarvis-ext-myip
-								</TauriLink>
-								or a tarball url like
-								<TauriLink class="block" href="https://jarvis-extensions.huakun.tech/qrcode.tar.gz">
-									https://jarvis-extensions.huakun.tech/qrcode.tar.gz
-								</TauriLink>
-							</div>
-						</PopoverContent>
-					</Popover>
-				</Label>
-				<form class="flex w-full items-center gap-1.5" @submit="onDownloadSubmit">
-					<Input
-						id="url"
-						type="text"
-						placeholder="Tarball URL / NPM Package Name"
-						v-model="downloadUrl"
-					/>
-					<Button type="submit" size="sm">Download<DownloadIcon class="ml-2 h-4 w-4" /></Button>
-				</form>
-
-				<!-- <Label for="url" class="text-xl">
+			<!-- <Label for="url" class="text-xl">
 					Remote URL
 					<Popover>
 						<PopoverTrigger as-child>
@@ -267,7 +190,6 @@ async function handleDragNDropInstall(paths: string[]) {
 					</Popover>
 				</Label>
 				<RemoteURLInstall /> -->
-			</div>
 		</div>
 	</div>
 </template>

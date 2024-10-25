@@ -1,16 +1,9 @@
 <script setup lang="ts">
 import DragNDrop from "@/components/DragNDrop.vue"
 import AddDevExtForm from "@/components/forms/add-dev-ext.vue"
-import { cn } from "@/lib/utils"
-import { IconEnum } from "@kksh/api/models"
-import { AutoForm } from "@kksh/vue/auto-form"
+import DeveloperWarning from "@/components/settings/Developer/Warning.vue"
 import { Button } from "@kksh/vue/button"
-import { Card } from "@kksh/vue/card"
-import { Input } from "@kksh/vue/input"
-import { Separator } from "@kksh/vue/separator"
 import { ArrowLeftIcon } from "@radix-icons/vue"
-import { downloadDir } from "@tauri-apps/api/path"
-import { open as openFileSelector } from "@tauri-apps/plugin-dialog"
 import { onKeyStroke } from "@vueuse/core"
 
 definePageMeta({
@@ -32,15 +25,13 @@ function onBack() {
 			<ArrowLeftIcon />
 		</Button>
 		<h2 class="text-2xl font-bold">Add Dev Extension</h2>
-		<p class="prose">
-			This page allows you to add a development extension to the extension manager. You can either
-			pick a local extension folder or drag and drop the extension file here. 
-			<!-- The filename must end with <code>.tgz</code> or <code>.kunkun</code> -->
-		</p>
-		<p class="prose">
-			Or you can install an extension from a remote URL. The URL should be a direct link to the
-			file.
-		</p>
+		<div my-4 flex flex-col gap-2>
+			<DeveloperWarning />
+			<p class="text-xs">
+				There are 4 options to install an extension in developer mode. Either load it from your
+				local tarball file, a tarball remote URL, npm package name or load from a remote URL.
+			</p>
+		</div>
 		<AddDevExtForm />
 		<br />
 	</main>
