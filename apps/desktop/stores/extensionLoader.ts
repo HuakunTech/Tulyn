@@ -47,6 +47,7 @@ export function generateItemValue(
 	return JSON.stringify({
 		identifier: ext.kunkun.identifier,
 		cmdName: cmd.name,
+		extPath: ext.extPath,
 		isDev
 	})
 }

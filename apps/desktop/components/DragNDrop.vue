@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { listen, type UnlistenFn } from "@tauri-apps/api/event"
+import { listen, TauriEvent, type UnlistenFn } from "@tauri-apps/api/event"
 import { onMounted, onUnmounted } from "vue"
 import { z } from "zod"
 
@@ -18,32 +18,35 @@ const emits = defineEmits<{
 }>()
 
 onMounted(() => {
+	console.log("drag n drop onMounted")
+
 	// start drag, enter window
-	listen("tauri://drag", (event) => {
+	listen(TauriEvent.DRAG_ENTER, (event) => {
 		emits("drag")
 	}).then((unlisten) => {
-		unlisteners["tauri://drag"] = unlisten
+		unlisteners[TauriEvent.DRAG_ENTER] = unlisten
 	})
 
 	// drop file
-	listen("tauri://drop", (event) => {
+	listen(TauriEvent.DRAG_DROP, (event) => {
 		emits("drop", DropEvent.parse(event).payload.paths)
 	}).then((unlisten) => {
-		unlisteners["tauri://drop"] = unlisten
+		unlisteners[TauriEvent.DRAG_DROP] = unlisten
 	})
 
 	// drag cancelled, mouse move out of window
-	listen("tauri://drag-cancelled", (event) => {
+	listen(TauriEvent.DRAG_LEAVE, (event) => {
 		emits("dragCancelled")
 	}).then((unlisten) => {
-		unlisteners["tauri://drag-cancelled"] = unlisten
+		unlisteners[TauriEvent.DRAG_LEAVE] = unlisten
 	})
 
 	// drag over window, keep emitting while dragging
-	listen("tauri://drop-over", (event) => {
+	listen(TauriEvent.DRAG_OVER, (event) => {
 		emits("dropOver")
+		console.log(TauriEvent.DRAG_OVER)
 	}).then((unlisten) => {
-		unlisteners["tauri://drop-over"] = unlisten
+		unlisteners[TauriEvent.DRAG_OVER] = unlisten
 	})
 })
 

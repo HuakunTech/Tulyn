@@ -1,9 +1,11 @@
 import { loadExtensionManifestFromDisk } from "@/lib/commands/extensions"
-import { decompressTarball } from "@kksh/api/commands"
+import { db, decompressTarball } from "@kksh/api/commands"
+import type { ExtPackageJsonExtra } from "@kksh/api/models"
 import { join as pathJoin, tempDir } from "@tauri-apps/api/path"
 import * as dialog from "@tauri-apps/plugin-dialog"
 import * as fs from "@tauri-apps/plugin-fs"
 import { download } from "@tauri-apps/plugin-upload"
+import { useExtensionStore } from "~/stores/extension"
 import { v4 as uuidv4 } from "uuid"
 import { ZodError } from "zod"
 
@@ -38,6 +40,13 @@ export async function installTarball(tarballPath: string, targetDir: string) {
 				await fs.remove(extInstallPath, { recursive: true })
 			}
 			await fs.rename(decompressDest, extInstallPath)
+			await db.createExtension({
+				identifier: manifest.kunkun.identifier,
+				version: manifest.version,
+				enabled: true,
+				path: extInstallPath,
+				data: undefined
+			})
 		})
 		.catch((err) => {
 			if (err instanceof ZodError) {
@@ -50,6 +59,12 @@ export async function installTarball(tarballPath: string, targetDir: string) {
 		})
 }
 
+/**
+ * Install extension tarball from a URL
+ * @param tarballUrl URL to the tarball
+ * @param targetDir Target directory to install the tarball
+ * @returns
+ */
 export async function installTarballUrl(tarballUrl: string, targetDir: string): Promise<void> {
 	const filename = tarballUrl.split("/").pop()
 	if (filename) {
@@ -65,4 +80,39 @@ export async function installTarballUrl(tarballUrl: string, targetDir: string): 
 	} else {
 		return Promise.reject("Invalid Tarball URL. Cannot parse filename")
 	}
+}
+
+export async function installDevExtensionDir(dirPath: string): Promise<ExtPackageJsonExtra> {
+	const manifestPath = await pathJoin(dirPath, "package.json")
+	if (!(await fs.exists(manifestPath))) {
+		return Promise.reject(
+			`Invalid Extension Folder. Manifest package.json doesn't exist at ${manifestPath}`
+		)
+	}
+	return loadExtensionManifestFromDisk(manifestPath)
+		.then(async (manifest) => {
+			const exts = await db.getAllExtensionsByIdentifier(manifest.kunkun.identifier)
+			const extExists = exts.find((ext) => ext.path === dirPath)
+			if (extExists) {
+				return Promise.reject(`Extension Already Exists at ${extExists.path}. It will be skipped.`)
+			}
+			// manifest.extPath
+			return db
+				.createExtension({
+					identifier: manifest.kunkun.identifier,
+					version: manifest.version,
+					enabled: true,
+					path: dirPath,
+					data: undefined
+				})
+				.then(() => {
+					return manifest
+				})
+				.catch((err) => {
+					return Promise.reject(err)
+				})
+		})
+		.catch((err) => {
+			return Promise.reject(err)
+		})
 }

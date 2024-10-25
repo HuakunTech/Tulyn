@@ -171,7 +171,7 @@ fn main() {
             let db_key: Option<String> = None;
             let jarvis_db = JarvisDB::new(db_path.clone(), db_key.clone())?;
             // The clipboard extension should be created in setup_db, ext is guaranteed to be Some
-            let ext = jarvis_db.get_extension_by_identifier(
+            let ext = jarvis_db.get_unique_extension_by_identifier(
                 tauri_plugin_jarvis::constants::KUNKUN_CLIPBOARD_EXT_IDENTIFIER,
             )?;
 

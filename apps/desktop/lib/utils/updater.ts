@@ -14,7 +14,7 @@ import { check } from "@tauri-apps/plugin-updater"
 import { ElMessage, ElNotification } from "element-plus"
 import { gt } from "semver"
 import { getExtensionsFolder } from "../constants"
-import { installTarballUrl } from "./tarball"
+import { installTarballUrl } from "./install"
 
 export async function checkUpdateAndInstall(beta?: boolean) {
 	const update = await check({

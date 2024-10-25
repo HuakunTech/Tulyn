@@ -163,13 +163,10 @@ export const useAppConfigStore = defineStore("appConfig", {
 			emitRefreshConfig()
 		},
 		// TODO: clean this up
-		// setDevExtensionPath(devExtensionPath: string | null) {
-		// 	this.devExtensionPath = devExtensionPath
-		// 	emitRefreshConfig()
-		// 	return setDevExtensionFolderForServer(devExtensionPath).then(() => {
-		// 		return restartServer()
-		// 	})
-		// },
+		setDevExtensionPath(devExtensionPath: string | null) {
+			this.devExtensionPath = devExtensionPath
+			emitRefreshConfig()
+		},
 		setOnBoarded(onBoarded: boolean) {
 			this.onBoarded = onBoarded
 		},

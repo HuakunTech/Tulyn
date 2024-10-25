@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS schema_version (version INTEGER NOT NULL);
 -- Extensions table
 CREATE TABLE IF NOT EXISTS extensions (
 	ext_id INTEGER PRIMARY KEY AUTOINCREMENT,
-	identifier TEXT UNIQUE NOT NULL,
+	identifier TEXT NOT NULL,
 	version TEXT NOT NULL,
 	enabled BOOLEAN DEFAULT TRUE,
 	path TEXT UNIQUE,

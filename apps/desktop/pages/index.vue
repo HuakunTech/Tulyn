@@ -184,6 +184,7 @@ function handleQuicklinkEnter() {
 </script>
 <template>
 	<div class="h-full grow">
+		<!-- <pre>{{ extStore.$listItems }}</pre> -->
 		<CmdPaletteCommand
 			class=""
 			v-model:searchTerm="searchTermSyncProxy"
@@ -202,6 +203,7 @@ function handleQuicklinkEnter() {
 					<ListItem
 						v-for="(item, idx) in extLoader.$filteredListItems"
 						:item="item"
+						:key="`${extLoader.extensionName}-${idx}`"
 						:isDevExt="extLoader.extensionName === 'Dev Extensions'"
 						@select="extLoader.onSelect(item)"
 					/>

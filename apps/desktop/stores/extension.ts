@@ -7,16 +7,53 @@ import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import * as fs from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
 import { platform, type Platform } from "@tauri-apps/plugin-os"
-import { loadAllExtensionsFromDisk } from "~/lib/commands/extensions"
+import { computedAsync } from "@vueuse/core"
+import { loadAllExtensionsFromDb, loadAllExtensionsFromDisk } from "~/lib/commands/extensions"
 import { getExtensionsFolder } from "~/lib/constants"
 import { getPersistedAppConfigStore } from "~/lib/stores/appConfig"
 import { ListItemType, type TListItem } from "~/lib/types/list"
+import { isExtPathInDev } from "~/lib/utils/path"
 import { filterListItem } from "~/lib/utils/search"
 import { defineStore } from "pinia"
 import { v4 as uuidv4 } from "uuid"
 import * as v from "valibot"
 import { toast } from "vue-sonner"
 import { useAppStateStore } from "./appState"
+
+function generateItemValue(
+	ext: ExtPackageJsonExtra,
+	cmd: CustomUiCmd | TemplateUiCmd,
+	isDev: boolean
+) {
+	return JSON.stringify({
+		identifier: ext.kunkun.identifier,
+		cmdName: cmd.name,
+		extPath: ext.extPath,
+		// isDev
+	})
+}
+
+function cmdToItem(
+	cmd: CustomUiCmd | TemplateUiCmd,
+	manifest: ExtPackageJsonExtra,
+	type: ListItemType,
+	isDev: boolean
+): TListItem {
+	return {
+		title: cmd.name,
+		value: {
+			type,
+			data: generateItemValue(manifest, cmd as CustomUiCmd, isDev)
+		},
+		// extra: manifest.extPath,
+		description: cmd.description ?? "",
+		flags: { isDev, isRemovable: false },
+		type,
+		icon: cmd.icon ? cmd.icon : manifest.kunkun.icon,
+		keywords: cmd.cmds.map((c) => c.value), // TODO: handle regex as well
+		identityFilter: true
+	}
+}
 
 function manifestToCmdItems(manifest: ExtPackageJsonExtra, isDev: boolean): TListItem[] {
 	const _platform = platform() as OSPlatform
@@ -113,9 +150,19 @@ export const useExtensionStore = defineStore("kk-extensions", () => {
 	const manifests = ref<ExtPackageJsonExtra[]>([])
 	const appStateStore = useAppStateStore()
 	const isDev = false
+	const extPath = ref<string>()
 
 	async function load() {
 		const extDir = await getExtensionsFolder()
+		extPath.value = extDir
+		return loadAllExtensionsFromDb()
+			.then((exts) => {
+				manifests.value = exts
+			})
+			.catch((err) => {
+				console.error(err)
+				toast.error(`Failed to load extensions from ${extDir}`)
+			})
 		return loadAllExtensionsFromDisk(extDir)
 			.then((exts) => {
 				manifests.value = exts
@@ -232,10 +279,15 @@ export const useExtensionStore = defineStore("kk-extensions", () => {
 			}
 		})
 	}
-
 	const $listItems = computed(() => {
-		const listItems = manifests.value.map((manifest) => manifestToCmdItems(manifest, isDev)).flat()
-		return listItems
+		return manifests.value
+			.map((manifest) =>
+				manifestToCmdItems(
+					manifest,
+					extPath.value ? isExtPathInDev(extPath.value, manifest.extPath) : false
+				)
+			)
+			.flat()
 	})
 	const $filteredListItems = computed<TListItem[]>(() => {
 		return appStateStore.searchTerm.length === 0

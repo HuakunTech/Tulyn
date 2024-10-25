@@ -22,8 +22,14 @@ export function getAllExtensions() {
 	return invoke<Ext[]>(generateJarvisPluginCommand("get_all_extensions"))
 }
 
-export function getExtensionByIdentifier(identifier: string) {
-	return invoke<Ext | undefined>(generateJarvisPluginCommand("get_extension_by_identifier"), {
+export function getUniqueExtensionByIdentifier(identifier: string) {
+	return invoke<Ext | undefined>(generateJarvisPluginCommand("get_unique_extension_by_identifier"), {
+		identifier
+	})
+}
+
+export function getAllExtensionsByIdentifier(identifier: string) {
+	return invoke<Ext[]>(generateJarvisPluginCommand("get_all_extensions_by_identifier"), {
 		identifier
 	})
 }
@@ -34,7 +40,7 @@ export function getExtensionByIdentifier(identifier: string) {
  * @returns
  */
 export function getExtensionByIdentifierExpectExists(identifier: string): Promise<Ext> {
-	return getExtensionByIdentifier(identifier).then((ext) => {
+	return getUniqueExtensionByIdentifier(identifier).then((ext) => {
 		if (!ext) {
 			throw new Error(`Unexpexted Error: Extension ${identifier} not found`)
 		}

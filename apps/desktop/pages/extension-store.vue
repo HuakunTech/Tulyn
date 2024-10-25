@@ -31,7 +31,7 @@ import {
 	CommandSeparator,
 	CommandShortcut
 } from "~/components/ui/command"
-import { installTarballUrl } from "~/lib/utils/tarball"
+import { installTarballUrl } from "~/lib/utils/install"
 import { installExtension } from "~/lib/utils/updater"
 import { useExtensionStore } from "~/stores/extension"
 import { useExtStore } from "~/stores/extensionLoader"
