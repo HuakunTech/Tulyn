@@ -83,15 +83,6 @@ async function onNpmPackageNameSubmit(data: z.infer<typeof npmPackageNameFormSch
 		})
 }
 
-async function onPickLocalExtensionFolder() {
-	const selectedDir = await openFileSelector({
-		directory: true
-	})
-	if (!selectedDir) {
-		return ElMessage.warning("No Directory Selected")
-	}
-}
-
 async function handleDragNDropInstall(paths: string[]) {
 	dragging.value = false
 	console.log(paths)
@@ -191,8 +182,8 @@ async function pickExtFiles() {
 							:icon="{ value: 'mdi:folder-cog-outline', type: IconEnum.Iconify }"
 							class="h-10 w-10"
 						/>
-						<small class="select-none text-xs font-mono">Drag and Drop</small>
-						<small class="select-none text-xs font-mono">Extension Folder or Tarball</small>
+						<small class="select-none font-mono text-xs">Drag and Drop</small>
+						<small class="select-none font-mono text-xs">Extension Folder or Tarball</small>
 					</div>
 				</div>
 			</Card>

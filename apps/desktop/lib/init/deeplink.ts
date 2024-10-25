@@ -78,6 +78,8 @@ export async function handleFileProtocol(parsedUrl: URL) {
 	switch (fileExt) {
 		case "kunkun":
 			// TODO: Handle file protocol, install extension from file (essentially a .tgz file)
+			const url = `/add-dev-ext?path=${encodeURIComponent(filePath)}`
+			navigateTo(url)
 			break
 		default:
 			console.error("Unknown file extension:", fileExt)

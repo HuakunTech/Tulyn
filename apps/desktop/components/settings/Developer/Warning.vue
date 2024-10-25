@@ -75,7 +75,7 @@ import { AlertCircle, InfoIcon } from "lucide-vue-next"
 							by yourself or your organization). By being cautious, you can maximize the benefits
 							and minimize the risks associated with external extensions.
 						</p>
-						<p>
+						<div>
 							This app has a sandbox mechanism to prevent extensions from accessing system resources
 							without permissions. Extensions listed in store have their required permissions
 							listed. If you choose to install extension from external sources, make sure you know
@@ -85,7 +85,7 @@ import { AlertCircle, InfoIcon } from "lucide-vue-next"
 								<li>Use Kunkun's built-in <code>Extension Permission Inspector</code> command</li>
 								<li>View permission information in settings</li>
 							</ol>
-						</p>
+						</div>
 					</article>
 					<AlertDialogFooter>
 						<AlertDialogAction>Understood</AlertDialogAction>
