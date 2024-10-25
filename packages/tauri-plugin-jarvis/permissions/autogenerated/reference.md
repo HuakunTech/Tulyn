@@ -1194,6 +1194,32 @@ Denies the get_unique_extension_by_identifier command without any pre-configured
 <tr>
 <td>
 
+`jarvis:allow-get-unique-extension-by-path`
+
+</td>
+<td>
+
+Enables the get_unique_extension_by_path command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-get-unique-extension-by-path`
+
+</td>
+<td>
+
+Denies the get_unique_extension_by_path command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-hide-all-apps-except-frontmost`
 
 </td>

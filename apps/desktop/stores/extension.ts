@@ -28,7 +28,7 @@ function generateItemValue(
 	return JSON.stringify({
 		identifier: ext.kunkun.identifier,
 		cmdName: cmd.name,
-		extPath: ext.extPath,
+		extPath: ext.extPath
 		// isDev
 	})
 }
@@ -156,8 +156,23 @@ export const useExtensionStore = defineStore("kk-extensions", () => {
 		const extDir = await getExtensionsFolder()
 		extPath.value = extDir
 		return loadAllExtensionsFromDb()
-			.then((exts) => {
-				manifests.value = exts
+			.then(async (exts) => {
+				// const nonExistentExts = exts.filter(async (ext) => !(await fs.exists(ext.extPath)))
+				// console.log("nonExistentExts", nonExistentExts)
+
+				// for (const ext of nonExistentExts) {
+				// await db.deleteExtensionByPath(ext.extPath)
+				// console.warn(`Extension ${ext.extPath} not found, deleted from database`)
+				// }
+				manifests.value = []
+				for (const ext of exts) {
+					if (!(await fs.exists(ext.extPath))) {
+						console.warn(`Extension ${ext.extPath} not found, deleted from database`)
+						await db.deleteExtensionByPath(ext.extPath)
+					} else {
+						manifests.value.push(ext)
+					}
+				}
 			})
 			.catch((err) => {
 				console.error(err)

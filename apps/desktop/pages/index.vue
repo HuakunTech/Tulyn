@@ -184,7 +184,6 @@ function handleQuicklinkEnter() {
 </script>
 <template>
 	<div class="h-full grow">
-		<!-- <pre>{{ extStore.$listItems }}</pre> -->
 		<CmdPaletteCommand
 			class=""
 			v-model:searchTerm="searchTermSyncProxy"

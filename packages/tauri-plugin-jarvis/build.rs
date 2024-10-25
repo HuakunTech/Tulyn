@@ -79,6 +79,7 @@ const COMMANDS: &[&str] = &[
     "create_extension",
     "get_all_extensions",
     "get_unique_extension_by_identifier",
+    "get_unique_extension_by_path",
     "get_all_extensions_by_identifier",
     "delete_extension_by_path",
     "delete_extension_by_ext_id",

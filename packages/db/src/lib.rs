@@ -197,6 +197,28 @@ impl JarvisDB {
         Ok(exts)
     }
 
+    pub fn get_unique_extension_by_path(&self, path: &str) -> Result<Option<models::Ext>> {
+        let mut stmt = self.conn.prepare(
+            "SELECT ext_id, identifier, path, data, version, enabled, installed_at FROM extensions WHERE path = ?1",
+        )?;
+        let ext_iter = stmt.query_map(params![path], |row| {
+            Ok(models::Ext {
+                ext_id: row.get(0)?,
+                identifier: row.get(1)?,
+                path: row.get(2)?,
+                data: row.get(3)?,
+                version: row.get(4)?,
+                enabled: row.get(5)?,
+                installed_at: row.get(6)?,
+            })
+        })?;
+        let mut exts = Vec::new();
+        for ext in ext_iter {
+            exts.push(ext?);
+        }
+        Ok(exts.first().cloned())
+    }
+
     // TODO: clean this up
     // pub fn delete_extension_by_identifier(&self, identifier: &str) -> Result<()> {
     //     self.conn.execute(

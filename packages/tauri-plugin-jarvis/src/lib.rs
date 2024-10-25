@@ -138,6 +138,7 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             commands::db::create_extension,
             commands::db::get_all_extensions,
             commands::db::get_unique_extension_by_identifier,
+            commands::db::get_unique_extension_by_path,
             commands::db::get_all_extensions_by_identifier,
             commands::db::delete_extension_by_path,
             commands::db::delete_extension_by_ext_id,
