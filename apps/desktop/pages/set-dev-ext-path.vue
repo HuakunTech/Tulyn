@@ -4,13 +4,16 @@ import { Button } from "@kksh/vue/button"
 import { ArrowLeftIcon } from "@radix-icons/vue"
 import { onKeyStroke } from "@vueuse/core"
 
+const router = useRouter()
+
 onKeyStroke("Escape", (e) => {
 	e.preventDefault()
 	onBack()
 })
 
 function onBack() {
-	navigateTo("/")
+	// navigateTo("/")
+	router.back()
 }
 </script>
 <template>

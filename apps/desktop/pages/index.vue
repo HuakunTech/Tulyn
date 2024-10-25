@@ -183,6 +183,7 @@ function handleQuicklinkEnter() {
 		console.error("handleQuicklinkEnter error:", flatten<typeof CmdListItemValue>(parse.issues))
 	}
 }
+
 </script>
 <template>
 	<div class="h-full grow">

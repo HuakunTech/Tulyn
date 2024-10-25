@@ -43,10 +43,6 @@ onKeyStroke("Escape", (e) => {
 	navigateTo("/")
 })
 
-function onBack() {
-	navigateTo("/")
-}
-
 async function onUrlSubmit(data: z.infer<typeof urlFormSchema>) {
 	// data.url
 	// https://storage.huakun.tech/vscode-0.0.6.tgz

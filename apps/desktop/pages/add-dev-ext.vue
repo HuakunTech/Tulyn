@@ -14,14 +14,18 @@ import {
 } from "@kksh/vue/form"
 import { Input } from "@kksh/vue/input"
 import { ArrowLeftIcon } from "@radix-icons/vue"
+import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { open as openDialog } from "@tauri-apps/plugin-dialog"
 import { exists } from "@tauri-apps/plugin-fs"
 import { onKeyStroke } from "@vueuse/core"
+import { DEEP_LINK_INSTALL_EXTENSION_WINDOW_LABEL } from "~/lib/constants"
 import { installTarball } from "~/lib/utils/install"
 import { useAppConfigStore } from "~/stores/appConfig"
 // import { useForm } from "vee-validate"
 import { toast } from "vue-sonner"
 import { z } from "zod"
+
+const appWindow = getCurrentWebviewWindow()
 
 // const formSchema = z.object({
 // 	filePath: z.string()
@@ -39,7 +43,11 @@ onKeyStroke("Escape", (e) => {
 })
 
 function onBack() {
-	navigateTo("/")
+	if (appWindow.label !== "main") {
+		appWindow.close()
+	} else {
+		navigateTo("/")
+	}
 }
 
 // function onSubmit(e: Event) {

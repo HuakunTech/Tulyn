@@ -4,12 +4,13 @@ import {
 	DEEP_LINK_PATH_STORE
 } from "@kksh/api"
 import { extname } from "@tauri-apps/api/path"
-import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
+import { getCurrentWebviewWindow, WebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { onOpenUrl } from "@tauri-apps/plugin-deep-link"
 import { error } from "@tauri-apps/plugin-log"
 import { emitRefreshDevExt } from "~/lib/utils/tauri-events"
 import * as v from "valibot"
 import { toast } from "vue-sonner"
+import { DEEP_LINK_INSTALL_EXTENSION_WINDOW_LABEL } from "../constants"
 
 const StorePathSearchParams = v.object({
 	identifier: v.optional(v.string())
@@ -79,7 +80,10 @@ export async function handleFileProtocol(parsedUrl: URL) {
 		case "kunkun":
 			// TODO: Handle file protocol, install extension from file (essentially a .tgz file)
 			const url = `/add-dev-ext?path=${encodeURIComponent(filePath)}`
-			navigateTo(url)
+			new WebviewWindow(DEEP_LINK_INSTALL_EXTENSION_WINDOW_LABEL, {
+				url
+			})
+			// navigateTo("/add-dev-ext")
 			break
 		default:
 			console.error("Unknown file extension:", fileExt)

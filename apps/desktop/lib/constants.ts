@@ -68,3 +68,5 @@ export const HTMLElementId = {
 	ActionPanelInputId: "action-panel-input",
 	WorkerExtInputId: "worker-ext-input"
 }
+
+export const DEEP_LINK_INSTALL_EXTENSION_WINDOW_LABEL = "main:deep-link-install-extension"
