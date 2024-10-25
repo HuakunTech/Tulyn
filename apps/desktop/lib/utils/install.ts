@@ -120,23 +120,15 @@ export async function installDevExtensionDir(dirPath: string): Promise<ExtPackag
 }
 
 export async function installThroughNpmAPI(url: string, targetDir: string) {
-	return axios
-		.get(url)
-		.then((res) => {
-			const tarball = z.string().parse(res.data?.dist?.tarball)
-			console.log(tarball)
-			if (tarball) {
-				return installTarballUrl(tarball, targetDir)
-			} else {
-				ElMessage.error("Tarball Not Found")
-			}
-		})
-		.catch((error: any) => {
-			ElNotification.error({
-				title: "Fail to Install",
-				message: error
-			})
-		})
+	return axios.get(url).then((res) => {
+		const tarball = z.string().parse(res.data?.dist?.tarball)
+		console.log(tarball)
+		if (tarball) {
+			return installTarballUrl(tarball, targetDir)
+		} else {
+			ElMessage.error("Tarball Not Found")
+		}
+	})
 }
 
 export async function installFromNpmPackageName(name: string, targetDir: string) {
