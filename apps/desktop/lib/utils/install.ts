@@ -6,8 +6,9 @@ import * as dialog from "@tauri-apps/plugin-dialog"
 import * as fs from "@tauri-apps/plugin-fs"
 import { download } from "@tauri-apps/plugin-upload"
 import { useExtensionStore } from "~/stores/extension"
+import axios from "axios"
 import { v4 as uuidv4 } from "uuid"
-import { ZodError } from "zod"
+import { z, ZodError } from "zod"
 
 /**
  *
@@ -116,4 +117,28 @@ export async function installDevExtensionDir(dirPath: string): Promise<ExtPackag
 		.catch((err) => {
 			return Promise.reject(err)
 		})
+}
+
+export async function installThroughNpmAPI(url: string, targetDir: string) {
+	return axios
+		.get(url)
+		.then((res) => {
+			const tarball = z.string().parse(res.data?.dist?.tarball)
+			console.log(tarball)
+			if (tarball) {
+				return installTarballUrl(tarball, targetDir)
+			} else {
+				ElMessage.error("Tarball Not Found")
+			}
+		})
+		.catch((error: any) => {
+			ElNotification.error({
+				title: "Fail to Install",
+				message: error
+			})
+		})
+}
+
+export async function installFromNpmPackageName(name: string, targetDir: string) {
+	return installThroughNpmAPI(`https://registry.npmjs.org/${name}/latest`, targetDir)
 }

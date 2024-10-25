@@ -12,7 +12,12 @@ import { downloadDir } from "@tauri-apps/api/path"
 import { open as openFileSelector } from "@tauri-apps/plugin-dialog"
 import * as fs from "@tauri-apps/plugin-fs"
 import { onKeyStroke } from "@vueuse/core"
-import { installDevExtensionDir, installTarball, installTarballUrl } from "~/lib/utils/install"
+import {
+	installDevExtensionDir,
+	installFromNpmPackageName,
+	installTarball,
+	installTarballUrl
+} from "~/lib/utils/install"
 import { useAppConfigStore } from "~/stores/appConfig"
 import { useExtensionStore } from "~/stores/extension"
 import { toast } from "vue-sonner"
@@ -21,8 +26,12 @@ import { z } from "zod"
 const extStore = useExtensionStore()
 const appConfig = useAppConfigStore()
 const dragging = ref(false)
-const formSchema = z.object({
+const urlFormSchema = z.object({
 	url: z.string().url()
+})
+
+const npmPackageNameFormSchema = z.object({
+	name: z.string().min(1)
 })
 
 definePageMeta({
@@ -38,7 +47,7 @@ function onBack() {
 	navigateTo("/")
 }
 
-async function onUrlSubmit(data: z.infer<typeof formSchema>) {
+async function onUrlSubmit(data: z.infer<typeof urlFormSchema>) {
 	// data.url
 	// https://storage.huakun.tech/vscode-0.0.6.tgz
 	if (!appConfig.devExtensionPath) {
@@ -46,6 +55,20 @@ async function onUrlSubmit(data: z.infer<typeof formSchema>) {
 		return navigateTo("/set-dev-ext-path")
 	}
 	await installTarballUrl(data.url, appConfig.devExtensionPath).catch((err) => {
+		ElNotification.warning({
+			title: "Failed to install extension",
+			message: err
+		})
+	})
+}
+
+async function onNpmPackageNameSubmit(data: z.infer<typeof npmPackageNameFormSchema>) {
+	// data.name
+	if (!appConfig.devExtensionPath) {
+		toast.warning("Please set the dev extension path in the settings to install tarball extension")
+		return navigateTo("/set-dev-ext-path")
+	}
+	installFromNpmPackageName(data.name, appConfig.devExtensionPath).catch((err) => {
 		ElNotification.warning({
 			title: "Failed to install extension",
 			message: err
@@ -168,25 +191,53 @@ async function pickExtFiles() {
 		</DragNDrop>
 	</div>
 	<Separator class="my-5 font-mono" label="Install Tarball From URL" />
-	<AutoForm
-		class="space-y-6"
-		:schema="formSchema"
-		:field-config="{
-			url: {
-				hideLabel: true
-			}
-		}"
-		@submit="onUrlSubmit"
-	>
-		<template #url="slotProps">
-			<div class="flex items-start gap-3">
-				<div class="flex-1">
-					<AutoFormField v-bind="slotProps" />
+	<div flex flex-col gap-3>
+		<AutoForm
+			class="space-y-6"
+			:schema="urlFormSchema"
+			:field-config="{
+				url: {
+					hideLabel: true,
+					inputProps: {
+						placeholder: 'Tarball URL'
+					}
+				}
+			}"
+			@submit="onUrlSubmit"
+		>
+			<template #url="slotProps">
+				<div class="flex items-start gap-3">
+					<div class="flex-1">
+						<AutoFormField v-bind="slotProps" />
+					</div>
+					<div>
+						<Button type="submit">Install</Button>
+					</div>
 				</div>
-				<div>
-					<Button type="submit">Install</Button>
+			</template>
+		</AutoForm>
+		<AutoForm
+			:schema="npmPackageNameFormSchema"
+			:field-config="{
+				name: {
+					hideLabel: true,
+					inputProps: {
+						placeholder: 'NPM Package Name'
+					}
+				}
+			}"
+			@submit="onNpmPackageNameSubmit"
+		>
+			<template #name="slotProps">
+				<div class="flex items-start gap-3">
+					<div class="flex-1">
+						<AutoFormField v-bind="slotProps" />
+					</div>
+					<div>
+						<Button type="submit">Install</Button>
+					</div>
 				</div>
-			</div>
-		</template>
-	</AutoForm>
+			</template>
+		</AutoForm>
+	</div>
 </template>
