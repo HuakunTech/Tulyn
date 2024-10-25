@@ -6,10 +6,6 @@ import { Button } from "@kksh/vue/button"
 import { ArrowLeftIcon } from "@radix-icons/vue"
 import { onKeyStroke } from "@vueuse/core"
 
-definePageMeta({
-	layout: "empty"
-})
-
 onKeyStroke("Escape", (e) => {
 	e.preventDefault()
 	onBack()
@@ -21,7 +17,7 @@ function onBack() {
 </script>
 <template>
 	<main class="container h-screen w-screen pt-10">
-		<Button variant="outline" size="icon" class="absolute left-4 top-4 z-50" @click="onBack">
+		<Button variant="outline" size="icon" class="absolute left-2 top-2 z-50" @click="onBack">
 			<ArrowLeftIcon />
 		</Button>
 		<h2 class="text-2xl font-bold">Add Dev Extension</h2>

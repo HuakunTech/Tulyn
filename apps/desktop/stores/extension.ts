@@ -123,6 +123,8 @@ function createNewExtWindowForUiCmd(manifest: ExtPackageJsonExtra, cmd: CustomUi
 			windowExtMapStore.registerExtensionWithWindow(windowLabel, manifest.extPath)
 			const window = getNewExtWindow(windowLabel, url, cmd)
 			window.onCloseRequested(async (event) => {
+				console.log("onCloseRequested", event)
+
 				await unregisterExtensionWindow(window.label)
 				windowExtMapStore.unregisterExtensionFromWindow(windowLabel)
 			})
