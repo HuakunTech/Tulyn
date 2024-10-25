@@ -58,9 +58,19 @@ const builtinCmds: BuiltinCmd[] = [
 		iconifyIcon: "hugeicons:inspect-code",
 		description: "",
 		function: async () => {
-			// const appStateStore = useAppStateStore()
-			// appStateStore.setSearchTermSync("")
+			const appStateStore = useAppStateStore()
+			appStateStore.setSearchTermSync("")
 			navigateTo("/ext-permission-inspector")
+		}
+	},
+	{
+		name: "Extension Loading Troubleshooter",
+		iconifyIcon: "material-symbols:troubleshoot",
+		description: "",
+		function: async () => {
+			const appStateStore = useAppStateStore()
+			appStateStore.setSearchTermSync("")
+			navigateTo("/extension-load-troubleshooter")
 		}
 	},
 	{
