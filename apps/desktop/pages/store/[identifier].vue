@@ -4,7 +4,7 @@ import PlatformsIcons from "@/components/extension-store/platforms-icons.vue"
 import { gqlClient } from "@/lib/utils/graphql"
 import * as supabase from "@/lib/utils/supabase"
 import { supabaseClient } from "@/lib/utils/supabase"
-import { installTarballUrl } from "~/lib/utils/install"
+import { db } from "@kksh/api/commands"
 import { IconEnum, KunkunExtManifest } from "@kksh/api/models"
 import { AllKunkunPermission, FsPermissionMap, permissionDescriptions } from "@kksh/api/permissions"
 import {
@@ -21,6 +21,8 @@ import { ArrowLeftIcon } from "@radix-icons/vue"
 import { error } from "@tauri-apps/plugin-log"
 import { onKeyStroke } from "@vueuse/core"
 import { getExtensionsFolder } from "~/lib/constants"
+import { installTarballUrl } from "~/lib/utils/install"
+import { isExtPathInDev } from "~/lib/utils/path"
 import { useExtensionStore } from "~/stores/extension"
 import { ElMessage } from "element-plus"
 import { CircleCheckBigIcon, Trash2Icon } from "lucide-vue-next"
@@ -28,6 +30,7 @@ import * as v from "valibot"
 import { z } from "zod"
 
 const route = useRoute()
+const storeExtPath = await getExtensionsFolder()
 const extIdentifier = route.params.identifier as string
 const imageDialogOpen = ref(false)
 const installLoading = ref(false)
@@ -67,8 +70,12 @@ onMounted(async () => {
 	}
 })
 
-const isInstalled = computed(() => {
-	return extStore.manifests.find((m) => m.kunkun.identifier === extIdentifier) !== undefined
+const isInstalled = computedAsync(async () => {
+	return (
+		extStore.manifests.find(
+			(m) => m.kunkun.identifier === extIdentifier && !isExtPathInDev(storeExtPath, m.extPath)
+		) !== undefined
+	)
 })
 
 const demoImages = computed(() => {
@@ -82,17 +89,7 @@ async function installExt() {
 	}
 	const tarballUrl = supabase.getFileUrl(currentExt.value.tarball_path).data.publicUrl
 	console.log(`Install tarball: ${tarballUrl}`)
-
-	getExtensionsFolder()
-		.then((targetInstallDir) => {
-			console.log("targetInstallDir", targetInstallDir)
-
-			if (!targetInstallDir) {
-				return Promise.reject("Unexpected Error: Extension Folder is Null")
-			} else {
-				return installTarballUrl(tarballUrl, targetInstallDir)
-			}
-		})
+	installTarballUrl(tarballUrl, storeExtPath)
 		.then(async () => {
 			ElMessage.success(`Plugin ${currentExt.value!.name} Installed`)
 			extStore.load() // used to refresh isInstalled

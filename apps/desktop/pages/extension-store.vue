@@ -32,6 +32,7 @@ import {
 	CommandShortcut
 } from "~/components/ui/command"
 import { installTarballUrl } from "~/lib/utils/install"
+import { isExtPathInDev } from "~/lib/utils/path"
 import { installExtension } from "~/lib/utils/updater"
 import { useExtensionStore } from "~/stores/extension"
 import { useExtStore } from "~/stores/extensionLoader"
@@ -48,6 +49,7 @@ const installedManifests = ref<ExtPackageJsonExtra[]>([])
 const extStore = useExtensionStore()
 // const extStore = useExtStore()
 const searchTerm = ref("")
+const storeExtPath = await getExtensionsFolder()
 
 function refreshListing() {
 	return extStore.load().then(() => {
@@ -121,7 +123,9 @@ function select(item: ExtItem) {
 // }
 
 function getInstalledVersion(identifier: string) {
-	return installedManifests.value.find((x) => x.kunkun.identifier === identifier)?.version
+	return installedManifests.value.find(
+		(x) => x.kunkun.identifier === identifier && !isExtPathInDev(storeExtPath, x.extPath)
+	)?.version
 }
 
 function onInstalled(downloads: number) {
