@@ -54,6 +54,16 @@ const builtinCmds: BuiltinCmd[] = [
 		}
 	},
 	{
+		name: "Extension Permission Inspector",
+		iconifyIcon: "hugeicons:inspect-code",
+		description: "",
+		function: async () => {
+			// const appStateStore = useAppStateStore()
+			// appStateStore.setSearchTermSync("")
+			navigateTo("/ext-permission-inspector")
+		}
+	},
+	{
 		name: "Create Quicklink",
 		iconifyIcon: "material-symbols:link",
 		description: "Create a Quicklink",

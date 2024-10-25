@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import DialogImage from "@/components/extension-store/DialogImage.vue"
+import PermissionInspector from "@/components/extension-store/permission-inspector.vue"
 import PlatformsIcons from "@/components/extension-store/platforms-icons.vue"
 import { gqlClient } from "@/lib/utils/graphql"
 import * as supabase from "@/lib/utils/supabase"
@@ -14,7 +15,6 @@ import {
 } from "@kksh/gql"
 import { type Tables } from "@kksh/supabase"
 import { Button } from "@kksh/vue/button"
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@kksh/vue/hover-card"
 import { ScrollArea } from "@kksh/vue/scroll-area"
 import { Separator } from "@kksh/vue/separator"
 import { ArrowLeftIcon } from "@radix-icons/vue"
@@ -166,27 +166,7 @@ async function uninstallExt() {
 				<Separator class="my-3" />
 
 				<h2 class="text-lg font-bold">Security and Privacy</h2>
-				<li v-for="perm in manifest?.permissions" class="flex h-8 items-center gap-2">
-					<span class="font-mono text-sm">{{
-						typeof perm === "string" ? perm : perm.permission
-					}}</span>
-					<HoverCard>
-						<HoverCardTrigger class="flex items-center">
-							<IconMultiplexer
-								class="border"
-								:icon="{ type: IconEnum.Iconify, value: 'material-symbols:info-outline' }"
-							/>
-						</HoverCardTrigger>
-						<HoverCardContent class="max-h-96 w-96 overflow-y-auto">
-							<ScrollArea>
-								<span class="text-sm">{{
-									permissionDescriptions[typeof perm === "string" ? perm : perm.permission]
-								}}</span>
-								<pre class="text-xs">{{ perm }}</pre>
-							</ScrollArea>
-						</HoverCardContent>
-					</HoverCard>
-				</li>
+				<PermissionInspector v-if="manifest" :manifest="manifest" />
 				<Separator class="my-3" />
 				<h2 class="text-lg font-bold">Description</h2>
 				<div class="text-sm">

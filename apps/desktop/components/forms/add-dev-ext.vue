@@ -191,7 +191,8 @@ async function pickExtFiles() {
 							:icon="{ value: 'mdi:folder-cog-outline', type: IconEnum.Iconify }"
 							class="h-10 w-10"
 						/>
-						<small class="select-none text-xs">Drag and Drop</small>
+						<small class="select-none text-xs font-mono">Drag and Drop</small>
+						<small class="select-none text-xs font-mono">Extension Folder or Tarball</small>
 					</div>
 				</div>
 			</Card>
