@@ -68,12 +68,19 @@ async function onNpmPackageNameSubmit(data: z.infer<typeof npmPackageNameFormSch
 		toast.warning("Please set the dev extension path in the settings to install tarball extension")
 		return navigateTo("/set-dev-ext-path")
 	}
-	installFromNpmPackageName(data.name, appConfig.devExtensionPath).catch((err) => {
-		ElNotification.warning({
-			title: "Failed to install extension",
-			message: err
+	installFromNpmPackageName(data.name, appConfig.devExtensionPath)
+		.then(() => {
+			ElNotification.success({
+				title: "Success",
+				message: "Extension installed successfully"
+			})
 		})
-	})
+		.catch((err) => {
+			ElNotification.warning({
+				title: "Failed to install extension",
+				message: err
+			})
+		})
 }
 
 async function onPickLocalExtensionFolder() {

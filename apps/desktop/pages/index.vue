@@ -4,6 +4,8 @@ import { CommandEmpty, CommandGroup, CommandList } from "@/components/ui/command
 import { getActiveElementNodeName } from "@/lib/utils/dom"
 import { RPCChannel } from "@hk/comlink-stdio"
 import { TauriShellStdio } from "@kksh/api"
+import { Action as ActionnSchema } from "@kksh/api/models"
+import { Action } from "@kksh/api/ui/worker"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { getCurrentWindow } from "@tauri-apps/api/window"
 import { fetch } from "@tauri-apps/plugin-http"
@@ -21,6 +23,7 @@ import { useLastTimeStore } from "~/stores/lastTime"
 import { findAllArgsInLink, useQuicklinkLoader } from "~/stores/quickLink"
 import { useRemoteCmdStore } from "~/stores/remoteCmds"
 import { useSystemCmdsStore } from "~/stores/systemCmds"
+import { useAppUiStore } from "~/stores/ui"
 import { ComboboxInput } from "radix-vue"
 import { Command } from "tauri-plugin-shellx-api"
 import type { EventEmitter, IOPayload, OutputEvents } from "tauri-plugin-shellx-api"
@@ -32,6 +35,7 @@ const builtinCmdStore = useBuiltInCmdStore()
 const appsStore = useAppsLoaderStore()
 const sysCmdsStore = useSystemCmdsStore()
 const appStateStore = useAppStateStore()
+const appUiStore = useAppUiStore()
 const remoteCmdStore = useRemoteCmdStore()
 const extStore = useExtensionStore()
 // const devExtStore = useDevExtStore()
@@ -89,9 +93,7 @@ useListenToWindowFocus(() => {
 })
 
 onMounted(async () => {
-	// fetch("https://localhost:1566/info").then((res) => {
-	// 	console.log("res", res)
-	// }).catch(console.err)
+	appUiStore.setDefaultAction("Open")
 	if (appWindow.label !== "main") {
 		setTimeout(() => {
 			toast.error("Non-main window should not open this page.")
