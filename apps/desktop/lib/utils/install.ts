@@ -1,7 +1,7 @@
 import { loadExtensionManifestFromDisk } from "@/lib/commands/extensions"
 import { db, decompressTarball } from "@kksh/api/commands"
 import type { ExtPackageJsonExtra } from "@kksh/api/models"
-import { join as pathJoin, tempDir } from "@tauri-apps/api/path"
+import { basename, extname, join as pathJoin, tempDir } from "@tauri-apps/api/path"
 import * as dialog from "@tauri-apps/plugin-dialog"
 import * as fs from "@tauri-apps/plugin-fs"
 import { download } from "@tauri-apps/plugin-upload"
@@ -47,6 +47,7 @@ export async function installTarball(tarballPath: string, targetDir: string) {
 				path: extInstallPath,
 				data: undefined
 			})
+			console.log("installTarball in DB success", manifest)
 		})
 		.catch((err) => {
 			if (err instanceof ZodError) {
@@ -66,7 +67,7 @@ export async function installTarball(tarballPath: string, targetDir: string) {
  * @returns
  */
 export async function installTarballUrl(tarballUrl: string, targetDir: string): Promise<void> {
-	const filename = tarballUrl.split("/").pop()
+	const filename = await basename(tarballUrl)
 	if (filename) {
 		const tempDirPath = await tempDir()
 		let tarballPath = await pathJoin(tempDirPath, filename)

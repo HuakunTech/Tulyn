@@ -750,6 +750,16 @@
           "const": "deny-get-unique-extension-by-identifier"
         },
         {
+          "description": "Enables the get_unique_extension_by_path command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-unique-extension-by-path"
+        },
+        {
+          "description": "Denies the get_unique_extension_by_path command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-unique-extension-by-path"
+        },
+        {
           "description": "Enables the hide_all_apps_except_frontmost command without any pre-configured scope.",
           "type": "string",
           "const": "allow-hide-all-apps-except-frontmost"

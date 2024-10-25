@@ -10,6 +10,7 @@ import { Separator } from "@kksh/vue/separator"
 import { ArrowLeftIcon } from "@radix-icons/vue"
 import { downloadDir } from "@tauri-apps/api/path"
 import { open as openFileSelector } from "@tauri-apps/plugin-dialog"
+import * as fs from "@tauri-apps/plugin-fs"
 import { onKeyStroke } from "@vueuse/core"
 import { installDevExtensionDir, installTarball, installTarballUrl } from "~/lib/utils/install"
 import { useAppConfigStore } from "~/stores/appConfig"
@@ -37,8 +38,19 @@ function onBack() {
 	navigateTo("/")
 }
 
-function onSubmit(data: z.infer<typeof formSchema>) {
+async function onUrlSubmit(data: z.infer<typeof formSchema>) {
 	// data.url
+	// https://storage.huakun.tech/vscode-0.0.6.tgz
+	if (!appConfig.devExtensionPath) {
+		toast.warning("Please set the dev extension path in the settings to install tarball extension")
+		return navigateTo("/set-dev-ext-path")
+	}
+	await installTarballUrl(data.url, appConfig.devExtensionPath).catch((err) => {
+		ElNotification.warning({
+			title: "Failed to install extension",
+			message: err
+		})
+	})
 }
 
 async function onPickLocalExtensionFolder() {
@@ -53,6 +65,34 @@ async function onPickLocalExtensionFolder() {
 async function handleDragNDropInstall(paths: string[]) {
 	dragging.value = false
 	console.log(paths)
+	for (const path of paths) {
+		const stat = await fs.stat(path)
+		if (await stat.isDirectory) {
+			await installDevExtensionDir(path).catch((err) => {
+				ElNotification.warning({
+					title: "Failed to install extension",
+					message: err
+				})
+			})
+		} else if (await stat.isFile) {
+			if (!appConfig.devExtensionPath) {
+				toast.warning(
+					"Please set the dev extension path in the settings to install tarball extension"
+				)
+				continue
+			}
+			await installTarball(path, appConfig.devExtensionPath).catch((err) => {
+				ElNotification.warning({
+					title: "Failed to install extension",
+					message: err
+				})
+			})
+		} else {
+			toast.warning(`Unsupported file type: ${path}`)
+		}
+		// await installDevExtensionDir(path)
+	}
+	extStore.load()
 }
 
 async function pickExtFolders() {
@@ -64,16 +104,12 @@ async function pickExtFolders() {
 		return ElMessage.warning("No File Selected")
 	}
 	for (const dir of selected) {
-		await installDevExtensionDir(dir)
-			.then((manifest) => {
-				console.log(manifest)
+		await installDevExtensionDir(dir).catch((err) => {
+			ElNotification.warning({
+				title: "Failed to install extension",
+				message: err
 			})
-			.catch((err) => {
-				ElNotification.warning({
-					title: "Failed to install extension",
-					message: err
-				})
-			})
+		})
 	}
 	extStore.load()
 }
@@ -104,7 +140,7 @@ async function pickExtFiles() {
 }
 </script>
 <template>
-	<pre>{{ appConfig.devExtensionPath }}</pre>
+	<!-- <pre>{{ appConfig.devExtensionPath }}</pre> -->
 	<div class="flex justify-center gap-3">
 		<Button @click="pickExtFolders">Install from Extension Folders</Button>
 		<Button @click="pickExtFiles">Install from Extension Tarball File</Button>
@@ -140,7 +176,7 @@ async function pickExtFiles() {
 				hideLabel: true
 			}
 		}"
-		@submit="onSubmit"
+		@submit="onUrlSubmit"
 	>
 		<template #url="slotProps">
 			<div class="flex items-start gap-3">
@@ -148,7 +184,7 @@ async function pickExtFiles() {
 					<AutoFormField v-bind="slotProps" />
 				</div>
 				<div>
-					<Button type="submit">Add</Button>
+					<Button type="submit">Install</Button>
 				</div>
 			</div>
 		</template>

@@ -23,8 +23,17 @@ export function getAllExtensions() {
 }
 
 export function getUniqueExtensionByIdentifier(identifier: string) {
-	return invoke<Ext | undefined>(generateJarvisPluginCommand("get_unique_extension_by_identifier"), {
-		identifier
+	return invoke<Ext | undefined>(
+		generateJarvisPluginCommand("get_unique_extension_by_identifier"),
+		{
+			identifier
+		}
+	)
+}
+
+export function getUniqueExtensionByPath(path: string) {
+	return invoke<Ext | undefined>(generateJarvisPluginCommand("get_unique_extension_by_path"), {
+		path
 	})
 }
 

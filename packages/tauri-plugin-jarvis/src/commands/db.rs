@@ -74,6 +74,20 @@ pub async fn get_unique_extension_by_identifier(
 }
 
 #[tauri::command]
+pub async fn get_unique_extension_by_path(
+    path: &str,
+    db: State<'_, DBState>,
+) -> Result<Option<Ext>, String> {
+    let ext = db
+        .db
+        .lock()
+        .unwrap()
+        .get_unique_extension_by_path(path)
+        .map_err(|err| err.to_string())?;
+    Ok(ext)
+}
+
+#[tauri::command]
 pub async fn delete_extension_by_path(path: &str, db: State<'_, DBState>) -> Result<(), String> {
     db.db
         .lock()
