@@ -804,6 +804,32 @@ Denies the get_all_extensions command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-get-all-extensions-by-identifier`
+
+</td>
+<td>
+
+Enables the get_all_extensions_by_identifier command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-get-all-extensions-by-identifier`
+
+</td>
+<td>
+
+Denies the get_all_extensions_by_identifier command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-get-applications`
 
 </td>
@@ -1135,6 +1161,32 @@ Enables the get_server_port command without any pre-configured scope.
 <td>
 
 Denies the get_server_port command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:allow-get-unique-extension-by-identifier`
+
+</td>
+<td>
+
+Enables the get_unique_extension_by_identifier command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-get-unique-extension-by-identifier`
+
+</td>
+<td>
+
+Denies the get_unique_extension_by_identifier command without any pre-configured scope.
 
 </td>
 </tr>

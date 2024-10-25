@@ -3,7 +3,7 @@ use db::{
     ExtDataField, JarvisDB, SQLSortOrder,
 };
 use std::{path::PathBuf, sync::Mutex};
-use tauri::State;
+use tauri::{utils::acl::identifier, State};
 
 #[derive(Debug)]
 pub struct DBState {
@@ -48,15 +48,29 @@ pub async fn get_all_extensions(db: State<'_, DBState>) -> Result<Vec<Ext>, Stri
 }
 
 #[tauri::command]
-pub async fn get_extension_by_identifier(
+pub async fn get_all_extensions_by_identifier(
     identifier: &str,
     db: State<'_, DBState>,
-) -> Result<Option<Ext>, String> {
+) -> Result<Vec<Ext>, String> {
     db.db
         .lock()
         .unwrap()
-        .get_extension_by_identifier(identifier)
+        .get_all_extensions_by_identifier(identifier)
         .map_err(|err| err.to_string())
+}
+
+#[tauri::command]
+pub async fn get_unique_extension_by_identifier(
+    identifier: &str,
+    db: State<'_, DBState>,
+) -> Result<Option<Ext>, String> {
+    let ext = db
+        .db
+        .lock()
+        .unwrap()
+        .get_unique_extension_by_identifier(identifier)
+        .map_err(|err| err.to_string())?;
+    Ok(ext)
 }
 
 #[tauri::command]

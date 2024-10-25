@@ -163,7 +163,7 @@ onMounted(async () => {
 	if (!identifier || !parseUrl.output) {
 		return navigateTo(localePath("/"))
 	}
-	const extInfoInDB = await db.getExtensionByIdentifier(identifier)
+	const extInfoInDB = await db.getUniqueExtensionByIdentifier(identifier)
 	if (!extInfoInDB) {
 		toast.error("Unexpected Error", {
 			description: `Worker extension ${identifier} not found in database. Run Troubleshooter.`

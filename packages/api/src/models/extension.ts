@@ -1,4 +1,5 @@
 import {
+	any,
 	array,
 	boolean,
 	date,
@@ -31,7 +32,9 @@ export const Ext = object({
 	identifier: string(),
 	version: string(),
 	enabled: boolean(),
-	installed_at: string()
+	installed_at: string(),
+	path: nullable(string()),
+	data: nullable(any())
 })
 export type Ext = InferOutput<typeof Ext>
 

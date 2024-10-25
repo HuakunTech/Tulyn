@@ -1,7 +1,7 @@
 pub mod models;
 pub mod schema;
 use models::CmdType;
-use rusqlite::{params, params_from_iter, Connection, Result, ToSql};
+use rusqlite::{params, params_from_iter, Connection, Error, Result, ToSql};
 use serde::{Deserialize, Serialize};
 use std::path::{self, Path};
 use strum_macros::{Display, EnumString};
@@ -158,7 +158,24 @@ impl JarvisDB {
         Ok(exts)
     }
 
-    pub fn get_extension_by_identifier(&self, identifier: &str) -> Result<Option<models::Ext>> {
+    /**
+     * Get the first extension by identifier, if there are multiple, it will return an error
+     */
+    pub fn get_unique_extension_by_identifier(
+        &self,
+        identifier: &str,
+    ) -> anyhow::Result<Option<models::Ext>> {
+        let exts = self.get_all_extensions_by_identifier(identifier)?;
+        if exts.len() > 1 {
+            return Err(anyhow::anyhow!(
+                "Multiple extensions with the same identifier: {}",
+                identifier
+            ));
+        }
+        Ok(exts.first().cloned())
+    }
+
+    pub fn get_all_extensions_by_identifier(&self, identifier: &str) -> Result<Vec<models::Ext>> {
         let mut stmt = self.conn.prepare(
             "SELECT ext_id, identifier, path, data, version, enabled, installed_at FROM extensions WHERE identifier = ?1",
         )?;
@@ -177,7 +194,7 @@ impl JarvisDB {
         for ext in ext_iter {
             exts.push(ext?);
         }
-        Ok(exts.first().cloned())
+        Ok(exts)
     }
 
     // TODO: clean this up
@@ -507,7 +524,7 @@ mod tests {
             .is_err());
 
         // get ext by identifier
-        let ext = db.get_extension_by_identifier("test").unwrap();
+        let ext = db.get_unique_extension_by_identifier("test").unwrap();
         assert!(ext.is_some());
         let ext = ext.unwrap();
         assert_eq!(ext.identifier, "test");
@@ -516,7 +533,7 @@ mod tests {
         assert_eq!(ext.installed_at.len(), 19);
 
         // get ext by identifier that does not exist
-        let ext = db.get_extension_by_identifier("test2").unwrap();
+        let ext = db.get_unique_extension_by_identifier("test2").unwrap();
         assert!(ext.is_none());
 
         /* ----------------------- Delete ext by identifier ---------------------- */
@@ -543,7 +560,10 @@ mod tests {
         db.init().unwrap();
         db.create_extension("test", "0.1.0", true, Some("/abc/def"), None)
             .unwrap();
-        let ext = db.get_extension_by_identifier("test").unwrap().unwrap();
+        let ext = db
+            .get_unique_extension_by_identifier("test")
+            .unwrap()
+            .unwrap();
 
         db.create_extension_data(ext.ext_id, "test", "{}", None)
             .unwrap();
@@ -785,7 +805,10 @@ mod tests {
         db.init().unwrap();
         db.create_extension("test", "0.1.0", true, None, None)
             .unwrap();
-        let ext = db.get_extension_by_identifier("test").unwrap().unwrap();
+        let ext = db
+            .get_unique_extension_by_identifier("test")
+            .unwrap()
+            .unwrap();
 
         db.create_command(ext.ext_id, "test", CmdType::Iframe, "{}", true, None, None)
             .unwrap();

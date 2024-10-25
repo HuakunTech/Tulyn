@@ -4,7 +4,7 @@ import { GlobalEventBus } from "@/lib/utils/events"
 import { gqlClient } from "@/lib/utils/graphql"
 import * as supabase from "@/lib/utils/supabase"
 import { supabaseClient } from "@/lib/utils/supabase"
-import { installTarballUrl } from "@/lib/utils/tarball"
+import { installTarballUrl } from "~/lib/utils/install"
 import { KunkunExtManifest } from "@kksh/api/models"
 import {
 	FindLatestExtDocument,

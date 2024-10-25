@@ -13,7 +13,7 @@ export function getExtensionsFolder() {
 
 // TODO: this is a temporary replacement for old getDevExtensionFolder, I am getting rid of this while have to have this placeholder before everything is migrated to the new design
 export function getDevExtensionFolder() {
-	return desktopDir().then((dir) => join(dir, "dev-ext"))
+	return appDataDir().then((dir) => join(dir, "dev-extensions"))
 }
 
 const rtConfig = useRuntimeConfig()

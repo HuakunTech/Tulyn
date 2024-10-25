@@ -270,7 +270,7 @@ async function launchWorkerExt() {
 		toast.error(`Worker extension script ${cmd.main} not found`)
 		return goBack()
 	}
-	const extInfoInDB = await db.getExtensionByIdentifier(loadedExt.value.kunkun.identifier)
+	const extInfoInDB = await db.getUniqueExtensionByIdentifier(loadedExt.value.kunkun.identifier)
 	if (!extInfoInDB) {
 		toast.error("Unexpected Error", {
 			description: `Worker extension ${loadedExt.value.kunkun.identifier} not found in database. Run Troubleshooter.`

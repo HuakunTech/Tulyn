@@ -23,11 +23,11 @@ async function pickDirectory() {
 	if (dir && (await pathExists(dir))) {
 		devExtPath.value = dir
 		appConfig.setDevExtensionPath(dir)
-		devExtStore.setExtPath(devExtPath.value)
-		await devExtStore.load()
-		toast.success("Dev Extension Path Set", {
-			description: `${devExtStore.manifests.length} dev extensions loaded.`
-		})
+		// devExtStore.setExtPath(devExtPath.value)
+		// await devExtStore.load()
+		// toast.success("Dev Extension Path Set", {
+		// 	description: `${devExtStore.manifests.length} dev extensions loaded.`
+		// })
 	} else {
 		return toast.error("Invalid Path")
 	}
@@ -35,19 +35,18 @@ async function pickDirectory() {
 
 function clear() {
 	devExtPath.value = undefined
-	return appConfig
-		.setDevExtensionPath(devExtPath.value ?? null)
-		.then(() => {
-			return toast({
-				title: "Cleared"
-			})
-		})
-		.catch(() => {
-			return toast({
-				title: "Failed To Clear",
-				variant: "destructive"
-			})
-		})
+	return appConfig.setDevExtensionPath(devExtPath.value ?? null)
+	// .then(() => {
+	// 	return toast({
+	// 		title: "Cleared"
+	// 	})
+	// })
+	// .catch(() => {
+	// 	return toast({
+	// 		title: "Failed To Clear",
+	// 		variant: "destructive"
+	// 	})
+	// })
 }
 </script>
 

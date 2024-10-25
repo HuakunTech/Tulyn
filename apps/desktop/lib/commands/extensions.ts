@@ -58,7 +58,7 @@ export function loadAllExtensionsFromDisk(
 }
 
 export async function upsertExtension(extPkgJson: ExtPackageJson, extFullPath: string) {
-	const extInDb = await db.getExtensionByIdentifier(extPkgJson.kunkun.identifier)
+	const extInDb = await db.getUniqueExtensionByIdentifier(extPkgJson.kunkun.identifier)
 	if (!extInDb) {
 		// create this extension in database
 		await db.createExtension({
@@ -67,4 +67,20 @@ export async function upsertExtension(extPkgJson: ExtPackageJson, extFullPath: s
 			path: extFullPath
 		})
 	}
+}
+
+export async function loadAllExtensionsFromDb(): Promise<ExtPackageJsonExtra[]> {
+	const allDbExts = await (await db.getAllExtensions()).filter((ext) => ext.path)
+	const results: ExtPackageJsonExtra[] = []
+	for (const ext of allDbExts) {
+		if (!ext.path) continue
+		try {
+			const extPkgJson = await loadExtensionManifestFromDisk(await join(ext.path, "package.json"))
+			results.push(extPkgJson)
+		} catch (err) {
+			console.error(err)
+			error(`Failed to load extension ${ext.path} from database.`)
+		}
+	}
+	return results
 }

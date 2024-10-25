@@ -4,7 +4,7 @@ import PlatformsIcons from "@/components/extension-store/platforms-icons.vue"
 import { gqlClient } from "@/lib/utils/graphql"
 import * as supabase from "@/lib/utils/supabase"
 import { supabaseClient } from "@/lib/utils/supabase"
-import { installTarballUrl } from "@/lib/utils/tarball"
+import { installTarballUrl } from "~/lib/utils/install"
 import { IconEnum, KunkunExtManifest } from "@kksh/api/models"
 import { AllKunkunPermission, FsPermissionMap, permissionDescriptions } from "@kksh/api/permissions"
 import {

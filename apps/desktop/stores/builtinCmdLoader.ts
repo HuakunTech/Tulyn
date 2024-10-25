@@ -31,7 +31,26 @@ const builtinCmds: BuiltinCmd[] = [
 			const appStateStore = useAppStateStore()
 			appStateStore.setSearchTermSync("")
 			navigateTo("/extension-store")
-			// navigateTo(localePath("/extension-store"))
+		}
+	},
+	{
+		name: "Add Dev Extension",
+		iconifyIcon: "lineicons:dev",
+		description: "",
+		function: async () => {
+			const appStateStore = useAppStateStore()
+			appStateStore.setSearchTermSync("")
+			navigateTo("/add-dev-ext")
+		}
+	},
+	{
+		name: "Set Dev Extension Path",
+		iconifyIcon: "lineicons:dev",
+		description: "",
+		function: async () => {
+			const appStateStore = useAppStateStore()
+			appStateStore.setSearchTermSync("")
+			navigateTo("/set-dev-ext-path")
 		}
 	},
 	{
@@ -42,7 +61,6 @@ const builtinCmds: BuiltinCmd[] = [
 			const appStateStore = useAppStateStore()
 			appStateStore.setSearchTermSync("")
 			navigateTo("/create-quicklink")
-			// navigateTo(localePath("/extension-store"))
 		}
 	},
 	{
@@ -208,7 +226,7 @@ export const useBuiltInCmdStore = defineStore("built-in-cmd-loader", () => {
 			: filterListItem(appStateStore.searchTerm, $listItems.value)
 	})
 
-	function load() {
+	async function load() {
 		$listItems.value = buildinCmdsListItems
 	}
 

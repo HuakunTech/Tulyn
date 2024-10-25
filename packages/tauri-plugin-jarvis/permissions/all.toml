@@ -45,8 +45,6 @@ commands.allow = [
     "restart_server",
     "set_dev_extension_folder",
     "set_extension_folder",
-    "get_extension_folder",
-    "get_dev_extension_folder",
     "server_is_running",
     # File System
     "decompress_tarball",
@@ -66,7 +64,8 @@ commands.allow = [
     # Database
     "create_extension",
     "get_all_extensions",
-    "get_extension_by_identifier",
+    "get_unique_extension_by_identifier",
+    "get_all_extensions_by_identifier",
     "delete_extension_by_path",
     "delete_extension_by_ext_id",
     "create_command",
