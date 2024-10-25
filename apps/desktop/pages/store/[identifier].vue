@@ -133,7 +133,7 @@ async function uninstallExt() {
 </script>
 <template>
 	<div>
-		<Button variant="outline" size="icon" class="absolute left-4 top-4 z-50" @click="onBack">
+		<Button variant="outline" size="icon" class="absolute left-2 top-2 z-50" @click="onBack">
 			<ArrowLeftIcon />
 		</Button>
 		<div data-tauri-drag-region class="h-14"></div>

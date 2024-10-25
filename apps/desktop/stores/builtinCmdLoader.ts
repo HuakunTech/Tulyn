@@ -54,6 +54,22 @@ const builtinCmds: BuiltinCmd[] = [
 		}
 	},
 	{
+		name: "Window Troubleshooter",
+		iconifyIcon: "material-symbols:window-outline",
+		description: "",
+		function: async () => {
+			const appStateStore = useAppStateStore()
+			appStateStore.setSearchTermSync("")
+			// navigateTo("/window-troubleshooter")
+			const winLabel = `main:window-troubleshooter-${uuidv4()}`
+			console.log(winLabel)
+			new WebviewWindow(winLabel, {
+				url: "/window-troubleshooter",
+				title: "Window Troubleshooter"
+			})
+		}
+	},
+	{
 		name: "Extension Permission Inspector",
 		iconifyIcon: "hugeicons:inspect-code",
 		description: "",

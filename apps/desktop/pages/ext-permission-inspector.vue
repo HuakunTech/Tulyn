@@ -53,7 +53,7 @@ async function onPick() {
 </script>
 <template>
 	<main class="container h-screen w-screen pt-10">
-		<Button variant="outline" size="icon" class="absolute left-3 top-3 z-50" @click="onBack">
+		<Button variant="outline" size="icon" class="absolute left-2 top-2 z-50" @click="onBack">
 			<ArrowLeftIcon />
 		</Button>
 		<h1 class="text-2xl font-bold">Extension Permission Inspector</h1>

@@ -43,7 +43,7 @@ function goBack() {
 </script>
 <template>
 	<div class="flex h-screen flex-col">
-		<Button class="absolute left-4 top-4" size="icon" variant="outline" @click="goBack">
+		<Button class="absolute left-2 top-2" size="icon" variant="outline" @click="goBack">
 			<ArrowLeftIcon />
 		</Button>
 		<div class="mt-10 grow overflow-y-auto px-16 py-3">

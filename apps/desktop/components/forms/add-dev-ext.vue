@@ -34,10 +34,6 @@ const npmPackageNameFormSchema = z.object({
 	name: z.string().min(1)
 })
 
-definePageMeta({
-	layout: "empty"
-})
-
 onKeyStroke("Escape", (e) => {
 	e.preventDefault()
 	navigateTo("/")
@@ -191,8 +187,8 @@ async function pickExtFiles() {
 							:icon="{ value: 'mdi:folder-cog-outline', type: IconEnum.Iconify }"
 							class="h-10 w-10"
 						/>
-						<small class="select-none text-xs font-mono">Drag and Drop</small>
-						<small class="select-none text-xs font-mono">Extension Folder or Tarball</small>
+						<small class="select-none font-mono text-xs">Drag and Drop</small>
+						<small class="select-none font-mono text-xs">Extension Folder or Tarball</small>
 					</div>
 				</div>
 			</Card>

@@ -84,9 +84,10 @@ function clearViewContent(keep?: "list" | "form" | "markdown") {
 	}
 }
 
-function goBack() {
+async function goBack() {
 	if (isInMainWindow()) {
-		unregisterExtensionWindow(appWin.label)
+		await unregisterExtensionWindow(appWin.label)
+		windowExtMapStore.unregisterExtensionFromWindow(appWin.label)
 		navigateTo(localePath("/"))
 	} else {
 		appWin.close()
@@ -327,14 +328,6 @@ onUnmounted(() => {
 	extensionLoadingBar.value = false
 	GlobalEventBus.offActionSelected(onActionSelected)
 })
-
-/**
- * This go back is triggered from the back button, not extension's ui.goBack() API
- */
-function onGoBack() {
-	console.log("onGoBack")
-	windowExtMapStore.unregisterExtensionFromWindow(appWin.label)
-}
 </script>
 <template>
 	<div class="h-full grow">
@@ -344,14 +337,14 @@ function onGoBack() {
 		</Transition>
 		<ExtTemplateFormView
 			v-if="loaded && formViewContent && formViewZodSchema"
-			@go-back="onGoBack"
+			@go-back="goBack"
 			:workerAPI="workerAPI!"
 			:formViewZodSchema="formViewZodSchema"
 			:fieldConfig="formFieldConfig"
 		/>
 		<ExtTemplateListView
 			v-else-if="loaded && listViewContent"
-			@go-back="onGoBack"
+			@go-back="goBack"
 			class=""
 			v-model:search-term="searchTerm"
 			v-model:search-bar-placeholder="searchBarPlaceholder"

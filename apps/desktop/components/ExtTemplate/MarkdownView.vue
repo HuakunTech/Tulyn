@@ -21,7 +21,7 @@ function goBack() {
 </script>
 <template>
 	<main class="flex w-full justify-center py-10 container">
-		<Button class="absolute left-4 top-4" size="icon" variant="outline" @click="goBack">
+		<Button class="absolute left-2 top-2" size="icon" variant="outline" @click="goBack">
 			<ArrowLeftIcon />
 		</Button>
 		<div class="prose dark:prose-invert">

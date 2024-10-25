@@ -44,7 +44,7 @@ onKeyStroke("Escape", (e) => {
 
 <template>
 	<main class="flex h-screen flex-col items-center">
-		<Button size="icon" variant="outline" @click="goBack" class="absolute left-4 top-4">
+		<Button size="icon" variant="outline" @click="goBack" class="absolute left-2 top-2">
 			<ArrowLeftIcon class="h-5 w-5 shrink-0" />
 		</Button>
 		<h1 class="w-2/3 pb-3 pt-10 text-2xl font-bold">Create Quicklink</h1>
