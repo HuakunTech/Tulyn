@@ -25,8 +25,7 @@ function onClose() {
 <template>
 	<DropdownMenu>
 		<DropdownMenuTrigger as-child>
-			<!-- <Button variant="outline"> Open </Button> -->
-			<Button size="icon" variant="ghost">
+			<Button size="icon" variant="outline">
 				<EllipsisVerticalIcon class="h-4 w-4" />
 			</Button>
 		</DropdownMenuTrigger>

@@ -62,11 +62,18 @@ function onAvatarClick() {
 <template>
 	<div data-tauri-drag-region class="z-50 flex h-12 items-center justify-between border p-2">
 		<div flex gap-2 items-center>
-			<img class="h-6 w-6 invert dark:invert-0" src="/img/logo-w-bg.png" alt="logo" />
-			<Avatar v-if="session" class="h-6 w-6 cursor-pointer border" @click="onAvatarClick">
-				<AvatarImage :src="session?.user.user_metadata.avatar_url" alt="avatar" />
-				<AvatarFallback>{{ avatarFallback }}</AvatarFallback>
-			</Avatar>
+			<img
+				data-tauri-drag-region
+				class="h-6 w-6 invert dark:invert-0"
+				src="/img/logo-w-bg.png"
+				alt="logo"
+			/>
+			<button v-if="session" data-tauri-drag-region flex items-center @click="onAvatarClick">
+				<Avatar class="h-6 w-6 border -z-10">
+					<AvatarImage :src="session?.user.user_metadata.avatar_url" alt="avatar" />
+					<AvatarFallback>{{ avatarFallback }}</AvatarFallback>
+				</Avatar>
+			</button>
 		</div>
 		<span class="flex gap-2">
 			<TooltipProvider>
