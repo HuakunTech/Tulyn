@@ -2,9 +2,13 @@
 name = "mac-security-rs"
 version = "0.1.0"
 edition = "2021"
+build = "build.rs"
 
-[dependencies]
+[target.'cfg(target_os = "macos")'.dependencies]
+serde = { workspace = true, features = ["derive"] }
 core-foundation = "0.10.0"
 localauthentication-rs = "0.1.0"
 objc = "0.2.7"
-serde = { workspace = true, features = ["derive"] }
+
+[package.metadata]
+target_os = "macos"

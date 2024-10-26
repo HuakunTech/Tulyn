@@ -1,5 +1,4 @@
-// use mac_security_rs::{verify_auth, AuthPolicy};
-
+#![cfg(target_os = "macos")]
 #[tauri::command]
 pub async fn verify_auth() -> Result<bool, String> {
     Ok(mac_security_rs::verify_auth(
