@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Button } from "@kksh/vue/button"
+import { DraggableButton } from "@/components/ui/button"
+// import { Button } from "@kksh/vue/button"
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -25,10 +26,9 @@ function onClose() {
 <template>
 	<DropdownMenu>
 		<DropdownMenuTrigger as-child>
-			<!-- <Button variant="outline"> Open </Button> -->
-			<Button size="icon" variant="ghost">
-				<EllipsisVerticalIcon class="h-4 w-4" />
-			</Button>
+			<DraggableButton size="icon" variant="outline">
+				<EllipsisVerticalIcon data-tauri-drag-region class="h-4 w-4" />
+			</DraggableButton>
 		</DropdownMenuTrigger>
 		<DropdownMenuContent class="w-52">
 			<DropdownMenuItem @click="onClose" class="space-x-2" value="top">

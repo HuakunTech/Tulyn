@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Kbd from "@/components/Kbd.vue"
+import { DraggableButton } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useAppUiStore } from "@/stores/ui"
 import { Icon } from "@iconify/vue"
@@ -62,19 +63,26 @@ function onAvatarClick() {
 <template>
 	<div data-tauri-drag-region class="z-50 flex h-12 items-center justify-between border p-2">
 		<div flex gap-2 items-center>
-			<img class="h-6 w-6 invert dark:invert-0" src="/img/logo-w-bg.png" alt="logo" />
-			<Avatar v-if="session" class="h-6 w-6 cursor-pointer border" @click="onAvatarClick">
-				<AvatarImage :src="session?.user.user_metadata.avatar_url" alt="avatar" />
-				<AvatarFallback>{{ avatarFallback }}</AvatarFallback>
-			</Avatar>
+			<img
+				data-tauri-drag-region
+				class="h-6 w-6 invert dark:invert-0"
+				src="/img/logo-w-bg.png"
+				alt="logo"
+			/>
+			<button v-if="session" data-tauri-drag-region flex items-center @click="onAvatarClick">
+				<Avatar class="-z-10 h-6 w-6 border">
+					<AvatarImage :src="session?.user.user_metadata.avatar_url" alt="avatar" />
+					<AvatarFallback>{{ avatarFallback }}</AvatarFallback>
+				</Avatar>
+			</button>
 		</div>
 		<span class="flex gap-2">
 			<TooltipProvider>
 				<Tooltip>
 					<TooltipTrigger>
-						<Button variant="ghost" size="icon" @click="onReload">
-							<RefreshCcw class="w-4" />
-						</Button>
+						<DraggableButton variant="ghost" size="icon" @click="onReload">
+							<RefreshCcw w-4 data-tauri-drag-region />
+						</DraggableButton>
 					</TooltipTrigger>
 					<TooltipContent>
 						<span v-if="_platform === 'macos'">Command + R</span>
@@ -82,10 +90,10 @@ function onAvatarClick() {
 					</TooltipContent>
 				</Tooltip>
 			</TooltipProvider>
-			<Button v-if="appUiStore.defaultAction" variant="ghost" class="gap-2">
+			<DraggableButton v-if="appUiStore.defaultAction" variant="ghost" class="gap-2">
 				{{ appUiStore.defaultAction }}
-				<Kbd><Icon icon="tdesign:enter" /></Kbd>
-			</Button>
+				<Kbd><Icon icon="tdesign:enter" data-tauri-drag-region /></Kbd>
+			</DraggableButton>
 			<ActionPanel />
 		</span>
 	</div>

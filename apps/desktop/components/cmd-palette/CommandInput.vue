@@ -31,7 +31,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-	<div class="flex items-center gap-2 border-b px-3" cmdk-input-wrapper>
+	<div class="flex items-center gap-2 border-b px-3" cmdk-input-wrapper data-tauri-drag-region>
 		<slot />
 		<ComboboxInput
 			v-bind="{ ...forwardedProps, ...$attrs }"
@@ -49,6 +49,6 @@ const emit = defineEmits<{
 			:searchTerm="searchTerm"
 			v-model:quickLinkInputs="quickLinkInputs"
 		/>
-		<slot name="end" />
+		<slot name="end" data-tauri-drag-region />
 	</div>
 </template>

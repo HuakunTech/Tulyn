@@ -18,7 +18,9 @@ const emit = defineEmits<{
 		:quickLinkInputs="qlinkStore.quickLinkInputs"
 	>
 		<template v-slot:end>
-			<CmdPaletteSearchBarDropdown />
+			<div pl-8 data-tauri-drag-region>
+				<CmdPaletteSearchBarDropdown />
+			</div>
 		</template>
 	</CmdPaletteCommandInput>
 </template>

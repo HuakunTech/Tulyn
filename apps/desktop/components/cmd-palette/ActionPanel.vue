@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Kbd from "@/components/Kbd.vue"
+import { DraggableButton } from "@/components/ui/button"
 import { HTMLElementId } from "@/lib/constants"
 import { useAppUiStore } from "@/stores/ui"
 import { Icon } from "@iconify/vue"
@@ -39,13 +40,18 @@ function onActionSelected(val: string) {
 <template>
 	<Popover v-model:open="open">
 		<PopoverTrigger>
-			<Button variant="ghost" role="combobox" :aria-expanded="open" class="justify-between gap-2">
-				<span>Action</span>
-				<span class="flex items-center gap-0.5">
-					<Kbd><Icon icon="ph-command" class="h-4 w-4 shrink-0" /></Kbd>
-					<Kbd>K</Kbd>
+			<DraggableButton
+				variant="ghost"
+				role="combobox"
+				:aria-expanded="open"
+				class="justify-between gap-2"
+			>
+				Action
+				<span class="flex items-center gap-0.5" data-tauri-drag-region>
+					<Kbd data-tauri-drag-region><Icon data-tauri-drag-region icon="ph-command" class="h-4 w-4 shrink-0" /></Kbd>
+					<Kbd data-tauri-drag-region>K</Kbd>
 				</span>
-			</Button>
+			</DraggableButton>
 		</PopoverTrigger>
 		<PopoverContent class="w-[200px] p-0">
 			<Command @update:model-value="(v) => onActionSelected(v as string)">

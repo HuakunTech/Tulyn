@@ -28,7 +28,7 @@ const delegatedProps = computed(() => {
 			)
 		"
 	>
-		<ComboboxLabel v-if="heading" class="text-muted-foreground px-2 py-1.5 text-xs font-medium">
+		<ComboboxLabel v-if="heading" class="text-muted-foreground px-2 py-1.5 text-xs font-medium select-none" data-tauri-drag-region>
 			{{ heading }}
 		</ComboboxLabel>
 		<slot />
