@@ -17,6 +17,8 @@ const StorePathSearchParams = v.object({
 })
 
 export async function initDeeplink() {
+	console.log("init deeplink")
+
 	const appWindow = getCurrentWebviewWindow()
 	if (appWindow.label !== "main") {
 		return
@@ -47,9 +49,6 @@ function openMainWindow() {
 export async function handleKunkunProtocol(parsedUrl: URL) {
 	const params = Object.fromEntries(parsedUrl.searchParams)
 	const { host, pathname, href } = parsedUrl
-	console.log("host:", host, "pathname:", pathname)
-	console.log("href:", href)
-
 	if (href.startsWith(DEEP_LINK_PATH_OPEN)) {
 		openMainWindow()
 	} else if (href.startsWith(DEEP_LINK_PATH_STORE)) {
@@ -64,10 +63,7 @@ export async function handleKunkunProtocol(parsedUrl: URL) {
 		emitRefreshDevExt()
 	} else if (href.startsWith(DEEP_LINK_PATH_AUTH_CONFIRM)) {
 		openMainWindow()
-		const url = new URL("/auth/confirm")
-		url.searchParams.set("code", params.code)
-		console.log("auth confirm url:", url.toString(), url.href)
-		navigateTo(url.href)
+		navigateTo(`/auth/confirm?${parsedUrl.searchParams.toString()}`);
 	} else {
 		console.error("Invalid path:", pathname)
 		toast.error("Invalid path", {

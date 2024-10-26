@@ -34,6 +34,24 @@ const builtinCmds: BuiltinCmd[] = [
 		}
 	},
 	{
+		name: "Sign In",
+		iconifyIcon: "mdi:login-variant",
+		description: "",
+		function: async () => {
+			navigateTo("/auth")
+		}
+	},
+	{
+		name: "Sign Out",
+		iconifyIcon: "mdi:logout-variant",
+		description: "",
+		function: async () => {
+			const supabase = useSupabaseClient()
+			supabase.auth.signOut()
+			// navigateTo("/auth/login")
+		}
+	},
+	{
 		name: "Add Dev Extension",
 		iconifyIcon: "lineicons:dev",
 		description: "",

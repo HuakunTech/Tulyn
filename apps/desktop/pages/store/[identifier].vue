@@ -42,7 +42,7 @@ const extStore = useExtensionStore()
 
 onKeyStroke("Escape", (e) => {
 	e.preventDefault()
-	navigateTo("/extension-store")
+	onBack()
 })
 
 function onBack() {

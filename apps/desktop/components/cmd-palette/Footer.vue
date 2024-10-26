@@ -3,6 +3,7 @@ import Kbd from "@/components/Kbd.vue"
 import { cn } from "@/lib/utils"
 import { useAppUiStore } from "@/stores/ui"
 import { Icon } from "@iconify/vue"
+import { Avatar, AvatarFallback, AvatarImage } from "@kksh/vue/avatar"
 import { Button } from "@kksh/vue/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@kksh/vue/tooltip"
 import { platform } from "@tauri-apps/plugin-os"
@@ -14,6 +15,7 @@ import ActionPanel from "./ActionPanel.vue"
 const _platform = platform()
 const appUiStore = useAppUiStore()
 const appConfig = useAppConfigStore()
+const session = useSupabaseSession()
 
 function onReload() {
 	appConfig.init()
@@ -40,10 +42,32 @@ onMounted(() => {
 onUnmounted(() => {
 	document.removeEventListener("keydown", onKeyDown)
 })
+
+const avatarFallback = computed(() => {
+	if (!session.value) return "?"
+	const nameSplit = session.value?.user.user_metadata.name.split(" ").filter(Boolean)
+	if (nameSplit.length > 1) {
+		return nameSplit[0][0] + nameSplit.at(-1)[0]
+	} else if (nameSplit.length === 1) {
+		return nameSplit[0][0]
+	} else {
+		return "?"
+	}
+})
+
+function onAvatarClick() {
+	navigateTo("/auth")
+}
 </script>
 <template>
 	<div data-tauri-drag-region class="z-50 flex h-12 items-center justify-between border p-2">
-		<img class="h-6 w-6 invert dark:invert-0" src="/img/logo-w-bg.png" alt="logo" />
+		<div flex gap-2 items-center>
+			<img class="h-6 w-6 invert dark:invert-0" src="/img/logo-w-bg.png" alt="logo" />
+			<Avatar v-if="session" class="h-6 w-6 cursor-pointer border" @click="onAvatarClick">
+				<AvatarImage :src="session?.user.user_metadata.avatar_url" alt="avatar" />
+				<AvatarFallback>{{ avatarFallback }}</AvatarFallback>
+			</Avatar>
+		</div>
 		<span class="flex gap-2">
 			<TooltipProvider>
 				<Tooltip>

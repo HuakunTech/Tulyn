@@ -31,7 +31,7 @@ unlistenRefreshConfig = await listenToRefreshConfig(async () => {
 	initStores()
 	// useRegisterAppShortcuts()
 })
-initDeeplink()
+
 
 const windowExtMapStore = useWindowExtMapStore()
 if (appWindow.label === "main") {
@@ -47,6 +47,7 @@ onMounted(async () => {
 	if (!isMainWindow) {
 		return
 	}
+	initDeeplink()
 	await appConfig.init()
 	appConfig.refreshWindowStyles()
 	useRegisterAppShortcuts()
