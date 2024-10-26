@@ -15,6 +15,7 @@ If you are interested in contributing to the project, please read the following 
 ### Setup
 
 ```bash
+git clone https://github.com/kunkunsh/kunkun.git --recursive
 pnpm run setup
 pnpm install
 pnpm --filter @kksh/gql build
@@ -28,3 +29,8 @@ pnpm --filter @kksh/desktop tauri dev
 cd apps/desktop
 pnpm tauri dev
 ```
+
+
+> [!CAUTION]
+> For some unknown reason, the desktop app may panic when running `pnpm tauri dev` in the first time. If that happens, please try running it again.
+
