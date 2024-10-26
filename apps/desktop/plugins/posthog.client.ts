@@ -5,6 +5,9 @@ export default defineNuxtPlugin((nuxtApp) => {
 	if (runtimeConfig.public.isDev) {
 		return
 	}
+	if (!(runtimeConfig.public.posthogPublicKey && runtimeConfig.public.posthogHost)) {
+		return
+	}
 	const posthogClient = posthog.init(runtimeConfig.public.posthogPublicKey, {
 		api_host: runtimeConfig.public.posthogHost || "https://us.i.posthog.com",
 		person_profiles: "identified_only",

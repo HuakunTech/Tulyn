@@ -71,11 +71,8 @@ export default defineNuxtConfig({
 				.describe("SUPABASE_GRAPHQL_ENDPOINT")
 				.parse(process.env.SUPABASE_GRAPHQL_ENDPOINT),
 			isDev: process.env.NODE_ENV === "development",
-			posthogPublicKey: z
-				.string()
-				.describe("POSTHOG_PUBLIC_KEY")
-				.parse(process.env.POSTHOG_PUBLIC_KEY),
-			posthogHost: z.string().describe("POSTHOG_HOST").parse(process.env.POSTHOG_HOST)
+			posthogPublicKey: process.env.POSTHOG_PUBLIC_KEY,
+			posthogHost: process.env.POSTHOG_HOST
 		}
 	},
 	colorMode: {

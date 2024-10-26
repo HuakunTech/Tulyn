@@ -8,6 +8,7 @@
 		"dev": "turbo run dev",
 		"develop": "turbo run develop",
 		"lint": "turbo run lint",
+		"setup": "bun scripts/init-env.ts",
 		"format:apps": "bun --bun prettier --write \"./apps/**/*.{ts,tsx,md,vue,json,yaml,yml,svelte}\"",
 		"format:packages": "bun --bun prettier --write \"./packages/**/*.{ts,tsx,md,vue,json,yaml,yml,svelte}\"",
 		"format": "npm run format:apps && npm run format:packages",

@@ -132,12 +132,13 @@ async function uninstallExt() {
 }
 </script>
 <template>
-	<div>
-		<Button variant="outline" size="icon" class="absolute left-2 top-2 z-50" @click="onBack">
+	<div class="h-screen">
+		<Button variant="outline" size="icon" class="fixed left-2 top-2 z-50" @click="onBack">
 			<ArrowLeftIcon />
 		</Button>
-		<div data-tauri-drag-region class="h-14"></div>
-		<main class="px-10">
+
+		<main class="px-10 pb-10">
+			<div data-tauri-drag-region class="h-14"></div>
 			<div class="flex items-center gap-4">
 				<IconMultiplexer v-if="manifest" :icon="manifest?.icon" class="h-12 w-12" />
 				<div>
@@ -194,7 +195,7 @@ async function uninstallExt() {
 		</main>
 
 		<Button
-			class="absolute bottom-0 flex w-full space-x-2 rounded-none bg-green-700 text-white hover:bg-green-600"
+			class="fixed bottom-0 flex w-full space-x-2 rounded-none bg-green-700 text-white hover:bg-green-600"
 			v-if="!isInstalled"
 			:disabled="installLoading"
 			@click="installExt"
@@ -208,7 +209,7 @@ async function uninstallExt() {
 			<Icon v-else name="mi:enter" class="h-5 w-5" />
 		</Button>
 		<Button
-			class="absolute bottom-0 w-full space-x-2 rounded-none bg-red-600 hover:bg-red-500"
+			class="fixed bottom-0 w-full space-x-2 rounded-none bg-red-600 hover:bg-red-500"
 			v-else
 			:disabled="uninstallLoading"
 			variant="destructive"
