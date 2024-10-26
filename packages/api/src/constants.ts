@@ -12,7 +12,7 @@ export const DESKTOP_SERVICE_NAME = "Kunkun"
 /* -------------------------------------------------------------------------- */
 /*                                  Deep Link                                 */
 /* -------------------------------------------------------------------------- */
-export const DEEP_LINK_PATH_OPEN = "/open"
-export const DEEP_LINK_PATH_STORE = "/store"
-export const DEEP_LINK_PATH_REFRESH_DEV_EXTENSION = "/refresh-dev-extension"
-export const DEEP_LINK_PATH_AUTH_CONFIRM = "/auth/confirm"
+export const DEEP_LINK_PATH_OPEN = "kunkun://open"
+export const DEEP_LINK_PATH_STORE = "kunkun://store"
+export const DEEP_LINK_PATH_REFRESH_DEV_EXTENSION = "kunkun://refresh-dev-extension"
+export const DEEP_LINK_PATH_AUTH_CONFIRM = "kunkun://auth/confirm"

@@ -46,36 +46,32 @@ function openMainWindow() {
 
 export async function handleKunkunProtocol(parsedUrl: URL) {
 	const params = Object.fromEntries(parsedUrl.searchParams)
-	const { host, pathname } = parsedUrl
-	if (host === "app") {
-		if (pathname.startsWith(DEEP_LINK_PATH_OPEN)) {
-			openMainWindow()
-		} else if (pathname.startsWith(DEEP_LINK_PATH_STORE)) {
-			const parsed = v.parse(StorePathSearchParams, params)
-			openMainWindow()
-			if (parsed.identifier) {
-				navigateTo(`/store/${parsed.identifier}`)
-			} else {
-				navigateTo("/extension-store")
-			}
-		} else if (pathname.startsWith(DEEP_LINK_PATH_REFRESH_DEV_EXTENSION)) {
-			emitRefreshDevExt()
-		} else if (pathname.startsWith(DEEP_LINK_PATH_AUTH_CONFIRM)) {
-			openMainWindow()
-			const url = new URL("/auth/confirm")
-			url.searchParams.set("code", params.code)
-			console.log("auth confirm url:", url.toString(), url.href)
-			navigateTo(url.href)
+	const { host, pathname, href } = parsedUrl
+	console.log("host:", host, "pathname:", pathname)
+	console.log("href:", href)
+
+	if (href.startsWith(DEEP_LINK_PATH_OPEN)) {
+		openMainWindow()
+	} else if (href.startsWith(DEEP_LINK_PATH_STORE)) {
+		const parsed = v.parse(StorePathSearchParams, params)
+		openMainWindow()
+		if (parsed.identifier) {
+			navigateTo(`/store/${parsed.identifier}`)
 		} else {
-			console.error("Invalid path:", pathname)
-			toast.error("Invalid path", {
-				description: parsedUrl.href
-			})
+			navigateTo("/extension-store")
 		}
+	} else if (href.startsWith(DEEP_LINK_PATH_REFRESH_DEV_EXTENSION)) {
+		emitRefreshDevExt()
+	} else if (href.startsWith(DEEP_LINK_PATH_AUTH_CONFIRM)) {
+		openMainWindow()
+		const url = new URL("/auth/confirm")
+		url.searchParams.set("code", params.code)
+		console.log("auth confirm url:", url.toString(), url.href)
+		navigateTo(url.href)
 	} else {
-		console.error("Invalid host:", host)
-		toast.error("Invalid host", {
-			description: host
+		console.error("Invalid path:", pathname)
+		toast.error("Invalid path", {
+			description: parsedUrl.href
 		})
 	}
 }
