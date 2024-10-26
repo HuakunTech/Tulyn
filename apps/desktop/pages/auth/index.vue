@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { DEEP_LINK_PATH_AUTH_CONFIRM } from "@kksh/api"
 import { Button } from "@kksh/vue/button"
 import {
 	Card,
@@ -10,11 +11,14 @@ import {
 } from "@kksh/vue/card"
 import { ArrowLeftIcon } from "@radix-icons/vue"
 import { onKeyStroke } from "@vueuse/core"
+import { open } from "tauri-plugin-shellx-api"
+import { toast } from "vue-sonner"
 
 const supabase = useSupabaseClient()
 const session = useSupabaseSession()
 
-const redirectTo = "http://localhost:3000/auth/confirm"
+const redirectTo = DEEP_LINK_PATH_AUTH_CONFIRM
+// const redirectTo = "http://localhost:3000/auth/confirm"
 
 onKeyStroke("Escape", (e) => {
 	e.preventDefault()
@@ -27,14 +31,20 @@ function onBack() {
 
 const signInWithOAuth = async (provider: "github" | "google") => {
 	// console.log(`Login with ${provider} redirecting to ${redirectTo}`);
-	const { error } = await supabase.auth.signInWithOAuth({
+	const { error, data } = await supabase.auth.signInWithOAuth({
 		provider,
 		options: {
-			redirectTo
+			redirectTo,
+			skipBrowserRedirect: true
 		}
 	})
-
-	if (error) console.log(error)
+	console.log("Sign In With OAuth", data)
+	if (error) {
+		console.log(error)
+		toast.error("Failed to sign in with OAuth", { description: error.message })
+	} else {
+		data.url && open(data.url)
+	}
 }
 
 onMounted(async () => {

@@ -3,6 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@kksh/vue/avatar"
 import { Button } from "@kksh/vue/button"
 import { ArrowLeftIcon } from "@radix-icons/vue"
 import { onKeyStroke } from "@vueuse/core"
+import { toast } from "vue-sonner"
 
 const session = useSupabaseSession()
 const supabase = useSupabaseClient()
@@ -19,13 +20,13 @@ function onBack() {
 
 const route = useRoute()
 onMounted(async () => {
-	// setTimeout(() => {
-	// 	if (session.value) {
-	// 		navigateTo("/")
-	// 	} else {
-	// 		navigateTo("/auth")
-	// 	}
-	// }, 5_000)
+	const code = route.query.code
+	console.log("Exchange Code", code)
+	if (code) {
+		await supabase.auth.exchangeCodeForSession(code as string)
+	} else {
+		toast.error("No code found")
+	}
 })
 
 const avatarFallback = computed(() => {
@@ -39,23 +40,27 @@ const avatarFallback = computed(() => {
 		return "?"
 	}
 })
+
+function onSignOut() {
+	supabase.auth.signOut()
+	navigateTo("/auth")
+}
 </script>
 <template>
 	<main class="container h-screen w-screen pt-10">
 		<Button variant="outline" size="icon" class="absolute left-2 top-2 z-50" @click="onBack">
 			<ArrowLeftIcon />
 		</Button>
-		<!-- <pre>is logged in: {{ session }}</pre>
-		<pre>route: {{ route.fullPath }}</pre> -->
 		<div class="flex grow items-center justify-center pt-16">
 			<div class="flex flex-col items-center gap-4">
-				<span v-if="session" class="text-4xl font-bold font-mono">Welcome, You are Logged In</span>
-				<span v-else class="text-4xl font-bold font-mono">You Are Not Logged In</span>
-				<span class="flex items-center gap-1 text-xl">
+				<span v-if="session" class="font-mono text-4xl font-bold">Welcome, You are Logged In</span>
+				<span v-else class="font-mono text-4xl font-bold">You Are Not Logged In</span>
+				<span flex flex-col items-center gap-5 text-xl>
 					<Avatar v-if="session" class="h-32 w-32 border">
 						<AvatarImage :src="session?.user.user_metadata.avatar_url" alt="avatar" />
 						<AvatarFallback>{{ avatarFallback }}</AvatarFallback>
 					</Avatar>
+					<Button variant="outline" @click="onSignOut">Sign Out</Button>
 				</span>
 			</div>
 		</div>

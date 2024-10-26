@@ -127,7 +127,10 @@ fn main() {
         .setup(|app| {
             setup::window::setup_window(app.handle());
             setup::tray::create_tray(app.handle())?;
-            // app.deep_link().register("kunkun")?;
+            #[cfg(debug_assertions)] // only include this code on debug builds
+            {
+                app.deep_link().register("kunkun")?;
+            }
             // setup::deeplink::setup_deeplink(app);
             // #[cfg(all(target_os = "macos", debug_assertions))]
             // app.set_activation_policy(ActivationPolicy::Accessory);
