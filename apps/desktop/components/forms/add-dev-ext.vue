@@ -39,10 +39,6 @@ onKeyStroke("Escape", (e) => {
 	navigateTo("/")
 })
 
-function onBack() {
-	navigateTo("/")
-}
-
 async function onUrlSubmit(data: z.infer<typeof urlFormSchema>) {
 	// data.url
 	// https://storage.huakun.tech/vscode-0.0.6.tgz
@@ -50,12 +46,19 @@ async function onUrlSubmit(data: z.infer<typeof urlFormSchema>) {
 		toast.warning("Please set the dev extension path in the settings to install tarball extension")
 		return navigateTo("/set-dev-ext-path")
 	}
-	await installTarballUrl(data.url, appConfig.devExtensionPath).catch((err) => {
-		ElNotification.warning({
-			title: "Failed to install extension",
-			message: err
+	await installTarballUrl(data.url, appConfig.devExtensionPath)
+		.then(() => {
+			ElNotification.success({
+				title: "Success",
+				message: "Extension installed successfully"
+			})
 		})
-	})
+		.catch((err) => {
+			ElNotification.warning({
+				title: "Failed to install extension",
+				message: err
+			})
+		})
 }
 
 async function onNpmPackageNameSubmit(data: z.infer<typeof npmPackageNameFormSchema>) {
@@ -79,27 +82,25 @@ async function onNpmPackageNameSubmit(data: z.infer<typeof npmPackageNameFormSch
 		})
 }
 
-async function onPickLocalExtensionFolder() {
-	const selectedDir = await openFileSelector({
-		directory: true
-	})
-	if (!selectedDir) {
-		return ElMessage.warning("No Directory Selected")
-	}
-}
-
 async function handleDragNDropInstall(paths: string[]) {
 	dragging.value = false
 	console.log(paths)
 	for (const path of paths) {
 		const stat = await fs.stat(path)
 		if (await stat.isDirectory) {
-			await installDevExtensionDir(path).catch((err) => {
-				ElNotification.warning({
-					title: "Failed to install extension",
-					message: err
+			await installDevExtensionDir(path)
+				.then((ext) => {
+					ElNotification.success({
+						title: "Success",
+						message: `Extension from ${ext.extPath} installed successfully`
+					})
 				})
-			})
+				.catch((err) => {
+					ElNotification.warning({
+						title: "Failed to install extension",
+						message: err
+					})
+				})
 		} else if (await stat.isFile) {
 			if (!appConfig.devExtensionPath) {
 				toast.warning(
@@ -107,12 +108,19 @@ async function handleDragNDropInstall(paths: string[]) {
 				)
 				continue
 			}
-			await installTarball(path, appConfig.devExtensionPath).catch((err) => {
-				ElNotification.warning({
-					title: "Failed to install extension",
-					message: err
+			await installTarball(path, appConfig.devExtensionPath)
+				.then((ext) => {
+					ElNotification.success({
+						title: "Success",
+						message: `Extension from ${path} installed successfully`
+					})
 				})
-			})
+				.catch((err) => {
+					ElNotification.warning({
+						title: "Failed to install extension",
+						message: err
+					})
+				})
 		} else {
 			toast.warning(`Unsupported file type: ${path}`)
 		}
@@ -130,12 +138,19 @@ async function pickExtFolders() {
 		return ElMessage.warning("No File Selected")
 	}
 	for (const dir of selected) {
-		await installDevExtensionDir(dir).catch((err) => {
-			ElNotification.warning({
-				title: "Failed to install extension",
-				message: err
+		await installDevExtensionDir(dir)
+			.then((ext) => {
+				ElNotification.success({
+					title: "Success",
+					message: `Extension from ${ext.extPath} installed successfully`
+				})
 			})
-		})
+			.catch((err) => {
+				ElNotification.warning({
+					title: "Failed to install extension",
+					message: err
+				})
+			})
 	}
 	extStore.load()
 }

@@ -1,6 +1,12 @@
 import { constructExtensionSupportDir } from "@kksh/api"
 import { db, registerExtensionWindow, unregisterExtensionWindow } from "@kksh/api/commands"
-import type { CustomUiCmd, ExtPackageJsonExtra, OSPlatform, TemplateUiCmd } from "@kksh/api/models"
+import {
+	Icon,
+	type CustomUiCmd,
+	type ExtPackageJsonExtra,
+	type OSPlatform,
+	type TemplateUiCmd
+} from "@kksh/api/models"
 import { convertFileSrc } from "@tauri-apps/api/core"
 import { appDataDir, join } from "@tauri-apps/api/path"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
@@ -11,7 +17,7 @@ import { computedAsync } from "@vueuse/core"
 import { loadAllExtensionsFromDb, loadAllExtensionsFromDisk } from "~/lib/commands/extensions"
 import { getExtensionsFolder } from "~/lib/constants"
 import { getPersistedAppConfigStore } from "~/lib/stores/appConfig"
-import { ListItemType, type TListItem } from "~/lib/types/list"
+import { ListItemType, TListGroup, type TListItem } from "~/lib/types/list"
 import { isExtPathInDev } from "~/lib/utils/path"
 import { filterListItem } from "~/lib/utils/search"
 import { defineStore } from "pinia"
@@ -151,14 +157,17 @@ function createNewExtWindowForTemplateCmd(
 export const useExtensionStore = defineStore("kk-extensions", () => {
 	const manifests = ref<ExtPackageJsonExtra[]>([])
 	const appStateStore = useAppStateStore()
-	const isDev = false
+	// const isDev = false
 	const extPath = ref<string>()
+	const extensionName = "Extensions"
 
 	async function load() {
 		const extDir = await getExtensionsFolder()
 		extPath.value = extDir
 		return loadAllExtensionsFromDb()
 			.then(async (exts) => {
+				console.log("db exts", exts)
+
 				// const nonExistentExts = exts.filter(async (ext) => !(await fs.exists(ext.extPath)))
 				// console.log("nonExistentExts", nonExistentExts)
 
@@ -192,6 +201,7 @@ export const useExtensionStore = defineStore("kk-extensions", () => {
 	}
 
 	async function onSelect(item: TListItem) {
+		const isDev = item.flags.isDev
 		const appConfig = useAppConfigStore()
 		manifests.value.forEach((manifest) => {
 			if (item.type == "UI Command") {
@@ -199,6 +209,9 @@ export const useExtensionStore = defineStore("kk-extensions", () => {
 					if (item.value.data === generateItemValue(manifest, cmd, isDev)) {
 						createExtSupportDir(manifest.extPath)
 						let url = cmd.main
+						console.log("cmd", cmd)
+						console.log("appConfig.devExtLoadUrl", appConfig.devExtLoadUrl)
+
 						if (appConfig.devExtLoadUrl && isDev && cmd.devMain) {
 							url = cmd.devMain
 						} else {
@@ -209,7 +222,8 @@ export const useExtensionStore = defineStore("kk-extensions", () => {
 								// const postfix = !cmd.main.endsWith(".html") && !cmd.main.endsWith("/") ? "/" : ""
 								// console.log("postfix: ", postfix)
 								// url = `ext://${manifest.kunkun.identifier}.${cmd.dist}.${isDev ? "dev-" : ""}ext${cmd.main.startsWith("/") ? "" : "/"}${cmd.main}`
-								url = convertFileSrc(`${trimSlash(cmd.main)}`, isDev ? "dev-ext" : "ext")
+								url = convertFileSrc(`${trimSlash(cmd.main)}`, "ext")
+								// url = convertFileSrc(`${trimSlash(cmd.main)}`, isDev ? "dev-ext" : "ext")
 								// url = convertFileSrc(
 								// 	`${manifest.kunkun.identifier}/${trimSlash(cmd.dist)}/${trimSlash(cmd.main)}`,
 								// 	isDev ? "dev-ext" : "ext"
@@ -232,6 +246,7 @@ export const useExtensionStore = defineStore("kk-extensions", () => {
 						console.log("url", url)
 
 						const url2 = `/iframe-ext?url=${encodeURIComponent(url)}&extPath=${encodeURIComponent(manifest.extPath)}`
+						console.log("url2", url2)
 						if (cmd.window) {
 							createNewExtWindowForUiCmd(manifest, cmd, url2)
 						} else {
@@ -335,30 +350,59 @@ export const useExtensionStore = defineStore("kk-extensions", () => {
 		}
 	}
 
-	function uninstallExtByExtPath(extPath: string) {
+	async function uninstallDevExtByExtPath(extPath: string) {
 		console.log("uninstallExt", extPath)
 		const found = manifests.value.find((m) => m.extPath === extPath)
+		const extDir = await getExtensionsFolder()
 		if (found) {
-			return fs.remove(found.extPath, { recursive: true }).then(() => {
+			return db.deleteExtensionByPath(found.extPath).then(() => {
+				// we don't remove dev extension folder from disk
 				return found
 			})
+			// return fs.remove(found.extPath, { recursive: true }).then(() => {
+			// 	return db.deleteExtensionByPath(found.extPath).then(() => {
+			// 		return found
+			// 	})
+			// })
 		} else {
 			console.error("Extension not found at", extPath)
 			return Promise.reject("Extension not found")
 		}
 	}
 
+	async function groups(): Promise<TListGroup[]> {
+		const extDir = await getExtensionsFolder()
+		return manifests.value.map((manifest) => {
+			const isDev = isExtPathInDev(extDir, manifest.extPath)
+			return {
+				title: manifest.kunkun.name,
+				identifier: manifest.kunkun.identifier,
+				type: "Extension",
+				icon: manifest.kunkun.icon,
+				items: manifestToCmdItems(manifest, isDev),
+				flags: { isDev, isRemovable: true },
+				data: {
+					path: manifest.extPath
+				}
+			}
+		})
+	}
+
 	return {
 		id: uuidv4(),
-		extensionName: "Extensions",
+		extensionName,
 		$listItems,
+		groups,
 		manifests,
 		$filteredListItems,
 		onSelect,
 		load,
-		uninstallExt: uninstallStoreExtByIdentifier
+		uninstallStoreExtByIdentifier,
+		uninstallDevExtByExtPath
 	} satisfies IExtensionLoader & {
-		uninstallExt: (extPath: string) => Promise<ExtPackageJsonExtra>
+		uninstallStoreExtByIdentifier: (extPath: string) => Promise<ExtPackageJsonExtra>
+		uninstallDevExtByExtPath: (extPath: string) => Promise<ExtPackageJsonExtra>
 		manifests: Ref<ExtPackageJsonExtra[]>
+		groups: () => Promise<TListGroup[]>
 	}
 })

@@ -137,7 +137,7 @@ function onInstalled(downloads: number) {
 
 function uninstall(extPublish: Tables<"ext_publish"> | null) {
 	if (extPublish) {
-		extStore.uninstallExt(extPublish.identifier).then((manifest) => {
+		extStore.uninstallStoreExtByIdentifier(extPublish.identifier).then((manifest) => {
 			ElMessage.success(`Uninstalled: ${manifest.name}`)
 			extDrawerOpen.value = false
 			refreshListing()
@@ -168,7 +168,7 @@ function isUpgradeable(item: ExtItem) {
 
 function upgrade(item: ExtItem) {
 	extStore
-		.uninstallExt(item.identifier)
+		.uninstallStoreExtByIdentifier(item.identifier)
 		.then(() => installExtension(item.identifier))
 		.then(() => {
 			ElMessage.success(`Upgraded: ${item.name}; Version: ${item.version}`)

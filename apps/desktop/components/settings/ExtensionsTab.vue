@@ -2,53 +2,79 @@
 import IconMultiplexer from "@/components/IconMultiplexer.vue"
 import { TListGroup, type TListItem } from "@/lib/types/list"
 import { useAppConfigStore } from "~/stores/appConfig"
-import { useDevExtStore, useExtStore } from "~/stores/extensionLoader"
+// import { useDevExtStore, useExtStore } from "~/stores/extensionLoader"
+import { useExtensionStore } from "~/stores/extension"
 import { useRemoteCmdStore } from "~/stores/remoteCmds"
 import { ElMessage, ElTable, ElTableColumn } from "element-plus"
 import { Trash2Icon } from "lucide-vue-next"
 import { onMounted, ref } from "vue"
+import { toast } from "vue-sonner"
 
+const extStore = useExtensionStore()
 const remoteCmdStore = useRemoteCmdStore()
-const devExtStore = useDevExtStore()
-const extStore = useExtStore()
+// const devExtStore = useDevExtStore()
+// const extStore = useExtStore()
 const appConfig = useAppConfigStore()
 const tableData = ref<TListGroup[]>([])
 
 function refreshListing() {
-	return Promise.all([remoteCmdStore.load(), devExtStore.load(), extStore.load()]).then(() => {
-		tableData.value = [...remoteCmdStore.groups(), ...devExtStore.groups(), ...extStore.groups()]
-	})
+	// return Promise.all([remoteCmdStore.load(), devExtStore.load(), extStore.load()]).then(() => {
+	// 	tableData.value = [...remoteCmdStore.groups(), ...devExtStore.groups(), ...extStore.groups()]
+	// })
+	return extStore
+		.load()
+		.then(() => {
+			return extStore.groups()
+		})
+		.then((groups) => {
+			tableData.value = groups
+		})
 }
 
-onMounted(() => {
+onMounted(async () => {
 	refreshListing()
 })
 
 function handleDeleteCommand(index: number, item: TListItem) {
 	if (item.type === "Remote Command") {
-		remoteCmdStore
-			.removeRemoteCmd(parseInt(item.value))
-			.then(() => {
-				ElMessage.success(`Removed Remote Command: ${item.title}`)
-				refreshListing()
-			})
-			.catch(ElMessage.error)
+		// remoteCmdStore
+		// 	.removeRemoteCmd(parseInt(item.value))
+		// 	.then(() => {
+		// 		ElMessage.success(`Removed Remote Command: ${item.title}`)
+		// 		refreshListing()
+		// 	})
+		// 	.catch(ElMessage.error)
 	}
 }
 
 function handleDeleteExtension(index: number, item: TListGroup) {
-	const ext = item.flags.isDev ? devExtStore : extStore
-	ext
-		.uninstallExt(item.identifier)
-		.then(() => {
-			ElMessage.success({
-				message: `Deleted Extension: ${item.title}`
+	if (!item.data?.path) {
+		return toast.error("No path found for this extension")
+	} else {
+		if (item.flags.isDev) {
+			extStore.uninstallDevExtByExtPath(item.data.path).then(() => {
+				toast.success(`Unregistered Dev Extension: ${item.title}`)
+				refreshListing()
 			})
-			refreshListing()
-		})
-		.catch((error) => {
-			ElMessage.error({ message: error })
-		})
+		} else {
+			extStore.uninstallStoreExtByIdentifier(item.identifier).then(() => {
+				toast.success(`Deleted Store Extension: ${item.title}`)
+				refreshListing()
+			})
+		}
+	}
+	// const ext = item.flags.isDev ? devExtStore : extStore
+	// ext
+	// 	.uninstallExt(item.identifier)
+	// 	.then(() => {
+	// 		ElMessage.success({
+	// 			message: `Deleted Extension: ${item.title}`
+	// 		})
+	// 		refreshListing()
+	// 	})
+	// 	.catch((error) => {
+	// 		ElMessage.error({ message: error })
+	// 	})
 }
 </script>
 <template>

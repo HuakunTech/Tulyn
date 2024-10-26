@@ -94,8 +94,8 @@ useListenToWindowFocus(() => {
 })
 
 onMounted(async () => {
-	console.log("session", session.value);
-	
+	console.log("session", session.value)
+
 	appUiStore.setDefaultAction("Open")
 	if (appWindow.label !== "main") {
 		setTimeout(() => {
@@ -208,7 +208,6 @@ function handleQuicklinkEnter() {
 						v-for="(item, idx) in extLoader.$filteredListItems"
 						:item="item"
 						:key="`${extLoader.extensionName}-${idx}`"
-						:isDevExt="extLoader.extensionName === 'Dev Extensions'"
 						@select="extLoader.onSelect(item)"
 					/>
 				</CommandGroup>

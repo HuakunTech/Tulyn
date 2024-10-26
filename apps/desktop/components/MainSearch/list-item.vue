@@ -6,7 +6,7 @@ import { Badge } from "@kksh/vue/badge"
 import { useAppConfigStore } from "~/stores/appConfig"
 
 const appConfig = useAppConfigStore()
-const props = defineProps<{ item: TListItem; isDevExt: boolean }>()
+const props = defineProps<{ item: TListItem }>()
 const emits = defineEmits<{
 	(e: "select"): void
 }>()
@@ -27,7 +27,7 @@ const emits = defineEmits<{
 		<CommandShortcut class="flex items-center space-x-1">
 			<Icon v-if="item.flags.isDev" name="fa6-brands:dev" class="h-5 w-5 border bg-green-500" />
 			<Badge
-				v-if="appConfig.devExtLoadUrl && isDevExt"
+				v-if="appConfig.devExtLoadUrl && item.flags.isDev"
 				class="rounded-sm px-1 py-0.5"
 				variant="outline"
 				>Live</Badge

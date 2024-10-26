@@ -74,6 +74,11 @@ export const TListGroup = object({
 	identifier: string(),
 	icon: optional(Icon),
 	items: array(TListItem),
+	data: optional(
+		object({
+			path: optional(string())
+		})
+	),
 	flags: object({
 		isDev: optional(boolean(), false),
 		isRemovable: optional(boolean(), false)
