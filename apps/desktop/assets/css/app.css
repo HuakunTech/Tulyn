@@ -1,3 +1,7 @@
 html.dark {
 	color-scheme: dark;
 }
+
+body {
+	background-color: transparent;
+}

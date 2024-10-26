@@ -25,6 +25,7 @@ import { useRemoteCmdStore } from "~/stores/remoteCmds"
 import { useSystemCmdsStore } from "~/stores/systemCmds"
 import { useAppUiStore } from "~/stores/ui"
 import { ComboboxInput } from "radix-vue"
+import { Button } from "@kksh/vue/button"
 import { Command } from "tauri-plugin-shellx-api"
 import type { EventEmitter, IOPayload, OutputEvents } from "tauri-plugin-shellx-api"
 import { flatten, parse, safeParse } from "valibot"
@@ -63,18 +64,18 @@ const appWindow = getCurrentWindow()
 const runtimeConfig = useRuntimeConfig()
 const cmdInputRef = ref<InstanceType<typeof ComboboxInput> | null>(null)
 
-appConfig.$subscribe((mutation, state) => {
-	const mutEvts = Array.isArray(mutation.events) ? mutation.events : [mutation.events]
-	mutEvts.forEach((evt) => {
-		if (evt.key === "devExtensionPath") {
-			if (evt.oldValue !== evt.newValue) {
-				// extsObj.devExt = new Extension("Dev Extensions", state.devExtensionPath, true)
-				// extsObj.devExt.load()
-				// TODO
-			}
-		}
-	})
-})
+// appConfig.$subscribe((mutation, state) => {
+// 	const mutEvts = Array.isArray(mutation.events) ? mutation.events : [mutation.events]
+// 	mutEvts.forEach((evt) => {
+// 		if (evt.key === "devExtensionPath") {
+// 			if (evt.oldValue !== evt.newValue) {
+// 				// extsObj.devExt = new Extension("Dev Extensions", state.devExtensionPath, true)
+// 				// extsObj.devExt.load()
+// 				// TODO
+// 			}
+// 		}
+// 	})
+// })
 
 useListenToWindowBlur(() => {
 	const win = getCurrentWebviewWindow()
@@ -94,8 +95,8 @@ useListenToWindowFocus(() => {
 })
 
 onMounted(async () => {
-	console.log("session", session.value);
-	
+	console.log("session", session.value)
+
 	appUiStore.setDefaultAction("Open")
 	if (appWindow.label !== "main") {
 		setTimeout(() => {

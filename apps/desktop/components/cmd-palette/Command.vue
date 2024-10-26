@@ -36,7 +36,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
 		:resetSearchTermOnBlur="false"
 		:class="
 			cn(
-				'bg-popover text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md',
+				'text-popover-foreground flex h-full w-full flex-col overflow-hidden rounded-md',
 				props.class
 			)
 		"

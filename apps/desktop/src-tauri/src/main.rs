@@ -125,9 +125,9 @@ fn main() {
             // }
         })
         .setup(|app| {
-            setup::window::setup_window(app.handle());
+            // setup::window::setup_window(app.handle());
             setup::tray::create_tray(app.handle())?;
-            #[cfg(debug_assertions)] // only include this code on debug builds
+            #[cfg(all(not(target_os = "macos"), debug_assertions))]
             {
                 app.deep_link().register("kunkun")?;
             }

@@ -20,9 +20,13 @@
 				"resizable": true,
 				"fullscreen": false,
 				"titleBarStyle": "Transparent",
-				"transparent": false,
+				"transparent": true,
 				"hiddenTitle": true,
-				"visible": false
+				"visible": false,
+				"windowEffects": {
+					"effects": ["sidebar"],
+					"state": "active"
+				}
 			}
 		],
 		"security": {

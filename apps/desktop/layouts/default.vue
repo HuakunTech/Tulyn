@@ -73,7 +73,7 @@ onMounted(async () => {
 </script>
 
 <template>
-	<main class="z-10 flex h-screen flex-col">
+	<main class="z-10 flex h-screen flex-col rounded-md">
 		<Toaster :rich-colors="true" :expand="true" />
 		<Toaster2 />
 		<slot />
