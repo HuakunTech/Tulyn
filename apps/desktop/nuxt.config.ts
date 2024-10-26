@@ -5,7 +5,13 @@ export default defineNuxtConfig({
 	compatibilityDate: "2024-04-03",
 	ssr: false,
 	css: ["@kksh/vue/css", "@kksh/vue/themes", "./assets/css/app.css"],
-	devtools: { enabled: true },
+	devtools: {
+		enabled: true,
+
+		timeline: {
+			enabled: true
+		}
+	},
 	modules: [
 		"@nuxtjs/i18n",
 		"@pinia/nuxt",
@@ -18,13 +24,23 @@ export default defineNuxtConfig({
 		"@unocss/nuxt",
 		"shadcn-nuxt",
 		"@nuxt/image",
-		"@nuxtjs/color-mode"
+		"@nuxtjs/color-mode",
+		"@nuxtjs/supabase"
 	],
 	mdc: {},
 	i18n: {
 		locales: ["en", "zh"],
 		defaultLocale: "en",
 		vueI18n: "./i18n/i18n.config.ts"
+	},
+	supabase: {
+		key: process.env.SUPABASE_ANON_KEY,
+		redirectOptions: {
+			login: "/auth",
+			callback: "/auth/confirm",
+			exclude: ["/", "/**"],
+			cookieRedirect: false
+		}
 	},
 	nitro: {
 		output: {

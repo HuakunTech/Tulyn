@@ -100,8 +100,11 @@ pub fn init<R: Runtime>() -> TauriPlugin<R> {
             /* ---------------------------------- utils --------------------------------- */
             commands::fs::path_exists,
             /* -------------------------------- security -------------------------------- */
+            #[cfg(target_os = "macos")]
             commands::security::verify_auth,
+            #[cfg(target_os = "macos")]
             commands::security::request_screen_capture_access,
+            #[cfg(target_os = "macos")]
             commands::security::check_screen_capture_access,
             /* --------------------------------- server --------------------------------- */
             commands::server::start_server,

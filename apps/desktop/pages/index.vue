@@ -31,6 +31,7 @@ import { flatten, parse, safeParse } from "valibot"
 import { toast } from "vue-sonner"
 import { z } from "zod"
 
+const session = useSupabaseSession()
 const builtinCmdStore = useBuiltInCmdStore()
 const appsStore = useAppsLoaderStore()
 const sysCmdsStore = useSystemCmdsStore()
@@ -93,6 +94,8 @@ useListenToWindowFocus(() => {
 })
 
 onMounted(async () => {
+	console.log("session", session.value);
+	
 	appUiStore.setDefaultAction("Open")
 	if (appWindow.label !== "main") {
 		setTimeout(() => {

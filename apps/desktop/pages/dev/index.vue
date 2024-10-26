@@ -1,12 +1,14 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+definePageMeta({
+	layout: false
+})
+
+const session = useSupabaseSession()
+</script>
 
 <template>
-	<MetadataLabel title="test" text="149.5%" />
-	<MetadataSeparator />
-	<MetadataLabel title="test" text="149.5%" />
-	<MetadataSeparator />
-	<MetadataLabel title="test" text="149.5%" />
-	<MetadataSeparator />
-	<MetadataLabel title="test" text="149.5%" />
-	<MetadataSeparator />
+	<div>
+		<h1>dev</h1>
+		<pre>session: {{ session }}</pre>
+	</div>
 </template>

@@ -1,4 +1,5 @@
 import {
+	DEEP_LINK_PATH_AUTH_CONFIRM,
 	DEEP_LINK_PATH_OPEN,
 	DEEP_LINK_PATH_REFRESH_DEV_EXTENSION,
 	DEEP_LINK_PATH_STORE
@@ -16,6 +17,8 @@ const StorePathSearchParams = v.object({
 })
 
 export async function initDeeplink() {
+	console.log("init deeplink")
+
 	const appWindow = getCurrentWebviewWindow()
 	if (appWindow.label !== "main") {
 		return
@@ -44,26 +47,28 @@ function openMainWindow() {
 }
 
 export async function handleKunkunProtocol(parsedUrl: URL) {
-	const path = parsedUrl.host // Remove the leading '//' kunkun://open gives "open"
 	const params = Object.fromEntries(parsedUrl.searchParams)
-	switch (path) {
-		case DEEP_LINK_PATH_OPEN:
-			openMainWindow()
-			break
-		case DEEP_LINK_PATH_STORE:
-			const parsed = v.parse(StorePathSearchParams, params)
-			openMainWindow()
-			if (parsed.identifier) {
-				navigateTo(`/store/${parsed.identifier}`)
-			} else {
-				navigateTo("/extension-store")
-			}
-			break
-		case DEEP_LINK_PATH_REFRESH_DEV_EXTENSION:
-			emitRefreshDevExt()
-			break
-		default:
-			console.warn("Unknown deep link path:", path)
+	const { host, pathname, href } = parsedUrl
+	if (href.startsWith(DEEP_LINK_PATH_OPEN)) {
+		openMainWindow()
+	} else if (href.startsWith(DEEP_LINK_PATH_STORE)) {
+		const parsed = v.parse(StorePathSearchParams, params)
+		openMainWindow()
+		if (parsed.identifier) {
+			navigateTo(`/store/${parsed.identifier}`)
+		} else {
+			navigateTo("/extension-store")
+		}
+	} else if (href.startsWith(DEEP_LINK_PATH_REFRESH_DEV_EXTENSION)) {
+		emitRefreshDevExt()
+	} else if (href.startsWith(DEEP_LINK_PATH_AUTH_CONFIRM)) {
+		openMainWindow()
+		navigateTo(`/auth/confirm?${parsedUrl.searchParams.toString()}`);
+	} else {
+		console.error("Invalid path:", pathname)
+		toast.error("Invalid path", {
+			description: parsedUrl.href
+		})
 	}
 }
 

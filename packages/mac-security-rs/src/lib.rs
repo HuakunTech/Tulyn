@@ -1,3 +1,5 @@
+#![cfg(target_os = "macos")]
+
 use localauthentication_rs::{LAPolicy, LocalAuthentication};
 use objc::runtime::{Object, BOOL, NO, YES};
 use objc::{msg_send, sel, sel_impl};
