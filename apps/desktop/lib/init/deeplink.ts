@@ -1,4 +1,5 @@
 import {
+	DEEP_LINK_PATH_AUTH_CONFIRM,
 	DEEP_LINK_PATH_OPEN,
 	DEEP_LINK_PATH_REFRESH_DEV_EXTENSION,
 	DEEP_LINK_PATH_STORE
@@ -44,13 +45,12 @@ function openMainWindow() {
 }
 
 export async function handleKunkunProtocol(parsedUrl: URL) {
-	const path = parsedUrl.host // Remove the leading '//' kunkun://open gives "open"
 	const params = Object.fromEntries(parsedUrl.searchParams)
-	switch (path) {
-		case DEEP_LINK_PATH_OPEN:
+	const { host, pathname } = parsedUrl
+	if (host === "app") {
+		if (pathname.startsWith(DEEP_LINK_PATH_OPEN)) {
 			openMainWindow()
-			break
-		case DEEP_LINK_PATH_STORE:
+		} else if (pathname.startsWith(DEEP_LINK_PATH_STORE)) {
 			const parsed = v.parse(StorePathSearchParams, params)
 			openMainWindow()
 			if (parsed.identifier) {
@@ -58,12 +58,25 @@ export async function handleKunkunProtocol(parsedUrl: URL) {
 			} else {
 				navigateTo("/extension-store")
 			}
-			break
-		case DEEP_LINK_PATH_REFRESH_DEV_EXTENSION:
+		} else if (pathname.startsWith(DEEP_LINK_PATH_REFRESH_DEV_EXTENSION)) {
 			emitRefreshDevExt()
-			break
-		default:
-			console.warn("Unknown deep link path:", path)
+		} else if (pathname.startsWith(DEEP_LINK_PATH_AUTH_CONFIRM)) {
+			openMainWindow()
+			const url = new URL("/auth/confirm")
+			url.searchParams.set("code", params.code)
+			console.log("auth confirm url:", url.toString(), url.href)
+			navigateTo(url.href)
+		} else {
+			console.error("Invalid path:", pathname)
+			toast.error("Invalid path", {
+				description: parsedUrl.href
+			})
+		}
+	} else {
+		console.error("Invalid host:", host)
+		toast.error("Invalid host", {
+			description: host
+		})
 	}
 }
 

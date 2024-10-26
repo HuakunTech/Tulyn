@@ -18,13 +18,23 @@ export default defineNuxtConfig({
 		"@unocss/nuxt",
 		"shadcn-nuxt",
 		"@nuxt/image",
-		"@nuxtjs/color-mode"
+		"@nuxtjs/color-mode",
+		"@nuxtjs/supabase"
 	],
 	mdc: {},
 	i18n: {
 		locales: ["en", "zh"],
 		defaultLocale: "en",
 		vueI18n: "./i18n/i18n.config.ts"
+	},
+	supabase: {
+		key: process.env.SUPABASE_ANON_KEY,
+		redirectOptions: {
+			login: "/auth",
+			callback: "/confirm",
+			exclude: ["/", "/**"],
+			cookieRedirect: false
+		}
 	},
 	nitro: {
 		output: {
