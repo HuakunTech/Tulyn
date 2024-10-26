@@ -203,6 +203,8 @@ if (rtConfig.public.isDev) {
 		iconifyIcon: "fa6-brands:dev",
 		description: "Open Dev Page",
 		function: async () => {
+			navigateTo("/dev")
+			return
 			const windows = await getAllWebviewWindows()
 			const found = windows.find((w) => w.label === DevWindowLabel)
 			if (found) {

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Kbd from "@/components/Kbd.vue"
+import { DraggableButton } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useAppUiStore } from "@/stores/ui"
 import { Icon } from "@iconify/vue"
@@ -69,7 +70,7 @@ function onAvatarClick() {
 				alt="logo"
 			/>
 			<button v-if="session" data-tauri-drag-region flex items-center @click="onAvatarClick">
-				<Avatar class="h-6 w-6 border -z-10">
+				<Avatar class="-z-10 h-6 w-6 border">
 					<AvatarImage :src="session?.user.user_metadata.avatar_url" alt="avatar" />
 					<AvatarFallback>{{ avatarFallback }}</AvatarFallback>
 				</Avatar>
@@ -79,9 +80,9 @@ function onAvatarClick() {
 			<TooltipProvider>
 				<Tooltip>
 					<TooltipTrigger>
-						<Button variant="ghost" size="icon" @click="onReload">
-							<RefreshCcw class="w-4" />
-						</Button>
+						<DraggableButton variant="ghost" size="icon" @click="onReload">
+							<RefreshCcw w-4 data-tauri-drag-region />
+						</DraggableButton>
 					</TooltipTrigger>
 					<TooltipContent>
 						<span v-if="_platform === 'macos'">Command + R</span>
@@ -89,10 +90,10 @@ function onAvatarClick() {
 					</TooltipContent>
 				</Tooltip>
 			</TooltipProvider>
-			<Button v-if="appUiStore.defaultAction" variant="ghost" class="gap-2">
+			<DraggableButton v-if="appUiStore.defaultAction" variant="ghost" class="gap-2">
 				{{ appUiStore.defaultAction }}
-				<Kbd><Icon icon="tdesign:enter" /></Kbd>
-			</Button>
+				<Kbd><Icon icon="tdesign:enter" data-tauri-drag-region /></Kbd>
+			</DraggableButton>
 			<ActionPanel />
 		</span>
 	</div>
