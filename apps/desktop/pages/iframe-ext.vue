@@ -294,12 +294,20 @@ function onBackBtnClicked() {
 		appWin.close()
 	}
 }
+
+function debug() {
+	fetch(" http://ext.localhost/_app/immutable/chunks/index.DwAJYU3S.js")
+	// fetch("http://ext.localhost/assets/index-DRPTCcr7.css")
+		.then((res) => res.text())
+		.then(console.log)
+}
 </script>
 <template>
 	<main class="h-screen">
 		<Transition>
 			<FunDance v-if="!ui.iframeLoaded" class="absolute w-full" />
 		</Transition>
+		<Button @click="debug">Debug</Button>
 		<Button
 			v-if="ui.showBackBtn"
 			:class="cn('absolute z-40', positionToTailwindClasses(ui.backBtnPosition))"

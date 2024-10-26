@@ -51,7 +51,7 @@ pub fn tauri_file_server(
     println!("url_file_path: {:?}", url_file_path);
     // check if it's file or directory, if file and exist, return file, if directory, return index.html, if neither, check .html
     if url_file_path.is_file() {
-        // println!("1st case url_file_path: {:?}", url_file_path);
+        println!("1st case url_file_path: {:?}", url_file_path);
         let mime_type = match url_file_path.extension().and_then(std::ffi::OsStr::to_str) {
             Some("js") => "application/javascript",
             Some("html") => "text/html",
@@ -72,7 +72,7 @@ pub fn tauri_file_server(
          */
         let index_html_path = url_file_path.join("index.html");
         if index_html_path.is_file() {
-            // println!("2nd case index_html_path: {:?}", index_html_path);
+            println!("2nd case index_html_path: {:?}", index_html_path);
             return tauri::http::Response::builder()
                 .status(tauri::http::StatusCode::OK)
                 .header("Access-Control-Allow-Origin", "*")
@@ -87,7 +87,7 @@ pub fn tauri_file_server(
                 let html_file_path =
                     parent_path.join(format!("{}.html", folder_name.to_str().unwrap()));
                 if html_file_path.is_file() {
-                    // println!("3rd case html_file_path: {:?}", html_file_path);
+                    println!("3rd case html_file_path: {:?}", html_file_path);
                     return tauri::http::Response::builder()
                         .status(tauri::http::StatusCode::OK)
                         .header("Access-Control-Allow-Origin", "*")
@@ -108,7 +108,7 @@ pub fn tauri_file_server(
         path_str.push_str(".html");
         let path_str = PathBuf::from(path_str);
         if path_str.is_file() {
-            // println!("4rd case path_str: {:?}", path_str);
+            println!("4rd case path_str: {:?}", path_str);
             return tauri::http::Response::builder()
                 .status(tauri::http::StatusCode::OK)
                 .header("Access-Control-Allow-Origin", "*")
@@ -116,7 +116,7 @@ pub fn tauri_file_server(
                 .unwrap();
         }
     }
-    // println!("5th case file not found");
+    println!("5th case file not found");
     return tauri::http::Response::builder()
         .status(tauri::http::StatusCode::NOT_FOUND)
         .header("Access-Control-Allow-Origin", "*")

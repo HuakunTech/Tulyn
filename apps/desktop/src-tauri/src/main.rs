@@ -77,12 +77,13 @@ fn main() {
         })
         .register_uri_scheme_protocol("ext", |app, request| {
             let app_handle = app.app_handle();
-            // app_handle.
+            println!("Path: {:?}", request.uri().path());
             let win_label = app.webview_label();
             let jarvis_state = app_handle.state::<tauri_plugin_jarvis::JarvisState>();
             let window_ext_map = jarvis_state.window_label_ext_map.lock().unwrap();
             match window_ext_map.get(win_label) {
                 Some(ext) => {
+                    println!("{:?}", ext.path.clone());
                     // let app_state = app_handle.state::<tauri_plugin_jarvis::model::app_state::AppState>();
                     // let extension_path = app_state.extension_path.lock().unwrap().clone();
                     // tauri_file_server(app_handle, request, extension_path)

@@ -1,17 +1,22 @@
 import { watch } from "fs"
 import { join } from "path"
 import { refreshTemplateWorkerExtension } from "@kksh/api/dev"
-import { $, build as bunBuild } from "bun"
+import { $ } from "bun"
 
 async function build() {
-	await $`bun build --minify --target=browser --outdir=./dist ./src/index.ts`
-	// await bunBuild({
-	// 	entrypoints: ["./src/index.ts"],
-	// 	minify: false,
-	// 	target: "browser",
-	// 	outdir: "./dist"
-	// })
-	await refreshTemplateWorkerExtension()
+	try {
+		// await $`bun build --minify --target=browser --outdir=./dist ./src/index.ts`
+		const output = await Bun.build({
+			entrypoints: ["./src/index.ts"],
+			outdir: "./dist",
+			minify: true,
+			target: "browser"
+		})
+		console.log(output)
+		await refreshTemplateWorkerExtension()
+	} catch (error) {
+		console.error(error)
+	}
 }
 
 const srcDir = join(import.meta.dir, "src")
