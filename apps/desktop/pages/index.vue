@@ -2,15 +2,10 @@
 import ListItem from "@/components/MainSearch/list-item.vue"
 import { CommandEmpty, CommandGroup, CommandList } from "@/components/ui/command"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
-import { RPCChannel } from "@hk/comlink-stdio"
-import { TauriShellStdio } from "@kksh/api"
-import { Action as ActionnSchema } from "@kksh/api/models"
-import { Action } from "@kksh/api/ui/worker"
+import { getVersion } from "@tauri-apps/api/app"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { getCurrentWindow } from "@tauri-apps/api/window"
-import { fetch } from "@tauri-apps/plugin-http"
 import { platform } from "@tauri-apps/plugin-os"
-// import { Command } from "@tauri-apps/plugin-shell"
 import { useListenToWindowBlur } from "~/composables/useEvents"
 import { CmdListItemValue, ExtCmdListItemValue, ListItemTypeEnum } from "~/lib/types/list"
 import { checkExtensionUpdate, checkUpdateAndInstall } from "~/lib/utils/updater"
@@ -18,15 +13,12 @@ import { useAppConfigStore } from "~/stores/appConfig"
 import { useAppsLoaderStore } from "~/stores/appLoader"
 import { useAppStateStore } from "~/stores/appState"
 import { useBuiltInCmdStore } from "~/stores/builtinCmdLoader"
-import { useDevExtStore, useExtStore } from "~/stores/extensionLoader"
 import { useLastTimeStore } from "~/stores/lastTime"
 import { findAllArgsInLink, useQuicklinkLoader } from "~/stores/quickLink"
 import { useRemoteCmdStore } from "~/stores/remoteCmds"
 import { useSystemCmdsStore } from "~/stores/systemCmds"
 import { useAppUiStore } from "~/stores/ui"
 import { ComboboxInput } from "radix-vue"
-import { Command } from "tauri-plugin-shellx-api"
-import type { EventEmitter, IOPayload, OutputEvents } from "tauri-plugin-shellx-api"
 import { flatten, parse, safeParse } from "valibot"
 import { toast } from "vue-sonner"
 import { z } from "zod"
@@ -39,16 +31,12 @@ const appStateStore = useAppStateStore()
 const appUiStore = useAppUiStore()
 const remoteCmdStore = useRemoteCmdStore()
 const extStore = useExtensionStore()
-// const devExtStore = useDevExtStore()
-// const extStore = useExtStore()
 const appConfig = useAppConfigStore()
 await appConfig.init()
 const lastTimeStore = useLastTimeStore()
 const quicklinkLoader = useQuicklinkLoader()
-const windowExtMapStore = useWindowExtMapStore()
 await lastTimeStore.init()
 const extLoaders = ref([
-	// devExtStore,
 	extStore,
 	quicklinkLoader,
 	builtinCmdStore,
@@ -57,10 +45,7 @@ const extLoaders = ref([
 	appsStore
 ])
 
-let updateSearchTermTimeout: ReturnType<typeof setTimeout>
-const colorMode = useColorMode()
 const appWindow = getCurrentWindow()
-const runtimeConfig = useRuntimeConfig()
 const cmdInputRef = ref<InstanceType<typeof ComboboxInput> | null>(null)
 
 appConfig.$subscribe((mutation, state) => {
@@ -107,14 +92,17 @@ onMounted(async () => {
 		appWindow.setDecorations(false)
 	}
 
-	if (lastTimeStore.expired()) {
-		checkUpdateAndInstall()
-		if (appConfig.joinBetaProgram) {
-			checkUpdateAndInstall(true)
+	getVersion().then((v) => {
+		const isBeta = v.includes("beta")
+		if (lastTimeStore.expired()) {
+			checkUpdateAndInstall()
+			if (isBeta || appConfig.joinBetaProgram) {
+				checkUpdateAndInstall(true)
+			}
+			checkExtensionUpdate(appConfig.extensionAutoUpgrade)
+			lastTimeStore.update()
 		}
-		checkExtensionUpdate(appConfig.extensionAutoUpgrade)
-		lastTimeStore.update()
-	}
+	})
 	appWindow.show()
 	// force rerender groups
 	const cache = extLoaders.value

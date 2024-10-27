@@ -78,7 +78,7 @@ export default defineNuxtConfig({
 	colorMode: {
 		classSuffix: ""
 	},
-	app: {
-		pageTransition: { name: "page", mode: "out-in" }
-	}
+	// app: {
+	// 	pageTransition: { name: "page", mode: "out-in" }
+	// }
 })

@@ -1,23 +1,9 @@
 <script setup lang="ts">
 import CommandInput from "@/components/cmd-palette/CommandInput.vue"
 import ExtListItem from "@/components/extension-store/ext-list-item.vue"
-import ExtDrawer from "@/components/extension-store/ExtDrawer.vue"
-// import Command from "@/components/extension-store/Command.vue";
-import { ExtItem, ExtItemParser } from "@/components/extension-store/types"
-import { getExtensionsFolder, SUPABASE_ANON_KEY, SUPABASE_GRAPHQL_ENDPOINT } from "@/lib/constants"
-// import { Extension } from "@/lib/extension/ext"
-import { gqlClient } from "@/lib/utils/graphql"
-import * as supabase from "@/lib/utils/supabase"
-import { ApolloClient, gql, HttpLink, InMemoryCache, type ApolloQueryResult } from "@apollo/client"
+import { getExtensionsFolder } from "@/lib/constants"
 import { isCompatible } from "@kksh/api"
 import type { ExtPackageJsonExtra } from "@kksh/api/models"
-import {
-	AllExtensionsDocument,
-	FindLatestExtDocument,
-	type AllExtensionsQuery,
-	type FindLatestExtQuery,
-	type FindLatestExtQueryVariables
-} from "@kksh/gql"
 import { type Tables } from "@kksh/supabase"
 import { Button } from "@kksh/vue/button"
 import { ArrowLeftIcon } from "@radix-icons/vue"
@@ -41,15 +27,18 @@ import { gt } from "semver"
 import { flatten, parse, safeParse } from "valibot"
 import { onMounted, ref } from "vue"
 
+type DbExtItem = Tables<"extensions">
+
 const localePath = useLocalePath()
-const selectedExt = ref<ExtItem>()
+const selectedExt = ref<DbExtItem>()
 const extDrawerOpen = ref(false)
-const extList = ref<ExtItem[]>([])
+const extList = ref<DbExtItem[]>([])
+// const extList = ref<ExtItem[]>([])
 const installedManifests = ref<ExtPackageJsonExtra[]>([])
 const extStore = useExtensionStore()
-// const extStore = useExtStore()
 const searchTerm = ref("")
 const storeExtPath = await getExtensionsFolder()
+const sb = useSupabaseClient()
 
 function refreshListing() {
 	return extStore.load().then(() => {
@@ -78,25 +67,20 @@ onKeyStroke("Escape", () => {
 
 onMounted(async () => {
 	refreshListing()
-	const response: ApolloQueryResult<AllExtensionsQuery> = await gqlClient.query({
-		query: AllExtensionsDocument
-	})
-
-	extList.value =
-		response.data.extensionsCollection?.edges
-			.map((x) => {
-				const parsedNode = safeParse(ExtItemParser, x.node)
-				if (!parsedNode.success) {
-					console.error(`Fail to parse extension`, x.node)
-					console.error(flatten(parsedNode.issues))
-				}
-				return parsedNode.success ? parse(ExtItem, parsedNode.output) : null
-			})
-			.filter((x) => x !== null) ?? []
+	const { data } = await sb
+		.from("extensions")
+		.select(
+			"identifier, version, api_version, name, downloads, short_description, long_description, icon"
+		)
+		.order("downloads", { ascending: false })
+		.select()
+	extList.value = data ?? []
 })
-
-const sortedExtList = computed(() => {
-	return extList.value.sort((a, b) => (isUpgradeable(b) ? 1 : isUpgradeable(a) ? -1 : 0))
+const sortedExtList = computed<DbExtItem[]>(() => {
+	return extList.value.sort((a, b) => {
+		// @ts-ignore
+		return isUpgradeable(b) ? 1 : isUpgradeable(a) ? -1 : 0
+	})
 })
 
 /**
@@ -108,19 +92,15 @@ const extListMap = computed(() => {
 			acc[curr.identifier] = curr
 			return acc
 		},
-		{} as Record<string, ExtItem>
+		{} as Record<string, DbExtItem>
 	)
 })
 
-function select(item: ExtItem) {
+function select(item: DbExtItem) {
 	navigateTo(`/store/${item.identifier}`)
 	selectedExt.value = item
 	extDrawerOpen.value = true
 }
-
-// function isInstalled(identifier: string) {
-// 	return !!installedManifests.value.find((x) => x.kunkun.identifier === identifier)
-// }
 
 function getInstalledVersion(identifier: string) {
 	return installedManifests.value.find(
@@ -147,7 +127,7 @@ function uninstall(extPublish: Tables<"ext_publish"> | null) {
 	}
 }
 
-const filterFunc = (items: ExtItem[], searchTerm: string) => {
+const filterFunc = (items: DbExtItem[], searchTerm: string) => {
 	return items.filter((item) => {
 		return (
 			item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -156,7 +136,7 @@ const filterFunc = (items: ExtItem[], searchTerm: string) => {
 	})
 }
 
-function isUpgradeable(item: ExtItem) {
+function isUpgradeable(item: DbExtItem): boolean {
 	if (!item.version) return true // latest extensions always have version, this check should be removed later
 	const installed = installedExtMap.value[item.identifier]
 	if (!installed) return false
@@ -166,7 +146,7 @@ function isUpgradeable(item: ExtItem) {
 	)
 }
 
-function upgrade(item: ExtItem) {
+function upgrade(item: DbExtItem) {
 	extStore
 		.uninstallStoreExtByIdentifier(item.identifier)
 		.then(() => installExtension(item.identifier))
@@ -187,7 +167,7 @@ function goBack() {
 <template>
 	<div class="h-full grow">
 		<Command
-			:filterFunction="(val, searchTerm) => filterFunc(val as ExtItem[], searchTerm)"
+			:filterFunction="(val, searchTerm) => filterFunc(val as DbExtItem[], searchTerm)"
 			v-model:searchTerm="searchTerm"
 		>
 			<CommandInput placeholder="Type to search..." class="text-md h-12" :searchTerm="searchTerm">

@@ -166,15 +166,6 @@ export const useExtensionStore = defineStore("kk-extensions", () => {
 		extPath.value = extDir
 		return loadAllExtensionsFromDb()
 			.then(async (exts) => {
-				console.log("db exts", exts)
-
-				// const nonExistentExts = exts.filter(async (ext) => !(await fs.exists(ext.extPath)))
-				// console.log("nonExistentExts", nonExistentExts)
-
-				// for (const ext of nonExistentExts) {
-				// await db.deleteExtensionByPath(ext.extPath)
-				// console.warn(`Extension ${ext.extPath} not found, deleted from database`)
-				// }
 				manifests.value = []
 				for (const ext of exts) {
 					if (!(await fs.exists(ext.extPath))) {
