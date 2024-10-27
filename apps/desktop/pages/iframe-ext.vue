@@ -16,9 +16,11 @@ import {
 } from "@kksh/api/ui"
 import { type IUiIframeServer2 } from "@kksh/api/ui/iframe"
 import { Button } from "@kksh/vue/button"
+import { ArrowLeftIcon as RadixArrowLeftIcon } from "@radix-icons/vue"
 import { join } from "@tauri-apps/api/path"
 import { getCurrentWindow } from "@tauri-apps/api/window"
 import { error, warn } from "@tauri-apps/plugin-log"
+import { platform } from "@tauri-apps/plugin-os"
 import { loadExtensionManifestFromDisk } from "~/lib/commands/extensions"
 import { cn } from "~/lib/utils"
 import { sendNotificationWithPermission } from "~/lib/utils/notification"
@@ -294,9 +296,18 @@ function onBackBtnClicked() {
 		appWin.close()
 	}
 }
+
+const isWindows = platform() === "windows"
+
+onKeyStroke("Escape", (e) => {
+	e.preventDefault()
+	if (isWindows) {
+		navigateTo(localePath("/"))
+	}
+})
 </script>
 <template>
-	<main class="h-screen">
+	<main v-if="!isWindows" class="h-screen">
 		<Transition>
 			<FunDance v-if="!ui.iframeLoaded" class="absolute w-full" />
 		</Transition>
@@ -341,6 +352,17 @@ function onBackBtnClicked() {
 			frameborder="0"
 			:src="extUrl"
 		/>
+	</main>
+	<main v-else class="container h-screen">
+		<Button variant="outline" size="icon" class="absolute left-2 top-2" @click="navigateTo('/')">
+			<RadixArrowLeftIcon />
+		</Button>
+		<div class="flex h-full w-full flex-col items-center justify-center">
+			<p class="text-2xl">
+				Due to some Tauri's limitation, custom UI extensions are not currently supported on Windows.
+				I am working on solving this issue. The static content could not be loaded.
+			</p>
+		</div>
 	</main>
 </template>
 <style scoped>
