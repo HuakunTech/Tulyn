@@ -14,9 +14,8 @@ export const FileDrag = "tauri://drag"
 export const FileDragCancelled = "tauri://drag-cancelled"
 export const FileDragOver = "tauri://drag-over"
 export const NewClipboardItemAddedEvent = "new_clipboard_item_added"
-export const RefreshConfigEvent = "kksh://refresh-config"
-export const RefreshExtEvent = "kksh://refresh-extensions"
-export const RefreshDevExtEvent = `kksh://${DEEP_LINK_PATH_REFRESH_DEV_EXTENSION}`
+export const RefreshConfigEvent = "kunkun://refresh-config"
+export const RefreshExtEvent = "kunkun://refresh-extensions"
 
 export function listenToFileDrop(cb: EventCallback<{ paths: string[] }>) {
 	return listen<{ paths: string[] }>(FileDrop, cb)
@@ -51,9 +50,9 @@ export function listenToRefreshExt(cb: EventCallback<null>) {
 }
 
 export function emitRefreshDevExt() {
-	return emit(RefreshDevExtEvent)
+	return emit(DEEP_LINK_PATH_REFRESH_DEV_EXTENSION)
 }
 
 export function listenToRefreshDevExt(cb: EventCallback<null>) {
-	return listen(RefreshDevExtEvent, cb)
+	return listen(DEEP_LINK_PATH_REFRESH_DEV_EXTENSION, cb)
 }

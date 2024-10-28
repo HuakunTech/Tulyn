@@ -1,11 +1,12 @@
 {
 	"name": "create-kunkun",
 	"type": "module",
-	"version": "0.1.25",
+	"version": "0.1.28",
 	"bin": {
-		"create-akun": "dist/index.mjs"
+		"create-kunkun": "dist/index.mjs"
 	},
 	"scripts": {
+		"prepublishOnly": "bun build.ts",
 		"build": "bun build.ts",
 		"test": "bun test --coverage"
 	},

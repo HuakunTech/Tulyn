@@ -11,27 +11,23 @@ import { attachConsole, debug, error, info, warn } from "@tauri-apps/plugin-log"
 import { initDeeplink } from "~/lib/init/deeplink"
 import { useRegisterAppShortcuts } from "~/lib/utils/hotkey"
 import { initStores } from "~/lib/utils/stores"
-import { listenToRefreshConfig } from "~/lib/utils/tauri-events"
+import {
+	listenToRefreshConfig,
+	listenToRefreshDevExt,
+	listenToRefreshExt
+} from "~/lib/utils/tauri-events"
 import { useAppConfigStore } from "~/stores/appConfig"
 import { useWindowExtMapStore } from "~/stores/windowExtMap"
 import { fixPathEnv } from "tauri-plugin-shellx-api"
 
 const appConfig = useAppConfigStore()
 const appWindow = getCurrentWebviewWindow()
+const extStore = useExtensionStore()
 const isMainWindow = appWindow.label === "main"
 let unlistenRefreshConfig: UnlistenFn
+let unlistenRefreshExtensionList: UnlistenFn
 let detach: UnlistenFn
-useGoToSettingShortcuts()
-usePreventExit()
 useTestDB()
-unlistenRefreshConfig = await listenToRefreshConfig(async () => {
-	debug("Refreshing config")
-	await appConfig.init()
-	appConfig.refreshWindowStyles()
-	initStores()
-	// useRegisterAppShortcuts()
-})
-
 
 const windowExtMapStore = useWindowExtMapStore()
 if (appWindow.label === "main") {
@@ -50,6 +46,21 @@ onMounted(async () => {
 	initDeeplink()
 	await appConfig.init()
 	appConfig.refreshWindowStyles()
+	useGoToSettingShortcuts()
+	usePreventExit()
+	unlistenRefreshConfig = await listenToRefreshConfig(async () => {
+		debug("Refreshing config")
+		await appConfig.init()
+		appConfig.refreshWindowStyles()
+		initStores()
+		// useRegisterAppShortcuts()
+	})
+
+	unlistenRefreshExtensionList = await listenToRefreshExt(async () => {
+		debug("Refreshing extension list")
+		extStore.load()
+	})
+
 	useRegisterAppShortcuts()
 		.then((hotkeyStr) => {
 			info(`Shortcuts registered (${hotkeyStr})`)

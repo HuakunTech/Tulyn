@@ -1,5 +1,17 @@
 # @kksh/api
 
+## 0.0.21
+
+### Patch Changes
+
+- Re-enable server-based dev extension refresh. Deep Link forces switch focus to kunkun
+
+## 0.0.20
+
+### Patch Changes
+
+- Fix Some Windows incompatibilities
+
 ## 0.0.20
 
 ### Patch Changes

@@ -11,6 +11,7 @@ await $`rm -rf dist`
 await $`bun build index.ts --outfile=dist/index.mjs --target node`.env({
 	NODE_ENV: "production"
 })
+// await $`pnpm rolldown -c`
 
 /* -------------------------------------------------------------------------- */
 /*                                 Post Build                                 */
@@ -29,7 +30,7 @@ fs.emptyDirSync(tmpDistTemplatesPath)
 console.log(getRootDir())
 
 const templatesPath = path.join(getRootDir(), "../..", "templates")
-await fs.copy(templatesPath, tmpDistTemplatesPath)
+fs.copySync(templatesPath, tmpDistTemplatesPath, { dereference: true })
 
 /* -------------------------------------------------------------------------- */
 /*                              Clean Dist Folder                             */

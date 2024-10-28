@@ -10,4 +10,4 @@ pub const KUNKUN_DEV_EXT_IDENTIFIER: &str = "sh.kunkun.ext.dev";
 /* -------------------------------------------------------------------------- */
 /*                            Kunkun Builtin Events                           */
 /* -------------------------------------------------------------------------- */
-// pub const KUNKUN_REFRESH_WORKER_EXTENSION: &str = "kksh://refresh-worker-ext";
+pub const KUNKUN_REFRESH_WORKER_EXTENSION: &str = "kunkun://refresh-dev-extension";
