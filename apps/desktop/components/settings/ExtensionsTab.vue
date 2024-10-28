@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import IconMultiplexer from "@/components/IconMultiplexer.vue"
 import { TListGroup, type TListItem } from "@/lib/types/list"
+import { emitRefreshExt } from "~/lib/utils/tauri-events"
 import { useAppConfigStore } from "~/stores/appConfig"
 // import { useDevExtStore, useExtStore } from "~/stores/extensionLoader"
 import { useExtensionStore } from "~/stores/extension"
@@ -24,6 +25,7 @@ function refreshListing() {
 	return extStore
 		.load()
 		.then(() => {
+			emitRefreshExt()
 			return extStore.groups()
 		})
 		.then((groups) => {

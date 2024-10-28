@@ -34,7 +34,24 @@ export async function findLocalhostKunkunPorts(): Promise<number[]> {
 	return onlinePorts
 }
 
-export async function refreshTemplateWorkerExtension() {
+export async function refreshTemplateWorkerExtensionViaServer() {
+	const ports = await findLocalhostKunkunPorts()
+	console.log("Kunkun ports", ports)
+	if (ports.length === 0) {
+		console.error("Failed to find localhost kunkun ports")
+		return
+	} else if (ports.length > 1) {
+		console.warn("Found multiple localhost kunkun ports", ports)
+		console.warn("Will Refresh Every Instance")
+	}
+	for (const port of ports) {
+		fetch(`http://localhost:${port}/refresh-worker-extension`, { method: "POST" }).catch((err) => {
+			console.error("Failed to send refresh worker extension request", err)
+		})
+	}
+}
+
+export async function refreshTemplateWorkerExtensionViaDeepLink() {
 	console.log("Send Refresh Worker Extension Request")
 
 	const platform = await os.platform()
@@ -55,10 +72,12 @@ export async function refreshTemplateWorkerExtension() {
 	}
 }
 
+export const refreshTemplateWorkerExtension = refreshTemplateWorkerExtensionViaServer
+
 export function kununWorkerTemplateExtensionRollupPlugin() {
 	return {
 		async writeBundle() {
-			await refreshTemplateWorkerExtension()
+			await refreshTemplateWorkerExtensionViaDeepLink()
 		}
 	}
 }

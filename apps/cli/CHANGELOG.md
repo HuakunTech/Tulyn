@@ -1,5 +1,13 @@
 # @kksh/cli
 
+## 0.0.20
+
+### Patch Changes
+
+- Re-enable server-based dev extension refresh. Deep Link forces switch focus to kunkun
+- Updated dependencies
+  - @kksh/api@0.0.21
+
 ## 0.0.19
 
 ### Patch Changes

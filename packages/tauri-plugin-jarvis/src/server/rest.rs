@@ -1,5 +1,5 @@
 use super::model::{ServerInfo, ServerState};
-// use crate::constants::KUNKUN_REFRESH_WORKER_EXTENSION;
+use crate::constants::KUNKUN_REFRESH_WORKER_EXTENSION;
 use axum::extract::State;
 use tauri::Emitter;
 
@@ -19,10 +19,10 @@ pub async fn get_server_info(State(state): State<ServerState>) -> axum::Json<Ser
     })
 }
 
-// pub async fn refresh_worker_extension(State(state): State<ServerState>) -> &'static str {
-//     state
-//         .app_handle
-//         .emit(KUNKUN_REFRESH_WORKER_EXTENSION, ())
-//         .unwrap();
-//     "OK"
-// }
+pub async fn refresh_worker_extension(State(state): State<ServerState>) -> &'static str {
+    state
+        .app_handle
+        .emit(KUNKUN_REFRESH_WORKER_EXTENSION, ())
+        .unwrap();
+    "OK"
+}
