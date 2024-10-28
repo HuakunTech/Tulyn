@@ -153,6 +153,7 @@ export const ExtPackageJson = object({
 	name: string("Package name for the extension (just a regular npm package name)"),
 	version: string("Version of the extension"),
 	author: optional(Person),
+	draft: optional(boolean("Whether the extension is a draft, draft will not be published")),
 	contributors: optional(array(Person, "Contributors of the extension")),
 	repository: optional(
 		union([
