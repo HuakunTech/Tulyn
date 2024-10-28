@@ -80,6 +80,8 @@ export async function loadAllExtensionsFromDb(): Promise<ExtPackageJsonExtra[]> 
 		} catch (err) {
 			console.error(err)
 			error(`Failed to load extension ${ext.path} from database.`)
+			// delete this extension from database
+			await db.deleteExtensionByPath(ext.path)
 		}
 	}
 	return results

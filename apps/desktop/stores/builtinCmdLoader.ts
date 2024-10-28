@@ -2,7 +2,9 @@ import { DebugWindowLabel, DevWindowLabel, SettingsWindowLabel } from "@/lib/con
 import { ListItemType, ListItemTypeEnum, TListItem } from "@/lib/types/list"
 import { newSettingsPage } from "@/lib/utils/router"
 import { IconType } from "@kksh/api/models"
+import { getVersion } from "@tauri-apps/api/app"
 import { getAllWebviewWindows, WebviewWindow } from "@tauri-apps/api/webviewWindow"
+import { exit } from "@tauri-apps/plugin-process"
 import { filterListItem } from "~/lib/utils/search"
 import { checkUpdateAndInstall } from "~/lib/utils/updater"
 import { ElMessage, ElNotification } from "element-plus"
@@ -57,8 +59,6 @@ const builtinCmds: BuiltinCmd[] = [
 		function: async () => {
 			// select all html elements with attribute data-tauri-drag-region
 			const elements = document.querySelectorAll("[data-tauri-drag-region]")
-			console.log(elements)
-
 			elements.forEach((el) => {
 				el.classList.add("bg-red-500/30")
 			})
@@ -77,6 +77,14 @@ const builtinCmds: BuiltinCmd[] = [
 			const appStateStore = useAppStateStore()
 			appStateStore.setSearchTermSync("")
 			navigateTo("/add-dev-ext")
+		}
+	},
+	{
+		name: "Kunkun Version",
+		iconifyIcon: "stash:version-solid",
+		description: "",
+		function: async () => {
+			toast.success(`Kunkun Version: ${await getVersion()}`)
 		}
 	},
 	{
@@ -187,6 +195,14 @@ const builtinCmds: BuiltinCmd[] = [
 		description: "Dance",
 		function: async () => {
 			navigateTo("/dance")
+		}
+	},
+	{
+		name: "Quit Kunkun",
+		iconifyIcon: "emojione:cross-mark-button",
+		description: "Quit Kunkun",
+		function: async () => {
+			exit(0)
 		}
 	},
 	{

@@ -2,6 +2,7 @@
 import ListItem from "@/components/MainSearch/list-item.vue"
 import { CommandEmpty, CommandGroup, CommandList } from "@/components/ui/command"
 import { getActiveElementNodeName } from "@/lib/utils/dom"
+import { getPeers } from "@kksh/api/commands"
 import { getVersion } from "@tauri-apps/api/app"
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow"
 import { getCurrentWindow } from "@tauri-apps/api/window"
@@ -23,7 +24,6 @@ import { flatten, parse, safeParse } from "valibot"
 import { toast } from "vue-sonner"
 import { z } from "zod"
 
-const session = useSupabaseSession()
 const builtinCmdStore = useBuiltInCmdStore()
 const appsStore = useAppsLoaderStore()
 const sysCmdsStore = useSystemCmdsStore()
@@ -79,8 +79,6 @@ useListenToWindowFocus(() => {
 })
 
 onMounted(async () => {
-	console.log("session", session.value)
-
 	appUiStore.setDefaultAction("Open")
 	if (appWindow.label !== "main") {
 		setTimeout(() => {

@@ -720,6 +720,16 @@
           "const": "deny-get-history"
         },
         {
+          "description": "Enables the get_peers command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-get-peers"
+        },
+        {
+          "description": "Denies the get_peers command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-get-peers"
+        },
+        {
           "description": "Enables the get_selected_files_in_file_explorer command without any pre-configured scope.",
           "type": "string",
           "const": "allow-get-selected-files-in-file-explorer"

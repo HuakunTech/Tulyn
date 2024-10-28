@@ -1116,6 +1116,32 @@ Denies the get_history command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-get-peers`
+
+</td>
+<td>
+
+Enables the get_peers command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-get-peers`
+
+</td>
+<td>
+
+Denies the get_peers command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-get-selected-files-in-file-explorer`
 
 </td>

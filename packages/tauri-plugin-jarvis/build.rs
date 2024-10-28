@@ -106,6 +106,10 @@ const COMMANDS: &[&str] = &[
     "verify_auth",
     "request_screen_capture_access",
     "check_screen_capture_access",
+    /* -------------------------------------------------------------------------- */
+    /*                                    MDNS                                    */
+    /* -------------------------------------------------------------------------- */
+    "get_peers",
 ];
 
 fn main() {
