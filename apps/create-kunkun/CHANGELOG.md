@@ -1,5 +1,11 @@
 # create-kunkun
 
+## 0.1.23
+
+### Patch Changes
+
+- Store templates as .tgz in dist, to avoid missing .gitignore problem
+
 ## 0.1.18
 
 ### Patch Changes

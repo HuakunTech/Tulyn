@@ -1,7 +1,7 @@
-import { $ } from "bun"
 import { execSync } from "child_process"
 import path from "path"
 import { ExtPackageJson } from "@kksh/api/models"
+import { $ } from "bun"
 import fs from "fs-extra"
 import Handlebars from "handlebars"
 import { flatten, safeParse } from "valibot"
@@ -12,14 +12,29 @@ import { findPkgVersions } from "./utils"
 /*                              Worker Extension                              */
 /* -------------------------------------------------------------------------- */
 export function cleanExtension(dir: string) {
-	let toRemove = ["node_modules", "bun.lockb", "dist", "stats.html", ".turbo"]
-	toRemove = toRemove.map((folder) => path.join(dir, folder))
-	toRemove.forEach((dir) => {
-		if (fs.existsSync(dir)) {
-			//   console.log("Removing: ", dir)
-			fs.removeSync(dir)
+	// Read .gitignore if it exists
+	const gitignorePath = path.join(dir, ".gitignore")
+	let ignorePatterns: string[] = []
+
+	if (fs.existsSync(gitignorePath)) {
+		ignorePatterns = fs
+			.readFileSync(gitignorePath, "utf-8")
+			.split("\n")
+			.map((line) => line.trim())
+			.filter((line) => line && !line.startsWith("#"))
+	}
+
+	// Always include some common build/dependency directories
+	const defaultIgnores = ["node_modules", "dist", ".turbo", "build"]
+	ignorePatterns.push(...defaultIgnores)
+
+	// Find and remove all ignored files/directories
+	for (const pattern of ignorePatterns) {
+		const itemPath = path.join(dir, pattern)
+		if (fs.existsSync(itemPath)) {
+			fs.removeSync(itemPath)
 		}
-	})
+	}
 }
 
 export function patchManifestJsonSchema(pkgJsonPath: string) {

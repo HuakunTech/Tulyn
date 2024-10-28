@@ -1,5 +1,6 @@
 import path from "path"
 import { fileURLToPath } from "url"
+import { version } from "../package.json"
 
 export const NODE_ENV = process.env.NODE_ENV ?? "development"
 export const isProduction = NODE_ENV === "production"
@@ -13,3 +14,5 @@ export function getTemplateRoot() {
 		? path.join(getRootDir(), "templates")
 		: path.join(getRootDir(), "../../templates")
 }
+
+export const createKunkunVersion = version

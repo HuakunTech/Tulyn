@@ -6,8 +6,17 @@ import chalk from "chalk"
 import { Command, Option } from "commander"
 import fs from "fs-extra"
 import pkgJson from "./package.json"
-import { getTemplateRoot, isProduction } from "./src/constants"
+import { createKunkunVersion, getTemplateRoot, isProduction } from "./src/constants"
 import { cleanExtension, patchHBS, patchManifestJsonSchema, patchPkgJsonDep } from "./src/patch"
+import { getLatestNpmPkgVersion, tarExtract } from "./src/utils"
+
+console.log(`${chalk.blue("create-kunkun version:")} ${createKunkunVersion}`)
+const latestCreateKunkunVersion = await getLatestNpmPkgVersion("create-kunkun")
+console.log(`${chalk.blue("Latest create-kunkun version:")} latestCreateKunkunVersion`)
+if (latestCreateKunkunVersion !== createKunkunVersion) {
+	const msg = `You are using create-kunkun version ${createKunkunVersion}, but the latest version is ${latestCreateKunkunVersion}. It may not work with the latest Kunkun app.`
+	console.warn(chalk.red(msg))
+}
 
 const cwd = process.cwd()
 const templateRoot = getTemplateRoot()
@@ -53,13 +62,14 @@ if (!fs.existsSync(outdir)) {
 	fs.mkdirSync(outdir, { recursive: true })
 }
 
-function copyTemplate(templateDir: string, targetFolderName: string): string {
-	if (!fs.existsSync(templateDir)) {
-		console.error(`Worker Extension Template not found at ${templateDir}`)
+async function copyTemplate(templateTgz: string, targetFolderName: string): Promise<string> {
+	const destDir = path.join(outdir, targetFolderName)
+
+	if (!fs.existsSync(templateTgz)) {
+		console.error(`Worker Extension Template not found at ${templateTgz}`)
 		process.exit(1)
 	}
-	console.info(`${chalk.blue("Template Dir:")} ${templateDir}`)
-	const destDir = path.join(outdir, targetFolderName)
+	console.info(`${chalk.blue("Template Source Path:")} ${templateTgz}`)
 	if (fs.existsSync(destDir)) {
 		if (!options.force) {
 			console.error(`Destination directory already exists: ${destDir}`)
@@ -68,11 +78,12 @@ function copyTemplate(templateDir: string, targetFolderName: string): string {
 			fs.removeSync(destDir)
 		}
 	}
-	fs.mkdirSync(destDir, { recursive: true })
+	await tarExtract(templateTgz, destDir)
+	// fs.mkdirSync(destDir, { recursive: true })
 	console.info(
-		`Template copied from \n\t${chalk.blue(templateDir)} \nto \n\t${chalk.blue(destDir)}`
+		`Template copied from \n\t${chalk.blue(templateTgz)} \nto \n\t${chalk.blue(destDir)}`
 	)
-	fs.copySync(templateDir, destDir)
+	// fs.copySync(templateTgz, destDir)
 	return destDir
 }
 
@@ -134,10 +145,10 @@ function copyTemplate(templateDir: string, targetFolderName: string): string {
 	}
 	let destDir = ""
 	if (template === "template") {
-		destDir = copyTemplate(path.join(templateRoot, "template-ext-worker"), name)
+		destDir = await copyTemplate(path.join(templateRoot, "template-ext-worker.tgz"), name)
 		cleanExtension(destDir)
 	} else if (["react", "vue", "svelte", "nuxt", "sveltekit", "next"].includes(template)) {
-		destDir = copyTemplate(path.join(templateRoot, `template-ext-${template}`), name)
+		destDir = await copyTemplate(path.join(templateRoot, `template-ext-${template}.tgz`), name)
 		cleanExtension(destDir)
 	} else {
 		console.error("Invalid template")

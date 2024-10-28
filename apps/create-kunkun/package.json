@@ -1,13 +1,12 @@
 {
 	"name": "create-kunkun",
 	"type": "module",
-	"version": "0.1.22",
+	"version": "0.1.23",
 	"bin": {
 		"create-akun": "dist/index.mjs"
 	},
 	"scripts": {
-		"build": "bun scripts/build.ts",
-		"postbuild": "bun scripts/postbuild.ts",
+		"build": "bun build.ts",
 		"test": "bun test --coverage"
 	},
 	"devDependencies": {
@@ -19,8 +18,10 @@
 		"@rollup/plugin-typescript": "^11.1.6",
 		"@types/bun": "latest",
 		"@types/fs-extra": "^11.0.4",
+		"get-folder-size": "^5.0.0",
 		"rollup": "^4.24.0",
 		"rollup-plugin-visualizer": "^5.12.0",
+		"tar": "^7.4.3",
 		"vitest": "^2.0.0"
 	},
 	"peerDependencies": {
