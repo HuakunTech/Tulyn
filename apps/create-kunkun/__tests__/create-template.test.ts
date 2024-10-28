@@ -12,7 +12,7 @@ import { getRootDir } from "../src/constants"
 const testDir = path.join(os.tmpdir(), "kunkun-create-kunkun-test")
 console.log("Test Dir: ", testDir)
 const distDir = path.join(getRootDir(), "dist")
-const indexjsPath = path.join(distDir, "index.js")
+const indexjsPath = path.join(distDir, "index.mjs")
 const templateNames = ["template", "react", "vue", "nuxt", "svelte", "sveltekit"]
 
 fs.rmdirSync(testDir, { recursive: true })

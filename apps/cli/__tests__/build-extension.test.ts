@@ -12,7 +12,7 @@ const rootDir = getRootDir()
 const createKKDir = path.join(rootDir, "../create-kunkun")
 
 const createKKDistDir = path.join(createKKDir, "dist")
-const createKKIndexjsPath = path.join(createKKDistDir, "index.js")
+const createKKIndexjsPath = path.join(createKKDistDir, "index.mjs")
 const testDir = path.join(os.tmpdir(), "kunkun-cli-test")
 console.log("Test Dir: ", testDir)
 const templateNames = ["react", "vue", "nuxt", "svelte", "sveltekit", "next", "template"]
