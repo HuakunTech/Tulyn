@@ -3,9 +3,11 @@
 	"type": "module",
 	"version": "0.1.25",
 	"bin": {
-		"create-akun": "dist/index.mjs"
+		"create-kunkun": "dist/index.mjs"
 	},
 	"scripts": {
+		"prepublish": "bun build.ts",
+		"publish": "pnpm publish",
 		"build": "bun build.ts",
 		"test": "bun test --coverage"
 	},
