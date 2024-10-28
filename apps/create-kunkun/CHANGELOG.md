@@ -1,5 +1,11 @@
 # create-kunkun
 
+## 0.1.26
+
+### Patch Changes
+
+- Fix windows compatibility errors
+
 ## 0.1.23
 
 ### Patch Changes
