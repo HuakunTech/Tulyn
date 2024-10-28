@@ -15,14 +15,14 @@ const checked = computed({
 </script>
 <template>
 	<div class="grid grid-cols-2 gap-4">
-		<span class="justify-self-end">{{ $t("startup") }}</span>
+		<span class="justify-self-end">{{ $t("settings.general.startup") }}</span>
 		<div class="flex items-center space-x-2">
 			<Checkbox id="startup" v-model:checked="checked" />
 			<label
 				for="startup"
 				class="select-none text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 			>
-				{{ $t("launchAtLogin") }}
+				{{ $t("settings.general.launchAtLogin") }}
 			</label>
 		</div>
 	</div>

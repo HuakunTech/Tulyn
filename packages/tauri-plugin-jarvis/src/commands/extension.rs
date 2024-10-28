@@ -1,13 +1,13 @@
 use crate::JarvisState;
 use crate::{
     model::{
-        extension::Extension,
+        extension::{Extension, ExtensionInfo},
         manifest::{ExtPackageJsonExtra, MANIFEST_FILE_NAME},
     },
     utils::manifest::load_jarvis_ext_manifest,
 };
 use std::collections::HashMap;
-use std::{fmt::format, path::PathBuf};
+use std::{fmt::format, path::PathBuf, sync::Arc, sync::Mutex};
 use tauri::{command, AppHandle, Runtime, State, Window};
 
 /// manifest_path can be folder of package.json
@@ -81,10 +81,13 @@ pub async fn register_extension_window<R: Runtime>(
     //     ));
     // }
     let ext = Extension {
-        path: extension_path,
-        processes: vec![],
-        dist: dist,
-        // identifier: manifest.kunkun.identifier,
+        info: ExtensionInfo {
+            path: extension_path,
+            processes: vec![],
+            dist: dist,
+        },
+        shtdown_handle: Arc::new(Mutex::new(None)),
+        server_handle: Arc::new(Mutex::new(None)),
     };
     label_ext_map.insert(window_label_2.clone(), ext);
     Ok(window_label_2)
@@ -106,7 +109,7 @@ pub async fn register_extension_spawned_process<R: Runtime>(
         ));
     }
     let ext = label_ext_map.get_mut(window_label.as_str()).unwrap();
-    ext.processes.push(pid);
+    ext.info.processes.push(pid);
     Ok(())
 }
 
@@ -115,8 +118,14 @@ pub async fn get_ext_label_map<R: Runtime>(
     _app: AppHandle<R>,
     _window: Window<R>,
     state: State<'_, JarvisState>,
-) -> Result<HashMap<String, Extension>, String> {
-    Ok(state.window_label_ext_map.lock().unwrap().clone())
+) -> Result<HashMap<String, ExtensionInfo>, String> {
+    let label_ext_map = state.window_label_ext_map.lock().unwrap();
+    // turn label_ext_map from HashMap<String, Extension> to HashMap<String, ExtensionInfo>
+    let label_ext_map_info: HashMap<String, ExtensionInfo> = label_ext_map
+        .iter()
+        .map(|(label, ext)| (label.clone(), ext.info.clone()))
+        .collect();
+    Ok(label_ext_map_info)
 }
 
 #[tauri::command]
