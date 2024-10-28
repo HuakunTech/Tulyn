@@ -27,13 +27,13 @@ Consider [Custom UI Extension](https://docs.kunkun.sh/extensions/custom-ui-ext/)
 ## Development
 
 ```bash
-pnpm install
+npm install
 ```
 
 Start extension in development mode. Every save will trigger a hot reload in Kunkun.
 
 ```bash
-pnpm dev
+npm run dev
 ```
 
 - During development, right click in Kunkun to open the developer tools.
@@ -44,7 +44,9 @@ pnpm dev
 Build the extension. Your extension source code can contain many files, but the build process will bundle them into a single file.
 
 ```bash
-pnpm build
+npm run build
+# Due to Bun's bug, if you are on windows, and install dependencies with pnpm, you may get error during build. 
+# Try install dependencies with bun or npm instead.
 ```
 
 ## i18n

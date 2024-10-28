@@ -1,7 +1,7 @@
 {
 	"name": "create-kunkun",
 	"type": "module",
-	"version": "0.1.18",
+	"version": "0.1.22",
 	"bin": {
 		"create-akun": "dist/index.mjs"
 	},
@@ -36,6 +36,7 @@
 		"valibot": "^0.40.0"
 	},
 	"files": [
-		"dist"
+		"dist",
+		"dist/**/.gitignore"
 	]
 }
