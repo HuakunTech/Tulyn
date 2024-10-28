@@ -1,38 +1,69 @@
-# create-svelte
+# Kunkun Custom UI Extension Template (SvelteKit)
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+[Custom UI Extension Documentation](https://docs.kunkun.sh/extensions/custom-ui-ext/)
 
-## Creating a project
+This is a template for a custom UI extension.
 
-If you're seeing this, you've probably already done this step. Congrats!
+This type of extension is basically a static website. You can use any frontend framework you like, this template uses [SvelteKit](https://svelte.dev/).
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+It is assumed that you have some knowledge of frontend development with SvelteKit.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Development
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Development is the same as developing a normal website.
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm install
+pnpm dev
+pnpm build
 ```
 
-## Building
+- To develop and preview the extension in Kunkun, you need to run the `Add Dev Extension` command in Kunkun, and register this extension's path.
 
-To create a production version of your app:
+In `package.json`, `"devMain"` is the url for development server, and `"main"` is the path to static `.html` file for production.
+
+To load the extension in development mode, you have to enable it with `Toggle Dev Extension Live Load Mode` command in Kunkun. A `Live` badge will be shown on the commands. This indicates that dev extensions will be loaded from `devMain` instead of `main`.
+
+## Advanced
+
+### Rendering Mode
+
+This is a Meta-Framework template, and already configured with SSG rendering mode.
+Please do not enable SSR unless you know what you are doing.
+There will not be a JS runtime in production, and Kunkun always load the extension as static files.
+
+The main benefit of using a meta-framework is that it comes with routing, and will output multiple `.html` files, which makes multi-command support much easier.
+
+## Verify Build and Publish
 
 ```bash
-npm run build
+pnpm build # make sure the build npm script works
+npx @kksh/cli@latest verify # Verify some basic settings before publishing
 ```
 
-You can preview the production build with `npm run preview`.
+It is recommended to build the extension with the same environment our CI uses.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+The docker image used by our CI is `huakunshen/kunkun-ext-builder:latest`.
+
+You can use the following command to build the extension with the same environment our CI uses.
+This requires you to have docker installed, and the shell you are using has access to it via `docker` command.
+
+```bash
+npx @kksh/cli@latest build # Build the extension with
+```
+
+`pnpm` is used to install dependencies and build the extension.
+
+The docker image environment also has `node`, `pnpm`, `npm`, `bun`, `deno` installed.
+If your build failed, try debug with `huakunshen/kunkun-ext-builder:latest` image in interative mode and bind your extension volume to `/workspace`.
+
+After build successfully, you should find a tarball file ends with `.tgz` in the root of your extension.
+The tarball is packaged with `npm pack` command. You can uncompress it to see if it contains all the necessary files.
+
+This tarball is the final product that will be published and installed in Kunkun. You can further verify your extension by installing this tarball directly in Kunkun.
+
+After verifying the tarball, it's ready to be published.
+
+Fork [KunkunExtensions](https://github.com/kunkunsh/KunkunExtensions) repo, add your extension to the `extensions` directory, and create a PR.
+
+Once CI passed and PR merged, you can use your extension in Kunkun.

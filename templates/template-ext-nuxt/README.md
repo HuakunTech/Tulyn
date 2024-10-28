@@ -1,75 +1,69 @@
-# Nuxt 3 Minimal Starter
+# Kunkun Custom UI Extension Template (Nuxt)
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+[Custom UI Extension Documentation](https://docs.kunkun.sh/extensions/custom-ui-ext/)
 
-## Setup
+This is a template for a custom UI extension.
 
-Make sure to install the dependencies:
+This type of extension is basically a static website. You can use any frontend framework you like, this template uses [Nuxt](https://nuxt.com/).
+
+It is assumed that you have some knowledge of frontend development with Nuxt.
+
+## Development
+
+Development is the same as developing a normal website.
 
 ```bash
-# npm
-npm install
-
-# pnpm
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
+pnpm dev
+pnpm build
 ```
 
-## Development Server
+- To develop and preview the extension in Kunkun, you need to run the `Add Dev Extension` command in Kunkun, and register this extension's path.
 
-Start the development server on `http://localhost:3000`:
+In `package.json`, `"devMain"` is the url for development server, and `"main"` is the path to static `.html` file for production.
+
+To load the extension in development mode, you have to enable it with `Toggle Dev Extension Live Load Mode` command in Kunkun. A `Live` badge will be shown on the commands. This indicates that dev extensions will be loaded from `devMain` instead of `main`.
+
+## Advanced
+
+### Rendering Mode
+
+This is a Meta-Framework template, and already configured with SSG rendering mode.
+Please do not enable SSR unless you know what you are doing.
+There will not be a JS runtime in production, and Kunkun always load the extension as static files.
+
+The main benefit of using a meta-framework is that it comes with routing, and will output multiple `.html` files, which makes multi-command support much easier.
+
+## Verify Build and Publish
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+pnpm build # make sure the build npm script works
+npx @kksh/cli@latest verify # Verify some basic settings before publishing
 ```
 
-## Production
+It is recommended to build the extension with the same environment our CI uses.
 
-Build the application for production:
+The docker image used by our CI is `huakunshen/kunkun-ext-builder:latest`.
+
+You can use the following command to build the extension with the same environment our CI uses.
+This requires you to have docker installed, and the shell you are using has access to it via `docker` command.
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+npx @kksh/cli@latest build # Build the extension with
 ```
 
-Locally preview production build:
+`pnpm` is used to install dependencies and build the extension.
 
-```bash
-# npm
-npm run preview
+The docker image environment also has `node`, `pnpm`, `npm`, `bun`, `deno` installed.
+If your build failed, try debug with `huakunshen/kunkun-ext-builder:latest` image in interative mode and bind your extension volume to `/workspace`.
 
-# pnpm
-pnpm run preview
+After build successfully, you should find a tarball file ends with `.tgz` in the root of your extension.
+The tarball is packaged with `npm pack` command. You can uncompress it to see if it contains all the necessary files.
 
-# yarn
-yarn preview
+This tarball is the final product that will be published and installed in Kunkun. You can further verify your extension by installing this tarball directly in Kunkun.
 
-# bun
-bun run preview
-```
+After verifying the tarball, it's ready to be published.
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Fork [KunkunExtensions](https://github.com/kunkunsh/KunkunExtensions) repo, add your extension to the `extensions` directory, and create a PR.
+
+Once CI passed and PR merged, you can use your extension in Kunkun.

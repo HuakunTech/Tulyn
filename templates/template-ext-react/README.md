@@ -1,30 +1,67 @@
-# React + TypeScript + Vite
+# Kunkun Custom UI Extension Template (React)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Custom UI Extension Documentation](https://docs.kunkun.sh/extensions/custom-ui-ext/)
 
-Currently, two official plugins are available:
+This is a template for a custom UI extension.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This type of extension is basically a static website. You can use any frontend framework you like, this template uses [React](https://react.dev/).
 
-## Expanding the ESLint configuration
+It is assumed that you have some knowledge of frontend development with React.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Development
 
-- Configure the top-level `parserOptions` property like this:
+Development is the same as developing a normal website.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+pnpm install
+pnpm dev
+pnpm build
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- To develop and preview the extension in Kunkun, you need to run the `Add Dev Extension` command in Kunkun, and register this extension's path.
+
+In `package.json`, `"devMain"` is the url for development server, and `"main"` is the path to static `.html` file for production.
+
+To load the extension in development mode, you have to enable it with `Toggle Dev Extension Live Load Mode` command in Kunkun. A `Live` badge will be shown on the commands. This indicates that dev extensions will be loaded from `devMain` instead of `main`.
+
+## Advanced
+
+### Multi-Command
+
+To support multiple commands, you will need multiple `.html` files as entrypoints, and register each command in `package.json`.
+It is recommended to use a meta-framework and build with SSG rendering mode, which comes with routing and will output multiple `.html` files.
+Kunkun provides meta-framework templates for Nuxt, Next, SvelteKit.
+
+## Verify Build and Publish
+
+```bash
+pnpm build # make sure the build npm script works
+npx @kksh/cli@latest verify # Verify some basic settings before publishing
+```
+
+It is recommended to build the extension with the same environment our CI uses.
+
+The docker image used by our CI is `huakunshen/kunkun-ext-builder:latest`.
+
+You can use the following command to build the extension with the same environment our CI uses.
+This requires you to have docker installed, and the shell you are using has access to it via `docker` command.
+
+```bash
+npx @kksh/cli@latest build # Build the extension with
+```
+
+`pnpm` is used to install dependencies and build the extension.
+
+The docker image environment also has `node`, `pnpm`, `npm`, `bun`, `deno` installed.
+If your build failed, try debug with `huakunshen/kunkun-ext-builder:latest` image in interative mode and bind your extension volume to `/workspace`.
+
+After build successfully, you should find a tarball file ends with `.tgz` in the root of your extension.
+The tarball is packaged with `npm pack` command. You can uncompress it to see if it contains all the necessary files.
+
+This tarball is the final product that will be published and installed in Kunkun. You can further verify your extension by installing this tarball directly in Kunkun.
+
+After verifying the tarball, it's ready to be published.
+
+Fork [KunkunExtensions](https://github.com/kunkunsh/KunkunExtensions) repo, add your extension to the `extensions` directory, and create a PR.
+
+Once CI passed and PR merged, you can use your extension in Kunkun.

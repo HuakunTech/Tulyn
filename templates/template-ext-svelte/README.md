@@ -1,47 +1,67 @@
-# Svelte + TS + Vite
+# Kunkun Custom UI Extension Template (Svelte)
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+[Custom UI Extension Documentation](https://docs.kunkun.sh/extensions/custom-ui-ext/)
 
-## Recommended IDE Setup
+This is a template for a custom UI extension.
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+This type of extension is basically a static website. You can use any frontend framework you like, this template uses [Svelte](https://svelte.dev/).
 
-## Need an official Svelte framework?
+It is assumed that you have some knowledge of frontend development with Svelte.
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+## Development
 
-## Technical considerations
+Development is the same as developing a normal website.
 
-**Why use this over SvelteKit?**
-
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-
-This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
-
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
-
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
-
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `allowJs` in the TS template?**
-
-While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```ts
-// store.ts
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+```bash
+pnpm install
+pnpm dev
+pnpm build
 ```
+
+- To develop and preview the extension in Kunkun, you need to run the `Add Dev Extension` command in Kunkun, and register this extension's path.
+
+In `package.json`, `"devMain"` is the url for development server, and `"main"` is the path to static `.html` file for production.
+
+To load the extension in development mode, you have to enable it with `Toggle Dev Extension Live Load Mode` command in Kunkun. A `Live` badge will be shown on the commands. This indicates that dev extensions will be loaded from `devMain` instead of `main`.
+
+## Advanced
+
+### Multi-Command
+
+To support multiple commands, you will need multiple `.html` files as entrypoints, and register each command in `package.json`.
+It is recommended to use a meta-framework and build with SSG rendering mode, which comes with routing and will output multiple `.html` files.
+Kunkun provides meta-framework templates for Nuxt, Next, SvelteKit.
+
+## Verify Build and Publish
+
+```bash
+pnpm build # make sure the build npm script works
+npx @kksh/cli@latest verify # Verify some basic settings before publishing
+```
+
+It is recommended to build the extension with the same environment our CI uses.
+
+The docker image used by our CI is `huakunshen/kunkun-ext-builder:latest`.
+
+You can use the following command to build the extension with the same environment our CI uses.
+This requires you to have docker installed, and the shell you are using has access to it via `docker` command.
+
+```bash
+npx @kksh/cli@latest build # Build the extension with
+```
+
+`pnpm` is used to install dependencies and build the extension.
+
+The docker image environment also has `node`, `pnpm`, `npm`, `bun`, `deno` installed.
+If your build failed, try debug with `huakunshen/kunkun-ext-builder:latest` image in interative mode and bind your extension volume to `/workspace`.
+
+After build successfully, you should find a tarball file ends with `.tgz` in the root of your extension.
+The tarball is packaged with `npm pack` command. You can uncompress it to see if it contains all the necessary files.
+
+This tarball is the final product that will be published and installed in Kunkun. You can further verify your extension by installing this tarball directly in Kunkun.
+
+After verifying the tarball, it's ready to be published.
+
+Fork [KunkunExtensions](https://github.com/kunkunsh/KunkunExtensions) repo, add your extension to the `extensions` directory, and create a PR.
+
+Once CI passed and PR merged, you can use your extension in Kunkun.

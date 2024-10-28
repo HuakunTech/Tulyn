@@ -1,5 +1,11 @@
 # create-kunkun
 
+## 0.1.18
+
+### Patch Changes
+
+- Update templates README with detailed instructions
+
 ## 0.1.17
 
 ### Patch Changes
