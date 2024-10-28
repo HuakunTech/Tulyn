@@ -1,6 +1,6 @@
 {
 	"name": "tauri-plugin-jarvis-api",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"author": "Huakun",
 	"description": "",
 	"type": "module",

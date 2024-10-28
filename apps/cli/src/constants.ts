@@ -1,17 +1,29 @@
 import path from "path"
 import { fileURLToPath } from "url"
 
-export const NODE_ENV = process.env.NODE_ENV ?? "development"
-export const isProduction = NODE_ENV === "production"
+const filepath = fileURLToPath(import.meta.url)
+const filename = path.basename(filepath)
+const __dirname = path.dirname(filepath)
+const isInJs = filename.endsWith(".js")
+
+function inferNodeEnv() {
+	if (isInJs) {
+		return "production"
+	}
+	if (process.env.NODE_ENV) {
+		return process.env.NODE_ENV
+	}
+	return "development"
+}
+
+export const NODE_ENV = inferNodeEnv()
 
 export function getRootDir() {
-	const __filename = fileURLToPath(import.meta.url)
-	const __dirname = path.dirname(__filename)
-	return isProduction ? __dirname : path.dirname(__dirname)
+	return isInJs ? __dirname : path.dirname(__dirname)
 }
 
 export function getDockerFolder() {
-	return isProduction ? path.join(getRootDir(), "docker") : path.join(getRootDir(), "src/docker")
+	return isInJs ? path.join(getRootDir(), "docker") : path.join(getRootDir(), "src/docker")
 }
 
 export function getDockerEntrypoint() {

@@ -2,17 +2,17 @@ import i18next from "i18next"
 import en, { type Translation } from "./en"
 import zh from "./zh"
 
-export function setupI18n() {
+export function setupI18n(language: "en" | "zh" = "en") {
 	i18next.init({
 		resources: {
 			en: {
 				translation: en
 			},
-			fr: {
+			zh: {
 				translation: zh
 			}
 		},
-		lng: "en", // default language
+		lng: language, // default language
 		fallbackLng: "en"
 	})
 }

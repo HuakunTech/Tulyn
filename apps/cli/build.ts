@@ -17,8 +17,7 @@ await Bun.build({
 	outdir: "./dist",
 	target: "node",
 	// minify: true,
-	format: "esm",
-	
+	format: "esm"
 })
 
 // await $`bun build --target node cli.ts > dist/cli.js`

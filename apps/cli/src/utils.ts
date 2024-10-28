@@ -79,8 +79,11 @@ export function buildWithDocker(extPath: string): Promise<{
 	console.log(`Building ${extPath}`)
 	return new Promise((resolve, reject) => {
 		const pkg = v.parse(ExtPackageJson, fs.readJsonSync(path.join(extPath, "package.json")))
+		const dockerEntrypoint = getDockerEntrypoint()
+		console.log("Docker Entrypoint", dockerEntrypoint)
+
 		const dockerCmd = `
-    run -v ${getDockerEntrypoint()}:/entrypoint.sh -v ${extPath}:/workspace -w /workspace --rm huakunshen/kunkun-ext-builder:latest /entrypoint.sh`
+    run -v ${dockerEntrypoint}:/entrypoint.sh -v ${extPath}:/workspace -w /workspace --rm huakunshen/kunkun-ext-builder:latest /entrypoint.sh`
 		console.log("dockerCmd", dockerCmd)
 		const args = dockerCmd
 			.split(" ")

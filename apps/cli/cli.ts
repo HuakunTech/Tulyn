@@ -2,13 +2,13 @@
 import fs from "fs"
 import path from "path"
 import { buildCmd, verifyCmd } from "@/commands"
-import { NODE_ENV } from "@/constants"
+import { getDockerFolder, NODE_ENV } from "@/constants"
 import logger from "@/logger"
 import { program } from "commander"
 import { version } from "./package.json"
 
 const cwd = process.cwd()
-console.log(NODE_ENV)
+console.log("Environment:", NODE_ENV)
 
 program.name("Kunkun CLI").description("CLI for Kunkun Extension Development").version(version)
 

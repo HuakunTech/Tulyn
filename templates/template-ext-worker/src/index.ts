@@ -1,5 +1,6 @@
 import {
 	Action,
+	app,
 	expose,
 	Form,
 	fs,
@@ -12,7 +13,7 @@ import {
 	ui,
 	WorkerExtension
 } from "@kksh/api/ui/worker"
-import { t } from "./i18n"
+import { setupI18n, t } from "./i18n"
 
 class ExtensionTemplate extends WorkerExtension {
 	async onFormSubmit(value: Record<string, any>): Promise<void> {
@@ -20,8 +21,8 @@ class ExtensionTemplate extends WorkerExtension {
 		toast.success(`Form submitted: ${JSON.stringify(value)}`)
 	}
 	async load() {
-		
-		// console.log(t("welcome")) // It's recommended to support i18n. It costs ~40KB extra
+		// setupI18n(await app.language())
+		// console.log(t("welcome"))
 
 		return ui.setSearchBarPlaceholder("Enter a search term, and press enter to search").then(() => {
 			return ui.render(

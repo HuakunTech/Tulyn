@@ -1,5 +1,21 @@
 # @kksh/api
 
+## 0.0.20
+
+### Patch Changes
+
+- 9fa3d8e: Fix shell API Child, fix stdin write and kill API
+- 0a1ab7c: Manifest Update, add repository, author, contributors
+- b48d53b: Add app API, now contains only a language API for fetching app language from extension
+
+## 0.0.20
+
+### Patch Changes
+
+- 9fa3d8e: Fix shell API Child, fix stdin write and kill API
+- 0a1ab7c: Manifest Update, add repository, author, contributors
+- b48d53b: Add app API, now contains only a language API for fetching app language from extension
+
 ## 0.0.11
 
 ### Patch Changes

@@ -3,10 +3,16 @@ import { join } from "path"
 import { refreshTemplateWorkerExtension } from "@kksh/api/dev"
 import { $ } from "bun"
 
+const entrypoints = ["./src/index.ts"]
+
 async function build() {
 	try {
-		await $`bun build --minify --target=browser --outdir=./dist ./src/index.ts`
-		await refreshTemplateWorkerExtension()
+		for (const entrypoint of entrypoints) {
+			await $`bun build --minify --target=browser --outdir=./dist ${entrypoint}`
+		}
+		if (Bun.argv.includes("dev")) {
+			await refreshTemplateWorkerExtension()
+		}
 	} catch (error) {
 		console.error(error)
 	}

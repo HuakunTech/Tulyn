@@ -1,5 +1,14 @@
 # @kksh/cli
 
+## 0.0.12
+
+### Patch Changes
+
+- Updated dependencies [9fa3d8e]
+- Updated dependencies [0a1ab7c]
+- Updated dependencies [b48d53b]
+  - @kksh/api@0.0.20
+
 ## 0.0.9
 
 ### Patch Changes
