@@ -3,7 +3,7 @@
 	"type": "module",
 	"version": "0.1.25",
 	"bin": {
-		"create-kunkun": "dist/index.mjs"
+		"create-kunkun": "dist/index.js"
 	},
 	"scripts": {
 		"prepublish": "bun build.ts",
