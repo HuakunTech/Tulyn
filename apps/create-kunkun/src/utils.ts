@@ -101,7 +101,7 @@ export function tarExtract(src: string, dest: string) {
 			process.exit(1)
 		}
 		// move intermediateDest to dest
-		fs.renameSync(intermediateDest, dest)
+		fs.copySync(intermediateDest, dest)
 		// remove tmp dir
 		fs.rmSync(tmpDir, { recursive: true })
 	})
