@@ -48,7 +48,25 @@ const builtinCmds: BuiltinCmd[] = [
 		function: async () => {
 			const supabase = useSupabaseClient()
 			supabase.auth.signOut()
-			// navigateTo("/auth/login")
+		}
+	},
+	{
+		name: "Show Draggable Area",
+		iconifyIcon: "mingcute:move-fill",
+		description: "",
+		function: async () => {
+			// select all html elements with attribute data-tauri-drag-region
+			const elements = document.querySelectorAll("[data-tauri-drag-region]")
+			console.log(elements)
+
+			elements.forEach((el) => {
+				el.classList.add("bg-red-500/30")
+			})
+			setTimeout(() => {
+				elements.forEach((el) => {
+					el.classList.remove("bg-red-500/30")
+				})
+			}, 2_000)
 		}
 	},
 	{

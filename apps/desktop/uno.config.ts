@@ -19,5 +19,6 @@ export default defineConfig({
 		}),
 		presetTypography()
 	],
-	rules: []
+	rules: [],
+	safelist: ["bg-red-500/30"]
 })
