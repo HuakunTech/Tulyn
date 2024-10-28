@@ -1,5 +1,13 @@
 # create-kunkun
 
+## 0.1.27
+
+### Patch Changes
+
+- Fix Some Windows incompatibilities
+- Updated dependencies
+  - @kksh/api@0.0.20
+
 ## 0.1.26
 
 ### Patch Changes

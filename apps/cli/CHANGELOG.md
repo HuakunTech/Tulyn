@@ -1,5 +1,13 @@
 # @kksh/cli
 
+## 0.0.19
+
+### Patch Changes
+
+- Fix Some Windows incompatibilities
+- Updated dependencies
+  - @kksh/api@0.0.20
+
 ## 0.0.12
 
 ### Patch Changes
