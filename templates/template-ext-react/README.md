@@ -13,9 +13,9 @@ It is assumed that you have some knowledge of frontend development with React.
 Development is the same as developing a normal website.
 
 ```bash
-pnpm install
-pnpm dev
-pnpm build
+npm install
+npm run dev
+npm run build
 ```
 
 - To develop and preview the extension in Kunkun, you need to run the `Add Dev Extension` command in Kunkun, and register this extension's path.
@@ -35,7 +35,7 @@ Kunkun provides meta-framework templates for Nuxt, Next, SvelteKit.
 ## Verify Build and Publish
 
 ```bash
-pnpm build # make sure the build npm script works
+npm run build # make sure the build npm script works
 npx @kksh/cli@latest verify # Verify some basic settings before publishing
 ```
 

@@ -77,7 +77,7 @@ Then in `package.json`, register the new command.
 ## Verify Build and Publish
 
 ```bash
-pnpm build # make sure the build npm script works
+npm run build # make sure the build npm script works
 npx @kksh/cli@latest verify # Verify some basic settings before publishing
 ```
 

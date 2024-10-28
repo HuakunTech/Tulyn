@@ -7,9 +7,11 @@
 [![YouTube badge][]][YouTube link]
 [![Discord Invite](https://dcbadge.limes.pink/api/server/7dzw3TYeTU)](https://discord.gg/7dzw3TYeTU)
 
-![kunkun](https://socialify.git.ci/kunkunsh/kunkun/image?description=1&forks=1&issues=1&logo=https%3A%2F%2Fstorage.huakun.tech%2F2024%2F9%2F12%2F4MjHiKK.png&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Auto)
+> ### Kunkun is a cross-platform extensible app launcher like Raycast or Alfred.
+>
+> All extensions run in a sandboxed environment by default to ensure security.
 
-> Kunkun is a cross-platform extensible app launcher like Raycast or Alfred.
+![kunkun](https://socialify.git.ci/kunkunsh/kunkun/image?description=1&forks=1&issues=1&logo=https%3A%2F%2Fstorage.huakun.tech%2F2024%2F9%2F12%2F4MjHiKK.png&name=1&owner=1&pattern=Circuit%20Board&pulls=1&stargazers=1&theme=Auto)
 
 ## Website: https://kunkun.sh/
 
@@ -38,7 +40,6 @@
 ![](./README.assets/main.png)
 ![](./README.assets/store.png)
 
-
 ![Alt](https://repobeats.axiom.co/api/embed/283a4ee3d0e8777cfadc89752189164a1f9670c9.svg "Repobeats analytics image")
 
 <!-- Copy-paste in your Readme.md file -->
@@ -50,15 +51,12 @@
   </picture>
 </a>
 
-
 <a href="https://next.ossinsight.io/widgets/official/compose-last-28-days-stats?repo_id=798632455" target="_blank" style="display: block" align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://next.ossinsight.io/widgets/official/compose-last-28-days-stats/thumbnail.png?repo_id=798632455&image_size=auto&color_scheme=dark" width="655" height="auto">
     <img alt="Performance Stats of kunkunsh/kunkun - Last 28 days" src="https://next.ossinsight.io/widgets/official/compose-last-28-days-stats/thumbnail.png?repo_id=798632455&image_size=auto&color_scheme=light" width="655" height="auto">
   </picture>
 </a>
-
-
 
 [YouTube badge]: https://img.shields.io/youtube/channel/subscribers/UC1gJeFbvRcQXDC_C8nKetdA?style=social
 [YouTube link]: https://www.youtube.com/@huakun
