@@ -30,6 +30,8 @@ fs.emptyDirSync(tmpDistTemplatesPath)
 console.log(getRootDir())
 
 const templatesPath = path.join(getRootDir(), "../..", "templates")
+console.log("Copy", templatesPath, "to", tmpDistTemplatesPath)
+
 fs.copySync(templatesPath, tmpDistTemplatesPath, { dereference: true })
 
 /* -------------------------------------------------------------------------- */
