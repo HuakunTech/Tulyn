@@ -1,20 +1,3 @@
-export function detectCurrencyConversion(str: string, currencySet?: Set<string>) {
-	const regex = /\b([A-Z]{3})\s*to\s*([A-Z]{3})\b/i
-	const match = str.match(regex)
-	if (match) {
-		const [_, fromCurrency, toCurrency] = match
-		// Check if both currencies are in the available set
-		if (currencySet) {
-			if (currencySet.has(fromCurrency) && currencySet.has(toCurrency)) {
-				return [fromCurrency, toCurrency]
-			}
-		} else {
-			return [fromCurrency, toCurrency]
-		}
-	}
-	return null // Return null if either currency is not in availableCurrencies
-}
-
 export const CURRENCY_SYMBOLS = new Set([
 	"USD",
 	"AED",
