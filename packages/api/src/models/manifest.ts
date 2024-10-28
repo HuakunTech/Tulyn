@@ -139,9 +139,9 @@ export const KunkunExtManifest = object({
 		"Permissions Declared by the extension. e.g. clipboard-all. Not declared APIs will be blocked."
 	),
 	demoImages: array(string("Demo images for the extension")),
-	customUiCmds: array(CustomUiCmd, "Custom UI Commands"),
-	headlessCmds: array(HeadlessCmd, "Headless Commands"),
-	templateUiCmds: array(TemplateUiCmd, "Template UI Commands")
+	customUiCmds: optional(array(CustomUiCmd, "Custom UI Commands")),
+	headlessCmds: optional(array(HeadlessCmd, "Headless Commands")),
+	templateUiCmds: optional(array(TemplateUiCmd, "Template UI Commands"))
 })
 export type KunkunExtManifest = InferOutput<typeof KunkunExtManifest>
 
