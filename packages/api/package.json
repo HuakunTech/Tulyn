@@ -7,13 +7,15 @@
 		"./ui": "./src/ui/index.ts",
 		"./ui/iframe": "./src/ui/iframe/index.ts",
 		"./ui/worker": "./src/ui/worker/index.ts",
+		"./headless/worker": "./src/headless/worker/index.ts",
 		"./models": "./src/models/index.ts",
 		"./runtime/deno": "./src/runtime/deno.ts",
 		"./commands": "./src/commands/index.ts",
 		"./permissions": "./src/permissions/index.ts",
 		"./dev": "./src/dev/index.ts",
 		"./events": "./src/events.ts",
-		"./package.json": "./package.json"
+		"./package.json": "./package.json",
+		"./types": "./src/types.ts"
 	},
 	"license": "MIT",
 	"scripts": {

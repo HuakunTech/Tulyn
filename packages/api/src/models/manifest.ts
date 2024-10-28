@@ -99,11 +99,10 @@ export const CustomUiCmd = object({
 })
 export type CustomUiCmd = InferOutput<typeof CustomUiCmd>
 
-export const TemplateUiCmd = object({
+export const HeadlessCmd = object({
 	main: string(),
 	name: string(),
 	description: optional(nullable(string("Description of the Command"), ""), ""),
-	window: optional(nullable(WindowConfig)),
 	cmds: array(TriggerCmd),
 	icon: optional(Icon),
 	platforms: optional(
@@ -113,6 +112,11 @@ export const TemplateUiCmd = object({
 		),
 		allPlatforms
 	)
+})
+export type HeadlessCmd = InferOutput<typeof HeadlessCmd>
+export const TemplateUiCmd = object({
+	...HeadlessCmd.entries,
+	window: optional(nullable(WindowConfig))
 })
 export type TemplateUiCmd = InferOutput<typeof TemplateUiCmd>
 export const PermissionUnion = union([
@@ -136,6 +140,7 @@ export const KunkunExtManifest = object({
 	),
 	demoImages: array(string("Demo images for the extension")),
 	customUiCmds: array(CustomUiCmd, "Custom UI Commands"),
+	headlessCmds: array(HeadlessCmd, "Headless Commands"),
 	templateUiCmds: array(TemplateUiCmd, "Template UI Commands")
 })
 export type KunkunExtManifest = InferOutput<typeof KunkunExtManifest>
@@ -175,10 +180,8 @@ export type ExtPackageJson = InferOutput<typeof ExtPackageJson>
  */
 export const ExtPackageJsonExtra = object({
 	...ExtPackageJson.entries,
-	...{
-		extPath: string(),
-		extFolderName: string()
-	}
+	extPath: string(),
+	extFolderName: string()
 })
 
 export type ExtPackageJsonExtra = InferOutput<typeof ExtPackageJsonExtra>
