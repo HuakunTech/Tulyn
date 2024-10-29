@@ -63,7 +63,7 @@ for (const p of fs.readdirSync(tmpDistTemplatesPath)) {
 for (const p of fs.readdirSync(tmpDistTemplatesPath)) {
 	const src = path.join(tmpDistTemplatesPath, p)
 	// skip if src is not a directory
-	if (!fs.lstatSync(src).isDirectory()) {
+	if (!fs.statSync(src).isDirectory()) {
 		continue
 	}
 	const dest = path.join(distTemplatesPath, `${p}.tgz`)
