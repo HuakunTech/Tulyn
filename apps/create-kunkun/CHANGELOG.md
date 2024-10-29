@@ -1,5 +1,12 @@
 # create-kunkun
 
+## 0.1.29
+
+### Patch Changes
+
+- Updated dependencies
+  - @kksh/api@0.0.22
+
 ## 0.1.28
 
 ### Patch Changes

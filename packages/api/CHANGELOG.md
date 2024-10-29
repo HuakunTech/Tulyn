@@ -1,5 +1,11 @@
 # @kksh/api
 
+## 0.0.22
+
+### Patch Changes
+
+- Add draft field for draft extension
+
 ## 0.0.21
 
 ### Patch Changes
