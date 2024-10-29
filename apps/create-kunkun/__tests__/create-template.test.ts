@@ -23,8 +23,8 @@ await Promise.all(
 		await $`node ${indexjsPath} --outdir ${testDir} --name ${folderName} --template ${templateName}`
 		const templateDir = path.join(testDir, folderName)
 		await $`rm -rf node_modules`.cwd(templateDir).text() // this doesn't work within bun test
-		await $`npm install`.cwd(templateDir).text() // this doesn't work within bun test
-		await $`npm run build`.cwd(templateDir).text()
+		await $`pnpm install`.cwd(templateDir).text() // this doesn't work within bun test
+		await $`pnpm run build`.cwd(templateDir).text()
 	})
 )
 
