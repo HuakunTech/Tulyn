@@ -27,13 +27,13 @@ Consider [Custom UI Extension](https://docs.kunkun.sh/extensions/custom-ui-ext/)
 ## Development
 
 ```bash
-npm install
+pnpm install
 ```
 
 Start extension in development mode. Every save will trigger a hot reload in Kunkun.
 
 ```bash
-npm run dev
+pnpm dev
 ```
 
 - During development, right click in Kunkun to open the developer tools.
@@ -44,8 +44,8 @@ npm run dev
 Build the extension. Your extension source code can contain many files, but the build process will bundle them into a single file.
 
 ```bash
-npm run build
-# Due to Bun's bug, if you are on windows, and install dependencies with pnpm, you may get error during build. 
+pnpm build
+# Due to Bun's bug, if you are on windows, and install dependencies with pnpm, you may get error during build.
 # Try install dependencies with bun or npm instead.
 ```
 
@@ -77,8 +77,9 @@ Then in `package.json`, register the new command.
 ## Verify Build and Publish
 
 ```bash
-npm run build # make sure the build npm script works
-npx @kksh/cli@latest verify # Verify some basic settings before publishing
+pnpm build # make sure the build npm script works
+npx @kksh/cli@latest verify # Verify some basic settings
+npx @kksh/cli@latest verify --publish # Verify some basic settings before publishing
 ```
 
 It is recommended to build the extension with the same environment our CI uses.
@@ -107,3 +108,18 @@ After verifying the tarball, it's ready to be published.
 Fork [KunkunExtensions](https://github.com/kunkunsh/KunkunExtensions) repo, add your extension to the `extensions` directory, and create a PR.
 
 Once CI passed and PR merged, you can use your extension in Kunkun.
+
+## Potential Error
+
+Our CI uses `pnpm` to install dependencies. If you are on Windows, you may get error during build.
+
+See issue https://github.com/kunkunsh/kunkun/issues/78
+
+`bun` had problem building the extension when `pnpm` is used to install dependencies.
+
+### Options
+
+1. Install an older version of `bun` (1.1.27 should work)
+2. Install dependencies with `bun` or `npm` instead of `pnpm`
+
+Our CI always builds the extension with on Linux and shouldn't have this problem.
