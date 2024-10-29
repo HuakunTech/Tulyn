@@ -303,14 +303,18 @@ export const useExtensionStore = defineStore("kk-extensions", () => {
 		})
 	}
 	const $listItems = computed(() => {
-		return manifests.value
-			.map((manifest) =>
-				manifestToCmdItems(
-					manifest,
-					extPath.value ? isExtPathInDev(extPath.value, manifest.extPath) : false
+		return (
+			manifests.value
+				.map((manifest) =>
+					manifestToCmdItems(
+						manifest,
+						extPath.value ? isExtPathInDev(extPath.value, manifest.extPath) : false
+					)
 				)
-			)
-			.flat()
+				.flat()
+				// isDev goes first
+				.sort((a, b) => (a.flags.isDev ? -1 : 1) - (b.flags.isDev ? -1 : 1))
+		)
 	})
 	const $filteredListItems = computed<TListItem[]>(() => {
 		return appStateStore.searchTerm.length === 0

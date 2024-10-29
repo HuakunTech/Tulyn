@@ -1,5 +1,11 @@
 # @kksh/api
 
+## 0.0.23
+
+### Patch Changes
+
+- refactor: change kunkun-drag-region to start with data
+
 ## 0.0.22
 
 ### Patch Changes

@@ -15,6 +15,7 @@ function onBack() {
 </script>
 <template>
 	<main class="container h-screen w-screen pt-10">
+		<div class="absolute left-0 top-0 h-10 w-screen" data-tauri-drag-region />
 		<Button variant="outline" size="icon" class="absolute left-2 top-2 z-50" @click="onBack">
 			<ArrowLeftIcon />
 		</Button>

@@ -2,7 +2,7 @@ import type { Remote } from "@huakunshen/comlink"
 import type { IOs } from "tauri-api-adapter/client"
 import { type IUiIframe } from "../client"
 
-export const KK_DRAG_REGION_ATTR = "kunkun-drag-region"
+export const KK_DRAG_REGION_ATTR = "data-kunkun-drag-region"
 
 export function constructIframeUiAPI(api: {
 	iframeUi: Remote<IUiIframe>
