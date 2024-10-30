@@ -60,6 +60,7 @@ const COMMANDS: &[&str] = &[
     "is_window_label_registered",
     "register_extension_window",
     "register_extension_spawned_process",
+    "unregister_extension_spawned_process",
     "unregister_extension_window",
     "get_ext_label_map",
     // "ext_store_wrapper_set",

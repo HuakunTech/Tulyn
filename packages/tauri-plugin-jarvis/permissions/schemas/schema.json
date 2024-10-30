@@ -1180,6 +1180,16 @@
           "const": "deny-unmute"
         },
         {
+          "description": "Enables the unregister_extension_spawned_process command without any pre-configured scope.",
+          "type": "string",
+          "const": "allow-unregister-extension-spawned-process"
+        },
+        {
+          "description": "Denies the unregister_extension_spawned_process command without any pre-configured scope.",
+          "type": "string",
+          "const": "deny-unregister-extension-spawned-process"
+        },
+        {
           "description": "Enables the unregister_extension_window command without any pre-configured scope.",
           "type": "string",
           "const": "allow-unregister-extension-window"

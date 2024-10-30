@@ -103,9 +103,10 @@ function onErrorClick(errMsg?: string) {
 </script>
 <template>
 	<main class="container h-screen w-screen pt-10">
-		<Button variant="outline" size="icon" class="absolute left-3 top-3 z-50" @click="onBack">
+		<Button variant="outline" size="icon" class="absolute left-2 top-2 z-50" @click="onBack">
 			<ArrowLeftIcon />
 		</Button>
+		<div data-tauri-drag-region class="absolute left-0 top-0 h-10 w-full" />
 		<Button @click="check" size="sm">Check</Button>
 		<Dialog v-model:open="isDialogOpen">
 			<DialogContent>

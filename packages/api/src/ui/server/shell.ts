@@ -1,3 +1,4 @@
+import { emitKillProcessEvent } from "@kksh/api/events"
 import { Channel, invoke } from "@tauri-apps/api/core"
 import { emitTo } from "@tauri-apps/api/event"
 import { getCurrentWindow } from "@tauri-apps/api/window"
@@ -97,6 +98,8 @@ export function constructShellApi(
 		return invoke<void>("plugin:shellx|kill", {
 			cmd: "killChild",
 			pid: pid
+		}).then(() => {
+			emitKillProcessEvent(pid)
 		})
 	}
 	function stdinWrite(buffer: string | number[], pid: number) {

@@ -111,6 +111,22 @@ pub async fn register_extension_spawned_process<R: Runtime>(
 }
 
 #[tauri::command]
+pub async fn unregister_extension_spawned_process<R: Runtime>(
+    _app: AppHandle<R>,
+    state: State<'_, JarvisState>,
+    window_label: String,
+    pid: u32,
+) -> Result<(), String> {
+    let mut label_ext_map = state.window_label_ext_map.lock().unwrap();
+    label_ext_map
+        .get_mut(window_label.as_str())
+        .unwrap()
+        .processes
+        .retain(|p| *p != pid);
+    Ok(())
+}
+
+#[tauri::command]
 pub async fn get_ext_label_map<R: Runtime>(
     _app: AppHandle<R>,
     _window: Window<R>,

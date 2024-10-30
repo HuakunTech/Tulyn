@@ -3,7 +3,7 @@ on:
   push:
 
 jobs:
-  test:
+  publish:
     runs-on: ubuntu-latest
 
     permissions:

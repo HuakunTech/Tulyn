@@ -98,7 +98,7 @@ const builtinCmds: BuiltinCmd[] = [
 		}
 	},
 	{
-		name: "Window Troubleshooter",
+		name: "Extension Window Troubleshooter",
 		iconifyIcon: "material-symbols:window-outline",
 		description: "",
 		function: async () => {

@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { useGoToSettingShortcuts } from "@/composables/useShortcuts"
 import { useTestDB } from "@/lib/dev/exp"
-import { openDevTools } from "@kksh/api/commands"
-import { listenToRecordExtensionProcessEvent } from "@kksh/api/events"
+import { listenToKillProcessEvent, listenToRecordExtensionProcessEvent } from "@kksh/api/events"
 import { Toaster } from "@kksh/vue/sonner"
 import { Toaster as Toaster2 } from "@kksh/vue/toast"
 import { TooltipProvider } from "@kksh/vue/tooltip"
@@ -29,6 +28,7 @@ let unlistenRefreshConfig: UnlistenFn
 let unlistenRefreshExtensionList: UnlistenFn
 let detach: UnlistenFn
 let unlistenRecordExtensionProcessEvent: UnlistenFn
+let unlistenKillProcessEvent: UnlistenFn
 useTestDB()
 const rtConfig = useRuntimeConfig()
 const windowExtMapStore = useWindowExtMapStore()
@@ -47,7 +47,10 @@ onMounted(async () => {
 			}
 		)
 	}
-
+	unlistenKillProcessEvent = await listenToKillProcessEvent((event) => {
+		console.log("kill process event", event)
+		windowExtMapStore.unregisterProcess(event.payload.pid)
+	})
 	if (!rtConfig.public.isDev) {
 		document.addEventListener("contextmenu", (event) => {
 			event.preventDefault()
@@ -94,6 +97,7 @@ onMounted(async () => {
 
 onUnmounted(() => {
 	unlistenRecordExtensionProcessEvent?.()
+	unlistenKillProcessEvent?.()
 })
 </script>
 

@@ -7,3 +7,7 @@ export function toggleDevExtensionLiveLoadMode() {
 	appStateStore.setSearchTermSync("")
 	toast.success(`Dev Extension Live Load Mode toggled to: ${appConfig.devExtLoadUrl}`)
 }
+
+export function onBackHome() {
+	navigateTo("/")
+}

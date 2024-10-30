@@ -59,6 +59,7 @@ commands.allow = [
     "register_extension_window",
     "unregister_extension_window",
     "register_extension_spawned_process",
+    "unregister_extension_spawned_process",
     "get_ext_label_map",
     "get_frontmost_app",
     # Database

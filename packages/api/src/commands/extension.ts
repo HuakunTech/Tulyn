@@ -35,6 +35,13 @@ export function registerExtensionSpawnedProcess(windowLabel: string, pid: number
 	})
 }
 
+export function unregisterExtensionSpawnedProcess(windowLabel: string, pid: number): Promise<void> {
+	return invoke(generateJarvisPluginCommand("unregister_extension_spawned_process"), {
+		windowLabel,
+		pid
+	})
+}
+
 export function getExtLabelMap(): Promise<ExtensionLabelMap> {
 	return invoke(generateJarvisPluginCommand("get_ext_label_map"))
 }

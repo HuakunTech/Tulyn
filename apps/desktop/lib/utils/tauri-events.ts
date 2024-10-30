@@ -16,7 +16,6 @@ export const FileDragOver = "tauri://drag-over"
 export const NewClipboardItemAddedEvent = "new_clipboard_item_added"
 export const RefreshConfigEvent = "kunkun://refresh-config"
 export const RefreshExtEvent = "kunkun://refresh-extensions"
-
 export function listenToFileDrop(cb: EventCallback<{ paths: string[] }>) {
 	return listen<{ paths: string[] }>(FileDrop, cb)
 }
