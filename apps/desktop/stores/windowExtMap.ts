@@ -1,4 +1,8 @@
-import { getExtLabelMap, registerExtensionSpawnedProcess } from "@kksh/api/commands"
+import {
+	getExtLabelMap,
+	registerExtensionSpawnedProcess,
+	unregisterExtensionSpawnedProcess
+} from "@kksh/api/commands"
 import { error } from "@tauri-apps/plugin-log"
 import { defineStore } from "pinia"
 import { Child } from "tauri-plugin-shellx-api"
@@ -71,9 +75,29 @@ export const useWindowExtMapStore = defineStore("window-ext-map", () => {
 		windowExtMap.value[windowLabel].pids.push(pid)
 	}
 
+	/**
+	 * Unregister process in store
+	 * Used when user manually kills a process, we need to keep the data in sync
+	 * @param pid
+	 */
+	function unregisterProcess(pid: number) {
+		// find the pid and window label from the store
+		const found = Object.entries(windowExtMap.value).find(([windowLabel, ext]) =>
+			ext.pids.includes(pid)
+		)
+		if (!found) {
+			return
+		}
+		const [windowLabel, ext] = found
+		unregisterExtensionSpawnedProcess(windowLabel, pid).then(() => {
+			ext.pids = ext.pids.filter((p) => p !== pid)
+		})
+	}
+
 	return {
 		windowExtMap,
 		registerProcess,
+		unregisterProcess,
 		registerExtensionWithWindow,
 		unregisterExtensionFromWindow
 	}

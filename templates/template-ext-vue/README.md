@@ -36,7 +36,7 @@ Kunkun provides meta-framework templates for Nuxt, Next, SvelteKit.
 
 ```bash
 pnpm build # make sure the build npm script works
-npx @kksh/cli@latest verify # Verify some basic settings before publishing
+npx kksh@latest verify # Verify some basic settings before publishing
 ```
 
 It is recommended to build the extension with the same environment our CI uses.
@@ -47,7 +47,7 @@ You can use the following command to build the extension with the same environme
 This requires you to have docker installed, and the shell you are using has access to it via `docker` command.
 
 ```bash
-npx @kksh/cli@latest build # Build the extension with
+npx kksh@latest build # Build the extension with
 ```
 
 `pnpm` is used to install dependencies and build the extension.

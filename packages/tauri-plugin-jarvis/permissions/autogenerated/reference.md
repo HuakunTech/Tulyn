@@ -2312,6 +2312,32 @@ Denies the unmute command without any pre-configured scope.
 <tr>
 <td>
 
+`jarvis:allow-unregister-extension-spawned-process`
+
+</td>
+<td>
+
+Enables the unregister_extension_spawned_process command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`jarvis:deny-unregister-extension-spawned-process`
+
+</td>
+<td>
+
+Denies the unregister_extension_spawned_process command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
 `jarvis:allow-unregister-extension-window`
 
 </td>

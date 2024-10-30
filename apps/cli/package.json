@@ -1,10 +1,10 @@
 {
-	"name": "@kksh/cli",
+	"name": "kksh",
 	"module": "dist/cli.js",
-	"version": "0.0.22",
+	"version": "0.0.23",
 	"type": "module",
 	"bin": {
-		"@kksh/cli": "./dist/cli.js",
+		"kksh": "./dist/cli.js",
 		"docker-entrypoint.sh": "./dist/docker/entrypoint.sh"
 	},
 	"author": "Huakun",

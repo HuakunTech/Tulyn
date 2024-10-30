@@ -98,7 +98,7 @@ const builtinCmds: BuiltinCmd[] = [
 		}
 	},
 	{
-		name: "Window Troubleshooter",
+		name: "Extension Window Troubleshooter",
 		iconifyIcon: "material-symbols:window-outline",
 		description: "",
 		function: async () => {
@@ -210,11 +210,7 @@ const builtinCmds: BuiltinCmd[] = [
 		iconifyIcon: "ri:toggle-line",
 		description: "Load dev extensions from their dev server URLs",
 		function: async () => {
-			const appConfig = useAppConfigStore()
-			appConfig.setDevExtLoadUrl(!appConfig.devExtLoadUrl)
-			const appStateStore = useAppStateStore()
-			appStateStore.setSearchTermSync("")
-			toast.success(`Dev Extension Live Load Mode toggled to: ${appConfig.devExtLoadUrl}`)
+			toggleDevExtensionLiveLoadMode()
 		}
 	},
 	{
