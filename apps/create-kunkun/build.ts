@@ -1,3 +1,4 @@
+import os from "os"
 import path from "path"
 import { $ } from "bun"
 import chalk from "chalk"
@@ -30,7 +31,7 @@ fs.emptyDirSync(tmpDistTemplatesPath)
 console.log(getRootDir())
 
 const templatesPath = path.join(getRootDir(), "../..", "templates")
-fs.copySync(templatesPath, tmpDistTemplatesPath, { dereference: true })
+fs.copySync(templatesPath, tmpDistTemplatesPath, { dereference: os.platform() === "win32" })
 
 /* -------------------------------------------------------------------------- */
 /*                              Clean Dist Folder                             */
