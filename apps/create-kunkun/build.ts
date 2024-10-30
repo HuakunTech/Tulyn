@@ -11,7 +11,7 @@ await $`rm -rf dist`
 await $`bun build index.ts --outfile=dist/index.mjs --target node`.env({
 	NODE_ENV: "production"
 })
-// await $`pnpm rolldown -c`
+console.log("build done")
 
 /* -------------------------------------------------------------------------- */
 /*                                 Post Build                                 */
@@ -20,9 +20,14 @@ await $`bun build index.ts --outfile=dist/index.mjs --target node`.env({
 const distPath = path.join(getRootDir(), "dist")
 const distTemplatesPath = path.join(distPath, "templates")
 const tmpDistTemplatesPath = path.join(distPath, "tmp-templates")
+console.log("distPath", distPath)
+console.log("distTemplatesPath", distTemplatesPath)
+console.log("tmpDistTemplatesPath", tmpDistTemplatesPath)
+
 // clear distTemplatesPath
 fs.emptyDirSync(distTemplatesPath)
 fs.emptyDirSync(tmpDistTemplatesPath)
+console.log("emptyDirSync done")
 
 /* -------------------------------------------------------------------------- */
 /*                   copy ../../templates to dist/templates                   */
@@ -31,7 +36,7 @@ console.log(getRootDir())
 
 const templatesPath = path.join(getRootDir(), "../..", "templates")
 fs.copySync(templatesPath, tmpDistTemplatesPath, { dereference: true })
-
+console.log(`Copy ${templatesPath} to ${tmpDistTemplatesPath} done`)
 /* -------------------------------------------------------------------------- */
 /*                              Clean Dist Folder                             */
 /* -------------------------------------------------------------------------- */
@@ -39,7 +44,7 @@ for (const p of fs.readdirSync(tmpDistTemplatesPath)) {
 	console.log("Clean Extension", path.join(tmpDistTemplatesPath, p))
 	cleanExtension(path.join(tmpDistTemplatesPath, p))
 }
-
+console.log("Clean Extension done")
 /* -------------------------------------------------------------------------- */
 /*                               Patch Templates                              */
 /* -------------------------------------------------------------------------- */
@@ -56,7 +61,7 @@ for (const p of fs.readdirSync(tmpDistTemplatesPath)) {
 		fs.rmdirSync(path.join(distPath, "templates", p, "node_modules"), { recursive: true })
 	}
 }
-
+console.log("Patch Templates done")
 /* -------------------------------------------------------------------------- */
 /*                                Zip Templates                               */
 /* -------------------------------------------------------------------------- */
@@ -70,9 +75,11 @@ for (const p of fs.readdirSync(tmpDistTemplatesPath)) {
 	console.log(`${chalk.green("Zipping")} ${chalk.blue(src)} to ${chalk.blue(dest)}`)
 	await tarCompress(src, dest)
 }
+console.log("Zip Templates done")
 
 fs.rmSync(tmpDistTemplatesPath, { recursive: true })
 
 // get total folder size of distTemplatesPath
 const size = await getFolderSize.loose(distTemplatesPath)
 console.log(`dist size ${(size / 1000 / 1000).toFixed(2)} MB`)
+console.log("Clean tmpDistTemplatesPath done")
