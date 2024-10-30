@@ -32,10 +32,8 @@ const appUiStore = useAppUiStore()
 const remoteCmdStore = useRemoteCmdStore()
 const extStore = useExtensionStore()
 const appConfig = useAppConfigStore()
-await appConfig.init()
 const lastTimeStore = useLastTimeStore()
 const quicklinkLoader = useQuicklinkLoader()
-await lastTimeStore.init()
 const extLoaders = ref([
 	extStore,
 	quicklinkLoader,
@@ -79,6 +77,8 @@ useListenToWindowFocus(() => {
 })
 
 onMounted(async () => {
+	await appConfig.init()
+	await lastTimeStore.init()
 	appUiStore.setDefaultAction("Open")
 	if (appWindow.label !== "main") {
 		setTimeout(() => {

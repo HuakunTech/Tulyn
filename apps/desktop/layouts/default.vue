@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useGoToSettingShortcuts } from "@/composables/useShortcuts"
 import { useTestDB } from "@/lib/dev/exp"
+import { openDevTools } from "@kksh/api/commands"
 import { listenToRecordExtensionProcessEvent } from "@kksh/api/events"
 import { Toaster } from "@kksh/vue/sonner"
 import { Toaster as Toaster2 } from "@kksh/vue/toast"
@@ -27,27 +28,36 @@ const isMainWindow = appWindow.label === "main"
 let unlistenRefreshConfig: UnlistenFn
 let unlistenRefreshExtensionList: UnlistenFn
 let detach: UnlistenFn
+let unlistenRecordExtensionProcessEvent: UnlistenFn
 useTestDB()
-
+const rtConfig = useRuntimeConfig()
 const windowExtMapStore = useWindowExtMapStore()
-if (appWindow.label === "main") {
-	let unlistenRecordExtensionProcessEvent: UnlistenFn = await listenToRecordExtensionProcessEvent(
-		async (event) => {
-			console.log("record extension process event", event)
-			windowExtMapStore.registerProcess(event.payload.windowLabel, event.payload.pid)
-			console.log(windowExtMapStore.windowExtMap)
-		}
-	)
-}
+
+usePreventExit()
+
 onMounted(async () => {
 	if (!isMainWindow) {
 		return
+	} else {
+		unlistenRecordExtensionProcessEvent = await listenToRecordExtensionProcessEvent(
+			async (event) => {
+				console.log("record extension process event", event)
+				windowExtMapStore.registerProcess(event.payload.windowLabel, event.payload.pid)
+				console.log(windowExtMapStore.windowExtMap)
+			}
+		)
 	}
+
+	if (!rtConfig.public.isDev) {
+		document.addEventListener("contextmenu", (event) => {
+			event.preventDefault()
+		})
+	}
+
 	initDeeplink()
 	await appConfig.init()
 	appConfig.refreshWindowStyles()
 	useGoToSettingShortcuts()
-	usePreventExit()
 	unlistenRefreshConfig = await listenToRefreshConfig(async () => {
 		debug("Refreshing config")
 		await appConfig.init()
@@ -80,6 +90,10 @@ onMounted(async () => {
 	detach = await attachConsole()
 	appConfig.watch()
 	initStores()
+})
+
+onUnmounted(() => {
+	unlistenRecordExtensionProcessEvent?.()
 })
 </script>
 
