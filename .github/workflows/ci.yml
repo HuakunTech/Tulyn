@@ -22,21 +22,11 @@ jobs:
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: 1.1.27
-      - name: Init Environment Variables
-        env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-          SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}
-          POSTHOG_PUBLIC_KEY: ${{ secrets.POSTHOG_PUBLIC_KEY }}
-          POSTHOG_HOST: ${{ secrets.POSTHOG_HOST }}
-        run: |
-          bun scripts/init-env.ts
       - name: Install Dependencies
         run: pnpm i
-      - name: Build and Test
-        env:
-          SUPABASE_GRAPHQL_ENDPOINT: ${{ secrets.SUPABASE_GRAPHQL_ENDPOINT }}
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-        run: |
-          pnpm build
-          pnpm test
+      - name: Setup
+        run: pnpm run setup
+      - name: Build
+        run: pnpm build
+      - name: Test
+        run: pnpm test
