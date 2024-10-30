@@ -22,10 +22,10 @@ jobs:
       - uses: oven-sh/setup-bun@v1
         with:
           bun-version: 1.1.27
-      - name: Install Dependencies
-        run: pnpm i
       - name: Setup
         run: pnpm run setup
+      - name: Install Dependencies
+        run: pnpm i
       - name: Build
         run: pnpm build
       - name: Test

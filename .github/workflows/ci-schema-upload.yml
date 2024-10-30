@@ -5,10 +5,6 @@ name: CI Upload Extension Manifest Schema
 # - packages/extensions/*
 # - apps/desktop
 on:
-  push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
   workflow_dispatch:
 
 jobs:
