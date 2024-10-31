@@ -28,7 +28,7 @@
 		"@nuxt/image": "^1.7.0",
 		"@nuxtjs/color-mode": "^3.5.1",
 		"@nuxtjs/i18n": "^8.3.3",
-		"@nuxtjs/mdc": "^0.8.3",
+		"@nuxtjs/mdc": "^0.9.2",
 		"@pinia/nuxt": "^0.5.1",
 		"@radix-icons/vue": "^1.0.0",
 		"@supabase/supabase-js": "^2.43.4",
