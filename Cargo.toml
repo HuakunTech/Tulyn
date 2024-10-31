@@ -3,6 +3,7 @@ resolver = "2"
 
 members = [
     "apps/desktop/src-tauri",
+    "apps/desktop-svelte/src-tauri",
     "packages/tauri-plugin-jarvis",
     "packages/db",
     "packages/mac-security-rs",
