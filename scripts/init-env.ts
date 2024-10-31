@@ -39,5 +39,12 @@ console.log(".env files written")
 console.log(envContent)
 
 writeFileSync(resolve(__dirname, "../apps/desktop/.env"), envContent)
+writeFileSync(
+	resolve(__dirname, "../apps/desktop-svelte/.env"),
+	`
+PUBLIC_SUPABASE_ANON_KEY=${process.env.SUPABASE_ANON_KEY}
+PUBLIC_SUPABASE_PROJECT_ID=${process.env.SUPABASE_PROJECT_ID}
+`
+)
 writeFileSync(resolve(__dirname, "../packages/gql/.env"), envContent)
 writeFileSync(resolve(__dirname, "../packages/schema/.env"), envContent)

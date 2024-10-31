@@ -40,7 +40,7 @@
 	},
 	"dependencies": {
 		"@kksh/api": "workspace:*",
-		"@kksh/svelte": "0.1.4",
+		"@kksh/svelte": "0.1.7",
 		"clsx": "^2.1.1",
 		"lucide-svelte": "^0.416.0",
 		"tailwind-merge": "^2.4.0",
