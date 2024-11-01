@@ -476,14 +476,17 @@ importers:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.47)
       bits-ui:
-        specifier: 1.0.0-next.34
-        version: 1.0.0-next.34(svelte@5.1.4)
+        specifier: 1.0.0-next.35
+        version: 1.0.0-next.35(svelte@5.1.4)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
       eslint:
         specifier: ^9.13.0
         version: 9.13.0(jiti@2.3.3)
+      formsnap:
+        specifier: 2.0.0-next.1
+        version: 2.0.0-next.1(svelte@5.1.4)(sveltekit-superforms@2.20.0(@sveltejs/kit@2.7.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.4)(vite@5.4.10(@types/node@22.7.6)(terser@5.31.5)))(svelte@5.1.4)(vite@5.4.10(@types/node@22.7.6)(terser@5.31.5)))(@types/json-schema@7.0.15)(svelte@5.1.4)(typescript@5.6.3))
       svelte:
         specifier: ^5.0.0
         version: 5.1.4
@@ -493,6 +496,9 @@ importers:
       svelte-radix:
         specifier: ^2.0.1
         version: 2.0.1(svelte@5.1.4)
+      sveltekit-superforms:
+        specifier: ^2.20.0
+        version: 2.20.0(@sveltejs/kit@2.7.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.4)(vite@5.4.10(@types/node@22.7.6)(terser@5.31.5)))(svelte@5.1.4)(vite@5.4.10(@types/node@22.7.6)(terser@5.31.5)))(@types/json-schema@7.0.15)(svelte@5.1.4)(typescript@5.6.3)
       tailwind-merge:
         specifier: ^2.5.4
         version: 2.5.4
@@ -517,6 +523,9 @@ importers:
       vite:
         specifier: ^5.4.10
         version: 5.4.10(@types/node@22.7.6)(terser@5.31.5)
+      zod:
+        specifier: ^3.23.8
+        version: 3.23.8
 
   extensions/demo-worker-template-ext:
     dependencies:
@@ -6537,8 +6546,8 @@ packages:
     peerDependencies:
       svelte: ^4.0.0 || ^5.0.0-next.118
 
-  bits-ui@1.0.0-next.34:
-    resolution: {integrity: sha512-oyEP7RZUqXXqaEv4UOe6/13JuPS5To19siFG8X6wG0PMn7Li4RinXFDkRoEGbDokptuuy3uMuZyOZ2vCSAfKVQ==}
+  bits-ui@1.0.0-next.35:
+    resolution: {integrity: sha512-Bm9hPlswA1hbYwn3xmSUsimEp7UlpNcoT7YddshtG7zd/lcZe5I5vr27flRTjYlBOKkjX6V32b+xwHNBOKSvvA==}
     engines: {node: '>=18', pnpm: '>=8.7.0'}
     peerDependencies:
       svelte: ^5.0.0-next.1
@@ -8305,6 +8314,13 @@ packages:
     peerDependencies:
       svelte: ^4.0.0 || ^5.0.0-next.1
       sveltekit-superforms: ^2.3.0
+
+  formsnap@2.0.0-next.1:
+    resolution: {integrity: sha512-ha8r9eMmsGEGMY+ljV3FEyTtB72E7dt95y9HHUbCcaDnjbz3Q6n00BHLz7dfBZ9rqyaMeIO200EmP1IcYMExeg==}
+    engines: {node: '>=18', pnpm: '>=8.7.0'}
+    peerDependencies:
+      svelte: ^5.0.0
+      sveltekit-superforms: ^2.19.0
 
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
@@ -20687,7 +20703,7 @@ snapshots:
       nanoid: 5.0.7
       svelte: 5.1.4
 
-  bits-ui@1.0.0-next.34(svelte@5.1.4):
+  bits-ui@1.0.0-next.35(svelte@5.1.4):
     dependencies:
       '@floating-ui/core': 1.6.8
       '@floating-ui/dom': 1.6.11
@@ -22891,6 +22907,12 @@ snapshots:
       nanoid: 5.0.7
       svelte: 5.1.4
       sveltekit-superforms: 2.20.0(@sveltejs/kit@2.7.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.4)(vite@5.4.9(@types/node@22.7.6)(terser@5.31.5)))(svelte@5.1.4)(vite@5.4.9(@types/node@22.7.6)(terser@5.31.5)))(@types/json-schema@7.0.15)(svelte@5.1.4)(typescript@5.6.3)
+
+  formsnap@2.0.0-next.1(svelte@5.1.4)(sveltekit-superforms@2.20.0(@sveltejs/kit@2.7.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.4)(vite@5.4.10(@types/node@22.7.6)(terser@5.31.5)))(svelte@5.1.4)(vite@5.4.10(@types/node@22.7.6)(terser@5.31.5)))(@types/json-schema@7.0.15)(svelte@5.1.4)(typescript@5.6.3)):
+    dependencies:
+      svelte: 5.1.4
+      svelte-toolbelt: 0.4.4(svelte@5.1.4)
+      sveltekit-superforms: 2.20.0(@sveltejs/kit@2.7.3(@sveltejs/vite-plugin-svelte@4.0.0(svelte@5.1.4)(vite@5.4.10(@types/node@22.7.6)(terser@5.31.5)))(svelte@5.1.4)(vite@5.4.10(@types/node@22.7.6)(terser@5.31.5)))(@types/json-schema@7.0.15)(svelte@5.1.4)(typescript@5.6.3)
 
   fraction.js@4.3.7: {}
 

@@ -32,6 +32,7 @@ export const defaultAppConfig: AppConfig = {
 interface AppConfigAPI {
 	init: () => Promise<void>
 	setTheme: (theme: ThemeConfig) => void
+	setDevExtensionPath: (devExtensionPath: string | null) => void
 }
 
 function createAppConfig(): Writable<AppConfig> & AppConfigAPI {
@@ -65,6 +66,10 @@ function createAppConfig(): Writable<AppConfig> & AppConfigAPI {
 
 	return {
 		setTheme: (theme: ThemeConfig) => update((config) => ({ ...config, theme })),
+		setDevExtensionPath: (devExtensionPath: string | null) => {
+			console.log("setDevExtensionPath", devExtensionPath)
+			update((config) => ({ ...config, devExtensionPath }))
+		},
 		init,
 		subscribe,
 		update,

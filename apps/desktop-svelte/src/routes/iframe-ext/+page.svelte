@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { appConfig, winExtMap } from "@/stores"
 	import { cn } from "@/utils"
+	import { goBackOnEscape } from "@/utils/key"
+	import { goHome } from "@/utils/route"
 	import { positionToTailwindClasses } from "@/utils/style"
 	import { isInMainWindow } from "@/utils/window"
 	import { db, getExtLabelMap } from "@kksh/api/commands"
@@ -50,11 +52,6 @@
 		refreshBtnPosition: "top-right",
 		transparentBg: false
 	})
-	function onKeyDown(e: KeyboardEvent) {
-		if (e.key === "Escape") {
-			goto("/")
-		}
-	}
 
 	const iframeUiAPI: IUiIframeServer2 = {
 		// async iframeUiStartDragging() {
@@ -130,7 +127,7 @@
 
 	function onBackBtnClicked() {
 		if (isInMainWindow()) {
-			goto("/")
+			goHome()
 		} else {
 			appWin.close()
 		}
@@ -153,7 +150,8 @@
 	})
 </script>
 
-<svelte:window on:keydown|preventDefault={onKeyDown} />
+<svelte:window on:keydown|preventDefault={goBackOnEscape} />
+
 {#if uiControl.backBtnPosition}
 	<Button
 		class={cn("absolute", positionToTailwindClasses(uiControl.backBtnPosition))}

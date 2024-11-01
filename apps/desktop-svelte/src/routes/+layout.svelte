@@ -1,7 +1,8 @@
 <script lang="ts">
 	import AppContext from "@/components/context/AppContext.svelte"
 	import "../app.css"
-	import { appConfig, appState } from "@/stores"
+	import { appConfig, appState, extensions } from "@/stores"
+	import { isInMainWindow } from "@/utils/window"
 	import {
 		ModeWatcher,
 		themeConfigStore,
@@ -19,6 +20,11 @@
 
 	onMount(async () => {
 		unlisteners.push(await attachConsole())
+		appConfig.init()
+		if (isInMainWindow()) {
+			extensions.init()
+		} else {
+		}
 	})
 
 	onDestroy(() => {

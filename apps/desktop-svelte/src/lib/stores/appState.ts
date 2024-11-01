@@ -6,7 +6,9 @@ export const defaultAppState: AppState = {
 	highlightedCmd: ""
 }
 
-interface AppStateAPI {}
+interface AppStateAPI {
+	clearSearchTerm: () => void
+}
 
 function createAppState(): Writable<AppState> & AppStateAPI {
 	const { subscribe, update, set } = writable<AppState>(defaultAppState)
@@ -14,7 +16,10 @@ function createAppState(): Writable<AppState> & AppStateAPI {
 	return {
 		subscribe,
 		update,
-		set
+		set,
+		clearSearchTerm: () => {
+			update((state) => ({ ...state, searchTerm: "" }))
+		}
 	}
 }
 

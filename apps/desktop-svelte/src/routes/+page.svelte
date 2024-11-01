@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { commandLaunchers } from "@/cmds"
+	import { builtinCmds } from "@/cmds/builtin"
 	import IconMultiplexer from "@/components/common/IconMultiplexer.svelte"
 	import Cmd from "@/components/main/cmd.svelte"
 	import CommandPalette from "@/components/main/CommandPalette.svelte"
@@ -14,11 +15,6 @@
 	import { load, Store } from "@tauri-apps/plugin-store"
 	import { onMount } from "svelte"
 	import { writable } from "svelte/store"
-
-	onMount(async () => {
-		extensions.init()
-		appConfig.init()
-	})
 </script>
 
-<CommandPalette extensions={$extensions} class="h-screen" {commandLaunchers} />
+<CommandPalette extensions={$extensions} class="h-screen" {commandLaunchers} {builtinCmds} />
