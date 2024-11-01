@@ -23,15 +23,44 @@ use utils::server::tauri_file_server;
 pub fn run() {
     let context = tauri::generate_context!();
     let mut builder = tauri::Builder::default();
+
     #[cfg(debug_assertions)]
     {
         println!("Install crabnebula devtools");
-        let devtools = tauri_plugin_devtools::init(); // initialize the plugin as early as possible
-        builder = builder.plugin(devtools);
+        // let devtools = tauri_plugin_devtools::init(); // initialize the plugin as early as possible
+        // builder = builder.plugin(devtools);
     }
-    #[cfg(not(debug_assertions))]
-    {
-        builder = builder.plugin(
+    // #[cfg(not(debug_assertions))]
+    // {
+    //     builder = builder.plugin(
+    //         tauri_plugin_log::Builder::new()
+    //             .targets(utils::log::get_log_targets())
+    //             .level(utils::log::get_log_level())
+    //             .filter(|metadata| !metadata.target().starts_with("mdns_sd"))
+    //             .with_colors(ColoredLevelConfig::default())
+    //             .max_file_size(10_000_000) // max 10MB
+    //             .format(|out, message, record| {
+    //                 out.finish(format_args!(
+    //                     "{}[{}] {}",
+    //                     chrono::Local::now().format("[%Y-%m-%d][%H:%M:%S]"),
+    //                     // record.target(),
+    //                     record.level(),
+    //                     message
+    //                 ))
+    //             })
+    //             .build(),
+    //     );
+    // }
+
+    let shell_unlocked = true;
+    builder = builder
+        .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
+            let _ = app
+                .get_webview_window("main")
+                .expect("no main window")
+                .set_focus();
+        }))
+        .plugin(
             tauri_plugin_log::Builder::new()
                 .targets(utils::log::get_log_targets())
                 .level(utils::log::get_log_level())
@@ -48,17 +77,7 @@ pub fn run() {
                     ))
                 })
                 .build(),
-        );
-    }
-
-    let shell_unlocked = true;
-    builder = builder
-        .plugin(tauri_plugin_single_instance::init(|app, args, cwd| {
-            let _ = app
-                .get_webview_window("main")
-                .expect("no main window")
-                .set_focus();
-        }))
+        )
         .plugin(tauri_plugin_cli::init())
         .plugin(tauri_plugin_deep_link::init())
         .plugin(tauri_plugin_shell::init())
@@ -73,7 +92,7 @@ pub fn run() {
         .plugin(tauri_plugin_notification::init())
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_shellx::init(shell_unlocked))
-        // .plugin(tauri_plugin_jarvis::init())
+        .plugin(tauri_plugin_jarvis::init())
         .plugin(tauri_plugin_clipboard::init())
         .plugin(tauri_plugin_network::init())
         .plugin(tauri_plugin_system_info::init());
@@ -90,24 +109,22 @@ pub fn run() {
             // #[cfg(all(target_os = "macos", debug_assertions))]
             // app.set_activation_policy(ActivationPolicy::Accessory);
             // let mut store = StoreBuilder::new("appConfig.bin").build(app.handle().clone());
-            let store = app.handle().store_builder("appConfig.bin").build();
+            // let store = app.handle().store_builder("appConfig.json").build()?;
 
-            let _ = store.load();
-
-            let app_settings = match AppSettings::load_from_store(&store) {
-                Ok(settings) => settings,
-                Err(_) => AppSettings::default(),
-            };
-            let dev_extension_path: Option<PathBuf> = app_settings.dev_extension_path.clone();
+            // let app_settings = match AppSettings::load_from_store(&store) {
+            //     Ok(settings) => settings,
+            //     Err(_) => AppSettings::default(),
+            // };
+            // let dev_extension_path: Option<PathBuf> = app_settings.dev_extension_path.clone();
             let my_port = tauri_plugin_network::network::scan::find_available_port_from_list(
                 tauri_plugin_jarvis::server::CANDIDATE_PORTS.to_vec(),
             )
             .unwrap();
             log::info!("Jarvis Server Port: {}", my_port);
-            log::info!(
-                "App Settings Dev Extension Path: {:?}",
-                app_settings.dev_extension_path.clone(),
-            );
+            // log::info!(
+            //     "App Settings Dev Extension Path: {:?}",
+            //     app_settings.dev_extension_path.clone(),
+            // );
             app.manage(tauri_plugin_jarvis::server::http::Server::new(
                 app.handle().clone(),
                 my_port,

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Command as CommandPrimitive } from "bits-ui";
-	import { cn } from "$lib/utils.js";
+	import { cn } from "$lib/utils.js"
+	import { Command as CommandPrimitive } from "bits-ui"
 
 	let {
 		ref = $bindable(null),
@@ -9,8 +9,8 @@
 		heading,
 		...restProps
 	}: CommandPrimitive.GroupProps & {
-		heading?: string;
-	} = $props();
+		heading?: string
+	} = $props()
 </script>
 
 <CommandPrimitive.Group
@@ -20,7 +20,8 @@
 >
 	{#if heading}
 		<CommandPrimitive.GroupHeading
-			class="text-muted-foreground px-2 py-1.5 text-xs font-medium"
+			class="text-muted-foreground px-2 py-1.5 text-xs font-medium select-none"
+			data-tauri-drag-region
 		>
 			{heading}
 		</CommandPrimitive.GroupHeading>

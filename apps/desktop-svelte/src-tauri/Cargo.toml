@@ -44,11 +44,11 @@ tauri-plugin-jarvis = { path = "../../../packages/tauri-plugin-jarvis" }
 tauri-plugin-network = { workspace = true }
 tauri-plugin-system-info = { path = "../../../vendors/tauri-plugin-system-info" }
 tauri-plugin-clipboard = { workspace = true }
-tauri-plugin-store = "2.0.1"
+tauri-plugin-store = "2.1.0"
 tauri-plugin-deep-link = "2"
 tauri-plugin-log = { version = "2.0.1", features = ["colored"] }
 zip = "2.1.3"
-tauri-plugin-devtools = "2.0.0"
+# tauri-plugin-devtools = "2.0.0"
 
 [target."cfg(target_os = \"macos\")".dependencies]
 cocoa = "0.24.1"
