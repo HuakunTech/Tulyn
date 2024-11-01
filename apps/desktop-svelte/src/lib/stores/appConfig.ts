@@ -11,7 +11,7 @@ import * as v from "valibot"
 
 export const defaultAppConfig: AppConfig = {
 	isInitialized: false,
-	platform: os.platform(),
+	platform: "macos",
 	theme: {
 		theme: "zinc",
 		radius: 0.5,
@@ -49,7 +49,7 @@ function createAppConfig(): Writable<AppConfig> & AppConfigAPI {
 		if (parseRes.success) {
 			console.log("Parse Persisted App Config Success", parseRes.output)
 			const extensionPath = await tauriPath.join(appDataDir, "extensions")
-			update((config) => ({ ...config, ...parseRes.output, isInitialized: true, extensionPath }))
+			update((config) => ({ ...config, ...parseRes.output, isInitialized: true, extensionPath, platform: os.platform() }))
 		} else {
 			error("Failed to parse app config, going to remove it and reinitialize")
 			console.error(v.flatten<typeof PersistedAppConfig>(parseRes.issues))

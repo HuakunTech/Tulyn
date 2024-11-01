@@ -1,5 +1,5 @@
 import type { AppState } from "@/types"
-import { writable, type Writable } from "svelte/store"
+import { get, writable, type Writable } from "svelte/store"
 
 export const defaultAppState: AppState = {
 	searchTerm: "",
@@ -8,17 +8,19 @@ export const defaultAppState: AppState = {
 
 interface AppStateAPI {
 	clearSearchTerm: () => void
+	get: () => AppState
 }
 
 function createAppState(): Writable<AppState> & AppStateAPI {
-	const { subscribe, update, set } = writable<AppState>(defaultAppState)
+	const store = writable<AppState>(defaultAppState)
 
 	return {
-		subscribe,
-		update,
-		set,
+		subscribe: store.subscribe,
+		update: store.update,
+		set: store.set,
+		get: () => get(store),
 		clearSearchTerm: () => {
-			update((state) => ({ ...state, searchTerm: "" }))
+			store.update((state) => ({ ...state, searchTerm: "" }))
 		}
 	}
 }

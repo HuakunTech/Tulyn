@@ -4,6 +4,7 @@ import { number, object, optional, pipe, string, transform, type InferOutput } f
 export const ExtItemParser = object({
 	identifier: string(),
 	name: string(),
+	created_at: string(),
 	downloads: number(),
 	short_description: string(),
 	long_description: string(),

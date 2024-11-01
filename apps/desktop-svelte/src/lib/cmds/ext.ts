@@ -26,10 +26,6 @@ export async function onTemplateUiCmdSelect(
 	console.log("onTemplateUiCmdSelect", ext, cmd, isDev, hmr)
 }
 
-// function registerExtensionWithWindow(windowLabel: string, extPath: string) {
-
-// }
-
 export async function onCustomUiCmdSelect(
 	ext: ExtPackageJsonExtra,
 	cmd: CustomUiCmd,
@@ -44,9 +40,7 @@ export async function onCustomUiCmdSelect(
 	} else {
 		url = decodeURIComponent(convertFileSrc(`${trimSlash(cmd.main)}`, "ext"))
 	}
-	debug(`CustomUiCmdSelect url, ${url}`)
-	const url2 = `/iframe-ext?url=${encodeURIComponent(url)}&extPath=${encodeURIComponent(ext.extPath)}`
-	debug(`CustomUiCmdSelect url2, ${url2}`)
+	const url2 = `/extension/ui-iframe?url=${encodeURIComponent(url)}&extPath=${encodeURIComponent(ext.extPath)}`
 	if (cmd.window) {
 		const winLabel = await winExtMap.registerExtensionWithWindow({
 			extPath: ext.extPath,

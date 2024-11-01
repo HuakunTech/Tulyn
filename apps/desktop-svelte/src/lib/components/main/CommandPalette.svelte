@@ -2,13 +2,14 @@
 <script lang="ts">
 	import { type CommandLaunchers } from "@/cmds"
 	import { getAppConfigContext } from "@/context"
-	import { appState } from "@/stores/appState"
-	import type { BuiltinCmd } from "@/types"
+	import type { AppState, BuiltinCmd } from "@/types"
 	import { cn } from "@/utils"
 	import type { ExtPackageJsonExtra } from "@kksh/api/models"
 	import { isExtPathInDev } from "@kksh/extensions"
 	import * as Command from "$lib/components/ui/command"
+	import type { Writable } from "svelte/store"
 	import BuiltinCmds from "./BuiltinCmds.svelte"
+	import CustomCommandInput from "./CustomCommandInput.svelte"
 	import ExtCmdsGroup from "./ExtCmdsGroup.svelte"
 	import GlobalCommandPaletteFooter from "./GlobalCommandPaletteFooter.svelte"
 
@@ -16,11 +17,13 @@
 		extensions,
 		class: className,
 		commandLaunchers,
+		appState,
 		builtinCmds
 	}: {
 		extensions: ExtPackageJsonExtra[]
 		class?: string
 		commandLaunchers: CommandLaunchers
+		appState: Writable<AppState>
 		builtinCmds: BuiltinCmd[]
 	} = $props()
 	const appConfig = getAppConfigContext()
@@ -29,12 +32,17 @@
 	let searchTerm = $state("")
 </script>
 
+<pre>{$appState.searchTerm}</pre>
 <Command.Root
 	class={cn("rounded-lg border shadow-md", className)}
 	bind:value={$appState.highlightedCmd}
 	loop
 >
-	<Command.Input placeholder="Type a command or search..." bind:value={$appState.searchTerm} />
+	<CustomCommandInput
+		autofocus
+		placeholder="Type a command or search..."
+		bind:value={$appState.searchTerm}
+	/>
 	<Command.List class="max-h-screen grow">
 		<Command.Empty data-tauri-drag-region>No results found.</Command.Empty>
 		<BuiltinCmds {builtinCmds} />

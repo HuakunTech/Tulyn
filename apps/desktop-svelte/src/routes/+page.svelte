@@ -4,8 +4,8 @@
 	import IconMultiplexer from "@/components/common/IconMultiplexer.svelte"
 	import Cmd from "@/components/main/cmd.svelte"
 	import CommandPalette from "@/components/main/CommandPalette.svelte"
+	import { appState } from "@/stores"
 	import { appConfig } from "@/stores/appConfig"
-	import { appState } from "@/stores/appState"
 	import { extensions } from "@/stores/extensions"
 	import Icon from "@iconify/svelte"
 	import { CustomUiCmd, ExtPackageJsonExtra, IconEnum, TemplateUiCmd } from "@kksh/api/models"
@@ -17,4 +17,10 @@
 	import { writable } from "svelte/store"
 </script>
 
-<CommandPalette extensions={$extensions} class="h-screen" {commandLaunchers} {builtinCmds} />
+<CommandPalette
+	extensions={$extensions}
+	{appState}
+	class="h-screen"
+	{commandLaunchers}
+	{builtinCmds}
+/>

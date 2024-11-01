@@ -1,4 +1,4 @@
-import type { CustomUiCmd, TemplateUiCmd, WindowConfig } from "@kksh/api/models"
+import type { WindowConfig } from "@kksh/api/models"
 import { WebviewWindow } from "@tauri-apps/api/webviewWindow"
 
 export function launchNewExtWindow(windowLabel: string, url: string, windowConfig?: WindowConfig) {
@@ -18,7 +18,7 @@ export function launchNewExtWindow(windowLabel: string, url: string, windowConfi
 		focus: windowConfig?.focus ?? undefined,
 		transparent: windowConfig?.transparent ?? undefined,
 		maximized: windowConfig?.maximized ?? undefined,
-		visible: windowConfig?.visible ?? true, // default to false to avoid flickering
+		visible: windowConfig?.visible ?? false, // default to false to avoid flickering
 		decorations: windowConfig?.decorations ?? undefined,
 		alwaysOnTop: windowConfig?.alwaysOnTop ?? undefined,
 		alwaysOnBottom: windowConfig?.alwaysOnBottom ?? undefined,

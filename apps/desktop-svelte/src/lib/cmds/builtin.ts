@@ -4,16 +4,15 @@ import { goto } from "$app/navigation"
 import type { BuiltinCmd } from "$lib/types"
 
 export const builtinCmds: BuiltinCmd[] = [
-	// {
-	// 	name: "Store",
-	// 	iconifyIcon: "streamline:store-2-solid",
-	// 	description: "Go to Extension Store",
-	// 	function: async () => {
-	// 		const appStateStore = useAppStateStore()
-	// 		appStateStore.setSearchTermSync("")
-	// 		goto("/extension-store")
-	// 	}
-	// },
+	{
+		name: "Store",
+		iconifyIcon: "streamline:store-2-solid",
+		description: "Go to Extension Store",
+		function: async () => {
+			appState.clearSearchTerm()
+			goto("/extension/store")
+		}
+	},
 	// {
 	// 	name: "Sign In",
 	// 	iconifyIcon: "mdi:login-variant",
