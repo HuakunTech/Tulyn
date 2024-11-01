@@ -18,4 +18,6 @@
 		appConfig.init()
 	})
 </script>
+
 <CommandPalette extensions={$extensions} class="h-screen" />
+<!-- <Cmd /> -->
