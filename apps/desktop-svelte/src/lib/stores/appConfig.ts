@@ -1,5 +1,6 @@
 import { getExtensionsFolder } from "@/constants"
 import { PersistedAppConfig, type AppConfig } from "@/types/appConfig"
+import { themeConfigStore, updateTheme, type ThemeConfig } from "@kksh/svelte"
 import * as tauriPath from "@tauri-apps/api/path"
 import { remove } from "@tauri-apps/plugin-fs"
 import { debug, error } from "@tauri-apps/plugin-log"
@@ -11,10 +12,12 @@ import * as v from "valibot"
 export const defaultAppConfig: AppConfig = {
 	isInitialized: false,
 	platform: os.platform(),
-	theme: "zinc",
-	radius: 0.5,
+	theme: {
+		theme: "zinc",
+		radius: 0.5,
+		lightMode: "auto"
+	},
 	triggerHotkey: null,
-	lightMode: "auto",
 	launchAtLogin: true,
 	showInTray: true,
 	devExtensionPath: null,
@@ -26,10 +29,12 @@ export const defaultAppConfig: AppConfig = {
 	onBoarded: false
 }
 
-function createAppConfig(): Writable<AppConfig> & {
+interface AppConfigAPI {
 	init: () => Promise<void>
-	setRadius: (radius: number) => void
-} {
+	setTheme: (theme: ThemeConfig) => void
+}
+
+function createAppConfig(): Writable<AppConfig> & AppConfigAPI {
 	const { subscribe, update, set } = writable<AppConfig>(defaultAppConfig)
 
 	async function init() {
@@ -49,21 +54,17 @@ function createAppConfig(): Writable<AppConfig> & {
 			console.error(v.flatten<typeof PersistedAppConfig>(parseRes.issues))
 			await persistStore.clear()
 			await persistStore.set("config", v.parse(PersistedAppConfig, defaultAppConfig))
-			await persistStore.save()
 		}
 
 		subscribe(async (config) => {
 			console.log("Saving app config", config)
 			await persistStore.set("config", config)
+			updateTheme(config.theme)
 		})
 	}
 
-	function setRadius(radius: number) {
-		update((config) => ({ ...config, radius }))
-	}
-
 	return {
-		setRadius,
+		setTheme: (theme: ThemeConfig) => update((config) => ({ ...config, theme })),
 		init,
 		subscribe,
 		update,

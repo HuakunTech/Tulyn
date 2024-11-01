@@ -98,6 +98,32 @@ pub fn run() {
         .plugin(tauri_plugin_system_info::init());
 
     let app = builder
+        .register_uri_scheme_protocol("appicon", |_app, request| {
+            let url = &request.uri().path()[1..];
+            let url = urlencoding::decode(url).unwrap().to_string();
+            let path = PathBuf::from(url);
+            return tauri_plugin_jarvis::utils::icns::load_icon(path);
+        })
+        .register_uri_scheme_protocol("ext", |app, request| {
+            let app_handle = app.app_handle();
+            // app_handle.
+            let win_label = app.webview_label();
+            let jarvis_state = app_handle.state::<tauri_plugin_jarvis::JarvisState>();
+            let window_ext_map = jarvis_state.window_label_ext_map.lock().unwrap();
+            match window_ext_map.get(win_label) {
+                Some(ext) => {
+                    // let app_state = app_handle.state::<tauri_plugin_jarvis::model::app_state::AppState>();
+                    // let extension_path = app_state.extension_path.lock().unwrap().clone();
+                    // tauri_file_server(app_handle, request, extension_path)
+                    tauri_file_server(app_handle, request, ext.path.clone(), ext.dist.clone())
+                }
+                None => tauri::http::Response::builder()
+                    .status(tauri::http::StatusCode::NOT_FOUND)
+                    .header("Access-Control-Allow-Origin", "*")
+                    .body("Extension Not Found".as_bytes().to_vec())
+                    .unwrap(),
+            }
+        })
         .setup(|app| {
             setup::window::setup_window(app.handle());
             setup::tray::create_tray(app.handle())?;

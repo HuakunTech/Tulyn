@@ -3,10 +3,12 @@ import type { Platform } from "@tauri-apps/plugin-os"
 import * as v from "valibot"
 
 export const PersistedAppConfig = v.object({
-	theme: v.string(),
-	radius: v.number(),
+	theme: v.object({
+		theme: v.string(),
+		radius: v.number(),
+		lightMode: LightMode
+	}),
 	triggerHotkey: v.nullable(v.array(v.string())),
-	lightMode: LightMode,
 	launchAtLogin: v.boolean(),
 	showInTray: v.boolean(),
 	devExtensionPath: v.nullable(v.string()),

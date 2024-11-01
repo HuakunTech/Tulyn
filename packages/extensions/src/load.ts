@@ -31,30 +31,26 @@ export function loadExtensionManifestFromDisk(manifestPath: string): Promise<Ext
 		}
 	})
 }
-
 export function loadAllExtensionsFromDisk(
 	extensionsFolder: string
 ): Promise<ExtPackageJsonExtra[]> {
-	return readDir(extensionsFolder).then(async (dirEntries) => {
-		const results: ExtPackageJsonExtra[] = []
-		for (const dirEntry of dirEntries) {
-			const extFullPath = await join(extensionsFolder, dirEntry.name)
-			const manifestPath = await join(extFullPath, "package.json")
-			let extPkgJson: ExtPackageJson
-			try {
-				extPkgJson = await loadExtensionManifestFromDisk(manifestPath)
-			} catch (error) {
-				continue
-			}
-			upsertExtension(extPkgJson, extFullPath)
-			results.push(
-				Object.assign(extPkgJson, {
-					extPath: extFullPath,
-					extFolderName: dirEntry.name
-				})
-			)
-		}
-		return results
+	return readDir(extensionsFolder).then((dirEntries) => {
+		return Promise.all(
+			dirEntries.map(async (dirEntry) => {
+				const extFullPath = await join(extensionsFolder, dirEntry.name)
+				const manifestPath = await join(extFullPath, "package.json")
+				try {
+					const extPkgJson = await loadExtensionManifestFromDisk(manifestPath)
+					await upsertExtension(extPkgJson, extFullPath)
+					return Object.assign(extPkgJson, {
+						extPath: extFullPath,
+						extFolderName: dirEntry.name
+					})
+				} catch (error) {
+					return null
+				}
+			})
+		).then((results) => results.filter((r): r is ExtPackageJsonExtra => r !== null))
 	})
 }
 

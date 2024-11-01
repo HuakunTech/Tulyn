@@ -22,7 +22,8 @@ export const ExtensionLabelMap = record(
 	string("Window label"),
 	object({
 		path: string("Path to the extension"),
-		processes: array(number())
+		processes: array(number()),
+		dist: optional(nullable(string()))
 	})
 )
 export type ExtensionLabelMap = InferOutput<typeof ExtensionLabelMap>
@@ -39,9 +40,9 @@ export const Ext = object({
 export type Ext = InferOutput<typeof Ext>
 
 export enum CmdTypeEnum {
-	Iframe = "iframe",
 	HeadlessWorker = "headless_worker",
 	UiWorker = "ui_worker",
+	UiIframe = "ui_iframe",
 	QuickLink = "quick_link",
 	Remote = "remote"
 }

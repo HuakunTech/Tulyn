@@ -17,12 +17,28 @@
 		extensions,
 		heading,
 		isDev,
-		hmr
-	}: { extensions: ExtPackageJsonExtra[]; heading: string; isDev: boolean; hmr: boolean } = $props()
+		hmr,
+		onExtCmdSelect
+	}: {
+		extensions: ExtPackageJsonExtra[]
+		heading: string
+		isDev: boolean
+		hmr: boolean
+		onExtCmdSelect: (
+			ext: ExtPackageJsonExtra,
+			cmd: CustomUiCmd | TemplateUiCmd,
+			{ isDev, hmr }: { isDev: boolean; hmr: boolean }
+		) => void
+	} = $props()
 </script>
 
 {#snippet cmd(ext: ExtPackageJsonExtra, cmd: CustomUiCmd | TemplateUiCmd)}
-	<Command.Item class="flex justify-between">
+	<Command.Item
+		class="flex justify-between"
+		onSelect={() => {
+			onExtCmdSelect(ext, cmd, { isDev, hmr })
+		}}
+	>
 		<span class="flex gap-2">
 			<IconMultiplexer icon={cmd.icon ?? ext.kunkun.icon} class="!h-5 !w-5 shrink-0" />
 			<span>{cmd.name}</span>

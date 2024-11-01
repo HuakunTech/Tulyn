@@ -20,6 +20,7 @@ import {
 	OpenPermissionScopedSchema,
 	ShellPermissionScopedSchema
 } from "../permissions"
+import { CmdType } from "./extension"
 import { Icon } from "./icon"
 
 export enum OSPlatformEnum {
@@ -81,6 +82,7 @@ export const WindowConfig = object({
 })
 export type WindowConfig = InferOutput<typeof WindowConfig>
 export const CustomUiCmd = object({
+	type: optional(CmdType, CmdType.enum.UiIframe),
 	main: string("HTML file to load, e.g. dist/index.html"),
 	dist: string("Dist folder to load, e.g. dist, build, out"),
 	description: optional(nullable(string("Description of the Command"), ""), ""),
@@ -100,6 +102,7 @@ export const CustomUiCmd = object({
 export type CustomUiCmd = InferOutput<typeof CustomUiCmd>
 
 export const TemplateUiCmd = object({
+	type: optional(CmdType, CmdType.enum.UiWorker),
 	main: string(),
 	name: string(),
 	description: optional(nullable(string("Description of the Command"), ""), ""),
