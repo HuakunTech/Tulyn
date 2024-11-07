@@ -1,5 +1,9 @@
 # Kunkun
 
+> [!CAUTION]
+> This repo is archived for now. Due to some performance issues with Nuxt.js, I decided to rewrite this project with Svelte in a new repo https://github.com/kunkunsh/kunkun
+> App performance is largely improved, and DX is better.
+
 [![wakatime](https://wakatime.com/badge/user/94be0fbf-cb9d-411d-8526-d0c4a4e82e1a/project/455bfd3f-4faf-4c2a-afe9-556d9ee1a0f7.svg)](https://wakatime.com/badge/user/94be0fbf-cb9d-411d-8526-d0c4a4e82e1a/project/455bfd3f-4faf-4c2a-afe9-556d9ee1a0f7)
 ![GitHub last commit](https://img.shields.io/github/last-commit/kunkunsh/kunkun)
 [![CI Build & Test](https://github.com/HuakunTech/Kunkun/actions/workflows/ci.yml/badge.svg)](https://github.com/HuakunTech/Kunkun/actions/workflows/ci.yml)
