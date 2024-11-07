@@ -19,7 +19,7 @@ function languageOnChange(lang: string) {
 </script>
 <template>
 	<div class="grid grid-cols-2 items-center gap-4">
-		<span class="justify-self-end">{{ $t("language") }}</span>
+		<span class="justify-self-end">{{ $t("settings.general.language") }}</span>
 		<div class="w-36">
 			<Select @update:model-value="languageOnChange" :default-value="locale">
 				<SelectTrigger>
