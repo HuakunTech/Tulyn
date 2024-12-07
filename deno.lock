@@ -16372,6 +16372,14 @@
           ]
         }
       },
+      "packages/dynamic-island": {
+        "packageJson": {
+          "dependencies": [
+            "npm:@types/bun@latest",
+            "npm:vitest@2"
+          ]
+        }
+      },
       "packages/gql": {
         "packageJson": {
           "dependencies": [

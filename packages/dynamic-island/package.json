@@ -1,0 +1,15 @@
+{
+	"name": "dynamic-island",
+	"module": "index.ts",
+	"type": "module",
+	"scripts": {
+		"test": "vitest --run"
+	},
+	"devDependencies": {
+		"@types/bun": "latest",
+		"vitest": "^2.0.0"
+	},
+	"peerDependencies": {
+		"typescript": "^5.0.0"
+	}
+}
